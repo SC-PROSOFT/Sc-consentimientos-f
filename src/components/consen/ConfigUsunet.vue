@@ -130,7 +130,7 @@ const form_config = ref({
     id: "ipusu",
     label: "Ip servidor",
     placeholder: "Escribe la dirección ip",
-    maxlength: "15",
+    maxlength: "30",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
@@ -138,7 +138,7 @@ const form_config = ref({
   uni_prog: {
     id: "uni_prog",
     label: "Unidad",
-    maxlength: "1",
+    maxlength: "2",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
@@ -235,14 +235,12 @@ const datoContab = (event) => {
 };
 
 const validarConfiguracion = () => {
-  Object.keys(reg_config.value).forEach((e) => {
+  Object.keys(reg_config.value).forEach((e, index) => {
     if (!reg_config.value[e]) {
       return CON851("02", "info", e, () => foco_(form_config, e));
     }
-    if (!Object.values(reg_config.value).includes(null) || !Object.values(reg_config.value)[2]) {
-      guardarUsunet();
-    }
   });
+  guardarUsunet();
 };
 
 const cerrarConfiguracion = () => emit("cerrar");
