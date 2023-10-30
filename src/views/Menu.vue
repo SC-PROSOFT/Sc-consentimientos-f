@@ -1,54 +1,55 @@
 <template>
   <div>
     <ToolBar_ />
-    <Menu_ />
-    <q-btn
-      class="absolute-bottom-left q-ma-md"
-      v-if="node_env == 'production'"
-      :loading="use_loader.loader"
-      icon="cloud_download"
-      color="primary"
-      @click="bakup"
-      round
+    <!-- <Menu_ /> -->
+    <ConfigUsunet_
+      v-if="configuracion.estado"
+      :configuracion="configuracion"
+      @guardar="configuracion.estado = false"
     />
+    <q-btn @click="abrirConfiguracion" />
   </div>
 </template>
 <script setup>
 import { useModuleLoader, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { defineAsyncComponent, onMounted } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
-const Menu_ = defineAsyncComponent(() => import("@/components/global/Menu.vue"));
+const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 
-const { CON000VerificarCopiaDelDia$, CON000Backup$ } = useApiContabilidad();
+const { getDll$ } = useApiContabilidad();
 
 const use_loader = useModuleLoader();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
-const node_env = process.env.NODE_ENV;
+const configuracion = ref({ estado: false, modulos: [] });
 
-onMounted(() => verificarCopiaDelDia());
+onMounted(() => verificarSesion());
 
-const bakup = async () => {
+const verificarSesion = async () => {
   try {
-    await CON000Backup$({});
+    const response = await getDll$({
+      ip: "34.234.185.158",
+      modulo: `${process.env.APP}/get_usunet.dll`,
+    });
+    configuracion.value.estado = false;
+    return response;
   } catch (error) {
-    CON851("?", "info", error);
+    CON851("?", "info", error, () => {
+      configuracion.value.estado = true;
+    });
   }
 };
-
-const verificarCopiaDelDia = async () => {
-  console.log(node_env);
-  if (node_env == "development") return;
+const abrirConfiguracion = async () => {
   try {
-    const response = await CON000VerificarCopiaDelDia$({});
-    if (!response)
-      return CON851P("?", "info", "No ha realizado la copia de seguridad hoy, ¿Deseas hacerla?", null, () =>
-        bakup()
-      );
+    const response = await verificarSesion();
+    Object.assign(configuracion.value, response);
+    configuracion.value.estado = true;
   } catch (error) {
-    CON851("?", "info", error);
+    CON851("?", "info", error, () => {
+      configuracion.value.estado = true;
+    });
   }
 };
 </script>

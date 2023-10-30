@@ -2,6 +2,8 @@
   <q-toolbar class="bg-primary">
     <q-toolbar-title class="text-bold text-center text-white">
       {{ titulo }}
+      <q-btn round v-if="icon" color="primary" :icon="icon" />
+
       <q-tooltip
         class="bg-red text-white shadow-4"
         anchor="top middle"
@@ -14,7 +16,7 @@
   </q-toolbar>
 </template>
 <script setup>
-defineProps({ titulo: String, name: String });
+defineProps({ titulo: String, name: String, icon: String });
 const emit = defineEmits(["cerrar"]);
 
 const cerrar = () => emit("cerrar");

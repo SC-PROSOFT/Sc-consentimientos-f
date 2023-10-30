@@ -13,20 +13,61 @@ export const menu_consen = JSON.parse(
         {
           opc: "2",
           id: "HIC25",
-          text: "COLPOSCOPIA ",
+          text: "COLPOSCOPIA",
           route: "/HIC25",
         },
         {
           opc: "3",
-          id: "C3",
-          text: "Actualizar tarifas por tipo",
-          route: "/CAT103",
+          id: "HIC27",
+          text: "PRUEBA VIH",
+          route: "/HIC27",
         },
         {
           opc: "4",
-          id: "C4",
-          text: "Actualizar predios",
-          route: "/CAT104",
+          id: "HIC28",
+          text: "INTERRUPCIÓN VOLUNTARIA DEL EMBARAZO",
+          route: "/HIC28",
+        },
+        {
+          opc: "5",
+          id: "HIC26",
+          text: "ESTANDAR",
+          route: "/HIC26",
+        },
+        {
+          opc: "F",
+          text: "Regresar",
+          icon: "undo",
+        },
+      ],
+    },
+    {
+      opc: "2",
+      text: "CONSENTIMIENTOS URGENCIAS",
+      sub: [
+        {
+          opc: "1",
+          id: "URG01",
+          text: "REFERENCIA Y CONTRA REFERENCIA DE PACIENTES",
+          route: "/URG01",
+        },
+        {
+          opc: "2",
+          id: "URG02",
+          text: "SALIDA VOLUNTARIA",
+          route: "/URG02",
+        },
+        {
+          opc: "3",
+          id: "URG03",
+          text: "CONDUCCIÓN Y LA ATENCIÓN DEL TRABAJO DE PARTO Y PARTO VAGINAL",
+          route: "/URG03",
+        },
+        {
+          opc: "4",
+          id: "URG04",
+          text: "ENTANDAR",
+          route: "/URG04",
         },
         {
           opc: "F",

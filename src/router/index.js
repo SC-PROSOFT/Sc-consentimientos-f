@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { createRouteConsen } from "./consen.route";
+import { createRouteHic } from "./hic.route";
 
 const title = "Prosoft";
 
@@ -23,17 +23,8 @@ const routes = [
           require_auth: true,
         },
       },
-      ...createRouteConsen(title),
+      ...createRouteHic(title),
     ],
-  },
-  {
-    path: "/ingreso",
-    name: "ingreso",
-    component: () => import("@/views/Login.vue"),
-    meta: {
-      title: `${title} - Ingreso`,
-      require_auth: false,
-    },
   },
 ];
 const router = createRouter({
@@ -43,13 +34,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
-  // const auth_operador = sessionStorage.operador || null;
-  // const require_auth = to.matched.some((record) => record.meta.require_auth);
-  // if (require_auth && !auth_operador) {
-  //   next({ name: "menu" });
-  // } else if (!require_auth && auth_operador && to.name != "menu") {
-  //   next({ name: "menu" });
-  // } else
   next();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });

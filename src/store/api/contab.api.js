@@ -11,7 +11,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
     logOut$() {
       sessionStorage.removeItem("operador");
       sessionStorage.removeItem("token");
-      location.reload();
+      window.close();
     },
     autorize$({ operador = {}, loader = true }) {
       return new Promise((resolve, reject) => {
@@ -38,12 +38,13 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
-    getDll$({ ip = "", directorio = "", data = {}, espacios = false, loader = true }) {
+    getDll$({ ip = "", directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
+      console.log("modulo ->", modulo);
       return new Promise((resolve, reject) => {
         apiAxiosDll({
           url: `contabilidad/dll`,
           method: "POST",
-          params: { ip, directorio, espacios },
+          params: { ip, directorio, espacios, modulo },
           data,
           loader,
         })

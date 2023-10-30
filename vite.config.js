@@ -15,6 +15,7 @@ export default defineConfig({
     "process.env": {
       BASE_URL: "consentimientos",
       API: "/api/v1/",
+      APP: "consentimientos/v2/app",
       PORT: 5025,
     },
   },
