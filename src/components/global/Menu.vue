@@ -127,7 +127,7 @@ const cargarMenuLateral = () => {
 };
 
 const checkKey = ({ keyCode, key }) => {
-  event.preventDefault();
+  // event.preventDefault();
   switch (keyCode) {
     case 38:
       if (item_activo.value == 0) return;
