@@ -52,10 +52,13 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useApiContabilidad } from "@/store";
+import { useApiContabilidad, useModuleCon851 } from "@/store";
 
 const router = useRouter();
+
+const { CON851 } = useModuleCon851();
 const { getDll$ } = useApiContabilidad();
+
 const lista_maestros = ref([]);
 const columns = [
   { name: "cod_mae", label: "Codigo", align: "left", field: "COD_MAE" },
@@ -67,11 +70,7 @@ onMounted(() => {
 });
 const getMaestros = async () => {
   try {
-    const response = await getDll$({
-      ip: sessionStorage.ip,
-      modulo: `get_maeconsen.dll`,
-      data: { modulo: "HIC" },
-    });
+    const response = await getDll$({ modulo: `get_maeconsen.dll`, data: { modulo: "HIC" } });
     lista_maestros.value = response;
   } catch (error) {
     CON851("?", "info", error);

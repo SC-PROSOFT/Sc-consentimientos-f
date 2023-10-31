@@ -245,13 +245,7 @@ const validarConfiguracion = () => {
 const cerrarConfiguracion = () => emit("cerrar");
 const guardarUsunet = async () => {
   try {
-    const response = await getDll$({
-      ip: sessionStorage.ip,
-      modulo: `set_usunet.dll`,
-      data: {
-        ...reg_config.value,
-      },
-    });
+    const response = await getDll$({ modulo: `set_usunet.dll`, data: { ...reg_config.value } });
 
     CON851("?", "success", response, () => emit("guardar"));
   } catch (error) {

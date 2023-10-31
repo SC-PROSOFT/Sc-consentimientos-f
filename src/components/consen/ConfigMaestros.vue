@@ -198,11 +198,7 @@ const actualizarMaestro = async () => {
   };
 
   try {
-    const response = await getDll$({
-      ip: sessionStorage.ip,
-      modulo: `set_maeconsen.dll`,
-      data: datos,
-    });
+    const response = await getDll$({ modulo: `set_maeconsen.dll`, data: datos });
     flag.value = false;
     CON851("?", "success", response);
   } catch (error) {
@@ -211,11 +207,7 @@ const actualizarMaestro = async () => {
 };
 const getMaestros = async () => {
   try {
-    const response = await getDll$({
-      ip: sessionStorage.ip,
-      modulo: `get_maeconsen.dll`,
-      data: { modulo: "HIC" },
-    });
+    const response = await getDll$({ modulo: `get_maeconsen.dll`, data: { modulo: "HIC" } });
     maestro_consentimientos.value = response;
   } catch (error) {
     CON851("?", "info", error);

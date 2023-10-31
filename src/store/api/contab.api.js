@@ -38,12 +38,12 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
-    getDll$({ ip = "", directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
+    getDll$({ directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {
         apiAxiosDll({
           url: `contabilidad/dll`,
           method: "POST",
-          params: { ip, directorio, espacios, modulo: `${process.env.APP}/${modulo}` },
+          params: { ip: sessionStorage.ip, directorio, espacios, modulo: `${process.env.APP}/${modulo}` },
           data,
           loader,
         })

@@ -39,17 +39,14 @@ const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
 
 onMounted(() => {
-  const nit = 1;
-  sessionStorage.ip = empresas[nit].ip;
   verificarSesion();
 });
 
 const verificarSesion = async () => {
   try {
-    const response = await getDll$({
-      ip: sessionStorage.ip,
-      modulo: `get_usunet.dll`,
-    });
+    const nit = 1;
+    sessionStorage.ip = empresas[nit].ip_servicio;
+    const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     return response;
   } catch (error) {
