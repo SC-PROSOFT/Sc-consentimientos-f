@@ -23,7 +23,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
               <q-tooltip
                 class="bg-red text-white shadow-4"
                 anchor="top middle"
@@ -51,10 +57,11 @@
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useApiContabilidad, useModuleCon851 } from "@/store";
 
 const router = useRouter();
+const route = useRoute();
 
 const { CON851 } = useModuleCon851();
 const { getDll$ } = useApiContabilidad();
@@ -70,7 +77,10 @@ onMounted(() => {
 });
 const getMaestros = async () => {
   try {
-    const response = await getDll$({ modulo: `get_maeconsen.dll`, data: { modulo: "HIC" } });
+    const response = await getDll$({
+      modulo: `get_maeconsen.dll`,
+      data: { modulo: route.query.modulo.toUpperCase() },
+    });
     lista_maestros.value = response;
   } catch (error) {
     CON851("?", "info", error);
