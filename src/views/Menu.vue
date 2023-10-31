@@ -19,8 +19,9 @@
   </div>
 </template>
 <script setup>
-import { useModuleLoader, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
+import { useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
+import { empresas } from "@/fuentes";
 
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
@@ -31,19 +32,22 @@ const ListaConsentimientos_ = defineAsyncComponent(() =>
 
 const { getDll$ } = useApiContabilidad();
 
-const use_loader = useModuleLoader();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
 const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
 
-onMounted(() => verificarSesion());
+onMounted(() => {
+  const nit = 1;
+  sessionStorage.ip = empresas[nit].ip;
+  verificarSesion();
+});
 
 const verificarSesion = async () => {
   try {
     const response = await getDll$({
-      ip: "34.234.185.158",
+      ip: sessionStorage.ip,
       modulo: `get_usunet.dll`,
     });
     configuracion.value.estado = false;

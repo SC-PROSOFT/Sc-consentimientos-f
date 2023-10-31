@@ -68,7 +68,7 @@ onMounted(() => {
 const getMaestros = async () => {
   try {
     const response = await getDll$({
-      ip: "34.234.185.158",
+      ip: sessionStorage.ip,
       modulo: `get_maeconsen.dll`,
       data: { modulo: "HIC" },
     });

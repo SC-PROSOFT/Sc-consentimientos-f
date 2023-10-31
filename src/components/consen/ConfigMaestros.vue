@@ -199,7 +199,7 @@ const actualizarMaestro = async () => {
 
   try {
     const response = await getDll$({
-      ip: "34.234.185.158",
+      ip: sessionStorage.ip,
       modulo: `set_maeconsen.dll`,
       data: datos,
     });
@@ -212,7 +212,7 @@ const actualizarMaestro = async () => {
 const getMaestros = async () => {
   try {
     const response = await getDll$({
-      ip: "34.234.185.158",
+      ip: sessionStorage.ip,
       modulo: `get_maeconsen.dll`,
       data: { modulo: "HIC" },
     });

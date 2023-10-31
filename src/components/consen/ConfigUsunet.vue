@@ -246,7 +246,7 @@ const cerrarConfiguracion = () => emit("cerrar");
 const guardarUsunet = async () => {
   try {
     const response = await getDll$({
-      ip: "34.234.185.158",
+      ip: sessionStorage.ip,
       modulo: `set_usunet.dll`,
       data: {
         ...reg_config.value,
