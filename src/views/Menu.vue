@@ -13,6 +13,9 @@
       @cerrar="config_maestro.estado = false"
       @guardar="config_maestro.estado = false"
     />
+    <div class="q-ma-lg">
+      <ListaConsentimientos_ class="justify-center q-mx-auto" />
+    </div>
   </div>
 </template>
 <script setup>
@@ -22,6 +25,9 @@ import { defineAsyncComponent, onMounted, ref } from "vue";
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
+const ListaConsentimientos_ = defineAsyncComponent(() =>
+  import("@/components/consen/ListaConsentimientos.vue")
+);
 
 const { getDll$ } = useApiContabilidad();
 

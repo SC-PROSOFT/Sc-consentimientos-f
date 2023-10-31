@@ -252,6 +252,7 @@ const guardarUsunet = async () => {
         ...reg_config.value,
       },
     });
+
     CON851("?", "success", response, () => emit("guardar"));
   } catch (error) {
     CON851("?", "info", error);

@@ -1,7 +1,7 @@
 export const createRouteHic = (title) => [
   {
-    path: "/HIC24",
-    name: "HIC24",
+    path: "/HIC024",
+    name: "HIC024",
     component: () => import("@/views/hic/HIC24.vue"),
     meta: {
       require_auth: true,
