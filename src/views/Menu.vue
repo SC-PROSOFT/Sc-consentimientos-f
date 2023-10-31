@@ -46,6 +46,7 @@ const verificarSesion = async () => {
   try {
     const nit = 1;
     sessionStorage.ip = empresas[nit].ip_servicio;
+    sessionStorage.nit = nit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     return response;
@@ -56,7 +57,6 @@ const verificarSesion = async () => {
   }
 };
 const validarAccion = (event) => {
-  console.log("validarAccion", event);
   switch (event) {
     case 0: // configuracion de servidor
       abrirConfiguracion();
