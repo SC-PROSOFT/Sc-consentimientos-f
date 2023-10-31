@@ -9,6 +9,7 @@
         anchor="top middle"
         self="bottom middle"
         :offset="[0, 10]"
+        v-if="name"
         >{{ name }}</q-tooltip
       >
     </q-toolbar-title>

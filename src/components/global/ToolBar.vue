@@ -14,9 +14,10 @@
               <q-item
                 style="min-height: 0px; border-radius: 0.4rem"
                 class="q-my-sm q-pa-none botone"
+                @click="validarAccion(0)"
                 clickable
               >
-                <q-item-section @click="validarAccion(0)" class="subtitle4">Servidor </q-item-section>
+                <q-item-section class="subtitle4">Servidor </q-item-section>
                 <q-item-section avatar>
                   <q-icon size="xs" name="dns" />
                 </q-item-section>
@@ -24,9 +25,10 @@
               <q-item
                 style="min-height: 0px; border-radius: 0.4rem"
                 class="q-my-sm q-pa-none botone"
+                @click="validarAccion(1)"
                 clickable
               >
-                <q-item-section @click="validarAccion(1)" class="subtitle4">Maestros</q-item-section>
+                <q-item-section class="subtitle4">Maestros</q-item-section>
                 <q-item-section avatar>
                   <q-icon size="xs" name="settings_suggest" />
                 </q-item-section>
@@ -34,9 +36,10 @@
               <q-item
                 style="min-height: 0px; border-radius: 0.4rem"
                 class="q-my-sm q-pa-none botone"
+                @click="validarAccion(2)"
                 clickable
               >
-                <q-item-section @click="validarAccion(2)" class="subtitle4">Imprimir</q-item-section>
+                <q-item-section class="subtitle4">Imprimir</q-item-section>
                 <q-item-section avatar>
                   <q-icon size="xs" name="book" />
                 </q-item-section>

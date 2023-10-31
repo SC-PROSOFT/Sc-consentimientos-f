@@ -147,11 +147,7 @@ const nextValidate = () => {
   !props.field.campo_abierto && (props.field.disable = true);
   if (props.field.required && !model_value_.value) {
     return CON851("02", "info", props.field.label, focoField);
-  } else if (
-    props.field.tipo == "email" &&
-    model_value_.value &&
-    !/.+@.+\..+/.test(model_value_.value)
-  ) {
+  } else if (props.field.tipo == "email" && model_value_.value && !/.+@.+\..+/.test(model_value_.value)) {
     return CON851("?", "info", `¡Correo ${model_value_.value} es inválido!`, focoField);
   }
   emit("validate", "enter");
@@ -192,9 +188,7 @@ const scrollToFoco = () => {
   setTimeout(() => {
     elementos.forEach((input) => {
       !input.disable &&
-        input.addEventListener("focus", () =>
-          input.scrollIntoView({ behavior: "smooth", block: "center" })
-        );
+        input.addEventListener("focus", () => input.scrollIntoView({ behavior: "smooth", block: "center" }));
     });
   }, 100);
 };

@@ -1,12 +1,7 @@
 <template>
   <q-dialog v-model="configuracion.estado" persistent no-shake>
     <q-card class="my-card">
-      <ToolBarTable_
-        titulo="Configuración del servidor"
-        name="Configuración"
-        icon="settings"
-        @cerrar="cerrarConfiguracion"
-      />
+      <ToolBarTable_ titulo="Configuración del servidor" @cerrar="cerrarConfiguracion" icon="settings" />
       <div class="row q-pa-sm">
         <Input_
           class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
@@ -138,7 +133,7 @@ const form_config = ref({
   uni_prog: {
     id: "uni_prog",
     label: "Unidad",
-    maxlength: "2",
+    maxlength: "1",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
@@ -146,7 +141,7 @@ const form_config = ref({
   dircont: {
     id: "dircont",
     label: "Contabilidad",
-    maxlength: "20",
+    maxlength: "30",
     placeholder: "Escribe la contabilidad",
     f0: ["f3"],
     required: true,
@@ -156,10 +151,14 @@ const form_config = ref({
 
 onMounted(() => {
   modo_project.value = process.env.NODE_ENV;
-  Object.keys(props.configuracion).forEach((element) => {
-    reg_config.value[element.toLowerCase()] = props.configuracion[element];
-  });
-  reg_config.value.uni_prog = props.configuracion.UNID_PROG;
+
+  reg_config.value.nomusu = props.configuracion.NOMUSU?.trim();
+  reg_config.value.nitusu = props.configuracion.NITUSU?.trim();
+  reg_config.value.dirusu = props.configuracion.DIRUSU?.trim();
+  reg_config.value.emailusu = props.configuracion.EMAILUSU?.trim();
+  reg_config.value.ipusu = props.configuracion.IPUSU?.trim();
+  reg_config.value.uni_prog = props.configuracion.UNID_PROG?.trim();
+  reg_config.value.dircont = props.configuracion.DIRCONT?.trim();
 
   foco_(form_config, "nomusu");
 });
@@ -248,7 +247,7 @@ const guardarUsunet = async () => {
   try {
     const response = await getDll$({
       ip: "34.234.185.158",
-      modulo: `${process.env.APP}/set_usunet.dll`,
+      modulo: `set_usunet.dll`,
       data: {
         ...reg_config.value,
       },
