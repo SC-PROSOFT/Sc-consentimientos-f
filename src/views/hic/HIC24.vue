@@ -1,4 +1,9 @@
 <template>
-  <h1>HIC24</h1>
+  <div>
+    <div class="q-pa-lg">
+      
+      
+      sadkjhsakdhashdjahdk</div>
+  </div>
 </template>
 <script></script>

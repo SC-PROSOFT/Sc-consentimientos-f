@@ -77,6 +77,8 @@ const getMaestros = async () => {
   }
 };
 const selectConsen = async (data) => {
+  const consen_select = lista_maestros.value.find((e) => (e.COD_MAE = data));
+  sessionStorage.encabezado = JSON.stringify(consen_select);
   router.push({ name: data });
 };
 </script>
