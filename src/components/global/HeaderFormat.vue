@@ -1,7 +1,7 @@
 <template>
   <div class="row" style="border: 1px solid">
     <!-- LOGO -->
-    <div class="col-md-2 shadow-1"><v-img width="150px" /></div>
+    <div class="col-md-2 shadow-1"><q-img width="150px" /></div>
 
     <div class="col-md-10">
       <div class="row">
@@ -17,7 +17,7 @@
         </div>
         <div class="col-2 text-subtitle1 q-pb-sm q-pt-sm shadow-1 justify-center text-bold row">
           <strong class="col-12 text-center">APROBADO </strong>
-          <strong class="col-12 text-center"> {{ moment(datos.FECHA_APROB).format("YYYY/MM/DD") }} </strong>
+          <strong class="col-12 text-center"> {{ days(datos.FECHA_APROB).format("YYYY-MM-DD") }} </strong>
         </div>
       </div>
       <div class="row">
@@ -26,7 +26,7 @@
         </div>
         <div class="col-3 text-subtitle1 q-pb-sm q-pt-sm shadow-1 justify-center text-bold row">
           <strong class="col-12 text-center"> FECHA ACTUALIZACIÓN </strong>
-          <strong class="col-12 text-center"> {{ moment(datos.FECHA_ACT).format("YYYY/MM/DD") }} </strong>
+          <strong class="col-12 text-center"> {{ days(datos.FECHA_ACT).format("YYYY-MM-DD") }} </strong>
         </div>
         <div class="col-2 text-subtitle1 q-pb-sm q-pt-sm shadow-1 justify-center text-bold row">
           <strong class="col-12 text-center"> REVISADO POR</strong>
@@ -43,7 +43,8 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import moment from "moment";
+import days from "dayjs";
+
 
 const datos = ref(sessionStorage.encabezado && JSON.parse(sessionStorage.encabezado));
 onMounted(() => console.log("datos--> ", datos.value));

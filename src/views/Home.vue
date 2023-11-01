@@ -1,7 +1,7 @@
 <template>
   <div class="background-container">
-    <router-view />
-    <HeaderFormat v-show="route.name != 'menu'" />
+    <!-- <HeaderFormat v-show="route.name != 'menu'" /> -->
+    <RouterView />
   </div>
 </template>
 
