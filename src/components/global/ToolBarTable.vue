@@ -2,8 +2,7 @@
   <q-toolbar class="bg-primary">
     <q-toolbar-title class="text-bold text-center text-white">
       {{ titulo }}
-      <q-btn round v-if="icon" color="primary" :icon="icon" />
-
+      <q-icon round v-if="icon" class="q-my-auto" color="white" :name="icon" />
       <q-tooltip
         class="bg-red text-white shadow-4"
         anchor="top middle"
