@@ -5,7 +5,7 @@ import { apiAxiosDll } from "@/api/apiAxiosDll";
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({}),
   getters: {
-    getMunic$() {},
+    getNit: () => 1, //Definir nit global
   },
   actions: {
     logOut$() {

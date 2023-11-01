@@ -1,6 +1,9 @@
 <template>
   <div class="background-container">
-    <!-- <HeaderFormat v-show="route.name != 'menu'" /> -->
+    <div v-show="route.name != 'menu'" class="q-pa-none q-ma-none">
+      <Header_ :titulo="route.meta.title" />
+      <HeaderFormat />
+    </div>
     <RouterView />
   </div>
 </template>

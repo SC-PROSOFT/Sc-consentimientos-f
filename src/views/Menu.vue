@@ -19,36 +19,39 @@
   </div>
 </template>
 <script setup>
-import { useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
+import { useApiContabilidad, useModuleCon851 } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
-import { empresas } from "@/fuentes";
+import { empresas, regAcomp } from "@/fuentes";
+import { useGlobal } from "@/setup/global";
+import { useRoute } from "vue-router";
 
-const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
-const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
+const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
+const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
 
-const { getDll$ } = useApiContabilidad();
-
-const { CON851P } = useModuleCon851p();
+const { getDll$, getNit, _getLogo$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
+const { datos_url } = useGlobal();
 
 const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
+const reg_acomp = regAcomp();
+const route = useRoute();
+const datos_session = {};
 
-onMounted(() => {
-  verificarSesion();
-});
+onMounted(() => verificarSesion());
 
 const verificarSesion = async () => {
   try {
-    const nit = 1;
-    sessionStorage.ip = empresas[nit].ip_servicio;
-    sessionStorage.nit = nit;
+    sessionStorage.ip = empresas[getNit].ip_servicio;
+    sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
+    sessionStorage.setItem("Empresa", JSON.stringify(response));
+    getLogo();
     return response;
   } catch (error) {
     CON851("?", "info", error, () => {
@@ -56,6 +59,72 @@ const verificarSesion = async () => {
     });
   }
 };
+
+async function getLogo() {
+  try {
+    const img = await _getLogo$({ nit: getNit });
+    sessionStorage.setItem("Logo", img);
+    validarUrl();
+  } catch (error) {
+    console.error("getLogo --> ", error);
+  }
+}
+
+const validarUrl = () => {
+  Object.assign(datos_session, route.query);
+  getPaci();
+  // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
+};
+
+async function getPaci() {
+  const cod_paci = datos_session.llave_hc.slice(0, 15) || "";
+
+  await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
+    .then((data) => {
+      sessionStorage.setItem("reg_paci", JSON.stringify(data.reg_paci));
+      getAcomp();
+    })
+    .catch((err) => {
+      sessionStorage.clear();
+      CON851("?", "error", "Error consultando datos paciente");
+    });
+}
+
+async function getAcomp() {
+  try {
+    const cod_paci = datos_session.cod_acomp || "";
+    if (!cod_paci.trim()) {
+      sessionStorage.setItem("reg_acomp", JSON.stringify(reg_acomp));
+    } else {
+      const datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } });
+      sessionStorage.setItem(
+        "reg_acomp",
+        JSON.stringify({
+          ...datos.reg_paci,
+          parentesco: datos_session.parentesco,
+        })
+      );
+    }
+
+    getMedico();
+    datos_session.cod_aux && getAux();
+  } catch (error) {
+    sessionStorage.clear();
+    CON851("?", "error", "Error consultando datos acompañante");
+  }
+}
+
+async function getMedico() {
+  try {
+    const cod_prof = datos_session.cod_prof || "";
+    const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
+    sessionStorage.setItem("reg_prof", JSON.stringify(datos.reg_prof));
+  } catch (error) {
+    sessionStorage.clear();
+    CON851("?", "error", "Error consultando datos medico");
+  }
+}
+
 const validarAccion = (event) => {
   switch (event) {
     case 0: // configuracion de servidor
@@ -68,6 +137,7 @@ const validarAccion = (event) => {
       break;
   }
 };
+
 const abrirConfiguracion = async () => {
   try {
     const response = await verificarSesion();

@@ -17,4 +17,13 @@ export const createRouteHic = (title) => [
       title: `${title} - FORMATO HIC030`,
     },
   },
+  {
+    path: "/HIC025",
+    name: "HIC025",
+    component: () => import("@/views/hic/HIC025.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC025`,
+    },
+  },
 ];
