@@ -85,7 +85,7 @@
                 anchor="top middle"
                 self="bottom middle"
                 :offset="[0, 10]"
-                >Realizar {{ props.row }}</q-tooltip
+                >Realizar {{ props.row["DESCRIP"] }}</q-tooltip
               >
             </q-btn>
           </q-td>

@@ -59,8 +59,8 @@
             <ToolBarTable_ :titulo="reg_config.COD_MAE" @cerrar="flag = false" icon="newspaper" />
             <div class="row q-mx-md">
               <Input_
-                width_label="col-xs-8 col-sm-6 col-md-8 col-lg-4 col-xl-8"
-                width_input="col-xs-4 col-sm-6 col-md-4 col-lg-8 col-xl-4"
+                width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
                 v-model="reg_config.CODIGO"
                 :field="form_config.CODIGO"
@@ -73,8 +73,8 @@
                 :field="form_config.APROBO"
               />
               <Input_
-                width_label="col-xs-6 col-sm-7 col-md-8 col-lg-7 col-xl-8"
-                width_input="col-xs-6 col-sm-5 col-md-4 col-lg-5 col-xl-4"
+                width_label="col-xs-6 col-sm-7 col-md-7 col-lg-7 col-xl-7"
+                width_input="col-xs-6 col-sm-5 col-md-5 col-lg-5 col-xl-5"
                 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
                 v-model="reg_config.FECHA_APROB"
                 :field="form_config.FECHA_APROB"
