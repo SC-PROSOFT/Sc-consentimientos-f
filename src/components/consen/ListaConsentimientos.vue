@@ -14,7 +14,7 @@
     >
       <template v-slot:header="props">
         <q-tr :props="props">
-          <q-th auto-width />
+          <q-th auto-width> Imprimir </q-th>
           <q-th v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.label }}
           </q-th>
@@ -26,18 +26,11 @@
           <q-td auto-width>
             <q-btn
               @click="imprimirConsen(props)"
-              icon="picture_as_pdf"
+              icon="local_printshop"
               class="botone"
-              color="red-5"
+              color="primary"
               size="sm"
             >
-              <q-tooltip
-                class="bg-red text-white shadow-4"
-                anchor="top middle"
-                self="bottom middle"
-                :offset="[0, 10]"
-                >Imprimir
-              </q-tooltip>
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -69,7 +62,7 @@
     >
       <template v-slot:header="props">
         <q-tr :props="props">
-          <q-th auto-width />
+          <q-th auto-width> Elaborar </q-th>
           <q-th v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.label }}
           </q-th>
@@ -79,14 +72,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
-              <q-tooltip
-                class="bg-red text-white shadow-4"
-                anchor="top middle"
-                self="bottom middle"
-                :offset="[0, 10]"
-                >Realizar {{ props.row["DESCRIP"] }}</q-tooltip
-              >
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -109,6 +101,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useApiContabilidad, useModuleCon851 } from "@/store";
+import days from "dayjs";
 
 const router = useRouter();
 const route = useRoute();
@@ -129,8 +122,20 @@ const columns_consen = [
     align: "left",
     field: (row) => row.reg_coninf.cod,
   },
-  { name: "llave", label: "Fecha", align: "left", field: (row) => row.reg_coninf.llave.fecha },
-  { name: "hora", label: "Hora", align: "left", field: (row) => row.reg_coninf.llave.hora },
+  {
+    name: "llave",
+    label: "Fecha",
+    align: "left",
+    format: (val, row) => ` ${days(val).format("YYYY-MM-DD")}`,
+    field: (row) => row.reg_coninf.llave.fecha,
+  },
+  {
+    name: "hora",
+    label: "Hora",
+    align: "left",
+    format: (val, row) => ` ${days(val).format("hh:mm")}`,
+    field: (row) => row.reg_coninf.llave.hora,
+  },
   {
     name: "descripcion",
     label: "Descripción",
@@ -168,7 +173,11 @@ const getConsentimientosRealizados = async () => {
   try {
     const response = await getDll$({
       modulo: `get_consen.dll`,
-      data: { llave_consen: route.query.llave_hc, modulo: route.query.modulo?.toUpperCase(), paso: "2" },
+      data: {
+        llave_consen: route.query.llave_hc,
+        modulo: route.query.modulo?.toUpperCase(),
+        paso: "2",
+      },
     });
 
     lista_consen.value = response.CONSENTIMIENTOS;
