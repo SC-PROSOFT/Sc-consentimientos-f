@@ -1,10 +1,7 @@
 <template>
   <q-dialog v-model="configuracion.estado" persistent no-shake>
     <q-card class="my-card">
-      <ToolBarTable_
-        titulo="Configuración de maestros"
-        @cerrar="cerrarConfiguracion"
-      />
+      <ToolBarTable_ titulo="Configuración de maestros" @cerrar="cerrarConfiguracion" />
       <div class="q-pa-md">
         <q-table
           :rows="maestro_consentimientos"
@@ -28,13 +25,7 @@
           <template v-slot:body="props">
             <q-tr :props="props" @dblclick="selectConsen(props)" class="cursor">
               <q-td auto-width>
-                <q-btn
-                  @click="selectConsen(props)"
-                  icon="edit_note"
-                  class="botone"
-                  color="primary"
-                  size="sm"
-                >
+                <q-btn @click="selectConsen(props)" icon="edit_note" class="botone" color="primary" size="sm">
                 </q-btn>
               </q-td>
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -51,18 +42,8 @@
           </template>
         </q-table>
         <q-dialog v-model="flag" persistent class="row">
-          <q-card
-            style="
-              border-radius: 0.5rem;
-              width: 100%;
-              max-width: 700px;
-              min-width: 700px;
-            "
-          >
-            <ToolBarTable_
-              :titulo="reg_config.descrip"
-              @cerrar="flag = false"
-            />
+          <q-card style="border-radius: 0.5rem; width: 100%; max-width: 700px; min-width: 700px">
+            <ToolBarTable_ :titulo="reg_config.descrip" @cerrar="flag = false" />
             <div class="row q-mx-md">
               <Input_
                 class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
@@ -254,7 +235,7 @@ const form_config = ref({
   },
   rango_edad: {
     id: "rango_edad",
-    label: "Activar por rango",
+    label: "Activar por edad",
     f0: ["f3"],
     mask: "###",
     required: true,
@@ -297,22 +278,14 @@ const sexos = ref([
 watch(reg_config.value, (val) => {
   if (val.edad_desde && val.edad_desde > 120) {
     return (
-      CON851(
-        "?",
-        "info",
-        `El año desde ${val.edad_desde} no esta en el rango de 0 - 120`
-      ),
+      CON851("?", "info", `El año desde ${val.edad_desde} no esta en el rango de 0 - 120`),
       () => (reg_config.value.edad_desde = null)
     );
   }
 
   if (val.edad_hasta && val.edad_hasta > 120) {
     return (
-      CON851(
-        "?",
-        "info",
-        `El año hasta ${val.edad_hasta} no esta en el rango de 0 - 120`
-      ),
+      CON851("?", "info", `El año hasta ${val.edad_hasta} no esta en el rango de 0 - 120`),
       () => (reg_config.value.edad_hasta = null)
     );
   }
@@ -334,7 +307,7 @@ const selectConsen = async ({ row }) => {
     Object.keys(data).forEach((key) => {
       if (data[key]) {
         reg_config.value[key] = data[key].trim();
-        if (key.startsWith("FECHA")) {
+        if (key.startsWith("fecha")) {
           reg_config.value[key] = days(data[key].trim()).format("YYYY-MM-DD");
         }
       }
@@ -348,9 +321,13 @@ const actualizarMaestro = async () => {
   const data_envio = JSON.parse(JSON.stringify(reg_config.value));
   data_envio.fecha_act = days().format("YYYY-MM-DD").split("-").join("");
   data_envio.fecha_aprob = data_envio.fecha_aprob.split("-").join("");
-  for (let i = 0; i < Object.values(data_envio).length; i++) {
-    if (!Object.values(data_envio)[i])
-      return CON851("?", "info", "Faltan configurar los campos");
+
+  for (const field of Object.keys(data_envio)) {
+    if (!data_envio[field]) {
+      if (data_envio.rango_edad == "S" || !["edad_desde", "edad_hasta"].includes(field)) {
+        return CON851("?", "info", `El campo '${form_config.value[field].label.toLowerCase()}' es requerido`);
+      }
+    }
   }
 
   Object.assign(maestro_consentimientos.value[index_item.value], data_envio);
@@ -377,9 +354,7 @@ const actualizarMaestro = async () => {
   }
 };
 const getMaestros = async () => {
-  const query =
-    sessionStorage.getItem("query") &&
-    JSON.parse(sessionStorage.getItem("query"));
+  const query = sessionStorage.getItem("query") && JSON.parse(sessionStorage.getItem("query"));
   try {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
@@ -389,6 +364,7 @@ const getMaestros = async () => {
         listar_todos: "1",
       },
     });
+
     maestro_consentimientos.value = response;
   } catch (error) {
     CON851("?", "info", error);
