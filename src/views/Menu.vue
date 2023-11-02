@@ -50,7 +50,7 @@ const verificarSesion = async () => {
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
-    sessionStorage.setItem("Empresa", JSON.stringify(response));
+    sessionStorage.setItem("empresa", JSON.stringify(response));
     getLogo();
     return response;
   } catch (error) {
