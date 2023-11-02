@@ -1,17 +1,14 @@
 <template>
   <q-dialog v-model="configuracion.estado" persistent no-shake>
     <q-card class="my-card">
-      <ToolBarTable_
-        titulo="Configuración de maestros"
-        @cerrar="cerrarConfiguracion"
-      />
+      <ToolBarTable_ titulo="Configuración de maestros" @cerrar="cerrarConfiguracion" />
       <div class="q-pa-md">
         <q-table
           :rows="maestro_consentimientos"
           :rows-per-page-options="[10]"
           @row-dblclick="selectConsen"
           :columns="columns"
-          row-key="COD_MAE"
+          row-key="cod_mae"
           bordered
           dense
           flat
@@ -28,13 +25,7 @@
           <template v-slot:body="props">
             <q-tr :props="props" @dblclick="selectConsen(props)" class="cursor">
               <q-td auto-width>
-                <q-btn
-                  @click="selectConsen(props)"
-                  icon="edit_note"
-                  class="botone"
-                  color="primary"
-                  size="sm"
-                >
+                <q-btn @click="selectConsen(props)" icon="edit_note" class="botone" color="primary" size="sm">
                 </q-btn>
               </q-td>
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -51,101 +42,79 @@
           </template>
         </q-table>
         <q-dialog v-model="flag" persistent class="row">
-          <q-card
-            style="
-              border-radius: 0.5rem;
-              width: 100%;
-              max-width: 700px;
-              min-width: 700px;
-            "
-          >
-            <ToolBarTable_
-              :titulo="reg_config.DESCRIP"
-              @cerrar="flag = false"
-            />
+          <q-card style="border-radius: 0.5rem; width: 100%; max-width: 700px; min-width: 700px">
+            <ToolBarTable_ :titulo="reg_config.descrip" @cerrar="flag = false" />
             <div class="row q-mx-md">
               <Input_
                 class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
                 width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                 width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                v-model="reg_config.CODIGO"
-                :field="form_config.CODIGO"
+                v-model="reg_config.codigo"
+                :field="form_config.codigo"
               />
               <Input_
                 class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                 width_label="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                 width_input="col-xs-6 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                v-model="reg_config.APROBO"
-                :field="form_config.APROBO"
+                v-model="reg_config.aprobo"
+                :field="form_config.aprobo"
               />
               <Input_
                 class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                 width_label="col-xs-6 col-sm-7 col-md-7 col-lg-7 col-xl-7"
                 width_input="col-xs-6 col-sm-5 col-md-5 col-lg-5 col-xl-5"
-                v-model="reg_config.FECHA_APROB"
-                :field="form_config.FECHA_APROB"
+                v-model="reg_config.fecha_aprob"
+                :field="form_config.fecha_aprob"
               />
               <Input_
                 class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
                 width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                 width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-                v-model="reg_config.VERSION"
-                :field="form_config.VERSION"
+                v-model="reg_config.version"
+                :field="form_config.version"
               />
               <Input_
                 class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-                v-model="reg_config.REVISO"
-                :field="form_config.REVISO"
+                v-model="reg_config.reviso"
+                :field="form_config.reviso"
               />
               <Toggle_
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
                 width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
                 width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
-                v-model="reg_config.HABILITAR"
-                :field="form_config.HABILITAR"
+                v-model="reg_config.habilitar"
+                :field="form_config.habilitar"
               />
               <Toggle_
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
                 width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
                 width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
-                v-model="reg_config.RANGO_EDAD"
-                :field="form_config.RANGO_EDAD"
+                v-model="reg_config.rango_edad"
+                :field="form_config.rango_edad"
               />
               <div
                 class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mt-md"
-                v-if="reg_config.RANGO_EDAD == 'S'"
+                v-if="reg_config.rango_edad == 'S'"
               >
-                <Select_
+                <Input_
+                  width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                   class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  v-model="reg_config.UNIDAD_EDAD_DESDE"
-                  :field="form_config.UNIDAD_EDAD_DESDE"
-                  :items="unidad_edades"
+                  v-model="reg_config.edad_desde"
+                  :field="form_config.edad_desde"
                 />
                 <Input_
                   width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                   width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                   class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  v-model="reg_config.VLR_EDAD_DESDE"
-                  :field="form_config.VLR_EDAD"
-                />
-                <Select_
-                  class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  v-model="reg_config.UNIDAD_EDAD_HASTA"
-                  :field="form_config.UNIDAD_EDAD_HASTA"
-                  :items="unidad_edades"
-                />
-                <Input_
-                  width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                  width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-                  class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                  v-model="reg_config.VLR_EDAD_HASTA"
-                  :field="form_config.VLR_EDAD"
+                  v-model="reg_config.edad_hasta"
+                  :field="form_config.edad_hasta"
                 />
               </div>
               <Select_
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                v-model="reg_config.SEXO"
-                :field="form_config.SEXO"
+                v-model="reg_config.sexo"
+                :field="form_config.sexo"
                 :items="sexos"
               />
             </div>
@@ -181,33 +150,31 @@ const emit = defineEmits(["cerrar", "guardar"]);
 
 const maestro_consentimientos = ref([]);
 const columns = [
-  { name: "COD_MAE", label: "Código", align: "left", field: "COD_MAE" },
-  { name: "name", label: "Nombre", align: "left", field: "DESCRIP" },
+  { name: "cod_mae", label: "Código", align: "left", field: "cod_mae" },
+  { name: "name", label: "Nombre", align: "left", field: "descrip" },
 ];
 
 const flag = ref(false);
 const index_item = ref(null);
 
 const reg_config = ref({
-  CODIGO: null,
-  APROBO: null,
-  COD_MAE: null,
-  DESCRIP: null,
-  FECHA_ACT: null,
-  FECHA_APROB: null,
-  REVISO: null,
-  VERSION: null,
-  HABILITAR: null,
-  RANGO_EDAD: null,
-  UNIDAD_EDAD_DESDE: null,
-  VLR_EDAD_DESDE: null,
-  UNIDAD_EDAD_HASTA: null,
-  VLR_EDAD_HASTA: null,
-  SEXO: null,
+  codigo: null,
+  aprobo: null,
+  cod_mae: null,
+  descrip: null,
+  fecha_act: null,
+  fecha_aprob: null,
+  reviso: null,
+  version: null,
+  habilitar: null,
+  rango_edad: null,
+  edad_desde: null,
+  edad_hasta: null,
+  sexo: null,
 });
 const form_config = ref({
-  CODIGO: {
-    id: "CODIGO",
+  codigo: {
+    id: "codigo",
     label: "Codigo",
     placeholder: "Escribe cual es el codigo",
     maxlength: "15",
@@ -215,8 +182,8 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  APROBO: {
-    id: "APROBO",
+  aprobo: {
+    id: "aprobo",
     label: "Aprobado por",
     placeholder: "Escribe quien aprobo",
     maxlength: "25",
@@ -224,8 +191,8 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  FECHA_ACT: {
-    id: "FECHA_ACT",
+  fecha_act: {
+    id: "fecha_act",
     label: "Fecha actual",
     tipo: "date",
     f0: ["f3"],
@@ -233,8 +200,8 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  FECHA_APROB: {
-    id: "FECHA_APROB",
+  fecha_aprob: {
+    id: "fecha_aprob",
     label: "Fecha de aprobación",
     tipo: "date",
     f0: ["f3"],
@@ -242,16 +209,16 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  REVISO: {
-    id: "REVISO",
+  reviso: {
+    id: "reviso",
     label: "Revisado por",
     maxlength: "25",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
   },
-  VERSION: {
-    id: "VERSION",
+  version: {
+    id: "version",
     label: "Versión",
     placeholder: "Versión",
     maxlength: "10",
@@ -259,36 +226,22 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  HABILITAR: {
-    id: "HABILITAR",
+  habilitar: {
+    id: "habilitar",
     label: "Activar consentimiento",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
   },
-  RANGO_EDAD: {
-    id: "RANGO_EDAD",
+  rango_edad: {
+    id: "rango_edad",
     label: "Activar por rango",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
   },
-  UNIDAD_EDAD_DESDE: {
-    id: "UNIDAD_EDAD_DESDE",
-    label: "Edad desde",
-    f0: ["f3"],
-    required: true,
-    campo_abierto: true,
-  },
-  UNIDAD_EDAD_HASTA: {
-    id: "UNIDAD_EDAD_HASTA",
-    label: "Edad hasta",
-    f0: ["f3"],
-    required: true,
-    campo_abierto: true,
-  },
-  VLR_EDAD: {
-    id: "VLR_EDAD",
+  edad_desde: {
+    id: "edad_desde",
     label: "Rango de edad",
     placeholder: "000",
     maxlength: "3",
@@ -297,24 +250,49 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  SEXO: {
-    id: "SEXO",
+  edad_hasta: {
+    id: "edad_hasta",
+    label: "Rango de edad",
+    placeholder: "000",
+    maxlength: "3",
+    tipo: "number",
+    f0: ["f3"],
+    required: true,
+    campo_abierto: true,
+  },
+  sexo: {
+    id: "sexo",
     label: "Sexo",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
   },
 });
-const unidad_edades = ref([
-  { value: "A", label: "AÑOS" },
-  { value: "M", label: "MESES" },
-  { value: "D", label: "DIAS" },
-]);
+
 const sexos = ref([
   { value: "M", label: "MASCULINO" },
   { value: "F", label: "FEMENINO" },
   { value: "A", label: "AMBOS SEXOS" },
 ]);
+
+watch(reg_config.value, (val) => {
+  if (val.edad_desde) {
+    if (!/^(?:[1-9]|[1-9][0-9]|120)$/.test(val.edad_desde)) {
+      return (
+        CON851("?", "info", `El año desde ${val.edad_desde} no esta en el rango de 1 - 120`),
+        () => (reg_config.value.edad_desde = null)
+      );
+    }
+  }
+  if (val.edad_hasta) {
+    if (!/^(?:[1-9]|[1-9][0-9]|120)$/.test(val.edad_hasta)) {
+      return (
+        CON851("?", "info", `El año hasta ${val.edad_hasta} no esta en el rango de 1 - 120`),
+        () => (reg_config.value.edad_desde = null)
+      );
+    }
+  }
+});
 
 onMounted(() => {
   getMaestros();
@@ -344,18 +322,18 @@ const selectConsen = async ({ row }) => {
 
 const actualizarMaestro = async () => {
   const data_envio = JSON.parse(JSON.stringify(reg_config.value));
-  data_envio.FECHA_ACT = days().format("YYYY-MM-DD").split("-").join("");
-  data_envio.FECHA_APROB = data_envio.FECHA_APROB.split("-").join("");
+  data_envio.fecha_act = days().format("YYYY-MM-DD").split("-").join("");
+  data_envio.fecha_aprob = data_envio.fecha_aprob.split("-").join("");
   Object.assign(maestro_consentimientos.value[index_item.value], data_envio);
   let datos = {
-    cod_mae: data_envio.COD_MAE,
-    codigo: data_envio.CODIGO,
-    descrip: data_envio.DESCRIP,
-    version: data_envio.VERSION,
-    fecha_aprob: data_envio.FECHA_APROB,
-    aprobo: data_envio.APROBO,
-    reviso: data_envio.REVISO,
-    fecha_act: data_envio.FECHA_ACT,
+    cod_mae: data_envio.cod_mae,
+    codigo: data_envio.codigo,
+    descrip: data_envio.descrip,
+    version: data_envio.version,
+    fecha_aprob: data_envio.fecha_aprob,
+    aprobo: data_envio.aprobo,
+    reviso: data_envio.reviso,
+    fecha_act: data_envio.fecha_act,
   };
 
   try {
