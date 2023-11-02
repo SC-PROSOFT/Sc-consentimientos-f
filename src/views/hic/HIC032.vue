@@ -1,26 +1,26 @@
 <template>
-  <q-card class="q-ma-xl">
+  <q-card class="q-mx-auto format">
     <q-card-section>
       <div class="row">
         <p>Historia clínica numero:</p>
-        <q-input type="text" dense v-model="hc" class="col-1" />
+        <q-input readonly type="text" dense v-model="hc" class="col-1" />
       </div>
       <div class="row">
         <p>Ciudad:</p>
-        <q-input type="text" dense class="col-1" />
+        <q-input readonly type="text" dense class="col-1" />
         <p>fecha:</p>
-        <q-input type="text" dense class="col-1" />
+        <q-input readonly type="text" dense class="col-1" v-model="datos.fecha_act" />
       </div>
 
       <div class="row">
         <p>Yo,</p>
-        <q-input type="text" dense />
+        <q-input readonly v-model="reg_firmador.descrip" type="text" dense class="col-4" />
         <p>, identificado (a) con cedula numero</p>
-        <q-input type="text" dense class="col-1" />
+        <q-input readonly type="text" dense class="col-2" v-model="reg_firmador.cod" />
         <p>expedida en</p>
-        <q-input type="text" dense class="col-1" />
+        <q-input readonly type="text" dense class="col-2" v-model="reg_firmador.descrip_ciudad" />
         <p>actuando en nombre propio o como acudiente de</p>
-        <q-input type="text" dense class="col-1" />
+        <q-input readonly type="text" dense class="col-1" v-model="acudiente" />
         <p>.</p>
         <p>
           Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
@@ -34,6 +34,7 @@
           type="textarea"
           class="col-12"
           autogrow
+          v-model="HIC032.complicaciones"
           dense
         />
       </div>
@@ -57,23 +58,20 @@
         manipulación:
       </p>
       <div class="row">
-        <q-checkbox v-model="reg_hic24.autorizo" color="teal" />
         <p>
           <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
-          realización de los procedimientos de salud:
+          realización de los procedimientos de salud: <q-input type="text" dense class="input-p" v-model="HIC032.procedimiento"  />, cuyo
+          objetivo es: <q-input type="text" dense class="input-p" /> ante el diagnostico
+          <q-input type="text" dense class="input-p" v-model="HIC032.objetivo"/>
         </p>
       </div>
       <div class="row">
-        <q-checkbox v-model="reg_hic24.revocar" color="teal" />
         <p>
           Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro
           por tanto que, tras la información recibida, no consiento someterme al procedimiento de:
+          <q-input type="text" dense class="input-p" v-model="HIC032.revocar_procedim" /> por los siguientes motivos:
+          <q-input type="text" dense class="col-8 input-p"  v-model="HIC032.revocar_motivos" />
         </p>
-      </div>
-      <div class="row">
-        <q-input type="text" dense class="col-2" />
-        <p>por los siguientes motivos:</p>
-        <q-input type="text" dense class="col-8" />
       </div>
     </q-card-section>
     <q-separator />
@@ -91,27 +89,63 @@
         class="col-3"
       />
     </q-card-actions>
+    <div class="row justify-center q-my-lg">
+      <q-btn
+        class="q-mx-md"
+        :disable="firma_recibida"
+        color="green"
+        icon-right="check_circle"
+        label="Aceptar"
+        @click="btnAceptar"
+      />
+      <q-btn
+        class="q-mx-md"
+        :disable="firma_recibida"
+        color="amber"
+        icon-right="block"
+        label="Disentir"
+        @click="btnDisentir"
+      />
+    </div>
   </q-card>
 </template>
 
 <script setup>
 import { ref, reactive, defineAsyncComponent } from "vue";
+import { useModuleFormatos } from "@/store";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/containerFirma.vue"));
 
+const { reg_paci, reg_acomp, reg_prof, datos } = useModuleFormatos();
+
+const reg_firmador = ref(reg_acomp.cod ? reg_acomp : reg_paci);
+const acudiente = ref(reg_acomp.cod ? reg_acomp.descrip : "");
+const hc = ref("123456789");
+
 const firma_recibida = ref("");
-const hc = ref("01516116112");
-const reg_hic24 = reactive({
-  usuario_acudir: "",
-  complicaciones: "",
-  procedimiento: "",
+
+const HIC032 = reactive({
   autorizo: false,
   revocar: false,
-  exp_ciudad: "",
-  usuario: "",
-  motivos: "",
-  cedula: "",
+
+  complicaciones: "",
+  procedimiento: "",
+  objetivo: "",
+  diagnostico: "",
+  revocar_procedim: "",
+  revocar_motivos: "",
 });
+
+const disentir = ref(false);
+const aceptar = ref(false);
+
+function btnDisenti() {
+  disentir.value = !disentir.value;
+}
+
+function btnAceptar() {
+  aceptar.value = !aceptar.value;
+}
 
 function callBackFirma(dataF) {
   firma_recibida.value = dataF;

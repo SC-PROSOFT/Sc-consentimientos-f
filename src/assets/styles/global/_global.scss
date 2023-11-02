@@ -8,6 +8,11 @@ body {
   border: 1px solid #ccc;
 }
 
+.input-p {
+  min-width: 300px;
+  display: inline-block;
+}
+
 .input-container {
   transition: all 0.3s ease-out;
 }

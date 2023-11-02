@@ -57,7 +57,7 @@ onMounted(() => {
   if (Object.values(use_contab.encabezado).length) datos.value = use_contab.encabezado;
   else datos.value = sessionStorage.encabezado && JSON.parse(sessionStorage.encabezado);
 
-  empresa.value = sessionStorage.Empresa && JSON.parse(sessionStorage.Empresa);
+  empresa.value = sessionStorage.empresa && JSON.parse(sessionStorage.empresa);
 });
 </script>
 
