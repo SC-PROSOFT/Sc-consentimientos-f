@@ -72,7 +72,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -149,6 +155,7 @@ onMounted(() => {
 const getParametros = async () => {
   console.log(route.query);
   novedad.value = route.query.novedad;
+  sessionStorage.setItem("query", JSON.stringify(route.query));
   if (novedad.value == 2) getHistoriaClinica();
   else getMaestros();
 };
@@ -194,7 +201,11 @@ const getMaestros = async () => {
   try {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
-      data: { modulo: route.query.modulo?.toUpperCase() },
+      data: {
+        modulo: route.query.modulo?.toUpperCase(),
+        id_paci: route.query.llave_hc.slice(0, 15),
+        listar_todos: "0",
+      },
     });
     lista_maestros.value = response;
   } catch (error) {
