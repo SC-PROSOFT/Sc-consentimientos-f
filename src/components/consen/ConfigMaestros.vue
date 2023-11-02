@@ -332,6 +332,7 @@ const actualizarMaestro = async () => {
 
   Object.assign(maestro_consentimientos.value[index_item.value], data_envio);
   let datos = {
+    ...data_envio,
     cod_mae: data_envio.cod_mae,
     codigo: data_envio.codigo,
     descrip: data_envio.descrip,
