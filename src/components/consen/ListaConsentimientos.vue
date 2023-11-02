@@ -72,13 +72,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn
-              @click="selectConsen(props.key)"
-              icon="note_add"
-              class="botone"
-              color="primary"
-              size="sm"
-            >
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -107,7 +101,7 @@ const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$ } = useApiContabilidad();
+const { getDll$, setHeader$ } = useApiContabilidad();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys */
 const novedad = ref(null);
@@ -209,7 +203,7 @@ const getMaestros = async () => {
 };
 const selectConsen = async (data) => {
   const consen_select = lista_maestros.value.find((e) => (e.COD_MAE = data));
-  sessionStorage.encabezado = JSON.stringify(consen_select);
+  setHeader$({ encabezado: consen_select });
   router.push({ name: data });
 };
 </script>
