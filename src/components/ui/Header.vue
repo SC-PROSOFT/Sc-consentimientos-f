@@ -49,7 +49,7 @@
             <q-avatar size="72px">
               <img src="@/assets/image/cover-pen.webp" />
             </q-avatar>
-            <div class="text-subtitle1 q-mt-md q-mb-xs">{{ operador.nombre_oper }}</div>
+            <div class="text-subtitle1 q-mt-md q-mb-xs">{{ operador?.nombre_oper || "Sin asignar" }}</div>
             <q-btn
               push
               size="sm"
@@ -76,8 +76,8 @@ const { logOut$ } = useApiContabilidad();
 
 defineProps({ titulo: String });
 
-const nombre_empresa = ref(localStorage.empresa);
-const operador = ref(JSON.parse(sessionStorage.operador));
+const nombre_empresa = ref(sessionStorage.empresa);
+const operador = ref("");
 
 const validarVolverMenu = () => {
   return CON851P("MENU", "warning", null, null, () => router.push({ name: "menu" }));
