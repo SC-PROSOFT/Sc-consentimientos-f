@@ -85,7 +85,6 @@ async function getPaci() {
       getAcomp();
     })
     .catch((err) => {
-      sessionStorage.clear();
       CON851("?", "error", "Error consultando datos paciente");
     });
 }
@@ -109,7 +108,6 @@ async function getAcomp() {
     getMedico();
     datos_session.cod_aux && getAux();
   } catch (error) {
-    sessionStorage.clear();
     CON851("?", "error", "Error consultando datos acompañante");
   }
 }
@@ -120,7 +118,6 @@ async function getMedico() {
     const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
     sessionStorage.setItem("reg_prof", JSON.stringify(datos.reg_prof));
   } catch (error) {
-    sessionStorage.clear();
     CON851("?", "error", "Error consultando datos medico");
   }
 }
