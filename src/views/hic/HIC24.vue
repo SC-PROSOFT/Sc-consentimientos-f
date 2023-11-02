@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-ma-xl">
+  <q-card class="q-mx-auto format">
     <q-card-section>
       <div class="row">
         <p>Historia clínica numero:</p>
