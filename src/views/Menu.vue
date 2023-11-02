@@ -10,7 +10,7 @@
     <ConfigMaestros_
       v-if="config_maestro.estado"
       :configuracion="config_maestro"
-      @cerrar="config_maestro.estado = false"
+      @cerrar="cargarConsentimientosActivos"
       @guardar="config_maestro.estado = false"
     />
     <div class="q-ma-lg">
@@ -25,9 +25,15 @@ import { empresas, regAcomp } from "@/fuentes";
 import { useGlobal } from "@/setup/global";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
-const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
-const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
+const ConfigMaestros_ = defineAsyncComponent(() =>
+  import("@/components/consen/ConfigMaestros.vue")
+);
+const ConfigUsunet_ = defineAsyncComponent(() =>
+  import("@/components/consen/ConfigUsunet.vue")
+);
+const ToolBar_ = defineAsyncComponent(() =>
+  import("@/components/global/ToolBar.vue")
+);
 const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
@@ -47,10 +53,12 @@ onMounted(() => verificarSesion());
 const verificarSesion = async () => {
   try {
     sessionStorage.ip = empresas[getNit].ip_servicio;
+    
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     sessionStorage.setItem("empresa", JSON.stringify(response));
+
     getLogo();
     return response;
   } catch (error) {
@@ -71,7 +79,12 @@ async function getLogo() {
 }
 
 const validarUrl = () => {
-  Object.assign(datos_session, route.query);
+  if (Object.keys(route.query).length) {
+    Object.assign(datos_session, route.query);
+  } else {
+    Object.assign(datos_session, JSON.parse(sessionStorage.query));
+  }
+  console.log("datos_session", datos_session);
   getPaci();
   // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
 };
@@ -95,7 +108,10 @@ async function getAcomp() {
     if (!cod_paci.trim()) {
       sessionStorage.setItem("reg_acomp", JSON.stringify(reg_acomp));
     } else {
-      const datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } });
+      const datos = await getDll$({
+        modulo: `get_paci.dll`,
+        data: { cod_paci },
+      });
       sessionStorage.setItem(
         "reg_acomp",
         JSON.stringify({
@@ -133,6 +149,11 @@ const validarAccion = (event) => {
     case 2: // impresiones
       break;
   }
+};
+
+const cargarConsentimientosActivos = async () => {
+  config_maestro.estado = false;
+  location.reload();
 };
 
 const abrirConfiguracion = async () => {
