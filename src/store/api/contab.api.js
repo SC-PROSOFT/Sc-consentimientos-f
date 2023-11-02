@@ -3,15 +3,23 @@ import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
 
 export const useApiContabilidad = defineStore("contabilidad", {
-  state: () => ({}),
+  state: () => ({
+    encabezado: {},
+  }),
   getters: {
     getNit: () => 1, //Definir nit global
+    getImgBs64: () =>
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
   },
   actions: {
     logOut$() {
       sessionStorage.removeItem("operador");
       sessionStorage.removeItem("token");
       window.close();
+    },
+    setHeader$({ encabezado }) {
+      sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
+      this.encabezado = encabezado;
     },
     autorize$({ operador = {}, loader = true }) {
       return new Promise((resolve, reject) => {
@@ -40,6 +48,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
     },
     getDll$({ directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {
+        console.log("sessionStorage.ip --> ", sessionStorage.ip);
         apiAxiosDll({
           url: `contabilidad/dll`,
           method: "POST",
