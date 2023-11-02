@@ -138,8 +138,8 @@ const columns_consen = [
   },
 ];
 const columns = [
-  { name: "cod_mae", label: "Código", align: "left", field: "COD_MAE" },
-  { name: "descrip", label: "Nombre", align: "left", field: "DESCRIP" },
+  { name: "cod_mae", label: "Código", align: "left", field: "cod_mae" },
+  { name: "descrip", label: "Nombre", align: "left", field: "descrip" },
 ];
 
 onMounted(() => {

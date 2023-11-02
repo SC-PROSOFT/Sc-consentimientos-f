@@ -123,9 +123,9 @@
                 id="boton2"
                 color="green"
                 label="Guardar"
-                class="botone q-mx-sm q-my-md"
                 icon-right="check_circle"
                 @click="actualizarMaestro"
+                class="botone q-mx-sm q-my-md"
               />
             </q-card-actions>
           </q-card>
@@ -237,25 +237,25 @@ const form_config = ref({
     id: "rango_edad",
     label: "Activar por rango",
     f0: ["f3"],
+    mask: "###",
     required: true,
     campo_abierto: true,
   },
   edad_desde: {
     id: "edad_desde",
-    label: "Rango de edad",
+    label: "Edad desde",
     placeholder: "000",
+    mask: "###",
     maxlength: "3",
-    tipo: "number",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
   },
   edad_hasta: {
     id: "edad_hasta",
-    label: "Rango de edad",
+    label: "Edad hasta",
     placeholder: "000",
     maxlength: "3",
-    tipo: "number",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
@@ -276,21 +276,18 @@ const sexos = ref([
 ]);
 
 watch(reg_config.value, (val) => {
-  if (val.edad_desde) {
-    if (!/^(?:[1-9]|[1-9][0-9]|120)$/.test(val.edad_desde)) {
-      return (
-        CON851("?", "info", `El año desde ${val.edad_desde} no esta en el rango de 1 - 120`),
-        () => (reg_config.value.edad_desde = null)
-      );
-    }
+  if (val.edad_desde && val.edad_desde > 120) {
+    return (
+      CON851("?", "info", `El año desde ${val.edad_desde} no esta en el rango de 0 - 120`),
+      () => (reg_config.value.edad_desde = null)
+    );
   }
-  if (val.edad_hasta) {
-    if (!/^(?:[1-9]|[1-9][0-9]|120)$/.test(val.edad_hasta)) {
-      return (
-        CON851("?", "info", `El año hasta ${val.edad_hasta} no esta en el rango de 1 - 120`),
-        () => (reg_config.value.edad_desde = null)
-      );
-    }
+
+  if (val.edad_hasta && val.edad_hasta > 120) {
+    return (
+      CON851("?", "info", `El año hasta ${val.edad_hasta} no esta en el rango de 0 - 120`),
+      () => (reg_config.value.edad_hasta = null)
+    );
   }
 });
 
@@ -324,6 +321,10 @@ const actualizarMaestro = async () => {
   const data_envio = JSON.parse(JSON.stringify(reg_config.value));
   data_envio.fecha_act = days().format("YYYY-MM-DD").split("-").join("");
   data_envio.fecha_aprob = data_envio.fecha_aprob.split("-").join("");
+  for (let i = 0; i < Object.values(data_envio).length; i++) {
+    if (!Object.values(data_envio)[i]) return CON851("?", "info", "Faltan configurar los campos");
+  }
+
   Object.assign(maestro_consentimientos.value[index_item.value], data_envio);
   let datos = {
     cod_mae: data_envio.cod_mae,
