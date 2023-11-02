@@ -18,7 +18,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
       window.close();
     },
     setHeader$({ encabezado }) {
-      sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
+      if (encabezado) {
+        sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
+      }
       this.encabezado = encabezado;
     },
     autorize$({ operador = {}, loader = true }) {

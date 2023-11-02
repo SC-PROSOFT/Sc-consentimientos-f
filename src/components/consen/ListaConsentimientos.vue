@@ -103,6 +103,9 @@ import { useRouter, useRoute } from "vue-router";
 import { useApiContabilidad, useModuleCon851 } from "@/store";
 import days from "dayjs";
 
+const props = defineProps({
+  cargar: Function,
+});
 const router = useRouter();
 const route = useRoute();
 
@@ -111,6 +114,7 @@ const { getDll$, setHeader$ } = useApiContabilidad();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys */
 const novedad = ref(null);
+const params_querys = ref(null);
 
 const lista_consen = ref([]);
 
@@ -153,9 +157,15 @@ onMounted(() => {
 });
 
 const getParametros = async () => {
-  console.log(route.query);
-  novedad.value = route.query.novedad;
-  sessionStorage.setItem("query", JSON.stringify(route.query));
+  if (Object.keys(route.query).length) {
+    sessionStorage.setItem("query", JSON.stringify(route.query));
+  }
+  if (!Object.keys(route.query).length) {
+    params_querys.value = JSON.parse(sessionStorage.query);
+  } else {
+    params_querys.value = route.query;
+  }
+  novedad.value = params_querys.value.novedad;
   if (novedad.value == 2) getHistoriaClinica();
   else getMaestros();
 };
@@ -175,8 +185,8 @@ const getConsentimientosRealizados = async () => {
     const response = await getDll$({
       modulo: `get_consen.dll`,
       data: {
-        llave_consen: route.query.llave_hc,
-        modulo: route.query.modulo?.toUpperCase(),
+        llave_consen: params_querys.value.llave_hc,
+        modulo: params_querys.value.modulo?.toUpperCase(),
         paso: "2",
       },
     });
@@ -202,8 +212,8 @@ const getMaestros = async () => {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
       data: {
-        modulo: route.query.modulo?.toUpperCase(),
-        id_paci: route.query.llave_hc.slice(0, 15),
+        modulo: params_querys.value.modulo?.toUpperCase(),
+        id_paci: params_querys.value.llave_hc.slice(0, 15),
         listar_todos: "0",
       },
     });
