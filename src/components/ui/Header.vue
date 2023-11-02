@@ -1,7 +1,7 @@
 <template>
   <q-toolbar class="bg-primary">
     <q-toolbar-title class="text-white q-ma-xs"
-      >{{ nombre_empresa }}
+      >{{ empresa?.NOMUSU }}
       <div class="text-subtitle2 text-bold text-white">{{ titulo }}</div>
     </q-toolbar-title>
     <q-btn flat round dense icon="menu" class="q-mr-xs" color="white">
@@ -68,16 +68,24 @@
 <script setup>
 import { useModuleCon851p, useApiContabilidad } from "@/store";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
-const router = useRouter();
+const { logOut$, encabezado } = useApiContabilidad();
 const { CON851P } = useModuleCon851p();
-const { logOut$ } = useApiContabilidad();
+const router = useRouter();
 
 defineProps({ titulo: String });
 
-const nombre_empresa = ref(sessionStorage.empresa);
+const empresa = ref(sessionStorage.empresa);
 const operador = ref("");
+const datos = ref("");
+
+onMounted(() => {
+  if (Object.values(encabezado).length) datos.value = encabezado;
+  else datos.value = sessionStorage.encabezado && JSON.parse(sessionStorage.encabezado);
+
+  empresa.value = sessionStorage.empresa && JSON.parse(sessionStorage.empresa);
+});
 
 const validarVolverMenu = () => {
   return CON851P("MENU", "warning", null, null, () => router.push({ name: "menu" }));
