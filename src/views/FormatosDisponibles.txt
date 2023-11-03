@@ -1,0 +1,17 @@
+---------------- PYP ----------------
+COLPOSCOPIA (702203) -> PYP001
+PRUEBA VIH () -> PYP004
+INTERRUPCION DEL EMBARAZO (DX Z640) -> PYP005
+
+------------------ HIC ------------------
+
+--------------- ODONTOLOGIA ---------------
+
+--------------- EPIDEMIOLOGIA ---------------
+EVENTOS DE INTERES EN SALUD PUBLICA (EISP) -> EPID001
+
+------------------- RX -------------------
+
+----------------- URGENCIAS -----------------
+
+----------------- VACUNACION -----------------
