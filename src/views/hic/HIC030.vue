@@ -1,18 +1,17 @@
 <template>
   <q-card class="q-mx-auto format">
     <q-card-section>
-      <q-form ref="my_form" @submit="onSubmit">
+      <q-form ref="form_hic" @submit="onSubmit">
         <div class="row">
           <p>Historia clínica numero:</p>
-          <q-input disable type="text" dense class="col-1" v-model="getHc.llave" />
+          <q-input disable type="text" dense class="col-1" v-model="llave" />
         </div>
         <div class="row">
           <p>Ciudad:</p>
           <q-input v-model="getEmpresa.CIUDAD_USUAR" class="col-3" type="text" readonly disable dense />
           <p>Fecha:</p>
-          <q-input v-model="getEmpresa.FECHA_ACT" class="col-1" type="text" readonly disable dense />
+          <q-input v-model="fecha_act" class="col-1" type="text" readonly disable dense />
         </div>
-
         <div class="row">
           <p>Yo,</p>
           <q-input v-model="getPaci.descrip" class="col-4" type="text" readonly outline dense />
@@ -198,10 +197,11 @@ const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const firma_recibida = ref("");
-const my_form = ref(null);
+const form_hic = ref(null);
 const diag = ref(null);
 
 const llave = ref(null);
+const fecha_act = ref(null);
 
 const HIC030 = ref({
   telefono1: "",
@@ -216,7 +216,8 @@ const HIC030 = ref({
 });
 
 onMounted(() => {
-  getEmpresa.FECHA_ACT = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
+  fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
+  llave.value = getHc.llave.slice(15);
 });
 
 const callBackFirma = (dataF) => {
