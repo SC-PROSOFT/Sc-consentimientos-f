@@ -5,11 +5,20 @@
       <q-img :src="firma" />
     </q-card-section>
     <q-card-actions align="around">
-      <q-btn flat @click="() => (show_firma = true)" class="material-icons">
-        {{ firmador }}
-        <span class="q-ml-sm material-icons md-48"> edit_square </span>
+      <q-btn
+        flat
+        @click="() => (show_firma = true)"
+        class="material-icons"
+        :disable="disable"
+      >
+        <span class="q-ml-sm material-icons md-48"> draw </span>
       </q-btn>
     </q-card-actions>
+    <div class="text-center">
+      <div>{{ firmador }}</div>
+      <div>{{ descrip_prof }}</div>
+      <div>{{ registro_profe ? `Reg. ${registro_profe}` : "" }}</div>
+    </div>
     <FIRMA v-if="show_firma" @CallBackFirma="CallBackFirma" />
   </q-card>
 </template>
@@ -17,15 +26,29 @@
 <script setup>
 import { ref, defineAsyncComponent } from "vue";
 
-const ToolBar = defineAsyncComponent(() => import("../../components/global/ToolBarTable.vue"));
+const ToolBar = defineAsyncComponent(() =>
+  import("@/components/global/ToolBarTable.vue")
+);
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
 const emit = defineEmits(["envFirma"]);
 
 defineProps({
+  disable: {
+    type: Boolean,
+    default: false,
+  },
   firmador: {
     type: String,
     default: "Sin asignar",
+  },
+  descrip_prof: {
+    type: String,
+    default: "",
+  },
+  registro_profe: {
+    type: String,
+    default: "",
   },
   quien_firma: {
     type: String,
