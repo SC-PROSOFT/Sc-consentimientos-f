@@ -23,19 +23,8 @@ export const impresionHC030 = () => {
                     fontSize: 12,
                     bold: true,
                   },
-                  headerNoBold: {
-                    fontSize: 9,
-                  },
                   headerEnd: {
                     fontSize: 8,
-                  },
-                  bodyTitleBold: {
-                    fontSize: 11,
-                    bold: true,
-                  },
-                  bodyBold: {
-                    fontSize: 9,
-                    bold: true,
                   },
                   bodyNoBold: {
                     fontSize: 11,
@@ -46,11 +35,6 @@ export const impresionHC030 = () => {
                   },
                   tableNoBold: {
                     fontSize: 9,
-                  },
-                  footerBold: {
-                    fontSize: 9,
-                    bold: true,
-                    color: "gray",
                   },
                 },
               };
