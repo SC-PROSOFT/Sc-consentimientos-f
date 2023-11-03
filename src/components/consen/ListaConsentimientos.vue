@@ -188,6 +188,7 @@ const getConsentimientosRealizados = async () => {
         paso: "2",
       },
     });
+    console.log("consentimientos realizados", response);
 
     lista_consen.value = response.CONSENTIMIENTOS;
     lista_consen.value.sort((a, b) => {
@@ -203,7 +204,7 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
-  // console.log("data", row);
+  console.log("data", row);
 };
 const getMaestros = async () => {
   try {

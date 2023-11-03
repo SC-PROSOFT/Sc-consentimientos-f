@@ -89,6 +89,7 @@ async function getPaci() {
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       sessionStorage.setItem("reg_paci", JSON.stringify(data.reg_paci));
+      getMedico();
       datos_session.id_acompa && getAcomp();
     })
     .catch((err) => {
@@ -115,7 +116,6 @@ async function getAcomp() {
       );
     }
 
-    getMedico();
     datos_session.cod_aux && getAux();
   } catch (error) {
     CON851("?", "error", "Error consultando datos acompañante");
@@ -126,6 +126,7 @@ async function getMedico() {
   try {
     const cod_prof = datos_session.cod_prof || "";
     const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
+
     sessionStorage.setItem("reg_prof", JSON.stringify(datos.reg_prof));
   } catch (error) {
     CON851("?", "error", "Error consultando datos medico");

@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="bg-primary">
+  <q-toolbar :class="`bg-${color}`">
     <q-toolbar-title class="text-bold text-center text-white">
       {{ titulo }}
       <q-icon round v-if="icon" class="q-my-auto" color="white" :name="icon" />
@@ -12,19 +12,15 @@
         >{{ name }}</q-tooltip
       >
     </q-toolbar-title>
-    <q-btn
-      v-if="close_state"
-      flat
-      color="white"
-      @click="cerrar"
-      round
-      dense
-      icon="close"
-    />
+    <q-btn v-if="close_state" flat color="white" @click="cerrar" round dense icon="close" />
   </q-toolbar>
 </template>
 <script setup>
 defineProps({
+  color: {
+    type: String,
+    default: "primary",
+  },
   titulo: String,
   tooltip: Boolean,
   name: String,

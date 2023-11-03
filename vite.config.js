@@ -16,7 +16,7 @@ export default defineConfig({
       BASE_URL: "consentimientos",
       API: "/api/v1/",
       APP: "consentimientos/v2/app",
-      PORT: 5025,
+      PORT: 8787,
     },
   },
   resolve: {

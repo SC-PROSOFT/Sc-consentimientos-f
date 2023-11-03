@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-mx-auto format">
+  <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
     <q-card-section>
       <q-form ref="form_hic" @submit="onSubmit">
         <div class="row">
@@ -149,7 +149,7 @@
           icon-right="check_circle"
           label="Autorizo"
           type="submit"
-          @click="grabarConsentimiento"
+          @click="grabarFirmaConsen"
         />
         <!-- @click="() => !HIC030.revocar && btnAutorizo()" -->
         <q-btn
@@ -161,20 +161,21 @@
       </div>
       <div class="col-12 row justify-around">
         <ContainerFirma
-          @reciFirma="callBackFirma"
-          :firmador="getPaci.descrip"
           quien_firma="FIRMA PACIENTE"
+          :firmador="getPaci.descrip"
+          @reciFirma="callBackFirma"
           class="col-4"
         />
         <ContainerFirma
-          :disable="true"
-          @reciFirma="callBackFirma"
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           quien_firma="FIRMA TUTOR O FAMILIAR"
+          @reciFirma="callBackFirma"
+          :disable="true"
           class="col-4"
         />
         <ContainerFirma
           @reciFirma="callBackFirma"
+          :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.registro_profe"
@@ -192,8 +193,8 @@ import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 
-const { getPaci, getAcomp, getHc, getProf, getEmpresa } = useModuleFormatos();
-const { getDll$ } = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const firma_recibida = ref("");
@@ -202,6 +203,7 @@ const diag = ref(null);
 
 const llave = ref(null);
 const fecha_act = ref(null);
+const firma_prof = ref(null);
 
 const HIC030 = ref({
   telefono1: "",
@@ -215,13 +217,35 @@ const HIC030 = ref({
   revocar_motivos: "",
 });
 
+const llaveFirmaConsen = () => {
+  return `${getHc.llave}${dayjs().format("YYYYMMDDhhmm")}${getSesion.oper}`;
+};
 onMounted(() => {
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
+
+  getFirmaProf();
 });
 
-const callBackFirma = (dataF) => {
-  firma_recibida.value = dataF;
+const grabarFirmaConsen = async () => {
+  try {
+    if (!firma_recibida.value) return CON851("?", "info", "No se ha realizado la firma");
+    await guardarFile$({ base64: firma_recibida.value, codigo: llaveFirmaConsen() });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+const getFirmaProf = async () => {
+  try {
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+const callBackFirma = (data_firma) => {
+  data_firma && (firma_recibida.value = data_firma.slice(22));
 };
 
 const btnRevocar = () => {
@@ -240,7 +264,7 @@ const onSubmit = () => {
 
 const grabarConsentimiento = async () => {
   let datos = {
-    llave_consen: llave.value,
+    llave_consen: getHc.llave,
     cod_consen: "HIC030",
     ...HIC030.value,
   };

@@ -1,16 +1,17 @@
 <template>
   <q-card bordered flat>
-    <ToolBar name="containerFirma" :titulo="quien_firma" :close_state="false" />
+    <ToolBar_ name="containerFirma" :titulo="quien_firma" :close_state="false" color="blue-grey-13" />
     <q-card-section>
-      <q-img :src="firma" />
+      <q-img
+        style="height: 100px"
+        spinner-color="white"
+        :src="firma || firma_"
+        class="shadow-1"
+        fit="contain"
+      />
     </q-card-section>
     <q-card-actions align="around">
-      <q-btn
-        flat
-        @click="() => (show_firma = true)"
-        class="material-icons"
-        :disable="disable"
-      >
+      <q-btn flat @click="() => (show_firma = true)" class="material-icons" :disable="disable">
         <span class="q-ml-sm material-icons md-48"> draw </span>
       </q-btn>
     </q-card-actions>
@@ -26,14 +27,12 @@
 <script setup>
 import { ref, defineAsyncComponent } from "vue";
 
-const ToolBar = defineAsyncComponent(() =>
-  import("@/components/global/ToolBarTable.vue")
-);
+const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarTable.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
-const emit = defineEmits(["envFirma"]);
+const emit = defineEmits(["reciFirma"]);
 
-defineProps({
+const props = defineProps({
   disable: {
     type: Boolean,
     default: false,
@@ -41,6 +40,10 @@ defineProps({
   firmador: {
     type: String,
     default: "Sin asignar",
+  },
+  firma_: {
+    type: String,
+    default: "",
   },
   descrip_prof: {
     type: String,

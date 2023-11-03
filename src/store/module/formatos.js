@@ -24,7 +24,15 @@ export const useModuleFormatos = defineStore("formatos", {
     reg_empresa: Object.assign({}, regEmpresa()),
   }),
   getters: {
+    getSesion() {
+      if (sessionStorage.query) return JSON.parse(sessionStorage.query);
+      else "";
+    },
     getLogo() {
+      if (sessionStorage.logo) return `data:image/png;base64,${sessionStorage.logo}`;
+      return this.logo;
+    },
+    getFirma() {
       if (sessionStorage.logo) return `data:image/png;base64,${sessionStorage.logo}`;
       return this.logo;
     },

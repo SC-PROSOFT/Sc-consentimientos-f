@@ -1,7 +1,8 @@
 import { default as axios } from "axios";
 import { useModuleLoader } from "@/store";
 
-const URl = `http://localhost:${process.env.PORT}${process.env.API}`;
+const URl = `http://34.234.185.158:${process.env.PORT}${process.env.API}`;
+// const URl = `http://localhost:5025${process.env.API}`;
 
 export const apiAxios = ({
   url,

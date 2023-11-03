@@ -23,5 +23,6 @@ const route = ref(useRoute());
   height: 100vh;
   background-image: url("@/assets/image/cover-b.png");
   background-attachment: fixed;
+  overflow-y: auto;
 }
 </style>
