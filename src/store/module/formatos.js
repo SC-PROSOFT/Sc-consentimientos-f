@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import days from "dayjs";
 import { regHc, regEmpresa, regPaci, regProf, regAcomp } from "@/fuentes";
+import days from "dayjs";
 
 export const useModuleFormatos = defineStore("formatos", {
   state: () => ({
@@ -14,17 +14,43 @@ export const useModuleFormatos = defineStore("formatos", {
       reg_prof: Object,
       reg_hc: Object,
     },
+    logo: null,
     fecha_act: days().format("YYYY-MM-DD"),
-    reg_paci: sessionStorage.reg_paci ? Object.assign({}, JSON.parse(sessionStorage.reg_paci)) : regPaci(),
-    reg_prof: sessionStorage.reg_prof ? Object.assign({}, JSON.parse(sessionStorage.reg_prof)) : regProf(),
-    reg_acomp: sessionStorage.reg_acomp
-      ? Object.assign({}, JSON.parse(sessionStorage.reg_acomp))
-      : regAcomp(),
-    reg_hc: sessionStorage.reg_hc ? Object.assign({}, JSON.parse(sessionStorage.reg_hc)) : regHc(),
-    reg_empresa: sessionStorage.empresa
-      ? Object.assign({}, JSON.parse(sessionStorage.empresa))
-      : regEmpresa(),
+    reg_paci: regPaci(),
+    reg_prof: regProf(),
+    reg_acomp: regAcomp(),
+    reg_hc: regHc(),
+
+    reg_empresa: Object.assign({}, regEmpresa()),
   }),
-  getters: {},
+  getters: {
+    getLogo() {
+      if (sessionStorage.logo) return `data:image/png;base64,${sessionStorage.logo}`;
+      return this.logo;
+    },
+    getFechaActual() {
+      return this.fecha_act;
+    },
+    getEmpresa() {
+      if (sessionStorage.empresa) return JSON.parse(sessionStorage.empresa);
+      return this.reg_empresa;
+    },
+    getPaci() {
+      if (sessionStorage.reg_paci) return JSON.parse(sessionStorage.reg_paci);
+      return this.reg_paci;
+    },
+    getProf() {
+      if (sessionStorage.reg_prof) return JSON.parse(sessionStorage.reg_prof);
+      return this.reg_prof;
+    },
+    getAcomp() {
+      if (sessionStorage.reg_acomp) return JSON.parse(sessionStorage.reg_acomp);
+      return this.reg_acomp;
+    },
+    getHc() {
+      if (sessionStorage.reg_hc) return JSON.parse(sessionStorage.reg_hc);
+      return this.reg_hc;
+    },
+  },
   actions: {},
 });

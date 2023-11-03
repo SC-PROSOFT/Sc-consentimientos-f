@@ -1,17 +1,18 @@
 <template>
   <div class="background-container">
-    <div v-show="route.name != 'menu'" class="q-pa-none q-ma-none">
+    <div v-if="route.name != 'menu'" class="q-pa-none q-ma-none">
       <Header_ :titulo="route.meta.title" />
-      <HeaderFormat />
+      <HeaderFormat_ />
     </div>
     <RouterView />
   </div>
 </template>
 
 <script setup>
-const HeaderFormat = defineAsyncComponent(() => import("../components/global/headerFormat.vue"));
 import { defineAsyncComponent, ref } from "vue";
 import { useRoute } from "vue-router";
+
+const HeaderFormat_ = defineAsyncComponent(() => import("@/components/global/headerFormat.vue"));
 const route = ref(useRoute());
 </script>
 
@@ -21,5 +22,6 @@ const route = ref(useRoute());
   background-position: center center;
   height: 100vh;
   background-image: url("@/assets/image/cover-b.png");
+  background-attachment: fixed;
 }
 </style>

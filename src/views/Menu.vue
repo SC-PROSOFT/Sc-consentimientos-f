@@ -25,15 +25,9 @@ import { empresas, regAcomp } from "@/fuentes";
 import { useGlobal } from "@/setup/global";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() =>
-  import("@/components/consen/ConfigMaestros.vue")
-);
-const ConfigUsunet_ = defineAsyncComponent(() =>
-  import("@/components/consen/ConfigUsunet.vue")
-);
-const ToolBar_ = defineAsyncComponent(() =>
-  import("@/components/global/ToolBar.vue")
-);
+const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
+const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
+const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
@@ -69,15 +63,15 @@ const verificarSesion = async () => {
   }
 };
 
-async function getLogo() {
+const getLogo = async () => {
   try {
     const img = await _getLogo$({ nit: getNit });
-    sessionStorage.setItem("Logo", img);
+    sessionStorage.setItem("logo", img);
     validarUrl();
   } catch (error) {
-    console.error("getLogo --> ", error);
+    console.error("getLogo", error);
   }
-}
+};
 
 const validarUrl = () => {
   if (Object.keys(route.query).length) {
@@ -85,7 +79,6 @@ const validarUrl = () => {
   } else {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
-  console.log("datos_session", datos_session);
   getPaci();
   // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
 };

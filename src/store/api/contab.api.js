@@ -1,12 +1,17 @@
 import { defineStore } from "pinia";
 import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
+import { regEncabezado } from "@/fuentes";
 
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({
-    encabezado: {},
+    encabezado: regEncabezado(),
   }),
   getters: {
+    getEncabezado() {
+      if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
+      else this.encabezado;
+    },
     getNit: () => 1, //Definir nit global
     getImgBs64: () =>
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -50,7 +55,6 @@ export const useApiContabilidad = defineStore("contabilidad", {
     },
     getDll$({ directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {
-        console.log("sessionStorage.ip --> ", sessionStorage.ip);
         apiAxiosDll({
           url: `contabilidad/dll`,
           method: "POST",

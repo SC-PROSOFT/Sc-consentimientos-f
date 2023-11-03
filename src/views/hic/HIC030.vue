@@ -4,22 +4,22 @@
       <q-form ref="my_form" @submit="onSubmit">
         <div class="row">
           <p>Historia clínica numero:</p>
-          <q-input disable type="text" dense class="col-1" v-model="llave" />
+          <q-input disable type="text" dense class="col-1" v-model="getHc.llave" />
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input v-model="reg_empresa.CIUDAD_USUAR" class="col-3" type="text" readonly disable dense />
+          <q-input v-model="getEmpresa.CIUDAD_USUAR" class="col-3" type="text" readonly disable dense />
           <p>Fecha:</p>
-          <q-input v-model="reg_empresa.FECHA_ACT" class="col-1" type="text" readonly disable dense />
+          <q-input v-model="getEmpresa.FECHA_ACT" class="col-1" type="text" readonly disable dense />
         </div>
 
         <div class="row">
           <p>Yo,</p>
-          <q-input v-model="reg_paci.descrip" class="col-4" type="text" readonly outline dense />
+          <q-input v-model="getPaci.descrip" class="col-4" type="text" readonly outline dense />
           <p>, identificado (a) con cedula numero</p>
-          <q-input type="text" dense class="col-2" v-model="reg_paci.cod" readonly />
+          <q-input type="text" dense class="col-2" v-model="getPaci.cod" readonly />
           <p>expedida en</p>
-          <q-input type="text" dense class="col-2" v-model="reg_paci.descrip_ciudad" readonly />
+          <q-input type="text" dense class="col-2" v-model="getPaci.descrip_ciudad" readonly />
           <p>actuando en nombre propio.</p>
 
           <p>
@@ -163,22 +163,22 @@
       <div class="col-12 row justify-around">
         <ContainerFirma
           @reciFirma="callBackFirma"
-          :firmador="reg_paci.descrip"
+          :firmador="getPaci.descrip"
           quien_firma="FIRMA PACIENTE"
           class="col-4"
         />
         <ContainerFirma
           :disable="true"
           @reciFirma="callBackFirma"
-          :firmador="reg_acomp.descrip || 'NO HAY ACOMPAÑANTE'"
+          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           class="col-4"
         />
         <ContainerFirma
           @reciFirma="callBackFirma"
-          :firmador="reg_prof.descrip"
-          :descrip_prof="reg_prof.descrip_atiende"
-          :registro_profe="reg_prof.registro_profe"
+          :firmador="getProf.descrip"
+          :descrip_prof="getProf.descrip_atiende"
+          :registro_profe="getProf.registro_profe"
           quien_firma="FIRMA PROFESIONAL"
           class="col-4"
         />
@@ -187,13 +187,14 @@
   </q-card>
 </template>
 <script setup>
-import { ref, defineAsyncComponent, onMounted } from "vue";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851 } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const { reg_paci, reg_acomp, reg_hc, reg_prof, reg_empresa } = useModuleFormatos();
-const { getDll$, _getLogo$ } = useApiContabilidad();
+
+const { getPaci, getAcomp, getHc, getProf, getEmpresa } = useModuleFormatos();
+const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const firma_recibida = ref("");
@@ -215,8 +216,7 @@ const HIC030 = ref({
 });
 
 onMounted(() => {
-  llave.value = reg_hc.llave.slice(15);
-  reg_empresa.FECHA_ACT = dayjs(reg_empresa.FECHA_ACT).format("YYYY-MM-DD");
+  getEmpresa.FECHA_ACT = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
 });
 
 const callBackFirma = (dataF) => {

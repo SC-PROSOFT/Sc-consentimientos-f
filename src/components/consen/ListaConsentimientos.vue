@@ -71,13 +71,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn
-              @click="selectConsen(props.key)"
-              icon="note_add"
-              class="botone"
-              color="primary"
-              size="sm"
-            >
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -209,7 +203,7 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
-  console.log("data", row);
+  // console.log("data", row);
 };
 const getMaestros = async () => {
   try {
@@ -221,7 +215,6 @@ const getMaestros = async () => {
         listar_todos: "0",
       },
     });
-    console.log(response);
     lista_maestros.value = response;
   } catch (error) {
     CON851("?", "info", error);
