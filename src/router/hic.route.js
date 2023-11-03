@@ -9,15 +9,6 @@ export const createRouteHic = (title) => [
     },
   },
   {
-    path: "/HIC032",
-    name: "HIC032",
-    component: () => import("@/views/hic/HIC032.vue"),
-    meta: {
-      require_auth: true,
-      title: `${title} - FORMATO HIC032`,
-    },
-  },
-  {
     //COLPOSCOPIA
     path: "/HIC031",
     name: "HIC031",
@@ -25,6 +16,15 @@ export const createRouteHic = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC031`,
+    },
+  },
+  {
+    path: "/HIC032",
+    name: "HIC032",
+    component: () => import("@/views/hic/HIC032.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC032`,
     },
   },
   {
@@ -58,7 +58,7 @@ export const createRouteHic = (title) => [
     },
   },
   {
-    //Tratamiento Directamente Observado (TDO)
+    //TTRATAMIENTO DIRECTAMENTE OBSERVADO (TDO)
     path: "/HIC036",
     name: "HIC036",
     component: () => import("@/views/hic/HIC036.vue"),
@@ -75,6 +75,16 @@ export const createRouteHic = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC037`,
+    },
+  },
+  {
+    //SALIDA VOLUNTARIA
+    path: "/HIC039",
+    name: "HIC039",
+    component: () => import("@/views/hic/HIC039.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC039`,
     },
   },
 ];
