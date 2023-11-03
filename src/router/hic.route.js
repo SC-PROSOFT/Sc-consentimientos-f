@@ -87,4 +87,24 @@ export const createRouteHic = (title) => [
       title: `${title} - FORMATO HIC039`,
     },
   },
+  {
+    //ATENCIÓN DE PARTO
+    path: "/HIC040",
+    name: "HIC040",
+    component: () => import("@/views/hic/HIC040.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC040`,
+    },
+  },
+  {
+    //ATENCIÓN DE PARTO
+    path: "/HIC041",
+    name: "HIC041",
+    component: () => import("@/views/hic/HIC041.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC041`,
+    },
+  },
 ];
