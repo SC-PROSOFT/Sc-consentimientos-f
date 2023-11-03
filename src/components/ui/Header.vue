@@ -4,63 +4,11 @@
       >{{ empresa?.NOMUSU }}
       <div class="text-subtitle2 text-bold text-white">{{ titulo }}</div>
     </q-toolbar-title>
-    <q-btn flat round dense icon="menu" class="q-mr-xs" color="white">
-      <q-menu>
-        <div class="row no-wrap q-pa-md">
-          <div class="column">
-            <div class="text-h6 q-mb-md">Configuración</div>
-            <q-separator />
-            <q-list style="min-width: 80px">
-              <q-item
-                style="min-height: 0px; border-radius: 0.4rem"
-                class="q-my-sm q-pa-none botone"
-                clickable
-              >
-                <q-item-section class="subtitle4">Conversaciones </q-item-section>
-                <q-item-section avatar>
-                  <q-icon size="xs" name="question_answer" />
-                </q-item-section>
-              </q-item>
-              <q-item
-                style="min-height: 0px; border-radius: 0.4rem"
-                class="q-my-sm q-pa-none botone"
-                clickable
-              >
-                <q-item-section class="subtitle4">Mantenimiento</q-item-section>
-                <q-item-section avatar>
-                  <q-icon size="xs" name="settings_suggest" />
-                </q-item-section>
-              </q-item>
-              <q-item
-                style="min-height: 0px; border-radius: 0.4rem"
-                @click="validarVolverMenu"
-                class="q-my-sm q-pa-none botone"
-                clickable
-              >
-                <q-item-section class="subtitle4">Menu principal</q-item-section>
-                <q-item-section avatar>
-                  <q-icon size="xs" name="menu_open" />
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </div>
-          <q-separator vertical inset class="q-mx-lg" />
-          <div class="column items-center">
-            <q-avatar size="72px">
-              <img src="@/assets/image/cover-pen.webp" />
-            </q-avatar>
-            <div class="text-subtitle1 q-mt-md q-mb-xs">{{ operador?.nombre_oper || "Sin asignar" }}</div>
-            <q-btn
-              push
-              size="sm"
-              class="botone"
-              color="primary"
-              label="Cerrar sesión"
-              @click="validarSalir"
-            />
-          </div>
-        </div>
-      </q-menu>
+    <q-btn flat round dense class="q-mr-xs botone" color="white" @click="() => router.back()">
+      <span class="material-icons"> reply </span
+      ><q-tooltip anchor="center right" self="center left" :offset="[10, 10]" class="bg-red"
+        >Regresar</q-tooltip
+      >
     </q-btn>
   </q-toolbar>
 </template>
@@ -99,5 +47,9 @@ const validarSalir = () => {
   position: sticky;
   top: 0px;
   z-index: 1;
+}
+
+.material-icons {
+  font-size: 25px;
 }
 </style>
