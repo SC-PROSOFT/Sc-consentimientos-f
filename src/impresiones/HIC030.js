@@ -14,7 +14,7 @@ export const impresionHC030 = () => {
         },
         content: [
           {
-            stack: [contenidoCitologia()],
+            stack: [contenidoCitologia(), firmas()],
           },
         ],
 
@@ -27,7 +27,7 @@ export const impresionHC030 = () => {
             fontSize: 8,
           },
           bodyNoBold: {
-            fontSize: 11,
+            fontSize: 10.5,
           },
           tableBold: {
             fontSize: 10,
@@ -356,10 +356,6 @@ function contenidoCitologia() {
           ],
         },
       },
-      {
-        marginTop: 10,
-        stack: [firmas()],
-      },
     ],
   };
 }
@@ -378,221 +374,247 @@ function cuadro_canvas(condicion) {
   ];
 }
 
-function firmas(condicion) {
+function firmas(paciente_firma) {
+  paciente_firma = "N";
+  let firmasArray = [];
+  let motivosArray = [];
+  let margin = 0;
+  let anchos = [];
+
+  if (paciente_firma !== "N") {
+    firmasArray = [firmaPaciente(), firmaProfesional()];
+    margin = 80;
+    anchos = ["40%", "40%"];
+  } else {
+    firmasArray = [firmaAcompanante(), firmaProfesional()];
+    motivosArray = [motivosNoFirma()];
+    margin = 80;
+    anchos = ["40%", "40%", "33%"];
+  }
+
   return {
-    columns: [
+    marginTop: 8,
+    stack: [
       {
+        marginLeft: margin,
         layout: "noBorders",
         table: {
-          widths: ["33%", "34%", "33%"],
-          body: [
-            [
-              {
-                stack: [
-                  {
-                    text: "PACIENTE",
-                    alignment: "center",
-                    style: "tableBold",
-                  },
-                  {
-                    marginBottom: 2,
-                    text: [
-                      {
-                        text: "FIRMA / HUELLA ",
-                        alignment: "center",
-                        style: "tableBold",
-                      },
-                      {
-                        text: "(EN CASO DE NO FIRMAR)",
-                        alignment: "center",
-                        style: "tableNoBold",
-                        fontSize: 7,
-                      },
-                    ],
-                  },
-                  {
-                    alignment: "center",
-                    image: "sampleImage.jpg",
-                    width: 150,
-                    height: 80,
-                  },
-                  {
-                    marginTop: 2,
-                    text: [
-                      {
-                        text: "NOMBRE: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "David Santiago Lozada Quintero",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                  {
-                    text: [
-                      {
-                        text: "DOCUMENTO: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "1111111111",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "TUTOR/ACOMPAÑANTE/REPR.LEGAL",
-                    alignment: "center",
-                    style: "tableBold",
-                  },
-                  {
-                    marginBottom: 2,
-                    text: [
-                      {
-                        text: "FIRMA / HUELLA ",
-                        alignment: "center",
-                        style: "tableBold",
-                      },
-                      {
-                        text: "(EN CASO DE NO FIRMAR)",
-                        alignment: "center",
-                        style: "tableNoBold",
-                        fontSize: 7,
-                      },
-                    ],
-                  },
-                  {
-                    alignment: "center",
-                    image: "sampleImage.jpg",
-                    width: 150,
-                    height: 80,
-                  },
-                  {
-                    marginTop: 2,
-                    text: [
-                      {
-                        text: "NOMBRE: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "David Santiago Lozada Quintero Quintero",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                  {
-                    text: [
-                      {
-                        text: "DOCUMENTO: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "2222222222",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                  {
-                    text: [
-                      {
-                        text: "PARENTESCO: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "HERMANO",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "FIRMA PROFESIONAL",
-                    alignment: "center",
-                    style: "tableBold",
-                    marginBottom: 10,
-                  },
-                  {
-                    alignment: "center",
-                    image: "sampleImage.jpg",
-                    width: 150,
-                    height: 80,
-                  },
-                  {
-                    marginTop: 10,
-                    text: [
-                      {
-                        text: "NOMBRE: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "David Santiago Lozada Quintero",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                  {
-                    text: [
-                      {
-                        text: "PROFESIONAL AREA DE: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "EXAMENES DOC.MANOTAS",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                  {
-                    text: [
-                      {
-                        text: "R.P N°: ",
-                        style: "tableNoBold",
-                        bold: true,
-                      },
-                      {
-                        text: "1111111111",
-                        style: "tableNoBold",
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-            [
-              {
-                colSpan: 3,
-                text: [
-                  {
-                    text: "MOTIVOS POR LOS QUE EL USUARIO NO FIRMA: ",
-                    style: "tableNoBold",
-                    bold: true,
-                  },
-                  {
-                    text: "2222222222",
-                    style: "tableNoBold",
-                  },
-                ],
-              },
-              {},
-              {},
-            ],
-          ],
+          widths: anchos,
+          body: [[...firmasArray]],
         },
+      },
+      ...motivosArray,
+    ],
+  };
+}
+
+function firmaPaciente() {
+  return {
+    stack: [
+      {
+        text: "PACIENTE",
+        alignment: "center",
+        style: "tableBold",
+      },
+      {
+        marginBottom: 2,
+        text: [
+          {
+            text: "FIRMA / HUELLA ",
+            alignment: "center",
+            style: "tableBold",
+          },
+          {
+            text: "(EN CASO DE NO FIRMAR)",
+            alignment: "center",
+            style: "tableNoBold",
+            fontSize: 7,
+          },
+        ],
+      },
+      {
+        alignment: "center",
+        image: "sampleImage.jpg",
+        width: 150,
+        height: 80,
+      },
+      {
+        marginTop: 2,
+        text: [
+          {
+            text: "NOMBRE: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "David Santiago Lozada Quintero",
+            style: "tableNoBold",
+          },
+        ],
+      },
+      {
+        text: [
+          {
+            text: "DOCUMENTO: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "1111111111",
+            style: "tableNoBold",
+          },
+        ],
+      },
+    ],
+  };
+}
+
+function firmaProfesional() {
+  return {
+    stack: [
+      {
+        text: "FIRMA PROFESIONAL",
+        alignment: "center",
+        style: "tableBold",
+        marginBottom: 14,
+      },
+      {
+        alignment: "center",
+        image: "sampleImage.jpg",
+        width: 150,
+        height: 80,
+      },
+      {
+        marginTop: 10,
+        text: [
+          {
+            text: "NOMBRE: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "David Santiago Lozada Quintero",
+            style: "tableNoBold",
+          },
+        ],
+      },
+      {
+        text: [
+          {
+            text: "PROFESIONAL AREA DE: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "EXAMENES DOC.MANOTAS",
+            style: "tableNoBold",
+          },
+        ],
+      },
+      {
+        text: [
+          {
+            text: "R.P N°: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "1111111111",
+            style: "tableNoBold",
+          },
+        ],
+      },
+    ],
+  };
+}
+
+function firmaAcompanante() {
+  return {
+    stack: [
+      {
+        text: "TUTOR/ACOMPAÑANTE/REPR.LEGAL",
+        alignment: "center",
+        style: "tableBold",
+      },
+      {
+        marginBottom: 2,
+        text: [
+          {
+            text: "FIRMA / HUELLA ",
+            alignment: "center",
+            style: "tableBold",
+          },
+          {
+            text: "(EN CASO DE NO FIRMAR)",
+            alignment: "center",
+            style: "tableNoBold",
+            fontSize: 7,
+          },
+        ],
+      },
+      {
+        alignment: "center",
+        image: "sampleImage.jpg",
+        width: 150,
+        height: 80,
+      },
+      {
+        marginTop: 2,
+        text: [
+          {
+            text: "NOMBRE: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "David Santiago Lozada Quintero Quintero",
+            style: "tableNoBold",
+          },
+        ],
+      },
+      {
+        text: [
+          {
+            text: "DOCUMENTO: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "2222222222",
+            style: "tableNoBold",
+          },
+        ],
+      },
+      {
+        text: [
+          {
+            text: "PARENTESCO: ",
+            style: "tableNoBold",
+            bold: true,
+          },
+          {
+            text: "HERMANO",
+            style: "tableNoBold",
+          },
+        ],
+      },
+    ],
+  };
+}
+
+function motivosNoFirma() {
+  return {
+    margin: [30, 10, 30, 0],
+    stack: [
+      {
+        text: [
+          {
+            text: "MOTIVOS POR LOS QUE EL USUARIO NO FIRMA: 222222222222222 2222222222222222 22222 222222222 22222222 222222222222222222222222222222222222222222222 ",
+            alignment: "justify",
+            style: "tableNoBold",
+            bold: true,
+          },
+        ],
       },
     ],
   };
