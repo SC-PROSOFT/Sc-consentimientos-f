@@ -1,4 +1,4 @@
-export const regAcomp = () => {
+export const regPaci = () => {
   return {
     cod: "",
     tipo_id: "",

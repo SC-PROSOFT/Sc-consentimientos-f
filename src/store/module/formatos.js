@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import days from "dayjs";
+import { regHc, regEmpresa, regPaci, regProf, regAcomp } from "@/fuentes";
 
 export const useModuleFormatos = defineStore("formatos", {
   state: () => ({
@@ -13,11 +14,16 @@ export const useModuleFormatos = defineStore("formatos", {
       reg_prof: Object,
       reg_hc: Object,
     },
-    reg_paci: sessionStorage.reg_paci && JSON.parse(sessionStorage.reg_paci),
-    reg_prof: sessionStorage.reg_prof && JSON.parse(sessionStorage.reg_prof),
-    reg_acomp: sessionStorage.reg_acomp && JSON.parse(sessionStorage.reg_acomp),
-    reg_hc: sessionStorage.reg_hc && JSON.parse(sessionStorage.reg_hc),
-    empresa: sessionStorage.empresa && JSON.parse(sessionStorage.empresa),
+    fecha_act: days().format("YYYY-MM-DD"),
+    reg_paci: sessionStorage.reg_paci ? Object.assign({}, JSON.parse(sessionStorage.reg_paci)) : regPaci(),
+    reg_prof: sessionStorage.reg_prof ? Object.assign({}, JSON.parse(sessionStorage.reg_prof)) : regProf(),
+    reg_acomp: sessionStorage.reg_acomp
+      ? Object.assign({}, JSON.parse(sessionStorage.reg_acomp))
+      : regAcomp(),
+    reg_hc: sessionStorage.reg_hc ? Object.assign({}, JSON.parse(sessionStorage.reg_hc)) : regHc(),
+    reg_empresa: sessionStorage.empresa
+      ? Object.assign({}, JSON.parse(sessionStorage.empresa))
+      : regEmpresa(),
   }),
   getters: {},
   actions: {},
