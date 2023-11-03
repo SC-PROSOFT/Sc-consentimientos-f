@@ -51,11 +51,10 @@
     <q-table
       title="Generar consentimiento"
       :rows-per-page-options="[10]"
-      @row-dblclick="selectConsen"
       :rows="lista_maestros"
       v-if="novedad == 1"
       :columns="columns"
-      row-key="COD_MAE"
+      row-key="cod_mae"
       bordered
       dense
       flat
@@ -171,7 +170,7 @@ const getParametros = async () => {
 };
 const getHistoriaClinica = async () => {
   try {
-    const response = await getDll$({
+    await getDll$({
       modulo: `get_hc.dll`,
       data: { llave_hc: route.query.llave_hc },
     });
@@ -217,13 +216,14 @@ const getMaestros = async () => {
         listar_todos: "0",
       },
     });
+    console.log(response);
     lista_maestros.value = response;
   } catch (error) {
     CON851("?", "info", error);
   }
 };
 const selectConsen = async (data) => {
-  const consen_select = lista_maestros.value.find((e) => (e.COD_MAE = data));
+  const consen_select = lista_maestros.value.find((e) => (e.cod_mae = data));
   setHeader$({ encabezado: consen_select });
   router.push({ name: data });
 };
