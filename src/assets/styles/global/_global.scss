@@ -9,8 +9,13 @@ body {
 }
 
 .input-p {
-  min-width: 300px;
+  min-width: 200px;
   display: inline-block;
+}
+
+.border-format {
+  border: 1px solid #ccc;
+  padding: 5px;
 }
 
 .input-container {
