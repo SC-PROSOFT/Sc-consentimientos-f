@@ -114,7 +114,7 @@
 import { ref, reactive, defineAsyncComponent } from "vue";
 import { useModuleFormatos } from "@/store";
 
-const ContainerFirma = defineAsyncComponent(() => import("../../components/global/containerFirma.vue"));
+const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 
 const { reg_paci, reg_acomp, reg_prof, datos } = useModuleFormatos();
 
