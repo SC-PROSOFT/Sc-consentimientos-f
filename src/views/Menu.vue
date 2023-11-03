@@ -53,7 +53,8 @@ onMounted(() => verificarSesion());
 const verificarSesion = async () => {
   try {
     sessionStorage.ip = empresas[getNit].ip_servicio;
-    
+    // sessionStorage.ip = '192.168.1.9';
+
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
@@ -95,7 +96,7 @@ async function getPaci() {
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       sessionStorage.setItem("reg_paci", JSON.stringify(data.reg_paci));
-      getAcomp();
+      datos_session.id_acompa && getAcomp();
     })
     .catch((err) => {
       CON851("?", "error", "Error consultando datos paciente");
@@ -104,13 +105,13 @@ async function getPaci() {
 
 async function getAcomp() {
   try {
-    const cod_paci = datos_session.cod_acomp || "";
-    if (!cod_paci.trim()) {
+    // const cod_paci = datos_session.id_acompa;
+    if (!datos_session.id_acompa.trim()) {
       sessionStorage.setItem("reg_acomp", JSON.stringify(reg_acomp));
     } else {
       const datos = await getDll$({
         modulo: `get_paci.dll`,
-        data: { cod_paci },
+        data: { cod_paci: datos_session.id_acompa },
       });
       sessionStorage.setItem(
         "reg_acomp",

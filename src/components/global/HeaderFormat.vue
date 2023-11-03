@@ -6,36 +6,58 @@
 
       <div class="col-md-10">
         <div class="row">
-          <div class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
-            {{ datos?.DESCRIP || "Falta nombre formato" }}
+          <div
+            class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold"
+          >
+            {{ datos?.descrip || "Falta nombre formato" }}
           </div>
-          <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
-            <strong>VERSION {{ datos?.VERSION }} </strong>
+          <div
+            class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold"
+          >
+            <strong>VERSION {{ datos?.version }} </strong>
           </div>
-          <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
+          <div
+            class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row"
+          >
             <strong class="col-12 text-center">CODIGO</strong>
-            <strong class="col-12 text-center"> {{ datos?.CODIGO }} </strong>
+            <strong class="col-12 text-center"> {{ datos?.codigo }} </strong>
           </div>
-          <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
+          <div
+            class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row"
+          >
             <strong class="col-12 text-center">APROBADO </strong>
-            <strong class="col-12 text-center"> {{ days(datos?.FECHA_APROB).format("YYYY-MM-DD") }} </strong>
+            <strong class="col-12 text-center">
+              {{ days(datos?.fecha_aprob).format("YYYY-MM-DD") }}
+            </strong>
           </div>
         </div>
         <div class="row">
-          <div class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
+          <div
+            class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold"
+          >
             <strong> {{ empresa?.NOMUSU || "Nombre Empresa" }} </strong>
           </div>
-          <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
+          <div
+            class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row"
+          >
             <strong class="col-12 text-center"> FECHA ACTUALIZACIÓN </strong>
-            <strong class="col-12 text-center"> {{ days(datos?.FECHA_ACT).format("YYYY-MM-DD") }} </strong>
+            <strong class="col-12 text-center">
+              {{ days(datos?.fecha_act).format("YYYY-MM-DD") }}
+            </strong>
           </div>
-          <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
+          <div
+            class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row"
+          >
             <strong class="col-12 text-center"> REVISADO POR</strong>
-            <strong class="col-12 text-center"> {{ datos?.REVISO }} </strong>
+            <strong class="col-12 text-center"> {{ datos?.reviso }} </strong>
           </div>
-          <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
-            <strong class="col-12 text-center"> APROBADO POR {{ datos?.aprobado_por }} </strong>
-            <strong class="col-12 text-center"> {{ datos?.APROBO }} </strong>
+          <div
+            class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row"
+          >
+            <strong class="col-12 text-center">
+              APROBADO POR {{ datos?.aprobado_por }}
+            </strong>
+            <strong class="col-12 text-center"> {{ datos?.aprobo }} </strong>
           </div>
         </div>
       </div>
@@ -54,8 +76,11 @@ const datos = ref({});
 const empresa = ref({});
 
 onMounted(() => {
-  if (Object.values(use_contab.encabezado).length) datos.value = use_contab.encabezado;
-  else datos.value = sessionStorage.encabezado && JSON.parse(sessionStorage.encabezado);
+  if (Object.values(use_contab.encabezado).length)
+    datos.value = use_contab.encabezado;
+  else
+    datos.value =
+      sessionStorage.encabezado && JSON.parse(sessionStorage.encabezado);
 
   empresa.value = sessionStorage.empresa && JSON.parse(sessionStorage.empresa);
 });

@@ -109,7 +109,7 @@ const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$, setHeader$ } = useApiContabilidad();
+const { getDll$, setHeader$, logOut$ } = useApiContabilidad();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys */
 const novedad = ref(null);
@@ -165,18 +165,23 @@ const getParametros = async () => {
     params_querys.value = route.query;
   }
   novedad.value = params_querys.value.novedad;
-  if (novedad.value == 2) getHistoriaClinica();
-  else getMaestros();
+  await getHistoriaClinica();
+  getMaestros();
 };
 const getHistoriaClinica = async () => {
   try {
-    await getDll$({
+    const response = await getDll$({
       modulo: `get_hc.dll`,
       data: { llave_hc: route.query.llave_hc },
     });
-    getConsentimientosRealizados();
+
+    if (response.reg_hc.cierre.estado == 2) {
+      return CON851("9Y", "info", "", logOut$);
+    }
+    sessionStorage.setItem("reg_hc", JSON.stringify(response.reg_hc));
+    if (novedad.value == 2) getConsentimientosRealizados();
   } catch (error) {
-    CON851("?", "info", error);
+    CON851("?", "info", error, logOut$);
   }
 };
 const getConsentimientosRealizados = async () => {

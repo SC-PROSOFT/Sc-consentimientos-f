@@ -48,7 +48,7 @@ export const apiAxiosDll = ({
         encode = encode.replace(/%0A/g, "");
         let decode = decodeURI(encode);
         decode = decode.replace(/[\u0000-\u0019]+/g, "");
-        const response = JSON.parse(decode);
+        const response = JSON.parse(decode.replace(/"\s+|\s+"/g, '"'));
         return response;
       })
       .then((response) => {
