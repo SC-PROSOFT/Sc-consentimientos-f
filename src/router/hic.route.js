@@ -118,7 +118,7 @@ export const createRouteHic = (title) => [
     },
   },
   {
-    //APLICACION DE LA VACUNA CONTRA EL VIRUS DEL PAPILOMA HUMANO - VPH
+    //CONSENTIMIENTO INFORMADO PARA ODONTOLOGIA
     path: "/ODO003",
     name: "ODO003",
     component: () => import("@/views/odo/ODO003.vue"),
