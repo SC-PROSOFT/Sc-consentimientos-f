@@ -1,9 +1,10 @@
 <template>
   <q-input
     :style="'min-width:' + props.width + 'px' + ';display:' + props.display"
+    :placeholder="placeholder"
     :readonly="props.readonly"
     :disable="props.disable"
-    :placeholder="placeholder"
+    :maxlength="maxlength"
     :type="props.tipo"
     v-model="value"
     dense
@@ -37,6 +38,10 @@ const props = defineProps({
     default: "inline-block",
   },
   placeholder: {
+    type: String,
+    default: "",
+  },
+  maxlength: {
     type: String,
     default: "",
   },
