@@ -274,11 +274,7 @@ Finalmente devolverá true. */
           // horizontal: ["money", "right"].includes(config_column.format) ? "right" : "left",
         };
 
-        if (
-          coord >= parseInt(limite_ini) &&
-          coord < parseInt(limite_fin) &&
-          cell._address != "A1"
-        ) {
+        if (coord >= parseInt(limite_ini) && coord < parseInt(limite_fin) && cell._address != "A1") {
           let actual = cell.value ? (cell.value.length || 10) + 5 : 10;
           width = actual > width ? actual : width;
         }
@@ -644,23 +640,14 @@ export const generarImpresion = async (params) => {
       reject("Falta definir tipo de impresión");
     } else if (params.tipo == "excel") {
       let config = new _ImpresionExcel(params);
-      config
-        .imprimir()
-        .then(resolve("Impresión excel exitosa"))
-        .catch(reject("La impresión ha fallado"));
+      config.imprimir().then(resolve("Impresión excel exitosa")).catch(reject("La impresión ha fallado"));
       index.commit("resetSpinner", null, { root: true });
     } else if (params.tipo == "pdf") {
       var config = new _impresion_pdf(params);
-      config
-        .imprimir()
-        .then(resolve("Impresión PDF exitosa"))
-        .catch(reject("La impresión ha fallado"));
+      config.imprimir().then(resolve("Impresión PDF exitosa")).catch(reject("La impresión ha fallado"));
     } else if (params.tipo == "list_pdf") {
       let config = new _impresion_list_pdf(params);
-      config
-        .imprimir()
-        .then(resolve("Impresión PDF exitosa"))
-        .catch(reject("La impresión ha fallado"));
+      config.imprimir().then(resolve("Impresión PDF exitosa")).catch(reject("La impresión ha fallado"));
     } else {
       alert("Tipo de impresión no disponible");
       reject("Tipo de impresión no disponible");
@@ -668,3 +655,16 @@ export const generarImpresion = async (params) => {
   });
   // .finally(index.commit("isLoading", null, { root: true }));
 };
+
+export function impresion({ docDefinition }) {
+  return new Promise(function (resolve, reject) {
+    try {
+      console.log("⚡  docDefinition-- >", docDefinition);
+      pdfMake.createPdf(docDefinition).open();
+      setTimeout(() => resolve(), 300);
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+}

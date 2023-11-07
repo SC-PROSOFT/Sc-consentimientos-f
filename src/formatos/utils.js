@@ -196,7 +196,7 @@ export const utilsFormat = ({ datos, content }) => {
   };
 };
 
-export function firmas(condicion) {
+export function firmas(datos, condicion) {
   return [
     {
       style: "center8",
