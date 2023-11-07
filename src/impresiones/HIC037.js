@@ -185,18 +185,21 @@ function contenidoRX() {
       {
         marginTop: 15,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "Es deber de todo de todo profesional advertir oportunamente los riesgos que pueden derivarse del tratamiento que será practicado y a los que se expone teniendo en cuenta la solicitud de su médico tratante, solicitando el consentimiento informado ley 23 del 1981 (art 15 y 16).",
         bold: true,
       },
       {
         marginTop: 15,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "INFORMACION\n a continuación, se explica el proceso del examen el cual le van a practicar teniendo en cuenta la solicitud del médico tratante, es una exploración radiológica, en forma de RX, con el fin de proporcionar información diagnostica y tratar su enfermedad.",
         bold: true,
       },
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: `Yo {Victoria Cobo Velazques} identificada con cédula de ciudadanía No. {1190338227} de {VILLAVICENCIO} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna, doy el consentimiento E.S.E salud Yopal -Hospital Central de Yopal, realice toma de RX. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener uso del chaleco plomado, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas y recibí información del tecnólogo de radiología de nombre: {Cristian David Hernandez Suarez} CC {115689223}.`,
       },
       {
@@ -216,6 +219,7 @@ function revocar(revoca) {
       marginTop: 8,
       marginLeft: 20,
       style: "bodyNoBold",
+      alignment: "justify",
       text: [
         {
           text: "Expreso mi voluntad de ",

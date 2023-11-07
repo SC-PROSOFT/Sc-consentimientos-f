@@ -329,21 +329,25 @@ function contenidoIVE() {
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "Las Gestantes hacen parte de una población de alto riesgo por su condición de embarazo, por lo tanto, tendrán prioridad en su proceso de atención y apoyo en los diferentes niveles de complejidad y se activarán los protocolos de acuerdo a su condición de salud.",
       },
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "Que la Institución para realizar la Interrupción Voluntaria del embarazo (IVE) que he solicitado según la legislación vigente, solo ofrece un (1) método y es el farmacológico (mediante tabletas) Mifepristona 200 microgramos via oral , dosis única y misoprostol vía vaginal o sublingual de 400 mcg cada 3 horas hasta 4 dosis iniciando a las 24-48 horas.",
       },
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "Que los efectos secundarios más frecuentes son Nausea, vomito, Fiebre, escalofrío y diarrea. Se me ha informado sobre las consecuencias psicológicas y sociales, que si bien estadísticamente son poco frecuentes se puede presentar depresiones post aborto, alteraciones del deseo sexual post aborto, baja autoestima y que para algunos sectores de la sociedad el Aborto está mal considerado.",
       },
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "Que las complicaciones que se pueden presentar son las relacionadas a continuación y se tendrán como criterios de remisión a la mediana complejidad (marque con una X, el criterio de remisión) con el fin de evitar complicaciones que deriven una muerte materna.",
       },
       {
@@ -435,17 +439,20 @@ function contenidoIVE() {
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: `De acuerdo con lo anterior, Yo {David Pepito Perez Perecito}  con C.C. N° {1111111111} de {VILLAVICENCIO} en calidad de paciente o acudiente (persona responsable del paciente), por medio del presente documento, en forma libre en pleno uso de mis facultades mentales e intelectuales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información en un lenguaje claro, senillo y adecuado acerca de los riesgos y demás circunstancias que se originen del procedimiento, por parte del profesional en Medicina (Nombres y Apellidos completos) Dr. {Manotas Perez Perecito} identificado con Cédula de ciudadanía y/o Registro médico N° {12121212121} Autorizo ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.`,
       },
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.",
         bold: true,
       },
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: "Certifico que he explicado la naturaleza, propósito, ventajas, riesgos y complicaciones del procedimiento y he contestado todas las preguntas. Considero que el (la) paciente comprende todo lo explicado.",
       },
       {
@@ -461,6 +468,7 @@ function nota() {
       {
         marginTop: 8,
         style: "bodyNoBold",
+        alignment: "justify",
         text: [
           {
             text: "NOTA:",
