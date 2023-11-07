@@ -98,13 +98,33 @@ export const createRouteHic = (title) => [
     },
   },
   {
-    //ATENCIÓN DE PARTO
+    //INGRESO URGENCIAS
     path: "/HIC041",
     name: "HIC041",
     component: () => import("@/views/hic/HIC041.vue"),
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC041`,
+    },
+  },
+  {
+    //APLICACION DE LA VACUNA CONTRA EL VIRUS DEL PAPILOMA HUMANO - VPH
+    path: "/HIC042",
+    name: "HIC042",
+    component: () => import("@/views/hic/HIC042.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC042`,
+    },
+  },
+  {
+    //APLICACION DE LA VACUNA CONTRA EL VIRUS DEL PAPILOMA HUMANO - VPH
+    path: "/ODO003",
+    name: "ODO003",
+    component: () => import("@/views/odo/ODO003.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC042`,
     },
   },
 ];

@@ -3,53 +3,50 @@
     <q-card-section>
       <div class="row">
         <p>Historia clínica numero:</p>
-        <q-input readonly type="text" dense v-model="reg.hc" class="col-1" />
+        <q-input readonly type="text" dense v-model="reg.hc" class="col-2" />
       </div>
-      <div class="row">
+      <div class="q-mt-xs row">
         <p>Ciudad:</p>
-        <q-input type="text" disable v-model="reg.ciudad" dense class="col-2" />
+        <q-input type="text" readonly v-model="reg.ciudad" dense class="col-2" />
         <p>Fecha:</p>
-        <q-input v-model="reg.fecha" disable dense type="date" class="col-1.5" />
+        <q-input v-model="reg.fecha" readonly dense type="date" class="col-1.5" />
       </div>
     </q-card-section>
     <q-card-section>
       <div class="row">
-        <p>Yo</p>
-        <q-input v-model="reg.paciente" disable type="text" dense class="col-3" style="width: 300px" />
-        <p>identificado(a) con cédula numero.</p>
-        <q-input v-model="reg.cedula" disable type="text" dense class="col-2" style="width: 150px" />
+        <p>Yo,</p>
+        <q-input v-model="reg.paciente" class="col-3" type="text" readonly outline dense />
+        <p>, identificado (a) con cedula numero</p>
+        <q-input type="text" dense class="col-2" v-model="reg.cedula" readonly />
         <p>expedida en</p>
-        <q-input v-model="reg.expedicion" disable type="text" dense class="col-2" />
+        <q-input type="text" dense class="col-2" v-model="reg.expedicion" readonly />
         <p>actuando en nombre propio o como acudiente de</p>
-        <q-input v-model="reg.nombre_acompnte" disable type="text" dense class="col-3" />
-        <!-- <p style="margin-top: -5px"> -->
+        <q-input type="text" dense class="col-3" v-model="reg.nombre_acompnte" readonly />
       </div>
-      <div class="row">
-        <p>
+      <div class="q-mt-lg row">
+        <p class="text-justify">
           Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
           que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no son
           una ciencia exacta, que se garantizan resultados en la atención, y que aunque son procedimientos
           seguros pueden presentarse complicaciones como:
         </p>
-        <textarea class="col-12" v-model="complicaciones" style="resize: none; height: 100px"></textarea>
+        <textarea class="col-12" v-model="procedimiento" style="resize: none; height: 100px"></textarea>
       </div>
-      <div class="row">
-        <p>
+      <div class="q-mt-lg row">
+        <p class="text-justify">
           Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
           tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero
           de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda
           mis derechos para una atención posterior.
         </p>
-        <p>
+        <p class="text-justify">
           Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado
           para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y
           salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí,
           los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos;
           se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.
         </p>
-      </div>
-      <div class="row">
-        <p>
+        <p class="text-justify">
           Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
           manipulación:
         </p>
@@ -57,7 +54,7 @@
       <div class="q-ml-xl row">
         <p>
           <q-checkbox style="margin-top: -5px; margin-left: 20px" disable v-model="aceptar" />
-          <ins>Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la realización de los
+          <ins style="font-weight: bold;">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la realización de los
           procedimientos de salud:
         </p>
       </div>
@@ -66,7 +63,7 @@
         <p>, cuyo objetivo es:</p>
         <q-input v-model="objetivo" type="text" dense class="col-8" />
         <p>, ante el diagnostico</p>
-        <q-input v-model="diagnostico" type="text" dense class="col-4" />
+        <q-input v-model="cod_diagn" type="text" dense class="col-4" />
       </div>
     </q-card-section>
     <q-card-section v-if="disentir">
@@ -81,13 +78,13 @@
         <p>no consiento someterme al procedimiento de:</p>
       </div>
       <div class="row" style="margin-left: 110px; margin-top: -20px">
-        <q-input v-model="revocar_procedim" type="text" dense class="col-8" />
+        <q-input v-model="revoca_proced" type="text" dense class="col-8" />
         <p>, por los siguientes motivos:</p>
       </div>
       <div class="row" style="margin-left: 110px">
         <textarea
           class="q-mt-md col-12"
-          v-model="revocar_motivos"
+          v-model="revoca_motivos"
           style="resize: none; height: 100px; width: 770px"
         ></textarea>
       </div>
@@ -116,10 +113,11 @@ import { ref, reactive, defineAsyncComponent } from "vue";
 
 const ContFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 
-const complicaciones = ref("");
 const procedimiento = ref("");
 const objetivo = ref("");
-const diagnostico = ref("");
+const cod_diagn = ref("");
+const revoca_proced = ref("");
+const revoca_motivos = ref("");
 const disentir = ref(false);
 const aceptar = ref(false);
 
@@ -147,11 +145,3 @@ function callBackFirma(dataF) {
   firma_recibida.value = dataF;
 }
 </script>
-
-<style>
-p {
-  margin-top: 10px;
-  margin-left: 5px;
-  margin-right: 8px;
-}
-</style>
