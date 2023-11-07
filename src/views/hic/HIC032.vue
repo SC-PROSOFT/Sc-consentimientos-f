@@ -20,7 +20,7 @@
         <p>expedida en</p>
         <q-input readonly type="text" dense class="col-2" v-model="reg_firmador.descrip_ciudad" />
         <p>actuando en nombre propio o como acudiente de</p>
-        <q-input readonly type="text" dense class="col-1" v-model="acudiente" />
+        <q-input readonly type="text" dense class="col-2" v-model="acudiente" />
         <p>.</p>
         <p>
           Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
@@ -30,11 +30,11 @@
         </p>
         <q-input
           placeholder="Ingrese complicaciones"
-          maxlength="200"
+          v-model="HIC032.complicaciones"
+          maxlength="380"
           type="textarea"
           class="col-12"
           autogrow
-          v-model="HIC032.complicaciones"
           dense
         />
       </div>
@@ -60,52 +60,56 @@
       <div class="row">
         <p>
           <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
-          realización de los procedimientos de salud: <q-input type="text" dense class="input-p" v-model="HIC032.procedimiento"  />, cuyo
-          objetivo es: <q-input type="text" dense class="input-p" /> ante el diagnostico
-          <q-input type="text" dense class="input-p" v-model="HIC032.objetivo"/>
+          realización de los procedimientos de salud:
+          <q-input type="text" dense class="input-p" v-model="HIC032.procedimiento" />, cuyo objetivo es:
+          <q-input type="text" dense class="input-p" v-model="HIC032.objetivo" maxlength="285" /> ante el
+          diagnostico
+          <q-input type="text" dense class="input-p" v-model="HIC032.diagnostico" maxlength="4" />
         </p>
       </div>
-      <div class="row">
+      <div class="row" v-if="HIC032.revocar">
         <p>
           Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro
           por tanto que, tras la información recibida, no consiento someterme al procedimiento de:
-          <q-input type="text" dense class="input-p" v-model="HIC032.revocar_procedim" /> por los siguientes motivos:
-          <q-input type="text" dense class="col-8 input-p"  v-model="HIC032.revocar_motivos" />
+          <q-input
+            type="text"
+            dense
+            class="input-p"
+            v-model="HIC032.revocar_procedim"
+            maxlength="285"
+            ref="revocar"
+          />
+          por los siguientes motivos:
+          <q-input type="text" dense class="col-8 input-p" v-model="HIC032.revocar_motivos" maxlength="285" />
         </p>
       </div>
     </q-card-section>
     <q-separator />
     <q-card-actions align="around" class="row">
       <ContainerFirma
+        :disable="getAcomp?.cod ? true : false"
+        quien_firma="FIRMA PACIENTE"
+        :firmador="getPaci.descrip"
         @reciFirma="callBackFirma"
-        firmador="Joan Sebastian Quintero Nieto"
-        quien_firma="FIRMA TUTOR O FAMILIAR"
-        class="col-3"
+        class="col-4"
       />
       <ContainerFirma
+        :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
+        :disable="getAcomp?.cod ? false : true"
+        quien_firma="FIRMA TUTOR O FAMILIAR"
         @reciFirma="callBackFirma"
-        firmador="Fernanda Quintero"
-        quien_firma="FIRMA PACIENTE"
-        class="col-3"
+        class="col-4"
       />
     </q-card-actions>
     <div class="row justify-center q-my-lg">
       <q-btn
         class="q-mx-md"
-        :disable="firma_recibida"
-        color="green"
+        color="green-10"
         icon-right="check_circle"
-        label="Aceptar"
+        label="Autorizo"
         @click="btnAceptar"
       />
-      <q-btn
-        class="q-mx-md"
-        :disable="firma_recibida"
-        color="amber"
-        icon-right="block"
-        label="Disentir"
-        @click="btnDisentir"
-      />
+      <q-btn @click="btnRevocar" icon-right="block" label="Revocar" class="q-mx-md" color="red-10" />
     </div>
   </q-card>
 </template>
@@ -114,12 +118,11 @@
 import { ref, reactive, defineAsyncComponent } from "vue";
 import { useModuleFormatos } from "@/store";
 
-const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
+const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
 
-const { reg_paci, reg_acomp, reg_prof, datos } = useModuleFormatos();
-
-const reg_firmador = ref(reg_acomp.cod ? reg_acomp : reg_paci);
-const acudiente = ref(reg_acomp.cod ? reg_acomp.descrip : "");
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, datos } = useModuleFormatos();
+const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
+const acudiente = ref(getAcomp.cod ? getAcomp.descrip : "");
 const hc = ref("123456789");
 
 const firma_recibida = ref("");
@@ -136,16 +139,14 @@ const HIC032 = reactive({
   revocar_motivos: "",
 });
 
-const disentir = ref(false);
-const aceptar = ref(false);
+const revocar = ref(null);
 
-function btnDisenti() {
-  disentir.value = !disentir.value;
+function btnRevocar() {
+  HIC032.revocar = true;
+  setTimeout(() => revocar.value.focus(), 100);
 }
 
-function btnAceptar() {
-  aceptar.value = !aceptar.value;
-}
+function btnAceptar() {}
 
 function callBackFirma(dataF) {
   firma_recibida.value = dataF;
