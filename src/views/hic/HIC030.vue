@@ -1,66 +1,52 @@
 <template>
   <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
     <q-card-section>
-      <q-form ref="form_hic" @submit="onSubmit">
+      <q-form @submit="validarDatos">
+        <div class="text-center">
+          <q-toggle
+            v-model="opcion_hc030"
+            color="primary"
+            keep-color
+            false-value="REVOCAR"
+            true-value="AUTORIZAR"
+            unchecked-icon="block"
+            checked-icon="check_circle"
+            label="¿Autorizar o revocar este consentimiento?"
+          />
+          <p :class="opcion_hc030 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip
+              :color="opcion_hc030 == 'AUTORIZAR' ? 'green' : 'red'"
+              class="text-white"
+              v-if="opcion_hc030"
+            >
+              {{ opcion_hc030 }}
+            </q-chip>
+          </p>
+        </div>
         <div class="row">
           <p>Historia clínica numero:</p>
           <q-input disable type="text" dense class="col-1" v-model="llave" />
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input
-            v-model="getEmpresa.CIUDAD_USUAR"
-            class="col-3"
-            type="text"
-            readonly
-            disable
-            dense
-          />
+          <q-input v-model="getEmpresa.CIUDAD_USUAR" class="col-3" type="text" readonly disable dense />
           <p>Fecha:</p>
-          <q-input
-            v-model="fecha_act"
-            class="col-1"
-            type="text"
-            readonly
-            disable
-            dense
-          />
+          <q-input v-model="fecha_act" class="col-1" type="text" readonly disable dense />
         </div>
         <div class="row">
           <p>Yo,</p>
-          <q-input
-            v-model="getPaci.descrip"
-            class="col-4"
-            type="text"
-            readonly
-            outline
-            dense
-          />
+          <q-input v-model="getPaci.descrip" class="col-4" type="text" readonly outline dense />
           <p>, identificado (a) con cedula numero</p>
-          <q-input
-            type="text"
-            dense
-            class="col-2"
-            v-model="getPaci.cod"
-            readonly
-          />
+          <q-input type="text" dense class="col-2" v-model="getPaci.cod" readonly />
           <p>expedida en</p>
-          <q-input
-            type="text"
-            dense
-            class="col-2"
-            v-model="getPaci.descrip_ciudad"
-            readonly
-          />
+          <q-input type="text" dense class="col-2" v-model="getPaci.descrip_ciudad" readonly />
           <p>actuando en nombre propio.</p>
 
           <p>
-            Comprendo que durante el procedimiento pueden aparecer
-            circunstancias imprevisibles o inesperadas, que pueden requerir una
-            extensión de otro procedimiento; acepto que las ciencias de la salud
-            no son una ciencia exacta, que se garantizan resultados en la
-            atención, y que, aunque son procedimientos seguros pueden
-            presentarse complicaciones como:
+            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
+            que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
+            son una ciencia exacta, que se garantizan resultados en la atención, y que, aunque son
+            procedimientos seguros pueden presentarse complicaciones como:
           </p>
           <ul>
             <li>SANGRADO</li>
@@ -78,60 +64,68 @@
             dense
           />
           <p class="q-pt-md">
-            Me han explicado también que de negarme a realizarme los exámenes
-            diagnósticos, procedimientos y/o tratamientos ordenados, estoy
-            asumiendo la responsabilidad por sus consecuencias, con lo que
-            exonero de ellas el quipo asistencial tratante y la institución, sin
-            embargo ello no significa que pierda mis derechos para una atención
-            posterior. Se me ha informado que en la ESE salud Yopal, cuenta con
-            personal idóneo, competente y capacitado para la determinación de
-            conductas terapéuticas que contribuyan a mejorar mi calidad de vida
-            y salud. Doy constancia de que se me ha explicado en lenguaje
-            sencillo claro, y entendible para mí, los aspectos relacionados con
-            mi condición actual, los riesgos y beneficios de los procedimientos;
-            se me ha permitido hacer todas las preguntas necesarias, y han sido
-            resueltas satisfactoriamente.
+            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
+            tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que
+            exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que
+            pierda mis derechos para una atención posterior. Se me ha informado que en la ESE salud Yopal,
+            cuenta con personal idóneo, competente y capacitado para la determinación de conductas
+            terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha
+            explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi
+            condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas
+            las preguntas necesarias, y han sido resueltas satisfactoriamente.
           </p>
           <p>
-            Por lo tanto, en forma consciente y voluntaria, sin haber sido
-            objeto de coacción, persuasión, ni manipulación:
+            Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
+            manipulación:
           </p>
-          <div class="row" v-show="HIC030.autorizo">
+          <div class="row" v-show="opcion_hc030 == 'AUTORIZAR'">
             <p>
-              <ins class="text-bold">Autorizo</ins> al personal asistencial de
-              la ESE Salud Yopal, para la realización de los procedimientos de
-              salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
+              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
+              realización de los procedimientos de salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
             </p>
             <p>DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico</p>
+            <Input_
+              class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+              @validate="datoCodigoEnfermedad"
+              v-model="HIC030.diagnostico"
+              :field="form.codigo"
+            />
             <q-input
               dense
-              ref="diag"
+              disable
+              outlined
               type="text"
               class="col-2"
-              :rules="[requerido]"
-              v-model="HIC030.diagnostico"
+              maxlength="4"
+              v-model="descrip_diagnostico"
             />
           </div>
-          <div class="row" v-show="HIC030.revocar">
+          <div class="row" v-show="opcion_hc030 == 'REVOCAR'">
             <p>
               Expreso mi voluntad de
-              <ins class="text-bold">revocar</ins> revocar el consentimiento
-              presentado y declaro por tanto que, tras la información recibida,
-              no consiento someterme al procedimiento de:
+              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto
+              que, tras la información recibida, no consiento someterme al procedimiento de:
             </p>
-            <q-input
-              type="text"
-              dense
-              class="col-2"
-              label="falta procedimiento"
-            />
+            <q-input type="text" dense class="col-2" label="falta procedimiento" />
             <p>por los siguientes motivos:</p>
             <q-input
+              v-model="HIC030.revocar_motivos"
+              ref="revocar_motivos"
+              label="Ingrese motivos"
+              :rules="[requerido]"
+              class="col-7"
               type="text"
               dense
-              class="col-7"
-              v-model="HIC030.revocar_motivos"
-              label="Ingrese motivos"
+            />
+          </div>
+          <div class="">
+            <q-toggle
+              color="primary"
+              keep-color
+              unchecked-icon="block"
+              v-model="fecha_citologia"
+              checked-icon="check_circle"
+              label="¿Desea capturar fecha de ultima citologia?"
             />
           </div>
 
@@ -139,12 +133,12 @@
             <tr>
               <th style="border: 1px solid #ccc">
                 <div class="row justify-left">
-                  <span class="custum col-6"
-                    >FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL:</span
-                  >
+                  <span class="q-my-auto col-8">FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL:</span>
                   <q-input
+                    class="py-0 my-0 q-my-auto col-3"
                     v-model="HIC030.fecha_ult_cito"
-                    class="py-0 my-0 col-2"
+                    :disable="!fecha_citologia ? true : false"
+                    :rules="[requerido]"
                     type="date"
                     dense
                   />
@@ -152,10 +146,8 @@
               </th>
               <th style="border: 1px solid #ccc">
                 <div class="row justify-left">
-                  <span class="custum col-6"
-                    >ANTECEDENTES GINECOLOGICOS: G: P: C: V: A:</span
-                  >
-                  <q-input class="q-py-none q-my-none col-2" dense />
+                  <span class="custum col-6">ANTECEDENTES GINECOLOGICOS</span>
+                  <Select_ :field="form_antecedentes" v-model="HIC030.antec_gineco" :items="antecedenter" />
                 </div>
               </th>
             </tr>
@@ -166,10 +158,10 @@
                     >TELEFONO 1:
                     <q-input
                       dense
-                      type="number"
-                      maxlength="10"
+                      unmasked-value
+                      mask="(###) ### - ####"
                       v-model="HIC030.telefono1"
-                      class="q-py-none q-my-non"
+                      class="q-py-none q-my-telefono2"
                       style="min-width: 300px; display: inline-block"
                     />
                   </strong>
@@ -179,8 +171,8 @@
                     >TELEFONO 2:
                     <q-input
                       dense
-                      type="number"
-                      maxlength="10"
+                      unmasked-value
+                      mask="(###) ### - ####"
                       v-model="HIC030.telefono2"
                       class="q-py-none q-my-non"
                       style="min-width: 300px; display: inline-block"
@@ -197,23 +189,6 @@
     <q-separator />
 
     <q-card-actions>
-      <div class="col-12 row justify-center q-mb-md">
-        <q-btn
-          class="q-mr-lg"
-          color="green"
-          icon-right="check_circle"
-          label="Autorizo"
-          type="submit"
-          @click="grabarConsentimiento"
-        />
-        <!-- @click="() => !HIC030.revocar && btnAutorizo()" -->
-        <q-btn
-          color="amber"
-          icon-right="block"
-          label="Revocar"
-          @click="() => !HIC030.autorizo && btnRevocar()"
-        />
-      </div>
       <div class="col-12 row justify-around">
         <ContainerFirma
           quien_firma="FIRMA PACIENTE"
@@ -223,7 +198,7 @@
         />
         <ContainerFirma
           :firmador="getAcomp.cod || 'NO HAY ACOMPAÑANTE'"
-          :disable="getAcomp.cod ? true : false"
+          :disable="!getAcomp.cod ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           @reciFirma="callBackFirma"
           class="col-4"
@@ -238,42 +213,79 @@
           class="col-4"
         />
       </div>
+      <div class="col-12 row justify-center q-my-md">
+        <q-btn
+          :disable="opcion_hc030 ? false : true"
+          @click="validarDatos"
+          icon-right="check_circle"
+          class="q-mr-lg"
+          color="green"
+          label="GRABAR"
+          type="submit"
+        />
+      </div>
     </q-card-actions>
+    <CONSEN800 v-if="show_consen800" @esc="callbackCONSEN800" @enter="callbackCONSEN800" />
   </q-card>
 </template>
 <script setup>
-import {
-  useModuleFormatos,
-  useApiContabilidad,
-  useModuleCon851,
-  useModuleCon851p,
-} from "@/store";
-import { ref, defineAsyncComponent, onMounted } from "vue";
+import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
+import { ref, defineAsyncComponent, onMounted, watch } from "vue";
+import { impresionHC030 } from "@/impresiones";
+import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
-const ContainerFirma = defineAsyncComponent(() =>
-  import("@/components/global/containerFirma.vue")
-);
+const router = useRouter();
+const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
+const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } =
-  useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
 const firma_recibida = ref("");
-const form_hic = ref(null);
-const diag = ref(null);
+const descrip_diagnostico = ref(null);
 
+const show_consen800 = ref(null);
+
+const opcion_hc030 = ref(null);
+const fecha_citologia = ref(null);
 const llave = ref(null);
 const fecha_act = ref(null);
 const firma_prof = ref(null);
 
+const form = ref({
+  codigo: {
+    id: "codigo",
+    label: "",
+    maxlength: "4",
+    f0: ["f8"],
+    required: true,
+    campo_abierto: true,
+  },
+});
+const form_antecedentes = ref({
+  id: "form_antecedentes",
+  label: "",
+  placeholder: "",
+  required: true,
+  campo_abierto: true,
+});
+
+const antecedenter = [
+  { value: "G", label: "G" },
+  { value: "P", label: "P" },
+  { value: "C", label: "C" },
+  { value: "V", label: "V" },
+  { value: "A", label: "A" },
+];
+
+const revocar_motivos = ref(null);
+
 const HIC030 = ref({
   telefono1: "",
   telefono2: "",
-  revocar: false,
-  autorizo: false,
   diagnostico: "",
   antec_gineco: "",
   fecha_ult_cito: "",
@@ -281,28 +293,22 @@ const HIC030 = ref({
   revocar_motivos: "",
 });
 
-const llaveFirmaConsen = () => {
-  return `${getHc.llave}${dayjs().format("YYYYMMDDhhmm")}${getSesion.oper}`;
-};
+watch(opcion_hc030, (val) => {
+  if (val == "AUTORIZAR") {
+    HIC030.value.revocar_motivos = "";
+  } else {
+    HIC030.value.diagnostico = "";
+  }
+});
 onMounted(() => {
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
-
+  if (getHc.rips.diagn.length) {
+    HIC030.value.diagnostico = getHc.rips.diagn[0].cod;
+    descrip_diagnostico.value = getHc.rips.diagn[0].descrip;
+  }
   getFirmaProf();
 });
-
-const grabarFirmaConsen = async (llave) => {
-  try {
-    await guardarFile$({
-      base64: firma_recibida.value,
-      codigo: llave,
-    });
-    return CON851P("?", "info", "¿Deseas imprimir el consentimiento?");
-  } catch (error) {
-    console.error(error);
-    CON851("?", "info", error);
-  }
-};
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
@@ -311,35 +317,59 @@ const getFirmaProf = async () => {
     CON851("?", "info", error);
   }
 };
+
+const datoCodigoEnfermedad = async (event) => {
+  switch (event) {
+    case "f8":
+      show_consen800.value = true;
+      break;
+    case "enter":
+      consultarEnfermedad();
+      break;
+  }
+};
+const consultarEnfermedad = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_enf.dll`,
+      data: { llave: "2" + HIC030.value.diagnostico },
+    });
+    if (response.llave) {
+      descrip_diagnostico.value = response.nombre;
+      return;
+    }
+    return CON851("?", "info", "No existe diagnostico");
+  } catch (error) {
+    CON851("?", "info", error);
+  }
+};
+
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma.slice(22));
 };
 
-const btnRevocar = () => {
-  HIC030.value.revocar = !HIC030.value.revocar;
+const validarDatos = async () => {
+  await consultarEnfermedad();
+  if ((opcion_hc030.value = "REVOCAR")) {
+    if (revocar_motivos.value.validate()) grabarConsentimiento();
+  }
+  if ((opcion_hc030.value = "AUTORIZAR")) {
+    if (!HIC030.value.diagnostico) return CON851("?", "info", "No hay ningun codigo del diagnostico");
+    grabarConsentimiento();
+  }
 };
-
-const btnAutorizo = () => {
-  !HIC030.value.autorizo && setTimeout(() => diag.value.focus(), 100);
-  HIC030.value.autorizo = !HIC030.value.autorizo;
-};
-
-const onSubmit = () => {
-  console.log("--> onSubmit");
-  grabarConsentimiento();
-};
-
 const grabarConsentimiento = async () => {
+  const datos_format = JSON.parse(JSON.stringify(HIC030.value));
+  datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format("YYYYMMDD");
   let datos = {
     llave_consen: getHc.llave,
     oper_consen: getSesion.oper,
     cod_consen: "HIC030",
-    ...HIC030.value,
+    ...datos_format,
   };
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma");
   }
-
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
@@ -351,6 +381,38 @@ const grabarConsentimiento = async () => {
       console.error(error);
       CON851("?", "error", "Error al guardar el consentimiento");
     });
+};
+const grabarFirmaConsen = async (llave) => {
+  const data_impresion = {
+    llav: llave.value,
+    ...HIC030.value,
+  };
+  try {
+    await guardarFile$({
+      base64: firma_recibida.value,
+      codigo: llave,
+    });
+    return CON851P(
+      "?",
+      "info",
+      "¿Deseas imprimir el consentimiento?",
+      () => router.back(),
+      () => {
+        impresionHC030(data_impresion);
+        setTimeout(() => router.back(), 500);
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+const callbackCONSEN800 = (data) => {
+  if (data) {
+    HIC030.value.diagnostico = data.cod;
+    descrip_diagnostico.value = data.descrip;
+  }
+  show_consen800.value = false;
 };
 
 const requerido = (val) => {

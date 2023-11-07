@@ -1,6 +1,6 @@
 <template>
   <div class="q-px-sm text-left" :class="field.capitalize ? 'text-capitalize' : ''">
-    <label>{{ field?.label || "Label no especificado" }}</label>
+    <label>{{ field?.label || "" }}</label>
     <div class="q-gutter-md">
       <q-select
         dense

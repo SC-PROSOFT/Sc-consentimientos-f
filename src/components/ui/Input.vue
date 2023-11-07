@@ -7,7 +7,7 @@
     ]"
   >
     <label :class="`${width_label ? `${width_label}   with-background` : ''} `">{{
-      field?.label || "Label no especificado"
+      field?.label || ""
     }}</label>
     <div :class="`${width_input} q-gutter-md`">
       <q-input

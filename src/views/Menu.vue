@@ -52,8 +52,8 @@ onMounted(() => verificarSesion());
 
 const verificarSesion = async () => {
   try {
-    // sessionStorage.ip = empresas[getNit].ip_servicio;
-    sessionStorage.ip = "192.168.0.193";
+    sessionStorage.ip = empresas[getNit].ip_servicio;
+    // sessionStorage.ip = "192.168.0.193";
 
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
