@@ -14,33 +14,39 @@
       @guardar="config_maestro.estado = false"
     />
     <div class="q-ma-lg">
+      <div class="row my-card justify-center q-mx-auto">
+        <q-card class="col-3 justify-center q-mx-auto">
+          <div class="subtitle2 q-px-sm q-py-xs">{{ `Código: ${getPaci.cod}` }}</div>
+        </q-card>
+        <q-card class="col-3 justify-center q-mx-auto">
+          <div class="subtitle2 q-px-sm q-py-xs">{{ `Nombre: ${getPaci.descrip} ` }}</div>
+        </q-card>
+        <q-card class="col-3 justify-center q-mx-auto">
+          <div class="subtitle2 q-px-sm q-py-xs">{{ `Folio: ${getHc.llave?.slice(15)} ` }}</div>
+        </q-card>
+      </div>
+    </div>
+    <div class="q-ma-lg">
       <ListaConsentimientos_ class="justify-center q-mx-auto" />
     </div>
   </div>
 </template>
 <script setup>
-import { useApiContabilidad, useModuleCon851 } from "@/store";
+import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
 import { empresas, regAcomp } from "@/fuentes";
-import { useGlobal } from "@/setup/global";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() =>
-  import("@/components/consen/ConfigMaestros.vue")
-);
-const ConfigUsunet_ = defineAsyncComponent(() =>
-  import("@/components/consen/ConfigUsunet.vue")
-);
-const ToolBar_ = defineAsyncComponent(() =>
-  import("@/components/global/ToolBar.vue")
-);
+const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
+const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
+const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
 
+const { getPaci, getHc } = useModuleFormatos();
 const { getDll$, getNit, _getLogo$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
-const { datos_url } = useGlobal();
 
 const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
@@ -85,11 +91,11 @@ const validarUrl = () => {
   } else {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
-  getPaci();
+  getPaciente();
   // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
 };
 
-async function getPaci() {
+async function getPaciente() {
   const cod_paci = datos_session.llave_hc.slice(0, 15) || "";
 
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
@@ -169,4 +175,10 @@ const abrirConfiguracion = async () => {
   }
 };
 </script>
-<style></style>
+
+<style lang="sass" scoped>
+.my-card
+  width: 100%
+  max-width: 1200px
+  border-radius: 0.5rem
+</style>

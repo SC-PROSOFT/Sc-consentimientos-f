@@ -71,13 +71,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn
-              @click="selectConsen(props.key)"
-              icon="note_add"
-              class="botone"
-              color="primary"
-              size="sm"
-            >
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -99,7 +93,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useApiContabilidad, useModuleCon851 } from "@/store";
+import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
+import { impresionHC030, impresion } from "@/impresiones";
+import { utilsFormat } from "@/formatos/utils";
 import days from "dayjs";
 
 const props = defineProps({
@@ -109,11 +105,15 @@ const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$, setHeader$, logOut$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getImagen$, setHeader$, logOut$ } = useApiContabilidad();
+const { getEmpresa } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys */
 const novedad = ref(null);
 const params_querys = ref(null);
+
+const firma_prof = ref(null);
+const firma_consen = ref(null);
 
 const lista_consen = ref([]);
 
@@ -137,10 +137,7 @@ const columns_consen = [
     label: "Hora",
     align: "left",
 
-    format: (val, row) =>
-      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format(
-        "HH:mm"
-      )}`,
+    format: (val, row) => `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -214,8 +211,53 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
-  console.log("data", row);
+  await getFirmaProf(row.reg_prof.cod);
+
+  await consultarFirmaConsen(
+    `${row.reg_coninf.llave.id}${row.reg_coninf.llave.folio}${row.reg_coninf.llave.fecha}${row.reg_coninf.llave.hora}${row.reg_coninf.llave.oper_elab}`
+  );
+  try {
+    const docDefinition = utilsFormat({
+      datos: {
+        img_firma_consen: firma_consen.value,
+        firma_prof: firma_prof.value,
+      },
+      content: impresionHC030({
+        datos: {
+          llave: row.reg_coninf.llave.folio,
+          ciuda: getEmpresa.CIUDAD_USUAR,
+          fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
+          ...row.reg_coninf.datos,
+          ...row.reg_paci,
+          ...row.reg_acomp,
+          ...row.reg_prof,
+        },
+      }),
+    });
+    await impresion({ docDefinition });
+  } catch (error) {
+    console.log("⚡  error-- >", error);
+  }
 };
+
+const getFirmaProf = async (cod_prof) => {
+  try {
+    firma_prof.value = await _getFirma$({ codigo: cod_prof });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+const consultarFirmaConsen = async (cod_consen) => {
+  try {
+    console.log("consultarFirmaConsen");
+    firma_consen.value = await _getImagen$({ codigo: cod_consen });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+
 const getMaestros = async () => {
   try {
     const response = await getDll$({

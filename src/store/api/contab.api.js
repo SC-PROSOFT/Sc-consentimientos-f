@@ -110,5 +110,27 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
+    _getImagen$({ ruta = "D:/PSC/PROG/DATOS/FIRMAS_CONSEN", codigo = 0, formato = "png" }) {
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/get-imagen`,
+          method: "GET",
+          params: { ruta, codigo, formato },
+          loader: true,
+        })
+          .then((response) => {
+            if (response.success) resolve(response.data);
+            else {
+              resolve(
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+              );
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(`Error consultando logo de nit ${nit}`);
+          });
+      });
+    },
   },
 });

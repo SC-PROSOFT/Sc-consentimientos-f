@@ -29,59 +29,24 @@
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input
-            v-model="getEmpresa.CIUDAD_USUAR"
-            class="col-3"
-            type="text"
-            readonly
-            disable
-            dense
-          />
+          <q-input v-model="getEmpresa.CIUDAD_USUAR" class="col-3" type="text" readonly disable dense />
           <p>Fecha:</p>
-          <q-input
-            v-model="fecha_act"
-            class="col-1"
-            type="text"
-            readonly
-            disable
-            dense
-          />
+          <q-input v-model="fecha_act" class="col-1" type="text" readonly disable dense />
         </div>
         <div class="row">
           <p>Yo,</p>
-          <q-input
-            v-model="getPaci.descrip"
-            class="col-4"
-            type="text"
-            readonly
-            outline
-            dense
-          />
+          <q-input v-model="getPaci.descrip" class="col-4" type="text" readonly outline dense />
           <p>, identificado (a) con cedula numero</p>
-          <q-input
-            type="text"
-            dense
-            class="col-2"
-            v-model="getPaci.cod"
-            readonly
-          />
+          <q-input type="text" dense class="col-2" v-model="getPaci.cod" readonly />
           <p>expedida en</p>
-          <q-input
-            type="text"
-            dense
-            class="col-2"
-            v-model="getPaci.descrip_ciudad"
-            readonly
-          />
+          <q-input type="text" dense class="col-2" v-model="getPaci.descrip_ciudad" readonly />
           <p>actuando en nombre propio.</p>
 
           <p>
-            Comprendo que durante el procedimiento pueden aparecer
-            circunstancias imprevisibles o inesperadas, que pueden requerir una
-            extensión de otro procedimiento; acepto que las ciencias de la salud
-            no son una ciencia exacta, que se garantizan resultados en la
-            atención, y que, aunque son procedimientos seguros pueden
-            presentarse complicaciones como:
+            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
+            que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
+            son una ciencia exacta, que se garantizan resultados en la atención, y que, aunque son
+            procedimientos seguros pueden presentarse complicaciones como:
           </p>
           <ul>
             <li>SANGRADO</li>
@@ -99,29 +64,24 @@
             dense
           />
           <p class="q-pt-md">
-            Me han explicado también que de negarme a realizarme los exámenes
-            diagnósticos, procedimientos y/o tratamientos ordenados, estoy
-            asumiendo la responsabilidad por sus consecuencias, con lo que
-            exonero de ellas el quipo asistencial tratante y la institución, sin
-            embargo ello no significa que pierda mis derechos para una atención
-            posterior. Se me ha informado que en la ESE salud Yopal, cuenta con
-            personal idóneo, competente y capacitado para la determinación de
-            conductas terapéuticas que contribuyan a mejorar mi calidad de vida
-            y salud. Doy constancia de que se me ha explicado en lenguaje
-            sencillo claro, y entendible para mí, los aspectos relacionados con
-            mi condición actual, los riesgos y beneficios de los procedimientos;
-            se me ha permitido hacer todas las preguntas necesarias, y han sido
-            resueltas satisfactoriamente.
+            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
+            tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que
+            exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que
+            pierda mis derechos para una atención posterior. Se me ha informado que en la ESE salud Yopal,
+            cuenta con personal idóneo, competente y capacitado para la determinación de conductas
+            terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha
+            explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi
+            condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas
+            las preguntas necesarias, y han sido resueltas satisfactoriamente.
           </p>
           <p>
-            Por lo tanto, en forma consciente y voluntaria, sin haber sido
-            objeto de coacción, persuasión, ni manipulación:
+            Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
+            manipulación:
           </p>
           <div class="row" v-show="opcion_hc030 == 'AUTORIZAR'">
             <p>
-              <ins class="text-bold">Autorizo</ins> al personal asistencial de
-              la ESE Salud Yopal, para la realización de los procedimientos de
-              salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
+              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
+              realización de los procedimientos de salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
             </p>
             <p>DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico</p>
             <Input_
@@ -143,16 +103,10 @@
           <div class="row" v-show="opcion_hc030 == 'REVOCAR'">
             <p>
               Expreso mi voluntad de
-              <ins class="text-bold">revocar</ins> revocar el consentimiento
-              presentado y declaro por tanto que, tras la información recibida,
-              no consiento someterme al procedimiento de:
+              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto
+              que, tras la información recibida, no consiento someterme al procedimiento de:
             </p>
-            <q-input
-              type="text"
-              dense
-              class="col-2"
-              label="falta procedimiento"
-            />
+            <q-input type="text" dense class="col-2" label="falta procedimiento" />
             <p>por los siguientes motivos:</p>
             <q-input
               v-model="HIC030.revocar_motivos"
@@ -179,9 +133,7 @@
             <tr>
               <th style="border: 1px solid #ccc">
                 <div class="row justify-left">
-                  <span class="q-my-auto col-8"
-                    >FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL:</span
-                  >
+                  <span class="q-my-auto col-8">FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL:</span>
                   <q-input
                     class="py-0 my-0 q-my-auto col-3"
                     v-model="HIC030.fecha_ult_cito"
@@ -195,11 +147,7 @@
               <th style="border: 1px solid #ccc">
                 <div class="row justify-left">
                   <span class="custum col-6">ANTECEDENTES GINECOLOGICOS</span>
-                  <Select_
-                    :field="form_antecedentes"
-                    v-model="HIC030.antec_gineco"
-                    :items="antecedenter"
-                  />
+                  <Select_ :field="form_antecedentes" v-model="HIC030.antec_gineco" :items="antecedenter" />
                 </div>
               </th>
             </tr>
@@ -277,20 +225,11 @@
         />
       </div>
     </q-card-actions>
-    <CONSEN800
-      v-if="show_consen800"
-      @esc="callbackCONSEN800"
-      @enter="callbackCONSEN800"
-    />
+    <CONSEN800 v-if="show_consen800" @esc="callbackCONSEN800" @enter="callbackCONSEN800" />
   </q-card>
 </template>
 <script setup>
-import {
-  useModuleFormatos,
-  useApiContabilidad,
-  useModuleCon851,
-  useModuleCon851p,
-} from "@/store";
+import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { impresionHC030, impresion } from "@/impresiones";
@@ -298,15 +237,10 @@ import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 const router = useRouter();
-const ContainerFirma = defineAsyncComponent(() =>
-  import("@/components/global/containerFirma.vue")
-);
-const CONSEN800 = defineAsyncComponent(() =>
-  import("@/components/consen/CONSEN800.vue")
-);
+const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
+const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } =
-  useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
@@ -421,23 +355,20 @@ const validarDatos = async () => {
     if (revocar_motivos.value.validate()) grabarConsentimiento();
   }
   if ((opcion_hc030.value = "AUTORIZAR")) {
-    if (!HIC030.value.diagnostico)
-      return CON851("?", "info", "No hay ningun codigo del diagnostico");
+    if (!HIC030.value.diagnostico) return CON851("?", "info", "No hay ningun codigo del diagnostico");
     grabarConsentimiento();
   }
 };
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC030.value));
-  datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format(
-    "YYYYMMDD"
-  );
+  datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format("YYYYMMDD");
   let datos = {
     llave_consen: getHc.llave,
     oper_consen: "ADMI",
     cod_consen: "HIC030",
+    cod_med: getProf.cod,
     ...datos_format,
   };
-  console.log("⚡  firma_recibida.value-- >", firma_recibida.value);
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma");
   }

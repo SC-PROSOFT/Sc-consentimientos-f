@@ -1,7 +1,7 @@
 <template>
   <q-toolbar class="bg-primary">
     <q-toolbar-title class="text-white q-ma-xs"
-      >{{ nombre_empresa }}
+      >{{ modulo }}
       <div class="text-subtitle2 text-bold text-white">{{ titulo }}</div>
     </q-toolbar-title>
     <q-btn flat round dense icon="menu" class="q-mr-xs" color="white">
@@ -69,18 +69,22 @@
 
 <script setup>
 import { useModuleCon851p, useApiContabilidad } from "@/store";
-import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { useRoute } from "vue-router";
+import { onMounted, ref } from "vue";
 
-const router = useRouter();
+const route = useRoute();
 const { CON851P } = useModuleCon851p();
 const { logOut$ } = useApiContabilidad();
 
 defineProps({ titulo: String });
 
 const emit = defineEmits(["validarAccion"]);
+const modulo = ref("CONSENTIMIENTOS");
 
-const nombre_empresa = ref("CONSENTIMIENTOS");
+onMounted(() => {
+  const opciones = { HIC: "HISTORIA CLINCA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
+  modulo.value = `${modulo.value} DE ${opciones[route.query.modulo]}`;
+});
 
 const validarSalir = () => {
   return CON851P("SALIR", "warning", null, null, logOut$);
