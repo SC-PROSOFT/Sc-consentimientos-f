@@ -2,7 +2,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-export const impresionHC033 = () => {
+export const impresionHC034 = () => {
   return new Promise(async (resolve) => {
     try {
       var dd = {
