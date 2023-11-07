@@ -2,7 +2,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-export const impresionHC037 = () => {
+export const impresionHC035 = () => {
   return new Promise(async (resolve) => {
     try {
       var dd = {
@@ -13,7 +13,7 @@ export const impresionHC037 = () => {
         },
         content: [
           {
-            stack: [contenidoRX(), firmas()],
+            stack: [contenidoEISP(), firmas()],
           },
         ],
 
@@ -42,7 +42,7 @@ export const impresionHC037 = () => {
       };
 
       setTimeout(() => {
-        pdfMake.createPdf(dd).download(`CONSENTIMIENTO INFORMADO HC037`);
+        pdfMake.createPdf(dd).download(`CONSENTIMIENTO INFORMADO HC035`);
         resolve();
       }, 600);
     } catch (error) {
@@ -65,7 +65,7 @@ function header(currentPage, pageCount) {
             alignment: "center",
           },
           {
-            text: "\nCONSENTIMIENTO INFORMADO PARA PRUEBAS RADIOLOGICAS EN PACIENTES EN ESTADO O SOSPECHA  DE GESTACION\n",
+            text: "\nCONSENTIMIENTO INFORMADO PARA EVENTOS DE INTERES EN SALUD PUBLICA (EISP)\n",
             style: "headerBold",
             alignment: "center",
           },
@@ -155,18 +155,17 @@ function header(currentPage, pageCount) {
   };
 }
 
-function contenidoRX() {
+function contenidoEISP() {
   return {
     stack: [
       {
-        marginTop: 8,
-        text: `Historia clínica número: {1193221112-1}`,
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 3,
+        marginTop: 10,
         columns: [
+          {
+            text: `Historia clínica número: {1193221112-1}`,
+            alignment: "justify",
+            style: "bodyNoBold",
+          },
           {
             width: "auto",
             text: `Ciudad: {VILLAVICENCIO}`,
@@ -186,24 +185,28 @@ function contenidoRX() {
         marginTop: 15,
         style: "bodyNoBold",
         alignment: "justify",
-        text: "Es deber de todo de todo profesional advertir oportunamente los riesgos que pueden derivarse del tratamiento que será practicado y a los que se expone teniendo en cuenta la solicitud de su médico tratante, solicitando el consentimiento informado ley 23 del 1981 (art 15 y 16).",
-        bold: true,
+        text: `Yo {David Santiago Lozada Quintero} de {20} años de edad, de genero {Masculino} identificado(a) con documento de identidad N°: {1193220992}, expedida en {Villavicencio} con residencia en {Villavicencio}, teléfono número {3223758923} actuando en nombre propio o como acudiente de {David Santiago Lozada Quintero} en mi calidad de paciente y en pleno uso de mis facultades mentales y de mis derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la empresa social del estado ESE salud Yopal, por medio del presente documento doy mi  consentimiento informado para que se me brinden los cuidados correspondientes y se siga la conducta terapéutica  según el criterio del profesional de salud tratante.`,
       },
       {
         marginTop: 15,
         style: "bodyNoBold",
         alignment: "justify",
-        text: "INFORMACION\n a continuación, se explica el proceso del examen el cual le van a practicar teniendo en cuenta la solicitud del médico tratante, es una exploración radiológica, en forma de RX, con el fin de proporcionar información diagnostica y tratar su enfermedad.",
-        bold: true,
+        text: `Dejo constancia que he sido informado(a) y he recibido información y asesoría sobre el evento: {EL EVENTO DEL QUE SE RECIBIO ASESORIA} respecto del modo de contagio, estrategias y métodos de prevención, importancia de diagnostico y tratamiento de la pareja de ser necesario a quien le informaré mi estado actual para que reciba la asesoría, tratamiento y seguimientos que se requieran para evitar reinfecciones y/o transmisión de la enfermedad a otras personas con quien se tenga contacto. Fui informado(a) de las acciones que se seguirán: tratamiento y controles que debo realizar posterior al tratamiento médico, al cual debo ser adherente, y recibir oportunamente y de manera adecuada; Por lo anterior me comprometo a seguir las indicaciones dadas por el profesional de la salud respecto al evento presentado, de no seguir las indicaciones los principales riesgos que se pueden presentar: resistencia a medicamentos, náuseas, mareos, vomito, gastritis, reinfecciones.`,
       },
       {
-        marginTop: 8,
+        marginTop: 15,
         style: "bodyNoBold",
         alignment: "justify",
-        text: `Yo {Victoria Cobo Velazques} identificada con cédula de ciudadanía No. {1190338227} de {VILLAVICENCIO} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna, doy el consentimiento E.S.E salud Yopal -Hospital Central de Yopal, realice toma de RX. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener uso del chaleco plomado, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas y recibí información del tecnólogo de radiología de nombre: {Cristian David Hernandez Suarez} CC {115689223}.`,
+        text: `Me garantizan la confidencialidad de mis resultados y la información que he proporcionado. De lo anterior {SI O NO} acepto iniciar tratamiento y realizar los controles y seguimientos que se requieran de acuerdo a la patología en curso. Por lo tanto, en forma consciente y voluntaria, luego de haber escuchado la información y explicaciones, sin haber sido objeto de coacción, persuasión, ni manipulación manifiesto lo siguiente:`,
       },
       {
-        stack: revocar(true),
+        marginTop: 15,
+        style: "bodyNoBold",
+        alignment: "justify",
+        text: "Me considero SATISFECHO con la información recibida y COMPRENDO la indicación, los beneficios, además de los riesgos y posibles complicaciones que podrían desprenderse de dicho acto.",
+      },
+      {
+        stack: revocar(false),
       },
     ],
   };
@@ -219,19 +222,7 @@ function revocar(revoca) {
       marginTop: 8,
       marginLeft: 20,
       style: "bodyNoBold",
-      alignment: "justify",
-      text: [
-        {
-          text: "Expreso mi voluntad de ",
-        },
-        {
-          text: "revocar",
-          bold: true,
-        },
-        {
-          text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: {RADIOGRAFIA DE ABDOMEN}, por los siguientes motivos: {MOTIVOS DE REVOCACION}`,
-        },
-      ],
+      text: `Yo {David Santiago Lozada Quintero} paciente de la ESE SALUD YOPAL, con C.C {1193220974} Expreso mi voluntad de revocar el consentimiento prestado en fecha {00/00/0000} y declaro por tanto que, tras la información recibida, no consiento en someterme al procedimiento de: {EL PROCEDIMIENTO} por los siguientes motivos: {LOS MOTIVOS DE REVOCACION}`,
     },
     {
       marginTop: 8,
