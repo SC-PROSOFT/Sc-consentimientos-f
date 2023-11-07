@@ -65,7 +65,7 @@ function header(currentPage, pageCount) {
             alignment: "center",
           },
           {
-            text: "\n\nCONSENTIMIENTO INFORMADO GENERAL\n\n",
+            text: "\nCONSENTIMIENTO INFORMADO INTERRUPCIÓN VOLUNTARIA DEL EMBARAZO\n\n",
             style: "headerBold",
             alignment: "center",
           },

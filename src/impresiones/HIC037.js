@@ -42,7 +42,7 @@ export const impresionHC033 = () => {
       };
 
       setTimeout(() => {
-        pdfMake.createPdf(dd).download(`CONSENTIMIENTO INFORMADO HC035`);
+        pdfMake.createPdf(dd).download(`CONSENTIMIENTO INFORMADO HC037`);
         resolve();
       }, 600);
     } catch (error) {
@@ -65,7 +65,7 @@ function header(currentPage, pageCount) {
             alignment: "center",
           },
           {
-            text: "\n\nCONSENTIMIENTO INFORMADO GENERAL\n\n",
+            text: "\nCONSENTIMIENTO INFORMADO PARA PRUEBAS RADIOLOGICAS EN PACIENTES EN ESTADO O SOSPECHA  DE GESTACION\n",
             style: "headerBold",
             alignment: "center",
           },
