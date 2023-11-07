@@ -78,6 +78,16 @@ export const createRouteHic = (title) => [
     },
   },
   {
+    //REFERENCIA Y CONTRAREFERENCIA OK
+    path: "/HIC038",
+    name: "HIC038",
+    component: () => import("@/views/hic/HIC038.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC038`,
+    },
+  },
+  {
     //SALIDA VOLUNTARIA
     path: "/HIC039",
     name: "HIC039",

@@ -231,7 +231,8 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHC030 } from "@/impresiones";
+import { utilsFormat } from "@/formatos/utils";
+import { impresionHC030, impresion } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -363,10 +364,11 @@ const grabarConsentimiento = async () => {
   datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format("YYYYMMDD");
   let datos = {
     llave_consen: getHc.llave,
-    oper_consen: getSesion.oper,
+    oper_consen: "ADMI",
     cod_consen: "HIC030",
     ...datos_format,
   };
+  console.log("⚡  firma_recibida.value-- >", firma_recibida.value)
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma");
   }
@@ -398,7 +400,7 @@ const grabarFirmaConsen = async (llave) => {
       "¿Deseas imprimir el consentimiento?",
       () => router.back(),
       () => {
-        impresionHC030(data_impresion);
+        imprimirConsen()
         setTimeout(() => router.back(), 500);
       }
     );
@@ -407,6 +409,22 @@ const grabarFirmaConsen = async (llave) => {
     CON851("?", "info", error);
   }
 };
+
+const imprimirConsen = async () => {
+  try {
+    const docDefinition = utilsFormat({
+      datos: { img_firma_consen: firma_recibida.value, firma_prof: firma_prof.value },
+      content: impresionHC030({
+        datos: { ...HIC030.value },
+      }),
+    });
+
+    await impresion({ docDefinition });
+  } catch (error) {
+    console.log("⚡  error-- >", error);
+  }
+};
+
 const callbackCONSEN800 = (data) => {
   if (data) {
     HIC030.value.diagnostico = data.cod;

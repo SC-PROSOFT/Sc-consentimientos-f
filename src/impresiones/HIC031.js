@@ -27,7 +27,7 @@ export const impresionHC031 = () => {
                 fontSize: 8,
               },
               bodyNoBold: {
-                fontSize: 10,
+                fontSize: 11,
               },
               tableBold: {
                 fontSize: 10,
