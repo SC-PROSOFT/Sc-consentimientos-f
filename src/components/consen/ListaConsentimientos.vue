@@ -71,7 +71,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -130,7 +136,11 @@ const columns_consen = [
     name: "hora",
     label: "Hora",
     align: "left",
-    format: (val, row) => ` ${days(val).format("hh:mm")}`,
+
+    format: (val, row) =>
+      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format(
+        "HH:mm"
+      )}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {

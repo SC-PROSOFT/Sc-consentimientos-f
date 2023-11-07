@@ -25,9 +25,15 @@ import { empresas, regAcomp } from "@/fuentes";
 import { useGlobal } from "@/setup/global";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
-const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
-const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
+const ConfigMaestros_ = defineAsyncComponent(() =>
+  import("@/components/consen/ConfigMaestros.vue")
+);
+const ConfigUsunet_ = defineAsyncComponent(() =>
+  import("@/components/consen/ConfigUsunet.vue")
+);
+const ToolBar_ = defineAsyncComponent(() =>
+  import("@/components/global/ToolBar.vue")
+);
 const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
@@ -46,8 +52,8 @@ onMounted(() => verificarSesion());
 
 const verificarSesion = async () => {
   try {
-    sessionStorage.ip = empresas[getNit].ip_servicio;
-    // sessionStorage.ip = '192.168.1.9';
+    // sessionStorage.ip = empresas[getNit].ip_servicio;
+    sessionStorage.ip = "192.168.0.193";
 
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
@@ -89,7 +95,7 @@ async function getPaci() {
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       sessionStorage.setItem("reg_paci", JSON.stringify(data.reg_paci));
-      getMedico();
+      datos_session.novedad == "1" && getMedico();
       datos_session.id_acompa && getAcomp();
     })
     .catch((err) => {
