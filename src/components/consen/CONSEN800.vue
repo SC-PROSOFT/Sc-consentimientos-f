@@ -9,12 +9,6 @@
           :field="form_filtro.filtro"
           @validate="datoFiltro"
         />
-        <Input_
-          class="col-xs-12 col-sm-7 col-md-5 col-lg-4 col-xl-3"
-          v-model="reg_filtro.buscar"
-          :field="form_filtro.buscar"
-          @validate="datoBuscar"
-        />
       </div>
       <DataTable_
         @cambioPagina="cambioPagina"
@@ -33,7 +27,6 @@ import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { foco_, ultimoFoco_ } from "@/setup";
 import { ref, onMounted, watch } from "vue";
 import { useModuleCon851, useApiContabilidad } from "@/store";
-import { apiAxios } from "@/api/apiAxios";
 
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
@@ -43,14 +36,18 @@ const emit = defineEmits(["esc", "enter"]);
 const estado = ref(true);
 const name = ref("CON809");
 const focus_table = ref(false);
-const titulo = ref("VENTANA DE CIUDADES");
+const titulo = ref("VENTANA DE ENFERMEDADES");
 
-const reg_filtro = ref({ filtro: "", buscar: "" });
-const pagina = ref(1);
+const reg_filtro = ref({ filtro: "" });
+const pagina = ref(0);
 
 const form_filtro = ref({
-  filtro: { id: "filtro", label: "Filtro", disable: true },
-  buscar: { id: "buscar", label: "Descripción", disable: true, maxlength: "50" },
+  filtro: {
+    id: "filtro",
+    label: "Descripcion",
+    disable: true,
+    maxlength: "50",
+  },
 });
 
 const datos_tabla = ref({
@@ -73,7 +70,7 @@ const datos_tabla = ref({
 });
 
 onMounted(() => {
-  setTimeout(() => foco_(form_filtro, "buscar"), 200);
+  setTimeout(() => foco_(form_filtro, "filtro"), 200);
 });
 
 const cambioPagina = (pagina_table) => {
@@ -86,28 +83,26 @@ const datoFiltro = (event) => {
     case "esc":
       return exitF8();
     case "enter":
-      return foco_(form_filtro, "buscar");
-  }
-};
-const datoBuscar = (event) => {
-  switch (event) {
-    case "esc":
-      return foco_(form_filtro, "filtro");
-    case "enter":
-      pagina.value = 1;
+      pagina.value = 0;
       return getDatos();
   }
 };
+
 const nextData = (event) => {
   switch (event) {
     case "<":
-      return pagina.value > 1 && getDatos(--pagina.value);
+      return pagina.value > 0 && getDatos(--pagina.value);
     case ">":
-      if (datos_tabla.value.data.length == 15 && pagina.value >= 1) {
+      if (datos_tabla.value.data.length == 15 && pagina.value >= 0) {
         getDatos(++pagina.value);
       } else {
         focus_table.value = false;
-        return CON851("?", "info", "No existen mas registros", () => (focus_table.value = true));
+        return CON851(
+          "?",
+          "info",
+          "No existen mas registros",
+          () => (focus_table.value = true)
+        );
       }
       break;
   }
@@ -137,7 +132,7 @@ const validarBusqueda = () => {
       data: {
         paginacion: pagina.value,
         inicial: reg_filtro.value.filtro,
-        general: reg_filtro.value.buscar,
+        general: "",
       },
     })
       .then((response) => {
@@ -151,7 +146,7 @@ const validarBusqueda = () => {
 };
 const focoCampo = () => {
   focus_table.value = false;
-  foco_(form_filtro, "buscar");
+  foco_(form_filtro, "filtro");
 };
 
 const exitF8 = () => emit("esc");
