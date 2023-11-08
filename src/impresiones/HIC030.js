@@ -8,8 +8,9 @@ const { getProf, getPaci } = useModuleFormatos();
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionHC030 = ({ datos }) => {
+  console.log("⚡  datos-- >", datos);
   var dd = {
-    stack: [contenidoCitologia(), firmas()],
+    stack: [contenidoCitologia(), firmas(datos.acomp.cod ? "N" : "S")],
   };
 
   function contenidoCitologia() {
@@ -19,26 +20,28 @@ export const impresionHC030 = ({ datos }) => {
           text: `Historia clínica número: ${datos.llave}`,
           alignment: "justify",
           style: "bodyNoBold",
+          marginTop: 10,
         },
         {
           columns: [
             {
               width: "auto",
-              text: `Ciudad: VILLAVICENCIO`,
+              text: `Ciudad: ${datos.empresa.CIUDAD_USUAR}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
             {
               marginLeft: 50,
+              marginBottom: 10,
               width: "auto",
-              text: `Fecha: 02/11/2023`,
+              text: `Fecha: ${datos.empresa.FECHA_ACT}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
           ],
         },
         {
-          text: `Yo, ${datos.descrip} numero ${datos.cod} expedida en ${datos.descrip_ciudad} actuando en nombre propio.`,
+          text: `Yo, ${datos.paciente.descrip} numero ${datos.paciente.cod} expedida en ${datos.paciente.descrip_ciudad} actuando en nombre propio.`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -73,6 +76,7 @@ export const impresionHC030 = ({ datos }) => {
         },
         {
           marginTop: 10,
+          marginBottom: 10,
           text: "Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:",
           alignment: "justify",
           style: "bodyNoBold",
@@ -103,6 +107,7 @@ export const impresionHC030 = ({ datos }) => {
               ],
               [
                 {
+                  marginBottom: 10,
                   marginTop: -2,
                   colSpan: 2,
                   text: "TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico",
@@ -144,6 +149,7 @@ export const impresionHC030 = ({ datos }) => {
               [
                 {
                   marginTop: -2,
+                  marginBottom: 10,
                   colSpan: 2,
                   text: "",
                   alignment: "justify",
@@ -209,252 +215,244 @@ export const impresionHC030 = ({ datos }) => {
       },
     ];
   }
+  function firmaPaciente() {
+    return {
+      stack: [
+        {
+          text: "PACIENTE",
+          bold: true,
+          alignment: "center",
+          style: "tableBold",
+          pageBreak: "before",
+        },
+        {
+          marginBottom: 2,
+          text: [
+            {
+              text: "FIRMA / HUELLA ",
+              bold: true,
+              alignment: "center",
+              style: "tableBold",
+            },
+            {
+              text: "(EN CASO DE NO FIRMAR)",
+              alignment: "center",
+              style: "tableNoBold",
+              fontSize: 7,
+            },
+          ],
+        },
+        {
+          alignment: "center",
+          image: "firma_consen",
+          width: 200,
+          height: 80,
+        },
+        {
+          marginTop: 2,
+          text: [
+            {
+              text: "NOMBRE: ",
+              alignment: "center",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              alignment: "center",
+              text: `${datos.paciente.descrip}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+        {
+          text: [
+            {
+              text: "DOCUMENTO: ",
+              style: "tableNoBold",
+              alignment: "center",
+              bold: true,
+            },
+            {
+              alignment: "center",
+              text: `${datos.paciente.cod}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmaProfesional() {
+    return {
+      stack: [
+        {
+          text: "FIRMA PROFESIONAL",
+          pageBreak: "before",
+          alignment: "center",
+          style: "tableBold",
+          marginBottom: 14,
+          bold: true,
+        },
+        {
+          alignment: "center",
+          image: "firma_profesional",
+          width: 200,
+          height: 80,
+        },
+        {
+          marginTop: 10,
+          text: [
+            {
+              text: "NOMBRE: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: `${datos.prof.descrip}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+        {
+          text: [
+            {
+              text: `PROFESIONAL AREA DE:`,
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: `${datos.prof.descrip_atiende}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+        {
+          text: [
+            {
+              text: `Documento: `,
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: `${datos.prof.cod}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmaAcompanante() {
+    return {
+      stack: [
+        {
+          text: "TUTOR/ACOMPAÑANTE/REPR.LEGAL",
+          pageBreak: "before",
+          alignment: "center",
+          style: "tableBold",
+          bold: true,
+        },
+        {
+          text: "FIRMA / HUELLA ",
+          alignment: "center",
+          style: "tableBold",
+        },
+        {
+          text: "(EN CASO DE NO FIRMAR)",
+          alignment: "center",
+          style: "tableNoBold",
+          fontSize: 7,
+        },
+        {
+          alignment: "center",
+          image: "firma_consen",
+          width: 200,
+          height: 80,
+        },
+        {
+          marginTop: 2,
+          text: [
+            {
+              text: "NOMBRE: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: "David Santiago Lozada Quintero Quintero",
+              style: "tableNoBold",
+            },
+          ],
+        },
+        {
+          text: [
+            {
+              text: "DOCUMENTO: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: "2222222222",
+              style: "tableNoBold",
+            },
+          ],
+        },
+        {
+          text: [
+            {
+              text: "PARENTESCO: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: "HERMANO",
+              style: "tableNoBold",
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function motivosNoFirma() {
+    return {
+      margin: [30, 10, 30, 0],
+      stack: [
+        {
+          text: [
+            {
+              text: "MOTIVOS POR LOS QUE EL USUARIO NO FIRMA: 222222222222222 2222222222222222 22222 222222222 22222222 222222222222222222222222222222222222222222222 ",
+              alignment: "justify",
+              style: "tableNoBold",
+              bold: true,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmas(paciente_firma) {
+    console.log("⚡  paciente_firma-- >", paciente_firma);
+    let firmasArray = [];
+    let anchos = [];
+
+    if (paciente_firma == "S") {
+      firmasArray = [firmaPaciente(), firmaProfesional()];
+      anchos = ["50%", "50%"];
+    } else {
+      firmasArray = [firmaAcompanante(), firmaProfesional()];
+      anchos = ["50%", "50%"];
+    }
+
+    return {
+      table: {
+        widths: anchos,
+        body: [[...firmasArray]],
+      },
+    };
+  }
 
   return dd;
 };
-
-function firmaPaciente() {
-  return {
-    stack: [
-      {
-        text: "PACIENTE",
-        alignment: "center",
-        style: "tableBold",
-      },
-      {
-        marginBottom: 2,
-        text: [
-          {
-            text: "FIRMA / HUELLA ",
-            alignment: "center",
-            style: "tableBold",
-          },
-          {
-            text: "(EN CASO DE NO FIRMAR)",
-            alignment: "center",
-            style: "tableNoBold",
-            fontSize: 7,
-          },
-        ],
-      },
-      {
-        alignment: "center",
-        image: "firma_consen",
-        width: 150,
-        height: 80,
-      },
-      {
-        marginTop: 2,
-        text: [
-          {
-            text: "NOMBRE: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "David Santiago Lozada Quintero",
-            style: "tableNoBold",
-          },
-        ],
-      },
-      {
-        text: [
-          {
-            text: "DOCUMENTO: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "1111111111",
-            style: "tableNoBold",
-          },
-        ],
-      },
-    ],
-  };
-}
-
-function firmaProfesional() {
-  return {
-    stack: [
-      {
-        text: "FIRMA PROFESIONAL",
-        alignment: "center",
-        style: "tableBold",
-        marginBottom: 14,
-      },
-      {
-        alignment: "center",
-        image: "firma_profesional",
-        width: 150,
-        height: 80,
-      },
-      {
-        marginTop: 10,
-        text: [
-          {
-            text: "NOMBRE: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "David Santiago Lozada Quintero",
-            style: "tableNoBold",
-          },
-        ],
-      },
-      {
-        text: [
-          {
-            text: "PROFESIONAL AREA DE: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "EXAMENES DOC.MANOTAS",
-            style: "tableNoBold",
-          },
-        ],
-      },
-      {
-        text: [
-          {
-            text: "R.P N°: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "1111111111",
-            style: "tableNoBold",
-          },
-        ],
-      },
-    ],
-  };
-}
-
-function firmaAcompanante() {
-  return {
-    stack: [
-      {
-        text: "TUTOR/ACOMPAÑANTE/REPR.LEGAL",
-        alignment: "center",
-        style: "tableBold",
-      },
-      {
-        marginBottom: 2,
-        text: [
-          {
-            text: "FIRMA / HUELLA ",
-            alignment: "center",
-            style: "tableBold",
-          },
-          {
-            text: "(EN CASO DE NO FIRMAR)",
-            alignment: "center",
-            style: "tableNoBold",
-            fontSize: 7,
-          },
-        ],
-      },
-      {
-        alignment: "center",
-        image: "firma_consen",
-        width: 150,
-        height: 80,
-      },
-      {
-        marginTop: 2,
-        text: [
-          {
-            text: "NOMBRE: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "David Santiago Lozada Quintero Quintero",
-            style: "tableNoBold",
-          },
-        ],
-      },
-      {
-        text: [
-          {
-            text: "DOCUMENTO: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "2222222222",
-            style: "tableNoBold",
-          },
-        ],
-      },
-      {
-        text: [
-          {
-            text: "PARENTESCO: ",
-            style: "tableNoBold",
-            bold: true,
-          },
-          {
-            text: "HERMANO",
-            style: "tableNoBold",
-          },
-        ],
-      },
-    ],
-  };
-}
-
-function motivosNoFirma() {
-  return {
-    margin: [30, 10, 30, 0],
-    stack: [
-      {
-        text: [
-          {
-            text: "MOTIVOS POR LOS QUE EL USUARIO NO FIRMA: 222222222222222 2222222222222222 22222 222222222 22222222 222222222222222222222222222222222222222222222 ",
-            alignment: "justify",
-            style: "tableNoBold",
-            bold: true,
-          },
-        ],
-      },
-    ],
-  };
-}
-
-function firmas(paciente_firma) {
-  paciente_firma = "N";
-  let firmasArray = [];
-  let motivosArray = [];
-  let margin = 0;
-  let anchos = [];
-
-  if (paciente_firma == "S") {
-    firmasArray = [firmaPaciente(), firmaProfesional()];
-    margin = 80;
-    anchos = ["40%", "40%"];
-  } else {
-    firmasArray = [firmaAcompanante(), firmaProfesional()];
-    motivosArray = [motivosNoFirma()];
-    margin = 80;
-    anchos = ["40%", "40%", "33%"];
-  }
-
-  return {
-    marginTop: 8,
-    stack: [
-      {
-        marginLeft: margin,
-        layout: "noBorders",
-        table: {
-          widths: anchos,
-          body: [[...firmasArray]],
-        },
-      },
-      ...motivosArray,
-    ],
-  };
-}
