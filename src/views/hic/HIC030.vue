@@ -417,6 +417,8 @@ const imprimirConsen = async () => {
     const docDefinition = utilsFormat({
       datos: {
         img_firma_consen: firma_recibida.value,
+        img_firma_paci: getAcomp.cod ? "" : firma_recibida.value,
+        img_firma_acomp: getAcomp.cod ? firma_recibida.value : "",
         firma_prof: firma_prof.value,
       },
       content: impresionHC030({
