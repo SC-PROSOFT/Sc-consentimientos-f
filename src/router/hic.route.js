@@ -18,6 +18,7 @@ export const createRouteHic = (title) => [
       title: `${title} - FORMATO HIC031`,
     },
   },
+  // COSENTIMIENTO INFORMADO GENERAL PYP
   {
     path: "/HIC032",
     name: "HIC032",
