@@ -36,7 +36,7 @@ export const utilsFormat = ({ datos, content }) => {
       return {
         margin: [35, 15, 35, 0], //Margenes deben ir en relacion a la pageMargin
         table: {
-          widths: ["20%", "50%", "30%"],
+          widths: ["20%", "54%", "26%"],
           body: [
             [
               {
@@ -48,7 +48,7 @@ export const utilsFormat = ({ datos, content }) => {
               },
               {
                 marginTop: 15,
-                text: "CONSENTIMIENTO INFORMADO DE REFERENCIA Y CONTRA REFERENCIA DE PACIENTES",
+                text: `${getEncabezado.descrip}`,
                 style: "headerBold",
                 alignment: "center",
               },
@@ -127,7 +127,7 @@ export const utilsFormat = ({ datos, content }) => {
                     style: "headerEnd",
                   },
                   {
-                    text: "\nPágina " + currentPage + " de " + pageCount,
+                    text: "Página " + currentPage + " de " + pageCount,
                     style: "headerEnd",
                   },
                 ],
@@ -158,4 +158,22 @@ export const utilsFormat = ({ datos, content }) => {
       },
     },
   };
+};
+
+export const evaluarParentesco = (value) => {
+  const parentesco = [
+    { COD: "1", DESCRIP: "MADRE" },
+    { COD: "2", DESCRIP: "PADRE" },
+    { COD: "3", DESCRIP: "HIJO(A)" },
+    { COD: "4", DESCRIP: "ESPOSO(A)" },
+    { COD: "5", DESCRIP: "HERMANO(A)" },
+    { COD: "6", DESCRIP: "TIO(A)" },
+    { COD: "7", DESCRIP: "SOBRINO(A)" },
+    { COD: "8", DESCRIP: "PRIMO(A)" },
+    { COD: "9", DESCRIP: "MADRASTRA" },
+    { COD: "10", DESCRIP: "PADRASTRO" },
+    { COD: "11", DESCRIP: "AMIGO(A)" },
+    { COD: "12", DESCRIP: "ABUELO(A)" },
+  ];
+  return parentesco.find((e) => e.COD == value).DESCRIP || "NO TIENE PARENTESCO";
 };
