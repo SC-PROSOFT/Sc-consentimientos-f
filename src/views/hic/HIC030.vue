@@ -381,7 +381,10 @@ const grabarConsentimiento = async () => {
     ...datos_format,
   };
   if (!firma_recibida.value) {
-    return CON851("?", "info", "No se ha realizado la firma");
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (!firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañate");
   }
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
@@ -429,7 +432,7 @@ const imprimirConsen = async () => {
       content: impresionHC030({
         datos: {
           autorizo: opcion_hc030.value == "AUTORIZAR" ? true : false,
-          empresa: { ...getEmpresa, FECHA_ACT: fecha_act.value },
+          empresa: { ...getEmpresa },
           paciente: { ...getPaci },
           prof: { ...getProf },
           acomp: { ...getAcomp },

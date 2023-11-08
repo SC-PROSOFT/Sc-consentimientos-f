@@ -7,7 +7,6 @@ import { evaluarParentesco } from "@/formatos/utils";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionHC030 = ({ datos }) => {
-  console.log("🚀 ~ file: HIC030.js:10 ~ impresionHC030 ~ datos:", datos);
   var dd = {
     stack: [contenidoCitologia(), firmas()],
   };
@@ -16,7 +15,7 @@ export const impresionHC030 = ({ datos }) => {
     return {
       stack: [
         {
-          text: `Historia clínica número: ${datos.llave}`,
+          text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
           alignment: "justify",
           style: "bodyNoBold",
           marginTop: 10,
@@ -33,7 +32,7 @@ export const impresionHC030 = ({ datos }) => {
               marginLeft: 50,
               marginBottom: 10,
               width: "auto",
-              text: `Fecha: ${datos.empresa.FECHA_ACT}`,
+              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
@@ -54,10 +53,9 @@ export const impresionHC030 = ({ datos }) => {
           marginLeft: 20,
           marginTop: 5,
           marginBottom: 10,
-          ul: ["SANGRADO.", "DOLOR.", "PELLIZCOS."],
+          ul: ["SANGRADO.", "DOLOR.", "PELLIZCOS.", `${datos.complicaciones}`],
           style: "bodyNoBold",
         },
-        llenarComplicaciones(),
         {
           marginTop: 10,
           text: "Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda mis derechos para una atención posterior.",
@@ -130,7 +128,7 @@ export const impresionHC030 = ({ datos }) => {
             body: [
               [
                 {
-                  stack: cuadro_canvas(autorizo),
+                  stack: cuadro_canvas(true),
                 },
                 {
                   text: [
@@ -152,7 +150,7 @@ export const impresionHC030 = ({ datos }) => {
                   marginBottom: 10,
                   marginTop: -2,
                   colSpan: 2,
-                  text: "TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico",
+                  text: `TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico: ${datos.diagnostico}`,
                   alignment: "justify",
                   style: "bodyNoBold",
                 },
@@ -173,7 +171,7 @@ export const impresionHC030 = ({ datos }) => {
             body: [
               [
                 {
-                  stack: cuadro_canvas(autorizo),
+                  stack: cuadro_canvas(true),
                 },
                 {
                   text: [
@@ -186,7 +184,7 @@ export const impresionHC030 = ({ datos }) => {
                       decoration: "underline",
                     },
                     {
-                      text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: ${datos.diagnostico} \npor los siguientes motivos: ${datos.revocar_motivos}`,
+                      text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: TOMA DE CITOLOGIA \npor los siguientes motivos: ${datos.revocar_motivos}`,
                     },
                   ],
                   alignment: "justify",
@@ -226,21 +224,6 @@ export const impresionHC030 = ({ datos }) => {
           : [],
       },
     ];
-  }
-
-  function llenarComplicaciones() {
-    let col = {};
-    if (datos.complicaciones != "") {
-      col = {
-        text: `${datos.complicaciones}`,
-        alignment: "justify",
-        style: "bodyNoBold",
-      };
-    } else {
-      col = { canvas: [{ type: "line", x1: 0, y1: 0, x2: 545, y2: 0, lineWidth: 1.2, lineColor: "gray" }] };
-    }
-
-    return col;
   }
 
   function firmaPaciente() {

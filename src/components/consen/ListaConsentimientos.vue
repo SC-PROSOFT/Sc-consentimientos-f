@@ -113,6 +113,7 @@ const params_querys = ref(null);
 
 const firma_prof = ref(null);
 const firma_consen = ref(null);
+const firma_recibida_acomp = ref(null);
 
 const lista_consen = ref([]);
 
@@ -148,6 +149,12 @@ const columns_consen = [
   {
     name: "oper",
     label: "Operador",
+    align: "left",
+    field: (row) => row.reg_coninf.llave.oper_elab,
+  },
+  {
+    name: "estado",
+    label: "Estado",
     align: "left",
     field: (row) => row.reg_coninf.llave.oper_elab,
   },
@@ -216,6 +223,8 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
+  console.log(row);
+  return;
   setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
 
@@ -226,16 +235,25 @@ const imprimirConsen = async ({ row }) => {
     const docDefinition = utilsFormat({
       datos: {
         img_firma_consen: firma_consen.value,
+        img_firma_acomp: firma_recibida_acomp.value,
+        img_firma_paci: firma_consen.value,
         firma_prof: firma_prof.value,
       },
       content: impresionHC030({
         datos: {
+          // autorizo: opcion_hc030.value == "AUTORIZAR" ? true : false,
           llave: row.reg_coninf.llave.folio,
+          firmas: {
+            firma_paci: firma_consen.value ? true : false,
+            firma_acomp: firma_recibida_acomp.value ? true : false,
+            firma_prof: firma_prof.value ? true : false,
+          },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
           empresa: getEmpresa,
           paciente: row.reg_paci,
           prof: row.reg_prof,
           acomp: row.reg_acomp,
+          paren_acomp: row.reg_coninf.paren_acomp,
           ...row.reg_coninf.datos,
         },
       }),
@@ -256,7 +274,8 @@ const getFirmaProf = async (cod_prof) => {
 };
 const consultarFirmaConsen = async (cod_consen) => {
   try {
-    firma_consen.value = await _getImagen$({ codigo: cod_consen });
+    firma_consen.value = await _getImagen$({ codigo: `P${cod_consen}` });
+    firma_recibida_acomp.value = await _getImagen$({ codigo: `A${cod_consen}` });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
