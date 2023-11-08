@@ -376,6 +376,8 @@ const grabarConsentimiento = async () => {
     oper_consen: getSesion.oper,
     cod_consen: "HIC030",
     cod_med: getProf.cod,
+    id_acomp: getAcomp.cod.padStart(15, "0"),
+    paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
   if (!firma_recibida.value) {
@@ -397,10 +399,8 @@ const grabarConsentimiento = async () => {
 };
 const grabarFirmaConsen = async (llave) => {
   try {
-    await guardarFile$({
-      base64: firma_recibida.value,
-      codigo: llave,
-    });
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
     return CON851P(
       "?",
       "info",
@@ -433,6 +433,7 @@ const imprimirConsen = async () => {
           paciente: { ...getPaci },
           prof: { ...getProf },
           acomp: { ...getAcomp },
+          paren_acomp: getSesion.paren_acomp,
           firmas: {
             firma_paci: firma_recibida.value ? true : false,
             firma_acomp: firma_recibida_acomp.value ? true : false,
@@ -441,6 +442,7 @@ const imprimirConsen = async () => {
           fecha: fecha_act.value,
           llave: llave.value,
           ...HIC030.value,
+          diagnostico: getHc.rips.diagn.length ? getHc.rips.diagn[0].cod : "",
         },
       }),
     });
