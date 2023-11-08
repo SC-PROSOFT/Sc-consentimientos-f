@@ -4,7 +4,15 @@
       >{{ modulo }}
       <div class="text-subtitle2 text-bold text-white">{{ titulo }}</div>
     </q-toolbar-title>
-    <q-btn flat round dense icon="menu" class="q-mr-xs" color="white">
+    <q-btn
+      flat
+      round
+      dense
+      icon="menu"
+      class="q-mr-xs"
+      color="white"
+      v-if="['GEBC', 'ADMI'].includes(operador)"
+    >
       <q-menu>
         <div class="row no-wrap q-pa-md">
           <div class="column">
@@ -31,17 +39,6 @@
                 <q-item-section class="subtitle4">Maestros</q-item-section>
                 <q-item-section avatar>
                   <q-icon size="xs" name="settings_suggest" />
-                </q-item-section>
-              </q-item>
-              <q-item
-                style="min-height: 0px; border-radius: 0.4rem"
-                class="q-my-sm q-pa-none botone"
-                @click="validarAccion(2)"
-                clickable
-              >
-                <q-item-section class="subtitle4">Imprimir</q-item-section>
-                <q-item-section avatar>
-                  <q-icon size="xs" name="book" />
                 </q-item-section>
               </q-item>
             </q-list>
@@ -80,8 +77,10 @@ defineProps({ titulo: String });
 
 const emit = defineEmits(["validarAccion"]);
 const modulo = ref("CONSENTIMIENTOS");
+const operador = ref(null);
 
 onMounted(() => {
+  operador.value = route.query.oper;
   const opciones = { HIC: "HISTORIA CLINICA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
   modulo.value = `${modulo.value} DE ${opciones[route.query.modulo]}`;
 });

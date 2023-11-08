@@ -1,7 +1,7 @@
 <template>
   <q-dialog v-model="configuracion.estado" persistent no-shake>
     <q-card class="my-card">
-      <ToolBarTable_ titulo="Configuración del servidor" @cerrar="cerrarConfiguracion" icon="settings" />
+      <ToolBarTable_ titulo="Configuración del servidor" @cerrar="cerrarConfiguracion" />
       <div class="row q-pa-sm">
         <Input_
           class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"

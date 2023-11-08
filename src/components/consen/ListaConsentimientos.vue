@@ -145,6 +145,12 @@ const columns_consen = [
     align: "left",
     field: (row) => row.reg_coninf.datos_encab.descrip,
   },
+  {
+    name: "oper",
+    label: "Operador",
+    align: "left",
+    field: (row) => row.reg_coninf.llave.oper_elab,
+  },
 ];
 const columns = [
   { name: "cod_mae", label: "Código", align: "left", field: "cod_mae" },
