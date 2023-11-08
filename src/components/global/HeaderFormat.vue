@@ -13,8 +13,10 @@
       <div class="col-md-10">
         <div class="row">
           <div class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
-            {{ getEncabezado.descrip || "Falta nombre formato" }}
+            <strong class="col-12 text-center text-bold">EMPRESA </strong> <br />
+            <strong class="col-12 text-center"> {{ getEmpresa.NOMUSU || "Nombre Empresa" }} </strong>
           </div>
+
           <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
             <strong>VERSION {{ getEncabezado.version }} </strong>
           </div>
@@ -31,8 +33,7 @@
         </div>
         <div class="row">
           <div class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
-            <strong class="col-12 text-center text-bold">EMPRESA </strong> <br />
-            <strong class="col-12 text-center"> {{ getEmpresa.NOMUSU || "Nombre Empresa" }} </strong>
+            {{ getEncabezado.descrip || "Falta nombre formato" }}
           </div>
           <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center"> FECHA ACTUALIZACIÓN </strong>
@@ -60,7 +61,6 @@ import days from "dayjs";
 
 const { getEncabezado } = useApiContabilidad();
 const { getLogo, getEmpresa } = useModuleFormatos();
-
 </script>
 
 <style>
