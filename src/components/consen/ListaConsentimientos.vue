@@ -195,7 +195,6 @@ const getConsentimientosRealizados = async () => {
         paso: "2",
       },
     });
-    console.log("consentimientos realizados", response);
 
     lista_consen.value = response.CONSENTIMIENTOS;
     lista_consen.value.sort((a, b) => {
@@ -211,6 +210,7 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
+  setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
 
   await consultarFirmaConsen(
@@ -225,18 +225,18 @@ const imprimirConsen = async ({ row }) => {
       content: impresionHC030({
         datos: {
           llave: row.reg_coninf.llave.folio,
-          ciuda: getEmpresa.CIUDAD_USUAR,
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
+          empresa: getEmpresa,
+          paciente: row.reg_paci,
+          prof: row.reg_prof,
+          acomp: row.reg_acomp,
           ...row.reg_coninf.datos,
-          ...row.reg_paci,
-          ...row.reg_acomp,
-          ...row.reg_prof,
         },
       }),
     });
     await impresion({ docDefinition });
   } catch (error) {
-    console.log("⚡  error-- >", error);
+    console.error("error-- >", error);
   }
 };
 
@@ -250,7 +250,6 @@ const getFirmaProf = async (cod_prof) => {
 };
 const consultarFirmaConsen = async (cod_consen) => {
   try {
-    console.log("consultarFirmaConsen");
     firma_consen.value = await _getImagen$({ codigo: cod_consen });
   } catch (error) {
     console.error(error);
