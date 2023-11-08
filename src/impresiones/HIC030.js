@@ -8,7 +8,6 @@ const { getProf, getPaci } = useModuleFormatos();
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionHC030 = ({ datos }) => {
-  console.log("datos : ", datos);
   var dd = {
     stack: [contenidoCitologia(), firmas()],
   };
@@ -17,7 +16,7 @@ export const impresionHC030 = ({ datos }) => {
     return {
       stack: [
         {
-          text: `Historia clínica número: ${datos.hc}`,
+          text: `Historia clínica número: ${datos.llave}`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -85,7 +84,7 @@ export const impresionHC030 = ({ datos }) => {
             body: [
               [
                 {
-                  stack: cuadro_canvas("S"),
+                  stack: cuadro_canvas(datos.autorizo ? true : false),
                 },
                 {
                   text: [
@@ -122,7 +121,7 @@ export const impresionHC030 = ({ datos }) => {
             body: [
               [
                 {
-                  stack: cuadro_canvas("S"),
+                  stack: cuadro_canvas(datos.autorizo ? false : true),
                 },
                 {
                   text: [
@@ -173,32 +172,7 @@ export const impresionHC030 = ({ datos }) => {
                   ],
                 },
                 {
-                  columns: [
-                    {
-                      width: 145,
-                      text: `ANTECEDENTES GINECOLOGICOS: ${datos.antec_gineco}`,
-                    },
-                    {
-                      width: 20,
-                      text: "G: ",
-                    },
-                    {
-                      width: 20,
-                      text: "P: ",
-                    },
-                    {
-                      width: 20,
-                      text: "C: ",
-                    },
-                    {
-                      width: 20,
-                      text: "V: ",
-                    },
-                    {
-                      width: 20,
-                      text: "A: ",
-                    },
-                  ],
+                  text: `ANTECEDENTES GINECOLOGICOS: ${datos.antec_gineco}`,
                 },
               ],
               [
@@ -458,7 +432,7 @@ function firmas(paciente_firma) {
   let margin = 0;
   let anchos = [];
 
-  if (paciente_firma !== "N") {
+  if (paciente_firma == "S") {
     firmasArray = [firmaPaciente(), firmaProfesional()];
     margin = 80;
     anchos = ["40%", "40%"];
