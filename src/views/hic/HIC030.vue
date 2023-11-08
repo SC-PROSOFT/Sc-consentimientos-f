@@ -372,6 +372,8 @@ const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC030.value));
   datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format("YYYYMMDD");
   let datos = {
+    estado: opcion_hc030.value == "AUTORIZAR" ? "1" : "2",
+    disentimiento: "N",
     llave_consen: getHc.llave,
     oper_consen: getSesion.oper,
     cod_consen: "HIC030",
@@ -452,7 +454,7 @@ const imprimirConsen = async () => {
 
     await impresion({ docDefinition });
   } catch (error) {
-    console.log("⚡  error-- >", error);
+    console.error("error -->", error);
   }
 };
 

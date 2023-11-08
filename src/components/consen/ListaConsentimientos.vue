@@ -3,10 +3,10 @@
     <!-- tabla para reimprimir los consentimientos -->
     <q-table
       title="Reimprimir consentimiento"
+      v-if="['2', '3'].includes(novedad)"
       :rows-per-page-options="[10]"
       :columns="columns_consen"
       :rows="lista_consen"
-      v-if="novedad == 2"
       row-key="COD_MAE"
       bordered
       dense
@@ -107,7 +107,7 @@ const { CON851 } = useModuleCon851();
 const { getDll$, _getFirma$, _getImagen$, setHeader$, logOut$ } = useApiContabilidad();
 const { getEmpresa } = useModuleFormatos();
 
-/* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys */
+/* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const novedad = ref(null);
 const params_querys = ref(null);
 
@@ -156,7 +156,7 @@ const columns_consen = [
     name: "estado",
     label: "Estado",
     align: "left",
-    field: (row) => row.reg_coninf.llave.oper_elab,
+    field: (row) => row.reg_coninf.estado,
   },
 ];
 const columns = [
@@ -193,7 +193,8 @@ const getHistoriaClinica = async () => {
       return CON851("9Y", "info", "", logOut$);
     }
     sessionStorage.setItem("reg_hc", JSON.stringify(response.reg_hc));
-    if (novedad.value == 2) getConsentimientosRealizados();
+
+    if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);
   }
@@ -205,7 +206,7 @@ const getConsentimientosRealizados = async () => {
       data: {
         llave_consen: params_querys.value.llave_hc,
         modulo: params_querys.value.modulo?.toUpperCase(),
-        paso: "2",
+        paso: novedad.value,
       },
     });
 
@@ -223,8 +224,6 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
-  console.log(row);
-  return;
   setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
 
@@ -241,7 +240,7 @@ const imprimirConsen = async ({ row }) => {
       },
       content: impresionHC030({
         datos: {
-          // autorizo: opcion_hc030.value == "AUTORIZAR" ? true : false,
+          autorizo: row.reg_coninf.estado == "AUTORIZADO" ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_paci: firma_consen.value ? true : false,
