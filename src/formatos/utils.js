@@ -2,8 +2,6 @@ import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
 export const utilsFormat = ({ datos, content }) => {
-  console.log("🚀 ~ utilsFormat ~ content:", content)
-  console.log("🚀 ~ utilsFormat ~ datos:", datos)
   const { getImgBs64, getEncabezado } = useApiContabilidad();
   const { getEmpresa } = useModuleFormatos();
 
@@ -24,8 +22,6 @@ export const utilsFormat = ({ datos, content }) => {
   };
   const base64 = "data:image/png;base64,";
 
-  // datos.cargo_prof = prof[datos.atiende_prof] || "";
-
   return {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
@@ -35,9 +31,6 @@ export const utilsFormat = ({ datos, content }) => {
       firma_paci: `${base64}${datos.img_firma_paci}` || getImgBs64,
       firma_acomp: `${base64}${datos.img_firma_acomp}` || getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
-    },
-    info: {
-      title: datos.llave ? datos.llave : "CONSENTIMIENTO INFORMADO",
     },
     header: function (currentPage, pageCount) {
       return {

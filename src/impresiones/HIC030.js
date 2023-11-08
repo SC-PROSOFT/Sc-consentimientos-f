@@ -8,9 +8,8 @@ const { getProf, getPaci } = useModuleFormatos();
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionHC030 = ({ datos }) => {
-  console.log("⚡  datos-- >", datos);
   var dd = {
-    stack: [contenidoCitologia(), firmas(datos.acomp.cod ? "N" : "S")],
+    stack: [contenidoCitologia(), firmas()],
   };
 
   function contenidoCitologia() {
@@ -425,7 +424,6 @@ export const impresionHC030 = ({ datos }) => {
     
     if (firmasArray.length == 2) {
         firmasArray.unshift({border: [false, false, false, false] ,text:""});
-        // margenIzq = 100;
         anchos = ["10%","40%", "40%"];
     }
     else if (firmasArray.length == 3) anchos = ["33%", "34%","33%"];
