@@ -1,13 +1,13 @@
-import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import { useApiContabilidad, useModuleFormatos } from "../store";
+import pdfMake from "pdfmake/build/pdfmake";
+import dayjs from "dayjs";
 
-const { getImgBs64 } = useApiContabilidad();
-const { getProf, getPaci } = useModuleFormatos();
+import { evaluarParentesco } from "@/formatos/utils";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionHC030 = ({ datos }) => {
+  console.log("🚀 ~ file: HIC030.js:10 ~ impresionHC030 ~ datos:", datos);
   var dd = {
     stack: [contenidoCitologia(), firmas()],
   };
@@ -57,10 +57,7 @@ export const impresionHC030 = ({ datos }) => {
           ul: ["SANGRADO.", "DOLOR.", "PELLIZCOS."],
           style: "bodyNoBold",
         },
-        {
-          text: `${datos.complicaciones}`,
-          // canvas: [{ type: "line", x1: 0, y1: 0, x2: 545, y2: 0, lineWidth: 1.2, lineColor: "gray" }],
-        },
+        llenarComplicaciones(),
         {
           marginTop: 10,
           text: "Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda mis derechos para una atención posterior.",
@@ -138,7 +135,7 @@ export const impresionHC030 = ({ datos }) => {
                       decoration: "underline",
                     },
                     {
-                      text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: BLABLABLA \npor los siguientes motivos: MOTIVOS",
+                      text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: ${datos.diagnostico} \npor los siguientes motivos: ${datos.revocar_motivos}`,
                     },
                   ],
                   alignment: "justify",
@@ -172,7 +169,7 @@ export const impresionHC030 = ({ datos }) => {
                       text: "FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL: ",
                     },
                     {
-                      text: `${datos.fecha_ult_cito}`,
+                      text: ` ${dayjs(datos.fecha_ult_cito).format("YYYY-MM-DD")}`,
                     },
                   ],
                 },
@@ -215,6 +212,21 @@ export const impresionHC030 = ({ datos }) => {
     ];
   }
 
+  function llenarComplicaciones() {
+    let col = {};
+    if (datos.complicaciones != "") {
+      col = {
+        text: `${datos.complicaciones}`,
+        alignment: "justify",
+        style: "bodyNoBold",
+      };
+    } else {
+      col = { canvas: [{ type: "line", x1: 0, y1: 0, x2: 545, y2: 0, lineWidth: 1.2, lineColor: "gray" }] };
+    }
+
+    return col;
+  }
+
   function firmaPaciente() {
     return {
       stack: [
@@ -223,7 +235,6 @@ export const impresionHC030 = ({ datos }) => {
           bold: true,
           alignment: "center",
           style: "tableNoBold",
-          pageBreak: "before",
         },
         {
           marginTop: 9,
@@ -267,13 +278,12 @@ export const impresionHC030 = ({ datos }) => {
     };
   }
 
-
   function firmaAcompanante() {
     return {
       stack: [
         {
           text: "TUTOR O ACOMPAÑANTE (FIRMA / HUELLA)",
-          pageBreak: "before",
+
           alignment: "center",
           style: "tableNoBold",
           bold: true,
@@ -333,20 +343,20 @@ export const impresionHC030 = ({ datos }) => {
             {
               marginLeft: 5,
               style: "tableNoBold",
-              text: "HERMANO",
+              text: `${evaluarParentesco(datos.paren_acomp)}`,
             },
           ],
         },
       ],
     };
   }
-  
+
   function firmaProfesional() {
     return {
       stack: [
         {
           text: "FIRMA PROFESIONAL",
-          pageBreak: "before",
+
           alignment: "center",
           style: "tableNoBold",
           bold: true,
@@ -405,36 +415,32 @@ export const impresionHC030 = ({ datos }) => {
       ],
     };
   }
-  
+
   function firmas(condicion) {
     let firmasArray = [];
     let anchos = [];
 
     if (datos.firmas.firma_paci) {
-    firmasArray.push(firmaPaciente());
+      firmasArray.push(firmaPaciente());
     }
 
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
-    
+
     if (firmasArray.length == 2) {
-        firmasArray.unshift({border: [false, false, false, false] ,text:""});
-        anchos = ["10%","40%", "40%"];
-    }
-    else if (firmasArray.length == 3) anchos = ["33%", "34%","33%"];
+      firmasArray.unshift({ border: [false, false, false, false], text: "" });
+      anchos = ["10%", "40%", "40%"];
+    } else if (firmasArray.length == 3) anchos = ["33%", "34%", "33%"];
     return {
+      marginTop: 30,
       table: {
         widths: anchos,
-        body: [
-            [
-            ...firmasArray
-            ]
-        ],
+        body: [[...firmasArray]],
       },
     };
   }
