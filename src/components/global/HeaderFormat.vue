@@ -56,15 +56,11 @@
 
 <script setup>
 import { useApiContabilidad, useModuleFormatos } from "@/store";
-import { onMounted } from "vue";
 import days from "dayjs";
 
 const { getEncabezado } = useApiContabilidad();
 const { getLogo, getEmpresa } = useModuleFormatos();
 
-onMounted(() => {
-  // empresa.value = sessionStorage.empresa && JSON.parse(sessionStorage.empresa);
-});
 </script>
 
 <style>

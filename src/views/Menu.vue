@@ -15,15 +15,27 @@
     />
     <div class="q-ma-lg">
       <div class="row my-card justify-center q-mx-auto">
-        <q-card class="col-3 justify-center q-mx-auto">
-          <div class="subtitle2 q-px-sm q-py-xs">{{ `Código: ${getPaci.cod}` }}</div>
-        </q-card>
-        <q-card class="col-3 justify-center q-mx-auto">
-          <div class="subtitle2 q-px-sm q-py-xs">{{ `Nombre: ${getPaci.descrip} ` }}</div>
-        </q-card>
-        <q-card class="col-3 justify-center q-mx-auto">
-          <div class="subtitle2 q-px-sm q-py-xs">{{ `Folio: ${getHc.llave?.slice(15)} ` }}</div>
-        </q-card>
+        <Input_
+          class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+          width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+          v-model="getPaci.cod"
+          :field="form_paci.codigo"
+        />
+        <Input_
+          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+          width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+          v-model="getPaci.descrip"
+          :field="form_paci.descrip"
+        />
+        <Input_
+          class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+          width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+          v-model="llave"
+          :field="form_paci.folio"
+        />
       </div>
     </div>
     <div class="q-ma-lg">
@@ -44,6 +56,12 @@ const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
 
+const form_paci = ref({
+  codigo: { id: "codigo", label: "Codigo", disable: true },
+  descrip: { id: "descrip", label: "Descripción", disable: true },
+  folio: { id: "folio", label: "Folio", disable: true },
+});
+
 const { getPaci, getHc } = useModuleFormatos();
 const { getDll$, getNit, _getLogo$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
@@ -53,19 +71,22 @@ const config_maestro = ref({ estado: false });
 const reg_acomp = regAcomp();
 const route = useRoute();
 const datos_session = {};
+const llave = ref(null);
 
-onMounted(() => verificarSesion());
+onMounted(async () => {
+  verificarSesion();
+  if (getHc?.llave) llave.value = getHc.llave.slice(15);
+});
 
 const verificarSesion = async () => {
   try {
     sessionStorage.ip = empresas[getNit].ip_servicio;
     // sessionStorage.ip = "192.168.0.193";
-
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
+
     configuracion.value.estado = false;
     sessionStorage.setItem("empresa", JSON.stringify(response));
-
     getLogo();
     return response;
   } catch (error) {
@@ -104,11 +125,10 @@ async function getPaciente() {
       datos_session.novedad == "1" && getMedico();
       datos_session.id_acompa && getAcomp();
     })
-    .catch((err) => {
+    .catch(() => {
       CON851("?", "error", "Error consultando datos paciente");
     });
 }
-
 async function getAcomp() {
   try {
     // const cod_paci = datos_session.id_acompa;

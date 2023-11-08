@@ -82,7 +82,7 @@ const emit = defineEmits(["validarAccion"]);
 const modulo = ref("CONSENTIMIENTOS");
 
 onMounted(() => {
-  const opciones = { HIC: "HISTORIA CLINCA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
+  const opciones = { HIC: "HISTORIA CLINICA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
   modulo.value = `${modulo.value} DE ${opciones[route.query.modulo]}`;
 });
 

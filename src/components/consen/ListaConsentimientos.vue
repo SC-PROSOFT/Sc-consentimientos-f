@@ -98,9 +98,8 @@ import { impresionHC030, impresion } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import days from "dayjs";
 
-const props = defineProps({
-  cargar: Function,
-});
+const props = defineProps({ cargar: Function });
+
 const router = useRouter();
 const route = useRoute();
 
@@ -166,6 +165,7 @@ const getParametros = async () => {
     params_querys.value = route.query;
   }
   novedad.value = params_querys.value.novedad;
+
   await getHistoriaClinica();
   getMaestros();
 };
@@ -274,7 +274,7 @@ const getMaestros = async () => {
   }
 };
 const selectConsen = async (data) => {
-  const consen_select = lista_maestros.value.find((e) => (e.cod_mae = data));
+  const consen_select = lista_maestros.value.find((e) => e.cod_mae == data);
   setHeader$({ encabezado: consen_select });
   router.push({ name: data });
 };

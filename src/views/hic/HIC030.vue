@@ -42,7 +42,7 @@
           <q-input type="text" dense class="col-2" v-model="getPaci.descrip_ciudad" readonly />
           <p>actuando en nombre propio.</p>
 
-          <p>
+          <p class="text-justify">
             Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
             que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
             son una ciencia exacta, que se garantizan resultados en la atención, y que, aunque son
@@ -63,7 +63,7 @@
             counter
             dense
           />
-          <p class="q-pt-md">
+          <p class="q-pt-md text-justify">
             Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
             tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que
             exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que
@@ -104,9 +104,9 @@
             <p>
               Expreso mi voluntad de
               <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto
-              que, tras la información recibida, no consiento someterme al procedimiento de:
+              que, tras la información recibida, no consiento someterme al procedimiento de toma de citologia
             </p>
-            <q-input type="text" dense class="col-2" label="falta procedimiento" />
+
             <p>por los siguientes motivos:</p>
             <q-input
               v-model="HIC030.revocar_motivos"
@@ -139,6 +139,7 @@
                     v-model="HIC030.fecha_ult_cito"
                     :disable="!fecha_citologia ? true : false"
                     :rules="[requerido]"
+                    :max="fecha_act"
                     type="date"
                     dense
                   />
@@ -175,6 +176,7 @@
                       mask="(###) ### - ####"
                       v-model="HIC030.telefono2"
                       class="q-py-none q-my-non"
+                      :disable="!HIC030.telefono1"
                       style="min-width: 300px; display: inline-block"
                     />
                   </strong>

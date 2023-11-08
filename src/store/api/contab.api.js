@@ -9,10 +9,10 @@ export const useApiContabilidad = defineStore("contabilidad", {
   }),
   getters: {
     getEncabezado() {
+      if (this.encabezado.codigo) return this.encabezado;
       if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
-      return this.encabezado;
     },
-    getNit: () => 1, //Definir nit global
+    getNit: () => 1,
     getImgBs64: () =>
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
   },
@@ -23,10 +23,11 @@ export const useApiContabilidad = defineStore("contabilidad", {
       window.close();
     },
     setHeader$({ encabezado }) {
+      sessionStorage.removeItem("encabezado");
       if (encabezado) {
+        this.encabezado = encabezado;
         sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
       }
-      this.encabezado = encabezado;
     },
     getDll$({ directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {
