@@ -77,85 +77,7 @@ export const impresionHC030 = ({ datos }) => {
           alignment: "justify",
           style: "bodyNoBold",
         },
-        {
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(datos.autorizo ? true : false),
-                },
-                {
-                  text: [
-                    {
-                      text: "Autorizo",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: " al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud:",
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-              [
-                {
-                  marginBottom: 10,
-                  marginTop: -2,
-                  colSpan: 2,
-                  text: "TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico",
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-                {},
-              ],
-            ],
-          },
-        },
-        {
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(datos.autorizo ? false : true),
-                },
-                {
-                  text: [
-                    {
-                      text: "Expreso mi voluntad de ",
-                    },
-                    {
-                      text: "revocar",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: ${datos.diagnostico} \npor los siguientes motivos: ${datos.revocar_motivos}`,
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-              [
-                {
-                  marginTop: -2,
-                  marginBottom: 10,
-                  colSpan: 2,
-                  text: "",
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-                {},
-              ],
-            ],
-          },
-        },
+        textoAutoriza(datos.autorizo),
         {
           style: "tableNoBold",
           alignment: "justify",
@@ -196,6 +118,100 @@ export const impresionHC030 = ({ datos }) => {
         },
       ],
     };
+  }
+
+  function textoAutoriza(autorizo) {
+    const textoAutorizo = {
+      stack: [
+        {
+          layout: "noBorders",
+          table: {
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(autorizo),
+                },
+                {
+                  text: [
+                    {
+                      text: "Autorizo",
+                      bold: true,
+                      decoration: "underline",
+                    },
+                    {
+                      text: " al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud:",
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+              [
+                {
+                  marginBottom: 10,
+                  marginTop: -2,
+                  colSpan: 2,
+                  text: "TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico",
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+                {},
+              ],
+            ],
+          },
+        },
+      ],
+    };
+
+    const textoRevoca = {
+      stack: [
+        {
+          layout: "noBorders",
+          table: {
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(autorizo),
+                },
+                {
+                  text: [
+                    {
+                      text: "Expreso mi voluntad de ",
+                    },
+                    {
+                      text: "revocar",
+                      bold: true,
+                      decoration: "underline",
+                    },
+                    {
+                      text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: ${datos.diagnostico} \npor los siguientes motivos: ${datos.revocar_motivos}`,
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+              [
+                {
+                  marginTop: -2,
+                  marginBottom: 10,
+                  colSpan: 2,
+                  text: "",
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+                {},
+              ],
+            ],
+          },
+        },
+      ],
+    };
+
+    if (autorizo) return textoAutorizo;
+    else return textoRevoca;
   }
 
   function cuadro_canvas(condicion) {
