@@ -351,12 +351,12 @@ const callBackFirma = (data_firma) => {
 
 const validarDatos = async () => {
   await consultarEnfermedad();
-  if ((opcion_hc030.value == "REVOCAR")) {
-    revocar_motivos.value.validate()
-    if(revocar_motivos.value.hasError) return revocar_motivos.value.focus()
+  if (opcion_hc030.value == "REVOCAR") {
+    revocar_motivos.value.validate();
+    if (revocar_motivos.value.hasError) return revocar_motivos.value.focus();
   }
 
-  if ((opcion_hc030.value == "AUTORIZAR")) {
+  if (opcion_hc030.value == "AUTORIZAR") {
     if (!HIC030.value.diagnostico) return CON851("?", "info", "No hay ningun codigo del diagnostico");
   }
   grabarConsentimiento();
@@ -419,12 +419,14 @@ const imprimirConsen = async () => {
       },
       content: impresionHC030({
         datos: {
-          autorizo: opcion_hc030.value ==  "AUTORIZAR" ? true : false,
-          ciuda: getEmpresa.CIUDAD_USUAR,
+          autorizo: opcion_hc030.value == "AUTORIZAR" ? true : false,
+          empresa: { ...getEmpresa, FECHA_ACT: fecha_act.value },
+          paciente: { ...getPaci },
           fecha: fecha_act.value,
+          acomp: { ...getAcomp },
+          prof: { ...getProf },
           llave: llave.value,
           ...HIC030.value,
-          ...getPaci,
         },
       }),
     });
