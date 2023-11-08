@@ -202,7 +202,7 @@
           :firmador="getAcomp.cod || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.cod ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
-          @reciFirma="callBackFirma"
+          @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
         <ContainerFirma
@@ -247,6 +247,7 @@ const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
+const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const descrip_diagnostico = ref(null);
 
@@ -351,6 +352,10 @@ const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma.slice(22));
 };
 
+const callBackFirmaAcomp = (data_firma) => {
+  data_firma && (firma_recibida_acomp.value = data_firma.slice(22));
+};
+
 const validarDatos = async () => {
   await consultarEnfermedad();
   if (opcion_hc030.value == "REVOCAR") {
@@ -426,9 +431,14 @@ const imprimirConsen = async () => {
           autorizo: opcion_hc030.value == "AUTORIZAR" ? true : false,
           empresa: { ...getEmpresa, FECHA_ACT: fecha_act.value },
           paciente: { ...getPaci },
-          fecha: fecha_act.value,
-          acomp: { ...getAcomp },
           prof: { ...getProf },
+          acomp: { ...getAcomp },
+          firmas: {
+            firma_paci: firma_recibida.value ? true : false,
+            firma_acomp: firma_recibida_acomp.value ? true : false,
+            firma_prof: firma_prof.value ? true : false,
+          },
+          fecha: fecha_act.value,
           llave: llave.value,
           ...HIC030.value,
         },
