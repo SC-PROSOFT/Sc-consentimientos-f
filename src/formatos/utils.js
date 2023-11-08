@@ -30,7 +30,8 @@ export const utilsFormat = ({ datos, content }) => {
       firma_consen: `${base64}${datos.img_firma_consen}` || getImgBs64,
       firma_paci: `${base64}${datos.img_firma_paci}` || getImgBs64,
       firma_acomp: `${base64}${datos.img_firma_acomp}` || getImgBs64,
-      firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
+      firma_profesional:
+        datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     header: function (currentPage, pageCount) {
       return {
@@ -47,10 +48,21 @@ export const utilsFormat = ({ datos, content }) => {
                 alignment: "center",
               },
               {
-                marginTop: 15,
-                text: `${getEncabezado.descrip}`,
-                style: "headerBold",
-                alignment: "center",
+                text: [
+                  {
+                    marginTop: 10,
+                    marginBottom: 10,
+                    text: `${getEmpresa.NOMUSU} \n\n`,
+                    style: "headerBold",
+                    alignment: "center",
+                  },
+                  {
+                    marginTop: 15,
+                    text: `${getEncabezado.descrip}`,
+                    style: "headerBold",
+                    alignment: "center",
+                  },
+                ],
               },
               {
                 stack: [
@@ -175,5 +187,7 @@ export const evaluarParentesco = (value) => {
     { COD: "11", DESCRIP: "AMIGO(A)" },
     { COD: "12", DESCRIP: "ABUELO(A)" },
   ];
-  return parentesco.find((e) => e.COD == value).DESCRIP || "NO TIENE PARENTESCO";
+  return (
+    parentesco.find((e) => e.COD == value).DESCRIP || "NO TIENE PARENTESCO"
+  );
 };
