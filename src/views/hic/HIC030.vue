@@ -373,7 +373,7 @@ const grabarConsentimiento = async () => {
   datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format("YYYYMMDD");
   let datos = {
     llave_consen: getHc.llave,
-    oper_consen: "ADMI",
+    oper_consen: getSesion.oper,
     cod_consen: "HIC030",
     cod_med: getProf.cod,
     ...datos_format,
