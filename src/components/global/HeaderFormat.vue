@@ -22,7 +22,7 @@
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center">CODIGO</strong>
-            <strong class="col-12 text-center"> {{ getEncabezado.codigo }} </strong>
+            <strong class="col-12 text-center text-caption"> {{ getEncabezado.codigo }} </strong>
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center">APROBADO </strong>
