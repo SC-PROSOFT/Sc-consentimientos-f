@@ -1,9 +1,5 @@
 import { evaluarParentesco } from "@/formatos/utils";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-import pdfMake from "pdfmake/build/pdfmake";
 import dayjs from "dayjs";
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionHC032 = ({ datos }) => {
   var dd = {

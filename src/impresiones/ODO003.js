@@ -1,7 +1,4 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const impresionODO003 = () => {
   return new Promise(async (resolve) => {
@@ -141,11 +138,7 @@ function header(currentPage, pageCount) {
                 style: "headerEnd",
               },
               {
-                text:
-                  "\nPágina " +
-                  currentPage.toString() +
-                  " de " +
-                  pageCount.toString(),
+                text: "\nPágina " + currentPage.toString() + " de " + pageCount.toString(),
                 style: "headerEnd",
               },
             ],
