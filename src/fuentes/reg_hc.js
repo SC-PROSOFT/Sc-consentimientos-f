@@ -4,5 +4,6 @@ export const regHc = () => {
     descrip: "",
     descrip_atiende: "",
     registro_profe: "",
+    diagn: "",
   };
 };

@@ -105,7 +105,7 @@ const route = useRoute();
 
 const { CON851 } = useModuleCon851();
 const { getDll$, _getFirma$, _getImagen$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa } = useModuleFormatos();
+const { getEmpresa, setHc } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const novedad = ref(null);
@@ -172,11 +172,8 @@ const getParametros = async () => {
   if (Object.keys(route.query).length) {
     sessionStorage.setItem("query", JSON.stringify(route.query));
   }
-  if (!Object.keys(route.query).length) {
-    params_querys.value = JSON.parse(sessionStorage.query);
-  } else {
-    params_querys.value = route.query;
-  }
+  if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
+  else params_querys.value = route.query;
   novedad.value = params_querys.value.novedad;
 
   await getHistoriaClinica();
@@ -188,12 +185,9 @@ const getHistoriaClinica = async () => {
       modulo: `get_hc.dll`,
       data: { llave_hc: route.query.llave_hc },
     });
+    setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2) {
-      return CON851("9Y", "info", "", logOut$);
-    }
-    sessionStorage.setItem("reg_hc", JSON.stringify(response.reg_hc));
-
+    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
     if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);

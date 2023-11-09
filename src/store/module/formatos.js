@@ -56,9 +56,30 @@ export const useModuleFormatos = defineStore("formatos", {
       return this.reg_acomp;
     },
     getHc() {
-      if (sessionStorage.reg_hc) return JSON.parse(sessionStorage.reg_hc);
-      return this.reg_hc;
+      if (this.reg_hc.llave) return this.reg_hc;
+      else if (sessionStorage.reg_hc) return JSON.parse(sessionStorage.reg_hc);
     },
   },
-  actions: {},
+  actions: {
+    setHc(reg_hic) {
+      sessionStorage.setItem("reg_hc", JSON.stringify(reg_hic));
+      Object.assign(this.reg_hc, reg_hic);
+    },
+    setPaci(reg_paci) {
+      sessionStorage.setItem("reg_paci", JSON.stringify(reg_paci));
+      Object.assign(this.reg_paci, reg_paci);
+    },
+    setAcomp(reg_acomp) {
+      sessionStorage.setItem("reg_acomp", JSON.stringify(reg_acomp));
+      Object.assign(this.reg_acomp, reg_acomp);
+    },
+    setProf(reg_prof) {
+      sessionStorage.setItem("reg_prof", JSON.stringify(reg_prof));
+      Object.assign(this.reg_prof, reg_prof);
+    },
+    setEmpresa(reg_empresa) {
+      sessionStorage.setItem("empresa", JSON.stringify(reg_empresa));
+      Object.assign(this.reg_empresa, reg_empresa);
+    },
+  },
 });

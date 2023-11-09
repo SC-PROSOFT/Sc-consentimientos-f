@@ -45,6 +45,39 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
+    enviarCorreo$({ file = null, subject = "", cuerpo = "", destino = "", loader = true }) {
+      const formData = new FormData();
+      formData.append("archivo", file, "consentimiento.pdf");
+
+      const data_correo = {
+        server_email: "smtp.gmail.com",
+        remitente: "pruebasprosofts@gmail.com",
+        clave: "ldpddvqikedwhpqq",
+        puerto: 587,
+        destino,
+        subject,
+        cuerpo,
+      };
+
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/enviar-correo`,
+          method: "POST",
+          data: formData,
+          params: data_correo,
+          loader,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+          .then((response) => resolve(response))
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
+    },
+
     guardarFile$({
       base64 = "",
       ruta = "D:/PSC/PROG/DATOS/FIRMAS_CONSEN",

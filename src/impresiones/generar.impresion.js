@@ -653,15 +653,25 @@ export const generarImpresion = async (params) => {
       reject("Tipo de impresión no disponible");
     }
   });
-  // .finally(index.commit("isLoading", null, { root: true }));
 };
 
 export function impresion({ docDefinition }) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(async function (resolve, reject) {
     try {
-      console.log("⚡  docDefinition-- >", docDefinition);
       pdfMake.createPdf(docDefinition).open();
-      setTimeout(() => resolve(), 300);
+      resolve(true);
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+}
+export function generarArchivo({ docDefinition }) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      pdfMake.createPdf(docDefinition).getBlob((blob) => {
+        resolve(blob);
+      });
     } catch (error) {
       console.error(error);
       reject(error);

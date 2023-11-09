@@ -46,7 +46,7 @@
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
-import { empresas, regAcomp } from "@/fuentes";
+import { empresas, regAcomp, regPaci } from "@/fuentes";
 import { useRoute } from "vue-router";
 
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
@@ -62,20 +62,19 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, getHc } = useModuleFormatos();
+const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
 const { getDll$, getNit, _getLogo$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
-const reg_acomp = regAcomp();
+
 const route = useRoute();
 const datos_session = {};
 const llave = ref(null);
 
 onMounted(async () => {
   verificarSesion();
-  if (getHc?.llave) llave.value = getHc.llave.slice(15);
 });
 
 const verificarSesion = async () => {
@@ -84,9 +83,8 @@ const verificarSesion = async () => {
     // sessionStorage.ip = "192.168.0.193";
     sessionStorage.nit = getNit;
     const response = await getDll$({ modulo: `get_usunet.dll` });
-
     configuracion.value.estado = false;
-    sessionStorage.setItem("empresa", JSON.stringify(response));
+    setEmpresa(response);
     getLogo();
     return response;
   } catch (error) {
@@ -112,6 +110,7 @@ const validarUrl = () => {
   } else {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
+  if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
   getPaciente();
   // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
 };
@@ -121,34 +120,26 @@ async function getPaciente() {
 
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
-      sessionStorage.setItem("reg_paci", JSON.stringify(data.reg_paci));
+      setPaci(data.reg_paci);
+
       datos_session.novedad == "1" && getMedico();
       datos_session.id_acompa && getAcomp();
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       CON851("?", "error", "Error consultando datos paciente");
     });
 }
 async function getAcomp() {
   try {
-    // const cod_paci = datos_session.id_acompa;
-    if (!datos_session.id_acompa.trim()) {
-      sessionStorage.setItem("reg_acomp", JSON.stringify(reg_acomp));
-    } else {
+    if (!datos_session.id_acompa.trim()) setAcomp(regAcomp());
+    else {
       const datos = await getDll$({
         modulo: `get_paci.dll`,
         data: { cod_paci: datos_session.id_acompa },
       });
-
-      sessionStorage.setItem(
-        "reg_acomp",
-        JSON.stringify({
-          ...datos.reg_paci,
-          parentesco: datos_session.parentesco,
-        })
-      );
+      setAcomp({ ...datos.reg_paci, parentesco: datos_session.parentesco });
     }
-    datos_session.cod_aux && getAux();
   } catch (error) {
     CON851("?", "error", "No existe acompañante en el archivo de pacientes");
   }
@@ -158,8 +149,7 @@ async function getMedico() {
   try {
     const cod_prof = datos_session.cod_prof || "";
     const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
-
-    sessionStorage.setItem("reg_prof", JSON.stringify(datos.reg_prof));
+    setProf(datos.reg_prof);
   } catch (error) {
     CON851("?", "error", "Error consultando datos medico");
   }
@@ -172,8 +162,6 @@ const validarAccion = (event) => {
       break;
     case 1: // configuracion de maestros
       config_maestro.value.estado = true;
-      break;
-    case 2: // impresiones
       break;
   }
 };
