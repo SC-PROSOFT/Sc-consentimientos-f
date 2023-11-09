@@ -1,9 +1,6 @@
 import { default as axios } from "axios";
 import { useModuleLoader } from "@/store";
 
-const URl = `http://34.234.185.158:${process.env.PORT}${process.env.API}`;
-// const URl = `http://localhost:5025${process.env.API}`;
-
 export const apiAxios = ({
   url,
   data = {},
@@ -13,6 +10,7 @@ export const apiAxios = ({
   responseType = "json",
   loader = true,
 }) => {
+  const URl = `http://${sessionStorage.ip}:${process.env.PORT}${process.env.API}`;
   return new Promise((resolve, reject) => {
     let config = {
       url: `${URl}${url}`,

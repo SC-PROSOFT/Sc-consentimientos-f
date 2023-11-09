@@ -46,7 +46,7 @@
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
-import { empresas, regAcomp, regPaci } from "@/fuentes";
+import { empresas, regAcomp } from "@/fuentes";
 import { useRoute } from "vue-router";
 
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
@@ -80,8 +80,8 @@ onMounted(async () => {
 const verificarSesion = async () => {
   try {
     sessionStorage.ip = empresas[getNit].ip_servicio;
-    // sessionStorage.ip = "192.168.0.193";
     sessionStorage.nit = getNit;
+    
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
