@@ -1,163 +1,21 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import dayjs from "dayjs";
+
+import { evaluarParentesco } from "@/formatos/utils";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-export const impresionHC031 = () => {
-    return new Promise(async (resolve) => {
-      try {
-        var dd = {
-            pageSize: "LETTER",
-            pageMargins: [35, 105, 35, 30],
-            header: function (currentPage, pageCount) {
-              return header(currentPage, pageCount);
-            },
-            content: [
-              {
-                stack: [contenidoColposcopia(), firmas()],
-              },
-            ],
-          
-            styles: {
-              headerBold: {
-                fontSize: 12,
-                bold: true,
-              },
-              headerEnd: {
-                fontSize: 8,
-              },
-              bodyNoBold: {
-                fontSize: 11,
-              },
-              tableBold: {
-                fontSize: 10,
-                bold: true,
-              },
-              tableNoBold: {
-                fontSize: 9,
-              },
-            },
-          };
-        setTimeout(() => {
-            pdfMake.createPdf(dd).download(`CONSENTIMIENTO INFORMATO HC031`);
-            resolve();
-          }, 600);
-        } catch (error) {
-          console.log(error);
-        }
-    });
-};
+export const impresionHC031 = ({ datos }) => {
+  var dd = {
+    stack: [contenidoColposcopia(), firmas()],
+  };
 
-function header(currentPage, pageCount) {
-    return {
-      margin: [35, 20, 35, 0],
-      table: {
-        widths: ["20%", "45%", "35%"],
-        body: [
-          [
-            {
-              image: "sampleImage.jpg",
-              width: 90,
-              height: 70,
-              alignment: "center",
-            },
-            {
-              text: "\nCONSENTIMIENTO INFORMADO PARA LA TOMA DE COLPOSCOPIA\n\n",
-              style: "headerBold",
-              alignment: "center",
-            },
-            {
-              stack: [
-                {
-                  text: [
-                    {
-                      text: "Código: ",
-                      bold: true,
-                    },
-                    {
-                      text: "M2-S3-F-02",
-                    },
-                  ],
-                  style: "headerEnd",
-                },
-                {
-                  text: [
-                    {
-                      text: "Versión: ",
-                      bold: true,
-                    },
-                    {
-                      text: "01",
-                    },
-                  ],
-                  style: "headerEnd",
-                },
-                {
-                  text: [
-                    {
-                      text: "Aprobado el: ",
-                      bold: true,
-                    },
-                    {
-                      text: "04/10/2023",
-                    },
-                  ],
-                  style: "headerEnd",
-                },
-                {
-                  text: [
-                    {
-                      text: "Revisado por ",
-                      bold: true,
-                    },
-                    {
-                      text: "04/10/2023",
-                    },
-                  ],
-                  style: "headerEnd",
-                },
-                {
-                  text: [
-                    {
-                      text: "Aprobado por ",
-                      bold: true,
-                    },
-                    {
-                      text: "04/10/2023",
-                    },
-                  ],
-                  style: "headerEnd",
-                },
-                {
-                  text: [
-                    {
-                      text: "Fecha de actualización: ",
-                      bold: true,
-                    },
-                    {
-                      text: "04/10/2023",
-                    },
-                  ],
-                  style: "headerEnd",
-                },
-                {
-                  text: "\nPágina " + currentPage.toString() + " de " + pageCount.toString(),
-                  style: "headerEnd",
-                },
-              ],
-            },
-          ],
-        ],
-      },
-    };
-  }
-  
-  function contenidoColposcopia(disiente) {
-    disiente = "N";
+  function contenidoColposcopia() {
     return {
       stack: [
         {
-          text: `Historia clínica número:`,
+          text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -165,14 +23,14 @@ function header(currentPage, pageCount) {
           columns: [
             {
               width: "auto",
-              text: `Ciudad: VILLAVICENCIO`,
+              text: `Ciudad: ${datos.empresa.CIUDAD_USUAR}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
             {
               marginLeft: 50,
               width: "auto",
-              text: `Fecha: 02/11/2023`,
+              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
@@ -216,143 +74,246 @@ function header(currentPage, pageCount) {
         },
         {
           marginTop: 8,
-          text: `Yo, {David Santiago Lozada Quintero}, identificada con cédula de ciudadanía No. {1111111111} de {VILLAVICENCIO} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna, doy el consentimiento para que el ginecólogo de la E.S.E salud Yopal -Hospital local de Yopal, realice el procedimiento de colposcopia y biopsia. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener antes y después de la colposcopia, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas. Entiendo que este procedimiento puede traer efectos adversos, como infección y sangrado, propias del procedimiento que aquí autorizo, los cuales asumo bajo mi responsabilidad.`,
+          text: `Yo, ${datos.paciente.descrip}, identificada con cédula de ciudadanía No. ${datos.paciente.cod} de ${datos.paciente.descrip_ciudad} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna:`,
           alignment: "justify",
           style: "bodyNoBold",
         },
-        disiente == "S"
-          ? {
-              marginTop: 8,
-              text: "DESISTIMIENTO",
-              alignment: "center",
-              style: "bodyNoBold",
-              bold: true,
-            }
-          : null,
-        disiente == "S"
-          ? {
-              marginTop: 8,
-              text: "Expreso mi voluntad de revocar el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de {COLPOSCOPIA}, por los siguientes motivos: {LOS MOTIVOS}",
-              alignment: "justify",
-              style: "bodyNoBold",
-            }
-          : null,
+        textoAutoriza(datos.autorizo)
       ],
     };
   }
-  
-  function firmas(paciente_firma) {
-    paciente_firma = "S";
-    let firmasArray = [];
-    let motivosArray = [];
-    let margin = 0;
-    let anchos = [];
-  
-    if (paciente_firma !== "N") {
-      firmasArray = [firmaPaciente(), firmaProfesional()];
-      margin = 80;
-      anchos = ["40%", "40%"];
-    } else {
-      firmasArray = [firmaAcompanante(), firmaProfesional()];
-      motivosArray = [motivosNoFirma()];
-      margin = 80;
-      anchos = ["40%", "40%", "33%"];
-    }
-  
-    return {
+
+  function textoAutoriza(autorizo) {
+    const textoAutorizo = {
+      marginTop: 8,
       stack: [
         {
-          marginTop: 20,
-          marginLeft: margin,
           layout: "noBorders",
           table: {
-            widths: anchos,
-            body: [[...firmasArray]],
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(true),
+                },
+                {
+                  text: [
+                    {
+                      text: "Doy el consentimiento",
+                      bold: true,
+                      decoration: "underline",
+                    },
+                    {
+                      text: " para que el ginecólogo de la E.S.E salud Yopal -Hospital local de Yopal, realice el procedimiento de colposcopia y biopsia. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener antes y después de la colposcopia, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas. Entiendo que este procedimiento puede traer efectos adversos, como infección y sangrado, propias del procedimiento que aquí autorizo, los cuales asumo bajo mi responsabilidad.",
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+            ],
           },
         },
-        ...motivosArray,
       ],
     };
+
+    const textoRevoca = {
+      marginTop: 8,
+      stack: [
+        {
+          layout: "noBorders",
+          table: {
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(true),
+                },
+                {
+                  text: [
+                    {
+                      text: "Expreso mi voluntad de ",
+                    },
+                    {
+                      text: "revocar",
+                      bold: true,
+                      decoration: "underline",
+                    },
+                    {
+                      text: ` revocar el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de COLPOSCOPIA, por los siguientes motivos: ${datos.revocar_motivos}`,
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+            ],
+          },
+        },
+      ],
+    };
+
+    if (autorizo) return textoAutorizo;
+    else return textoRevoca;
   }
-  
+
+  function cuadro_canvas(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+
   function firmaPaciente() {
     return {
       stack: [
         {
-          text: "PACIENTE",
+          text: "PACIENTE (FIRMA / HUELLA)",
+          bold: true,
           alignment: "center",
-          style: "tableBold",
+          style: "tableNoBold",
         },
         {
-          marginBottom: 2,
-          text: [
+          marginTop: 9,
+          alignment: "center",
+          image: "firma_paci",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 10,
+          columns: [
             {
-              text: "FIRMA / HUELLA ",
-              alignment: "center",
-              style: "tableBold",
-            },
-            {
-              text: "(EN CASO DE NO FIRMAR)",
-              alignment: "center",
+              width: "auto",
               style: "tableNoBold",
-              fontSize: 7,
-            },
-          ],
-        },
-        {
-          alignment: "center",
-          image: "sampleImage.jpg",
-          width: 150,
-          height: 80,
-        },
-        {
-          marginTop: 2,
-          text: [
-            {
               text: "NOMBRE: ",
-              style: "tableNoBold",
               bold: true,
             },
             {
-              text: "David Santiago Lozada Quintero",
+              marginLeft: 5,
               style: "tableNoBold",
+              text: `${datos.paciente.descrip}`,
             },
           ],
         },
         {
-          text: [
+          columns: [
             {
-              text: "DOCUMENTO: ",
+              width: "auto",
               style: "tableNoBold",
+              text: "DOCUMENTO: ",
               bold: true,
             },
             {
-              text: "1111111111",
+              marginLeft: 5,
               style: "tableNoBold",
+              text: `${datos.paciente.cod}`,
             },
           ],
         },
       ],
     };
   }
-  
+
+  function firmaAcompanante() {
+    return {
+      stack: [
+        {
+          text: "TUTOR O ACOMPAÑANTE (FIRMA / HUELLA)",
+
+          alignment: "center",
+          style: "tableNoBold",
+          bold: true,
+        },
+        {
+          text: "(EN CASO DE NO FIRMAR)",
+          alignment: "center",
+          style: "tableNoBold",
+          fontSize: 6,
+        },
+        {
+          marginTop: 2,
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 10,
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "NOMBRE: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.acomp.descrip}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.acomp.cod}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "PARENTESCO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${evaluarParentesco(datos.paren_acomp)}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
   function firmaProfesional() {
     return {
       stack: [
         {
           text: "FIRMA PROFESIONAL",
+
           alignment: "center",
-          style: "tableBold",
-          marginBottom: 14,
+          style: "tableNoBold",
+          bold: true,
         },
         {
+          marginTop: 8,
           alignment: "center",
-          image: "sampleImage.jpg",
-          width: 150,
-          height: 80,
+          image: "firma_profesional",
+          width: 130,
+          height: 70,
         },
         {
-          marginTop: 10,
+          marginTop: 8,
           text: [
             {
               text: "NOMBRE: ",
@@ -360,130 +321,73 @@ function header(currentPage, pageCount) {
               bold: true,
             },
             {
-              text: "David Santiago Lozada Quintero",
+              text: `${datos.prof.descrip}`,
               style: "tableNoBold",
             },
           ],
         },
         {
-          text: [
+          columns: [
             {
-              text: "PROFESIONAL AREA DE: ",
+              width: "auto",
               style: "tableNoBold",
+              text: "PROFESIONAL AREA DE:",
               bold: true,
             },
             {
-              text: "EXAMENES DOC.MANOTAS",
+              marginLeft: 5,
               style: "tableNoBold",
+              text: `${datos.prof.descrip_atiende}`,
             },
           ],
         },
         {
-          text: [
+          columns: [
             {
-              text: "R.P N°: ",
+              width: "auto",
               style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "1111111111",
-              style: "tableNoBold",
-            },
-          ],
-        },
-      ],
-    };
-  }
-  
-  function firmaAcompanante() {
-    return {
-      stack: [
-        {
-          text: "TUTOR/ACOMPAÑANTE/REPR.LEGAL",
-          alignment: "center",
-          style: "tableBold",
-        },
-        {
-          marginBottom: 2,
-          text: [
-            {
-              text: "FIRMA / HUELLA ",
-              alignment: "center",
-              style: "tableBold",
-            },
-            {
-              text: "(EN CASO DE NO FIRMAR)",
-              alignment: "center",
-              style: "tableNoBold",
-              fontSize: 7,
-            },
-          ],
-        },
-        {
-          alignment: "center",
-          image: "sampleImage.jpg",
-          width: 150,
-          height: 80,
-        },
-        {
-          marginTop: 2,
-          text: [
-            {
-              text: "NOMBRE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "David Santiago Lozada Quintero Quintero",
-              style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          text: [
-            {
               text: "DOCUMENTO: ",
-              style: "tableNoBold",
               bold: true,
             },
             {
-              text: "2222222222",
+              marginLeft: 5,
               style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          text: [
-            {
-              text: "PARENTESCO: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "HERMANO",
-              style: "tableNoBold",
+              text: `${datos.prof.cod}`,
             },
           ],
         },
       ],
     };
   }
-  
-  function motivosNoFirma() {
+
+  function firmas(condicion) {
+    let firmasArray = [];
+    let anchos = [];
+
+    if (datos.firmas.firma_paci) {
+      firmasArray.push(firmaPaciente());
+    }
+
+    if (datos.firmas.firma_acomp) {
+      firmasArray.push(firmaAcompanante());
+    }
+
+    if (datos.firmas.firma_prof) {
+      firmasArray.push(firmaProfesional());
+    }
+
+    if (firmasArray.length == 2) {
+      firmasArray.unshift({ border: [false, false, false, false], text: "" });
+      anchos = ["10%", "40%", "40%"];
+    } else if (firmasArray.length == 3) anchos = ["33%", "34%", "33%"];
     return {
-      margin: [80, 10, 110, 0],
-      stack: [
-        {
-          text: [
-            {
-              text: "MOTIVOS POR LOS QUE EL USUARIO NO FIRMA: 22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222 ",
-              style: "tableNoBold",
-              alignment: "justify",
-              bold: true,
-            },
-          ],
-        },
-      ],
+      marginTop: 30,
+      table: {
+        widths: anchos,
+        body: [[...firmasArray]],
+      },
     };
   }
-  
+
+  return dd;
+};
