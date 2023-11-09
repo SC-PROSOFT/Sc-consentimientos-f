@@ -188,6 +188,6 @@ export const evaluarParentesco = (value) => {
     { COD: "12", DESCRIP: "ABUELO(A)" },
   ];
   return (
-    parentesco.find((e) => e.COD == value).DESCRIP || "NO TIENE PARENTESCO"
+    parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO"
   );
 };
