@@ -26,7 +26,7 @@ export const useModuleFormatos = defineStore("formatos", {
   getters: {
     getSesion() {
       if (sessionStorage.query) return JSON.parse(sessionStorage.query);
-      else "";
+      return "";
     },
     getLogo() {
       if (sessionStorage.logo) return `data:image/png;base64,${sessionStorage.logo}`;
