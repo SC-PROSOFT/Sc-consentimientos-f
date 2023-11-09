@@ -20,5 +20,6 @@ export const regPaci = () => {
     descrip_eps: "",
     telefono: "",
     direccion: "",
+    email: "",
   };
 };
