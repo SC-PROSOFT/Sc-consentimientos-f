@@ -94,7 +94,17 @@
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
-import { impresionHC030, impresion } from "@/impresiones";
+import {
+  impresionHC030,
+  impresionHC031,
+  impresionHC032,
+  impresionHC033,
+  impresionHC034,
+  impresionHC035,
+  impresionHC036,
+  impresionHC037,
+  impresion,
+} from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import days from "dayjs";
 
@@ -218,6 +228,17 @@ const getConsentimientosRealizados = async () => {
 };
 
 const imprimirConsen = async ({ row }) => {
+  const opciones = {
+    HIC030: impresionHC030,
+    HIC031: impresionHC031,
+    HIC032: impresionHC032,
+    HIC033: impresionHC033,
+    HIC034: impresionHC034,
+    HIC035: impresionHC035,
+    HIC036: impresionHC036,
+    HIC037: impresionHC037,
+  };
+
   setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
 
@@ -232,7 +253,7 @@ const imprimirConsen = async ({ row }) => {
         img_firma_paci: firma_consen.value,
         firma_prof: firma_prof.value,
       },
-      content: impresionHC030({
+      content: opciones[row.reg_coninf.cod]({
         datos: {
           autorizo: row.reg_coninf.estado == "AUTORIZADO" ? true : false,
           llave: row.reg_coninf.llave.folio,
