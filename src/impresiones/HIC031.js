@@ -1,10 +1,5 @@
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-import dayjs from "dayjs";
-
 import { evaluarParentesco } from "@/formatos/utils";
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import dayjs from "dayjs";
 
 export const impresionHC031 = ({ datos }) => {
   var dd = {
@@ -78,7 +73,7 @@ export const impresionHC031 = ({ datos }) => {
           alignment: "justify",
           style: "bodyNoBold",
         },
-        textoAutoriza(datos.autorizo)
+        textoAutoriza(datos.autorizo),
       ],
     };
   }

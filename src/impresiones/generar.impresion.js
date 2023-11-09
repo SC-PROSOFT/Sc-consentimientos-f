@@ -1,9 +1,17 @@
 import Excel from "exceljs";
 import FileSaver, { saveAs } from "file-saver";
-import { formatNumberMask_ } from "@/setup";
+import "pdfmake/build/vfs_fonts";
 import pdfMake from "pdfmake/build/pdfmake";
 import { resolve } from "path-browserify";
+
+import { formatNumberMask_ } from "@/setup";
 import days from "dayjs";
+
+if (process.env.NODE_ENV === "development") {
+  import("pdfmake/build/vfs_fonts").then((pdfFonts) => {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  });
+}
 
 class _ImpresionExcel {
   workbook = new Excel.Workbook();
