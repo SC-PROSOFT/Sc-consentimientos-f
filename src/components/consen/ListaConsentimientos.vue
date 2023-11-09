@@ -34,7 +34,10 @@
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            {{ col.value }}
+            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
+              col.value
+            }}</q-chip>
+            <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
       </template>
@@ -178,6 +181,11 @@ onMounted(() => {
   getParametros();
 });
 
+const valueEstado = (estado) => {
+  if (estado == "AUTORIZADO") return "light-green-6";
+  else if (estado == "REVOCADO") return "amber-7";
+  return "red";
+};
 const getParametros = async () => {
   if (Object.keys(route.query).length) {
     sessionStorage.setItem("query", JSON.stringify(route.query));
