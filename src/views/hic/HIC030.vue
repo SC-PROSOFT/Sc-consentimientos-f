@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input v-model="getEmpresa.CIUDAD_USUAR" class="col-3" type="text" readonly disable dense />
+          <q-input v-model="getEmpresa.ciudad_usuar" class="col-3" type="text" readonly disable dense />
           <p>Fecha:</p>
           <q-input v-model="fecha_act" class="col-1" type="text" readonly disable dense />
         </div>
@@ -418,9 +418,17 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
+        if (!getPaci.email) {
+          return CON851("?", "info", "El paciente no cuenta con un correo registrado", () => router.back());
+        }
+
+        if (!/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
+          return CON851("?", "info", "El correo no es valido", () => router.back());
+        }
+
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
-          destino: "pastusito18@gmail.com",
+          destino: getPaci.email.toLowerCase(),
           subject: getEncabezado.descrip,
           file,
         });

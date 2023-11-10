@@ -14,7 +14,7 @@
         <div class="row">
           <div class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
             <strong class="col-12 text-center text-bold">EMPRESA </strong> <br />
-            <strong class="col-12 text-center"> {{ getEmpresa.NOMUSU || "Nombre Empresa" }} </strong>
+            <strong class="col-12 text-center"> {{ getEmpresa.nomusu || "Nombre Empresa" }} </strong>
           </div>
 
           <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">

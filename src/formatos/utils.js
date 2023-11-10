@@ -51,7 +51,7 @@ export const utilsFormat = ({ datos, content }) => {
                   {
                     marginTop: 10,
                     marginBottom: 10,
-                    text: `${getEmpresa.NOMUSU} \n\n`,
+                    text: `${getEmpresa.nomusu} \n\n`,
                     style: "headerBold",
                     alignment: "center",
                   },

@@ -1,18 +1,22 @@
 import { defineStore } from "pinia";
 import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
-import { regEncabezado } from "@/fuentes";
+import { regEncabezado, empresas } from "@/fuentes";
+import { useModuleFormatos } from "@/store";
 
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({
     encabezado: regEncabezado(),
+    nit_empresa: 1,
   }),
   getters: {
     getEncabezado() {
       if (this.encabezado.codigo) return this.encabezado;
       else if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
     },
-    getNit: () => 1,
+    getNit() {
+      return this.nit_empresa;
+    },
     getImgBs64: () =>
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
   },
@@ -49,10 +53,12 @@ export const useApiContabilidad = defineStore("contabilidad", {
       const formData = new FormData();
       formData.append("archivo", file, "consentimiento.pdf");
 
+      const empresa = JSON.parse(JSON.stringify(useModuleFormatos().getEmpresa));
+
       const data_correo = {
         server_email: "smtp.gmail.com",
-        remitente: "pruebasprosofts@gmail.com",
-        clave: "ldpddvqikedwhpqq",
+        remitente: empresa.emailusu,
+        clave: empresa.clave_email,
         puerto: 587,
         destino,
         subject,

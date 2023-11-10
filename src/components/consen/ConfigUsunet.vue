@@ -29,6 +29,12 @@
         />
         <Input_
           class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+          v-model="reg_config.clave_email"
+          :field="form_config.clave"
+          @validate="datoClave"
+        />
+        <Input_
+          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
           v-model="reg_config.ipusu"
           :field="form_config.ipusu"
           @validate="datoIp"
@@ -79,6 +85,7 @@ const reg_config = ref({
   nitusu: null,
   dirusu: null,
   emailusu: null,
+  clave_email: null,
   ipusu: null,
   uni_prog: null,
   dircont: null,
@@ -99,6 +106,15 @@ const form_config = ref({
     placeholder: "Escribe el nit",
     tipo: "number",
     maxlength: "10",
+    f0: ["f3"],
+    required: true,
+    campo_abierto: true,
+  },
+  clave: {
+    id: "clave",
+    label: "Clave",
+    placeholder: "Escribe la clave",
+    maxlength: "20",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
@@ -152,13 +168,14 @@ const form_config = ref({
 onMounted(() => {
   modo_project.value = process.env.NODE_ENV;
 
-  reg_config.value.nomusu = props.configuracion.NOMUSU?.trim();
-  reg_config.value.nitusu = props.configuracion.NITUSU?.trim();
-  reg_config.value.dirusu = props.configuracion.DIRUSU?.trim();
-  reg_config.value.emailusu = props.configuracion.EMAILUSU?.trim();
-  reg_config.value.ipusu = props.configuracion.IPUSU?.trim();
-  reg_config.value.uni_prog = props.configuracion.UNID_PROG?.trim();
-  reg_config.value.dircont = props.configuracion.DIRCONT?.trim();
+  reg_config.value.nomusu = props.configuracion.nomusu?.trim();
+  reg_config.value.nitusu = props.configuracion.nitusu?.trim();
+  reg_config.value.dirusu = props.configuracion.dirusu?.trim();
+  reg_config.value.emailusu = props.configuracion.emailusu?.trim();
+  reg_config.value.clave_email = props.configuracion.clave_email?.trim();
+  reg_config.value.ipusu = props.configuracion.ipusu?.trim();
+  reg_config.value.uni_prog = props.configuracion.unid_prog?.trim();
+  reg_config.value.dircont = props.configuracion.dircont?.trim();
 
   foco_(form_config, "nomusu");
 });
@@ -198,6 +215,16 @@ const datoEmail = (event) => {
     case "esc":
       return foco_(form_config, "dirusu");
     case "enter":
+      return foco_(form_config, "clave");
+    case "f3":
+      return validarConfiguracion();
+  }
+};
+const datoClave = (event) => {
+  switch (event) {
+    case "esc":
+      return foco_(form_config, "emailusu");
+    case "enter":
       return foco_(form_config, "ipusu");
     case "f3":
       return validarConfiguracion();
@@ -206,7 +233,7 @@ const datoEmail = (event) => {
 const datoIp = (event) => {
   switch (event) {
     case "esc":
-      return foco_(form_config, "emailusu");
+      return foco_(form_config, "clave");
     case "enter":
       return foco_(form_config, "uni_prog");
     case "f3":

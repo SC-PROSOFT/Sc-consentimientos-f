@@ -129,7 +129,7 @@ const focusCaja = (e) => {
   if (!e.target) return;
   flag_foco.value = false;
   if (!model_value_.value && props.items.length) {
-    update({ value: props.items[0][props.field.option_value || "value"] });
+    return update({ value: props.items[0][props.field.option_value || "value"] });
   }
   input_element.value = my_select_ref.value.$el.querySelectorAll("input");
   if (input_element.value) {
