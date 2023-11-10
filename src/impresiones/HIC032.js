@@ -6,6 +6,17 @@ export const impresionHC032 = ({ datos }) => {
     stack: [contenidoConsenGeneral(), firmas()],
   };
 
+  function llenarFirmador() {
+    const acomp = datos.acomp.cod.length;
+
+    return {
+      ciudad: () => (acomp ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad),
+      descrip: () => (acomp ? datos.acomp.descrip : datos.paciente.descrip),
+      cod: () => (acomp ? datos.acomp.cod : datos.paciente.cod),
+      acudiente: () => (acomp ? datos.paciente.descrip : ""),
+    };
+  }
+
   function contenidoConsenGeneral() {
     return {
       stack: [
@@ -33,7 +44,7 @@ export const impresionHC032 = ({ datos }) => {
         },
         {
           marginTop: 5,
-          text: `Yo, ${datos.firmador.descrip}, identificado (a) con cédula número ${datos.firmador.cod} expedida en ${datos.firmador.descrip_ciudad} actuando en nombre propio o como acudiente de ${datos.acudiente}.`,
+          text: `Yo, ${llenarFirmador().descrip()}, identificado (a) con cédula número ${llenarFirmador().cod()} expedida en ${llenarFirmador().ciudad()} actuando en nombre propio o como acudiente de ${llenarFirmador().acudiente()}.`,
           alignment: "justify",
           style: "bodyNoBold",
         },
