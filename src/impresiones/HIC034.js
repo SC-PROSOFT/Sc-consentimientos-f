@@ -1,11 +1,19 @@
-import { evaluarParentesco } from "@/formatos/utils";
-import dayjs from "dayjs";
+import { calcEdad, evaluarParentesco } from "@/formatos/utils";
 
 export const impresionHC034 = ({ datos }) => {
+  const edad = calcEdad(datos.paciente.nacim);
   console.log("⚡  file: HIC034.js:4  datos-->", datos);
   var dd = {
     stack: [contenidoIVE(), firmas()],
   };
+
+  function llenarFechaAtc() {
+    return {
+      dia: () => (datos?.fecha_act ? datos.fecha_act.slice(6) : datos.fecha.slice(6)),
+      mes: () => (datos?.fecha_act ? datos.fecha_act.slice(4, 6) : datos.fecha.slice(4, 6)),
+      anio: () => (datos?.fecha_act ? datos.fecha_act.slice(0, 4) : datos.fecha.slice(0, 4)),
+    };
+  }
   function contenidoIVE() {
     return {
       stack: [
@@ -27,7 +35,7 @@ export const impresionHC034 = ({ datos }) => {
                   bold: true,
                 },
                 {
-                  text: `${datos.fecha_act.split("-")[2]}`,
+                  text: `${llenarFechaAtc().dia()}`,
                 },
               ],
             },
@@ -39,7 +47,7 @@ export const impresionHC034 = ({ datos }) => {
                   bold: true,
                 },
                 {
-                  text: `${datos.fecha_act.split("-")[1]}`,
+                  text: `${llenarFechaAtc().mes()}`,
                 },
               ],
             },
@@ -51,7 +59,7 @@ export const impresionHC034 = ({ datos }) => {
                   bold: true,
                 },
                 {
-                  text: `${datos.fecha_act.split("-")[0]}`,
+                  text: `${llenarFechaAtc().anio()}`,
                 },
               ],
             },
@@ -126,7 +134,7 @@ export const impresionHC034 = ({ datos }) => {
                     },
                     {
                       marginLeft: 5,
-                      stack: cuadro_canvas(datosFirmador().tipoCod() == "C.C" ? true : false),
+                      stack: cuadro_canvas(edad < 18 ? true : false),
                     },
                   ],
                 },
@@ -137,7 +145,7 @@ export const impresionHC034 = ({ datos }) => {
                     },
                     {
                       marginLeft: 5,
-                      stack: cuadro_canvas(datosFirmador().tipoCod() != "C.C" ? true : false),
+                      stack: cuadro_canvas(edad >= 18 ? true : false),
                     },
                   ],
                 },
@@ -163,15 +171,15 @@ export const impresionHC034 = ({ datos }) => {
               [
                 {
                   colSpan: 3,
-                  text: `Acudiente/responsable: ${datosAcudiente().nombre()}`,
+                  text: `Acudiente/responsable: ${datos.acomp.descrip}`,
                 },
                 {},
                 {},
                 {
-                  text: `C.C.: ${datosAcudiente().cod()}`,
+                  text: `C.C.: ${datos.acomp.cod}`,
                 },
                 {
-                  text: `Parentesco: ${datosAcudiente().paren()}`,
+                  text: `Parentesco: ${evaluarParentesco(datos.paren_acomp)} `,
                 },
               ],
             ],
@@ -237,12 +245,12 @@ export const impresionHC034 = ({ datos }) => {
                     },
                     {
                       width: "4%",
-                      stack: cuadro_canvas(datos.criterio.hemorragia == "S" ? true : false),
+                      stack: cuadro_canvas(datos.hemorragia == "S" ? true : false),
                     },
                   ],
                 },
                 {
-                  text: `${datos.criterio.obser_hemorragia}` || "",
+                  text: `${datos.obser_hemorragia}` || "",
                 },
               ],
               [
@@ -258,12 +266,12 @@ export const impresionHC034 = ({ datos }) => {
                     },
                     {
                       width: "4%",
-                      stack: cuadro_canvas(datos.criterio.retencion_ute == "S" ? true : false),
+                      stack: cuadro_canvas(datos.retencion_ute == "S" ? true : false),
                     },
                   ],
                 },
                 {
-                  text: `${datos.criterio.obser_retencion_ute}` || "",
+                  text: `${datos.obser_retencion_ute}` || "",
                 },
               ],
               [
@@ -279,12 +287,12 @@ export const impresionHC034 = ({ datos }) => {
                     },
                     {
                       width: "4%",
-                      stack: cuadro_canvas(datos.criterio.ive_fallida == "S" ? true : false),
+                      stack: cuadro_canvas(datos.ive_fallida == "S" ? true : false),
                     },
                   ],
                 },
                 {
-                  text: `${datos.criterio.obser_ive_fallida}` || "",
+                  text: `${datos.obser_ive_fallida}` || "",
                 },
               ],
               [
@@ -300,12 +308,12 @@ export const impresionHC034 = ({ datos }) => {
                     },
                     {
                       width: "4%",
-                      stack: cuadro_canvas(datos.criterio.infecciones == "S" ? true : false),
+                      stack: cuadro_canvas(datos.infecciones == "S" ? true : false),
                     },
                   ],
                 },
                 {
-                  text: `${datos.criterio.obser_infecciones}` || "",
+                  text: `${datos.obser_infecciones}` || "",
                 },
               ],
               [
@@ -317,12 +325,12 @@ export const impresionHC034 = ({ datos }) => {
                   columns: [
                     {
                       width: "100%",
-                      text: `• Entre otras: ${datos.criterio.entre_otras}`,
+                      text: `• Entre otras: ${datos.entre_otras}`,
                     },
                   ],
                 },
                 {
-                  text: `${datos.criterio.obser_entre_otras}` || "",
+                  text: `${datos.obser_entre_otras}` || "",
                 },
               ],
             ],

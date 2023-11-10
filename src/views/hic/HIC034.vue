@@ -178,7 +178,7 @@
               class="q-mx-md"
               style="margin-top: -5px"
               left-label
-              v-model="reg.criterio.hemorragia"
+              v-model="reg.hemorragia"
               label="• Hemorragia"
             />
             <q-space />
@@ -187,7 +187,7 @@
             <q-space />
             <textarea
               class="col-11"
-              v-model="reg.criterio.obser_hemorragia"
+              v-model="reg.obser_hemorragia"
               style="margin-top: 5px; margin-bottom: 5px; resize: none; height: 60px"
             ></textarea>
             <q-space />
@@ -198,19 +198,14 @@
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 40%">
-            <q-checkbox
-              class="q-mx-md"
-              left-label
-              v-model="reg.criterio.retencion_ute"
-              label="• Retención Uterina"
-            />
+            <q-checkbox class="q-mx-md" left-label v-model="reg.retencion_ute" label="• Retención Uterina" />
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 50%">
             <q-space />
             <textarea
               class="col-11"
-              v-model="reg.criterio.obser_retencion_ute"
+              v-model="reg.obser_retencion_ute"
               style="margin-top: 5px; margin-bottom: 5px; resize: none; height: 60px"
             ></textarea>
             <q-space />
@@ -221,14 +216,14 @@
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 40%">
-            <q-checkbox class="q-mx-md" left-label v-model="reg.criterio.ive_fallida" label="• IVE fallida" />
+            <q-checkbox class="q-mx-md" left-label v-model="reg.ive_fallida" label="• IVE fallida" />
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 50%">
             <q-space />
             <textarea
               class="col-11"
-              v-model="reg.criterio.obser_ive_fallida"
+              v-model="reg.obser_ive_fallida"
               style="margin-top: 5px; margin-bottom: 5px; resize: none; height: 60px"
             ></textarea>
             <q-space />
@@ -239,14 +234,14 @@
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 40%">
-            <q-checkbox class="q-mx-md" left-label v-model="reg.criterio.infecciones" label="• Infecciones" />
+            <q-checkbox class="q-mx-md" left-label v-model="reg.infecciones" label="• Infecciones" />
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 50%">
             <q-space />
             <textarea
               class="col-11"
-              v-model="reg.criterio.obser_infecciones"
+              v-model="reg.obser_infecciones"
               style="margin-top: 5px; margin-bottom: 5px; resize: none; height: 60px"
             ></textarea>
             <q-space />
@@ -259,7 +254,7 @@
           <div class="row" style="border: 1px solid #ccc; width: 40%">
             <p class="q-mx-md">
               • Entre otras
-              <q-input v-model="reg.criterio.entre_otras" style="min-width: 100px; display: inline-block" />
+              <q-input v-model="reg.entre_otras" style="min-width: 100px; display: inline-block" />
             </p>
             <q-space />
           </div>
@@ -267,7 +262,7 @@
             <q-space />
             <textarea
               class="col-11"
-              v-model="reg.criterio.obser_entre_otras"
+              v-model="reg.obser_entre_otras"
               style="margin-top: 5px; margin-bottom: 5px; resize: none; height: 60px"
             ></textarea>
             <q-space />
@@ -401,18 +396,16 @@ const form = ref({
 const reg = reactive({
   direccion: "",
   parentesco: "",
-  criterio: {
-    hemorragia: false,
-    obser_hemorragia: "",
-    retencion_ute: false,
-    obser_retencion_ute: "",
-    ive_fallida: false,
-    obser_ive_fallida: "",
-    infecciones: false,
-    obser_infecciones: "",
-    entre_otras: "",
-    obser_entre_otras: "",
-  },
+  hemorragia: false,
+  obser_hemorragia: "",
+  retencion_ute: false,
+  obser_retencion_ute: "",
+  ive_fallida: false,
+  obser_ive_fallida: "",
+  infecciones: false,
+  obser_infecciones: "",
+  entre_otras: "",
+  obser_entre_otras: "",
 
   // extras
   descrip_diagnostico: "",
@@ -432,7 +425,7 @@ const datosInit = () => {
 
   const edad = calcEdad(getAcomp.nacim);
   reg.tipo_id_ti = edad >= 18 ? "C.C" : "T.I";
-  
+
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg.hora_act = dayjs(getEmpresa.FECHA_ACT).format("hh:mm");
   reg.llave = getHc.llave.slice(15);
@@ -463,9 +456,9 @@ const validarDatos = async () => {
 };
 
 const grabarConsentimiento = async () => {
-  for (const i in reg.criterio) {
-    if (typeof reg.criterio[i] == "boolean") {
-      reg.criterio[i] = reg.criterio[i] ? "S" : "N";
+  for (const i in reg) {
+    if (typeof reg[i] == "boolean") {
+      reg[i] = reg[i] ? "S" : "N";
     }
   }
 
@@ -481,16 +474,11 @@ const grabarConsentimiento = async () => {
     cod_consen: "HIC034",
     disentimiento: "N",
     ...datos_format,
-    ...datos_format.criterio,
   };
-  delete datos.criterio;
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
-        // const fecha = data?.llave_consen.slice(24, 32);
-        // console.log("⚡  file: HIC034.vue:490  fecha-->", fecha)
-        // reg.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       }
       CON851("?", "error", "Error al guardar el consentimiento");
@@ -534,7 +522,7 @@ const imprimirConsen = async () => {
     },
     content: impresionHC034({
       datos: {
-        autorizo: reg.opcion_hc032 == "AUTORIZAR" ? true : false,
+        autorizo: reg.opcion_hc034 == "AUTORIZAR" ? true : false,
         empresa: { ...getEmpresa },
         paciente: { ...getPaci },
         prof: { ...getProf },
@@ -547,6 +535,7 @@ const imprimirConsen = async () => {
           firma_prof: firma_prof.value ? true : false,
         },
         ...reg,
+        fecha_act: reg.fecha_act.replaceAll("-", ""),
       },
     }),
   });
