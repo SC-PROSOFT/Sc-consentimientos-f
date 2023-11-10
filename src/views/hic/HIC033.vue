@@ -433,7 +433,6 @@ const validarDatos = async () => {
   if (opcion_hc033.value == "REVOCAR" && HIC033.value.revocar_motivos == "") {
     return CON851("?", "info", "Debe ingresar motivos de revocación", () => foco_(form, "revocar"));
   }
-  console.log(HIC033)
   HIC033.value.nombre_asesoria = getProf.descrip ? getProf.descrip : "Sin nombre"
   //Cambia valores booleanos a S o N
   for (const key of Object.keys(HIC033.value)) {

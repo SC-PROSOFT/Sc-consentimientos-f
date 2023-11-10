@@ -209,7 +209,6 @@ const callBackFirmaAcomp = (data_firma) => {
 };
 
 const validarDatos = async () => {
-  console.log("Entro", opcion_hc031)
   if (opcion_hc031.value == "REVOCAR" && HIC031.value.revocar_motivos == "") {
     return CON851("?", "info", "Debe ingresar motivos de revocación", () => foco_(form, "revocar"));
   }
@@ -252,7 +251,6 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    console.log("Entre a guardar firmas")
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
     return CON851P(
@@ -265,7 +263,6 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
-        console.log("🚀 ~ file:", file)
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
           destino: "davidsantiagolozada@gmail.com",
