@@ -2,6 +2,7 @@ import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionHC032 = ({ datos }) => {
+  console.log("⚡  file: HIC032.js:5  datos-->", datos);
   var dd = {
     stack: [contenidoConsenGeneral(), firmas()],
   };
@@ -75,81 +76,89 @@ export const impresionHC032 = ({ datos }) => {
         },
         {
           marginTop: 10,
+          marginBottom: 8,
           text: "Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:",
           alignment: "justify",
           style: "bodyNoBold",
         },
-        {
-          marginTop: 10,
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(datos.autorizo),
-                },
-                {
-                  text: [
-                    {
-                      text: "Autorizo",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-              [{}, {}],
-            ],
-          },
-        },
-        {
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(datos.autorizo ? false : true),
-                },
-                {
-                  text: [
-                    {
-                      text: "Expreso mi voluntad de ",
-                    },
-                    {
-                      text: "revocar",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: GENERAL PYP OK \npor los siguientes motivos: ${datos.revocar_motivos}`,
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-              [
-                {
-                  marginTop: -2,
-                  colSpan: 2,
-                  text: "",
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-                {},
-              ],
-            ],
-          },
-        },
+        autorizoCheck(),
       ],
     };
+  }
+
+  function autorizoCheck() {
+    if (datos.autorizo) {
+      return {
+        marginTop: 10,
+        layout: "noBorders",
+        table: {
+          widths: ["2%", "98%"],
+          body: [
+            [
+              {
+                stack: cuadro_canvas(true),
+              },
+              {
+                text: [
+                  {
+                    text: "Autorizo",
+                    bold: true,
+                    decoration: "underline",
+                  },
+                  {
+                    text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
+                  },
+                ],
+                alignment: "justify",
+                style: "bodyNoBold",
+              },
+            ],
+            [{}, {}],
+          ],
+        },
+      };
+    } else {
+      return {
+        layout: "noBorders",
+        table: {
+          widths: ["2%", "98%"],
+          body: [
+            [
+              {
+                stack: cuadro_canvas(true),
+              },
+              {
+                text: [
+                  {
+                    text: "Expreso mi voluntad de ",
+                  },
+                  {
+                    text: "revocar",
+                    bold: true,
+                    decoration: "underline",
+                  },
+                  {
+                    text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: GENERAL PYP OK \npor los siguientes motivos: ${datos.revocar_motivos}`,
+                  },
+                ],
+                alignment: "justify",
+                style: "bodyNoBold",
+              },
+            ],
+            [
+              {
+                marginTop: -2,
+                colSpan: 2,
+                text: "",
+                alignment: "justify",
+                style: "bodyNoBold",
+              },
+              {},
+            ],
+          ],
+        },
+      };
+    }
   }
 
   function cuadro_canvas(condicion) {

@@ -25,55 +25,51 @@
         </div>
         <div class="row">
           <p>Historia clínica numero:</p>
-          <q-input readonly type="text" dense v-model="HIC032.llave" class="col-1" />
+          <q-input disable type="text" dense v-model="HIC032.llave" class="col-1" />
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input readonly type="text" dense class="col-1" v-model="getEmpresa.CIUDAD_USUAR" />
+          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.CIUDAD_USUAR" />
           <p>fecha:</p>
-          <q-input readonly type="text" dense class="col-1" v-model="HIC032.fecha_act" />
+          <q-input disable type="text" dense class="col-1" v-model="HIC032.fecha_act" />
         </div>
 
-        <div class="row">
+        <div class="row justify-start">
           <p>Yo,</p>
-          <q-input readonly v-model="reg_firmador.descrip" type="text" dense class="col-4" />
+          <q-input disable v-model="reg_firmador.descrip" type="text" dense class="col-4" />
           <p>, identificado (a) con cedula numero</p>
-          <q-input readonly type="text" dense class="col-2" v-model="reg_firmador.cod" />
+          <q-input disable type="text" dense class="col-2" v-model="reg_firmador.cod" />
           <p>expedida en</p>
-          <q-input readonly type="text" dense class="col-2" v-model="reg_firmador.descrip_ciudad" />
+          <q-input disable type="text" dense class="col-2" v-model="reg_firmador.descrip_ciudad" />
           <p>actuando en nombre propio o como acudiente de</p>
-          <q-input readonly type="text" dense class="col-2" v-model="acudiente" />
+          <q-input disable type="text" dense class="col-2" v-model="acudiente" />
           <p>.</p>
-          <p>
+          <p align="justify">
             Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
             que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
             son una ciencia exacta, que se garantizan resultados en la atención, y que aunque son
             procedimientos seguros pueden presentarse complicaciones como:
           </p>
-          <q-input
-            placeholder="Ingrese complicaciones"
+          <Input_
+            style="min-width: 100%; display: inline-block"
             v-model="HIC032.complicaciones"
-            maxlength="380"
-            type="textarea"
-            class="col-12"
-            autogrow
-            dense
+            :field="form.complicaciones"
           />
         </div>
-        <p>
+        <p align="justify">
           Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
           tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero
           de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda
           mis derechos para una atención posterior.
         </p>
-        <p>
+        <p class="row" align="justify">
           Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado
           para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y
           salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí,
           los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos;
           se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.
         </p>
-        <p>
+        <p align="justify">
           Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
           manipulación:
         </p>
@@ -82,13 +78,13 @@
             <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
             realización de los procedimientos de salud:
             <Input_
-              style="min-width: 100px; display: inline-block"
+              style="min-width: 100%; display: inline-block"
               v-model="HIC032.procedimiento"
               :field="form.procedimiento"
             />
             cuyo objetivo es:
             <Input_
-              style="min-width: 100px; display: inline-block"
+              style="min-width: 100%; display: inline-block"
               v-model="HIC032.objetivo"
               :field="form.objetivo"
             />
@@ -110,21 +106,17 @@
           </p>
         </div>
         <div class="row" v-show="HIC032.opcion_hc032 == 'REVOCAR'">
-          <p>
+          <p align="justify">
             Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro
             por tanto que, tras la información recibida, no consiento someterme al procedimiento de:
-            <strong>GENERAL PYP OK</strong>
+            <strong class="text-bold">GENERAL PYP OK</strong>
             por los siguientes motivos:
-            <q-input
-              v-model="HIC032.revocar_motivos"
-              ref="revocar_motivos"
-              class="col-8 input-p"
-              :rules="[requerido]"
-              maxlength="285"
-              type="text"
-              dense
-            />
           </p>
+          <Input_
+            style="min-width: 100%; display: inline-block"
+            v-model="HIC032.revocar_motivos"
+            :field="form.revocar_motivos"
+          />
         </div>
       </q-card-section>
     </q-form>
@@ -173,7 +165,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHC032, impresion } from "@/impresiones";
+import { impresionHC032, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -182,8 +174,8 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
 const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
+const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -223,7 +215,7 @@ const form = ref({
   },
   procedimiento: {
     id: "procedimiento",
-    maxlength: "200",
+    maxlength: "285",
     label: "",
     required: true,
     standout: "N",
@@ -232,7 +224,25 @@ const form = ref({
   },
   objetivo: {
     id: "objetivo",
-    maxlength: "200",
+    maxlength: "285",
+    label: "",
+    required: true,
+    standout: false,
+    outlined: false,
+    campo_abierto: true,
+  },
+  complicaciones: {
+    id: "complicaciones",
+    maxlength: "380",
+    label: "",
+    required: true,
+    standout: false,
+    outlined: false,
+    campo_abierto: true,
+  },
+  revocar_motivos: {
+    id: "revocar_motivos",
+    maxlength: "285",
     label: "",
     required: true,
     standout: false,
@@ -305,6 +315,7 @@ const consultarEnfermedad = async () => {
 
 const validarDatos = async () => {
   await consultarEnfermedad();
+  const requiere = "Complete el siguiente campo";
 
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
@@ -313,13 +324,15 @@ const validarDatos = async () => {
     return CON851("?", "info", "No se ha realizado la firma del acompañate");
   }
 
+  if (!HIC032.complicaciones)
+    return CON851("?", "info", `${requiere}, complicaciones `, () => foco_(form, "complicaciones"));
+
   if (HIC032.opcion_hc032 == "REVOCAR") {
-    revocar_motivos.value.validate();
-    if (revocar_motivos.value.hasError) return revocar_motivos.value.focus();
+    if (!HIC032.revocar_motivos)
+      return CON851("?", "info", `${requiere}, revocar motivos `, () => foco_(form, "revocar_motivos"));
   }
 
   if (HIC032.opcion_hc032 == "AUTORIZAR") {
-    const requiere = "Complete el siguiente campo";
     if (!HIC032.diagnostico) return CON851("?", "info", requiere, () => foco_(form, "codigo"));
     if (!HIC032.procedimiento) return CON851("?", "info", requiere, () => foco_(form, "procedimiento"));
     if (!HIC032.objetivo) return CON851("?", "info", requiere, () => foco_(form, "objetivo"));
@@ -347,11 +360,9 @@ const grabarConsentimiento = async () => {
         const fecha = data?.llave_consen.slice(24, 32);
         HIC032.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
-      }
-      CON851("?", "error", "Error al guardar el consentimiento");
+      } else CON851("?", "error", "Error al guardar el consentimiento");
     })
     .catch((error) => {
-      console.error(error);
       CON851("?", "error", "Error al guardar el consentimiento");
     });
 };
@@ -366,11 +377,20 @@ const grabarFirmaConsen = async (llave) => {
     return CON851P(
       "?",
       "info",
-      "¿Deseas imprimir el consentimiento?",
-      () => router.back(),
-      () => {
-        imprimirConsen();
-        setTimeout(() => router.back(), 500);
+      "¿Deseas enviar el correo del consentimientos?",
+      async () => {
+        await imprimirConsen();
+        router.back();
+      },
+      async () => {
+        const file = await imprimirConsen();
+        const response = await enviarCorreo$({
+          cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
+          destino: getPaci.email,
+          subject: getEncabezado.descrip,
+          file,
+        });
+        CON851("?", response.tipo, response.message, () => router.back());
       }
     );
   } catch (error) {
@@ -380,35 +400,48 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async () => {
-  const docDefinition = utilsFormat({
-    datos: {
-      img_firma_consen: firma_recibida.value,
-      img_firma_paci: firma_recibida.value,
-      img_firma_acomp: firma_recibida_acomp.value,
-      firma_prof: firma_prof.value,
+  const datos_hic032 = {
+    autorizo: HIC032.opcion_hc032 == "AUTORIZAR" ? true : false,
+    empresa: { ...getEmpresa },
+    paciente: { ...getPaci },
+    prof: { ...getProf },
+    acomp: { ...getAcomp },
+    firmador: { ...reg_firmador.value },
+    paren_acomp: getSesion.paren_acomp,
+    acudiente: acudiente.value,
+    firmas: {
+      firma_paci: firma_recibida.value ? true : false,
+      firma_acomp: firma_recibida_acomp.value ? true : false,
+      firma_prof: firma_prof.value ? true : false,
     },
+    ...HIC032,
+    diagnostico: getHc.rips.diagn.length ? getHc.rips.diagn[0].cod : "",
+  };
+
+  const firmas = {
+    img_firma_consen: firma_recibida.value,
+    img_firma_paci: firma_recibida.value,
+    img_firma_acomp: firma_recibida_acomp.value,
+    firma_prof: firma_prof.value,
+  };
+
+  const docDefinitionPrint = utilsFormat({
+    datos: firmas,
     content: impresionHC032({
-      datos: {
-        autorizo: HIC032.opcion_hc032 == "AUTORIZAR" ? true : false,
-        empresa: { ...getEmpresa },
-        paciente: { ...getPaci },
-        prof: { ...getProf },
-        acomp: { ...getAcomp },
-        firmador: { ...reg_firmador.value },
-        paren_acomp: getSesion.paren_acomp,
-        acudiente: acudiente.value,
-        firmas: {
-          firma_paci: firma_recibida.value ? true : false,
-          firma_acomp: firma_recibida_acomp.value ? true : false,
-          firma_prof: firma_prof.value ? true : false,
-        },
-        ...HIC032,
-        diagnostico: getHc.rips.diagn.length ? getHc.rips.diagn[0].cod : "",
-      },
+      datos: datos_hic032,
     }),
   });
 
-  await impresion({ docDefinition });
+  const docDefinitionFile = utilsFormat({
+    datos: firmas,
+    content: impresionHC032({
+      datos: datos_hic032,
+    }),
+  });
+
+  await impresion({ docDefinition: docDefinitionPrint });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+  return response_impresion;
 };
 const callbackCONSEN800 = (data) => {
   if (data) {

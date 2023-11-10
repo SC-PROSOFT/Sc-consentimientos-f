@@ -351,15 +351,14 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, evaluarParentesco, calcEdad } from "@/formatos/utils";
-import { impresionHC034, impresion } from "@/impresiones";
+import { impresionHC034, generarArchivo, impresion } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
-const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
+const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -423,7 +422,7 @@ const datosInit = () => {
   reg.tipo_id_ti = edad >= 18 ? "C.C" : "T.I";
 
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
-  reg.hora_act = `${dayjs().hour()}:${dayjs().minute()}`
+  reg.hora_act = `${dayjs().hour()}:${dayjs().minute()}`;
   reg.llave = getHc.llave.slice(15);
 
   if (getHc.rips.diagn.length) {
@@ -495,11 +494,20 @@ const grabarFirmaConsen = async (llave) => {
     return CON851P(
       "?",
       "info",
-      "¿Deseas imprimir el consentimiento?",
-      () => router.back(),
-      () => {
-        imprimirConsen();
-        setTimeout(() => router.back(), 500);
+      "¿Deseas enviar el correo del consentimientos?",
+      async () => {
+        await imprimirConsen();
+        router.back();
+      },
+      async () => {
+        const file = await imprimirConsen();
+        const response = await enviarCorreo$({
+          cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
+          destino: getPaci.email,
+          subject: getEncabezado.descrip,
+          file,
+        });
+        CON851("?", response.tipo, response.message, () => router.back());
       }
     );
   } catch (error) {
@@ -509,34 +517,46 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async () => {
-  const docDefinition = utilsFormat({
-    datos: {
-      img_firma_consen: firma_recibida.value,
-      img_firma_paci: firma_recibida.value,
-      img_firma_acomp: firma_recibida_acomp.value,
-      firma_prof: firma_prof.value,
+  const datos_hic034 = {
+    autorizo: reg.opcion_hc034 == "AUTORIZAR" ? true : false,
+    empresa: { ...getEmpresa },
+    paciente: { ...getPaci },
+    prof: { ...getProf },
+    acomp: { ...getAcomp },
+    firmador: { ...reg_firmador.value },
+    paren_acomp: getSesion.paren_acomp,
+    firmas: {
+      firma_paci: firma_recibida.value ? true : false,
+      firma_acomp: firma_recibida_acomp.value ? true : false,
+      firma_prof: firma_prof.value ? true : false,
     },
+    ...reg,
+    fecha_act: reg.fecha_act.replaceAll("-", ""),
+  };
+
+  const firmas = {
+    img_firma_consen: firma_recibida.value,
+    img_firma_paci: firma_recibida.value,
+    img_firma_acomp: firma_recibida_acomp.value,
+    firma_prof: firma_prof.value,
+  };
+
+  const docDefinitionPrint = utilsFormat({
+    datos: firmas,
     content: impresionHC034({
-      datos: {
-        autorizo: reg.opcion_hc034 == "AUTORIZAR" ? true : false,
-        empresa: { ...getEmpresa },
-        paciente: { ...getPaci },
-        prof: { ...getProf },
-        acomp: { ...getAcomp },
-        firmador: { ...reg_firmador.value },
-        paren_acomp: getSesion.paren_acomp,
-        firmas: {
-          firma_paci: firma_recibida.value ? true : false,
-          firma_acomp: firma_recibida_acomp.value ? true : false,
-          firma_prof: firma_prof.value ? true : false,
-        },
-        ...reg,
-        fecha_act: reg.fecha_act.replaceAll("-", ""),
-      },
+      datos: datos_hic034,
+    }),
+  });
+  const docDefinitionFile = utilsFormat({
+    datos: firmas,
+    content: impresionHC034({
+      datos: datos_hic034,
     }),
   });
 
-  await impresion({ docDefinition });
+  await impresion({ docDefinition: docDefinitionPrint });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+  return response_impresion;
 };
 
 const callBackFirmaAcomp = (data_firma) => {
