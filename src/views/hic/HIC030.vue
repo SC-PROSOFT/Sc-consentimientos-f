@@ -111,7 +111,7 @@
             <q-input
               v-model="HIC030.revocar_motivos"
               ref="revocar_motivos"
-              label="Ingrese motivos"
+              maxlength="285"
               :rules="[requerido]"
               class="col-7"
               type="text"

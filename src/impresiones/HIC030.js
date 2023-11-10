@@ -84,7 +84,7 @@ export const impresionHC030 = ({ datos }) => {
                       text: "FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL: ",
                     },
                     {
-                      text: ` ${dayjs(datos.fecha_ult_cito).format("YYYY-MM-DD")}`,
+                      text: ` ${llenarFechaCito()}`,
                     },
                   ],
                 },
@@ -219,6 +219,14 @@ export const impresionHC030 = ({ datos }) => {
           : [],
       },
     ];
+  }
+
+  function llenarFechaCito() {
+    if (datos.fecha_ult_cito != "" && Number(datos.fecha_ult_cito) != "0") {
+      return dayjs(datos.fecha_ult_cito).format("YYYY-MM-DD");
+    }
+
+    return "";
   }
 
   function firmaPaciente() {
