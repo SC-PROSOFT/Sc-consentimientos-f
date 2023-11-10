@@ -1,7 +1,9 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-export const impresionHC033 = () => {
+export const impresionHC033 = ({ datos }) => {
+  console.log("🚀🚀🚀🚀🚀🚀🚀🚀🚀 ~ impresionHC033 ~ 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
+  console.log("🚀 ~ impresionHC033 ~ datos:", datos);
   var dd = {
     stack: [contenidoPruebaVIH(), firmas()],
   };
@@ -28,7 +30,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.vih == "S" ? true : false ),
                 },
                 {
                   width: "4%",
@@ -36,7 +38,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.vih == "N" ? true : false),
                 },
               ],
             },
@@ -54,7 +56,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.relaciones == "S" ? true : false ),
                 },
                 {
                   width: "4%",
@@ -62,7 +64,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.relaciones == "N" ? true : false ),
                 },
               ],
             },
@@ -80,7 +82,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.inyec_sust_psico == "S" ? true : false ),
                 },
                 {
                   width: "4%",
@@ -88,7 +90,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.inyec_sust_psico == "N" ? true : false ),
                 },
               ],
             },
@@ -106,7 +108,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.proteccion_rel_sex == "S" ? true : false ),
                 },
                 {
                   width: "4%",
@@ -114,7 +116,7 @@ export const impresionHC033 = () => {
                 },
                 {
                   width: "6%",
-                  stack: cuadro_canvas(),
+                  stack: cuadro_canvas(datos.proteccion_rel_sex == "N" ? true : false ),
                 },
               ],
             },
@@ -139,7 +141,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.perdida_peso == "S" ? true : false ),
                     },
                     {
                       width: "4%",
@@ -147,7 +149,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.perdida_peso == "N" ? true : false ),
                     },
                   ],
                 },
@@ -165,7 +167,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.fiebre_frec == "S" ? true : false ),
                     },
                     {
                       width: "4%",
@@ -173,7 +175,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.fiebre_frec == "N" ? true : false ),
                     },
                   ],
                 },
@@ -191,7 +193,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.diarrea_perm == "S" ? true : false ),
                     },
                     {
                       width: "4%",
@@ -199,7 +201,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.diarrea_perm == "N" ? true : false ),
                     },
                   ],
                 },
@@ -217,7 +219,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.infeccion_hon_her == "S" ? true : false ),
                     },
                     {
                       width: "4%",
@@ -225,7 +227,7 @@ export const impresionHC033 = () => {
                     },
                     {
                       width: "6%",
-                      stack: cuadro_canvas(),
+                      stack: cuadro_canvas(datos.infeccion_hon_her == "N" ? true : false ),
                     },
                   ],
                 },
@@ -250,7 +252,7 @@ export const impresionHC033 = () => {
             },
             {
               width: "6%",
-              stack: cuadro_canvas(),
+              stack: cuadro_canvas(datos.tranfundido == "S" ? true : false ),
             },
             {
               width: "4%",
@@ -258,7 +260,7 @@ export const impresionHC033 = () => {
             },
             {
               width: "6%",
-              stack: cuadro_canvas(),
+              stack: cuadro_canvas(datos.tranfundido == "N" ? true : false ),
             },
           ],
         },
@@ -271,7 +273,7 @@ export const impresionHC033 = () => {
               bold: true,
             },
             {
-              text: `ACA IRIAN LAS OBSERVACIONES`,
+              text: `${datos.observaciones}`,
             },
           ],
         },
@@ -282,6 +284,15 @@ export const impresionHC033 = () => {
           text: "CONSENTIMIENTO INFORMADO PARA REALIZAR LA PRUEBA PRESUNTIVA O DIAGNOSTICA DE VIH (VIRUS DE INMUNODEFICIENCIA HUMANA)",
           bold: true,
         },
+        textoDiligenciado(),
+        textoAutoriza(datos.autorizo),
+      ],
+    };
+  }
+
+  function textoDiligenciado() {
+    const menorDoceAnios = {
+      stack: [
         {
           marginTop: 16,
           style: "bodyNoBold",
@@ -292,8 +303,13 @@ export const impresionHC033 = () => {
           marginTop: 7,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `Yo {Pepito Perez Pepito Perez} mayor de edad, identificado(a) con C.C. No. {1111111111} expedida en {VILLAVICENCIO} en condición de representante legal o acudiente del niño(a) {Pepi Pere Pepi Pere} de {00} años de edad`,
+          text: `Yo ${datos.acomp.descrip} mayor de edad, identificado(a) con C.C. No. ${datos.acomp.cod} expedida en ${datos.acomp.descrip_ciudad} en condición de representante legal o acudiente del niño(a) ${datos.paciente.descrip} de ${datos.anios_paciente} años de edad`,
         },
+      ],
+    };
+
+    const mayorDoceAnios = {
+      stack: [
         {
           marginTop: 7,
           style: "bodyNoBold",
@@ -305,7 +321,7 @@ export const impresionHC033 = () => {
           marginTop: 7,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `Yo {Pepito Perez Pepito Perez} identificado(a) con {CC}. No. {1111111111} expedida en {VILLAVICENCIO}, Certifico que: He leído (o que se me ha leído) el documento sobre consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones, y su riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y riegos de la prueba.`,
+          text: `Yo ${datos.paciente.descrip} identificado(a) con C.C. No. ${datos.paciente.cod} expedida en ${datos.paciente.descrip_ciudad}, Certifico que: He leído (o que se me ha leído) el documento sobre consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones, y su riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y riegos de la prueba.`,
         },
         {
           marginTop: 7,
@@ -331,6 +347,16 @@ export const impresionHC033 = () => {
           alignment: "justify",
           text: "Fui informada de las medidas que se tomara para proteger la confidencialidad de mis resultados.",
         },
+      ],
+    };
+
+    if (datos.anios_paciente <= 12) return menorDoceAnios;
+    else return mayorDoceAnios;
+  }
+
+  function textoAutoriza(autorizo) {
+    const textoAutorizo = {
+      stack: [
         {
           marginTop: 7,
           style: "bodyNoBold",
@@ -341,7 +367,7 @@ export const impresionHC033 = () => {
             },
             {
               width: "auto",
-              stack: cuadro_canvas(),
+              stack: cuadro_canvas(true),
             },
             {
               marginLeft: 4,
@@ -358,6 +384,11 @@ export const impresionHC033 = () => {
             },
           ],
         },
+      ],
+    };
+
+    const textoRevoca = {
+      stack: [
         {
           marginTop: 15,
           style: "bodyNoBold",
@@ -365,7 +396,7 @@ export const impresionHC033 = () => {
           columns: [
             {
               width: "4%",
-              stack: cuadro_canvas(),
+              stack: cuadro_canvas(true),
             },
             {
               marginLeft: 4,
@@ -386,7 +417,7 @@ export const impresionHC033 = () => {
                   bold: true,
                 },
                 {
-                  text: `por los siguientes motivos: {ACA IRIAN LOS MOTIVOS REVOCACION}`,
+                  text: `por los siguientes motivos: ${datos.revocar_motivos}`,
                 },
               ],
             },
@@ -394,6 +425,9 @@ export const impresionHC033 = () => {
         },
       ],
     };
+
+    if (autorizo) return textoAutorizo;
+    else return textoRevoca;
   }
 
   function cuadro_canvas(condicion) {
@@ -410,94 +444,123 @@ export const impresionHC033 = () => {
     ];
   }
 
-  function firmas(paciente_firma) {
-    paciente_firma = "N";
-    let firmasArray = [];
-    let motivosArray = [];
-    let margin = 0;
-    let anchos = [];
-
-    if (paciente_firma !== "N") {
-      firmasArray = [firmaPaciente(), firmaProfesional()];
-      margin = 80;
-      anchos = ["40%", "40%"];
-    } else {
-      firmasArray = [firmaAcompanante(), firmaProfesional()];
-      motivosArray = [motivosNoFirma()];
-      margin = 80;
-      anchos = ["40%", "40%", "33%"];
-    }
-
-    return {
-      marginTop: 15,
-      stack: [
-        {
-          marginLeft: margin,
-          layout: "noBorders",
-          table: {
-            widths: anchos,
-            body: [[...firmasArray]],
-          },
-        },
-        ...motivosArray,
-      ],
-    };
-  }
-
   function firmaPaciente() {
     return {
       stack: [
         {
-          text: "PACIENTE",
+          text: "PACIENTE (FIRMA / HUELLA)",
+          bold: true,
           alignment: "center",
-          style: "tableBold",
+          style: "tableNoBold",
         },
         {
-          marginBottom: 10,
-          text: [
+          marginTop: 9,
+          alignment: "center",
+          image: "firma_paci",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 10,
+          columns: [
             {
-              text: "FIRMA / HUELLA ",
-              alignment: "center",
-              style: "tableBold",
+              width: "auto",
+              style: "tableNoBold",
+              text: "NOMBRE: ",
+              bold: true,
             },
             {
-              text: "(EN CASO DE NO FIRMAR)",
-              alignment: "center",
+              marginLeft: 5,
               style: "tableNoBold",
-              fontSize: 7,
+              text: `${datos.paciente.descrip}`,
             },
           ],
         },
         {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.paciente.cod}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmaAcompanante() {
+    return {
+      stack: [
+        {
+          text: "TUTOR O ACOMPAÑANTE (FIRMA / HUELLA)",
+
           alignment: "center",
-          image: "sampleImage.jpg",
-          width: 150,
-          height: 80,
+          style: "tableNoBold",
+          bold: true,
+        },
+        {
+          text: "(EN CASO DE NO FIRMAR)",
+          alignment: "center",
+          style: "tableNoBold",
+          fontSize: 6,
         },
         {
           marginTop: 2,
-          text: [
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 10,
+          columns: [
             {
-              text: "NOMBRE: ",
+              width: "auto",
               style: "tableNoBold",
+              text: "NOMBRE: ",
               bold: true,
             },
             {
-              text: "David Santiago Lozada Quintero",
+              marginLeft: 5,
               style: "tableNoBold",
+              text: `${datos.acomp.descrip}`,
             },
           ],
         },
         {
-          text: [
+          columns: [
             {
-              text: "DOCUMENTO: ",
+              width: "auto",
               style: "tableNoBold",
+              text: "DOCUMENTO: ",
               bold: true,
             },
             {
-              text: "1111111111",
+              marginLeft: 5,
               style: "tableNoBold",
+              text: `${datos.acomp.cod}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "PARENTESCO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${evaluarParentesco(datos.paren_acomp)}`,
             },
           ],
         },
@@ -510,92 +573,20 @@ export const impresionHC033 = () => {
       stack: [
         {
           text: "FIRMA PROFESIONAL",
-          alignment: "center",
-          style: "tableBold",
-          marginBottom: 14,
-        },
-        {
-          alignment: "center",
-          image: "sampleImage.jpg",
-          width: 150,
-          height: 80,
-        },
-        {
-          marginTop: 10,
-          text: [
-            {
-              text: "NOMBRE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "David Santiago Lozada Quintero",
-              style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          text: [
-            {
-              text: "PROFESIONAL AREA DE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "EXAMENES DOC.MANOTAS",
-              style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          text: [
-            {
-              text: "R.P N°: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "1111111111",
-              style: "tableNoBold",
-            },
-          ],
-        },
-      ],
-    };
-  }
 
-  function firmaAcompanante() {
-    return {
-      stack: [
-        {
-          text: "TUTOR/ACOMPAÑANTE/REPR.LEGAL",
           alignment: "center",
-          style: "tableBold",
+          style: "tableNoBold",
+          bold: true,
         },
         {
-          marginBottom: 2,
-          text: [
-            {
-              text: "FIRMA / HUELLA ",
-              alignment: "center",
-              style: "tableBold",
-            },
-            {
-              text: "(EN CASO DE NO FIRMAR)",
-              alignment: "center",
-              style: "tableNoBold",
-              fontSize: 7,
-            },
-          ],
-        },
-        {
+          marginTop: 8,
           alignment: "center",
-          image: "sampleImage.jpg",
-          width: 150,
-          height: 80,
+          image: "firma_profesional",
+          width: 130,
+          height: 70,
         },
         {
-          marginTop: 10,
+          marginTop: 8,
           text: [
             {
               text: "NOMBRE: ",
@@ -603,34 +594,38 @@ export const impresionHC033 = () => {
               bold: true,
             },
             {
-              text: "David Santiago Lozada Quintero Quintero",
+              text: `${datos.prof.descrip}`,
               style: "tableNoBold",
             },
           ],
         },
         {
-          text: [
+          columns: [
             {
+              width: "auto",
+              style: "tableNoBold",
+              text: "PROFESIONAL AREA DE:",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.prof.descrip_atiende}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
               text: "DOCUMENTO: ",
-              style: "tableNoBold",
               bold: true,
             },
             {
-              text: "2222222222",
+              marginLeft: 5,
               style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          text: [
-            {
-              text: "PARENTESCO: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: "HERMANO",
-              style: "tableNoBold",
+              text: `${datos.prof.cod}`,
             },
           ],
         },
@@ -638,25 +633,34 @@ export const impresionHC033 = () => {
     };
   }
 
-  function motivosNoFirma() {
+  function firmas(condicion) {
+    let firmasArray = [];
+    let anchos = [];
+
+    if (datos.firmas.firma_paci) {
+      firmasArray.push(firmaPaciente());
+    }
+
+    if (datos.firmas.firma_acomp) {
+      firmasArray.push(firmaAcompanante());
+    }
+
+    if (datos.firmas.firma_prof) {
+      firmasArray.push(firmaProfesional());
+    }
+
+    if (firmasArray.length == 2) {
+      firmasArray.unshift({ border: [false, false, false, false], text: "" });
+      anchos = ["10%", "40%", "40%"];
+    } else if (firmasArray.length == 3) anchos = ["33%", "34%", "33%"];
     return {
-      // margin: [30, 10, 100, 0],
-      marginTop: 12,
-      marginLeft: 30,
-      marginRight: 30,
-      stack: [
-        {
-          text: [
-            {
-              text: "MOTIVOS POR LOS QUE EL USUARIO NO FIRMA: 222222222222222 2222222222222222 22222 222222222 2222 2222 222222 222 222222222222222222222222222222222222 ",
-              alignment: "justify",
-              style: "tableNoBold",
-              bold: true,
-            },
-          ],
-        },
-      ],
+      marginTop: 30,
+      table: {
+        widths: anchos,
+        body: [[...firmasArray]],
+      },
     };
   }
+
   return dd;
 };

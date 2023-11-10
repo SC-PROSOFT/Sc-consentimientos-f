@@ -33,7 +33,7 @@
           <p>Fecha:</p>
           <q-input v-model="fecha_act" disable dense type="date" class="col-2" />
         </div>
-        <h6 style="margin: 0">LA COLPOSCOPIA</h6>
+        <h6 class="q-mt-lg" style="margin-bottom: 0;">LA COLPOSCOPIA</h6>
         <div class="row">
           <p class="text-justify">
             Es un examen sencillo del cuello, vagina y vulva, similar a la toma de citología cervicouterina,
@@ -105,8 +105,8 @@
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.cod || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.cod ? true : false"
+          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
+          :disable="!getAcomp.descrip ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
@@ -142,7 +142,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat } from "@/formatos/utils";
-import { impresionHC031, impresion } from "@/impresiones";
+import { impresionHC031, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
@@ -151,7 +151,7 @@ const router = useRouter();
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
+const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
@@ -232,8 +232,8 @@ const grabarConsentimiento = async () => {
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
-  if (!firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañate");
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
@@ -252,16 +252,27 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
+    console.log("Entre a guardar firmas")
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
     return CON851P(
       "?",
       "info",
-      "¿Deseas imprimir el consentimiento?",
-      () => router.back(),
-      () => {
-        imprimirConsen();
-        setTimeout(() => router.back(), 500);
+      "¿Deseas enviar el correo del consentimientos?",
+      async () => {
+        await imprimirConsen();
+        router.back();
+      },
+      async () => {
+        const file = await imprimirConsen();
+        console.log("🚀 ~ file:", file)
+        const response = await enviarCorreo$({
+          cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
+          destino: "davidsantiagolozada@gmail.com",
+          subject: getEncabezado.descrip,
+          file,
+        });
+        CON851("?", response.tipo, response.message, () => router.back());
       }
     );
   } catch (error) {
@@ -272,34 +283,45 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const docDefinition = utilsFormat({
-      datos: {
-        img_firma_consen: firma_recibida.value,
-        img_firma_paci: firma_recibida.value,
-        img_firma_acomp: firma_recibida_acomp.value,
-        firma_prof: firma_prof.value,
+    const datos_hic031 = {
+      autorizo: opcion_hc031.value == "AUTORIZAR" ? true : false,
+      empresa: getEmpresa,
+      paciente: getPaci,
+      prof: getProf,
+      acomp: getAcomp,
+      paren_acomp: getSesion.paren_acomp,
+      firmas: {
+        firma_paci: firma_recibida.value ? true : false,
+        firma_acomp: firma_recibida_acomp.value ? true : false,
+        firma_prof: firma_prof.value ? true : false,
       },
+      fecha: fecha_act.value,
+      llave: llave.value,
+      diagnostico: getHc.rips.diagn.length ? getHc.rips.diagn[0].cod : "",
+      ...HIC031.value,
+    };
+    const firmas = {
+      img_firma_consen: firma_recibida.value,
+      img_firma_paci: firma_recibida.value,
+      img_firma_acomp: firma_recibida_acomp.value,
+      firma_prof: firma_prof.value,
+    };
+    const docDefinitionPrint = utilsFormat({
+      datos: firmas,
       content: impresionHC031({
-        datos: {
-          autorizo: opcion_hc031.value == "AUTORIZAR" ? true : false,
-          empresa: { ...getEmpresa },
-          paciente: { ...getPaci },
-          prof: { ...getProf },
-          acomp: { ...getAcomp },
-          paren_acomp: getSesion.paren_acomp,
-          firmas: {
-            firma_paci: firma_recibida.value ? true : false,
-            firma_acomp: firma_recibida_acomp.value ? true : false,
-            firma_prof: firma_prof.value ? true : false,
-          },
-          fecha: fecha_act.value,
-          llave: llave.value,
-          ...HIC031.value,
-        },
+        datos: datos_hic031,
+      }),
+    });
+    const docDefinitionFile = utilsFormat({
+      datos: firmas,
+      content: impresionHC031({
+        datos: datos_hic031,
       }),
     });
 
-    await impresion({ docDefinition });
+    await impresion({ docDefinition: docDefinitionPrint });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    return response_impresion;
   } catch (error) {
     console.error("error -->", error);
   }
