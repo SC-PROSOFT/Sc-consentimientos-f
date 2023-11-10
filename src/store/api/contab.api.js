@@ -7,7 +7,7 @@ import { useModuleFormatos } from "@/store";
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({
     encabezado: regEncabezado(),
-    nit_empresa: 1,
+    nit_empresa: 844003225,
   }),
   getters: {
     getEncabezado() {
