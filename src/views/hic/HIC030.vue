@@ -456,6 +456,7 @@ const imprimirConsen = async () => {
       paren_acomp: getSesion.paren_acomp,
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
+        huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
@@ -468,6 +469,7 @@ const imprimirConsen = async () => {
     const firmas = {
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
+      img_huella_paci: huella_paci.value,
       img_firma_acomp: firma_recibida_acomp.value,
       firma_prof: firma_prof.value,
     };
