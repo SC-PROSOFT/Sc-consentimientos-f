@@ -197,8 +197,10 @@
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
           @reciFirma="callBackFirma"
+          :huella_="huella_paci"
           class="col-4"
         />
+
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
@@ -245,7 +247,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
@@ -260,6 +262,7 @@ const fecha_citologia = ref(null);
 const llave = ref(null);
 const fecha_act = ref(null);
 const firma_prof = ref(null);
+const huella_paci = ref(null);
 
 const form = ref({
   codigo: {
@@ -318,6 +321,7 @@ onMounted(() => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    huella_paci.value = await _getHuella$({ codigo: Number(getPaci.cod) });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

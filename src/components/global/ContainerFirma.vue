@@ -1,12 +1,21 @@
 <template>
   <q-card bordered flat>
     <ToolBar_ name="containerFirma" :titulo="quien_firma" :close_state="false" color="blue-grey-13" />
-    <q-card-section>
+    <q-card-section class="row">
       <q-img
+        :class="huella_ ? 'col-8' : 'col-12'"
         style="height: 100px"
         spinner-color="white"
         :src="firma || firma_"
         class="shadow-1"
+        fit="contain"
+      />
+      <q-img
+        v-if="huella_ ? true : false"
+        style="height: 100px"
+        spinner-color="white"
+        class="shadow-1 col-4"
+        :src="huella_"
         fit="contain"
       />
     </q-card-section>
@@ -42,6 +51,10 @@ const props = defineProps({
     default: "Sin asignar",
   },
   firma_: {
+    type: String,
+    default: "",
+  },
+  huella_: {
     type: String,
     default: "",
   },

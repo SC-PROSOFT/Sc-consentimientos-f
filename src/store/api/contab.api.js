@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
-import { regEncabezado, empresas } from "@/fuentes";
+import { regEncabezado } from "@/fuentes";
 import { useModuleFormatos } from "@/store";
 
 export const useApiContabilidad = defineStore("contabilidad", {
@@ -143,6 +143,30 @@ export const useApiContabilidad = defineStore("contabilidad", {
                 "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
               );
             }
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(`Error consultando logo de nit ${nit}`);
+          });
+      });
+    },
+    _getHuella$({ codigo = 0, formato = "png" }) {
+      let ruta;
+      const empresa = useModuleFormatos().getEmpresa;
+
+      if (empresa.unid_prog == "S") ruta = "D:/SC/newcobol/DATOS/BIOMETRIA";
+      else if (empresa.unid_prog == "P") ruta = "D:/PSC/PROG/DATOS/BIOMETRIA";
+
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/get-imagen`,
+          method: "GET",
+          params: { ruta, codigo, formato },
+          loader: true,
+        })
+          .then((response) => {
+            if (response.success) resolve(`data:image/png;base64,${response.data}`);
+            else resolve("");
           })
           .catch((error) => {
             console.error(error);
