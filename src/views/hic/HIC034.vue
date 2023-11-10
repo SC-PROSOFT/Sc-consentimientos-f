@@ -353,7 +353,6 @@ import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, evaluarParentesco, calcEdad } from "@/formatos/utils";
 import { impresionHC034, impresion } from "@/impresiones";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
@@ -364,9 +363,6 @@ const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
-
-const disentir = ref(false);
-const aceptar = ref(false);
 
 const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
 const firma_recibida_acomp = ref("");
