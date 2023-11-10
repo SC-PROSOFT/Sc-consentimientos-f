@@ -114,7 +114,7 @@ const form_config = ref({
     id: "clave",
     label: "Clave",
     placeholder: "Escribe la clave",
-    maxlength: "20",
+    maxlength: "50",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
