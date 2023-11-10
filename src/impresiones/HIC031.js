@@ -176,11 +176,22 @@ export const impresionHC031 = ({ datos }) => {
           style: "tableNoBold",
         },
         {
-          marginTop: 9,
-          alignment: "center",
-          image: "firma_paci",
-          width: 130,
-          height: 70,
+          columns: [
+            {
+              marginTop: 9,
+              alignment: "center",
+              image: "firma_paci",
+              width: 105,
+              height: 70,
+            },
+            {
+              marginTop: 9,
+              marginLeft: 8,
+              image: "firma_paci",
+              width: 55,
+              height: 70,
+            },
+          ],
         },
         {
           marginTop: 10,
@@ -234,11 +245,23 @@ export const impresionHC031 = ({ datos }) => {
           fontSize: 6,
         },
         {
-          marginTop: 2,
-          alignment: "center",
-          image: "firma_acomp",
-          width: 130,
-          height: 70,
+          marginLeft: 3,
+          columns: [
+            {
+              marginTop: 9,
+              alignment: "center",
+              image: "firma_acomp",
+              width: 105,
+              height: 70,
+            },
+            {
+              marginTop: 9,
+              marginLeft: 8,
+              image: "firma_acomp",
+              width: 55,
+              height: 70,
+            },
+          ],
         },
         {
           marginTop: 10,
