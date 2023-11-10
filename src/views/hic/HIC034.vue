@@ -418,7 +418,7 @@ onMounted(() => {
 const datosInit = () => {
   reg.parentesco = evaluarParentesco(getSesion.paren_acomp || "");
 
-  const edad = calcEdad(getAcomp.nacim);
+  const edad = calcEdad(getPaci.nacim);
   reg.tipo_id_ti = edad >= 18 ? "C.C" : "T.I";
 
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
@@ -486,10 +486,8 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    firma_recibida.value.length &&
-      (await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` }));
-    firma_recibida_acomp.value.length &&
-      (await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` }));
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
     return CON851P(
       "?",
