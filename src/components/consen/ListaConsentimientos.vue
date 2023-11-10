@@ -271,6 +271,7 @@ const imprimirConsen = async ({ row }) => {
             firma_prof: firma_prof.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
+          hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
           empresa: getEmpresa,
           paciente: row.reg_paci,
           prof: row.reg_prof,
