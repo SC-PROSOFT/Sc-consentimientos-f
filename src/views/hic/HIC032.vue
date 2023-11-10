@@ -174,7 +174,7 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
 const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
-const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado  } = useApiContabilidad();
+const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -360,11 +360,9 @@ const grabarConsentimiento = async () => {
         const fecha = data?.llave_consen.slice(24, 32);
         HIC032.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
-      }
-      CON851("?", "error", "Error al guardar el consentimiento");
+      } else CON851("?", "error", "Error al guardar el consentimiento");
     })
     .catch((error) => {
-      console.error(error);
       CON851("?", "error", "Error al guardar el consentimiento");
     });
 };
@@ -388,7 +386,7 @@ const grabarFirmaConsen = async (llave) => {
         const file = await imprimirConsen();
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
-          destino: "jhoanquintero07@hotmail.com",
+          destino: getPaci.email,
           subject: getEncabezado.descrip,
           file,
         });
