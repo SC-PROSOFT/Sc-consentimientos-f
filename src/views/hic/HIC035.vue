@@ -64,8 +64,14 @@
         </div>
         <div class="row">
           <p class="text-justify">
-            Dejo constancia que he sido informado(a) y he recibido información y asesoría sobre el evento
-            <q-input v-model="reg.evento" type="text" dense style="min-width: 100px; display: inline-block" />
+            Dejo constancia que he sido informado(a) y he recibido información y asesoría sobre el evento:
+          </p>
+          <Input_
+            style="min-width: 100%; display: inline-block; margin-top: 0px"
+            v-model="reg.evento"
+            :field="form.evento"
+          />
+          <p align="justify">
             respecto del modo de contagio, estrategias y métodos de prevención, importancia de diagnostico y
             tratamiento de la pareja de ser necesario a quien le informaré mi estado actual para que reciba la
             asesoría, tratamiento y seguimientos que se requieran para evitar reinfecciones y/o transmisión de
@@ -81,12 +87,16 @@
           <p class="text-justify">
             Me garantizan la confidencialidad de mis resultados y la información que he proporcionado. De lo
             anterior
-            <q-input
-              v-model="reg.iniciar_trata"
-              type="text"
-              dense
+            <Select_
               style="min-width: 100px; display: inline-block"
+              v-model="reg.iniciar_trata"
+              :field="form.iniciar_trata"
+              :items="[
+                { value: 'S', label: 'SI' },
+                { value: 'N', label: 'NO' },
+              ]"
             />
+
             (SI, NO) acepto iniciar tratamiento y realizar los controles y seguimientos que se requieran de
             acuerdo a la patología en curso. Por lo tanto, en forma consciente y voluntaria, luego de haber
             escuchado la información y explicaciones, sin haber sido objeto de coacción, persuasión, ni
@@ -98,6 +108,27 @@
             Me considero SATISFECHO con la información recibida y COMPRENDO la indicación, los beneficios,
             además de los riesgos y posibles complicaciones que podrían desprenderse de dicho acto.
           </p>
+        </div>
+
+        <div v-if="reg.opcion_hc035 == 'REVOCAR'">
+          <div class="text-subtitle1 text-bold row justify-center">REVOCATORIA DE CONSENTIMIENTO</div>
+          <p>
+            Yo <InputF_ disable v-model="getPaci.descrip" width="300" /> paciente de la ESE SALUD YOPAL, con
+            C.C <InputF_ disable v-model="getPaci.cod" /> Expreso mi voluntad de revocar el consentimiento
+            prestado en fecha <InputF_ disable v-model="reg.fecha_act" /> y declaro por tanto que, tras la
+            información recibida, no consiento en someterme al procedimiento de:
+          </p>
+          <Input_
+            style="min-width: 100%; display: inline-block; margin-top: 0px"
+            v-model="reg.revoca_procedi"
+            :field="form.revoca_procedi"
+          />
+          <p>por los siguientes motivos.</p>
+          <Input_
+            style="min-width: 100%; display: inline-block; margin-top: 0px"
+            v-model="reg.revoca_motivos"
+            :field="form.revoca_motivos"
+          />
         </div>
       </q-card-section>
       <q-card-sections>
@@ -147,15 +178,16 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat, evaluarParentesco, calcEdad } from "@/formatos/utils";
-import { impresionHC034, impresion } from "@/impresiones";
+import { impresionHC035, impresion, generarArchivo } from "@/impresiones";
+import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
+import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 
+const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, guardarFile$ } = useApiContabilidad();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -169,9 +201,8 @@ const firma_prof = ref(null);
 const reg = reactive({
   revoca_procedi: "",
   revoca_motivos: "",
-  iniciar_trata: "",
+  iniciar_trata: "S",
   evento: "",
-
 
   // EXTRAS
   opcion_hc035: "",
@@ -180,16 +211,58 @@ const reg = reactive({
   edad: "",
 });
 
+const form = ref({
+  iniciar_trata: {
+    id: "iniciar_trata",
+    maxlength: "1",
+    label: "",
+    required: true,
+    campo_abierto: true,
+  },
+  evento: {
+    id: "evento",
+    maxlength: "190",
+    label: "",
+    required: true,
+    campo_abierto: true,
+  },
+  revoca_motivos: {
+    id: "revoca_motivos",
+    maxlength: "285",
+    label: "",
+    required: true,
+    campo_abierto: true,
+  },
+  revoca_procedi: {
+    id: "revoca_procedi",
+    maxlength: "285",
+    label: "",
+    required: true,
+    campo_abierto: true,
+  },
+});
 
 onMounted(() => {
   datosInit();
   getFirmaProf();
 });
 
+watch(
+  () => reg.opcion_hc035,
+  (val) => {
+    if (val == "AUTORIZAR") {
+      reg.revoca_motivos = "";
+      reg.revoca_procedi = "";
+    } else {
+      //falta
+    }
+  }
+);
+
 const datosInit = () => {
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg.llave = getHc.llave.slice(15);
-  reg.edad = calcEdad(getAcomp.nacim)
+  reg.edad = calcEdad(getAcomp.nacim || getPaci.nacim);
 };
 
 const getFirmaProf = async () => {
@@ -202,12 +275,25 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = async () => {
+  const requiere = "Complete el siguiente campo";
+
+  if (reg.opcion_hc035 == "REVOCAR") {
+    if (!reg.revoca_procedi)
+      return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_procedi"));
+    if (!reg.revoca_motivos)
+      return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_motivos"));
+  }
+
+  if (!reg.evento) return CON851("?", "info", `${requiere}, evento `, () => foco_(form, "evento"));
+  if (!reg.iniciar_trata) return CON851("?", "info", `${requiere}`, () => foco_(form, "iniciar_trata"));
+
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañate");
   }
+
   grabarConsentimiento();
 };
 
@@ -229,8 +315,7 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         return grabarFirmaConsen(data?.llave_consen);
-      }
-      CON851("?", "error", "Error al guardar el consentimiento");
+      } else return CON851("?", "error", "Error al guardar el consentimiento");
     })
     .catch((error) => {
       console.error(error);
@@ -240,19 +325,26 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    firma_recibida.value.length &&
-      (await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` }));
-    firma_recibida_acomp.value.length &&
-      (await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` }));
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
     return CON851P(
       "?",
       "info",
-      "¿Deseas imprimir el consentimiento?",
-      () => router.back(),
-      () => {
-        // imprimirConsen();
-        setTimeout(() => router.back(), 500);
+      "¿Deseas enviar el correo del consentimientos?",
+      async () => {
+        await imprimirConsen();
+        router.back();
+      },
+      async () => {
+        const file = await imprimirConsen();
+        const response = await enviarCorreo$({
+          cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
+          destino: getPaci.email,
+          subject: getEncabezado.descrip,
+          file,
+        });
+        CON851("?", response.tipo, response.message, () => router.back());
       }
     );
   } catch (error) {
@@ -261,6 +353,52 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
+const imprimirConsen = async () => {
+  try {
+    const datos_hic035 = {
+      autorizo: reg.opcion_hc035 == "AUTORIZAR" ? true : false,
+      empresa: getEmpresa,
+      paciente: getPaci,
+      prof: getProf,
+      acomp: getAcomp,
+      firmas: {
+        firma_paci: firma_recibida.value ? true : false,
+        firma_acomp: firma_recibida_acomp.value ? true : false,
+        firma_prof: firma_prof.value ? true : false,
+      },
+      paren_acomp: getSesion.paren_acomp,
+      fecha: reg.fecha_act,
+      llave: reg.llave,
+      ...reg,
+    };
+
+    const firmas = {
+      img_firma_consen: firma_recibida.value,
+      img_firma_paci: firma_recibida.value,
+      img_firma_acomp: firma_recibida_acomp.value,
+      firma_prof: firma_prof.value,
+    };
+
+    const docDefinitionPrint = utilsFormat({
+      datos: firmas,
+      content: impresionHC035({
+        datos: datos_hic035,
+      }),
+    });
+    const docDefinitionFile = utilsFormat({
+      datos: firmas,
+      content: impresionHC035({
+        datos: datos_hic035,
+      }),
+    });
+
+    await impresion({ docDefinition: docDefinitionPrint });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    return response_impresion;
+  } catch (error) {
+    console.error("error -->", error);
+  }
+};
 
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma.slice(22));
