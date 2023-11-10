@@ -427,7 +427,7 @@ const datosInit = () => {
   reg.tipo_id_ti = edad >= 18 ? "C.C" : "T.I";
 
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
-  reg.hora_act = dayjs(getEmpresa.FECHA_ACT).format("hh:mm");
+  reg.hora_act = `${dayjs().hour()}:${dayjs().minute()}`
   reg.llave = getHc.llave.slice(15);
 
   if (getHc.rips.diagn.length) {

@@ -2,7 +2,6 @@ import { calcEdad, evaluarParentesco } from "@/formatos/utils";
 
 export const impresionHC034 = ({ datos }) => {
   const edad = calcEdad(datos.paciente.nacim);
-  console.log("⚡  file: HIC034.js:4  datos-->", datos);
   var dd = {
     stack: [contenidoIVE(), firmas()],
   };
@@ -14,6 +13,17 @@ export const impresionHC034 = ({ datos }) => {
       anio: () => (datos?.fecha_act ? datos.fecha_act.slice(0, 4) : datos.fecha.slice(0, 4)),
     };
   }
+
+  function llenarFirmador() {
+    const acomp = datos.acomp.cod.length;
+
+    return {
+      ciudad: () => (acomp ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad),
+      nombre: () => (acomp ? datos.acomp.descrip : datos.paciente.descrip),
+      cod: () => (acomp ? datos.acomp.cod : datos.paciente.cod),
+    };
+  }
+
   function contenidoIVE() {
     return {
       stack: [
@@ -67,11 +77,11 @@ export const impresionHC034 = ({ datos }) => {
               width: "35%",
               text: [
                 {
-                  text: "Hora:",
+                  text: "Hora: ",
                   bold: true,
                 },
                 {
-                  text: `${datos.hora_act}`,
+                  text: `${datos.hora_act || datos.hora}`,
                 },
               ],
             },
@@ -340,7 +350,7 @@ export const impresionHC034 = ({ datos }) => {
           marginTop: 8,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `De acuerdo con lo anterior, Yo {David Pepito Perez Perecito}  con C.C. N° {1111111111} de {VILLAVICENCIO} en calidad de paciente o acudiente (persona responsable del paciente), por medio del presente documento, en forma libre en pleno uso de mis facultades mentales e intelectuales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información en un lenguaje claro, senillo y adecuado acerca de los riesgos y demás circunstancias que se originen del procedimiento, por parte del profesional en Medicina (Nombres y Apellidos completos) Dr. {Manotas Perez Perecito} identificado con Cédula de ciudadanía y/o Registro médico N° {12121212121} Autorizo ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.`,
+          text: `De acuerdo con lo anterior, Yo ${llenarFirmador().nombre()}  con C.C. N° ${llenarFirmador().cod()} de ${llenarFirmador().ciudad()} en calidad de paciente o acudiente (persona responsable del paciente), por medio del presente documento, en forma libre en pleno uso de mis facultades mentales e intelectuales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información en un lenguaje claro, senillo y adecuado acerca de los riesgos y demás circunstancias que se originen del procedimiento, por parte del profesional en Medicina (Nombres y Apellidos completos) Dr. ${datos.prof.descrip} identificado con Cédula de ciudadanía y/o Registro médico N° ${datos.prof.cod} Autorizo ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.`,
         },
         {
           marginTop: 8,
