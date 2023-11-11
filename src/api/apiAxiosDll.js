@@ -11,7 +11,7 @@ export const apiAxiosDll = ({
   loader = true,
 }) => {
   return new Promise((resolve, reject) => {
-    const URl = `http://${sessionStorage.ip}:${process.env.PORT}${process.env.API}`;
+    const URl = `http://${localStorage.ip}:${process.env.PORT}${process.env.API}`;
     let config = {
       url: `${URl}${url}`,
       method,

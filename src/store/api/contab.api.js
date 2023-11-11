@@ -1,21 +1,28 @@
 import { defineStore } from "pinia";
 import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
-import { regEncabezado } from "@/fuentes";
+import { regEncabezado, empresas } from "@/fuentes";
 import { useModuleFormatos } from "@/store";
 
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({
+    empresa: useModuleFormatos().getEmpresa,
     encabezado: regEncabezado(),
-    nit_empresa: 844003225,
   }),
   getters: {
     getEncabezado() {
       if (this.encabezado.codigo) return this.encabezado;
       else if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
     },
+
+    /*getNit Configurar para despliegue el nit de la empresa asi
+     buscara la ip para conectarse  apenas inicie la pagina*/
+
     getNit() {
-      return this.nit_empresa;
+      return 1;
+    },
+    getIp() {
+      return empresas[this.getNit].ip_servicio;
     },
     getImgBs64: () =>
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -38,7 +45,12 @@ export const useApiContabilidad = defineStore("contabilidad", {
         apiAxiosDll({
           url: `contabilidad/dll`,
           method: "POST",
-          params: { ip: sessionStorage.ip, directorio, espacios, modulo: `${process.env.APP}/${modulo}` },
+          params: {
+            ip: localStorage.ip,
+            directorio,
+            espacios,
+            modulo: `${process.env.APP}/${modulo}`,
+          },
           data,
           loader,
         })
@@ -53,12 +65,10 @@ export const useApiContabilidad = defineStore("contabilidad", {
       const formData = new FormData();
       formData.append("archivo", file, "consentimiento.pdf");
 
-      const empresa = JSON.parse(JSON.stringify(useModuleFormatos().getEmpresa));
-
       const data_correo = {
         server_email: "smtp.gmail.com",
-        remitente: empresa.emailusu,
-        clave: empresa.clave_email,
+        remitente: this.empresa.emailusu,
+        clave: this.empresa.clave_email,
         puerto: 587,
         destino,
         subject,
@@ -84,13 +94,13 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
 
-    guardarFile$({
-      base64 = "",
-      ruta = "D:/PSC/PROG/DATOS/FIRMAS_CONSEN",
-      codigo = "",
-      formato = "png",
-      loader = true,
-    }) {
+    guardarFile$({ base64 = "", ruta = "", codigo = "", formato = "png", loader = true }) {
+      if (this.empresa.unid_prog == "S") {
+        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+      } else if (this.empresa.unid_prog == "P") {
+        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+      }
+
       return new Promise((resolve, reject) => {
         apiAxios({
           url: `contabilidad/guardar-file`,
@@ -106,12 +116,18 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
 
-    _getLogo$({ disco = "D", nit = 0, formato = "png" }) {
+    _getLogo$({ nit = 0, formato = "png" }) {
+      let ruta;
+      if (this.empresa.unid_prog == "S") {
+        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/LOGOS`;
+      } else if (this.empresa.unid_prog == "P") {
+        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/LOGOS`;
+      }
       return new Promise((resolve, reject) => {
         apiAxios({
-          url: `contabilidad/get-logo`,
+          url: `contabilidad/get-imagen`,
           method: "GET",
-          params: { disco, nit, formato },
+          params: { ruta, codigo: nit, formato },
           loader: true,
         })
           .then((response) => {
@@ -152,10 +168,12 @@ export const useApiContabilidad = defineStore("contabilidad", {
     },
     _getHuella$({ codigo = 0, formato = "png" }) {
       let ruta;
-      const empresa = useModuleFormatos().getEmpresa;
-
-      if (empresa.unid_prog == "S") ruta = "D:/SC/newcobol/DATOS/BIOMETRIA";
-      else if (empresa.unid_prog == "P") ruta = "D:/PSC/PROG/DATOS/BIOMETRIA";
+      if (this.empresa.unid_prog == "S") {
+        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/DATOS/BIOMETRIA`;
+        formato = "bin";
+      } else if (this.empresa.unid_prog == "P") {
+        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/DATOS/BIOMETRIA`;
+      }
 
       return new Promise((resolve, reject) => {
         apiAxios({
@@ -174,7 +192,14 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
-    _getImagen$({ ruta = "D:/PSC/PROG/DATOS/FIRMAS_CONSEN", codigo = 0, formato = "png" }) {
+    _getImagen$({ codigo = 0, formato = "png" }) {
+      let ruta;
+      if (this.empresa.unid_prog == "S") {
+        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+      } else if (this.empresa.unid_prog == "P") {
+        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+      }
+
       return new Promise((resolve, reject) => {
         apiAxios({
           url: `contabilidad/get-imagen`,
@@ -183,6 +208,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
           loader: true,
         })
           .then((response) => {
+            console.log(response);
             if (response.success) resolve(response.data);
             else {
               resolve(

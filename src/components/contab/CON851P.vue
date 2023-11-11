@@ -143,4 +143,5 @@ const focoBoton2 = () => document.getElementById("boton2")?.focus();
 .my-card
   width: 100%
   max-width: 500px
+  z-index: 1000
 </style>

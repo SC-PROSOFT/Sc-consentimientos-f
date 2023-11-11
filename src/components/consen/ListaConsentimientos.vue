@@ -34,9 +34,12 @@
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
-              col.value
-            }}</q-chip>
+            <q-chip
+              v-if="col.label == 'Estado'"
+              class="text-white"
+              :color="valueEstado(col.value)"
+              >{{ col.value }}</q-chip
+            >
             <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
@@ -74,7 +77,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -117,7 +126,7 @@ const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$, _getFirma$, _getImagen$, setHeader$, logOut$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
 const { getEmpresa, setHc } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
@@ -125,6 +134,7 @@ const novedad = ref(null);
 const params_querys = ref(null);
 
 const firma_prof = ref(null);
+const huella_paci = ref(null);
 const firma_consen = ref(null);
 const firma_recibida_acomp = ref(null);
 
@@ -150,7 +160,8 @@ const columns_consen = [
     label: "Hora",
     align: "left",
 
-    format: (val, row) => `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+    format: (val, row) =>
+      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -249,6 +260,7 @@ const imprimirConsen = async ({ row }) => {
 
   setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
+  await getHuella(row.reg_paci.cod);
 
   await consultarFirmaConsen(
     `${row.reg_coninf.llave.id}${row.reg_coninf.llave.folio}${row.reg_coninf.llave.fecha}${row.reg_coninf.llave.hora}${row.reg_coninf.llave.oper_elab}`
@@ -258,6 +270,7 @@ const imprimirConsen = async ({ row }) => {
       datos: {
         img_firma_consen: firma_consen.value,
         img_firma_acomp: firma_recibida_acomp.value,
+        img_huella_paci: huella_paci.value,
         img_firma_paci: firma_consen.value,
         firma_prof: firma_prof.value,
       },
@@ -281,6 +294,7 @@ const imprimirConsen = async ({ row }) => {
         },
       }),
     });
+
     await impresion({ docDefinition });
   } catch (error) {
     console.error("error-- >", error);
@@ -290,6 +304,14 @@ const imprimirConsen = async ({ row }) => {
 const getFirmaProf = async (cod_prof) => {
   try {
     firma_prof.value = await _getFirma$({ codigo: cod_prof });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+const getHuella = async (cod_paci) => {
+  try {
+    huella_paci.value = await _getHuella$({ codigo: Number(cod_paci) });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

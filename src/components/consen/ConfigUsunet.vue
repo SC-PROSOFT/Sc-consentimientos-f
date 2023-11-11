@@ -40,9 +40,15 @@
           @validate="datoIp"
         />
         <Input_
+          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+          v-model="reg_config.ipusu2"
+          :field="form_config.ipusu2"
+          @validate="datoIp2"
+        />
+        <Input_
           class="col-xs-6 col-sm-2 col-md-2 col-lg-2 col-xl-2"
-          v-model="reg_config.uni_prog"
-          :field="form_config.uni_prog"
+          v-model="reg_config.unid_prog"
+          :field="form_config.unid_prog"
           @validate="datoUnidadProg"
         />
         <Input_
@@ -73,7 +79,6 @@ import { ref, onMounted } from "vue";
 import { foco_ } from "@/setup";
 
 const { getDll$ } = useApiContabilidad();
-
 const { CON851 } = useModuleCon851();
 
 const props = defineProps({ configuracion: Object });
@@ -87,7 +92,8 @@ const reg_config = ref({
   emailusu: null,
   clave_email: null,
   ipusu: null,
-  uni_prog: null,
+  ipusu2: null,
+  unid_prog: null,
   dircont: null,
 });
 const form_config = ref({
@@ -141,13 +147,21 @@ const form_config = ref({
     id: "ipusu",
     label: "Ip servidor",
     placeholder: "Escribe la dirección ip",
-    maxlength: "30",
+    maxlength: "20",
     f0: ["f3"],
     required: true,
     campo_abierto: true,
   },
-  uni_prog: {
-    id: "uni_prog",
+  ipusu2: {
+    id: "ipusu2",
+    label: "Ip publica",
+    placeholder: "Escribe la dirección ip publica",
+    maxlength: "20",
+    f0: ["f3"],
+    campo_abierto: true,
+  },
+  unid_prog: {
+    id: "unid_prog",
     label: "Unidad",
     maxlength: "1",
     f0: ["f3"],
@@ -167,15 +181,7 @@ const form_config = ref({
 
 onMounted(() => {
   modo_project.value = process.env.NODE_ENV;
-
-  reg_config.value.nomusu = props.configuracion.nomusu?.trim();
-  reg_config.value.nitusu = props.configuracion.nitusu?.trim();
-  reg_config.value.dirusu = props.configuracion.dirusu?.trim();
-  reg_config.value.emailusu = props.configuracion.emailusu?.trim();
-  reg_config.value.clave_email = props.configuracion.clave_email?.trim();
-  reg_config.value.ipusu = props.configuracion.ipusu?.trim();
-  reg_config.value.uni_prog = props.configuracion.unid_prog?.trim();
-  reg_config.value.dircont = props.configuracion.dircont?.trim();
+  Object.assign(reg_config.value, props.configuracion);
 
   foco_(form_config, "nomusu");
 });
@@ -235,7 +241,17 @@ const datoIp = (event) => {
     case "esc":
       return foco_(form_config, "clave");
     case "enter":
-      return foco_(form_config, "uni_prog");
+      return foco_(form_config, "ipusu2");
+    case "f3":
+      return validarConfiguracion();
+  }
+};
+const datoIp2 = (event) => {
+  switch (event) {
+    case "esc":
+      return foco_(form_config, "ipusu");
+    case "enter":
+      return foco_(form_config, "unid_prog");
     case "f3":
       return validarConfiguracion();
   }
@@ -243,7 +259,7 @@ const datoIp = (event) => {
 const datoUnidadProg = (event) => {
   switch (event) {
     case "esc":
-      return foco_(form_config, "ipusu");
+      return foco_(form_config, "ipusu2");
     case "enter":
       return foco_(form_config, "dircont");
     case "f3":
@@ -253,7 +269,7 @@ const datoUnidadProg = (event) => {
 const datoContab = (event) => {
   switch (event) {
     case "esc":
-      return foco_(form_config, "uni_prog");
+      return foco_(form_config, "unid_prog");
     case "enter":
     case "f3":
       return validarConfiguracion();
@@ -261,20 +277,29 @@ const datoContab = (event) => {
 };
 
 const validarConfiguracion = () => {
-  Object.keys(reg_config.value).forEach((e, index) => {
-    if (!reg_config.value[e]) {
-      return CON851("02", "info", e, () => foco_(form_config, e));
+  const camposo_bligatorios = [
+    { nombre: "nombre de empresa", campo: "nomusu" },
+    { nombre: "nit", campo: "nitusu" },
+    { nombre: "direccion", campo: "dirusu" },
+    { nombre: "ip de servidor", campo: "ipusu" },
+    { nombre: "unidad disco", campo: "unid_prog" },
+    { nombre: "contabilidad", campo: "dircont" },
+  ];
+  for (const campo_info of camposo_bligatorios) {
+    const valorCampo = reg_config.value[campo_info.campo];
+    if (!valorCampo) {
+      return CON851("02", "info", campo_info.nombre, () => foco_(form_config, campo_info.campo));
     }
-  });
+  }
   guardarUsunet();
 };
 
 const cerrarConfiguracion = () => emit("cerrar");
+
 const guardarUsunet = async () => {
   try {
     const response = await getDll$({ modulo: `set_usunet.dll`, data: { ...reg_config.value } });
-
-    CON851("?", "success", response, () => emit("guardar"));
+    return CON851("?", "success", response, () => emit("guardar"));
   } catch (error) {
     CON851("?", "info", error);
   }

@@ -5,21 +5,6 @@ export const utilsFormat = ({ datos, content }) => {
   const { getImgBs64, getEncabezado } = useApiContabilidad();
   const { getEmpresa } = useModuleFormatos();
 
-  const prof = {
-    1: "MEDICO ESPECIALISTA",
-    2: "MEDICO GENERAL",
-    3: "ENFERMERA",
-    4: "AUXILIAR ENFERMERIA",
-    5: "TERAPIAS Y OTROS",
-    6: "ENFERMERA JEFE PYP",
-    7: "PSICOLOGIA",
-    8: "NUTRICIONISTA",
-    9: "SIN DETERMINAR",
-    A: "ODONTOLOGO",
-    H: "HIGIENISTA ORAL",
-    I: "INSTRUMENTACION",
-    O: "OPTOMETRA",
-  };
   const base64 = "data:image/png;base64,";
 
   return {
@@ -30,6 +15,7 @@ export const utilsFormat = ({ datos, content }) => {
       firma_consen: `${base64}${datos.img_firma_consen}` || getImgBs64,
       firma_paci: `${base64}${datos.img_firma_paci}` || getImgBs64,
       firma_acomp: `${base64}${datos.img_firma_acomp}` || getImgBs64,
+      huella_paci: datos.img_huella_paci || getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     header: function (currentPage, pageCount) {
@@ -72,7 +58,7 @@ export const utilsFormat = ({ datos, content }) => {
                         bold: true,
                       },
                       {
-                        text: "M2-S5-F-17",
+                        text: getEncabezado.codigo,
                       },
                     ],
                     style: "headerEnd",
@@ -84,7 +70,7 @@ export const utilsFormat = ({ datos, content }) => {
                         bold: true,
                       },
                       {
-                        text: "01",
+                        text: getEncabezado.version,
                       },
                     ],
                     style: "headerEnd",
@@ -96,7 +82,9 @@ export const utilsFormat = ({ datos, content }) => {
                         bold: true,
                       },
                       {
-                        text: "04/10/2023",
+                        text: getEncabezado.fecha_aprob
+                          ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD")
+                          : "",
                       },
                     ],
                     style: "headerEnd",
@@ -108,7 +96,7 @@ export const utilsFormat = ({ datos, content }) => {
                         bold: true,
                       },
                       {
-                        text: "04/10/2023",
+                        text: getEncabezado.reviso,
                       },
                     ],
                     style: "headerEnd",
@@ -120,7 +108,7 @@ export const utilsFormat = ({ datos, content }) => {
                         bold: true,
                       },
                       {
-                        text: "04/10/2023",
+                        text: getEncabezado.aprobo,
                       },
                     ],
                     style: "headerEnd",
@@ -132,7 +120,9 @@ export const utilsFormat = ({ datos, content }) => {
                         bold: true,
                       },
                       {
-                        text: "04/10/2023",
+                        text: getEncabezado.fecha_act
+                          ? dayjs(getEncabezado.fecha_act).format("YYYY-MM-DD")
+                          : "",
                       },
                     ],
                     style: "headerEnd",

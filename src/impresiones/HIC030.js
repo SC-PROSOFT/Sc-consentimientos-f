@@ -250,7 +250,7 @@ export const impresionHC030 = ({ datos }) => {
             {
               marginTop: 9,
               marginLeft: 8,
-              image: "firma_paci",
+              image: "huella_paci",
               width: 55,
               height: 70,
             },
@@ -308,23 +308,11 @@ export const impresionHC030 = ({ datos }) => {
           fontSize: 6,
         },
         {
-          marginLeft: 3,
-          columns: [
-            {
-              marginTop: 9,
-              alignment: "center",
-              image: "firma_acomp",
-              width: 105,
-              height: 70,
-            },
-            {
-              marginTop: 9,
-              marginLeft: 8,
-              image: "firma_acomp",
-              width: 55,
-              height: 70,
-            },
-          ],
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
         },
         {
           marginTop: 10,
@@ -441,7 +429,7 @@ export const impresionHC030 = ({ datos }) => {
     };
   }
 
-  function firmas(condicion) {
+  function firmas() {
     let firmasArray = [];
     let anchos = [];
 

@@ -10,7 +10,7 @@ export const apiAxios = ({
   responseType = "json",
   loader = true,
 }) => {
-  const URl = `http://${sessionStorage.ip}:${process.env.PORT}${process.env.API}`;
+  const URl = `http://${localStorage.ip}:${process.env.PORT}${process.env.API}`;
   return new Promise((resolve, reject) => {
     let config = {
       url: `${URl}${url}`,

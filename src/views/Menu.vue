@@ -5,7 +5,7 @@
       v-if="configuracion.estado"
       :configuracion="configuracion"
       @cerrar="configuracion.estado = false"
-      @guardar="configuracion.estado = false"
+      @guardar="(configuracion.estado = false), verificarSesion()"
     />
     <ConfigMaestros_
       v-if="config_maestro.estado"
@@ -46,10 +46,12 @@
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
-import { empresas, regAcomp } from "@/fuentes";
+import { regAcomp } from "@/fuentes";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
+const ConfigMaestros_ = defineAsyncComponent(() =>
+  import("@/components/consen/ConfigMaestros.vue")
+);
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
@@ -63,7 +65,7 @@ const form_paci = ref({
 });
 
 const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
-const { getDll$, getNit, _getLogo$ } = useApiContabilidad();
+const { getDll$, getNit, getIp, _getLogo$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const configuracion = ref({ estado: false });
@@ -73,22 +75,20 @@ const route = useRoute();
 const datos_session = {};
 const llave = ref(null);
 
-onMounted(async () => {
+onMounted(() => {
   verificarSesion();
 });
 
 const verificarSesion = async () => {
   try {
-    sessionStorage.ip = empresas[getNit].ip_servicio;
-    sessionStorage.nit = getNit;
-    
+    localStorage.setItem("ip", getIp);
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
     getLogo();
     return response;
   } catch (error) {
-    CON851("?", "info", error, () => {
+    return CON851("?", "info", error, () => {
       configuracion.value.estado = true;
     });
   }
@@ -126,7 +126,7 @@ async function getPaciente() {
       datos_session.id_acompa && getAcomp();
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error);
       CON851("?", "error", "Error consultando datos paciente");
     });
 }
@@ -175,7 +175,7 @@ const abrirConfiguracion = async () => {
   try {
     const response = await verificarSesion();
     Object.assign(configuracion.value, response);
-    configuracion.value.estado = true;
+    if (response.nomusu) configuracion.value.estado = true;
   } catch (error) {
     CON851("?", "info", error, () => {
       configuracion.value.estado = true;
