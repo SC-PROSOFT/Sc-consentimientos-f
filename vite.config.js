@@ -3,6 +3,8 @@ import vue from "@vitejs/plugin-vue";
 import { quasar, transformAssetUrls } from "@quasar/vite-plugin";
 import { fileURLToPath, URL } from "node:url";
 
+const modulo = "consentimientos";
+
 export default defineConfig({
   plugins: [
     vue({
@@ -13,9 +15,9 @@ export default defineConfig({
   ],
   define: {
     "process.env": {
-      BASE_URL: "consentimientos",
+      BASE_URL: modulo,
       API: "/api/v1/",
-      APP: "consentimientos/v2/app",
+      APP: `${modulo}/v2/app`,
       PORT: 8787,
     },
   },
@@ -26,5 +28,5 @@ export default defineConfig({
     extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
   server: { port: 8080, open: false },
-  base: "/consentimientos/",
+  base: `/${modulo}`,
 });
