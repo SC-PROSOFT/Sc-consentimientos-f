@@ -177,6 +177,17 @@
             alcance y los riesgos explicados.
           </p>
         </div>
+        <div class="q-mt-xl" v-show="opcion_hc038 == 'REVOCAR'">
+          <div style="text-align: center;">
+            <span style="font-size: medium;font-weight: bold;">DISENTIMIENTO</span>
+          </div>
+          <div>
+            <p>
+              Declaro que rechazo el procedimiento anteriormente escrito. Declaro además conocer los objetivos,
+              características, riesgos y beneficios del procedimiento rechazado.
+            </p>
+          </div>
+        </div>
         <div v-show="texto_familiar">
           <div class="row q-mt-xl text-justify">
             <q-space />
@@ -198,17 +209,6 @@
               >decidir en este momento, por lo que asume la
               responsabilidad de la decisión, en los mismos términos que haría el propio paciente.</p
             >
-          </div>
-        </div>
-        <div class="q-mt-xl" v-show="opcion_hc038 == 'REVOCAR'">
-          <div style="text-align: center;">
-            <span style="font-size: medium;font-weight: bold;">DISENTIMIENTO</span>
-          </div>
-          <div>
-            <p>
-              Declaro que rechazo el procedimiento anteriormente escrito. Declaro además conocer los objetivos,
-              características, riesgos y beneficios del procedimiento rechazado.
-            </p>
           </div>
         </div>
       </q-form>
@@ -345,10 +345,7 @@ const callBackFirmaAcomp = (data_firma) => {
 };
 
 const validarDatos = async () => {
-  if (opcion_hc038.value == "REVOCAR" && HIC038.value.explicacion == "") {
-    return CON851("?", "info", "Debe ingresar motivos de revocación", () => foco_(form, "revocar"));
-  }
-  if (HIC038.value.servicios == "" || HIC038.value.horarios == "" ) {
+  if (opcion_hc038.value == "AUTORIZAR" && (HIC038.value.servicios == "" || HIC038.value.horarios == "" )) {
     return CON851("?", "info", "Debe ingresar los datos requeridos");
   }
 

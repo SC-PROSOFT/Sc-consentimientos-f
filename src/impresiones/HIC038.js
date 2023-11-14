@@ -2,7 +2,7 @@ import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionHC038 = ({ datos }) => {
-  console.log("🚀 ~ impresionHC038 ~ datos:", datos)
+  console.log("🚀 ~ impresionHC038 ~ datos:", datos);
   var dd = {
     stack: [contenidoRefeYContraref(), firmas()],
   };
@@ -27,7 +27,7 @@ export const impresionHC038 = ({ datos }) => {
             },
             {
               width: "20%",
-              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
+              text: `Fecha: ${dayjs(datos.empresa.fecha_act).format("YYYY-MM-DD")}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
@@ -153,15 +153,9 @@ export const impresionHC038 = ({ datos }) => {
             ],
           },
         },
-        {
-          marginTop: 10,
-          alignment: "justify",
-          style: "bodyNoBold",
-          text: "Para ello, manifiesto que estoy satisfecho/a con la información recibida y que comprendo el alcance y los riesgos explicados.",
-        },
         //AÑADIR CONDICION DE TEXTO ACOMPAÑANTE
-        textoAcomp(true),
         textoAutoriza(datos.autorizo),
+        textoAcomp(datos.acomp.cod != "" && datos.acomp.descrip != ""),
       ],
     };
   }
@@ -173,13 +167,17 @@ export const impresionHC038 = ({ datos }) => {
           marginTop: 5,
           alignment: "center",
           style: "bodyBold",
-          text: "TUTOR LEGAL O FAMILIAR"
+          text: "TUTOR LEGAL O FAMILIAR",
         },
         {
           marginTop: 10,
           alignment: "justify",
           style: "bodyNoBold",
-          text: `El (la) Señor(a) ${datos.acomp.descrip}, identificado(a) con cedula de ciudadanía N° ${datos.acomp.cod} expedida en la ciudad de ${datos.acomp.descrip_ciudad} en calidad de ${evaluarParentesco(datos.paren_acomp)}, es consciente de que el paciente cuyos datos figuran en el encabezamiento, no es competente para decidir en este momento, por lo que asume la responsabilidad de la decisión, en los mismos términos que haría el propio paciente.`,
+          text: `El (la) Señor(a) ${datos.acomp.descrip}, identificado(a) con cedula de ciudadanía N° ${
+            datos.acomp.cod
+          } expedida en la ciudad de ${datos.acomp.descrip_ciudad} en calidad de ${evaluarParentesco(
+            datos.paren_acomp
+          )}, es consciente de que el paciente cuyos datos figuran en el encabezamiento, no es competente para decidir en este momento, por lo que asume la responsabilidad de la decisión, en los mismos términos que haría el propio paciente.`,
         },
       ],
     };
@@ -188,43 +186,53 @@ export const impresionHC038 = ({ datos }) => {
   }
 
   function textoAutoriza(autorizo) {
+    const textoAutoriza = {
+      marginTop: 10,
+      stack: [
+        {
+          text: [
+            {
+              text: "Para ello, manifiesto que estoy",
+            },
+            {
+              text: "satisfecho/a",
+              bold: true,
+              decoration: "underline",
+            },
+            {
+              text: " con la información recibida y que comprendo el alcance y los riesgos explicados.",
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ]
+    }
+
     const textoRevoca = {
       marginTop: 8,
       stack: [
         {
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(true),
-                },
-                {
-                  text: [
-                    {
-                      text: "Declaro que ",
-                    },
-                    {
-                      text: "rechazo",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: " el procedimiento anteriormente escrito. Declaro además conocer los objetivos, características, riesgos y beneficios del procedimiento rechazado.",
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-            ],
-          },
+          text: [
+            {
+              text: "Declaro que ",
+            },
+            {
+              text: "rechazo",
+              bold: true,
+              decoration: "underline",
+            },
+            {
+              text: " el procedimiento anteriormente escrito. Declaro además conocer los objetivos, características, riesgos y beneficios del procedimiento rechazado.",
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
         },
       ],
     };
 
-    if (autorizo) return null;
+    if (autorizo) return textoAutoriza;
     else return textoRevoca;
   }
 
