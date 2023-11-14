@@ -19,7 +19,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
      buscara la ip para conectarse  apenas inicie la pagina*/
 
     getNit() {
-      return 1;
+      return 844003225;
     },
     getIp() {
       return empresas[this.getNit].ip_servicio;
