@@ -369,10 +369,8 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    firma_recibida.value.length &&
-      (await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` }));
-    firma_recibida_acomp.value.length &&
-      (await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` }));
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
     return CON851P(
       "?",
