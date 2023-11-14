@@ -185,7 +185,6 @@ const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
 const descrip_diagnostico = ref("");
 const show_consen800 = ref(false);
-const revocar_motivos = ref(null);
 const firma_recibida = ref("");
 const firma_prof = ref(null);
 const HIC032 = reactive({
