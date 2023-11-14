@@ -18,7 +18,7 @@ export default defineConfig({
       BASE_URL: modulo,
       API: "/api/v1/",
       APP: `${modulo}/v2/app`,
-      PORT: 5025,
+      PORT: 8787,
     },
   },
   resolve: {
