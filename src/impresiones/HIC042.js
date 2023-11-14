@@ -1,4 +1,4 @@
-import { evaluarParentesco } from "@/formatos/utils";
+import { calcEdad, evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionHC042 = ({ datos }) => {
@@ -14,19 +14,19 @@ export const impresionHC042 = ({ datos }) => {
           columns: [
             {
               width: "50%",
-              text: `Historia clínica número:`,
+              text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
             {
               width: "30%",
-              text: `Ciudad: VILLAVICENCIO`,
+              text: `Ciudad: ${datos.empresa.ciudad_usuar}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
             {
               width: "20%",
-              text: `Fecha: 02/11/2023`,
+              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
@@ -34,13 +34,15 @@ export const impresionHC042 = ({ datos }) => {
         },
         {
           marginTop: 15,
-          text: `Yo, {Pepito Perez Pepito Perez}, IDENTIFICACION {1111111111} HORA: {00:00} EDAD: 00`,
+          text: `Yo, ${datos.paciente.descrip}, IDENTIFICACION ${datos.paciente.cod} edad ${calcEdad(
+            datos.paciente.nacim
+          )}`,
           alignment: "justify",
           style: "bodyNoBold",
         },
         {
           marginTop: 8,
-          text: `NOMBRE DEL PADRE DE FAMILIA Y/O CUIDADOR {Pepito perez pepito perez} IDENTIFICACION {1111111111}`,
+          text: `NOMBRE DEL PADRE DE FAMILIA Y/O CUIDADOR ${datos.acomp.descrip} IDENTIFICACION ${datos.acomp.cod}`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -52,8 +54,10 @@ export const impresionHC042 = ({ datos }) => {
               bold: true,
             },
             {
-              text: ` el personal del área de la salud {PITOLOGIA} nos ha explicado y hemos entendido la siguiente información sobre la aplicación de la vacuna contra el Virus del Papiloma Humano.`
-            }
+              text: ` el personal del área de la salud ${
+                datos?.area_Salud || ""
+              } nos ha explicado y hemos entendido la siguiente información sobre la aplicación de la vacuna contra el Virus del Papiloma Humano.`,
+            },
           ],
           alignment: "justify",
           style: "bodyNoBold",
@@ -93,7 +97,7 @@ export const impresionHC042 = ({ datos }) => {
             },
             {
               text: ` Se administra la vacuna vía Intramuscular, en el tercio medio del músculo deltoides (brazo).`,
-            }
+            },
           ],
           alignment: "justify",
           style: "bodyNoBold",
@@ -107,7 +111,7 @@ export const impresionHC042 = ({ datos }) => {
             },
             {
               text: ` La vacunación en adolescentes puede desencadenar síncope, algunas veces asociado con desmayo, por lo que se recomienda que después de la aplicación de la vacuna, la niña permanezca sentada por lo menos 15 minutos y sea observada.`,
-            }
+            },
           ],
           alignment: "justify",
           style: "bodyNoBold",
@@ -128,8 +132,8 @@ export const impresionHC042 = ({ datos }) => {
               bold: true,
             },
             {
-              text: "Dolor, hinchazón, eritema, hematoma y prurito."
-            }
+              text: "Dolor, hinchazón, eritema, hematoma y prurito.",
+            },
           ],
           alignment: "justify",
           style: "bodyNoBold",
@@ -143,8 +147,8 @@ export const impresionHC042 = ({ datos }) => {
               bold: true,
             },
             {
-              text: "Pirexia (fiebre), diarrea, vómitos, mialgia (dolor muscular), tos, infección de vías respiratorias superiores, odontalgia (dolor dental), malestar general, artralgia (dolor en articulaciones e insomnio)."
-            }
+              text: "Pirexia (fiebre), diarrea, vómitos, mialgia (dolor muscular), tos, infección de vías respiratorias superiores, odontalgia (dolor dental), malestar general, artralgia (dolor en articulaciones e insomnio).",
+            },
           ],
           alignment: "justify",
           style: "bodyNoBold",
@@ -171,63 +175,40 @@ export const impresionHC042 = ({ datos }) => {
               bold: true,
             },
             {
-              text: " que he sido informado con anticipación y de forma satisfactoria he comprendido las explicaciones que se me han facilitado, y el personal del área de la salud que me ha atendido me ha permitido realizar todas las observaciones y me ha aclarado todas las dudas que le he planteado y con la información recibida, acepto la aplicación de la vacuna contra el VPH, en tales condiciones"
-            }
+              text: " que he sido informado con anticipación y de forma satisfactoria he comprendido las explicaciones que se me han facilitado, y el personal del área de la salud que me ha atendido me ha permitido realizar todas las observaciones y me ha aclarado todas las dudas que le he planteado y con la información recibida, acepto la aplicación de la vacuna contra el VPH, en tales condiciones",
+            },
           ],
           alignment: "justify",
           style: "bodyNoBold",
         },
-        textoAutoriza(false),
+        textoAutoriza(datos.autorizo),
       ],
     };
   }
-  
+
   function textoAutoriza(autorizo) {
-      const textoAutoriza = {
-        marginTop: 10,
-        alignment: "justify",
-        style: "bodyNoBold",
-        columns: [
-          {
-            width: "8%",
-            text: "ACEPTO",
-            bold: true,
-          },
-          {
-            width: "4%",
-            stack: cuadro_canvas(),
-          },
-          {
-            width: "auto",
-            text: "que se me aplique la vacuna.",
-          }
-        ],
-      };
-  
-      const textoRevoca = {
-        marginTop: 10,
-        alignment: "justify",
-        style: "bodyNoBold",
-        columns: [
-          {
-            width: "10%",
-            text: "NO ACEPTO",
-            bold: true,
-          },
-          {
-            width: "4%",
-            stack: cuadro_canvas(),
-          },
-          {
-            width: "auto",
-            text: "que se me aplique la vacuna.",
-          }
-        ],
-      };
-  
-      if (autorizo) return textoAutoriza;
-      else return textoRevoca;
-    }
+    let text = autorizo ? "ACEPTO" : "NO ACEPTO";
+    return {
+      marginTop: 10,
+      alignment: "justify",
+      style: "bodyNoBold",
+      columns: [
+        {
+          width: "10%",
+          text: `${text}`,
+          bold: true,
+        },
+        {
+          width: "4%",
+          stack: cuadro_canvas(true),
+        },
+        {
+          width: "auto",
+          text: "que se me aplique la vacuna.",
+        },
+      ],
+    };
+  }
 
   function cuadro_canvas(condicion) {
     return [
