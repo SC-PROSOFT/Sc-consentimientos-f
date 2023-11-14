@@ -10,7 +10,6 @@ export default defineConfig({
     vue({
       template: { transformAssetUrls },
     }),
-
     quasar({ sassVariables: "src/assets/styles/quasar-variables.sass" }),
   ],
   define: {
