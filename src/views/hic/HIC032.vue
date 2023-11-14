@@ -126,7 +126,9 @@
         <ContainerFirma
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
+          :registro_profe="getPaci.cod"
           @reciFirma="callBackFirma"
+          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
@@ -174,7 +176,7 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
 const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
-const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -186,6 +188,7 @@ const firma_recibida_acomp = ref("");
 const descrip_diagnostico = ref("");
 const show_consen800 = ref(false);
 const firma_recibida = ref("");
+const huella_paci = ref(null);
 const firma_prof = ref(null);
 const HIC032 = reactive({
   revocar_procedim: "",
@@ -278,6 +281,7 @@ const datosInit = () => {
 
 const getFirmaProf = async () => {
   try {
+    huella_paci.value = await _getHuella$({ codigo: Number(getPaci.cod) });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
   } catch (error) {
     console.error(error);
@@ -408,6 +412,7 @@ const imprimirConsen = async () => {
     acudiente: acudiente.value,
     firmas: {
       firma_paci: firma_recibida.value ? true : false,
+      huella_paci: huella_paci.value ? true : false,
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
     },
@@ -416,9 +421,10 @@ const imprimirConsen = async () => {
   };
 
   const firmas = {
+    img_firma_acomp: firma_recibida_acomp.value,
     img_firma_consen: firma_recibida.value,
     img_firma_paci: firma_recibida.value,
-    img_firma_acomp: firma_recibida_acomp.value,
+    img_huella_paci: huella_paci.value,
     firma_prof: firma_prof.value,
   };
 
