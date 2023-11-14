@@ -67,8 +67,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
 
       const data_correo = {
         server_email: "smtp.gmail.com",
-        remitente: this.empresa.emailusu,
-        clave: this.empresa.clave_email,
+        remitente: this.empresa.emailusu.toLowerCase(),
+        clave: this.empresa.clave_email.toLowerCase(),
         puerto: 587,
         destino,
         subject,
