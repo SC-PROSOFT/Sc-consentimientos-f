@@ -2,7 +2,6 @@ import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionHC032 = ({ datos }) => {
-  console.log("⚡  file: HIC032.js:5  datos-->", datos);
   var dd = {
     stack: [contenidoConsenGeneral(), firmas()],
   };
