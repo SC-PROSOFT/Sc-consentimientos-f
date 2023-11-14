@@ -36,7 +36,9 @@ export const impresionHC039 = ({ datos }) => {
           marginTop: 10,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `Yo ${llenarFirmador().descrip()} identificado(a) con  N° ${llenarFirmador().cod()}, obrando en la calidad abajo indicada, hago la siguiente declaración: Por medio del presente documento, en forma libre, en pleno uso de mis facultades mentales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información por parte del médico tratante sobre las condiciones médicas, he decido solicitar MI ALTA VOLUNTARIA del servicio de ${datos.servicio} DE LA ESE SALUD  YOPAL, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de esta decisión.`,
+          text: `Yo ${llenarFirmador().descrip()} identificado(a) con  N° ${llenarFirmador().cod()}, obrando en la calidad abajo indicada, hago la siguiente declaración: Por medio del presente documento, en forma libre, en pleno uso de mis facultades mentales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información por parte del médico tratante sobre las condiciones médicas, he decido solicitar MI ALTA VOLUNTARIA del servicio de ${
+            datos.servicio
+          } DE LA ESE SALUD  YOPAL, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de esta decisión.`,
         },
         {
           marginTop: 15,
@@ -82,33 +84,38 @@ export const impresionHC039 = ({ datos }) => {
           alignment: "justify",
           columns: [
             {
-              width: "30%",
+              width: "25%",
               text: "Como responsable del paciente:",
+              bold: true,
             },
             {
-              marginLeft: 10,
-              width: "auto",
-              text: "SI",
+              width: "50%",
+              text: " (Padre o Madre si es menor; representante legal, familiar o representante u otras personas que figuren como tales en la H. C.):",
             },
             {
-              marginLeft: 5,
-              width: "auto",
-              stack: cuadro_canvas(""),
-            },
-            {
-              marginLeft: 15,
-              width: "auto",
-              text: "NO",
-            },
-            {
-              marginLeft: 5,
-              width: "auto",
-              stack: cuadro_canvas(""),
-            },
-            {
-              marginLeft: 15,
-              width: "auto",
-              text: "(Padre o Madre si es menor; representante legal, familiar o representante u otras personas que figuren como tales en la H. C.):",
+              width: "20%",
+              marginLeft: 20,
+              columns: [
+                {
+                  width: "auto",
+                  text: "SI",
+                },
+                {
+                  marginLeft: 5,
+                  width: "auto",
+                  stack: cuadro_canvas(""),
+                },
+                {
+                  marginLeft: 15,
+                  width: "auto",
+                  text: "NO",
+                },
+                {
+                  marginLeft: 5,
+                  width: "auto",
+                  stack: cuadro_canvas(""),
+                },
+              ],
             },
           ],
         },
