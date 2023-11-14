@@ -10,6 +10,7 @@ export * from "./HIC034";
 export * from "./HIC035";
 export * from "./HIC036";
 export * from "./HIC037";
+export * from "./HIC038";
 export * from "./HIC039";
 export * from "./HIC040";
 export * from "./HIC041";
