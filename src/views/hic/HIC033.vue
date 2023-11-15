@@ -38,73 +38,135 @@
             </q-item>
             <q-item tag="label" style="margin-top: -22px" v-ripple>
               <q-item-section>
-                <q-item-label>2. ¿Ha tenido relaciones con personas portadoras de VIH/SIDA?</q-item-label>
+                <q-item-label
+                  >2. ¿Ha tenido relaciones con personas portadoras de
+                  VIH/SIDA?</q-item-label
+                >
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.relaciones" />
-              </q-item-section>
-            </q-item>
-            <q-item tag="label" style="margin-top: -22px" v-ripple>
-              <q-item-section>
-                <q-item-label>3. ¿Se inyecta sustancias psicoactivas?</q-item-label>
-              </q-item-section>
-              <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.inyec_sust_psico" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.relaciones"
+                />
               </q-item-section>
             </q-item>
             <q-item tag="label" style="margin-top: -22px" v-ripple>
               <q-item-section>
                 <q-item-label
-                  >4. ¿Usa algún método de protección cuando tiene relaciones sexuales?</q-item-label
+                  >3. ¿Se inyecta sustancias psicoactivas?</q-item-label
                 >
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.proteccion_rel_sex" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.inyec_sust_psico"
+                />
               </q-item-section>
             </q-item>
             <q-item tag="label" style="margin-top: -22px" v-ripple>
               <q-item-section>
-                <q-item-label>5. ¿Ha tenido los siguientes sintomas?</q-item-label>
+                <q-item-label
+                  >4. ¿Usa algún método de protección cuando tiene relaciones
+                  sexuales?</q-item-label
+                >
+              </q-item-section>
+              <q-item-section side>
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.proteccion_rel_sex"
+                />
               </q-item-section>
             </q-item>
-            <q-item class="q-ml-xl" style="margin-top: -22px" tag="label" v-ripple>
+            <q-item tag="label" style="margin-top: -22px" v-ripple>
+              <q-item-section>
+                <q-item-label
+                  >5. ¿Ha tenido los siguientes sintomas?</q-item-label
+                >
+              </q-item-section>
+            </q-item>
+            <q-item
+              class="q-ml-xl"
+              style="margin-top: -22px"
+              tag="label"
+              v-ripple
+            >
               <q-item-section>
                 <q-item-label>Pérdida de peso</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.perdida_peso" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.perdida_peso"
+                />
               </q-item-section>
             </q-item>
-            <q-item class="q-ml-xl" style="margin-top: -22px" tag="label" v-ripple>
+            <q-item
+              class="q-ml-xl"
+              style="margin-top: -22px"
+              tag="label"
+              v-ripple
+            >
               <q-item-section>
                 <q-item-label>Fiebre frecuente</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.fiebre_frec" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.fiebre_frec"
+                />
               </q-item-section>
             </q-item>
-            <q-item class="q-ml-xl" style="margin-top: -22px" tag="label" v-ripple>
+            <q-item
+              class="q-ml-xl"
+              style="margin-top: -22px"
+              tag="label"
+              v-ripple
+            >
               <q-item-section>
                 <q-item-label>Diarrea permanente</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.diarrea_perm" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.diarrea_perm"
+                />
               </q-item-section>
             </q-item>
-            <q-item class="q-ml-xl" style="margin-top: -22px" tag="label" v-ripple>
+            <q-item
+              class="q-ml-xl"
+              style="margin-top: -22px"
+              tag="label"
+              v-ripple
+            >
               <q-item-section>
                 <q-item-label>Infección por hongos y herpes</q-item-label>
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.infeccion_hon_her" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.infeccion_hon_her"
+                />
               </q-item-section>
             </q-item>
             <q-item tag="label" style="margin-top: -22px" v-ripple>
               <q-item-section>
-                <q-item-label>6. ¿Ha sido transfundido en los últimos años?</q-item-label>
+                <q-item-label
+                  >6. ¿Ha sido transfundido en los últimos años?</q-item-label
+                >
               </q-item-section>
               <q-item-section side>
-                <q-checkbox color="primary" keep-color v-model="HIC033.tranfundido" />
+                <q-checkbox
+                  color="primary"
+                  keep-color
+                  v-model="HIC033.tranfundido"
+                />
               </q-item-section>
             </q-item>
           </q-list>
@@ -119,18 +181,29 @@
         </div>
         <div class="row">
           <p>Nombre de quien hizo la asesoría:</p>
-          <q-input v-model="getProf.descrip" disable type="text" label="Nombre doctor" dense class="col-4" />
+          <q-input
+            v-model="getProf.descrip"
+            disable
+            type="text"
+            label="Nombre doctor"
+            dense
+            class="col-4"
+          />
         </div>
         <div class="q-mt-lg q-mb-lg row">
-          <h6 class="text-center" style="margin: 0; font-size: 16px; font-weight: bold">
-            CONSENTIMIENTO INFORMADO PARA REALIZAR LA PRUEBA PRESUNTIVA O DIAGNOSTICA DE VIH (VIRUS DE
-            INMUNODEFICIENCIA HUMANA)
+          <h6
+            class="text-center"
+            style="margin: 0; font-size: 16px; font-weight: bold"
+          >
+            CONSENTIMIENTO INFORMADO PARA REALIZAR LA PRUEBA PRESUNTIVA O
+            DIAGNOSTICA DE VIH (VIRUS DE INMUNODEFICIENCIA HUMANA)
           </h6>
         </div>
         <div v-show="HIC033.anios_paciente <= 12">
           <div class="q-mt-md q-mb-xs row">
             <span style="font-weight: bold"
-              >Este espacio debe ser diligenciado para niños (as) menores de 12 años</span
+              >Este espacio debe ser diligenciado para niños (as) menores de 12
+              años</span
             >
           </div>
           <div class="row" style="border: 1px solid #ccc; padding: 5px">
@@ -144,7 +217,14 @@
               class="col-4"
             />
             <p>mayor de edad, identificado (a) con C.C. No.</p>
-            <q-input v-model="getAcomp.cod" disable label="Cédula" type="text" dense class="col-2" />
+            <q-input
+              v-model="getAcomp.cod"
+              disable
+              label="Cédula"
+              type="text"
+              dense
+              class="col-2"
+            />
             <p>expedida en</p>
             <q-input
               v-model="getAcomp.descrip_ciudad"
@@ -177,7 +257,9 @@
         </div>
         <div v-show="HIC033.anios_paciente > 12">
           <div class="q-mt-lg q-mb-md row">
-            <span style="font-weight: bold">Este espacio es diligenciado mayores de 12 años</span>
+            <span style="font-weight: bold"
+              >Este espacio es diligenciado mayores de 12 años</span
+            >
           </div>
           <div class="row" style="border: 1px solid #ccc; padding: 5px">
             <p>Yo</p>
@@ -190,7 +272,14 @@
               class="col-4"
             />
             <p>, identificado (a) con CC. No.</p>
-            <q-input v-model="getPaci.cod" disable label="Cédula" type="text" dense class="col-2" />
+            <q-input
+              v-model="getPaci.cod"
+              disable
+              label="Cédula"
+              type="text"
+              dense
+              class="col-2"
+            />
             <p>expedida en</p>
             <q-input
               v-model="getPaci.descrip_ciudad"
@@ -200,46 +289,58 @@
               dense
               class="col-1"
             />
-            <p>Certifico que: He leído (o que se me ha leído) el documento sobre consentimiento</p>
+            <p>
+              Certifico que: He leído (o que se me ha leído) el documento sobre
+              consentimiento
+            </p>
             <p style="margin-top: -2px">
-              informado que contiene información sobre el propósito y beneficio de la prueba, su
-              interpretación, sus limitaciones, y su riesgo, y que entiendo su contenido, incluyendo las
-              limitaciones, beneficios y riegos de la prueba.
+              informado que contiene información sobre el propósito y beneficio
+              de la prueba, su interpretación, sus limitaciones, y su riesgo, y
+              que entiendo su contenido, incluyendo las limitaciones, beneficios
+              y riegos de la prueba.
             </p>
             <p>
-              He recibido consejería PRE-PRUEBA (actividad realizada por un profesional de la salud para
-              prepararme y confrontarme en relación a mis conocimientos, prácticos, y conductas, antes de
-              realizarme las pruebas diagnósticas).
+              He recibido consejería PRE-PRUEBA (actividad realizada por un
+              profesional de la salud para prepararme y confrontarme en relación
+              a mis conocimientos, prácticos, y conductas, antes de realizarme
+              las pruebas diagnósticas).
             </p>
             <p>
-              También certifico que dicha persona me brindo la asesoría y que según su compromiso, de ella
-              también recibiré una asesoría Post-prueba (procedimiento mediante el cual me entregaran mis
+              También certifico que dicha persona me brindo la asesoría y que
+              según su compromiso, de ella también recibiré una asesoría
+              Post-prueba (procedimiento mediante el cual me entregaran mis
               resultados) y que estoy de acuerdo con el proceso.
             </p>
             <p>
-              Entiendo que la toma de muestra es voluntaria y que no puedo retirar mi consentimiento en
-              cualquier momento antes de que me sea tomada el examen.
+              Entiendo que la toma de muestra es voluntaria y que no puedo
+              retirar mi consentimiento en cualquier momento antes de que me sea
+              tomada el examen.
             </p>
             <p>
-              Fui informada de las medidas que se tomara para proteger la confidencialidad de mis resultados.
+              Fui informada de las medidas que se tomara para proteger la
+              confidencialidad de mis resultados.
             </p>
           </div>
         </div>
         <div class="row" v-show="opcion_hc033 == 'AUTORIZAR'">
           <p style="font-weight: bold; font-size: 20">
-            De lo anterior Autorizo a mi asesor para la realización de la prueba, procesamiento y reporte de
-            la misma.
+            De lo anterior Autorizo a mi asesor para la realización de la
+            prueba, procesamiento y reporte de la misma.
           </p>
         </div>
         <div class="q-mt-md q-mb-md row" v-show="opcion_hc033 == 'REVOCAR'">
           <div class="row">
             <p>
               Expreso mi voluntad de
-              <span style="font-weight: bold; text-decoration: underline">revocar</span> el consentimiento
-              presentado y declaro por tanto que, tras la información recibida, no consiento someterme al
-              procedimiento de
-              <span style="font-weight: bold">VIH (VIRUS DE INMUNODEFICIENCIA HUMANA)</span> por los
-              siguientes motivos:
+              <span style="font-weight: bold; text-decoration: underline"
+                >revocar</span
+              >
+              el consentimiento presentado y declaro por tanto que, tras la
+              información recibida, no consiento someterme al procedimiento de
+              <span style="font-weight: bold"
+                >VIH (VIRUS DE INMUNODEFICIENCIA HUMANA)</span
+              >
+              por los siguientes motivos:
             </p>
             <Input_
               class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
@@ -247,39 +348,6 @@
               :field="form.revocar"
             />
           </div>
-          <!-- <div class="row">
-            <p style="font-weight: bold">Nombre:</p>
-            <q-input
-              v-model="HIC033.nombre_revoca"
-              disable
-              type="text"
-              label="Nombre revoca"
-              dense
-              class="col-5"
-            />
-          </div>
-          <div class="row">
-            <p style="font-weight: bold">Identificación:</p>
-            <q-input
-              v-model="HIC033.identificacion_revoca"
-              disable
-              type="text"
-              label="Identificación revoca"
-              dense
-              class="col-4"
-            />
-          </div>
-          <div class="row">
-            <p style="font-weight: bold">Fecha:</p>
-            <q-input
-              v-model="HIC033.fecha_revoca"
-              disable
-              type="text"
-              label="Fecha revoca"
-              dense
-              class="col-2"
-            />
-          </div> -->
         </div>
       </q-form>
     </q-card-section>
@@ -323,10 +391,14 @@
     <div style="height: 5px"></div>
   </q-card>
   <div style="height: 1px"></div>
-  <!-- Spacer final de hoja -->
 </template>
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
+import {
+  useModuleFormatos,
+  useApiContabilidad,
+  useModuleCon851,
+  useModuleCon851p,
+} from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { impresionHC033, impresion, generarArchivo } from "@/impresiones";
@@ -334,10 +406,20 @@ import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 const router = useRouter();
-const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
+const ContainerFirma = defineAsyncComponent(() =>
+  import("@/components/global/containerFirma.vue")
+);
 
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } =
+  useModuleFormatos();
+const {
+  getDll$,
+  _getFirma$,
+  guardarFile$,
+  _getHuella$,
+  enviarCorreo$,
+  getEncabezado,
+} = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
@@ -348,6 +430,7 @@ const opcion_hc033 = ref(null);
 const llave = ref(null);
 const fecha_act = ref(null);
 const firma_prof = ref(null);
+const huella_paci = ref(null);
 
 const HIC033 = ref({
   vih: false,
@@ -415,6 +498,7 @@ onMounted(() => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -431,12 +515,16 @@ const callBackFirmaAcomp = (data_firma) => {
 
 const validarDatos = async () => {
   if (opcion_hc033.value == "REVOCAR" && HIC033.value.revocar_motivos == "") {
-    return CON851("?", "info", "Debe ingresar motivos de revocación", () => foco_(form, "revocar"));
+    return CON851("?", "info", "Debe ingresar motivos de revocación", () =>
+      foco_(form, "revocar")
+    );
   }
-  HIC033.value.nombre_asesoria = getProf.descrip ? getProf.descrip : "Sin nombre"
+  HIC033.value.nombre_asesoria = getProf.descrip
+    ? getProf.descrip
+    : "Sin nombre";
   //Cambia valores booleanos a S o N
   for (const key of Object.keys(HIC033.value)) {
-    if (typeof HIC033.value[key] === 'boolean') {
+    if (typeof HIC033.value[key] === "boolean") {
       HIC033.value[key] = HIC033.value[key] ? "S" : "N";
     }
   }
@@ -481,7 +569,10 @@ const grabarConsentimiento = async () => {
 const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    await guardarFile$({
+      base64: firma_recibida_acomp.value,
+      codigo: `A${llave}`,
+    });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
@@ -498,7 +589,9 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", () => router.back());
+          return CON851("?", "info", "El correo no es valido", () =>
+            router.back()
+          );
         }
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
@@ -526,6 +619,7 @@ const imprimirConsen = async () => {
       paren_acomp: getSesion.paren_acomp,
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
+        huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
@@ -537,6 +631,7 @@ const imprimirConsen = async () => {
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_firma_acomp: firma_recibida_acomp.value,
+      img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
     };
     const docDefinitionPrint = utilsFormat({
@@ -553,7 +648,9 @@ const imprimirConsen = async () => {
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    const response_impresion = await generarArchivo({
+      docDefinition: docDefinitionFile,
+    });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

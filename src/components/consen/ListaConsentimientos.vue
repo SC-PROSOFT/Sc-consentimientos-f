@@ -34,9 +34,12 @@
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
-              col.value
-            }}</q-chip>
+            <q-chip
+              v-if="col.label == 'Estado'"
+              class="text-white"
+              :color="valueEstado(col.value)"
+              >{{ col.value }}</q-chip
+            >
             <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
@@ -74,7 +77,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -96,7 +105,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
+import {
+  useApiContabilidad,
+  useModuleCon851,
+  useModuleFormatos,
+} from "@/store";
 import {
   impresionHC030,
   impresionHC031,
@@ -122,7 +135,8 @@ const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } =
+  useApiContabilidad();
 const { getEmpresa, setHc } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
@@ -156,7 +170,10 @@ const columns_consen = [
     label: "Hora",
     align: "left",
 
-    format: (val, row) => `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+    format: (val, row) =>
+      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format(
+        "HH:mm"
+      )}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -196,12 +213,29 @@ const getParametros = async () => {
   if (Object.keys(route.query).length) {
     sessionStorage.setItem("query", JSON.stringify(route.query));
   }
-  if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
+  if (!Object.keys(route.query).length)
+    params_querys.value = JSON.parse(sessionStorage.query);
   else params_querys.value = route.query;
   novedad.value = params_querys.value.novedad;
 
-  await getHistoriaClinica();
+  params_querys.value.modulo == "HIC" && getHistoriaClinica();
+  params_querys.value.modulo == "ODO" && getOdontologia();
   getMaestros();
+};
+const getOdontologia = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_odo.dll`,
+      data: { llave_hc: route.query.llave_hc },
+    });
+    setHc(response.reg_hc);
+
+    if (response.reg_hc.cierre.estado == 2)
+      return CON851("9Y", "info", "", logOut$);
+    if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
+  } catch (error) {
+    CON851("?", "info", error, logOut$);
+  }
 };
 const getHistoriaClinica = async () => {
   try {
@@ -211,7 +245,8 @@ const getHistoriaClinica = async () => {
     });
     setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
+    if (response.reg_hc.cierre.estado == 2)
+      return CON851("9Y", "info", "", logOut$);
     if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);
@@ -285,7 +320,9 @@ const imprimirConsen = async ({ row }) => {
             firma_prof: firma_prof.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
-          hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+          hora: `${days(
+            row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora
+          ).format("HH:mm")}`,
           empresa: getEmpresa,
           paciente: row.reg_paci,
           prof: row.reg_prof,
@@ -311,7 +348,7 @@ const getFirmaProf = async (cod_prof) => {
 };
 const getHuella = async (cod_paci) => {
   try {
-    huella_paci.value = await _getHuella$({ codigo: Number(cod_paci) });
+    huella_paci.value = await _getHuella$({ codigo: cod_paci });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
