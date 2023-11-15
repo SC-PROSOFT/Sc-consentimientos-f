@@ -134,7 +134,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
             if (response.success) resolve(response.data);
             else {
               resolve(
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
               );
             }
           })
@@ -208,7 +208,6 @@ export const useApiContabilidad = defineStore("contabilidad", {
           loader: true,
         })
           .then((response) => {
-            console.log(response);
             if (response.success) resolve(response.data);
             else {
               resolve(

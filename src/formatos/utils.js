@@ -7,22 +7,16 @@ export const utilsFormat = ({ datos, content }) => {
 
   const base64 = "data:image/png;base64,";
 
-  console.log(datos);
   return {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
     images: {
-      logo: sessionStorage.logo ? sessionStorage.logo : getImgBs64,
+      logo: sessionStorage.logo ? `${base64}${sessionStorage.logo}` : getImgBs64,
       firma_consen: `${base64}${datos.img_firma_consen}` || getImgBs64,
       firma_paci: `${base64}${datos.img_firma_paci}` || getImgBs64,
-      firma_acomp: datos.img_firma_acomp
-        ? `${base64}${datos.img_firma_acomp}`
-        : getImgBs64,
-      huella_paci: datos.img_huella_paci
-        ? `${base64}${datos.img_huella_paci}`
-        : getImgBs64,
-      firma_profesional:
-        datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
+      firma_acomp: datos.img_firma_acomp ? `${base64}${datos.img_firma_acomp}` : getImgBs64,
+      huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
+      firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     header: function (currentPage, pageCount) {
       return {
@@ -89,9 +83,7 @@ export const utilsFormat = ({ datos, content }) => {
                       },
                       {
                         text: getEncabezado.fecha_aprob
-                          ? dayjs(getEncabezado.fecha_aprob).format(
-                              "YYYY-MM-DD"
-                            )
+                          ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD")
                           : "",
                       },
                     ],
@@ -186,7 +178,5 @@ export const evaluarParentesco = (value) => {
     { COD: "11", DESCRIP: "AMIGO(A)" },
     { COD: "12", DESCRIP: "ABUELO(A)" },
   ];
-  return (
-    parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO"
-  );
+  return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
 };

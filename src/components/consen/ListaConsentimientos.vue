@@ -105,11 +105,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import {
-  useApiContabilidad,
-  useModuleCon851,
-  useModuleFormatos,
-} from "@/store";
+import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import {
   impresionHC030,
   impresionHC031,
@@ -133,8 +129,7 @@ const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } =
-  useApiContabilidad();
+const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
 const { getEmpresa, setHc } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
@@ -169,9 +164,7 @@ const columns_consen = [
     align: "left",
 
     format: (val, row) =>
-      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format(
-        "HH:mm"
-      )}`,
+      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -211,8 +204,7 @@ const getParametros = async () => {
   if (Object.keys(route.query).length) {
     sessionStorage.setItem("query", JSON.stringify(route.query));
   }
-  if (!Object.keys(route.query).length)
-    params_querys.value = JSON.parse(sessionStorage.query);
+  if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
   else params_querys.value = route.query;
   novedad.value = params_querys.value.novedad;
 
@@ -227,8 +219,7 @@ const getHistoriaClinica = async () => {
     });
     setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2)
-      return CON851("9Y", "info", "", logOut$);
+    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
     if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);
@@ -283,10 +274,10 @@ const imprimirConsen = async ({ row }) => {
   try {
     const docDefinition = utilsFormat({
       datos: {
-        img_firma_consen: firma_consen.value.slice(22),
-        img_firma_acomp: firma_recibida_acomp.value.slice(22),
-        img_huella_paci: huella_paci.value.slice(22),
-        img_firma_paci: firma_consen.value.slice(22),
+        img_firma_consen: firma_consen.value,
+        img_firma_acomp: firma_recibida_acomp.value,
+        img_huella_paci: huella_paci.value,
+        img_firma_paci: firma_consen.value,
         firma_prof: firma_prof.value,
       },
       content: opciones[row.reg_coninf.cod]({
@@ -299,9 +290,7 @@ const imprimirConsen = async ({ row }) => {
             firma_prof: firma_prof.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
-          hora: `${days(
-            row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora
-          ).format("HH:mm")}`,
+          hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
           empresa: getEmpresa,
           paciente: row.reg_paci,
           prof: row.reg_prof,
@@ -311,7 +300,6 @@ const imprimirConsen = async ({ row }) => {
         },
       }),
     });
-    console.log("docDefinition", docDefinition);
 
     await impresion({ docDefinition });
   } catch (error) {
