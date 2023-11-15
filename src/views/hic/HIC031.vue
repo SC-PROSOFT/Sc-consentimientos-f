@@ -32,7 +32,7 @@
           <q-input
             type="text"
             disable
-            v-model="getEmpresa.CIUDAD_USUAR"
+            v-model="getEmpresa.ciudad_usuar"
             dense
             class="col-2 q-mr-md"
           />
