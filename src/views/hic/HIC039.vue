@@ -258,6 +258,11 @@ const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+
+    if (getEmpresa.envio_email == "N") {
+      await imprimirConsen();
+      return router.back();
+    }
     return CON851P(
       "?",
       "info",
@@ -268,11 +273,7 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
-        if (!getPaci.email) {
-          return CON851("?", "info", "El paciente no cuenta con un correo registrado", () => router.back());
-        }
-
-        if (!/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
+        if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", () => router.back());
         }
 
