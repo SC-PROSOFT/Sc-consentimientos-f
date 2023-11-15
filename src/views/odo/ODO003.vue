@@ -1,147 +1,476 @@
 <template>
   <q-card class="q-mx-auto format">
-    <q-card-section>
-      <div class="row">
-        <p>Historia clínica numero:</p>
-        <q-input readonly type="text" dense v-model="reg.hc" class="col-2" />
-      </div>
-      <div class="q-mt-xs row">
-        <p>Ciudad:</p>
-        <q-input type="text" readonly v-model="reg.ciudad" dense class="col-2" />
-        <p>Fecha:</p>
-        <q-input v-model="reg.fecha" readonly dense type="date" class="col-1.5" />
-      </div>
-    </q-card-section>
-    <q-card-section>
-      <div class="row">
-        <p>Yo,</p>
-        <q-input v-model="reg.paciente" class="col-3" type="text" readonly outline dense />
-        <p>, identificado (a) con cedula numero</p>
-        <q-input type="text" dense class="col-2" v-model="reg.cedula" readonly />
-        <p>expedida en</p>
-        <q-input type="text" dense class="col-2" v-model="reg.expedicion" readonly />
-        <p>actuando en nombre propio o como acudiente de</p>
-        <q-input type="text" dense class="col-3" v-model="reg.nombre_acompnte" readonly />
-      </div>
-      <div class="q-mt-lg row">
-        <p class="text-justify">
-          Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
-          que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no son
-          una ciencia exacta, que se garantizan resultados en la atención, y que aunque son procedimientos
-          seguros pueden presentarse complicaciones como:
-        </p>
-        <textarea class="col-12" v-model="procedimiento" style="resize: none; height: 100px"></textarea>
-      </div>
-      <div class="q-mt-lg row">
-        <p class="text-justify">
+    <q-form @submit="validarDatos">
+      <q-card-section>
+        <div class="text-center">
+          <q-toggle
+            v-model="ODO003.opcion_odo003"
+            color="primary"
+            keep-color
+            false-value="REVOCAR"
+            true-value="AUTORIZAR"
+            unchecked-icon="block"
+            checked-icon="check_circle"
+            label="¿Autorizar o revocar este consentimiento?"
+          />
+          <p :class="ODO003.opcion_odo003 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip
+              :color="ODO003.opcion_odo003 == 'AUTORIZAR' ? 'green' : 'red'"
+              class="text-white"
+              v-if="ODO003.opcion_odo003"
+            >
+              {{ ODO003.opcion_odo003 }}
+            </q-chip>
+          </p>
+        </div>
+        <div class="row">
+          <p>Historia clínica numero:</p>
+          <q-input disable type="text" dense v-model="ODO003.llave" class="col-1" />
+        </div>
+        <div class="row">
+          <p>Ciudad:</p>
+          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.CIUDAD_USUAR" />
+          <p>fecha:</p>
+          <q-input disable type="text" dense class="col-1" v-model="ODO003.fecha_act" />
+        </div>
+
+        <div class="row justify-start">
+          <p>Yo,</p>
+          <q-input disable v-model="reg_firmador.descrip" type="text" dense class="col-4" />
+          <p>, identificado (a) con cedula numero</p>
+          <q-input disable type="text" dense class="col-2" v-model="reg_firmador.cod" />
+          <p>expedida en</p>
+          <q-input disable type="text" dense class="col-2" v-model="reg_firmador.descrip_ciudad" />
+          <p>actuando en nombre propio o como acudiente de</p>
+          <q-input disable type="text" dense class="col-2" v-model="acudiente" />
+          <p>.</p>
+          <p align="justify">
+            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
+            que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
+            son una ciencia exacta, que se garantizan resultados en la atención, y que aunque son
+            procedimientos seguros pueden presentarse complicaciones como:
+          </p>
+          <Input_
+            style="min-width: 100%; display: inline-block"
+            v-model="ODO003.complicaciones"
+            :field="form.complicaciones"
+          />
+        </div>
+        <p align="justify">
           Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
           tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero
           de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda
           mis derechos para una atención posterior.
         </p>
-        <p class="text-justify">
+        <p class="row" align="justify">
           Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado
           para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y
           salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí,
           los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos;
           se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.
         </p>
-        <p class="text-justify">
+        <p align="justify">
           Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
           manipulación:
         </p>
+        <div class="row" v-show="ODO003.opcion_odo003 == 'AUTORIZAR'">
+          <p>
+            <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
+            realización de los procedimientos de salud:
+            <Input_
+              style="min-width: 100%; display: inline-block"
+              v-model="ODO003.procedimiento"
+              :field="form.procedimiento"
+            />
+            cuyo objetivo es:
+            <Input_
+              style="min-width: 100%; display: inline-block"
+              v-model="ODO003.objetivo"
+              :field="form.objetivo"
+            />
+            diagnostico
+            <Input_
+              style="min-width: 100px; display: inline-block"
+              @validate="datoCodigoEnfermedad"
+              v-model="ODO003.diagnostico"
+              :field="form.codigo"
+            />
+            <q-input
+              dense
+              disable
+              type="text"
+              maxlength="4"
+              v-model="descrip_diagnostico"
+              style="min-width: 300px; display: inline-block"
+            />
+          </p>
+        </div>
+        <div class="row" v-show="ODO003.opcion_odo003 == 'REVOCAR'">
+          <p align="justify">
+            Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro
+            por tanto que, tras la información recibida, no consiento someterme al procedimiento de:
+            <strong class="text-bold">GENERAL PYP OK</strong>
+            por los siguientes motivos:
+          </p>
+          <Input_
+            style="min-width: 100%; display: inline-block"
+            v-model="ODO003.revocar_motivos"
+            :field="form.revocar_motivos"
+          />
+        </div>
+      </q-card-section>
+    </q-form>
+    <q-separator />
+    <q-card-actions align="around" class="row">
+      <div class="col-12 row justify-around">
+        <ContainerFirma
+          quien_firma="FIRMA PACIENTE"
+          :firmador="getPaci.descrip"
+          :registro_profe="getPaci.cod"
+          @reciFirma="callBackFirma"
+          :huella_="huella_paci"
+          class="col-4"
+        />
+        <ContainerFirma
+          :firmador="getAcomp.cod || 'NO HAY ACOMPAÑANTE'"
+          :disable="!getAcomp.cod ? true : false"
+          quien_firma="FIRMA TUTOR O FAMILIAR"
+          @reciFirma="callBackFirmaAcomp"
+          class="col-4"
+        />
+        <ContainerFirma
+          @reciFirma="callBackFirma"
+          :firma_="firma_prof"
+          :firmador="getProf.descrip"
+          :descrip_prof="getProf.descrip_atiende"
+          :registro_profe="getProf.registro_profe"
+          quien_firma="FIRMA PROFESIONAL"
+          class="col-4"
+        />
       </div>
-      <div class="q-ml-xl row">
-        <p>
-          <q-checkbox style="margin-top: -5px; margin-left: 20px" disable v-model="aceptar" />
-          <ins style="font-weight: bold;">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la realización de los
-          procedimientos de salud:
-        </p>
-      </div>
-      <div class="row" style="margin-left: 110px; margin-top: -20px">
-        <q-input v-model="procedimiento" type="text" dense class="col-8" />
-        <p>, cuyo objetivo es:</p>
-        <q-input v-model="objetivo" type="text" dense class="col-8" />
-        <p>, ante el diagnostico</p>
-        <q-input v-model="cod_diagn" type="text" dense class="col-4" />
-      </div>
-    </q-card-section>
-    <q-card-section v-if="disentir">
-      <div class="q-ml-xl row">
-        <p>
-          <q-checkbox style="margin-top: -5px; margin-left: 20px" v-model="disentir" />
-          Expreso mi voluntad de <ins>revocar</ins> el consentimiento presentado y declaro por tanto que, tras
-          la información recibida,
-        </p>
-      </div>
-      <div class="row" style="margin-left: 110px; margin-top: -20px">
-        <p>no consiento someterme al procedimiento de:</p>
-      </div>
-      <div class="row" style="margin-left: 110px; margin-top: -20px">
-        <q-input v-model="revoca_proced" type="text" dense class="col-8" />
-        <p>, por los siguientes motivos:</p>
-      </div>
-      <div class="row" style="margin-left: 110px">
-        <textarea
-          class="q-mt-md col-12"
-          v-model="revoca_motivos"
-          style="resize: none; height: 100px; width: 770px"
-        ></textarea>
-      </div>
-    </q-card-section>
-    <q-card-actions align="around" class="row" style="margin-top: 10px; margin-bottom: 15px">
-      <ContFirma @reciFirma="CallBackFirma" class="col-3" firmador="Santiago" quien_firma="PACIENTE" />
-      <ContFirma @reciFirma="CallBackFirma" class="col-3" firmador="Santiago" quien_firma="TUTOR" />
-      <ContFirma @reciFirma="CallBackFirma" class="col-3" firmador="Santiago" quien_firma="PROFESIONAL" />
     </q-card-actions>
-    <q-card-section>
-      <div class="row justify-center">
-        <q-space />
-        <q-btn color="green" icon-right="check_circle" label="Aceptar" @click="btnAceptar" />
-        <q-space />
-        <!-- <q-btn color="red" icon-right="cancel" label="Canecelar" /> -->
-        <q-space />
-        <q-btn color="amber" icon-right="block" label="Disentir" @click="btnDisentir" />
-        <q-space />
-      </div>
-    </q-card-section>
+    <div class="row justify-center q-my-lg">
+      <q-btn
+        :disable="ODO003.opcion_odo003 ? false : true"
+        @click="validarDatos"
+        icon-right="check_circle"
+        class="q-mr-lg"
+        color="green"
+        label="GRABAR"
+        type="submit"
+      />
+    </div>
+    <CONSEN800 v-if="show_consen800" @esc="callbackCONSEN800" @enter="callbackCONSEN800" />
   </q-card>
-  <div style="height: 50px"></div>
 </template>
+
 <script setup>
-import { ref, reactive, defineAsyncComponent } from "vue";
+import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
+import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { impresionHC032, impresion, generarArchivo } from "@/impresiones";
+import { utilsFormat } from "@/formatos/utils";
+import { useRouter } from "vue-router";
+import { foco_ } from "@/setup";
+import dayjs from "dayjs";
 
-const ContFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
+const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
+const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
-const procedimiento = ref("");
-const objetivo = ref("");
-const cod_diagn = ref("");
-const revoca_proced = ref("");
-const revoca_motivos = ref("");
-const disentir = ref(false);
-const aceptar = ref(false);
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { CON851P } = useModuleCon851p();
+const { CON851 } = useModuleCon851();
+const router = useRouter();
 
-const reg = {
-  hc: null,
-  ciudad: null,
-  fecha: null,
-  paciente: null,
-  cedula: null,
-  expedicion: null,
-  nombre_acompnte: null,
+const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
+const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
+const firma_recibida_acomp = ref("");
+const descrip_diagnostico = ref("");
+const show_consen800 = ref(false);
+const firma_recibida = ref("");
+const huella_paci = ref(null);
+const firma_prof = ref(null);
+const ODO003 = reactive({
+  revocar_procedim: "",
+  revocar_motivos: "",
+  complicaciones: "",
+  procedimiento: "",
+  diagnostico: "",
+  objetivo: "",
+
+  //Extras
+  opcion_odo003: "",
+  fecha_act: "",
+  llave: "",
+});
+
+const form = ref({
+  codigo: {
+    id: "codigo",
+    label: "",
+    maxlength: "4",
+    f0: ["f8"],
+    standout: "N",
+    outlined: "N",
+    required: true,
+    campo_abierto: true,
+  },
+  procedimiento: {
+    id: "procedimiento",
+    maxlength: "285",
+    label: "",
+    required: true,
+    standout: "N",
+    outlined: "N",
+    campo_abierto: true,
+  },
+  objetivo: {
+    id: "objetivo",
+    maxlength: "285",
+    label: "",
+    required: true,
+    standout: false,
+    outlined: false,
+    campo_abierto: true,
+  },
+  complicaciones: {
+    id: "complicaciones",
+    maxlength: "380",
+    label: "",
+    required: true,
+    standout: false,
+    outlined: false,
+    campo_abierto: true,
+  },
+  revocar_motivos: {
+    id: "revocar_motivos",
+    maxlength: "285",
+    label: "",
+    required: true,
+    standout: false,
+    outlined: false,
+    campo_abierto: true,
+  },
+});
+
+onMounted(() => {
+  datosInit();
+  getFirmaProf();
+});
+
+watch(
+  () => ODO003.opcion_odo003,
+  (val) => {
+    if (val == "AUTORIZAR") {
+      ODO003.revocar_motivos = "";
+    } else {
+      ODO003.diagnostico = "";
+    }
+  }
+);
+
+const datosInit = () => {
+  ODO003.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
+  ODO003.llave = getHc.llave.slice(15);
+
+  if (getHc.rips.diagn.length) {
+    ODO003.diagnostico = getHc.rips.diagn[0].cod;
+    descrip_diagnostico.value = getHc.rips.diagn[0].descrip;
+  }
 };
 
-function btnDisentir() {
-  disentir.value = !disentir.value;
-  if (aceptar.value) aceptar.value = !aceptar.value;
-}
+const getFirmaProf = async () => {
+  try {
+    huella_paci.value = await _getHuella$({ codigo: Number(getPaci.cod) });
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
 
-function btnAceptar() {
-  aceptar.value = !aceptar.value;
-  if (disentir.value) disentir.value = !disentir.value;
-}
+const datoCodigoEnfermedad = async (event) => {
+  switch (event) {
+    case "f8":
+      show_consen800.value = true;
+      break;
+    case "enter":
+      consultarEnfermedad();
+      break;
+  }
+};
 
-function callBackFirma(dataF) {
-  firma_recibida.value = dataF;
-}
+const consultarEnfermedad = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_enf.dll`,
+      data: { llave: "2" + ODO003.diagnostico },
+    });
+    if (response.llave) {
+      descrip_diagnostico.value = response.nombre;
+      return;
+    }
+    return CON851("?", "info", "No existe diagnostico");
+  } catch (error) {
+    CON851("?", "info", error);
+  }
+};
+
+const validarDatos = async () => {
+  await consultarEnfermedad();
+  const requiere = "Complete el siguiente campo";
+
+  if (!firma_recibida.value) {
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañate");
+  }
+
+  if (!ODO003.complicaciones)
+    return CON851("?", "info", `${requiere}, complicaciones `, () => foco_(form, "complicaciones"));
+
+  if (ODO003.opcion_odo003 == "REVOCAR") {
+    if (!ODO003.revocar_motivos)
+      return CON851("?", "info", `${requiere}, revocar motivos `, () => foco_(form, "revocar_motivos"));
+  }
+
+  if (ODO003.opcion_odo003 == "AUTORIZAR") {
+    if (!ODO003.diagnostico) return CON851("?", "info", requiere, () => foco_(form, "codigo"));
+    if (!ODO003.procedimiento) return CON851("?", "info", requiere, () => foco_(form, "procedimiento"));
+    if (!ODO003.objetivo) return CON851("?", "info", requiere, () => foco_(form, "objetivo"));
+  }
+  grabarConsentimiento();
+};
+
+const grabarConsentimiento = async () => {
+  const datos_format = JSON.parse(JSON.stringify(ODO003));
+  let datos = {
+    estado: ODO003.opcion_odo003 == "AUTORIZAR" ? "1" : "2",
+    id_acomp: getAcomp.cod.padStart(15, "0"),
+    paren_acomp: getSesion.paren_acomp,
+    oper_consen: getSesion.oper,
+    llave_consen: getHc.llave,
+    cod_med: getProf.cod,
+    cod_consen: "ODO003",
+    disentimiento: "N",
+    ...datos_format,
+  };
+
+  await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
+    .then((data) => {
+      if (data?.llave_consen) {
+        const fecha = data?.llave_consen.slice(24, 32);
+        ODO003.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
+        return grabarFirmaConsen(data?.llave_consen);
+      } else CON851("?", "error", "Error al guardar el consentimiento");
+    })
+    .catch((error) => {
+      CON851("?", "error", "Error al guardar el consentimiento");
+    });
+};
+
+const grabarFirmaConsen = async (llave) => {
+  try {
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+
+    return CON851P(
+      "?",
+      "info",
+      "¿Deseas enviar el correo del consentimientos?",
+      async () => {
+        await imprimirConsen();
+        router.back();
+      },
+      async () => {
+        const file = await imprimirConsen();
+        const response = await enviarCorreo$({
+          cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
+          destino: getPaci.email,
+          subject: getEncabezado.descrip,
+          file,
+        });
+        CON851("?", response.tipo, response.message, () => router.back());
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+
+const imprimirConsen = async () => {
+  const datos_hic032 = {
+    autorizo: ODO003.opcion_odo003 == "AUTORIZAR" ? true : false,
+    empresa: getEmpresa,
+    paciente: getPaci,
+    prof: getProf,
+    acomp: getAcomp,
+    firmador: reg_firmador.value,
+    paren_acomp: getSesion.paren_acomp,
+    acudiente: acudiente.value,
+    firmas: {
+      firma_paci: firma_recibida.value ? true : false,
+      huella_paci: huella_paci.value ? true : false,
+      firma_acomp: firma_recibida_acomp.value ? true : false,
+      firma_prof: firma_prof.value ? true : false,
+    },
+    ...ODO003,
+    diagnostico: getHc.rips.diagn.length ? getHc.rips.diagn[0].cod : "",
+  };
+
+  const firmas = {
+    img_firma_acomp: firma_recibida_acomp.value,
+    img_firma_consen: firma_recibida.value,
+    img_firma_paci: firma_recibida.value,
+    img_huella_paci: huella_paci.value,
+    firma_prof: firma_prof.value,
+  };
+
+  const docDefinitionPrint = utilsFormat({
+    datos: firmas,
+    content: impresionHC032({
+      datos: datos_hic032,
+    }),
+  });
+
+  const docDefinitionFile = utilsFormat({
+    datos: firmas,
+    content: impresionHC032({
+      datos: datos_hic032,
+    }),
+  });
+
+  await impresion({ docDefinition: docDefinitionPrint });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+  return response_impresion;
+};
+const callbackCONSEN800 = (data) => {
+  if (data) {
+    ODO003.diagnostico = data.cod;
+    descrip_diagnostico.value = data.descrip;
+  }
+  show_consen800.value = false;
+};
+
+const callBackFirmaAcomp = (data_firma) => {
+  data_firma && (firma_recibida_acomp.value = data_firma.slice(22));
+};
+
+const callBackFirma = (data_firma) => {
+  data_firma && (firma_recibida.value = data_firma.slice(22));
+};
+
+const requerido = (val) => {
+  return !!val || "Este campo es requerido";
+};
 </script>
+
+<style>
+p {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 8px;
+}
+</style>

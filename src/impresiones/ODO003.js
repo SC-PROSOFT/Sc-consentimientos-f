@@ -1,391 +1,433 @@
-import pdfMake from "pdfmake/build/pdfmake";
+import { evaluarParentesco } from "@/formatos/utils";
+import dayjs from "dayjs";
 
-export const impresionODO003 = () => {
-  return new Promise(async (resolve) => {
-    try {
-      var dd = {
-        pageSize: "LETTER",
-        pageMargins: [35, 105, 35, 30],
-        header: function (currentPage, pageCount) {
-          return header(currentPage, pageCount);
+export const impresionHC003 = ({ datos }) => {
+  var dd = {
+    stack: [contenidoConsenGeneral(), firmas()],
+  };
+
+  function llenarFirmador() {
+    const acomp = datos.acomp.cod.length;
+
+    return {
+      ciudad: () => (acomp ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad),
+      descrip: () => (acomp ? datos.acomp.descrip : datos.paciente.descrip),
+      cod: () => (acomp ? datos.acomp.cod : datos.paciente.cod),
+      acudiente: () => (acomp ? datos.paciente.descrip : ""),
+    };
+  }
+
+  function contenidoConsenGeneral() {
+    return {
+      stack: [
+        {
+          text: `asdsads Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
+          alignment: "justify",
+          style: "bodyNoBold",
         },
-        content: [
-          {
-            stack: [contenidoConsenGeneral()],
-          },
-        ],
-
-        styles: {
-          headerBold: {
-            fontSize: 12,
-            bold: true,
-          },
-          headerEnd: {
-            fontSize: 8,
-          },
-          bodyNoBold: {
-            fontSize: 11,
-          },
-          tableBold: {
-            fontSize: 10,
-            bold: true,
-          },
-          tableNoBold: {
-            fontSize: 9,
-          },
+        {
+          columns: [
+            {
+              width: "auto",
+              text: `Ciudad: ${datos.empresa.CIUDAD_USUAR}`,
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
+            {
+              marginLeft: 50,
+              width: "auto",
+              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
+          ],
         },
-      };
-      setTimeout(() => {
-        pdfMake.createPdf(dd).download(`CONSENTIMIENTO INFORMADO ODO003`);
-        resolve();
-      }, 600);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-};
+        {
+          marginTop: 5,
+          text: `Yo, ${llenarFirmador().descrip()}, identificado (a) con cédula número ${llenarFirmador().cod()} expedida en ${llenarFirmador().ciudad()} actuando en nombre propio o como acudiente de ${llenarFirmador().acudiente()}.`,
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 8,
+          text: `Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas, que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que aunque son procedimientos seguros pueden presentarse complicaciones como:`,
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginLeft: 20,
+          marginTop: 5,
+          marginBottom: 5,
+          text: `${datos.complicaciones}`,
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 3,
+          text: "Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda mis derechos para una atención posterior.",
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 10,
+          text: "Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.",
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 10,
+          marginBottom: 8,
+          text: "Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:",
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        autorizoCheck(),
+      ],
+    };
+  }
 
-function header(currentPage, pageCount) {
-  return {
-    margin: [35, 20, 35, 0], //Margenes deben ir en relacion a la pageMargin
-    table: {
-      widths: ["20%", "45%", "35%"],
-      body: [
-        [
-          {
-            image: "sampleImage.jpg",
-            width: 90,
-            height: 70,
-            alignment: "center",
-          },
-          {
-            text: "\n\nCONSENTIMIENTO INFORMADO GENERAL\n\n",
-            style: "headerBold",
-            alignment: "center",
-          },
-          {
-            stack: [
+  function autorizoCheck() {
+    if (datos.autorizo) {
+      return {
+        marginTop: 10,
+        layout: "noBorders",
+        table: {
+          widths: ["2%", "98%"],
+          body: [
+            [
               {
-                text: [
-                  {
-                    text: `Código: `,
-                    bold: true,
-                  },
-                  {
-                    text: "M2-S5-F-17",
-                  },
-                ],
-                style: "headerEnd",
+                stack: cuadro_canvas(true),
               },
               {
                 text: [
                   {
-                    text: `Versión: `,
+                    text: "Autorizo",
                     bold: true,
+                    decoration: "underline",
                   },
                   {
-                    text: "01",
+                    text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
                   },
                 ],
-                style: "headerEnd",
-              },
-              {
-                text: [
-                  {
-                    text: `Aprobado el: `,
-                    bold: true,
-                  },
-                  {
-                    text: "04/10/2023",
-                  },
-                ],
-                style: "headerEnd",
-              },
-              {
-                text: [
-                  {
-                    text: `Revisado por `,
-                    bold: true,
-                  },
-                  {
-                    text: "04/10/2023",
-                  },
-                ],
-                style: "headerEnd",
-              },
-              {
-                text: [
-                  {
-                    text: `Aprobado por `,
-                    bold: true,
-                  },
-                  {
-                    text: "04/10/2023",
-                  },
-                ],
-                style: "headerEnd",
-              },
-              {
-                text: [
-                  {
-                    text: `Fecha de actualización: `,
-                    bold: true,
-                  },
-                  {
-                    text: "04/10/2023",
-                  },
-                ],
-                style: "headerEnd",
-              },
-              {
-                text: "\nPágina " + currentPage.toString() + " de " + pageCount.toString(),
-                style: "headerEnd",
+                alignment: "justify",
+                style: "bodyNoBold",
               },
             ],
-          },
-        ],
+            [{}, {}],
+          ],
+        },
+      };
+    } else {
+      return {
+        layout: "noBorders",
+        table: {
+          widths: ["2%", "98%"],
+          body: [
+            [
+              {
+                stack: cuadro_canvas(true),
+              },
+              {
+                text: [
+                  {
+                    text: "Expreso mi voluntad de ",
+                  },
+                  {
+                    text: "revocar",
+                    bold: true,
+                    decoration: "underline",
+                  },
+                  {
+                    text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: GENERAL PYP OK \npor los siguientes motivos: ${datos.revocar_motivos}`,
+                  },
+                ],
+                alignment: "justify",
+                style: "bodyNoBold",
+              },
+            ],
+            [
+              {
+                marginTop: -2,
+                colSpan: 2,
+                text: "",
+                alignment: "justify",
+                style: "bodyNoBold",
+              },
+              {},
+            ],
+          ],
+        },
+      };
+    }
+  }
+
+  function cuadro_canvas(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+
+  function firmaHuellaPaci(huella_paci, cant_firmas) {
+    let tamano_firma = 0;
+
+    if (cant_firmas == 2) {
+      tamano_firma = 105;
+    } else {
+      tamano_firma = 130;
+    }
+    const conHuella = {
+      marginLeft: 3,
+      columns: [
+        {
+          marginTop: 9,
+          alignment: "center",
+          image: "firma_paci",
+          width: tamano_firma,
+          height: 70,
+        },
+        {
+          marginTop: 9,
+          marginLeft: 5,
+          image: "huella_paci",
+          width: 55,
+          height: 70,
+        },
       ],
-    },
-  };
-}
+    };
 
-function contenidoConsenGeneral() {
-  return {
-    stack: [
-      {
-        text: `NOMBRE DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS SALUD –IPS-:`,
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        text: `________________________________________________________________________`,
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        columns: [
-          {
-            width: "auto",
-            text: `MUNICIPIO: __________________________________`,
-            alignment: "justify",
-            style: "bodyNoBold",
-          },
-          {
-            marginLeft: 50,
-            width: "auto",
-            text: `DEPARTAMENTO__________________________________`,
-            alignment: "justify",
-            style: "bodyNoBold",
-          },
-        ],
-        marginTop: 12,
-      },
-      {
-        marginTop: 30,
-        text: `MODELO DE CONSENTIMIENTO INFORMADO PARA LA APLICACIÓN DE LA VACUNA CONTRA EL VIRUS DEL PAPILOMA HUMANO – VPH`,
-        alignment: "center",
-        bold: true,
-      },
-      {
-        marginTop: 12,
-        text: `Yo _________________________________________IDENTIFICACION____________________ FECHA: ____________`,
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: `IDENTIFICACION___________________________`,
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "DECLARAN:",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " el personal del área de la salud _____________________________________nos ha explicado y hemos entendido la siguiente información sobre la aplicación de la vacuna contra el Virus del Papiloma Humano.",
-            style: "bodyNoBold",
-          },
-        ],
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "EN QUÉ LE BENEFICIARÁ:",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " Las vacunas tetravalente y bivalente son eficaces en la prevención de las lesiones cervicales precancerosas relacionadas con el VPH 16 y el VPH18 en mujeres. No ofrecen protección contra la evolución de la infección hacia la enfermedad a partir del VPH contraído antes de la vacunación",
-            style: "bodyNoBold",
-          },
-        ],
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "EN QUÉ CONSISTE Y PARA QUE SIRVE:",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " El procedimiento de vacunación consiste en la administración de un biológico para la prevención de cáncer cervical, vulvar y vaginal, lesiones precancerosas o displasias, verrugas genitales o infección persistente causada por el Virus de Papiloma Humano, serotipos 6, 11, 16 y 18.",
-            style: "bodyNoBold",
-          },
-        ],
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "CÓMO SE REALIZA:",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " Se administra la vacuna vía Intramuscular, en el tercio medio del músculo deltoides (brazo).",
-            style: "bodyNoBold",
-          },
-        ],
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "PRECAUCIÓN:",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " La vacunación en adolescentes puede desencadenar síncope, algunas veces asociado con desmayo, por lo que se recomienda que después de la aplicación de la vacuna, la niña permanezca sentada por lo menos 15 minutos y sea observada.",
-            style: "bodyNoBold",
-          },
-        ],
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 30,
-        text: "EVENTOS ADVERSOS:",
-        alignment: "justify",
-        bold: true,
-        style: "body",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "En el sitio de la inyección (1 a 5 días postvacunación):",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " Dolor, hinchazón, eritema, hematoma y prurito.",
-            style: "bodyNoBold",
-          },
-        ],
-        marginLeft: 30,
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "Sistémico (1 a 15 días postvacunación):",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " Pirexia (fiebre), diarrea, vómitos, mialgia (dolor muscular), tos, infección de vías respiratorias superiores, odontalgia (dolor dental), malestar general, artralgia (dolor en articulaciones e insomnio)",
-            style: "bodyNoBold",
-          },
-        ],
-        marginLeft: 30,
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 30,
-        text: "NOTA: LA ORGANIZACIÓN MUNDIAL DE LA SALUD –OMS- Y LA ORGANIZACIÓN PANAMERICANA DE LA SALUD –OPSRECOMIENDAN EL USO DE LA VACUNA CONTRA EL VPH, DESPUÉS DE HABER REALIZADO UN AMPLIO ESTUDIO DEL PERFIL DE SEGURIDAD DE ÉSTA VACUNA, POR PARTE DEL COMITÉ CONSULTIVO MUNDIAL DE SEGURIDAD DE VACUNAS DE LA OMS.",
-        alignment: "justify",
-        bold: true,
-        style: "body",
-      },
-      {
-        marginTop: 51,
-        text: "NO OBLIGATORIEDAD DE LA VACUNA: ",
-        alignment: "justify",
-        bold: true,
-        style: "body",
-      },
-      {
-        marginTop: 12,
-        text: [
-          {
-            text: "DECLARO",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " que he sido informado con anticipación y de forma satisfactoria he comprendido las explicaciones que se me han facilitado, y el personal del área de la salud que me ha atendido me ha permitido realizar todas las observaciones y me ha aclarado todas las dudas que le he planteado y con la información recibida, acepto la aplicación de la vacuna contra el VPH, en tales condiciones",
-            style: "bodyNoBold",
-          },
-        ],
+    const sinHuella = {
+      marginLeft: 3,
+      marginTop: 9,
+      alignment: "center",
+      image: "firma_paci",
+      width: tamano_firma,
+      height: 70,
+    };
 
-        alignment: "justify",
-        style: "bodyNoBold",
+    if (huella_paci) return conHuella;
+    else return sinHuella;
+  }
+
+  function firmaPaciente(huella_paci, cant_firmas) {
+    return {
+      stack: [
+        {
+          text: "PACIENTE (FIRMA / HUELLA)",
+          bold: true,
+          alignment: "center",
+          style: "tableNoBold",
+        },
+        firmaHuellaPaci(huella_paci, cant_firmas),
+        {
+          marginTop: 10,
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "NOMBRE: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.paciente.descrip}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.paciente.cod}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmaAcompanante() {
+    return {
+      stack: [
+        {
+          text: "TUTOR O ACOMPAÑANTE (FIRMA / HUELLA)",
+
+          alignment: "center",
+          style: "tableNoBold",
+          bold: true,
+        },
+        {
+          text: "(EN CASO DE NO FIRMAR)",
+          alignment: "center",
+          style: "tableNoBold",
+          fontSize: 6,
+        },
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 10,
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "NOMBRE: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.acomp.descrip}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.acomp.cod}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "PARENTESCO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${evaluarParentesco(datos.paren_acomp)}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmaProfesional() {
+    return {
+      stack: [
+        {
+          text: "FIRMA PROFESIONAL",
+
+          alignment: "center",
+          style: "tableNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_profesional",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 8,
+          text: [
+            {
+              text: "NOMBRE: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: `${datos.prof.descrip}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "PROFESIONAL AREA DE:",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.prof.descrip_atiende}`,
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.prof.cod}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  function firmas() {
+    let firmasArray = [];
+    let anchos = [];
+    let tamanoFirmasArray = 0;
+
+    if (datos.firmas.firma_acomp) {
+      firmasArray.push(firmaAcompanante());
+    }
+
+    if (datos.firmas.firma_prof) {
+      firmasArray.push(firmaProfesional());
+    }
+
+    tamanoFirmasArray = firmasArray.length;
+
+    if (datos.firmas.firma_paci) {
+      firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
+    }
+
+    if (firmasArray.length == 2) {
+      firmasArray.unshift({ border: [false, false, false, false], text: "" });
+      anchos = ["10%", "40%", "40%"];
+    } else if (firmasArray.length == 3) anchos = ["33%", "34%", "33%"];
+    return {
+      marginTop: 30,
+      table: {
+        widths: anchos,
+        body: [[...firmasArray]],
       },
-      {
-        marginTop: 20,
-        text: [
-          {
-            text: "ACEPTO _________NO ACEPTO_______",
-            style: "bodyNoBold",
-            bold: true,
-          },
-          {
-            marginTop: 30,
-            text: " que se me aplique la vacuna.",
-            style: "bodyNoBold",
-          },
-        ],
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 50,
-        text: "Nombre del Cuidador________________________________ Firma: ____________________ C.C. _____________________",
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-      {
-        marginTop: 20,
-        text: "Nombre del Vacunador______________________________ Firma_____________________ C.C. ______________________ ",
-        alignment: "justify",
-        style: "bodyNoBold",
-      },
-    ],
-  };
-}
+    };
+  }
+  return dd;
+};
