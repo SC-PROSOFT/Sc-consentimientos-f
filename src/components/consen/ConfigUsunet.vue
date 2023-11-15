@@ -57,6 +57,13 @@
           :field="form_config.dircont"
           @validate="datoContab"
         />
+        <Toggle_
+          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+          width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
+          width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
+          v-model="reg_config.envio_email"
+          :field="form_config.envio_email"
+        />
       </div>
       <q-card-actions align="center" class="text-primary text-center">
         <q-btn
@@ -95,6 +102,7 @@ const reg_config = ref({
   ipusu2: null,
   unid_prog: null,
   dircont: null,
+  envio_email: null,
 });
 const form_config = ref({
   nomusu: {
@@ -173,6 +181,13 @@ const form_config = ref({
     label: "Contabilidad",
     maxlength: "30",
     placeholder: "Escribe la contabilidad",
+    f0: ["f3"],
+    required: true,
+    campo_abierto: true,
+  },
+  envio_email: {
+    id: "envio_email",
+    label: "Activar envio de correo",
     f0: ["f3"],
     required: true,
     campo_abierto: true,

@@ -17,5 +17,6 @@ export const regEmpresa = () => {
     servidorusu: "",
     sslusu: "",
     unid_prog: "",
+    envio_email: "",
   };
 };

@@ -29,14 +29,7 @@
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input
-            v-model="getEmpresa.ciudad_usuar"
-            class="col-3"
-            type="text"
-            readonly
-            disable
-            dense
-          />
+          <q-input v-model="getEmpresa.ciudad_usuar" class="col-3" type="text" readonly disable dense />
           <p>Fecha:</p>
           <q-input v-model="fecha_act" class="col-1" type="text" readonly disable dense />
         </div>
@@ -50,11 +43,10 @@
           <p>actuando en nombre propio.</p>
 
           <p class="text-justify">
-            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o
-            inesperadas, que pueden requerir una extensión de otro procedimiento; acepto que las
-            ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la
-            atención, y que, aunque son procedimientos seguros pueden presentarse complicaciones
-            como:
+            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
+            que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
+            son una ciencia exacta, que se garantizan resultados en la atención, y que, aunque son
+            procedimientos seguros pueden presentarse complicaciones como:
           </p>
           <ul>
             <li>SANGRADO</li>
@@ -72,26 +64,24 @@
             dense
           />
           <p class="q-pt-md text-justify">
-            Me han explicado también que de negarme a realizarme los exámenes diagnósticos,
-            procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus
-            consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la
-            institución, sin embargo ello no significa que pierda mis derechos para una atención
-            posterior. Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo,
-            competente y capacitado para la determinación de conductas terapéuticas que contribuyan
-            a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en
-            lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi
-            condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido
-            hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.
+            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
+            tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que
+            exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que
+            pierda mis derechos para una atención posterior. Se me ha informado que en la ESE salud Yopal,
+            cuenta con personal idóneo, competente y capacitado para la determinación de conductas
+            terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha
+            explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi
+            condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas
+            las preguntas necesarias, y han sido resueltas satisfactoriamente.
           </p>
           <p>
-            Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción,
-            persuasión, ni manipulación:
+            Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
+            manipulación:
           </p>
           <div class="row" v-show="opcion_hc030 == 'AUTORIZAR'">
             <p>
-              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal,
-              para la realización de los procedimientos de salud: TOMA DE CITOLOGIA CERVICOVAGINAL,
-              cuyo objetivo es:
+              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
+              realización de los procedimientos de salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
             </p>
             <p>DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico</p>
             <Input_
@@ -113,9 +103,8 @@
           <div class="row" v-show="opcion_hc030 == 'REVOCAR'">
             <p>
               Expreso mi voluntad de
-              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro
-              por tanto que, tras la información recibida, no consiento someterme al procedimiento
-              de toma de citologia
+              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto
+              que, tras la información recibida, no consiento someterme al procedimiento de toma de citologia
             </p>
 
             <p>por los siguientes motivos:</p>
@@ -159,11 +148,7 @@
               <th style="border: 1px solid #ccc">
                 <div class="row justify-left">
                   <span class="custum col-6">ANTECEDENTES GINECOLOGICOS</span>
-                  <Select_
-                    :field="form_antecedentes"
-                    v-model="HIC030.antec_gineco"
-                    :items="antecedenter"
-                  />
+                  <Select_ :field="form_antecedentes" v-model="HIC030.antec_gineco" :items="antecedenter" />
                 </div>
               </th>
             </tr>
@@ -262,8 +247,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } =
-  useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
@@ -386,8 +370,7 @@ const validarDatos = async () => {
   }
 
   if (opcion_hc030.value == "AUTORIZAR") {
-    if (!HIC030.value.diagnostico)
-      return CON851("?", "info", "No hay ningun codigo del diagnostico");
+    if (!HIC030.value.diagnostico) return CON851("?", "info", "No hay ningun codigo del diagnostico");
   }
   grabarConsentimiento();
 };
@@ -429,6 +412,11 @@ const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+
+    if (getEmpresa.envio_email == "N") {
+      await imprimirConsen();
+      return router.back();
+    }
     return CON851P(
       "?",
       "info",
@@ -439,9 +427,6 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
-
-        if (!getPaci.email) return router.back();
-
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", () => router.back());
         }
