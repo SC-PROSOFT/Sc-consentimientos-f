@@ -328,6 +328,10 @@ const grabarFirmaConsen = async (llave) => {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
+    if (getEmpresa.envio_email == "N") {
+      await imprimirConsen();
+      return router.back();
+    }
     return CON851P(
       "?",
       "info",
@@ -338,9 +342,12 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
+        if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
+          return CON851("?", "info", "El correo no es valido", () => router.back());
+        }
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
-          destino: getPaci.email,
+          destino: getPaci.email.toLowerCase(),
           subject: getEncabezado.descrip,
           file,
         });
