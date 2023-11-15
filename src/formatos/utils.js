@@ -11,11 +11,11 @@ export const utilsFormat = ({ datos, content }) => {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
     images: {
-      logo: `${base64}${sessionStorage.logo}` || getImgBs64,
+      logo: sessionStorage.logo ? `${base64}${sessionStorage.logo}` : getImgBs64,
       firma_consen: `${base64}${datos.img_firma_consen}` || getImgBs64,
       firma_paci: `${base64}${datos.img_firma_paci}` || getImgBs64,
-      firma_acomp: `${base64}${datos.img_firma_acomp}` || getImgBs64,
-      huella_paci: datos.img_huella_paci || getImgBs64,
+      firma_acomp: datos.img_firma_acomp ? `${base64}${datos.img_firma_acomp}` : getImgBs64,
+      huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     header: function (currentPage, pageCount) {

@@ -34,12 +34,9 @@
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <q-chip
-              v-if="col.label == 'Estado'"
-              class="text-white"
-              :color="valueEstado(col.value)"
-              >{{ col.value }}</q-chip
-            >
+            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
+              col.value
+            }}</q-chip>
             <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
@@ -77,13 +74,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn
-              @click="selectConsen(props.key)"
-              icon="note_add"
-              class="botone"
-              color="primary"
-              size="sm"
-            >
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -115,9 +106,11 @@ import {
   impresionHC035,
   impresionHC036,
   impresionHC037,
+  impresionHC038,
   impresionHC039,
   impresionHC040,
   impresionHC041,
+  impresionHC042,
   impresion,
 } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
@@ -139,7 +132,7 @@ const params_querys = ref(null);
 const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_consen = ref(null);
-const firma_recibida_acomp = ref(null);
+const firma_acomp = ref(null);
 
 const lista_consen = ref([]);
 
@@ -163,8 +156,7 @@ const columns_consen = [
     label: "Hora",
     align: "left",
 
-    format: (val, row) =>
-      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+    format: (val, row) => `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -260,8 +252,10 @@ const imprimirConsen = async ({ row }) => {
     HIC036: impresionHC036,
     HIC037: impresionHC037,
     HIC039: impresionHC039,
+    HIC038: impresionHC038,
     HIC040: impresionHC040,
     HIC041: impresionHC041,
+    HIC042: impresionHC042,
   };
 
   setHeader$({ encabezado: row.reg_coninf.datos_encab });
@@ -275,7 +269,7 @@ const imprimirConsen = async ({ row }) => {
     const docDefinition = utilsFormat({
       datos: {
         img_firma_consen: firma_consen.value,
-        img_firma_acomp: firma_recibida_acomp.value,
+        img_firma_acomp: firma_acomp.value,
         img_huella_paci: huella_paci.value,
         img_firma_paci: firma_consen.value,
         firma_prof: firma_prof.value,
@@ -285,8 +279,9 @@ const imprimirConsen = async ({ row }) => {
           autorizo: row.reg_coninf.estado == "AUTORIZADO" ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
+            firma_acomp: firma_acomp.value ? true : false,
             firma_paci: firma_consen.value ? true : false,
-            firma_acomp: firma_recibida_acomp.value ? true : false,
+            huella_paci: huella_paci.value ? true : false,
             firma_prof: firma_prof.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
@@ -300,7 +295,6 @@ const imprimirConsen = async ({ row }) => {
         },
       }),
     });
-
     await impresion({ docDefinition });
   } catch (error) {
     console.error("error-- >", error);
@@ -326,7 +320,9 @@ const getHuella = async (cod_paci) => {
 const consultarFirmaConsen = async (cod_consen) => {
   try {
     firma_consen.value = await _getImagen$({ codigo: `P${cod_consen}` });
-    firma_recibida_acomp.value = await _getImagen$({ codigo: `A${cod_consen}` });
+    firma_acomp.value = await _getImagen$({
+      codigo: `A${cod_consen}`,
+    });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
