@@ -20,7 +20,7 @@ export const impresionHC030 = ({ datos }) => {
           columns: [
             {
               width: "auto",
-              text: `Ciudad: ${datos.empresa.CIUDAD_USUAR}`,
+              text: `Ciudad: ${datos.empresa.ciudad_usuar}`,
               alignment: "justify",
               style: "bodyNoBold",
             },

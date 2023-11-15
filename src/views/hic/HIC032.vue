@@ -44,7 +44,7 @@
             type="text"
             dense
             class="col-1"
-            v-model="getEmpresa.CIUDAD_USUAR"
+            v-model="getEmpresa.ciudad_usuar"
           />
           <p>fecha:</p>
           <q-input

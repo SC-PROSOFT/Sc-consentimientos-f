@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.CIUDAD_USUAR" />
+          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.ciudad_usuar" />
           <p>fecha:</p>
           <q-input disable type="text" dense class="col-1" v-model="HIC041.fecha_act" />
         </div>
