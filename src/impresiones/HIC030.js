@@ -235,7 +235,7 @@ export const impresionHC030 = ({ datos }) => {
 
     if (cant_firmas == 2) {
       tamano_firma = 105;
-    } else if (cant_firmas > 2) {
+    } else {
       tamano_firma = 130;
     }
     const conHuella = {
@@ -272,8 +272,6 @@ export const impresionHC030 = ({ datos }) => {
   }
 
   function firmaPaciente(huella_paci, cant_firmas) {
-    console.log("🚀 ~ firmaPaciente ~ cant_firmas:", cant_firmas)
-    console.log("🚀 ~ firmaPaciente ~ huella_paci:", huella_paci)
     return {
       stack: [
         {
@@ -470,6 +468,7 @@ export const impresionHC030 = ({ datos }) => {
     }
 
     tamanoFirmasArray = firmasArray.length
+    console.log("🚀 ~ firmas ~ tamanoFirmasArray:", tamanoFirmasArray)
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
