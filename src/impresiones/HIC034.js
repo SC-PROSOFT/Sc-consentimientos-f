@@ -425,11 +425,22 @@ export const impresionHC034 = ({ datos }) => {
           style: "tableNoBold",
         },
         {
-          marginTop: 9,
-          alignment: "center",
-          image: "firma_paci",
-          width: 130,
-          height: 70,
+          columns: [
+            {
+              marginTop: 9,
+              alignment: "center",
+              image: "firma_paci",
+              width: 105,
+              height: 70,
+            },
+            {
+              marginTop: 9,
+              marginLeft: 8,
+              image: "huella_paci",
+              width: 55,
+              height: 70,
+            },
+          ],
         },
         {
           marginTop: 10,
@@ -483,7 +494,7 @@ export const impresionHC034 = ({ datos }) => {
           fontSize: 6,
         },
         {
-          marginTop: 2,
+          marginTop: 8,
           alignment: "center",
           image: "firma_acomp",
           width: 130,
@@ -604,7 +615,7 @@ export const impresionHC034 = ({ datos }) => {
     };
   }
 
-  function firmas(condicion) {
+  function firmas() {
     let firmasArray = [];
     let anchos = [];
 
@@ -632,6 +643,5 @@ export const impresionHC034 = ({ datos }) => {
       },
     };
   }
-
   return dd;
 };

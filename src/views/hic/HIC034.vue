@@ -310,7 +310,9 @@
           <ContainerFirma
             quien_firma="FIRMA PACIENTE"
             :firmador="getPaci.descrip"
+            :registro_profe="getPaci.cod"
             @reciFirma="callBackFirma"
+            :huella_="huella_paci"
             class="col-4"
           />
           <ContainerFirma
@@ -357,7 +359,7 @@ import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 
-const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -365,17 +367,9 @@ const router = useRouter();
 
 const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
 const firma_recibida_acomp = ref("");
-const obser_retencion_ute = ref("");
-const obser_ive_fallida = ref("");
-const obser_infecciones = ref("");
-const obser_hemorragia = ref("");
-const retencion_ute = ref(false);
+const huella_paci = ref(null);
 const firma_recibida = ref("");
 const firma_prof = ref(null);
-const infecciones = ref(false);
-const ive_fallida = ref(false);
-const hemorragia = ref(false);
-const entre_otras = ref("");
 
 const form = ref({
   tipo_id: {
@@ -434,6 +428,7 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    huella_paci.value = await _getHuella$({ codigo: Number(getPaci.cod) });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -488,7 +483,7 @@ const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
-    
+
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
       return router.back();
@@ -506,6 +501,7 @@ const grabarFirmaConsen = async (llave) => {
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", () => router.back());
         }
+
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
           destino: getPaci.email.toLowerCase(),
@@ -532,6 +528,7 @@ const imprimirConsen = async () => {
     paren_acomp: getSesion.paren_acomp,
     firmas: {
       firma_paci: firma_recibida.value ? true : false,
+      huella_paci: huella_paci.value ? true : false,
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
     },
@@ -540,9 +537,10 @@ const imprimirConsen = async () => {
   };
 
   const firmas = {
+    img_firma_acomp: firma_recibida_acomp.value,
     img_firma_consen: firma_recibida.value,
     img_firma_paci: firma_recibida.value,
-    img_firma_acomp: firma_recibida_acomp.value,
+    img_huella_paci: huella_paci.value,
     firma_prof: firma_prof.value,
   };
 
