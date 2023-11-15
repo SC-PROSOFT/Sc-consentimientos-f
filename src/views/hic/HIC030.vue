@@ -394,7 +394,7 @@ const grabarConsentimiento = async () => {
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañate");
   }
-  await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
+  getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(24, 32);

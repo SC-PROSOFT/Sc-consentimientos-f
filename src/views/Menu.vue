@@ -49,9 +49,7 @@ import { defineAsyncComponent, onMounted, ref } from "vue";
 import { regAcomp } from "@/fuentes";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() =>
-  import("@/components/consen/ConfigMaestros.vue")
-);
+const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
