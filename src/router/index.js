@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { createRouteHic } from "./hic.route";
 import { createRouteOdo } from "./odo.route";
+import { createRouteLab } from "./lab.route";
 
 const title = "Prosoft";
 
@@ -26,6 +27,7 @@ const routes = [
       },
       ...createRouteHic(title),
       ...createRouteOdo(title),
+      ...createRouteLab(title),
     ],
   },
 ];
