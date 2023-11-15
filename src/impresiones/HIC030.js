@@ -468,7 +468,6 @@ export const impresionHC030 = ({ datos }) => {
     }
 
     tamanoFirmasArray = firmasArray.length
-    console.log("🚀 ~ firmas ~ tamanoFirmasArray:", tamanoFirmasArray)
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
