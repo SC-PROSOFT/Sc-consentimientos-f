@@ -384,7 +384,11 @@ const getMaestros = async () => {
 const selectConsen = async (data) => {
   const consen_select = lista_maestros.value.find((e) => e.cod_mae == data);
   setHeader$({ encabezado: consen_select });
-  router.push({ name: data });
+  try {
+    router.push({ name: data });
+  } catch (error) {
+    CON851("?", "info", "El consentimiento no esta disponible")
+  }
 };
 </script>
 <style lang="sass" scoped>
