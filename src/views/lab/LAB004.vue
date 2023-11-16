@@ -4,7 +4,7 @@
       <q-form @submit="validarDatos">
         <div class="text-center">
           <q-toggle
-            v-model="reg.opcion_lab003"
+            v-model="reg.opcion_lab002"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,13 +13,13 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="reg.opcion_lab003 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+          <p :class="reg.opcion_lab002 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
             <q-chip
-              :color="reg.opcion_lab003 == 'AUTORIZAR' ? 'green' : 'red'"
+              :color="reg.opcion_lab002 == 'AUTORIZAR' ? 'green' : 'red'"
               class="text-white"
-              v-if="reg.opcion_lab003"
+              v-if="reg.opcion_lab002"
             >
-              {{ reg.opcion_lab003 }}
+              {{ reg.opcion_lab002 }}
             </q-chip>
           </p>
         </div>
@@ -40,36 +40,36 @@
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">INFORMACIÓN DEL PROCEDIMIENTO</div>
           <p class="row text-justify">
-            El examen de rayos X ayuda a los médicos a diagnosticar y tratar las condiciones médicas. Lo
-            expone a una pequeña dosis de radiación ionizante para producir imágenes del interior del cuerpo.
-            Los rayos X son la forma más antigua y la que se usa con más frecuencia para producir imágenes
-            médicas. Una radiografía es una imagen de las estructuras internas del cuerpo producidos por la
-            exposición a una fuente controlada de los rayos X y que se registra en un sistema digital como un
-            CD o disco duro que después puede verse en un computador.
+            La Mamografía es un estudio radiológico con la particularidad de ser una proyección específica
+            para la evaluación de las mamas y con un equipo de rayos X diferente al utilizado para radiología
+            convencional. Para la adquisición de este estudio es necesario que las mamas se coloquen en una
+            superficie y se compriman para que sea más fácil la identificación de tumores o calcificaciones.
+            Es importante ese día no utilizar desodorante o cremas en el área del pecho pues estos productos
+            pueden ser detectados por los RX y causar un mal diagnóstico
           </p>
         </div>
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">BENEFICIOS</div>
           <p class="row text-justify">
-            Es un examen económico, accesible, rápido, brinda importante información anatómica (para
-            estructuras óseas), por el tipo de aparato que emplea se pueden utilizar en personas de las más
-            diversas contexturas físicas. Es por eso que son especialmente útiles en la detección de
-            enfermedades del esqueleto, aunque también se utilizan para diagnosticar enfermedades de los
-            tejidos blandos, como neumonía, cáncer de pulmón, edema pulmonar, abscesos, entre otros.
+            La mamografía de exploración juega un papel central en la detección temprana del cáncer de mamas
+            ya que puede mostrar los cambios en las mamas años antes de que el médico o el paciente los
+            adviertan. La mamografía de diagnóstico se utiliza para evaluar a una paciente con resultados
+            clínicos anormales, tales como nódulos en las mamas o descargas de los pezones, descubiertos por
+            la mujer o su médico. La mamografía de diagnóstico también puede realizarse luego de un mamograma
+            de exploración anormal, con el fin de evaluar el área conflictiva en el examen de exploración.
           </p>
         </div>
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">RIESGOS</div>
           <p class="row text-justify">
-            Existen riesgos asociados con los rayos X, pero una radiografía simple utiliza una pequeña
-            cantidad de radiación equivalente a la que todos recibimos de la atmósfera durante un período de
-            dos o tres días. Las pacientes que estén o puedan estar embarazadas deben informarlo, ya que se
-            debe procurar otro examen diagnóstico que reemplace los rayos X. Si es necesario realizar esta
-            prueba se cubrirá el abdomen o la pelvis con un delantal de plomo ya que el feto es más sensible a
-            la radiación.
+            La comprensión utilizada para tomaar el examen puede causar una pequeña molestia pero sólo durará
+            unos segundos. Todo el examen lo realiza un tecnólogo en imágenes altamente capacitado para este
+            fin. Las Mamogramas con resultado falso positivo requieren de mayor evaluación, como por ejemplo
+            la realización de mamogramas adicionales o ultrasonido. Si aparece un resultado anormal, se deberá
+            realizar un seguimiento o biopsia, de acuerdo a la valoración del medico tratante
           </p>
         </div>
-        <div class="border-format q-my-sm" v-if="reg.opcion_lab003 == 'AUTORIZAR'">
+        <div class="border-format q-my-sm" v-if="reg.opcion_lab002 == 'AUTORIZAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
             DECLARACION DEL CONSENTIMIENTO INFORMADO
           </div>
@@ -80,22 +80,26 @@
           <p>
             Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de
             identidad número <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el
-            procedimiento de Radiografía Convencional, los riesgos y beneficios, declaro que la información ha
-            sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento
-            teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.
+            procedimiento de Mamografía, los riesgos y beneficios, declaro que la información ha sido clara,
+            que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en
+            cuenta que esta autorización puede ser revocable en cualquier momento
           </p>
         </div>
-        <div class="border-format q-my-sm" v-if="reg.opcion_lab003 == 'REVOCAR'">
+        <div class="border-format q-my-sm" v-if="reg.opcion_lab002 == 'REVOCAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
             REVOCACIÓN DEL CONSENTIMIENTO INFORMADO
           </div>
+          <p class="row text-justify">
+            Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la
+            realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito
+          </p>
           <p>
             Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de
             identidad número <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el
-            procedimiento de Radiografía Convencional sus riesgos y beneficios y adicionalmente, los riesgos
-            de no realizármelo, declaro que la información ha sido clara, que se me han respondido las
-            inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con
-            la toma del procedimiento en mención.
+            procedimiento de Mamografía sus riesgos y beneficios y adicionalmente, los riesgos de no
+            realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y
+            que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del
+            procedimiento en mención.
           </p>
         </div>
       </q-form>
@@ -131,7 +135,7 @@
       </div>
       <div class="col-12 row justify-center q-my-md">
         <q-btn
-          :disable="reg.opcion_lab003 ? false : true"
+          :disable="reg.opcion_lab002 ? false : true"
           @click="validarDatos"
           icon-right="check_circle"
           class="q-mr-lg"
@@ -169,11 +173,11 @@ const firma_prof = ref(null);
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
-  servicio: ""
+  servicio: "",
 };
 
 const reg = ref({
-  opcion_lab003: "",
+  opcion_lab002: "",
   fecha_act: "",
   edad: "",
 });

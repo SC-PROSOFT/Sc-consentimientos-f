@@ -93,12 +93,8 @@
         </div>
         <div class="border-format q-my-sm" v-if="reg.opcion_lab002 == 'REVOCAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
-            DECLARACION DEL CONSENTIMIENTO INFORMADO
+            REVOCACIÓN DEL CONSENTIMIENTO INFORMADO
           </div>
-          <p class="row text-justify">
-            Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la
-            realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito
-          </p>
           <p>
             Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de
             identidad número <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el
