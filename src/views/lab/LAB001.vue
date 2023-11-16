@@ -165,6 +165,113 @@
             <p style="margin-left: 20px; margin-top: 6px; margin-bottom: 6px">ENTIDAD RESPONSABLE PBS:</p>
           </div>
         </div>
+        <div class="q-mt-lg row">
+          <div class="row" style="width: 100%">
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 8%">
+              <q-space />
+              <p>N°</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 30%">
+              <q-space />
+              <p>CÓDIGO CUPS</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 62%">
+              <q-space />
+              <p>EXAMEN A REALIZAR</p>
+              <q-space />
+            </div>
+          </div>
+          <div class="row" style="width: 100%">
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 8%">
+              <q-space />
+              <p>1</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 30%">
+              <q-space />
+              <p>11111111</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 62%">
+              <q-space />
+              <p>ALARGAMIENTO DE MIEMBRO</p>
+              <q-space />
+            </div>
+          </div>
+          <div class="row" style="width: 100%; border-bottom: 1px solid #888">
+            <!-- <div class="row" style="width: 100%"> -->
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 8%">
+              <q-space />
+              <p>2</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 30%">
+              <q-space />
+              <p>11111111</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 62%">
+              <q-space />
+              <p>ALARGAMIENTO DE NALGAS</p>
+              <q-space />
+            </div>
+          </div>
+        </div>
+        <div class="q-mt-lg row">
+          <div class="row" style="width: 100%">
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 8%">
+              <q-space />
+              <p>N°</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 30%">
+              <q-space />
+              <p>CÓDIGO CIE-10</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 62%">
+              <q-space />
+              <p>DIAGNÓSTICO MÉDICO</p>
+              <q-space />
+            </div>
+          </div>
+          <div class="row" style="width: 100%">
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 8%">
+              <q-space />
+              <p>1</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 30%">
+              <q-space />
+              <p>2222222</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 62%">
+              <q-space />
+              <p>POSITIVO</p>
+              <q-space />
+            </div>
+          </div>
+          <div class="row" style="width: 100%; border-bottom: 1px solid #888;">
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 8%">
+              <q-space />
+              <p>2</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 30%">
+              <q-space />
+              <p>2222222</p>
+              <q-space />
+            </div>
+            <div class="row" style="font-weight: bold; border: 1px solid #ccc; width: 62%">
+              <q-space />
+              <p>NEGATIVO</p>
+              <q-space />
+            </div>
+          </div>
+        </div>
       </q-form>
     </q-card-section>
   </q-card>
@@ -213,10 +320,9 @@ onMounted(() => {
   llave.value = getHc.llave.slice(15);
   console.log(getPaci);
   const nombre_paci = separarNombre(getPaci.descrip);
-  LAB001.value.primer_apellido = nombre_paci.uno
-  LAB001.value.segundo_apellido = nombre_paci.dos
-  LAB001.value.primer_nombre = nombre_paci.tres
-  LAB001.value.segundo_nombre = nombre_paci.cuatro
+  LAB001.value.primer_apellido = nombre_paci.uno;
+  LAB001.value.segundo_apellido = nombre_paci.dos;
+  LAB001.value.primer_nombre = nombre_paci.tres;
+  LAB001.value.segundo_nombre = nombre_paci.cuatro;
 });
-
 </script>
