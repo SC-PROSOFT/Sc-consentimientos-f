@@ -189,24 +189,28 @@ export const separarNombre = () => {
   let cuatro = "";
 
   const partes = getPaci.descrip.split(" ").filter((part) => part.trim() !== "");
-  if (partes.length >= 1) {
-    uno = partes[0];
-  }
-  if (partes.length >= 2) {
-    dos = partes[1];
-  }
-  if (partes.length >= 3) {
-    tres = partes[2];
-  }
-  if (partes.length >= 4) {
-    cuatro = partes.slice(3).join(" ");
-  }
-
-  if (partes.length == 2) {
-    uno = partes[0];
-    dos = "";
-    tres = partes[1];
-    cuatro = "";
+  switch (partes.length) {
+    case 1: 
+      uno = partes[0];
+      break;
+    case 2: 
+      uno = partes[0];
+      tres = partes[1];
+      break;
+    case 3:
+      uno = partes[0];
+      dos = partes[1];
+      tres = partes[2];
+      break;
+    case 4:
+      uno = partes[0];
+      dos = partes[1];
+      tres = partes[2];
+      cuatro = partes[3];
+      break;
+    default: 
+      uno = nombre
+      break;
   }
 
   return [uno, dos, tres, cuatro];
