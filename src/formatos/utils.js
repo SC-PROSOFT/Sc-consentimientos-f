@@ -1,9 +1,10 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
+const { getImgBs64, getEncabezado } = useApiContabilidad();
+const { getEmpresa, getPaci } = useModuleFormatos();
+
 export const utilsFormat = ({ datos, content }) => {
-  const { getImgBs64, getEncabezado } = useApiContabilidad();
-  const { getEmpresa } = useModuleFormatos();
 
   const base64 = "data:image/png;base64,";
 
@@ -181,13 +182,13 @@ export const evaluarParentesco = (value) => {
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
 };
 
-export const separarNombre = (nombre) => {
+export const separarNombre = () => {
   let uno = "";
   let dos = "";
   let tres = "";
   let cuatro = "";
 
-  const partes = nombre.split(" ").filter((part) => part.trim() !== "");
+  const partes = getPaci.descrip.split(" ").filter((part) => part.trim() !== "");
   if (partes.length >= 1) {
     uno = partes[0];
   }
@@ -208,10 +209,5 @@ export const separarNombre = (nombre) => {
     cuatro = "";
   }
 
-  return {
-    uno,
-    dos,
-    tres,
-    cuatro,
-  };
+  return [uno, dos, tres, cuatro];
 };
