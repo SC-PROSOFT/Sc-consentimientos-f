@@ -28,10 +28,10 @@
         <p>{{ dayjs().format("HH: mm") }}</p>
       </div>
       <div class="row justify-center" style="border: 1px solid #ccc; width: 30%">
-        <p></p>
+        <Select_ v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
       </div>
       <div class="row justify-center" style="border: 1px solid #ccc; width: 30%">
-        <p>{{ props.datos.servicio }}</p>
+        <p>{{ datos_comp.sede }}</p>
       </div>
     </div>
     <div class="row justify-center" style="width: 100%">
@@ -50,16 +50,16 @@
     </div>
     <div class="row justify-center" style="width: 100%">
       <div class="row justify-center bold" style="width: 20%">
-        <p>{{ props.datos.primer_apellido }}</p>
+        <p>{{ datos_comp.primer_apellido }}</p>
       </div>
       <div class="row justify-center bold" style="width: 20%">
-        <p>{{ props.datos.segundo_apellido }}</p>
+        <p>{{ datos_comp.segundo_apellido }}</p>
       </div>
       <div class="row justify-center bold" style="width: 30%">
-        <p>{{ props.datos.primer_nombre }}</p>
+        <p>{{ datos_comp.primer_nombre }}</p>
       </div>
       <div class="row justify-center bold" style="width: 30%">
-        <p>{{ props.datos.segundo_nombre }}</p>
+        <p>{{ datos_comp.segundo_nombre }}</p>
       </div>
     </div>
     <div class="row justify-center" style="width: 100%">
@@ -75,19 +75,19 @@
     </div>
     <div class="row justify-center" style="width: 100%">
       <div class="row justify-center bold" style="width: 40%">
-        <q-checkbox left-label v-model="datos_comp.check_id" :label="props.datos.tipo_id" disable />
+        <q-checkbox left-label v-model="datos_comp.check_id" :label="getPaci.tipo_id" disable />
       </div>
       <div class="row justify-center bold" style="width: 40%">
-        <p>{{ props.datos.cod }}</p>
+        <p>{{ datos_comp.cod }}</p>
       </div>
       <div class="row justify-center bold" style="width: 20%">
-        <p>{{ props.datos.edad }}</p>
+        <p>{{ datos_comp.edad }}</p>
       </div>
     </div>
     <div class="row justify-start bold" style="width: 100%">
       <p style="margin-left: 20px; margin-top: 6px; margin-bottom: 6px">ENTIDAD RESPONSABLE PBS:</p>
     </div>
-    
+
     <!---------------------------------- TABLA CUPS ---------------------------------->
     <div class="q-mt-sm row" v-if="datos_comp.active_cups" style="width: 100%">
       <div class="row justify-center" style="width: 100%">
@@ -163,31 +163,53 @@
 </template>
 
 <script setup>
+import { separarNombre, calcEdad } from "@/formatos/utils";
+import { useModuleFormatos } from "@/store/module/formatos";
 import { computed, onMounted, ref } from "vue";
 import dayjs from "dayjs";
 
+const { getPaci, getEmpresa } = useModuleFormatos();
 const props = defineProps({
   datos: {
-    segundo_apellido: String,
-    primer_apellido: String,
-    segundo_nombre: String,
-    primer_nombre: String,
     active_cups: Boolean,
-    check_id: Boolean,
-    servicio: String,
-    tipo_id: String,
-    edad: String,
+  },
+});
+
+const servicio = ref({
+  select: "0",
+  items: [
+    { value: "0", label: "DROGUERIA" },
+    { value: "1", label: "CIRUGIAS" },
+    { value: "2", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+    { value: "3", label: "RX - IMAGENOLOGIA" },
+    { value: "4", label: "OTROS SERVICIOS" },
+    { value: "5", label: "CONSULTA Y TERAPIAS" },
+    { value: "6", label: "PATOLOGIA" },
+    { value: "7", label: "PROMOCION Y PREVENCION" },
+  ],
+  serv_form: {
+    label: "",
+    required: true,
+    id: "serv_form",
   },
 });
 
 const datos_comp = computed(() => {
-  return {
+  const name = separarNombre();
+  const datos = {
     active_cups: props.datos.active_cups ? props.datos.active_cups : false,
-    check_id: props.datos.check_id || true,
+    segundo_apellido: name[0] ? name[0] : "",
+    primer_apellido: name[1] ? name[1] : "",
+    segundo_nombre: name[2] ? name[2] : "",
+    primer_nombre: name[3] ? name[3] : "",
+    edad: calcEdad(getPaci.nacim),
+    sede: getEmpresa.nomusu,
+    cod: getPaci.cod,
+    check_id: true,
   };
-});
 
-onMounted(() => console.log("props--> ", datos_comp.value));
+  return datos;
+});
 </script>
 
 <style>
