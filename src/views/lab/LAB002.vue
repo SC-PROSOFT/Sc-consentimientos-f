@@ -23,7 +23,7 @@
             </q-chip>
           </p>
         </div>
-        <DatosFormat :datos="datos" />
+        <DatosFormat :datos="datos" @datos="(data) => (datos.servicio = data)" />
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
@@ -179,6 +179,7 @@ const firma_prof = ref(null);
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
+  servicio: "",
 };
 
 const reg = ref({
