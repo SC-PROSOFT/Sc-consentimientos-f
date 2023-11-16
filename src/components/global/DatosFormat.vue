@@ -198,11 +198,11 @@ const servicio = ref({
 const datos_comp = computed(() => {
   const name = separarNombre();
   const datos = {
-    active_cups: props.datos.active_cups ? props.datos.active_cups : false,
-    segundo_apellido: name[0] ? name[0] : "",
-    primer_apellido: name[1] ? name[1] : "",
-    segundo_nombre: name[2] ? name[2] : "",
-    primer_nombre: name[3] ? name[3] : "",
+    active_cups: props.datos?.active_cups ? props.datos?.active_cups : false,
+    primer_apellido: name[0] ? name[0] : "",
+    segundo_apellido: name[1] ? name[1] : "",
+    primer_nombre: name[2] ? name[2] : "",
+    segundo_nombre: name[3] ? name[3] : "",
     edad: calcEdad(getPaci.nacim),
     check_id: true,
   };
