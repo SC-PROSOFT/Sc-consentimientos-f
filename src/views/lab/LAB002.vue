@@ -27,16 +27,7 @@
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
-            DD MM AAAA EDAD CC CE PA PT RC TI N° 1 2 N° 1 2 La administración de sedación es un proceso
-            complejo y dinámico, que requiere un monitoreo continuo, pues el grado de sedación al que se
-            somete el paciente puede cambiar rápidamente. Los medicamentos empleados para sedación se
-            relacionan con eventos adversos, como la hipotensión, la bradicardia, depresión respiratoria,
-            hipoxia, aspiración, laringoespasmo, que fácilmente pueden poner en riesgo la vida. La
-            administración de sedación fuera de la sala de cirugía incrementa el riesgo de evento adverso, por
-            esto, en UTM el personal involucrado en esta práctica tiene las competencias necesarias para
-            garantizar la seguridad del procedimiento, la sedación se encuentra dirigida por el médico
-            anestesiólogo, quien además acompaña al paciente durante el procedimiento y la recuperación. La
-            Ley 23 de 1981 al referirse a las relaciones médico – paciente, en los artículos 14, 15 y 18,
+            La Ley 23 de 1981 al referirse a las relaciones médico – paciente, en los artículos 14, 15 y 18,
             advierte la necesidad del consentimiento para realizar los diferentes tratamientos medico
             quirúrgicos que se requieran. Para la resolución 3100 de 2019 el Consentimiento informado es la
             aceptación libre, voluntaria y consciente de un paciente o usuario, manifestada en el pleno uso de
@@ -61,7 +52,7 @@
           </p>
         </div>
         <div class="border-format q-my-sm">
-          <div class="text-center text-subtitle1 text-bold q-py-xs">BENEFICIOS</div>
+          <div class="text-center text-subtitle1 q-py-xs"><ins class="text-bold">BENEFICIOS</ins></div>
           <p class="row text-justify">
             Con mucha frecuencia la necesidad de obtener imágenes de alta calidad sólo depende de la
             inmovilidad del paciente, como es en el caso de la resonancia magnética o la tomografía axial
@@ -73,15 +64,15 @@
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">RIESGOS</div>
           <p class="row text-justify">
-            DD MM AAAA EDAD CC CE PA PT RC TI N° 1 2 N° 1 2 La administración de sedación es un proceso
-            complejo y dinámico, que requiere un monitoreo continuo, pues el grado de sedación al que se
-            somete el paciente puede cambiar rápidamente. Los medicamentos empleados para sedación se
-            relacionan con eventos adversos, como la hipotensión, la bradicardia, depresión respiratoria,
-            hipoxia, aspiración, laringoespasmo, que fácilmente pueden poner en riesgo la vida. La
-            administración de sedación fuera de la sala de cirugía incrementa el riesgo de evento adverso, por
-            esto, en UTM el personal involucrado en esta práctica tiene las competencias necesarias para
-            garantizar la seguridad del procedimiento, la sedación se encuentra dirigida por el médico
-            anestesiólogo, quien además acompaña al paciente durante el procedimiento y la recuperación.
+            La administración de sedación es un proceso complejo y dinámico, que requiere un monitoreo
+            continuo, pues el grado de sedación al que se somete el paciente puede cambiar rápidamente. Los
+            medicamentos empleados para sedación se relacionan con eventos adversos, como la hipotensión, la
+            bradicardia, depresión respiratoria, hipoxia, aspiración, laringoespasmo, que fácilmente pueden
+            poner en riesgo la vida. La administración de sedación fuera de la sala de cirugía incrementa el
+            riesgo de evento adverso, por esto, en UTM el personal involucrado en esta práctica tiene las
+            competencias necesarias para garantizar la seguridad del procedimiento, la sedación se encuentra
+            dirigida por el médico anestesiólogo, quien además acompaña al paciente durante el procedimiento y
+            la recuperación.
           </p>
         </div>
         <div class="border-format q-my-sm" v-if="reg.opcion_lab002 == 'AUTORIZAR'">
@@ -187,18 +178,16 @@ const firma_prof = ref(null);
 
 const datos = {
   tipo_id: getPaci.tipo_id,
-  active_cups: false,
+  active_cups: true,
 };
 
 const reg = ref({
   opcion_lab002: "",
   fecha_act: "",
-  edad: "",
 });
 
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
-  reg.value.edad = calcEdad(getPaci.nacim);
 });
 
 const validarDatos = () => {};
