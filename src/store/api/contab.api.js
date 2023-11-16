@@ -40,16 +40,15 @@ export const useApiContabilidad = defineStore("contabilidad", {
         sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
       }
     },
-    getDll$({ directorio = "", data = {}, modulo = "", espacios = false, loader = true }) {
+    getDll$({ data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {
         apiAxiosDll({
           url: `contabilidad/dll`,
           method: "POST",
           params: {
+            directorio: `${process.env.APP}/${modulo}`,
             ip: localStorage.ip,
-            directorio,
             espacios,
-            modulo: `${process.env.APP}/${modulo}`,
           },
           data,
           loader,
