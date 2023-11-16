@@ -26,5 +26,14 @@ export const createRouteLab = (title) => [
         title: `${title} - FORMATO LAB003`,
       },
     }, 
+    {
+      path: "/LAB008",
+      name: "LAB008",
+      component: () => import("@/views/lab/LAB008.vue"),
+      meta: {
+        require_auth: true,
+        title: `${title} - FORMATO LAB008`,
+      },
+    }, 
   ];
   
