@@ -31,7 +31,7 @@
         <Select_ v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
       </div>
       <div class="row justify-center" style="border: 1px solid #ccc; width: 30%">
-        <p>{{ datos_comp.sede }}</p>
+        <p>{{ getEmpresa.nomusu }}</p>
       </div>
     </div>
     <div class="row justify-center" style="width: 100%">
@@ -78,7 +78,7 @@
         <q-checkbox left-label v-model="datos_comp.check_id" :label="getPaci.tipo_id" disable />
       </div>
       <div class="row justify-center bold" style="width: 40%">
-        <p>{{ datos_comp.cod }}</p>
+        <p>{{ getPaci.cod }}</p>
       </div>
       <div class="row justify-center bold" style="width: 20%">
         <p>{{ datos_comp.edad }}</p>
@@ -191,6 +191,7 @@ const servicio = ref({
     label: "",
     required: true,
     id: "serv_form",
+    campo_abierto: true
   },
 });
 
@@ -203,8 +204,6 @@ const datos_comp = computed(() => {
     segundo_nombre: name[2] ? name[2] : "",
     primer_nombre: name[3] ? name[3] : "",
     edad: calcEdad(getPaci.nacim),
-    sede: getEmpresa.nomusu,
-    cod: getPaci.cod,
     check_id: true,
   };
 
