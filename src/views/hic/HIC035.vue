@@ -13,7 +13,9 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="reg.opcion_hc035 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+          <p
+            :class="reg.opcion_hc035 == 'AUTORIZAR' ? 'text-green' : 'text-red'"
+          >
             <q-chip
               :color="reg.opcion_hc035 == 'AUTORIZAR' ? 'green' : 'red'"
               class="text-white"
@@ -26,9 +28,21 @@
 
         <div class="row">
           <p>Historia clínica numero:</p>
-          <q-input type="text" disable dense v-model="reg.llave" class="col-2" />
+          <q-input
+            type="text"
+            disable
+            dense
+            v-model="reg.llave"
+            class="col-2"
+          />
           <p>Ciudad:</p>
-          <q-input v-model="reg_firmador.descrip_ciudad" class="col-2 q-mr-md" type="text" disable dense />
+          <q-input
+            v-model="reg_firmador.descrip_ciudad"
+            class="col-2 q-mr-md"
+            type="text"
+            disable
+            dense
+          />
           <p>Fecha:</p>
           <q-input v-model="reg.fecha_act" disable dense class="col-2" />
         </div>
@@ -36,35 +50,85 @@
       <q-card-section>
         <div class="row">
           <p class="text-justify">Yo</p>
-          <q-input v-model="reg_firmador.descrip" disable type="text" dense class="col-4" />
+          <q-input
+            v-model="reg_firmador.descrip"
+            disable
+            type="text"
+            dense
+            class="col-4"
+          />
           <p class="text-justify">de</p>
           <q-input v-model="reg.edad" disable type="text" dense class="col-1" />
           <p class="text-justify">años de edad, de genero</p>
-          <q-input v-model="reg_firmador.sexo" disable type="text" dense class="col-1" />
+          <q-input
+            v-model="reg_firmador.sexo"
+            disable
+            type="text"
+            dense
+            class="col-1"
+          />
           <p class="text-justify">identificado(a) con</p>
           <p class="text-justify">documento de identidad N°</p>
-          <q-input v-model="reg_firmador.cod" disable type="text" dense class="col-2" />
+          <q-input
+            v-model="reg_firmador.cod"
+            disable
+            type="text"
+            dense
+            class="col-2"
+          />
           <p class="text-justify">expedida en</p>
-          <q-input v-model="reg_firmador.descrip_ciudad" disable type="text" dense class="col-2" />
+          <q-input
+            v-model="reg_firmador.descrip_ciudad"
+            disable
+            type="text"
+            dense
+            class="col-2"
+          />
           <p class="text-justify">con residencia en</p>
-          <q-input v-model="reg_firmador.descrip_ciudad" disable type="text" dense class="col-2" />
+          <q-input
+            v-model="reg_firmador.descrip_ciudad"
+            disable
+            type="text"
+            dense
+            class="col-2"
+          />
           <p class="text-justify">teléfono número</p>
-          <q-input v-model="reg_firmador.telefono" disable type="text" dense class="col-2" />
-          <p class="text-justify">Actuando en nombre propio o como acudiente de</p>
-          <q-input v-model="acudiente" disable type="text" dense class="col-3" />
-          <p>en mi calidad de paciente y en pleno uso de mis facultades mentales y de</p>
+          <q-input
+            v-model="reg_firmador.telefono"
+            disable
+            type="text"
+            dense
+            class="col-2"
+          />
+          <p class="text-justify">
+            Actuando en nombre propio o como acudiente de
+          </p>
+          <q-input
+            v-model="acudiente"
+            disable
+            type="text"
+            dense
+            class="col-3"
+          />
+          <p>
+            en mi calidad de paciente y en pleno uso de mis facultades mentales
+            y de
+          </p>
           <div class="row" style="margin-top: -15px">
             <p class="text-justify">
-              mis derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la empresa
-              social del estado ESE salud Yopal, por medio del presente documento doy mi consentimiento
-              informado para que se me brinden los cuidados correspondientes y se siga la conducta terapéutica
-              según el criterio del profesional de salud tratante.
+              mis derechos de salud y habiendo solicitado por mi voluntad los
+              servicios de salud a la empresa social del estado ESE salud Yopal,
+              por medio del presente documento doy mi consentimiento informado
+              para que se me brinden los cuidados correspondientes y se siga la
+              conducta terapéutica según el criterio del profesional de salud
+              tratante.
             </p>
           </div>
         </div>
         <div class="row">
           <p class="text-justify">
-            Dejo constancia que he sido informado(a) y he recibido información y asesoría sobre el evento:
+            Dejo constancia que he sido informado(a) y he recibido información y
+            asesoría sobre el evento:
           </p>
           <Input_
             style="min-width: 100%; display: inline-block; margin-top: 0px"
@@ -72,21 +136,25 @@
             :field="form.evento"
           />
           <p align="justify">
-            respecto del modo de contagio, estrategias y métodos de prevención, importancia de diagnostico y
-            tratamiento de la pareja de ser necesario a quien le informaré mi estado actual para que reciba la
-            asesoría, tratamiento y seguimientos que se requieran para evitar reinfecciones y/o transmisión de
-            la enfermedad a otras personas con quien se tenga contacto. Fui informado(a) de las acciones que
-            se seguirán: tratamiento y controles que debo realizar posterior al tratamiento médico, al cual
-            debo ser adherente, y recibir oportunamente y de manera adecuada; Por lo anterior me comprometo a
-            seguir las indicaciones dadas por el profesional de la salud respecto al evento presentado, de no
-            seguir las indicaciones los principales riesgos que se pueden presentar: resistencia a
+            respecto del modo de contagio, estrategias y métodos de prevención,
+            importancia de diagnostico y tratamiento de la pareja de ser
+            necesario a quien le informaré mi estado actual para que reciba la
+            asesoría, tratamiento y seguimientos que se requieran para evitar
+            reinfecciones y/o transmisión de la enfermedad a otras personas con
+            quien se tenga contacto. Fui informado(a) de las acciones que se
+            seguirán: tratamiento y controles que debo realizar posterior al
+            tratamiento médico, al cual debo ser adherente, y recibir
+            oportunamente y de manera adecuada; Por lo anterior me comprometo a
+            seguir las indicaciones dadas por el profesional de la salud
+            respecto al evento presentado, de no seguir las indicaciones los
+            principales riesgos que se pueden presentar: resistencia a
             medicamentos, náuseas, mareos, vomito, gastritis, reinfecciones.
           </p>
         </div>
         <div class="row">
           <p class="text-justify">
-            Me garantizan la confidencialidad de mis resultados y la información que he proporcionado. De lo
-            anterior
+            Me garantizan la confidencialidad de mis resultados y la información
+            que he proporcionado. De lo anterior
             <Select_
               style="min-width: 100px; display: inline-block"
               v-model="reg.iniciar_trata"
@@ -97,26 +165,34 @@
               ]"
             />
 
-            (SI, NO) acepto iniciar tratamiento y realizar los controles y seguimientos que se requieran de
-            acuerdo a la patología en curso. Por lo tanto, en forma consciente y voluntaria, luego de haber
-            escuchado la información y explicaciones, sin haber sido objeto de coacción, persuasión, ni
-            manipulación manifiesto lo siguiente:
+            (SI, NO) acepto iniciar tratamiento y realizar los controles y
+            seguimientos que se requieran de acuerdo a la patología en curso.
+            Por lo tanto, en forma consciente y voluntaria, luego de haber
+            escuchado la información y explicaciones, sin haber sido objeto de
+            coacción, persuasión, ni manipulación manifiesto lo siguiente:
           </p>
         </div>
         <div class="row">
           <p>
-            Me considero SATISFECHO con la información recibida y COMPRENDO la indicación, los beneficios,
-            además de los riesgos y posibles complicaciones que podrían desprenderse de dicho acto.
+            Me considero SATISFECHO con la información recibida y COMPRENDO la
+            indicación, los beneficios, además de los riesgos y posibles
+            complicaciones que podrían desprenderse de dicho acto.
           </p>
         </div>
 
         <div v-if="reg.opcion_hc035 == 'REVOCAR'">
-          <div class="text-subtitle1 text-bold row justify-center">REVOCATORIA DE CONSENTIMIENTO</div>
+          <div class="text-subtitle1 text-bold row justify-center">
+            REVOCATORIA DE CONSENTIMIENTO
+          </div>
           <p>
-            Yo <InputF_ disable v-model="getPaci.descrip" width="300" /> paciente de la ESE SALUD YOPAL, con
-            C.C <InputF_ disable v-model="getPaci.cod" /> Expreso mi voluntad de revocar el consentimiento
-            prestado en fecha <InputF_ disable v-model="reg.fecha_act" /> y declaro por tanto que, tras la
-            información recibida, no consiento en someterme al procedimiento de:
+            Yo
+            <InputF_ disable v-model="getPaci.descrip" width="300" /> paciente
+            de la ESE SALUD YOPAL, con C.C
+            <InputF_ disable v-model="getPaci.cod" /> Expreso mi voluntad de
+            revocar el consentimiento prestado en fecha
+            <InputF_ disable v-model="reg.fecha_act" /> y declaro por tanto que,
+            tras la información recibida, no consiento en someterme al
+            procedimiento de:
           </p>
           <Input_
             style="min-width: 100%; display: inline-block; margin-top: 0px"
@@ -176,7 +252,12 @@
   <div style="height: 5px"></div>
 </template>
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
+import {
+  useModuleFormatos,
+  useApiContabilidad,
+  useModuleCon851p,
+  useModuleCon851,
+} from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
 import { impresionHC035, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
@@ -184,10 +265,20 @@ import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
-const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
+const ContainerFirma = defineAsyncComponent(() =>
+  import("../../components/global/ContainerFirma.vue")
+);
 
-const { getDll$, _getFirma$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const {
+  getDll$,
+  _getFirma$,
+  guardarFile$,
+  _getHuella$,
+  enviarCorreo$,
+  getEncabezado,
+} = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } =
+  useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -197,6 +288,7 @@ const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const firma_prof = ref(null);
+const huella_paci = ref(null);
 
 const reg = reactive({
   revoca_procedi: "",
@@ -268,6 +360,7 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -279,13 +372,23 @@ const validarDatos = async () => {
 
   if (reg.opcion_hc035 == "REVOCAR") {
     if (!reg.revoca_procedi)
-      return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_procedi"));
+      return CON851("?", "info", `${requiere},  `, () =>
+        foco_(form, "revoca_procedi")
+      );
     if (!reg.revoca_motivos)
-      return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_motivos"));
+      return CON851("?", "info", `${requiere},  `, () =>
+        foco_(form, "revoca_motivos")
+      );
   }
 
-  if (!reg.evento) return CON851("?", "info", `${requiere}, evento `, () => foco_(form, "evento"));
-  if (!reg.iniciar_trata) return CON851("?", "info", `${requiere}`, () => foco_(form, "iniciar_trata"));
+  if (!reg.evento)
+    return CON851("?", "info", `${requiere}, evento `, () =>
+      foco_(form, "evento")
+    );
+  if (!reg.iniciar_trata)
+    return CON851("?", "info", `${requiere}`, () =>
+      foco_(form, "iniciar_trata")
+    );
 
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
@@ -326,8 +429,15 @@ const grabarConsentimiento = async () => {
 const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    await guardarFile$({
+      base64: firma_recibida_acomp.value,
+      codigo: `A${llave}`,
+    });
 
+    if (getEmpresa.envio_email == "N") {
+      await imprimirConsen();
+      return router.back();
+    }
     return CON851P(
       "?",
       "info",
@@ -338,9 +448,14 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
+        if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
+          return CON851("?", "info", "El correo no es valido", () =>
+            router.back()
+          );
+        }
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
-          destino: getPaci.email,
+          destino: getPaci.email.toLowerCase(),
           subject: getEncabezado.descrip,
           file,
         });
@@ -363,6 +478,7 @@ const imprimirConsen = async () => {
       acomp: getAcomp,
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
+        huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
@@ -376,6 +492,7 @@ const imprimirConsen = async () => {
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_firma_acomp: firma_recibida_acomp.value,
+      img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
     };
 
@@ -393,7 +510,9 @@ const imprimirConsen = async () => {
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    const response_impresion = await generarArchivo({
+      docDefinition: docDefinitionFile,
+    });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

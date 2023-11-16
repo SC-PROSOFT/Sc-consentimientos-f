@@ -21,7 +21,7 @@ export const impresionHC036 = ({ datos }) => {
             },
             {
               width: "auto",
-              text: `Ciudad: ${datos.empresa.CIUDAD_USUAR}`,
+              text: `Ciudad: ${datos.empresa.ciudad_usuar}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
@@ -178,7 +178,48 @@ export const impresionHC036 = ({ datos }) => {
     ];
   }
 
-  function firmaPaciente() {
+  function firmaHuellaPaci(huella_paci, cant_firmas) {
+    let tamano_firma = 0;
+
+    if (cant_firmas == 2) {
+      tamano_firma = 105;
+    } else {
+      tamano_firma = 130;
+    }
+    const conHuella = {
+      marginLeft: 3,
+      columns: [
+        {
+          marginTop: 9,
+          alignment: "center",
+          image: "firma_paci",
+          width: tamano_firma,
+          height: 70,
+        },
+        {
+          marginTop: 9,
+          marginLeft: 5,
+          image: "huella_paci",
+          width: 55,
+          height: 70,
+        },
+      ],
+    };
+
+    const sinHuella = {
+      marginLeft: 3,
+      marginTop: 9,
+      alignment: "center",
+      image: "firma_paci",
+      width: tamano_firma,
+      height: 70,
+    };
+
+    if (huella_paci) return conHuella;
+    else return sinHuella;
+  }
+
+  function firmaPaciente(huella_paci, cant_firmas) {
     return {
       stack: [
         {
@@ -187,13 +228,7 @@ export const impresionHC036 = ({ datos }) => {
           alignment: "center",
           style: "tableNoBold",
         },
-        {
-          marginTop: 9,
-          alignment: "center",
-          image: "firma_paci",
-          width: 130,
-          height: 70,
-        },
+        firmaHuellaPaci(huella_paci, cant_firmas),
         {
           marginTop: 10,
           columns: [
@@ -367,20 +402,23 @@ export const impresionHC036 = ({ datos }) => {
     };
   }
 
-  function firmas(condicion) {
+  function firmas() {
     let firmasArray = [];
     let anchos = [];
-
-    if (datos.firmas.firma_paci) {
-      firmasArray.push(firmaPaciente());
-    }
-
+    let tamanoFirmasArray = 0;
+    
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-
+    
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
+    }
+
+    tamanoFirmasArray = firmasArray.length
+
+    if (datos.firmas.firma_paci) {
+      firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
     }
 
     if (firmasArray.length == 2) {

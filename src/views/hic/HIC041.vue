@@ -29,7 +29,7 @@
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.CIUDAD_USUAR" />
+          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.ciudad_usuar" />
           <p>fecha:</p>
           <q-input disable type="text" dense class="col-1" v-model="HIC041.fecha_act" />
         </div>
@@ -284,7 +284,7 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
-    huella_paci.value = await _getHuella$({ codigo: Number(getPaci.cod) });
+    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -377,6 +377,10 @@ const grabarFirmaConsen = async (llave) => {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
+    if (getEmpresa.envio_email == "N") {
+      await imprimirConsen();
+      return router.back();
+    }
     return CON851P(
       "?",
       "info",
@@ -387,9 +391,13 @@ const grabarFirmaConsen = async (llave) => {
       },
       async () => {
         const file = await imprimirConsen();
+        if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
+          return CON851("?", "info", "El correo no es valido", () => router.back());
+        }
+
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
-          destino: getPaci.email,
+          destino: getPaci.email.toLowerCase(),
           subject: getEncabezado.descrip,
           file,
         });

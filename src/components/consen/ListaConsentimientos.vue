@@ -2,7 +2,7 @@
   <q-card class="my-card">
     <!-- tabla para reimprimir los consentimientos -->
     <q-table
-      title="Reimprimir consentimiento"
+      :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
       v-if="['2', '3'].includes(novedad)"
       :rows-per-page-options="[10]"
       :columns="columns_consen"
@@ -14,7 +14,9 @@
     >
       <template v-slot:header="props">
         <q-tr :props="props">
-          <q-th auto-width> Imprimir </q-th>
+          <!-- highlight_off -->
+          <q-th v-if="novedad == '2'" auto-width> Imprimir </q-th>
+          <q-th v-if="novedad == '3'" auto-width> Disentir </q-th>
           <q-th v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.label }}
           </q-th>
@@ -22,24 +24,21 @@
       </template>
 
       <template v-slot:body="props">
-        <q-tr :props="props" @dblclick="imprimirConsen(props)" class="cursor">
+        <q-tr :props="props" @dblclick="validarAccion(props)" class="cursor">
           <q-td auto-width>
             <q-btn
-              @click="imprimirConsen(props)"
-              icon="local_printshop"
+              @click="validarAccion(props)"
+              :icon="novedad == '2' ? 'local_printshop' : 'highlight_off'"
               class="botone"
-              color="primary"
+              :color="novedad == '2' ? 'primary' : 'red-7'"
               size="sm"
             >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <q-chip
-              v-if="col.label == 'Estado'"
-              class="text-white"
-              :color="valueEstado(col.value)"
-              >{{ col.value }}</q-chip
-            >
+            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
+              col.value
+            }}</q-chip>
             <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
@@ -77,13 +76,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn
-              @click="selectConsen(props.key)"
-              icon="note_add"
-              class="botone"
-              color="primary"
-              size="sm"
-            >
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -100,12 +93,17 @@
         </div>
       </template>
     </q-table>
+    <DisentirConsen_
+      :consen="reg_consentimiento"
+      v-if="reg_consentimiento.estado"
+      @cerrar="reg_consentimiento.estado = false"
+    />
   </q-card>
 </template>
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
+import { ref, onMounted, defineAsyncComponent } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import {
   impresionHC030,
   impresionHC031,
@@ -115,16 +113,19 @@ import {
   impresionHC035,
   impresionHC036,
   impresionHC037,
+  impresionHC038,
   impresionHC039,
   impresionHC040,
   impresionHC041,
+  impresionHC042,
   impresion,
 } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import days from "dayjs";
 
-const props = defineProps({ cargar: Function });
+const DisentirConsen_ = defineAsyncComponent(() => import("@/components/consen/DisentirConsen.vue"));
 
+const props = defineProps({ cargar: Function });
 const router = useRouter();
 const route = useRoute();
 
@@ -139,9 +140,12 @@ const params_querys = ref(null);
 const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_consen = ref(null);
-const firma_recibida_acomp = ref(null);
+const firma_acomp = ref(null);
 
 const lista_consen = ref([]);
+const reg_consentimiento = ref({
+  estado: false,
+});
 
 const lista_maestros = ref([]);
 const columns_consen = [
@@ -163,8 +167,7 @@ const columns_consen = [
     label: "Hora",
     align: "left",
 
-    format: (val, row) =>
-      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+    format: (val, row) => `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -208,8 +211,23 @@ const getParametros = async () => {
   else params_querys.value = route.query;
   novedad.value = params_querys.value.novedad;
 
-  await getHistoriaClinica();
+  params_querys.value.modulo == "HIC" && getHistoriaClinica();
+  params_querys.value.modulo == "ODO" && getOdontologia();
   getMaestros();
+};
+const getOdontologia = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_odo.dll`,
+      data: { llave_hc: route.query.llave_hc },
+    });
+    setHc(response.reg_hc);
+
+    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
+    if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
+  } catch (error) {
+    CON851("?", "info", error, logOut$);
+  }
 };
 const getHistoriaClinica = async () => {
   try {
@@ -249,7 +267,17 @@ const getConsentimientosRealizados = async () => {
   }
 };
 
-const imprimirConsen = async ({ row }) => {
+const validarAccion = async ({ row }) => {
+  // console.log(row.reg_coninf);
+  // return
+  novedad.value == "2" && reimprimirConsentimiento(row);
+  novedad.value == "3" && disentirConsentimiento(row);
+};
+const disentirConsentimiento = async (row) => {
+  Object.assign(reg_consentimiento.value, row);
+  reg_consentimiento.value.estado = true;
+};
+const reimprimirConsentimiento = async (row) => {
   const opciones = {
     HIC030: impresionHC030,
     HIC031: impresionHC031,
@@ -260,8 +288,10 @@ const imprimirConsen = async ({ row }) => {
     HIC036: impresionHC036,
     HIC037: impresionHC037,
     HIC039: impresionHC039,
+    HIC038: impresionHC038,
     HIC040: impresionHC040,
     HIC041: impresionHC041,
+    HIC042: impresionHC042,
   };
 
   setHeader$({ encabezado: row.reg_coninf.datos_encab });
@@ -275,7 +305,7 @@ const imprimirConsen = async ({ row }) => {
     const docDefinition = utilsFormat({
       datos: {
         img_firma_consen: firma_consen.value,
-        img_firma_acomp: firma_recibida_acomp.value,
+        img_firma_acomp: firma_acomp.value,
         img_huella_paci: huella_paci.value,
         img_firma_paci: firma_consen.value,
         firma_prof: firma_prof.value,
@@ -285,8 +315,9 @@ const imprimirConsen = async ({ row }) => {
           autorizo: row.reg_coninf.estado == "AUTORIZADO" ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
+            firma_acomp: firma_acomp.value ? true : false,
             firma_paci: firma_consen.value ? true : false,
-            firma_acomp: firma_recibida_acomp.value ? true : false,
+            huella_paci: huella_paci.value ? true : false,
             firma_prof: firma_prof.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
@@ -300,13 +331,11 @@ const imprimirConsen = async ({ row }) => {
         },
       }),
     });
-
     await impresion({ docDefinition });
   } catch (error) {
     console.error("error-- >", error);
   }
 };
-
 const getFirmaProf = async (cod_prof) => {
   try {
     firma_prof.value = await _getFirma$({ codigo: cod_prof });
@@ -317,7 +346,7 @@ const getFirmaProf = async (cod_prof) => {
 };
 const getHuella = async (cod_paci) => {
   try {
-    huella_paci.value = await _getHuella$({ codigo: Number(cod_paci) });
+    huella_paci.value = await _getHuella$({ codigo: cod_paci });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -326,7 +355,9 @@ const getHuella = async (cod_paci) => {
 const consultarFirmaConsen = async (cod_consen) => {
   try {
     firma_consen.value = await _getImagen$({ codigo: `P${cod_consen}` });
-    firma_recibida_acomp.value = await _getImagen$({ codigo: `A${cod_consen}` });
+    firma_acomp.value = await _getImagen$({
+      codigo: `A${cod_consen}`,
+    });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

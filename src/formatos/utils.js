@@ -1,9 +1,10 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
+const { getImgBs64, getEncabezado } = useApiContabilidad();
+const { getEmpresa, getPaci } = useModuleFormatos();
+
 export const utilsFormat = ({ datos, content }) => {
-  const { getImgBs64, getEncabezado } = useApiContabilidad();
-  const { getEmpresa } = useModuleFormatos();
 
   const base64 = "data:image/png;base64,";
 
@@ -11,11 +12,11 @@ export const utilsFormat = ({ datos, content }) => {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
     images: {
-      logo: `${base64}${sessionStorage.logo}` || getImgBs64,
+      logo: sessionStorage.logo ? `${base64}${sessionStorage.logo}` : getImgBs64,
       firma_consen: `${base64}${datos.img_firma_consen}` || getImgBs64,
       firma_paci: `${base64}${datos.img_firma_paci}` || getImgBs64,
-      firma_acomp: `${base64}${datos.img_firma_acomp}` || getImgBs64,
-      huella_paci: datos.img_huella_paci || getImgBs64,
+      firma_acomp: datos.img_firma_acomp ? `${base64}${datos.img_firma_acomp}` : getImgBs64,
+      huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     header: function (currentPage, pageCount) {
@@ -179,4 +180,38 @@ export const evaluarParentesco = (value) => {
     { COD: "12", DESCRIP: "ABUELO(A)" },
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
+};
+
+export const separarNombre = () => {
+  let uno = "";
+  let dos = "";
+  let tres = "";
+  let cuatro = "";
+
+  const partes = getPaci.descrip.split(" ").filter((part) => part.trim() !== "");
+  switch (partes.length) {
+    case 1: 
+      uno = partes[0];
+      break;
+    case 2: 
+      uno = partes[0];
+      tres = partes[1];
+      break;
+    case 3:
+      uno = partes[0];
+      dos = partes[1];
+      tres = partes[2];
+      break;
+    case 4:
+      uno = partes[0];
+      dos = partes[1];
+      tres = partes[2];
+      cuatro = partes[3];
+      break;
+    default: 
+      uno = nombre
+      break;
+  }
+
+  return [uno, dos, tres, cuatro];
 };
