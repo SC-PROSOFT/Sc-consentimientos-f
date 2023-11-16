@@ -40,6 +40,16 @@ export const createRouteLab = (title) => [
     },
   },
   {
+    path: "/LAB005",
+    name: "LAB005",
+    component: () => import("@/views/lab/LAB005.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB005`,
+      descrip: "Consentimiento informado exámenes de radiología en mujeres gestantes",
+    },
+  },
+  {
     path: "/LAB008",
     name: "LAB008",
     component: () => import("@/views/lab/LAB008.vue"),
