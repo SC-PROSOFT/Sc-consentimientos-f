@@ -180,3 +180,38 @@ export const evaluarParentesco = (value) => {
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
 };
+
+export const separarNombre = (nombre) => {
+  let uno = "";
+  let dos = "";
+  let tres = "";
+  let cuatro = "";
+
+  const partes = nombre.split(" ").filter((part) => part.trim() !== "");
+  if (partes.length >= 1) {
+    uno = partes[0];
+  }
+  if (partes.length >= 2) {
+    dos = partes[1];
+  }
+  if (partes.length >= 3) {
+    tres = partes[2];
+  }
+  if (partes.length >= 4) {
+    cuatro = partes.slice(3).join(" ");
+  }
+
+  if (partes.length == 2) {
+    uno = partes[0];
+    dos = "";
+    tres = partes[1];
+    cuatro = "";
+  }
+
+  return {
+    uno,
+    dos,
+    tres,
+    cuatro,
+  };
+};
