@@ -50,6 +50,26 @@ export const createRouteLab = (title) => [
     },
   },
   {
+    path: "/LAB006",
+    name: "LAB006",
+    component: () => import("@/views/lab/LAB006.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB006`,
+      descrip: "Consentimiento informado ecografía transvaginal",
+    },
+  },
+  {
+    path: "/LAB007",
+    name: "LAB007",
+    component: () => import("@/views/lab/LAB007.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB007`,
+      descrip: "Consentimiento informado densitometría ósea",
+    },
+  },
+  {
     path: "/LAB008",
     name: "LAB008",
     component: () => import("@/views/lab/LAB008.vue"),
@@ -57,6 +77,16 @@ export const createRouteLab = (title) => [
       require_auth: true,
       title: `${title} - FORMATO LAB008`,
       descrip: "Consentimiento informado biopsia",
+    },
+  },
+  {
+    path: "/LAB009",
+    name: "LAB009",
+    component: () => import("@/views/lab/LAB009.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB009`,
+      descrip: "Consentimiento informado resonancia magnética nuclear",
     },
   },
 ];
