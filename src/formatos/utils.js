@@ -6,7 +6,6 @@ const { getEmpresa, getPaci } = useModuleFormatos();
 
 export const utilsFormat = ({ datos, content }) => {
   const base64 = "data:image/png;base64,";
-  console.log()
   return {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
