@@ -1,11 +1,10 @@
 <template>
   <div class="q-px-sm text-left" :class="field?.capitalize ? 'text-capitalize' : ''">
-    <label>{{ field?.label || "Label no especificado" }}</label>
+    <label>{{ field?.label }}</label>
     <div class="q-gutter-md">
       <q-input
         dense
         border
-        counter
         standout
         outlined
         borderless
@@ -36,6 +35,7 @@
         @keydown.f12="executeEventos"
         @keydown.enter="nextValidate"
         :input-class="field.tipo == 'number' ? 'text-right ' : ''"
+        :counter="field.counter = field.counter == undefined ? true : field.counter"
         :placeholder="`${props.field.placeholder || `Escribe ${props.field.label}`}`"
         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
       >
@@ -63,6 +63,7 @@ const props = defineProps({
     tipo: String,
     label: String,
     disable: Boolean,
+    counter: Boolean,
     required: Boolean,
     maxlength: String,
     placeholder: String,
