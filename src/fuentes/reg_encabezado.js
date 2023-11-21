@@ -3,6 +3,7 @@ export const regEncabezado = () => {
     descrip: "",
     version: "",
     codigo: "",
+    iso: "",
     fecha_aprob: "",
     fecha_act: "",
     reviso: "",

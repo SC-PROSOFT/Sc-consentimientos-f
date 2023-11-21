@@ -6,7 +6,7 @@ const { getEmpresa, getPaci } = useModuleFormatos();
 
 export const utilsFormat = ({ datos, content }) => {
   const base64 = "data:image/png;base64,";
-
+  console.log()
   return {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
@@ -51,10 +51,10 @@ export const utilsFormat = ({ datos, content }) => {
               },
               {
                 stack: [
-                  {
+                  getEncabezado.iso == "S" ? {
                     text: [
                       {
-                        text: `Código: `,
+                        text: "Código: ",
                         bold: true,
                       },
                       {
@@ -62,11 +62,11 @@ export const utilsFormat = ({ datos, content }) => {
                       },
                     ],
                     style: "headerEnd",
-                  },
+                  } : {},
                   {
                     text: [
                       {
-                        text: `Versión: `,
+                        text: "Versión: ",
                         bold: true,
                       },
                       {
@@ -78,7 +78,7 @@ export const utilsFormat = ({ datos, content }) => {
                   {
                     text: [
                       {
-                        text: `Aprobado el: `,
+                        text: "Aprobado el: ",
                         bold: true,
                       },
                       {
@@ -92,7 +92,7 @@ export const utilsFormat = ({ datos, content }) => {
                   {
                     text: [
                       {
-                        text: `Revisado por `,
+                        text: "evisado por ",
                         bold: true,
                       },
                       {
@@ -104,7 +104,7 @@ export const utilsFormat = ({ datos, content }) => {
                   {
                     text: [
                       {
-                        text: `Aprobado por `,
+                        text: "Aprobado por ",
                         bold: true,
                       },
                       {
@@ -116,7 +116,7 @@ export const utilsFormat = ({ datos, content }) => {
                   {
                     text: [
                       {
-                        text: `Fecha de actualización: `,
+                        text: "Fecha de actualización: ",
                         bold: true,
                       },
                       {
