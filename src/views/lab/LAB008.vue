@@ -23,7 +23,7 @@
             </q-chip>
           </p>
         </div>
-        <DatosFormat :datos="datos" />
+        <DatosFormat :datos="datos" @datos="(data) => (datos.servicio = data)" />
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
@@ -176,6 +176,7 @@ const huella_paci = ref(null);
 
 const datos = {
   active_cups: true,
+  servicio: "",
 };
 
 const LAB008 = ref({
