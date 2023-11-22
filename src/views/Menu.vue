@@ -41,6 +41,12 @@
     <div class="q-ma-lg">
       <ListaConsentimientos_ class="justify-center q-mx-auto" />
     </div>
+    <Update_
+      @cancelar="datos_actualizacion.estado = false"
+      :mensaje="datos_actualizacion.mensaje"
+      v-if="datos_actualizacion.estado"
+      @aceptar="actualizarVersion"
+    />
   </div>
 </template>
 <script setup>
@@ -52,6 +58,7 @@ import { useRoute } from "vue-router";
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
+const Update_ = defineAsyncComponent(() => import("@/components/global/Update.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
   import("@/components/consen/ListaConsentimientos.vue")
 );
@@ -63,7 +70,7 @@ const form_paci = ref({
 });
 
 const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
-const { getDll$, getNit, getIp, _getLogo$ } = useApiContabilidad();
+const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const configuracion = ref({ estado: false });
@@ -73,13 +80,18 @@ const route = useRoute();
 const datos_session = {};
 const llave = ref(null);
 
+const datos_actualizacion = ref({
+  estado: false,
+  mensaje: "",
+});
+
 onMounted(() => {
   verificarSesion();
 });
 
 const verificarSesion = async () => {
   try {
-    // localStorage.setItem("ip", getIp);
+    // localStorage.setItem("ip", "34.234.185.158");
     localStorage.setItem("ip", window.location.hostname);
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
@@ -95,7 +107,7 @@ const verificarSesion = async () => {
 
 const getLogo = async () => {
   try {
-    const img = await _getLogo$({ nit: getNit });
+    const img = await _getLogo$({});
     sessionStorage.setItem("logo", img);
     validarUrl();
   } catch (error) {
@@ -103,14 +115,15 @@ const getLogo = async () => {
   }
 };
 
-const validarUrl = () => {
+const validarUrl = async () => {
   if (Object.keys(route.query).length) {
     Object.assign(datos_session, route.query);
   } else {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
-  getPaciente();
+  await getPaciente();
+  getVersionBuild();
   // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
 };
 
@@ -179,6 +192,29 @@ const abrirConfiguracion = async () => {
     CON851("?", "info", error, () => {
       configuracion.value.estado = true;
     });
+  }
+};
+const getVersionBuild = async () => {
+  if (!["ADMI", "GEBC"].includes(datos_session.oper)) return;
+  try {
+    console.log("getVersionBuild");
+    const response = await getVersionBuild$({});
+    datos_actualizacion.value.estado = true;
+    datos_actualizacion.value.mensaje = `La nueva versión ${response} de consentimientos ya esta disponible.
+    ¿Desea actualizarla?`;
+  } catch (error) {
+    CON851("?", "info", error);
+  }
+};
+const actualizarVersion = async () => {
+  try {
+    const reponse = await actualizarVersion$({});
+    datos_actualizacion.value.mensaje = "";
+    CON851("?", "success", reponse);
+  } catch (error) {
+    CON851("?", "info", error);
+  } finally {
+    datos_actualizacion.value.estado = false;
   }
 };
 </script>

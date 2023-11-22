@@ -165,7 +165,7 @@
 <script setup>
 import { separarNombre, calcEdad } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store/module/formatos";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
 import dayjs from "dayjs";
 
 const { getPaci, getEmpresa } = useModuleFormatos();
@@ -195,12 +195,8 @@ const servicio = ref({
   },
 });
 
-watch(
-  () => servicio.value.select,
-  (newVal) => emit("datos", newVal)
-);
-
 const emit = defineEmits(["datos"]);
+watchEffect(() => emit("datos", servicio.value.select));
 
 const datos_comp = computed(() => {
   const name = separarNombre();

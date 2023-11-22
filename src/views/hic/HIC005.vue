@@ -4,7 +4,7 @@
       <q-form @submit="validarDatos">
         <div class="text-center">
           <q-toggle
-            v-model="reg.opcion_hc004"
+            v-model="reg.opcion_hc005"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,13 +13,13 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="reg.opcion_hc004 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+          <p :class="reg.opcion_hc005 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
             <q-chip
-              :color="reg.opcion_hc004 == 'AUTORIZAR' ? 'green' : 'red'"
+              :color="reg.opcion_hc005 == 'AUTORIZAR' ? 'green' : 'red'"
               class="text-white"
-              v-if="reg.opcion_hc004"
+              v-if="reg.opcion_hc005"
             >
-              {{ reg.opcion_hc004 }}
+              {{ reg.opcion_hc005 }}
             </q-chip>
           </p>
         </div>
@@ -31,68 +31,38 @@
           <q-input v-model="getEmpresa.ciudad_usuar" type="text" class="col-3" disable dense />
           <p>Fecha:</p>
           <q-input v-model="reg.fecha_act" type="text" class="col-1" disable dense />
+          <p>Hora:</p>
+          <q-input v-model="reg.hora_act" type="text" class="col-1" disable dense />
         </div>
         <div class="q-mt-lg row">
           <p>Yo,</p>
           <q-input v-model="getPaci.descrip" type="text" class="col-5" disable dense />
-          <p>, identificado (a) con cedula numero</p>
+          <p>, mayor de edad identificado con el documento N°</p>
           <q-input v-model="getPaci.cod" type="text" class="col-2" disable dense />
-          <p>expedida en</p>
+          <p>de</p>
           <q-input v-model="getPaci.descrip_ciudad" type="text" class="col-2" disable dense />
-          <p>actuando en nombre propio. Por medio de la presente, declaro que el doctor</p>
-          <q-input v-model="getProf.descrip" type="text" class="col-3" disable dense />
-          <p>, identificado (a) con cédula N°</p>
-          <q-input v-model="getProf.cod" type="text" class="col-2" disable dense />
           <p>
-            me ha informado sobre su intención de divulgar y hacer público el caso clínico correspondiente a:
+            actuando en nombre propio en pleno uso de mis facultades, libre y consciente, o como responsable
+            del menor,
           </p>
-          <q-input
-            placeholder="Ingrese nombre completo"
-            v-model="reg.nombre_corrspndnte"
-            type="textarea"
-            maxlength="50"
-            class="col-6"
-            autogrow
-            counter
-            dense
-          />
-          <q-input
-            placeholder="Ingrese número de identificación"
-            v-model="reg.nombre_corrspndnte"
-            class="q-ml-lg col-3"
-            type="textarea"
-            maxlength="15"
-            autogrow
-            counter
-            dense
-          />
-          <p class="text-justify">
-            Con propósitos puramente académicos y científicos, haciendo uso de la información que de forma
-            verídica le he referido, exámenes de laboratorio y demás estudios que él ha considerado
-            pertinentes. Del mismo modo solicita mi permiso para tomar fotografías clínicas que serán
-            utilizadas de manera profesional. Manifiesto que he sido informado que esta información podrá
-            ayudar a personas que padezcan la misma condición médica, que la identidad no será revelada y que
-            siempre se velará por que la privacidad y anonimato se mantengan en todo momento, así mismo no
-            recibiré una contribución económica por el uso de dicha información.
-          </p>
-        </div>
-        <div class="row" v-show="reg.opcion_hc004 == 'AUTORIZAR'">
-          <p class="text-justify">
-            Basado en lo anterior, autorizo al doctor la reproducción de la información antes mencionada y el
-            uso de las fotografías que ha tomado bajo mi autorización.
-          </p>
-        </div>
-        <div class="row" v-show="reg.opcion_hc004 == 'REVOCAR'">
-          <p class="text-justify">
-            Expreso mi voluntad de
-            <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto que,
-            tras la información recibida, no consiento la divulgación del contenido anteriormente mencionado
-          </p>
-          <p>por los siguientes motivos:</p>
+          <p>declaro que:</p>
           <Input_
             style="min-width: 100%; display: inline-block"
-            v-model="reg.revocar_motivos"
-            :field="form.revocar_motivos"
+            v-model="reg.rechazo_remitido"
+            :field="form.rechazo_remitido"
+          />
+          <p>El doctor (a) / o responsable,</p>
+          <q-input v-model="getProf.descrip" type="text" class="col-4" disable dense />
+          <p>me ha explicado claramente la necesidad de ser trasladado a</p>
+          <p style="margin-top: -5px;">
+            centro de mayor complejidad a razón de mis condiciones clínicas. Igualmente me han explicado de
+            los riesgos y consecuencias al rechazar esta remisión, declaro la decisión de permanecer en esta
+            institución por:
+          </p>
+          <Input_
+            style="min-width: 100%; display: inline-block"
+            v-model="reg.motivo_rechazo"
+            :field="form.motivo_rechazo"
           />
         </div>
       </q-form>
@@ -129,7 +99,7 @@
       </div>
       <div class="col-12 row justify-center q-my-md">
         <q-btn
-          :disable="reg.opcion_hc004 ? false : true"
+          :disable="reg.opcion_hc005 ? false : true"
           @click="validarDatos"
           icon-right="check_circle"
           class="q-mr-lg"
@@ -145,7 +115,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat } from "@/formatos/utils";
-// import { impresionHIC004, impresion, generarArchivo } from "@/impresiones";
+// import { impresionHIC005, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -165,18 +135,29 @@ const firma_prof = ref(null);
 const huella_paci = ref(null);
 
 const reg = ref({
-  opcion_hc004: "",
+  opcion_hc005: "",
   fecha_act: "",
+  hora_act: "",
   nombre_corrspndnte: "",
   id_corrspndnte: "",
-  revocar_motivos: "",
+  rechazo_remitido: "Rechazo ser remitido a",
+  motivo_rechazo: "",
 });
 
 const form = ref({
-  revocar_motivos: {
-    id: "revocar_motivos",
-    maxlength: "285",
+  rechazo_remitido: {
+    id: "rechazo_remitido",
+    maxlength: "100",
     label: "",
+    required: true,
+    standout: false,
+    outlined: false,
+    campo_abierto: true,
+  },
+  motivo_rechazo: {
+    id: "motivo_rechazo",
+    maxlength: "285",
+    label: "Motivo rechazo",
     required: true,
     standout: false,
     outlined: false,
@@ -184,16 +165,9 @@ const form = ref({
   },
 });
 
-// watch(opcion_hc004, (val) => {
-//   if (val == "AUTORIZAR") {
-//     reg.value.revocar_motivos = "";
-//   } else {
-//     reg.value.diagnostico = "";
-//   }
-// });
-
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  reg.value.hora_act = dayjs().format("HH:mm");
   llave.value = getHc.llave.slice(15);
   getFirmaProf();
 });

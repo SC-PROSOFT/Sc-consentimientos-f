@@ -89,4 +89,14 @@ export const createRouteLab = (title) => [
       descrip: "Consentimiento informado resonancia magnética nuclear",
     },
   },
+  {
+    path: "/LAB010",
+    name: "LAB010",
+    component: () => import("@/views/lab/LAB010.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB010`,
+      descrip: "Consentimiento informado tomografía axial computarizada",
+    },
+  },
 ];

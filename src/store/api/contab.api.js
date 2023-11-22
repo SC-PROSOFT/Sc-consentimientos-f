@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
-import { regEncabezado, empresas } from "@/fuentes";
+import { regEncabezado } from "@/fuentes";
 import { useModuleFormatos } from "@/store";
+import env_package from "./../../../package.json";
 
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({
@@ -13,16 +14,6 @@ export const useApiContabilidad = defineStore("contabilidad", {
     getEncabezado() {
       if (this.encabezado.codigo) return this.encabezado;
       else if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
-    },
-
-    /*getNit Configurar para despliegue el nit de la empresa asi
-     buscara la ip para conectarse  apenas inicie la pagina*/
-
-    getNit() {
-      return 844003225;
-    },
-    getIp() {
-      return empresas[this.getNit].ip_servicio;
     },
     getImgBs64: () =>
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
@@ -39,6 +30,37 @@ export const useApiContabilidad = defineStore("contabilidad", {
         this.encabezado = encabezado;
         sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
       }
+    },
+    getVersionBuild$({}) {
+      return new Promise((resolve, reject) => {
+        fetch(`https://api.github.com/repos/${process.env.USER_GIT}/SETUP-CONSEN-VUE/releases/latest`)
+          .then((response) => response.json())
+          .then((release) => {
+            if (release.message) reject("Credenciales erroneas");
+            if (env_package.version != release.name) resolve(release.name);
+          })
+          .catch((error) => console.error(error));
+      });
+    },
+    actualizarVersion$({}) {
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/actualizar-versiones`,
+          method: "POST",
+          params: {
+            modulo: "CONSEN",
+            directorio_modulo: `${validarDiscoDeploy(this.empresa.nitusu)}:/WEB/consentimientos`,
+          },
+          loader: true,
+        })
+          .then((response) => {
+            resolve(response.message);
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
     },
     getDll$({ data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {
@@ -95,9 +117,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
 
     guardarFile$({ base64 = "", ruta = "", codigo = "", formato = "png", loader = true }) {
       if (this.empresa.unid_prog == "S") {
-        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
       }
 
       return new Promise((resolve, reject) => {
@@ -116,11 +138,12 @@ export const useApiContabilidad = defineStore("contabilidad", {
     },
 
     _getLogo$({ nit = 0, formato = "png" }) {
+      nit = Number(this.empresa.nitusu);
       let ruta;
       if (this.empresa.unid_prog == "S") {
-        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/LOGOS`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/LOGOS`;
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/LOGOS`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/LOGOS`;
       }
       return new Promise((resolve, reject) => {
         apiAxios({
@@ -168,10 +191,10 @@ export const useApiContabilidad = defineStore("contabilidad", {
     _getHuella$({ codigo = 0, formato = "png" }) {
       let ruta;
       if (this.empresa.unid_prog == "S") {
-        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/DATOS/BIOMETRIA`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/BIOMETRIA`;
         formato = "bin";
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/DATOS/BIOMETRIA`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/BIOMETRIA`;
       }
 
       return new Promise((resolve, reject) => {
@@ -194,9 +217,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
     _getImagen$({ codigo = 0, formato = "png" }) {
       let ruta;
       if (this.empresa.unid_prog == "S") {
-        ruta = `${empresas[this.getNit].disco}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${empresas[this.getNit].disco}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
       }
 
       return new Promise((resolve, reject) => {
@@ -222,3 +245,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
     },
   },
 });
+
+const validarDiscoDeploy = (nitusu) => {
+  if ([844003225].includes(Number(nitusu))) {
+    return "E";
+  } else return "D";
+};

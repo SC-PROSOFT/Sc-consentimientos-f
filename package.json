@@ -1,7 +1,7 @@
 {
-  "name": "my-vue-app",
+  "name": "consentimientos",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.5",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@octokit/rest": "^19.0.7",
     "@quasar/extras": "^1.16.7",
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",

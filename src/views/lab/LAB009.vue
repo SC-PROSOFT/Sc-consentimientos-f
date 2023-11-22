@@ -27,6 +27,8 @@
         <div class="row justify-center border-format q-my-sm">
           <q-checkbox
             left-label
+            true-value="S"
+            false-value="N"
             v-model="reg.reso_mag.proces"
             label="PROCEDIMIENTO QUE REQUIERE MEDIO DE CONTRASTE (GADOLINIO)"
           />
@@ -89,24 +91,32 @@
           <div class="col-3">
             <div class="row items-center">
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.marcapasos"
                 label="Marcapasos"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.electrodos"
                 label="Electrodos"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.audifonos"
                 label="Audifonos"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.stents"
@@ -117,24 +127,32 @@
           <div class="col-3">
             <div class="row items-center">
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.neuroestimuladores"
                 label="Neuroestimuladores"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.valvula_derivacion"
                 label="Válvula de derivación"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.esquirlas_metalicas"
                 label="Esquirlas metálicas"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.protesis_auriculares"
@@ -145,24 +163,32 @@
           <div class="col-3">
             <div class="row items-center">
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.protesis_dental"
                 label="Prótesis dentales"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.suturas_metalicas"
                 label="Suturas metálicas"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.bomba_insulina"
                 label="Bomba de insulina"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.implantes_auditivos"
@@ -173,24 +199,32 @@
           <div class="col-3">
             <div class="row items-center">
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.disp_intrauterino"
                 label="Dispositivo Intrauterino"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.barras_harrington"
                 label="Barras de Harrington"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.clips_quirurgicos"
                 label="Clips o ganchos quirúrgicos"
               />
               <q-checkbox
+                true-value="S"
+                false-value="N"
                 left-label
                 class="col-12 border-format"
                 v-model="reg.reso_mag.protesis_cadera"
@@ -202,6 +236,8 @@
         <div class="row">
           <div class="col-6 border-format" align="center">
             <q-checkbox
+              true-value="S"
+              false-value="N"
               left-label
               class="col-12"
               v-model="reg.reso_mag.desfibrilador"
@@ -210,6 +246,8 @@
           </div>
           <div class="col-6 border-format" align="center">
             <q-checkbox
+              true-value="S"
+              false-value="N"
               left-label
               class="col-12"
               v-model="reg.reso_mag.fractura_tratadas"
@@ -248,76 +286,206 @@
             Especifique
           </div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_1"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_1"
+            :field="
+              ((form.especifique_1.disable = reg.proce_cont.check.p_1 == 'S' ? false : true),
+              form.especifique_1)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">
             ¿Presentó alguna reacción adversa al medio de contraste (Gadolinio)? Especifique
           </div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_2"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_2"
+            :field="
+              ((form.especifique_2.disable = reg.proce_cont.check.p_2 == 'S' ? false : true),
+              form.especifique_2)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Presenta enfermedades del corazón? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_3"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_3"
+            :field="
+              ((form.especifique_3.disable = reg.proce_cont.check.p_3 == 'S' ? false : true),
+              form.especifique_3)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Presenta enfermedades de los riñones? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_4"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_4"
+            :field="
+              ((form.especifique_4.disable = reg.proce_cont.check.p_4 == 'S' ? false : true),
+              form.especifique_4)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Presenta enfermedades del hígado? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_5"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_5"
+            :field="
+              ((form.especifique_5.disable = reg.proce_cont.check.p_5 == 'S' ? false : true),
+              form.especifique_5)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Padece de asma? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_6"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_6"
+            :field="
+              ((form.especifique_6.disable = reg.proce_cont.check.p_6 == 'S' ? false : true),
+              form.especifique_6)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">
             ¿Presenta algún tipo de alergia? (a medicamentos, alimentos, otras sustancias) Especifique
           </div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_7"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_7"
+            :field="
+              ((form.especifique_7.disable = reg.proce_cont.check.p_7 == 'S' ? false : true),
+              form.especifique_7)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Padece de diabetes? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_8"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_8"
+            :field="
+              ((form.especifique_8.disable = reg.proce_cont.check.p_8 == 'S' ? false : true),
+              form.especifique_8)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Padece de otro tipo de enfermedad? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_9"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_9"
+            :field="
+              ((form.especifique_9.disable = reg.proce_cont.check.p_9 == 'S' ? false : true),
+              form.especifique_9)
+            "
+          />
         </div>
         <div class="row">
           <div class="col-5 border-format">¿Consume medicamentos? Especifique</div>
           <div class="col-1 border-format">
-            <q-checkbox left-label class="col-12" v-model="reg.proces" />
+            <q-checkbox
+              left-label
+              class="col-12"
+              v-model="reg.proce_cont.check.p_10"
+              true-value="S"
+              false-value="N"
+            />
           </div>
-          <TextArea_ class="col-6 border-format" v-model="reg.especifique_1" :field="form.especifique_1" />
+          <TextArea_
+            class="col-6 border-format"
+            v-model="reg.proce_cont.especifique_10"
+            :field="
+              ((form.especifique_10.disable = reg.proce_cont.check.p_10 == 'S' ? false : true),
+              form.especifique_10)
+            "
+          />
         </div>
         <div class="border-format">
           Recuerde que si su examen requiere la administración de medio de contraste endovenoso, el auxiliar
@@ -366,10 +534,8 @@
           :huella_="huella_paci"
           class="col-4"
         />
-
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
           @reciFirma="callBackFirmaAcomp"
           :registro_profe="getAcomp.cod"
           quien_firma="TESTIGO"
@@ -406,6 +572,7 @@ import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
+import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
@@ -428,52 +595,31 @@ const datos = {
   servicio: "",
 };
 
-const form = ref({
-  especifique_1: {
-    id: "especifique_1",
-    label: "",
-    placeholder: "",
-    counter: false,
-    maxlength: "60",
-    required: true,
-    campo_abierto: true,
-  },
-});
-
 const reg = ref({
   reso_mag: {
-    protesis_auriculares: false,
-    implantes_auditivos: false,
-    esquirlas_metalicas: false,
-    neuroestimuladores: false,
-    valvula_derivacion: false,
-    suturas_metalicas: false,
-    disp_intrauterino: false,
-    barras_harrington: false,
-    clips_quirurgicos: false,
-    fractura_tratadas: false,
-    protesis_dental: false,
-    protesis_cadera: false,
-    bomba_insulina: false,
-    desfibrilador: false,
-    marcapasos: false,
-    electrodos: false,
-    audifonos: false,
-    proces: false,
-    stents: false,
+    protesis_auriculares: "N",
+    implantes_auditivos: "N",
+    esquirlas_metalicas: "N",
+    neuroestimuladores: "N",
+    valvula_derivacion: "N",
+    suturas_metalicas: "N",
+    disp_intrauterino: "N",
+    barras_harrington: "N",
+    clips_quirurgicos: "N",
+    fractura_tratadas: "N",
+    protesis_dental: "N",
+    protesis_cadera: "N",
+    bomba_insulina: "N",
+    desfibrilador: "N",
+    marcapasos: "N",
+    electrodos: "N",
+    audifonos: "N",
+    proces: "N",
+    stents: "N",
   },
 
   proce_cont: {
-    p_1: "",
-    p_2: "",
-    p_3: "",
-    p_4: "",
-    p_5: "",
-    p_6: "",
-    p_7: "",
-    p_8: "",
-    p_9: "",
-    p_10: "",
+    check: {},
   },
 
   //extras
@@ -482,12 +628,53 @@ const reg = ref({
   edad: "",
 });
 
+const form = ref({});
+
+for (let i = 1; i < 11; i++) {
+  reg.value.proce_cont[`especifique_${i}`] = "";
+  reg.value.proce_cont.check[`p_${i}`] = "N";
+
+  form.value[`especifique_${i}`] = {
+    id: `especifique_${i}`,
+    label: "",
+    placeholder: "",
+    counter: false,
+    maxlength: "60",
+    required: true,
+    disable: true,
+    campo_abierto: true,
+  };
+}
+
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   reg.value.edad = calcEdad(getPaci.nacim);
+  getFirmaProf();
 });
 
-const validarDatos = () => {};
+const getFirmaProf = async () => {
+  try {
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+
+const validarDatos = () => {
+  try {
+    let cont = 1;
+    for (const i in reg.value.proce_cont.check) {
+      if (reg.value.proce_cont.check[i] == "S" && !reg.value.proce_cont[`especifique_${cont}`]) {
+        return CON851("?", "info", "Campo requerido", () => foco_(form, `especifique_${cont}`));
+      }
+      cont++;
+    }
+  } catch (error) {
+    CON851("?", "error", "error validando datos");
+  }
+};
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma.slice(22));
