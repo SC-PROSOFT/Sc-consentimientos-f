@@ -74,7 +74,7 @@
                 :field="form_config.version"
               />
               <Input_
-                class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mb-sm"
                 v-model="reg_config.reviso"
                 :field="form_config.reviso"
               />
@@ -84,6 +84,13 @@
                 width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
                 v-model="reg_config.habilitar"
                 :field="form_config.habilitar"
+              />
+              <Toggle_
+                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
+                width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
+                v-model="reg_config.cod_iso"
+                :field="form_config.cod_iso"
               />
               <Toggle_
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
@@ -167,6 +174,7 @@ const reg_config = ref({
   reviso: null,
   version: null,
   habilitar: null,
+  cod_iso: null,
   rango_edad: null,
   edad_desde: null,
   edad_hasta: null,
@@ -230,6 +238,12 @@ const form_config = ref({
     id: "habilitar",
     label: "Activar consentimiento",
     f0: ["f3"],
+    required: true,
+    campo_abierto: true,
+  },
+  cod_iso: {
+    id: "cod_iso",
+    label: "Activar ISO",
     required: true,
     campo_abierto: true,
   },
