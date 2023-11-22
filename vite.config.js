@@ -18,6 +18,7 @@ export default defineConfig({
       BASE_URL: modulo,
       API: "/api/v1/",
       APP: `${modulo}/v2/app`,
+      USER_GIT: "SC-PROSOFT",
       PORT: 8787,
     },
   },
