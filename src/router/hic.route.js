@@ -51,13 +51,43 @@ export const createRouteHic = (title) => [
     },
   },
   {
+    path: "/HIC012",
+    name: "HIC012",
+    component: () => import("@/views/hic/HIC012.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC012`,
+      descrip: "Consentimiento informado insercion y/o retiro implante subdermico JADELL",
+    },
+  },
+  {
+    path: "/HIC015",
+    name: "HIC015",
+    component: () => import("@/views/hic/HIC015.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC015`,
+      descrip: "Consentimiento informado procedimientos especiales",
+    },
+  },
+  {
+    path: "/HIC016",
+    name: "HIC016",
+    component: () => import("@/views/hic/HIC016.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC016`,
+      descrip: "consentimiento informado para dilatación bajo cicloplejia",
+    },
+  },
+  {
     path: "/HIC030",
     name: "HIC030",
     component: () => import("@/views/hic/HIC030.vue"),
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC030`,
-      descrip: "Consentimiento informado para la toma de citología."
+      descrip: "Consentimiento informado para la toma de citología.",
     },
   },
   {
