@@ -59,11 +59,25 @@ export const useModuleFormatos = defineStore("formatos", {
       if (this.reg_hc.llave) return this.reg_hc;
       else if (sessionStorage.reg_hc) return JSON.parse(sessionStorage.reg_hc);
     },
+    getDiag() {
+      if (sessionStorage.diagnosticos) return JSON.parse(sessionStorage.diagnosticos);
+      else return [];
+    },
+    getArtic() {
+      if (sessionStorage.articulos) return JSON.parse(sessionStorage.articulos);
+      else return [];
+    },
   },
   actions: {
     setHc(reg_hic) {
       sessionStorage.setItem("reg_hc", JSON.stringify(reg_hic));
       Object.assign(this.reg_hc, reg_hic);
+    },
+    setDiag(diagnosticos) {
+      sessionStorage.setItem("diagnosticos", JSON.stringify(diagnosticos));
+    },
+    setArtic(articulos) {
+      sessionStorage.setItem("articulos", JSON.stringify(articulos));
     },
     setPaci(reg_paci) {
       sessionStorage.setItem("reg_paci", JSON.stringify(reg_paci));
