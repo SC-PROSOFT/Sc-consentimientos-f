@@ -4,7 +4,7 @@
       <q-form @submit="validarDatos">
         <div class="text-center">
           <q-toggle
-            v-model="reg.opcion_hc004"
+            v-model="reg.opcion_hc010"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,13 +13,13 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="reg.opcion_hc004 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+          <p :class="reg.opcion_hc010 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
             <q-chip
-              :color="reg.opcion_hc004 == 'AUTORIZAR' ? 'green' : 'red'"
+              :color="reg.opcion_hc010 == 'AUTORIZAR' ? 'green' : 'red'"
               class="text-white"
-              v-if="reg.opcion_hc004"
+              v-if="reg.opcion_hc010"
             >
-              {{ reg.opcion_hc004 }}
+              {{ reg.opcion_hc010 }}
             </q-chip>
           </p>
         </div>
@@ -35,65 +35,56 @@
         <div class="q-mt-lg row">
           <p>Yo,</p>
           <q-input v-model="getPaci.descrip" type="text" class="col-5" disable dense />
-          <p>, identificado (a) con cedula numero</p>
+          <p>, mayor de edad identificada con el documento N°:</p>
           <q-input v-model="getPaci.cod" type="text" class="col-2" disable dense />
-          <p>expedida en</p>
+          <p>de</p>
           <q-input v-model="getPaci.descrip_ciudad" type="text" class="col-2" disable dense />
-          <p>actuando en nombre propio. Por medio de la presente, declaro que el doctor</p>
-          <q-input v-model="getProf.descrip" type="text" class="col-3" disable dense />
-          <p>, identificado (a) con cédula N°</p>
-          <q-input v-model="getProf.cod" type="text" class="col-2" disable dense />
+          <p>, actuando en nombre propio en pleno uso de mis facultades, libre y consciente, declaro que:</p>
+        </div>
+        <div class="q-mt-lg row">
           <p>
-            me ha informado sobre su intención de divulgar y hacer público el caso clínico correspondiente a:
+            Otorgo mi consentimiento para que sea practicado el procedimiento de
+            <span style="font-weight: bold">TOMA DE CITOLOGIA VAGINAL COMO TAMIZAJE</span> del cual se me
+            brindo información y se me han explicado tanto la necesidad de hacerlo como los riesgos
           </p>
-          <q-input
-            placeholder="Ingrese nombre completo"
-            v-model="reg.nombre_corrspndnte"
-            type="textarea"
-            maxlength="50"
-            class="col-6"
-            autogrow
-            counter
-            dense
-          />
-          <q-input
-            placeholder="Ingrese número de identificación"
-            v-model="reg.nombre_corrspndnte"
-            class="q-ml-lg col-3"
-            type="textarea"
-            maxlength="15"
-            autogrow
-            counter
-            dense
-          />
-          <p class="text-justify">
-            Con propósitos puramente académicos y científicos, haciendo uso de la información que de forma
-            verídica le he referido, exámenes de laboratorio y demás estudios que él ha considerado
-            pertinentes. Del mismo modo solicita mi permiso para tomar fotografías clínicas que serán
-            utilizadas de manera profesional. Manifiesto que he sido informado que esta información podrá
-            ayudar a personas que padezcan la misma condición médica, que la identidad no será revelada y que
-            siempre se velará por que la privacidad y anonimato se mantengan en todo momento, así mismo no
-            recibiré una contribución económica por el uso de dicha información.
+          <p>
+            El procedimiento anteriormente descrito no requiere anestesia, Favorece el diagnóstico oportuno de
+            cáncer de cuello uterino, ya que detecta a tiempo cambios celulares
+          </p>
+          <p>
+            Se realiza con la ayuda de un espéculo, un cepillo pequeño con el que se toma la muestra en la
+            parte interna y una espátula con la que se hace lo mismo pero en la parte externa; estas muestras
+            de células se extienden sobre una lámina de vidrio para luego ser analizadas en el laboratorio.
+          </p>
+          <p>La toma de la citología no representa riesgo para la salud de la paciente</p>
+          <p>
+            NO es un examen doloroso pero puede considerarse un poco incómodo si la mujer está tensa en el
+            momento de tomar la muestra
           </p>
         </div>
-        <div class="row" v-show="reg.opcion_hc004 == 'AUTORIZAR'">
-          <p class="text-justify">
-            Basado en lo anterior, autorizo al doctor la reproducción de la información antes mencionada y el
-            uso de las fotografías que ha tomado bajo mi autorización.
-          </p>
+        <div style="border: 1px solid #ccc"></div>
+        <div class="text-center" v-show="reg.opcion_hc010 == 'AUTORIZAR'">
+          <p>Certifico que se me ha explicado el procedimiento y entiendo sus posibles riesgos</p>
+          <p style="font-weight: bold">HE LEIDO Y ACEPTO REALIZARME EL PROCEDIMIENTO</p>
         </div>
-        <div class="row" v-show="reg.opcion_hc004 == 'REVOCAR'">
-          <p class="text-justify">
-            Expreso mi voluntad de
-            <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto que,
-            tras la información recibida, no consiento la divulgación del contenido anteriormente mencionado
-          </p>
-          <p>por los siguientes motivos:</p>
-          <Input_
-            style="min-width: 100%; display: inline-block"
-            v-model="reg.revocar_motivos"
-            :field="form.revocar_motivos"
-          />
+        <div class="q-mt-lg" style="border: 1px solid #ccc" v-show="reg.opcion_hc010 == 'REVOCAR'">
+          <div class="row justify-center">
+            <p style="font-weight: bold">REVOCACIÓN</p>
+          </div>
+          <div class="q-mb-lg row">
+            <p>
+              Expreso mi voluntad de
+              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto
+              que, tras la información recibida, no consiento someterme al procedimiento de TOMA DE CITOLOGIA
+              VAGINAL COMO TAMIZAJE.
+            </p>
+            <p>por los siguientes motivos:</p>
+            <Input_
+              style="min-width: 100%; display: inline-block"
+              v-model="reg.revocar_motivos"
+              :field="form.revocar_motivos"
+            />
+          </div>
         </div>
       </q-form>
     </q-card-section>
@@ -165,10 +156,8 @@ const firma_prof = ref(null);
 const huella_paci = ref(null);
 
 const reg = ref({
-  opcion_hc004: "",
+  opcion_hc010: "",
   fecha_act: "",
-  nombre_corrspndnte: "",
-  id_corrspndnte: "",
   revocar_motivos: "",
 });
 
@@ -183,15 +172,6 @@ const form = ref({
     campo_abierto: true,
   },
 });
-
-// watch(opcion_hc004, (val) => {
-//   if (val == "AUTORIZAR") {
-//     reg.value.revocar_motivos = "";
-//   } else {
-//     reg.value.diagnostico = "";
-//   }
-// });
-
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
