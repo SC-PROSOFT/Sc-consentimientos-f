@@ -9,7 +9,7 @@
       }"
     >
       <div class="row">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 q-mt-lg">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 q-my-auto">
           <LottieAnimation
             :animation-data="estructura.lottie"
             style="height: 100px"
