@@ -185,7 +185,18 @@ const reg = ref({
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   reg.value.edad = calcEdad(getPaci.nacim);
+  getFirmaProf();
 });
+
+const getFirmaProf = async () => {
+  try {
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
 
 const validarDatos = () => {};
 
