@@ -196,7 +196,7 @@ const servicio = ref({
 });
 
 const emit = defineEmits(["datos"]);
-watchEffect(() => servicio.value.select && emit("datos", servicio.value.select));
+watchEffect(() => emit("datos", servicio.value.select));
 
 const datos_comp = computed(() => {
   const name = separarNombre();
