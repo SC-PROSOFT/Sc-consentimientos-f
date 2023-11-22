@@ -49,9 +49,7 @@ import { defineAsyncComponent, onMounted, ref } from "vue";
 import { regAcomp } from "@/fuentes";
 import { useRoute } from "vue-router";
 
-const ConfigMaestros_ = defineAsyncComponent(() =>
-  import("@/components/consen/ConfigMaestros.vue")
-);
+const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const ListaConsentimientos_ = defineAsyncComponent(() =>
@@ -65,7 +63,7 @@ const form_paci = ref({
 });
 
 const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
-const { getDll$, getNit, getIp, _getLogo$ } = useApiContabilidad();
+const { getDll$, _getLogo$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const configuracion = ref({ estado: false });
@@ -81,7 +79,8 @@ onMounted(() => {
 
 const verificarSesion = async () => {
   try {
-    localStorage.setItem("ip", getIp);
+    localStorage.setItem("ip", "34.234.185.158");
+    // localStorage.setItem("ip", window.location.hostname);
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
@@ -96,7 +95,7 @@ const verificarSesion = async () => {
 
 const getLogo = async () => {
   try {
-    const img = await _getLogo$({ nit: getNit });
+    const img = await _getLogo$({});
     sessionStorage.setItem("logo", img);
     validarUrl();
   } catch (error) {

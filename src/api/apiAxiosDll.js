@@ -1,5 +1,6 @@
 import { default as axios } from "axios";
 import { useModuleLoader } from "@/store";
+import { msgCon852_, msgCon851_ } from "@/fuentes";
 
 export const apiAxiosDll = ({
   url,
@@ -12,6 +13,7 @@ export const apiAxiosDll = ({
 }) => {
   return new Promise((resolve, reject) => {
     const URl = `http://${localStorage.ip}:${process.env.PORT}${process.env.API}`;
+
     let config = {
       url: `${URl}${url}`,
       method,
@@ -38,7 +40,7 @@ export const apiAxiosDll = ({
         return response.data;
       })
       .then((respuesta) => {
-        let encode = encodeURI(respuesta);
+        let encode = encodeURI(JSON.stringify(respuesta));
         encode = encode.replace(
           /%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20/g,
           ""
@@ -47,16 +49,39 @@ export const apiAxiosDll = ({
         encode = encode.replace(/%0A/g, "");
         let decode = decodeURI(encode);
         decode = decode.replace(/[\u0000-\u0019]+/g, "");
-        const response = JSON.parse(decode.replace(/"\s+|\s+"/g, '"'));
-        return response;
+
+        return JSON.parse(decode);
       })
       .then((response) => {
         if (response.STATUS == "00") resolve(response.MENSAJE);
-        else if (response.MENSAJE) {
-          let mensaje = response.MENSAJE;
-          /* VALIDAR ERRORES DE COBOL */
-          reject(mensaje);
-        } else resolve(response.MENSAJE);
+        else {
+          let code = response.STATUS.split("-")[0],
+            tipo = response.STATUS.split("-")[1],
+            mensaje = response.MENSAJE,
+            app = response.PROGRAM,
+            msj = "";
+
+          if (code == "SC") {
+            if (mensaje.length == 2) msj = msgCon851_(mensaje.padStart(2, "0"));
+            else msj = mensaje;
+          } else {
+            msj = msgCon852_(code.padStart(2, "0"));
+            msj = msj + ": " + mensaje;
+          }
+          if (!tipo || tipo == "2") {
+            if (mensaje == "15") msj = msj + " - " + opc;
+
+            let respuesta_error = `
+            Error - ${code} <br>
+            Mensaje: ${msj} <br>
+            App: ${app}`;
+
+            console.error({ codigo: code, mensaje: msj, dll: app });
+            reject(respuesta_error);
+          } else {
+            reject(response);
+          }
+        }
       })
       .catch((error) => {
         const status = {

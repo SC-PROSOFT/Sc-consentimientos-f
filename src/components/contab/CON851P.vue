@@ -29,9 +29,7 @@
             </div>
             <q-separator :color="estructura.color" class="q-pb-xs" />
           </q-card-section>
-          <q-card-section class="q-pt-none text-center text-h7">
-            {{ mensaje_ }}
-          </q-card-section>
+          <q-card-section class="q-pt-none text-center text-h7" v-html="mensaje_"> </q-card-section>
           <q-card-actions align="center" class="text-primary text-center">
             <q-btn
               outline
