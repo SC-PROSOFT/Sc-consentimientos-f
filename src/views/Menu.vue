@@ -133,7 +133,6 @@ const validarUrl = async () => {
 };
 
 async function getPaciente() {
-  console.log("get paci");
   const cod_paci = datos_session.llave_hc.slice(0, 15) || "";
 
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
@@ -203,7 +202,6 @@ const abrirConfiguracion = async () => {
 const getVersionBuild = async () => {
   if (!["ADMI", "GEBC"].includes(datos_session.oper)) return;
   try {
-    console.log("getVersionBuild");
     const response = await getVersionBuild$({});
     datos_actualizacion.value.estado = true;
     datos_actualizacion.value.mensaje = `La nueva versión ${response} de consentimientos ya esta disponible.
