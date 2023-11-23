@@ -23,7 +23,7 @@
             </q-chip>
           </p>
         </div>
-        <DatosFormat :datos="datos" @datos="(data) => (datos.servicio = data)" />
+        <DatosFormat :datos="datos" @datos="(data) => (reg.servicio = data)" />
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
@@ -175,7 +175,6 @@ const firma_prof = ref(null);
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
-  servicio: "",
 };
 
 const reg = ref({
@@ -192,6 +191,7 @@ const reg = ref({
   llave_consen: `${getPaci.cod}00000000${dayjs().format("YYYYMMDD")}${dayjs().format("HHmm")}${
     getSesion.oper
   }`,
+  servicio: ""
 });
 
 onMounted(() => {
