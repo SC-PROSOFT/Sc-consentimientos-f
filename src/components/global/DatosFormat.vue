@@ -158,7 +158,7 @@ const props = defineProps({
 });
 
 const servicio = ref({
-  select: "",
+  select: "RX - IMAGENOLOGIA",
   items: [
     { value: "DROGUERIA", label: "DROGUERIA" },
     { value: "CIRUGIAS", label: "CIRUGIAS" },
