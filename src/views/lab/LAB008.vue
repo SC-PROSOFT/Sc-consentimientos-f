@@ -156,7 +156,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, separarNombre, calcEdad } from "@/formatos/utils";
+import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 

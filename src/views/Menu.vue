@@ -69,7 +69,7 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
+const { getPaci, setPaci, setEmpresa, setProf, setAcomp, setDiag, setArtic } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
@@ -91,8 +91,8 @@ onMounted(() => {
 
 const verificarSesion = async () => {
   try {
-    // localStorage.setItem("ip", "34.234.185.158");
-    localStorage.setItem("ip", window.location.hostname);
+    localStorage.setItem("ip", "34.234.185.158");
+    // localStorage.setItem("ip", window.location.hostname);
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
@@ -121,10 +121,15 @@ const validarUrl = async () => {
   } else {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
+
+  if (datos_session.articulos) {
+    setDiag(atob(datos_session.diagnosticos));
+    setArtic(atob(datos_session.articulos));
+  }
+
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
   await getPaciente();
   getVersionBuild();
-  // TODO: QUEDARON PENDIENTES ALGUNA VALIDACIONES
 };
 
 async function getPaciente() {
@@ -197,7 +202,6 @@ const abrirConfiguracion = async () => {
 const getVersionBuild = async () => {
   if (!["ADMI", "GEBC"].includes(datos_session.oper)) return;
   try {
-    console.log("getVersionBuild");
     const response = await getVersionBuild$({});
     datos_actualizacion.value.estado = true;
     datos_actualizacion.value.mensaje = `La nueva versión ${response} de consentimientos ya esta disponible.
