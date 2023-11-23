@@ -46,47 +46,55 @@
             <ToolBarTable_ :titulo="reg_config.descrip" @cerrar="flag = false" />
             <div class="row q-mt-md q-mx-md">
               <Toggle_
-                class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                :class="
+                  reg_config.iso == 'S'
+                    ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mb-md'
+                    : 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mb-lg'
+                "
                 width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
                 width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
                 v-model="reg_config.iso"
                 :field="form_config.iso"
               />
+              <div class="row no-padding no-margin" v-if="reg_config.iso == 'S'">
+                <Input_
+                  class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
+                  width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                  width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  v-model="reg_config.codigo"
+                  :field="form_config.codigo"
+                />
+                <Input_
+                  class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7"
+                  width_label="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                  width_input="col-xs-6 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  v-model="reg_config.aprobo"
+                  :field="form_config.aprobo"
+                />
+                <Input_
+                  class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7"
+                  width_label="col-xs-6 col-sm-7 col-md-7 col-lg-7 col-xl-7"
+                  width_input="col-xs-6 col-sm-5 col-md-5 col-lg-5 col-xl-5"
+                  v-model="reg_config.fecha_aprob"
+                  :field="form_config.fecha_aprob"
+                />
+                <Input_
+                  class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
+                  width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                  width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                  v-model="reg_config.version"
+                  :field="form_config.version"
+                />
+              </div>
               <Input_
-                class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
-                width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+                v-if="reg_config.iso == 'S'"
+                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                width_label="col-xs-8 col-sm-4 col-md-4 col-lg-5 col-xl-4"
                 width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                v-model="reg_config.codigo"
-                :field="form_config.codigo"
-              />
-              <Input_
-                class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                width_label="col-xs-6 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-                width_input="col-xs-6 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                v-model="reg_config.aprobo"
-                :field="form_config.aprobo"
-              />
-              <Input_
-                class="col-xs-12 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                width_label="col-xs-6 col-sm-7 col-md-7 col-lg-7 col-xl-7"
-                width_input="col-xs-6 col-sm-5 col-md-5 col-lg-5 col-xl-5"
-                v-model="reg_config.fecha_aprob"
-                :field="form_config.fecha_aprob"
-              />
-              <Input_
-                class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
-                width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-                v-model="reg_config.version"
-                :field="form_config.version"
-              />
-              <Input_
-                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 q-mb-sm"
-                width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-                width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                 v-model="reg_config.reviso"
                 :field="form_config.reviso"
               />
+
               <Toggle_
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
                 width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
@@ -150,11 +158,10 @@
 <script setup>
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { useModuleCon851, useApiContabilidad } from "@/store";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, watchEffect } from "vue";
 import days from "dayjs";
 
 const { getDll$ } = useApiContabilidad();
-
 const { CON851 } = useModuleCon851();
 
 const props = defineProps({ configuracion: Object });
@@ -169,7 +176,7 @@ const columns = [
 const flag = ref(false);
 const index_item = ref(null);
 
-const reg_config = ref({
+const reg_config_copy = ref({
   codigo: null,
   aprobo: null,
   cod_mae: null,
@@ -185,6 +192,8 @@ const reg_config = ref({
   edad_hasta: null,
   sexo: null,
 });
+const reg_config = ref(Object.assign({}, reg_config_copy.value));
+
 const form_config = ref({
   codigo: {
     id: "codigo",
@@ -288,6 +297,21 @@ const form_config = ref({
   },
 });
 
+watchEffect(() => {
+  if (reg_config.value.iso == "N") resetValues();
+});
+
+const resetValues = () => {
+  const { iso, habilitar, rango_edad } = reg_config.value;
+
+  Object.assign(reg_config.value, {
+    ...reg_config_copy.value,
+    habilitar: habilitar != null ? habilitar : null,
+    iso: iso != null ? iso : null,
+    rango_edad: rango_edad != null ? rango_edad : null,
+  });
+};
+
 const sexos = ref([
   { value: "M", label: "MASCULINO" },
   { value: "F", label: "FEMENINO" },
@@ -337,33 +361,49 @@ const selectConsen = async ({ row }) => {
 };
 
 const actualizarMaestro = async () => {
-  const data_envio = JSON.parse(JSON.stringify(reg_config.value));
-  data_envio.fecha_act = days().format("YYYY-MM-DD").split("-").join("");
-  data_envio.fecha_aprob = data_envio.fecha_aprob.split("-").join("");
+  try {
+    const data_envio = JSON.parse(JSON.stringify(reg_config.value));
+    data_envio.fecha_act = days().format("YYYY-MM-DD").split("-").join("");
+    data_envio.fecha_aprob = data_envio.fecha_aprob?.split("-").join("");
 
-  for (const field of Object.keys(data_envio)) {
-    if (!data_envio[field]) {
-      if (data_envio.rango_edad == "S" || !["iso", "edad_desde", "edad_hasta"].includes(field)) {
-        console.log(field);
-        return CON851("?", "info", `El campo '${form_config.value[field].label.toLowerCase()}' es requerido`);
+    for (const field of Object.keys(data_envio)) {
+      if (!data_envio[field]) {
+        if (data_envio.rango_edad == "S" || !["edad_desde", "edad_hasta"].includes(field)) {
+          if (["habilitar", "iso", "rango_edad", "sexo"].includes(field) && !reg_config.value[field]) {
+            //Si es null
+            return CON851(
+              "?",
+              "info",
+              `Seleccione un valor para el campo '${form_config.value[field].label.toLowerCase()}' `
+            );
+          }
+
+          if (!["S"].includes(reg_config.value.iso)) {
+            console.log("--> ISO", reg_config.value.iso);
+          } else {
+            console.log("entro else");
+            return CON851(
+              "?",
+              "info",
+              `El campo '${form_config.value[field].label.toLowerCase()}' es requerido`
+            );
+          }
+        }
       }
     }
-  }
 
-  Object.assign(maestro_consentimientos.value[index_item.value], data_envio);
-  let datos = {
-    ...data_envio,
-    cod_mae: data_envio.cod_mae,
-    codigo: data_envio.codigo,
-    descrip: data_envio.descrip,
-    version: data_envio.version,
-    fecha_aprob: data_envio.fecha_aprob,
-    aprobo: data_envio.aprobo,
-    reviso: data_envio.reviso,
-    fecha_act: data_envio.fecha_act,
-  };
-
-  try {
+    Object.assign(maestro_consentimientos.value[index_item.value], data_envio);
+    let datos = {
+      ...data_envio,
+      cod_mae: data_envio.cod_mae,
+      codigo: data_envio.codigo,
+      descrip: data_envio.descrip,
+      version: data_envio.version,
+      fecha_aprob: data_envio.fecha_aprob,
+      aprobo: data_envio.aprobo,
+      reviso: data_envio.reviso,
+      fecha_act: data_envio.fecha_act,
+    };
     const response = await getDll$({
       modulo: `set_maeconsen.dll`,
       data: datos,
