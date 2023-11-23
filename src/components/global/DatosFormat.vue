@@ -158,16 +158,16 @@ const props = defineProps({
 });
 
 const servicio = ref({
-  select: "0",
+  select: "",
   items: [
-    { value: "0", label: "DROGUERIA" },
-    { value: "1", label: "CIRUGIAS" },
-    { value: "2", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
-    { value: "3", label: "RX - IMAGENOLOGIA" },
-    { value: "4", label: "OTROS SERVICIOS" },
-    { value: "5", label: "CONSULTA Y TERAPIAS" },
-    { value: "6", label: "PATOLOGIA" },
-    { value: "7", label: "PROMOCION Y PREVENCION" },
+    { value: "DROGUERIA", label: "DROGUERIA" },
+    { value: "CIRUGIAS", label: "CIRUGIAS" },
+    { value: "LABORATORIOS Y OTROS DIAGNOSTICOS", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+    { value: "RX - IMAGENOLOGIA", label: "RX - IMAGENOLOGIA" },
+    { value: "OTROS SERVICIOS", label: "OTROS SERVICIOS" },
+    { value: "CONSULTA Y TERAPIAS", label: "CONSULTA Y TERAPIAS" },
+    { value: "PATOLOGIA", label: "PATOLOGIA" },
+    { value: "PROMOCION Y PREVENCION", label: "PROMOCION Y PREVENCION" },
   ],
   serv_form: {
     label: "",
