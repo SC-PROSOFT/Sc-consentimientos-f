@@ -4,7 +4,7 @@
       <q-form @submit="validarDatos">
         <div class="text-center">
           <q-toggle
-            v-model="LAB008.opcion_lab008"
+            v-model="reg.opcion_lab008"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,13 +13,13 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="LAB008.opcion_lab008 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+          <p :class="reg.opcion_lab008 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
             <q-chip
-              :color="LAB008.opcion_lab008 == 'AUTORIZAR' ? 'green' : 'red'"
+              :color="reg.opcion_lab008 == 'AUTORIZAR' ? 'green' : 'red'"
               class="text-white"
-              v-if="LAB008.opcion_lab008"
+              v-if="reg.opcion_lab008"
             >
-              {{ LAB008.opcion_lab008 }}
+              {{ reg.opcion_lab008 }}
             </q-chip>
           </p>
         </div>
@@ -74,7 +74,7 @@
             biopsia, Sangrado que no se detiene con la presión ni con un vendaje.
           </p>
         </div>
-        <div class="border-format q-my-sm" v-if="LAB008.opcion_lab008 == 'AUTORIZAR'">
+        <div class="border-format q-my-sm" v-if="reg.opcion_lab008 == 'AUTORIZAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
             DECLARACION DEL CONSENTIMIENTO INFORMADO
           </div>
@@ -90,7 +90,7 @@
             que esta autorización puede ser revocable en cualquier momento.
           </p>
         </div>
-        <div class="border-format q-my-sm" v-if="LAB008.opcion_lab008 == 'REVOCAR'">
+        <div class="border-format q-my-sm" v-if="reg.opcion_lab008 == 'REVOCAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
             REVOCACIÓN DEL CONSENTIMIENTO INFORMADO
           </div>
@@ -140,7 +140,7 @@
       </div>
       <div class="col-12 row justify-center q-my-md">
         <q-btn
-          :disable="LAB008.opcion_lab008 ? false : true"
+          :disable="reg.opcion_lab008 ? false : true"
           @click="validarDatos"
           icon-right="check_circle"
           class="q-mr-lg"
@@ -154,9 +154,9 @@
 </template>
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, calcEdad } from "@/formatos/utils";
+import { impresionLAB007, impresion, generarArchivo } from "@/impresiones";
+import { ref, defineAsyncComponent, onMounted } from "vue";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -165,11 +165,11 @@ const DatosFormat = defineAsyncComponent(() => import("@/components/global/Datos
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getArtic, getDiag } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
-const firma_recibida_acomp = ref("");
+const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const firma_prof = ref(null);
 const huella_paci = ref(null);
@@ -179,13 +179,25 @@ const datos = {
   servicio: "",
 };
 
-const LAB008 = ref({
+const reg = ref({
+  codigo_cie1: getDiag[0] ? getDiag[0].codigo : "",
+  descrip_cie1: getDiag[0] ? getDiag[0].descripcion : "",
+  codigo_cie2: getDiag[1] ? getDiag[1].codigo : "",
+  descrip_cie2: getDiag[1] ? getDiag[1].descripcion : "",
+  codigo_cups1: getArtic[0] ? getArtic[0].codigo : "",
+  descrip_cups1: getArtic[0] ? getArtic[0].descripcion : "",
+  codigo_cups2: getArtic[1] ? getArtic[1].codigo : "",
+  descrip_cups2: getArtic[1] ? getArtic[1].descripcion : "",
+  llave_consen: `${getPaci.cod}00000000${dayjs().format("YYYYMMDD")}${dayjs().format("HHmm")}${
+    getSesion.oper
+  }`,
+
   // Extras
-  opcion_lab008: "",
+  opcion_lab008: ""
 });
 
 onMounted(() => {
-  LAB008.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -198,15 +210,136 @@ const getFirmaProf = async () => {
     CON851("?", "info", error);
   }
 };
+const validarDatos = async () => {
+  if (!firma_recibida.value && !getAcomp.cod) {
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (getAcomp.cod && !firma_recibida_test.value) {
+    return CON851("?", "info", "No se ha realizado la firma del testigo");
+  }
 
-const validarDatos = () => {};
+  grabarConsentimiento();
+};
+
+const grabarConsentimiento = async () => {
+  const datos_format = JSON.parse(JSON.stringify(reg.value));
+  let datos = {
+    estado: reg.value.opcion_lab008 == "AUTORIZAR" ? "1" : "2",
+    disentimiento: "N",
+    llave_consen: reg.value.llave_consen,
+    oper_consen: getSesion.oper,
+    cod_consen: "LAB008",
+    cod_med: getProf.cod,
+    id_acomp: getAcomp.cod.padStart(15, "0"),
+    id_testigo: getAcomp.cod.padStart(15, "0"),
+    paren_acomp: getSesion.paren_acomp,
+    ...datos_format,
+  };
+
+  getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
+    .then((data) => {
+      return grabarFirmaConsen();
+    })
+    .catch((error) => {
+      console.error(error);
+      CON851("?", "error", "Error al guardar el consentimiento");
+    });
+};
+
+const grabarFirmaConsen = async () => {
+  try {
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${reg.value.llave_consen}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${reg.value.llave_consen}` });
+
+    if (getEmpresa.envio_email == "N") {
+      await imprimirConsen();
+      return router.back();
+    }
+    
+    return CON851P(
+      "?",
+      "info",
+      "¿Deseas enviar el correo del consentimientos?",
+      async () => {
+        await imprimirConsen();
+        router.back();
+      },
+      async () => {
+        const file = await imprimirConsen();
+        if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
+          return CON851("?", "info", "El correo no es valido", () => router.back());
+        }
+
+        const response = await enviarCorreo$({
+          cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
+          destino: getPaci.email.toLowerCase(),
+          subject: getEncabezado.descrip,
+          file,
+        });
+        CON851("?", response.tipo, response.message, () => router.back());
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+
+const imprimirConsen = async () => {
+  try {
+    const datos_lab008 = {
+      autorizo: reg.value.opcion_lab008 == "AUTORIZAR" ? true : false,
+      empresa: getEmpresa,
+      paciente: getPaci,
+      prof: getProf,
+      acomp: getAcomp,
+      paren_acomp: getSesion.paren_acomp,
+      firmas: {
+        firma_paci: firma_recibida.value ? true : false,
+        huella_paci: huella_paci.value ? true : false,
+        firma_acomp: firma_recibida_test.value ? true : false,
+        firma_prof: firma_prof.value ? true : false,
+      },
+      fecha: reg.value.fecha_act,
+      llave: reg.value.llave_consen,
+      ...reg.value,
+    };
+
+    const firmas = {
+      img_firma_consen: firma_recibida.value,
+      img_firma_paci: firma_recibida.value,
+      img_huella_paci: huella_paci.value,
+      img_firma_acomp: firma_recibida_test.value,
+      firma_prof: firma_prof.value,
+    };
+
+    const docDefinitionPrint = utilsFormat({
+      datos: firmas,
+      content: impresionLAB007({
+        datos: datos_lab008,
+      }),
+    });
+    const docDefinitionFile = utilsFormat({
+      datos: firmas,
+      content: impresionLAB007({
+        datos: datos_lab008,
+      }),
+    });
+
+    await impresion({ docDefinition: docDefinitionPrint });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    return response_impresion;
+  } catch (error) {
+    console.error("error -->", error);
+  }
+};
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma.slice(22));
 };
 
 const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma.slice(22));
+  data_firma && (firma_recibida_test.value = data_firma.slice(22));
 };
 </script>
 <style>
