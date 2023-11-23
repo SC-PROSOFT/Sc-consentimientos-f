@@ -1,3 +1,4 @@
+import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB002 = ({ datos }) => {
@@ -7,7 +8,76 @@ export const impresionLAB002 = ({ datos }) => {
 
   function contenidoSedacion() {
     return {
-      stack: [textoAutoriza(true)],
+      stack: [
+        datosFormatUTM({ datos }),
+        {
+          marginTop: 15,
+          table: {
+            body: [
+              [
+                {
+                  text: "NORMATIVIDAD VIGENTE",
+                  bold: true,
+                  style: "tableTitle",
+                  alignment: "center",
+                },
+              ],
+              [
+                {
+                  text: "La Ley 23 de 1981 al referirse a las relaciones médico – paciente, en los artículos 14, 15 y 18, advierte la necesidad del consentimiento para realizar los diferentes tratamientos medico quirúrgicos que se requieran. Para la resolución 3100 de 2019 el Consentimiento informado es la aceptación libre, voluntaria y consciente de un paciente o usuario, manifestada en el pleno uso de sus facultades, para que tenga a lugar un acto asistencial. Para que el consentimiento se considere informado, el paciente o usuario deberá entender la naturaleza de la decisión a consentir tras recibir información que le haga consciente de los beneficios, riesgos, alternativas e implicaciones del acto asistencial.",
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+              ],
+              [
+                {
+                  text: "INFORMACIÓN DEL PROCEDIMIENTO",
+                  bold: true,
+                  style: "tableTitle",
+                  alignment: "center",
+                },
+              ],
+              [
+                {
+                  text: "La sedación es una práctica médica que se puede considerar como una estrategia para mejorar la calidad del cuidado proporcionado al paciente, llegando incluso a considerarse como un indicador de calidad; se emplea en procedimientos invasivos y no invasivos, de carácter diagnóstico o intervencionista. La sedación consiste en la administración de agentes sedantes o disociativos (medicamentos) para disminuir el dolor, la ansiedad y la incomodidad que pueden producir los procedimientos médicos. La sedación fuera del quirófano hace referencia a la administración de sedación en un entorno diferente a las salas de cirugía, una práctica que puede ser usual en procedimientos de radiología, intervenciones diagnósticas, procedimientos pediátricos o en pacientes psiquiátricos, entre otros.",
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+              ],
+              [
+                {
+                  text: "BENEFICIOS",
+                  bold: true,
+                  style: "tableTitle",
+                  alignment: "center",
+                },
+              ],
+              [
+                {
+                  text: "Con mucha frecuencia la necesidad de obtener imágenes de alta calidad sólo depende de la inmovilidad del paciente, como es en el caso de la resonancia magnética o la tomografía axial computarizada; estos procedimiento no implicann dolor, pero en situaciones donde el enfermo se encuentra ansioso, sufre de claustrofobia o no puede permanecer quieto, las técnicas de sedación o anestesia en ocasiones son indispensables para proporcionarle comodidad y seguridad al paciente.",
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+              ],
+              [
+                {
+                  text: "RIESGOS",
+                  bold: true,
+                  style: "tableTitle",
+                  alignment: "center",
+                },
+              ],
+              [
+                {
+                  text: "La administración de sedación es un proceso complejo y dinámico, que requiere un monitoreo continuo, pues el grado de sedación al que se somete el paciente puede cambiar rápidamente. Los medicamentos empleados para sedación se relacionan con eventos adversos, como la hipotensión, la bradicardia, depresión respiratoria, hipoxia, aspiración, laringoespasmo, que fácilmente pueden poner en riesgo la vida. La administración de sedación fuera de la sala de cirugía incrementa el riesgo de evento adverso, por esto, en UTM el personal involucrado en esta práctica tiene las competencias necesarias para garantizar la seguridad del procedimiento, la sedación se encuentra dirigida por el médico anestesiólogo, quien además acompaña al paciente durante el procedimiento y la recuperación.",
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+              ],
+            ],
+          },
+        },
+        textoAutoriza(true)],
     };
   }
 
