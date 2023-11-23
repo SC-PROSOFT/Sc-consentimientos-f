@@ -113,7 +113,6 @@
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
           class="col-4"
         />
 
@@ -153,7 +152,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, defineAsyncComponent, onMounted, watch, watchEffect } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
@@ -172,11 +171,11 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 
-const datos = {
+const datos = ref({
   tipo_id: getPaci.tipo_id,
   active_cups: true,
   servicio: "",
-};
+});
 
 const reg = ref({
   opcion_lab002: "",
