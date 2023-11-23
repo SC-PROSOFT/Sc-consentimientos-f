@@ -74,10 +74,10 @@ export const useModuleFormatos = defineStore("formatos", {
       Object.assign(this.reg_hc, reg_hic);
     },
     setDiag(diagnosticos) {
-      sessionStorage.setItem("diagnosticos", JSON.stringify(diagnosticos));
+      sessionStorage.setItem("diagnosticos", JSON.parse(JSON.stringify(diagnosticos)));
     },
     setArtic(articulos) {
-      sessionStorage.setItem("articulos", JSON.stringify(articulos));
+      sessionStorage.setItem("articulos", JSON.parse(JSON.stringify(articulos)));
     },
     setPaci(reg_paci) {
       sessionStorage.setItem("reg_paci", JSON.stringify(reg_paci));
