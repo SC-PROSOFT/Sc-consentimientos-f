@@ -44,7 +44,14 @@
         <q-dialog v-model="flag" persistent class="row">
           <q-card style="border-radius: 0.5rem; width: 100%; max-width: 700px; min-width: 700px">
             <ToolBarTable_ :titulo="reg_config.descrip" @cerrar="flag = false" />
-            <div class="row q-mx-md">
+            <div class="row q-mt-md q-mx-md">
+              <Toggle_
+                class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
+                width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
+                v-model="reg_config.iso"
+                :field="form_config.iso"
+              />
               <Input_
                 class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
                 width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
@@ -74,7 +81,9 @@
                 :field="form_config.version"
               />
               <Input_
-                class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mb-sm"
+                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 q-mb-sm"
+                width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+                width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                 v-model="reg_config.reviso"
                 :field="form_config.reviso"
               />
@@ -85,13 +94,7 @@
                 v-model="reg_config.habilitar"
                 :field="form_config.habilitar"
               />
-              <Toggle_
-                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
-                width_input="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"
-                v-model="reg_config.cod_iso"
-                :field="form_config.cod_iso"
-              />
+
               <Toggle_
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
                 width_label="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"
@@ -119,7 +122,9 @@
                 />
               </div>
               <Select_
-                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                width_label="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"
+                width_input="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"
+                class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 q-my-md"
                 v-model="reg_config.sexo"
                 :field="form_config.sexo"
                 :items="sexos"
@@ -174,7 +179,7 @@ const reg_config = ref({
   reviso: null,
   version: null,
   habilitar: null,
-  cod_iso: null,
+  iso: null,
   rango_edad: null,
   edad_desde: null,
   edad_hasta: null,
@@ -241,8 +246,8 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
-  cod_iso: {
-    id: "cod_iso",
+  iso: {
+    id: "iso",
     label: "Activar ISO",
     required: true,
     campo_abierto: true,
@@ -338,7 +343,8 @@ const actualizarMaestro = async () => {
 
   for (const field of Object.keys(data_envio)) {
     if (!data_envio[field]) {
-      if (data_envio.rango_edad == "S" || !["edad_desde", "edad_hasta"].includes(field)) {
+      if (data_envio.rango_edad == "S" || !["iso", "edad_desde", "edad_hasta"].includes(field)) {
+        console.log(field);
         return CON851("?", "info", `El campo '${form_config.value[field].label.toLowerCase()}' es requerido`);
       }
     }
@@ -379,6 +385,7 @@ const getMaestros = async () => {
         listar_todos: "1",
       },
     });
+    console.log(response);
 
     maestro_consentimientos.value = response;
   } catch (error) {
