@@ -213,6 +213,7 @@ const getParametros = async () => {
 
   params_querys.value.modulo == "HIC" && getHistoriaClinica();
   params_querys.value.modulo == "ODO" && getOdontologia();
+  params_querys.value.modulo == "LAB" && getConsentimientosRealizados();
   getMaestros();
 };
 const getOdontologia = async () => {
@@ -246,6 +247,9 @@ const getHistoriaClinica = async () => {
   }
 };
 const getConsentimientosRealizados = async () => {
+  if (params_querys.value.modulo.toUpperCase() == "LAB") {
+    params_querys.value.llave_hc = params_querys.value.llave_hc + "00000000";
+  }
   try {
     const response = await getDll$({
       modulo: `get_consen.dll`,
