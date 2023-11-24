@@ -105,6 +105,8 @@ import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store"
 import { ref, onMounted, defineAsyncComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
+  impresionLAB002,
+  impresionLAB009,
   impresionHC030,
   impresionHC031,
   impresionHC032,
@@ -282,6 +284,8 @@ const disentirConsentimiento = async (row) => {
 };
 const reimprimirConsentimiento = async (row) => {
   const opciones = {
+    LAB002: impresionLAB002,
+    LAB009: impresionLAB009,
     HIC030: impresionHC030,
     HIC031: impresionHC031,
     HIC032: impresionHC032,
