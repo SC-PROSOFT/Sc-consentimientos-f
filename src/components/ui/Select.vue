@@ -1,13 +1,22 @@
 <template>
-  <div class="q-px-sm text-left" :class="field.capitalize ? 'text-capitalize' : ''">
-    <label>{{ field?.label || "" }}</label>
-    <div class="q-gutter-md">
+  <div
+    :class="[
+      field?.capitalize ? 'text-capitalize' : '',
+      width_label ? 'row flex-center self-end' : 'q-px-sm',
+      text_class ? `${text_class} ` : 'text-left ',
+    ]"
+  >
+    <label :class="`${width_label ? `${width_label}   with-background` : ''} `">{{
+      field.label || ""
+    }}</label>
+    <div :class="`${width_input} q-gutter-md` ">
       <q-select
         dense
         standout
         outlined
         focusable
         map-options
+        options-dense
         :id="field.id"
         behavior="menu"
         @blur="blurCaja"
@@ -20,8 +29,8 @@
         :options="items_value"
         :bg-color="color_foco"
         :disable="field.disable"
-        transition-show="scale"
-        transition-hide="scale"
+        transition-show="jump-up"
+        transition-hide="jump-up"
         @keydown.esc="backValidate"
         @keydown.enter="nextValidate"
         @update:model-value="changeSelect"
@@ -34,6 +43,13 @@
             <q-item-section class="text-grey"> Sin datos </q-item-section>
           </q-item>
         </template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps" @click="changeSelect">
+            <q-item-section>
+              <q-item-label>{{ scope.opt[field.option_label || "label"] }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
       </q-select>
     </div>
   </div>
@@ -43,8 +59,11 @@
 import { computed, ref, watch } from "vue";
 
 const props = defineProps({
-  modelValue: String,
+  modelValue: [String, Number],
   items: [Array],
+  text_class: String,
+  width_label: String,
+  width_input: String,
   field: {
     f0: Array,
     id: String,
@@ -95,16 +114,13 @@ watch(flag_foco, (new_value) => {
 
 const asignarFocoSelect = () => {
   if (props.field.disable && props.items.length) return;
-
   setTimeout(() => {
     input_element.value = my_select_ref.value.$el.querySelector("input");
     if (input_element.value) input_element.value.focus();
   }, 50);
 };
 
-const update = ({ value }) => {
-  emit("update:modelValue", value);
-};
+const update = ({ value }) => emit("update:modelValue", value);
 
 const nextValidate = () => {
   !props.field.campo_abierto && (props.field.disable = true);
@@ -120,31 +136,38 @@ const changeSelect = () => {
 };
 const blurCaja = () => {
   flag_foco.value = true;
-  click_select.value = false;
 };
-const clickCaja = () => {
-  click_select.value = true;
+const clickCaja = (click_verdadero) => {
+  if (click_verdadero.isTrusted) click_select.value = click_verdadero.isTrusted;
 };
 const focusCaja = (e) => {
   if (!e.target) return;
-  flag_foco.value = false;
   if (!model_value_.value && props.items.length) {
-    return update({ value: props.items[0][props.field.option_value || "value"] });
+    update({ value: props.items[0][props.field.option_value || "value"] });
   }
+
   input_element.value = my_select_ref.value.$el.querySelectorAll("input");
-  if (input_element.value) {
-    setTimeout(() => {
-      !click_select.value && input_element.value[0].click();
-    }, 150);
-  }
-  scrollToFoco();
+  setTimeout(() => scrollToFoco(), 150);
 };
 
 const scrollToFoco = () => {
   const element_select = document.querySelectorAll(`#${props.field.id}`);
   element_select.forEach((input) => {
     !input.disable &&
-      input.addEventListener("focus", () => input.scrollIntoView({ behavior: "smooth", block: "center" }));
+      input.addEventListener("focus", () =>
+        input.scrollIntoView({ behavior: "smooth", block: "center" })
+      );
+    if (input_element.value) {
+      if (click_select.value && model_value_.value && props.field.campo_abierto) return;
+      !click_select.value && input_element.value[0]?.click(false);
+    }
   });
+  flag_foco.value = false;
 };
 </script>
+<style scoped>
+.margin-input-label {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+</style>

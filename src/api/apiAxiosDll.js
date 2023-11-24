@@ -73,13 +73,13 @@ export const apiAxiosDll = ({
 
             let respuesta_error = `
             Error - ${code} <br>
-            Mensaje: ${msj} <br>
+            Mensaje - ${msj} <br>
             App: ${app}`;
 
             console.error({ codigo: code, mensaje: msj, dll: app });
             reject(respuesta_error);
           } else {
-            reject(response);
+            reject(mensaje);
           }
         }
       })

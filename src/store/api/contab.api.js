@@ -3,6 +3,7 @@ import { apiAxios } from "@/api/apiAxios";
 import { apiAxiosDll } from "@/api/apiAxiosDll";
 import { regEncabezado } from "@/fuentes";
 import { useModuleFormatos } from "@/store";
+import env_package from "./../../../package.json";
 
 export const useApiContabilidad = defineStore("contabilidad", {
   state: () => ({
@@ -29,6 +30,37 @@ export const useApiContabilidad = defineStore("contabilidad", {
         this.encabezado = encabezado;
         sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
       }
+    },
+    getVersionBuild$({}) {
+      return new Promise((resolve, reject) => {
+        fetch(`https://api.github.com/repos/${process.env.USER_GIT}/SETUP-CONSEN-VUE/releases/latest`)
+          .then((response) => response.json())
+          .then((release) => {
+            if (release.message) reject("Credenciales erroneas");
+            if (env_package.version != release.name) resolve(release.name);
+          })
+          .catch((error) => console.error(error));
+      });
+    },
+    actualizarVersion$({}) {
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/actualizar-versiones`,
+          method: "POST",
+          params: {
+            modulo: "CONSEN",
+            directorio_modulo: `${validarDiscoDeploy(this.empresa.nitusu)}:/WEB/consentimientos`,
+          },
+          loader: true,
+        })
+          .then((response) => {
+            resolve(response.message);
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
     },
     getDll$({ data = {}, modulo = "", espacios = false, loader = true }) {
       return new Promise((resolve, reject) => {

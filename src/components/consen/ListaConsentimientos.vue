@@ -262,7 +262,6 @@ const getConsentimientosRealizados = async () => {
       );
     });
   } catch (error) {
-    console.error(error);
     CON851("?", "info", "Error consultado consentimientos");
   }
 };
