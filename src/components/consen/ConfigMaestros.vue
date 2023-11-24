@@ -89,7 +89,7 @@
               <Input_
                 v-if="reg_config.iso == 'S'"
                 class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-                width_label="col-xs-8 col-sm-4 col-md-4 col-lg-5 col-xl-4"
+                width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                 width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                 v-model="reg_config.reviso"
                 :field="form_config.reviso"
@@ -302,13 +302,12 @@ watchEffect(() => {
 });
 
 const resetValues = () => {
-  const { iso, habilitar, rango_edad } = reg_config.value;
-
   Object.assign(reg_config.value, {
-    ...reg_config_copy.value,
-    habilitar: habilitar != null ? habilitar : null,
-    iso: iso != null ? iso : null,
-    rango_edad: rango_edad != null ? rango_edad : null,
+    ...reg_config.value,
+    codigo: null,
+    aprobo: null,
+    fecha_aprob: null,
+    version: null,
   });
 };
 
@@ -342,21 +341,18 @@ const selectConsen = async ({ row }) => {
   const data = row;
   index_item.value = maestro_consentimientos.value.indexOf(data);
 
-  Object.keys(reg_config.value).forEach((key) => {
-    reg_config.value[key] = null;
-  });
+  Object.keys(reg_config.value).forEach((key) => (reg_config.value[key] = null));
 
   setTimeout(() => {
     Object.keys(data).forEach((key) => {
       if (data[key]) {
-        reg_config.value[key] = data[key].trim();
+        reg_config.value[key] = data[key];
         if (key.startsWith("fecha")) {
           reg_config.value[key] = days(data[key].trim()).format("YYYY-MM-DD");
         }
       }
     });
   }, 100);
-
   flag.value = true;
 };
 
@@ -366,29 +362,26 @@ const actualizarMaestro = async () => {
     data_envio.fecha_act = days().format("YYYY-MM-DD").split("-").join("");
     data_envio.fecha_aprob = data_envio.fecha_aprob?.split("-").join("");
 
-    for (const field of Object.keys(data_envio)) {
-      if (!data_envio[field]) {
-        if (data_envio.rango_edad == "S" || !["edad_desde", "edad_hasta"].includes(field)) {
-          if (["habilitar", "iso", "rango_edad", "sexo"].includes(field) && !reg_config.value[field]) {
-            //Si es null
-            return CON851(
-              "?",
-              "info",
-              `Seleccione un valor para el campo '${form_config.value[field].label.toLowerCase()}' `
-            );
-          }
+    const camposo_bligatorios = [
+      { nombre: "habilitar consen", campo: "habilitar" },
+      { nombre: "nit", campo: "iso" },
+      { nombre: "activar por rango de edad", campo: "rango_edad" },
+      { nombre: "activar por sexo", campo: "sexo" },
+    ];
+    if (data_envio.rango_edad == "S") {
+      camposo_bligatorios.push(
+        { nombre: "edad desde", campo: "edad_desde" },
+        { nombre: "edad hasta", campo: "edad_hasta" }
+      );
+    }
+    if (reg_config.value.iso == "S") {
+      camposo_bligatorios.push({ nombre: "codigo", campo: "codigo" }, { nombre: "aprobo", campo: "aprobo" });
+    }
 
-          if (!["S"].includes(reg_config.value.iso)) {
-            console.log("--> ISO", reg_config.value.iso);
-          } else {
-            console.log("entro else");
-            return CON851(
-              "?",
-              "info",
-              `El campo '${form_config.value[field].label.toLowerCase()}' es requerido`
-            );
-          }
-        }
+    for (const campo_info of camposo_bligatorios) {
+      const valorCampo = reg_config.value[campo_info.campo];
+      if (!valorCampo) {
+        return CON851("02", "info", campo_info.nombre, () => foco_(form_config, campo_info.campo));
       }
     }
 
@@ -425,7 +418,6 @@ const getMaestros = async () => {
         listar_todos: "1",
       },
     });
-    console.log(response);
 
     maestro_consentimientos.value = response;
   } catch (error) {
