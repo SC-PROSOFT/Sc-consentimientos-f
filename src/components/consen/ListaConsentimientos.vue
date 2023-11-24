@@ -248,7 +248,7 @@ const getHistoriaClinica = async () => {
 };
 const getConsentimientosRealizados = async () => {
   if (params_querys.value.modulo.toUpperCase() == "LAB") {
-    params_querys.value.llave_hc = params_querys.value.llave_hc + "00000000";
+    params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
   }
   try {
     const response = await getDll$({
