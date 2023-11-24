@@ -5,6 +5,8 @@ const { getImgBs64, getEncabezado } = useApiContabilidad();
 const { getEmpresa, getPaci } = useModuleFormatos();
 
 export const utilsFormat = ({ datos, content }) => {
+  console.log("🚀 ~ utilsFormat ~ datosssss:", datos);
+  console.log("🚀 ~ getEncabezado ~ getEncabezado:", getEncabezado);
   const base64 = "data:image/png;base64,";
   return {
     pageSize: "LETTER",
@@ -20,121 +22,7 @@ export const utilsFormat = ({ datos, content }) => {
     header: function (currentPage, pageCount) {
       return {
         margin: [35, 15, 35, 0], //Margenes deben ir en relacion a la pageMargin
-        table: {
-          widths: ["20%", "54%", "26%"],
-          body: [
-            [
-              {
-                marginTop: 4,
-                image: "logo",
-                width: 90,
-                height: 65,
-                alignment: "center",
-              },
-              {
-                text: [
-                  {
-                    marginTop: 10,
-                    marginBottom: 10,
-                    text: `${getEmpresa.nomusu} \n\n`,
-                    style: "headerBold",
-                    alignment: "center",
-                  },
-                  {
-                    marginTop: 15,
-                    text: `${getEncabezado.descrip}`,
-                    style: "headerBold",
-                    alignment: "center",
-                  },
-                ],
-              },
-              {
-                stack: [
-                  getEncabezado.iso == "S" ? {
-                    text: [
-                      {
-                        text: "Código: ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.codigo,
-                      },
-                    ],
-                    style: "headerEnd",
-                  } : {},
-                  {
-                    text: [
-                      {
-                        text: "Versión: ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.version,
-                      },
-                    ],
-                    style: "headerEnd",
-                  },
-                  {
-                    text: [
-                      {
-                        text: "Aprobado el: ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.fecha_aprob
-                          ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD")
-                          : "",
-                      },
-                    ],
-                    style: "headerEnd",
-                  },
-                  {
-                    text: [
-                      {
-                        text: "evisado por ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.reviso,
-                      },
-                    ],
-                    style: "headerEnd",
-                  },
-                  {
-                    text: [
-                      {
-                        text: "Aprobado por ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.aprobo,
-                      },
-                    ],
-                    style: "headerEnd",
-                  },
-                  {
-                    text: [
-                      {
-                        text: "Fecha de actualización: ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.fecha_act
-                          ? dayjs(getEncabezado.fecha_act).format("YYYY-MM-DD")
-                          : "",
-                      },
-                    ],
-                    style: "headerEnd",
-                  },
-                  {
-                    text: "Página " + currentPage + " de " + pageCount,
-                    style: "headerEnd",
-                  },
-                ],
-              },
-            ],
-          ],
-        },
+        table: datosHeader(getEncabezado.iso, currentPage, pageCount),
       };
     },
     content,
@@ -179,8 +67,174 @@ export const evaluarParentesco = (value) => {
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
 };
 
+const evaluarServicio = (value) => {
+  //Esto se utiliza para acortar los nombres para la impresion unicamente en caso de necesitarse
+  const servicios = [
+    { COD: "DROGUERIA", DESCRIP: "DROGUERIA" },
+    { COD: "CIRUGIAS", DESCRIP: "CIRUGIAS" },
+    { COD: "LABORATORIOS Y OTROS DIAGNOSTICOS", DESCRIP: "LABS Y OTROS DIAGNTCS" },
+    { COD: "RX - IMAGENOLOGIA", DESCRIP: "RX - IMAGENOLOGIA" },
+    { COD: "OTROS SERVICIOS", DESCRIP: "OTROS SERVICIOS" },
+    { COD: "CONSULTA Y TERAPIAS", DESCRIP: "CONSULTA Y TERAPIAS" },
+    { COD: "PATOLOGIA", DESCRIP: "PATOLOGIA" },
+    { COD: "PROMOCION Y PREVENCION", DESCRIP: "PROMOCION Y PREVENCIÓN" },
+  ];
+  return servicios.find((e) => e.COD == value)?.DESCRIP || "";
+};
+
+const datosHeader = (iso, currentPage, pageCount) => {
+  const headerISO = {
+    widths: ["20%", "54%", "26%"],
+    body: [
+      [
+        {
+          marginTop: 4,
+          image: "logo",
+          width: 90,
+          height: 65,
+          alignment: "center",
+        },
+        {
+          text: [
+            {
+              marginTop: 10,
+              marginBottom: 10,
+              text: `${getEmpresa.nomusu} \n\n`,
+              style: "headerBold",
+              alignment: "center",
+            },
+            {
+              marginTop: 15,
+              text: `${getEncabezado.descrip}`,
+              style: "headerBold",
+              alignment: "center",
+            },
+          ],
+        },
+        {
+          stack: [
+            {
+              text: [
+                {
+                  text: "Código: ",
+                  bold: true,
+                },
+                {
+                  text: getEncabezado.codigo,
+                },
+              ],
+              style: "headerEnd",
+            },
+            {
+              text: [
+                {
+                  text: "Versión: ",
+                  bold: true,
+                },
+                {
+                  text: getEncabezado.version,
+                },
+              ],
+              style: "headerEnd",
+            },
+            {
+              text: [
+                {
+                  text: "Aprobado el: ",
+                  bold: true,
+                },
+                {
+                  text: getEncabezado.fecha_aprob
+                    ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD")
+                    : "",
+                },
+              ],
+              style: "headerEnd",
+            },
+            {
+              text: [
+                {
+                  text: "evisado por ",
+                  bold: true,
+                },
+                {
+                  text: getEncabezado.reviso,
+                },
+              ],
+              style: "headerEnd",
+            },
+            {
+              text: [
+                {
+                  text: "Aprobado por ",
+                  bold: true,
+                },
+                {
+                  text: getEncabezado.aprobo,
+                },
+              ],
+              style: "headerEnd",
+            },
+            {
+              text: [
+                {
+                  text: "Fecha de actualización: ",
+                  bold: true,
+                },
+                {
+                  text: getEncabezado.fecha_act ? dayjs(getEncabezado.fecha_act).format("YYYY-MM-DD") : "",
+                },
+              ],
+              style: "headerEnd",
+            },
+            {
+              text: "Página " + currentPage + " de " + pageCount,
+              style: "headerEnd",
+            },
+          ],
+        },
+      ],
+    ],
+  };
+
+  const headerSinISO = {
+    widths: ["20%", "80%"],
+    body: [
+      [
+        {
+          marginTop: 4,
+          image: "logo",
+          width: 90,
+          height: 65,
+          alignment: "center",
+        },
+        {
+          text: [
+            {
+              marginTop: 10,
+              marginBottom: 10,
+              text: `${getEmpresa.nomusu} \n\n`,
+              style: "headerBold",
+              alignment: "center",
+            },
+            {
+              marginTop: 15,
+              text: `${getEncabezado.descrip}`,
+              style: "headerBold",
+              alignment: "center",
+            },
+          ],
+        },
+      ],
+    ],
+  };
+
+  if (iso == "S") return headerISO;
+  else return headerSinISO;
+};
+
 export const datosFormatUTM = ({ datos }) => {
-  const tipo_id = "CC";
+  const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
 
   const marcaCasilla = (condicion) => {
     return [
@@ -200,7 +254,7 @@ export const datosFormatUTM = ({ datos }) => {
       {
         alignment: "center",
         table: {
-          widths: ["7%", "7%", "7%", "7%", "7%", "7%", "22%", "10%", "10%", "8%", "8%"],
+          widths: ["7%", "7%", "7%", "7%", "7%", "7%", "7%", "25%", "10%", "8%", "8%"],
           body: [
             [
               {
@@ -241,23 +295,23 @@ export const datosFormatUTM = ({ datos }) => {
             [
               {
                 noWrap: true,
-                text: "DD",
+                text: `${dayjs().date()}`,
                 style: "tableTitle",
               },
               {
                 noWrap: true,
-                text: "MM",
+                text: `${dayjs().month() + 1}`,
                 style: "tableTitle",
               },
               {
                 noWrap: true,
-                text: "AAAA",
+                text: `${dayjs().year()}`,
                 style: "tableTitle",
               },
               {
                 noWrap: true,
                 colSpan: 3,
-                text: "HH:MM",
+                text: `${dayjs().format("hh:mm A")}`,
                 style: "tableTitle",
               },
               {},
@@ -265,14 +319,14 @@ export const datosFormatUTM = ({ datos }) => {
               {
                 noWrap: true,
                 colSpan: 2,
-                text: "IMAGENOLOGÍA",
+                text: `${evaluarServicio(datos.servicio)}`,
                 style: "tableTitle",
               },
               {},
               {
                 colSpan: 3,
                 noWrap: true,
-                text: "PROSOFT SA",
+                text: `${datos.empresa.nomusu}`,
                 style: "tableTitle",
               },
               {},
@@ -280,104 +334,59 @@ export const datosFormatUTM = ({ datos }) => {
             ],
             [
               {
-                colSpan: 3,
+                colSpan: 11,
                 bold: true,
-                text: "PRIMER APELLIDO",
+                text: "NOMBRES Y APELLIDOS COMPLETOS",
                 style: "tableTitle",
               },
               {},
               {},
-              {
-                colSpan: 3,
-                bold: true,
-                text: "SEGUNDO APELLIDO",
-                style: "tableTitle",
-              },
               {},
               {},
-              {
-                colSpan: 2,
-                bold: true,
-                text: "PRIMER NOMBRE",
-                style: "tableTitle",
-              },
               {},
-              {
-                colSpan: 3,
-                bold: true,
-                text: "SEGUNDO NOMBRE",
-                style: "tableTitle",
-              },
+              {},
+              {},
+              {},
               {},
               {},
             ],
             [
               {
-                colSpan: 3,
+                colSpan: 11,
                 noWrap: true,
-                text: "PEREZ",
+                text: `${datos.paciente.descrip}`,
                 style: "tableTitle",
               },
               {},
               {},
-              {
-                colSpan: 3,
-                noWrap: true,
-                text: "SANDOVAL",
-                style: "tableTitle",
-              },
               {},
               {},
-              {
-                colSpan: 2,
-                noWrap: true,
-                text: "PEPE",
-                style: "tableTitle",
-              },
               {},
-              {
-                colSpan: 3,
-                noWrap: true,
-                text: "PEPITO",
-                style: "tableTitle",
-              },
+              {},
+              {},
+              {},
               {},
               {},
             ],
             [
               {
-                colSpan: 6,
+                colSpan: 7,
                 bold: true,
                 text: "DOCUMENTO DE IDENTIFICACIÓN",
                 style: "tableTitle",
               },
+              {},
+              {},
+              {},
+              {},
+              {},
+              {},
               {
-                text: "CE",
-                style: "tableTitle",
-              },
-              {
-                text: "PA",
-                style: "tableTitle",
-              },
-              {
-                text: "PT",
-                style: "tableTitle",
-              },
-              {
-                text: "RC",
-                style: "tableTitle",
-              },
-              {
-                text: "TI",
-                style: "tableTitle",
-              },
-              {
-                colSpan: 4,
+                colSpan: 3,
                 bold: true,
                 text: "NÚMERO DE IDENTIFICACIÓN",
                 style: "tableTitle",
               },
-              {},
               {},
               {},
               {
@@ -394,7 +403,7 @@ export const datosFormatUTM = ({ datos }) => {
                     style: "tableTitle",
                   },
                   {
-                    stack: marcaCasilla(tipo_id == "CC" ? true : false),
+                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CC" ? true : false),
                   },
                 ],
               },
@@ -405,7 +414,7 @@ export const datosFormatUTM = ({ datos }) => {
                     style: "tableTitle",
                   },
                   {
-                    stack: marcaCasilla(tipo_id == "CE" ? true : false),
+                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CE" ? true : false),
                   },
                 ],
               },
@@ -416,7 +425,7 @@ export const datosFormatUTM = ({ datos }) => {
                     style: "tableTitle",
                   },
                   {
-                    stack: marcaCasilla(tipo_id == "PA" ? true : false),
+                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PA" ? true : false),
                   },
                 ],
               },
@@ -427,7 +436,7 @@ export const datosFormatUTM = ({ datos }) => {
                     style: "tableTitle",
                   },
                   {
-                    stack: marcaCasilla(tipo_id == "PT" ? true : false),
+                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PT" ? true : false),
                   },
                 ],
               },
@@ -438,7 +447,7 @@ export const datosFormatUTM = ({ datos }) => {
                     style: "tableTitle",
                   },
                   {
-                    stack: marcaCasilla(tipo_id == "RC" ? true : false),
+                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "RC" ? true : false),
                   },
                 ],
               },
@@ -449,20 +458,34 @@ export const datosFormatUTM = ({ datos }) => {
                     style: "tableTitle",
                   },
                   {
-                    stack: marcaCasilla(tipo_id == "TI" ? true : false),
+                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "TI" ? true : false),
                   },
                 ],
               },
               {
-                colSpan: 4,
-                text: "1193220992",
+                stack: [
+                  {
+                    text: `${
+                      !tipos_id.includes(datos.paciente.tipo_id.trim())
+                        ? datos.paciente.tipo_id.trim()
+                        : "OTRO"
+                    }`,
+                    style: "tableTitle",
+                  },
+                  {
+                    stack: marcaCasilla(!tipos_id.includes(datos.paciente.tipo_id.trim()) ? true : false),
+                  },
+                ],
+              },
+              {
+                colSpan: 3,
+                text: `${datos.paciente.cod}`,
                 style: "tableTitle",
               },
               {},
               {},
-              {},
               {
-                text: "22",
+                text: `${calcEdad(datos.paciente.nacim)}`,
                 noWrap: true,
                 style: "tableTitle",
               },
@@ -478,7 +501,7 @@ export const datosFormatUTM = ({ datos }) => {
                     text: "ENTIDAD RESPONSABLE DE PBS:",
                   },
                   {
-                    text: ` {PROSOFT SC}`,
+                    text: ``,
                   },
                 ],
               },
@@ -529,12 +552,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: "11111111",
+                text: `${datos.codigo_cups1}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: "ALARGAMIENTO",
+                text: `${datos.descrip_cups1}`,
                 style: "tableTitle",
               },
             ],
@@ -546,12 +569,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: "22222222",
+                text: `${datos.codigo_cups2}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: "ALARGAMIENTO",
+                text: `${datos.descrip_cups2}`,
                 style: "tableTitle",
               },
             ],
@@ -583,12 +606,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: "11111111",
+                text: `${datos.codigo_cie1}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: "POSITIVO",
+                text: `${datos.descrip_cie1}`,
                 style: "tableTitle",
               },
             ],
@@ -600,12 +623,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: "22222222",
+                text: `${datos.codigo_cie2}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: "NEGATIVO",
+                text: `${datos.descrip_cie2}`,
                 style: "tableTitle",
               },
             ],
