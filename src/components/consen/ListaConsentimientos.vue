@@ -2,7 +2,9 @@
   <q-card class="my-card">
     <!-- tabla para reimprimir los consentimientos -->
     <q-table
-      :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
+      :title="
+        novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'
+      "
       v-if="['2', '3'].includes(novedad)"
       :rows-per-page-options="[10]"
       :columns="columns_consen"
@@ -36,9 +38,12 @@
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
-              col.value
-            }}</q-chip>
+            <q-chip
+              v-if="col.label == 'Estado'"
+              class="text-white"
+              :color="valueEstado(col.value)"
+              >{{ col.value }}</q-chip
+            >
             <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
@@ -76,7 +81,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
+            <q-btn
+              @click="selectConsen(props.key)"
+              icon="note_add"
+              class="botone"
+              color="primary"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -101,7 +112,11 @@
   </q-card>
 </template>
 <script setup>
-import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
+import {
+  useApiContabilidad,
+  useModuleCon851,
+  useModuleFormatos,
+} from "@/store";
 import { ref, onMounted, defineAsyncComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
@@ -123,14 +138,17 @@ import {
 import { utilsFormat } from "@/formatos/utils";
 import days from "dayjs";
 
-const DisentirConsen_ = defineAsyncComponent(() => import("@/components/consen/DisentirConsen.vue"));
+const DisentirConsen_ = defineAsyncComponent(() =>
+  import("@/components/consen/DisentirConsen.vue")
+);
 
 const props = defineProps({ cargar: Function });
 const router = useRouter();
 const route = useRoute();
 
 const { CON851 } = useModuleCon851();
-const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } =
+  useApiContabilidad();
 const { getEmpresa, setHc } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
@@ -167,7 +185,10 @@ const columns_consen = [
     label: "Hora",
     align: "left",
 
-    format: (val, row) => `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+    format: (val, row) =>
+      `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format(
+        "HH:mm"
+      )}`,
     field: (row) => row.reg_coninf.llave.hora,
   },
   {
@@ -207,7 +228,8 @@ const getParametros = async () => {
   if (Object.keys(route.query).length) {
     sessionStorage.setItem("query", JSON.stringify(route.query));
   }
-  if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
+  if (!Object.keys(route.query).length)
+    params_querys.value = JSON.parse(sessionStorage.query);
   else params_querys.value = route.query;
   novedad.value = params_querys.value.novedad;
 
@@ -223,7 +245,8 @@ const getOdontologia = async () => {
     });
     setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
+    if (response.reg_hc.cierre.estado == 2)
+      return CON851("9Y", "info", "", logOut$);
     if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);
@@ -237,7 +260,12 @@ const getHistoriaClinica = async () => {
     });
     setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
+    if (
+      response.reg_hc.cierre.estado == 2 &&
+      !["0000000001"].includes(getEmpresa.nitusu)
+    ) {
+      return CON851("9Y", "info", "", logOut$);
+    }
     if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);
@@ -320,7 +348,9 @@ const reimprimirConsentimiento = async (row) => {
             firma_prof: firma_prof.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
-          hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+          hora: `${days(
+            row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora
+          ).format("HH:mm")}`,
           empresa: getEmpresa,
           paciente: row.reg_paci,
           prof: row.reg_prof,
@@ -384,7 +414,7 @@ const selectConsen = async (data) => {
   try {
     router.push({ name: data });
   } catch (error) {
-    CON851("?", "info", "El consentimiento no esta disponible")
+    CON851("?", "info", "El consentimiento no esta disponible");
   }
 };
 </script>
