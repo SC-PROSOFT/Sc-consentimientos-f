@@ -154,7 +154,7 @@
 </template>
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionLAB007, impresion, generarArchivo } from "@/impresiones";
+import { impresionLAB008, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -188,12 +188,10 @@ const reg = ref({
   descrip_cups1: getArtic[0] ? getArtic[0].descripcion : "",
   codigo_cups2: getArtic[1] ? getArtic[1].codigo : "",
   descrip_cups2: getArtic[1] ? getArtic[1].descripcion : "",
-  llave_consen: `${getPaci.cod}00000000${dayjs().format("YYYYMMDD")}${dayjs().format("HHmm")}${
-    getSesion.oper
-  }`,
+  llave_consen: `${getPaci.cod}00000000`,
 
   // Extras
-  opcion_lab008: ""
+  opcion_lab008: "",
 });
 
 onMounted(() => {
@@ -226,7 +224,7 @@ const grabarConsentimiento = async () => {
   let datos = {
     estado: reg.value.opcion_lab008 == "AUTORIZAR" ? "1" : "2",
     disentimiento: "N",
-    llave_consen: reg.value.llave_consen,
+    llave_consen: `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,
     cod_consen: "LAB008",
     cod_med: getProf.cod,
@@ -238,7 +236,7 @@ const grabarConsentimiento = async () => {
 
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
-      return grabarFirmaConsen();
+      return grabarFirmaConsen(data.llave_consen);
     })
     .catch((error) => {
       console.error(error);
@@ -246,16 +244,16 @@ const grabarConsentimiento = async () => {
     });
 };
 
-const grabarFirmaConsen = async () => {
+const grabarFirmaConsen = async (llave) => {
   try {
-    await guardarFile$({ base64: firma_recibida.value, codigo: `P${reg.value.llave_consen}` });
-    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${reg.value.llave_consen}` });
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${llave}` });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
       return router.back();
     }
-    
+
     return CON851P(
       "?",
       "info",
@@ -315,13 +313,13 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = utilsFormat({
       datos: firmas,
-      content: impresionLAB007({
+      content: impresionLAB008({
         datos: datos_lab008,
       }),
     });
     const docDefinitionFile = utilsFormat({
       datos: firmas,
-      content: impresionLAB007({
+      content: impresionLAB008({
         datos: datos_lab008,
       }),
     });

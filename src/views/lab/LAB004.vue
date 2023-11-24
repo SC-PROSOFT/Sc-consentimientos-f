@@ -188,9 +188,7 @@ const reg = ref({
   descrip_cups1: getArtic[0] ? getArtic[0].descripcion : "",
   codigo_cups2: getArtic[1] ? getArtic[1].codigo : "",
   descrip_cups2: getArtic[1] ? getArtic[1].descripcion : "",
-  llave_consen: `${getPaci.cod}00000000${dayjs().format("YYYYMMDD")}${dayjs().format("HHmm")}${
-    getSesion.oper
-  }`,
+  llave_consen: `${getPaci.cod}00000000`,
 });
 
 onMounted(() => {
@@ -224,7 +222,7 @@ const grabarConsentimiento = async () => {
   let datos = {
     estado: reg.value.opcion_lab004 == "AUTORIZAR" ? "1" : "2",
     disentimiento: "N",
-    llave_consen: reg.value.llave_consen,
+    llave_consen: `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,
     cod_consen: "LAB004",
     cod_med: getProf.cod,
@@ -236,7 +234,7 @@ const grabarConsentimiento = async () => {
 
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
-      return grabarFirmaConsen();
+      return grabarFirmaConsen(data.llave_consen);
     })
     .catch((error) => {
       console.error(error);
@@ -244,10 +242,10 @@ const grabarConsentimiento = async () => {
     });
 };
 
-const grabarFirmaConsen = async () => {
+const grabarFirmaConsen = async (llave) => {
   try {
-    await guardarFile$({ base64: firma_recibida.value, codigo: `P${reg.value.llave_consen}` });
-    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${reg.value.llave_consen}` });
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${llave}` });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
