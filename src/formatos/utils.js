@@ -1,12 +1,10 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
+const { getEmpresa, getArtic, getDiag, getPaci } = useModuleFormatos();
 const { getImgBs64, getEncabezado } = useApiContabilidad();
-const { getEmpresa } = useModuleFormatos();
 
 export const utilsFormat = ({ datos, content }) => {
-  console.log("🚀 ~ utilsFormat ~ datosssss:", datos);
-  console.log("🚀 ~ getEncabezado ~ getEncabezado:", getEncabezado);
   const base64 = "data:image/png;base64,";
   return {
     pageSize: "LETTER",
@@ -319,7 +317,7 @@ export const datosFormatUTM = ({ datos }) => {
               {
                 noWrap: true,
                 colSpan: 2,
-                text: `${evaluarServicio(datos.servicio)}`,
+                text: `${datos.servicio}`,
                 style: "tableTitle",
               },
               {},
@@ -485,7 +483,7 @@ export const datosFormatUTM = ({ datos }) => {
               {},
               {},
               {
-                text: `${calcEdad(datos.paciente.nacim)}`,
+                text: `${calcEdad(getPaci.nacim)}`,
                 noWrap: true,
                 style: "tableTitle",
               },
@@ -552,12 +550,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.codigo_cups1}`,
+                text: `${getArtic[0] ? getArtic[0].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.descrip_cups1}`,
+                text: `${getArtic[0] ? getArtic[0].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
@@ -569,12 +567,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.codigo_cups2}`,
+                text: `${getArtic[1] ? getArtic[1].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.descrip_cups2}`,
+                text: `${getArtic[1] ? getArtic[1].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
@@ -606,12 +604,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.codigo_cie1}`,
+                text: `${getDiag[0] ? getDiag[0].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.descrip_cie1}`,
+                text: `${getDiag[0] ? getDiag[0].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
@@ -623,12 +621,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.codigo_cie2}`,
+                text: `${getDiag[1] ? getDiag[1].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${datos.descrip_cie2}`,
+                text: `${getDiag[1] ? getDiag[1].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
