@@ -4,7 +4,7 @@
       <q-form @submit="validarDatos">
         <div class="text-center">
           <q-toggle
-            v-model="reg.opcion_lab003"
+            v-model="reg.opcion_lab009"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,17 +13,17 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="reg.opcion_lab003 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+          <p :class="reg.opcion_lab009 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
             <q-chip
-              :color="reg.opcion_lab003 == 'AUTORIZAR' ? 'green' : 'red'"
+              :color="reg.opcion_lab009 == 'AUTORIZAR' ? 'green' : 'red'"
               class="text-white"
-              v-if="reg.opcion_lab003"
+              v-if="reg.opcion_lab009"
             >
-              {{ reg.opcion_lab003 }}
+              {{ reg.opcion_lab009 }}
             </q-chip>
           </p>
         </div>
-        <DatosFormat :datos="datos" @datos="(data) => (datos.servicio = data)" />
+        <DatosFormat :datos="datos" @datos="(data) => (reg.servicio = data)" />
         <div class="row justify-center border-format q-my-sm">
           <q-checkbox
             left-label
@@ -493,7 +493,7 @@
           contraste. El procedimiento de venoclisis es seguro, sin embargo, Ud. puede presentar: ardor,
           malestar, sangrado escaso, hematoma y flebitis
         </div>
-        <div class="border-format q-my-sm" v-if="reg.opcion_lab003 == 'AUTORIZAR'">
+        <div class="border-format q-my-sm" v-if="reg.opcion_lab009 == 'AUTORIZAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
             DECLARACION DEL CONSENTIMIENTO INFORMADO
           </div>
@@ -509,7 +509,7 @@
             procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.
           </p>
         </div>
-        <div class="border-format q-my-sm" v-if="reg.opcion_lab003 == 'REVOCAR'">
+        <div class="border-format q-my-sm" v-if="reg.opcion_lab009 == 'REVOCAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">
             REVOCACIÓN DEL CONSENTIMIENTO INFORMADO
           </div>
@@ -553,7 +553,7 @@
       </div>
       <div class="col-12 row justify-center q-my-md">
         <q-btn
-          :disable="reg.opcion_lab003 ? false : true"
+          :disable="reg.opcion_lab009 ? false : true"
           @click="validarDatos"
           icon-right="check_circle"
           class="q-mr-lg"
@@ -592,7 +592,6 @@ const firma_prof = ref(null);
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
-  servicio: "",
 };
 
 const reg = ref({
@@ -617,6 +616,7 @@ const reg = ref({
     proces: "N",
     stents: "N",
   },
+  servicio: "",
 
   proce_cont: {
     check: {},
@@ -624,7 +624,7 @@ const reg = ref({
 
   //extras
   llave_consen: `${getPaci.cod}00000000`,
-  opcion_lab003: "",
+  opcion_lab009: "",
   fecha_act: "",
   edad: "",
 });
@@ -640,7 +640,7 @@ for (let i = 1; i < 11; i++) {
     label: "",
     placeholder: "",
     counter: false,
-    maxlength: "60",
+    maxlength: "40",
     required: true,
     disable: true,
     campo_abierto: true,
@@ -680,9 +680,10 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
+  console.log("⚡  file: LAB009.vue:684  reg.value-->", reg.value)
   const datos_format = JSON.parse(JSON.stringify(reg.value));
   let datos = {
-    estado: reg.value.opcion_lab002 == "AUTORIZAR" ? "1" : "2",
+    estado: reg.value.opcion_lab009 == "AUTORIZAR" ? "1" : "2",
     disentimiento: "N",
     llave_consen: `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,
@@ -691,6 +692,17 @@ const grabarConsentimiento = async () => {
     id_acomp: getAcomp.cod.padStart(15, "0"),
     id_testigo: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
+    P_1: datos_format.proce_cont.especifique_1,
+    P_2: datos_format.proce_cont.especifique_2,
+    P_3: datos_format.proce_cont.especifique_3,
+    P_4: datos_format.proce_cont.especifique_4,
+    P_5: datos_format.proce_cont.especifique_5,
+    P_6: datos_format.proce_cont.especifique_6,
+    P_7: datos_format.proce_cont.especifique_8,
+    P_8: datos_format.proce_cont.especifique_9,
+    P_9: datos_format.proce_cont.especifique_9,
+    P_10: datos_format.proce_cont.especifique_10,
+    ...datos_format.reso_mag,
     ...datos_format,
   };
 
@@ -744,8 +756,9 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_lab002 = {
-      autorizo: reg.value.opcion_lab002 == "AUTORIZAR" ? true : false,
+    console.log("⚡  file: LAB009.vue:761  reg.value-->", reg.value)
+    const datos_lab009 = {
+      autorizo: reg.value.opcion_lab009 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
@@ -759,8 +772,20 @@ const imprimirConsen = async () => {
       },
       fecha: reg.value.fecha_act,
       llave: reg.value.llave_consen,
+      P_1: reg.value.proce_cont.especifique_1,
+      P_2: reg.value.proce_cont.especifique_2,
+      P_3: reg.value.proce_cont.especifique_3,
+      P_4: reg.value.proce_cont.especifique_4,
+      P_5: reg.value.proce_cont.especifique_5,
+      P_6: reg.value.proce_cont.especifique_6,
+      P_7: reg.value.proce_cont.especifique_8,
+      P_8: reg.value.proce_cont.especifique_9,
+      P_9: reg.value.proce_cont.especifique_9,
+      P_10: reg.value.proce_cont.especifique_10,
+      ...reg.value.reso_mag,
       ...reg.value,
     };
+    console.log("⚡  file: LAB009.vue:764  datos_lab009-->", datos_lab009);
 
     const firmas = {
       img_firma_consen: firma_recibida.value,
@@ -773,13 +798,13 @@ const imprimirConsen = async () => {
     const docDefinitionPrint = utilsFormat({
       datos: firmas,
       content: impresionLAB009({
-        datos: datos_lab002,
+        datos: datos_lab009,
       }),
     });
     const docDefinitionFile = utilsFormat({
       datos: firmas,
       content: impresionLAB009({
-        datos: datos_lab002,
+        datos: datos_lab009,
       }),
     });
 
