@@ -2,6 +2,7 @@ import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB004 = ({ datos }) => {
+  console.log("LAB004 - datos", datos);
   var dd = {
     stack: [contenidoMamografia()],
   };
@@ -84,217 +85,214 @@ export const impresionLAB004 = ({ datos }) => {
 
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
-        marginTop: 20,
-        table: {
-          heights: ["auto", "auto", "auto", 80, "auto", "auto"],
-          widths: [171, 172, 171],
-          body: [
-            [
-              {
-                colSpan: 3,
-                text: "DECLARACIÓN DEL CONSENTIMIENTO INFORMADO",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-              {},
-              {},
-            ],
-            [
-              {
-                marginBottom: 5,
-                colSpan: 3,
-                text: `Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito.\n\n Yo {PEPE PEPITO PEPITICO PEPOTE}, identificada (o) con el documento de identidad número {1111111111}, después de haber sido informado (a) sobre el procedimiento de Mamografía, los riesgos y beneficios, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.`,
-                style: "tableTitle",
-                alignment: "justify",
-              },
-              {},
-              {},
-            ],
-            [
-              {
-                text: "PACIENTE",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-              {
-                text: "TESTIGO",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-              {
-                text: "MÉDICO",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-            ],
-            [
-              {
-                marginTop: 5,
-                alignment: "center",
-                image: "firma_paci",
-                width: 140,
-                height: 70,
-              },
-              {
-                marginTop: 5,
-                alignment: "center",
-                image: "firma_acomp",
-                width: 140,
-                height: 70,
-              },
-              {
-                marginTop: 5,
-                alignment: "center",
-                image: "firma_profesional",
-                width: 140,
-                height: 70,
-              },
-            ],
-            [
-              {
-                text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
-                style: "tableTitle",
-              },
-              {
-                text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
-                style: "tableTitle",
-              },
-              {
-                text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
-                style: "tableTitle",
-              },
-            ],
-            [
-              {
-                text: `DOC. IDENT: 1111111111`,
-                style: "tableTitle",
-              },
-              {
-                text: `DOC. IDENT: 1111111111`,
-                style: "tableTitle",
-              },
-              {
-                text: `DOC. IDENT: 1111111111`,
-                style: "tableTitle",
-              },
-            ],
-          ]
-        }
+      marginTop: 20,
+      table: {
+        heights: ["auto", "auto", "auto", 80, "auto", "auto"],
+        widths: [171, 172, 171],
+        body: [
+          [
+            {
+              colSpan: 3,
+              text: "DECLARACIÓN DEL CONSENTIMIENTO INFORMADO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {},
+            {},
+          ],
+          [
+            {
+              marginBottom: 5,
+              colSpan: 3,
+              text: `Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito.\n\n Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, después de haber sido informado (a) sobre el procedimiento de Mamografía, los riesgos y beneficios, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.`,
+              style: "tableTitle",
+              alignment: "justify",
+            },
+            {},
+            {},
+          ],
+          [
+            {
+              text: "PACIENTE",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {
+              text: "TESTIGO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {
+              text: "MÉDICO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+          ],
+          [
+            {
+              marginTop: 5,
+              alignment: "center",
+              image: "firma_paci",
+              width: 140,
+              height: 70,
+            },
+            {
+              marginTop: 5,
+              alignment: "center",
+              image: "firma_acomp",
+              width: 140,
+              height: 70,
+            },
+            {
+              marginTop: 5,
+              alignment: "center",
+              image: "firma_profesional",
+              width: 140,
+              height: 70,
+            },
+          ],
+          [
+            {
+              text: `NOMBRE: ${datos.paciente.descrip}`,
+              style: "tableTitle",
+            },
+            {
+              text: `NOMBRE: ${datos.acomp.descrip}`,
+              style: "tableTitle",
+            },
+            {
+              text: `NOMBRE: ${datos.prof.descrip}`,
+              style: "tableTitle",
+            },
+          ],
+          [
+            {
+              text: `DOC. IDENT: ${datos.paciente.cod}`,
+              style: "tableTitle",
+            },
+            {
+              text: `DOC. IDENT: ${datos.acomp.cod}`,
+              style: "tableTitle",
+            },
+            {
+              text: `DOC. IDENT: ${datos.prof.cod}`,
+              style: "tableTitle",
+            },
+          ],
+        ],
+      },
     };
 
     const textoRevoca = {
-        marginTop: 20,
-        table: {
-          heights: ["auto", "auto", "auto", 80, "auto", "auto"],
-          widths: [171, 172, 171],
-          body: [
-            [
-              {
-                colSpan: 3,
-                text: "REVOCACIÓN DEL CONSENTIMIENTO INFORMADO",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-              {},
-              {},
-            ],
-            [
-              {
-                marginBottom: 5,
-                colSpan: 3,
-                text: `Yo {PEPE PEPITO PEPITICO PEPOTE}, identificada (o) con el documento de identidad número {1111111111}, después de haber sido informado (a) sobre el procedimiento de Mamografía sus riesgos y beneficios y adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.`,
-                style: "tableTitle",
-                alignment: "justify",
-              },
-              {},
-              {},
-            ],
-            [
-              {
-                text: "PACIENTE",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-              {
-                text: "TESTIGO",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-              {
-                text: "MÉDICO",
-                bold: true,
-                style: "tableTitle",
-                alignment: "center",
-              },
-            ],
-            [
-              {
-                marginTop: 5,
-                alignment: "center",
-                image: "firma_paci",
-                width: 140,
-                height: 70,
-              },
-              {
-                marginTop: 5,
-                alignment: "center",
-                image: "firma_acomp",
-                width: 140,
-                height: 70,
-              },
-              {
-                marginTop: 5,
-                alignment: "center",
-                image: "firma_profesional",
-                width: 140,
-                height: 70,
-              },
-            ],
-            [
-              {
-                text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
-                style: "tableTitle",
-              },
-              {
-                text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
-                style: "tableTitle",
-              },
-              {
-                text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
-                style: "tableTitle",
-              },
-            ],
-            [
-              {
-                text: `DOC. IDENT: 1111111111`,
-                style: "tableTitle",
-              },
-              {
-                text: `DOC. IDENT: 1111111111`,
-                style: "tableTitle",
-              },
-              {
-                text: `DOC. IDENT: 1111111111`,
-                style: "tableTitle",
-              },
-            ],
-          ]
-        }
+      marginTop: 20,
+      table: {
+        heights: ["auto", "auto", "auto", 80, "auto", "auto"],
+        widths: [171, 172, 171],
+        body: [
+          [
+            {
+              colSpan: 3,
+              text: "REVOCACIÓN DEL CONSENTIMIENTO INFORMADO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {},
+            {},
+          ],
+          [
+            {
+              marginBottom: 5,
+              colSpan: 3,
+              text: `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, después de haber sido informado (a) sobre el procedimiento de Mamografía sus riesgos y beneficios y adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.`,
+              style: "tableTitle",
+              alignment: "justify",
+            },
+            {},
+            {},
+          ],
+          [
+            {
+              text: "PACIENTE",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {
+              text: "TESTIGO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {
+              text: "MÉDICO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+          ],
+          [
+            {
+              marginTop: 5,
+              alignment: "center",
+              image: "firma_paci",
+              width: 140,
+              height: 70,
+            },
+            {
+              marginTop: 5,
+              alignment: "center",
+              image: "firma_acomp",
+              width: 140,
+              height: 70,
+            },
+            {
+              marginTop: 5,
+              alignment: "center",
+              image: "firma_profesional",
+              width: 140,
+              height: 70,
+            },
+          ],
+          [
+            {
+              text: `NOMBRE: ${datos.paciente.descrip}`,
+              style: "tableTitle",
+            },
+            {
+              text: `NOMBRE: ${datos.acomp.descrip}`,
+              style: "tableTitle",
+            },
+            {
+              text: `NOMBRE: ${datos.prof.descrip}`,
+              style: "tableTitle",
+            },
+          ],
+          [
+            {
+              text: `DOC. IDENT: ${datos.paciente.cod}`,
+              style: "tableTitle",
+            },
+            {
+              text: `DOC. IDENT: ${datos.acomp.cod}`,
+              style: "tableTitle",
+            },
+            {
+              text: `DOC. IDENT: ${datos.prof.cod}`,
+              style: "tableTitle",
+            },
+          ],
+        ],
+      },
     };
-    if (autorizo !== false && autorizo!== true) {
-        return {
-            stack: [
-              textoAutoriza,
-              textoRevoca
-            ]
-        };
+    if (autorizo !== false && autorizo !== true) {
+      return {
+        stack: [textoAutoriza, textoRevoca],
+      };
     }
     if (autorizo) return textoAutoriza;
     else return textoRevoca;
