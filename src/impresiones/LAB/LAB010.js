@@ -2,27 +2,12 @@ import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB010 = ({ datos }) => {
+  console.log("datos", datos)
   var dd = {
     stack: [contenidoTmgrfiaAxialCmptrzada()],
   };
 
   function contenidoTmgrfiaAxialCmptrzada() {
-    const tipo_id = "";
-
-    const iodado = true;
-
-    const contraste = true;
-
-    const TAC_anterior = true;
-    const contrste_yodado = true;
-    const enferm_corazon = true;
-    const enferm_rinones = true;
-    const enferm_higado = true;
-    const asma = true;
-    const alergia = true;
-    const diabetes = true;
-    const otra_enfermedad = true;
-    const medicamentos = true;
     return {
       stack: [
         datosFormatUTM({ datos }),
@@ -297,7 +282,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        TAC_anterior === true ? true : false,
+                        datos.P_1 != "" ? true : false,
                         0,
                         38,
                         38,
@@ -321,7 +306,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        TAC_anterior === true ? false : true,
+                        datos.P_1 != "" ? false : true,
                         0,
                         38,
                         38,
@@ -336,7 +321,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_1 != "" ? datos.P_1 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -359,7 +344,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        contrste_yodado === true ? true : false,
+                        datos.P_2 != "" ? true : false,
                         0,
                         38,
                         38,
@@ -383,7 +368,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        contrste_yodado === true ? false : true,
+                        datos.P_2 != "" ? false : true,
                         0,
                         38,
                         38,
@@ -398,7 +383,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_2 != "" ? datos.P_2 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -421,7 +406,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_corazon === true ? true : false,
+                        datos.P_3 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -445,7 +430,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_corazon === true ? false : true,
+                        datos.P_3 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -460,7 +445,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_3 != "" ? datos.P_3 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -483,7 +468,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_rinones === true ? true : false,
+                        datos.P_4 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -507,7 +492,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_rinones === true ? false : true,
+                        datos.P_4 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -522,7 +507,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_4 != "" ? datos.P_4 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -545,7 +530,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_higado === true ? true : false,
+                        datos.P_5 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -569,7 +554,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_higado === true ? false : true,
+                        datos.P_5 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -584,7 +569,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_5 != "" ? datos.P_5 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -607,7 +592,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        asma === true ? true : false,
+                        datos.P_6 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -631,7 +616,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        asma === true ? false : true,
+                        datos.P_6 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -646,7 +631,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_6 != "" ? datos.P_6 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -669,7 +654,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        alergia === true ? true : false,
+                        datos.P_7 != "" ? true : false,
                         0,
                         38,
                         38,
@@ -693,7 +678,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        alergia === true ? false : true,
+                        datos.P_7 != "" ? false : true,
                         0,
                         38,
                         38,
@@ -708,7 +693,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_7 != "" ? datos.P_7 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -731,7 +716,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        diabetes === true ? true : false,
+                        datos.P_8 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -755,7 +740,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        diabetes === true ? false : true,
+                        datos.P_8 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -770,7 +755,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_8 != "" ? datos.P_8 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -793,7 +778,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        otra_enfermedad === true ? true : false,
+                        datos.P_9 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -817,7 +802,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        otra_enfermedad === true ? false : true,
+                        datos.P_9 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -832,7 +817,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_9 != "" ? datos.P_9 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -855,7 +840,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        medicamentos === true ? true : false,
+                        datos.P_10 != "" ? true : false,
                         0,
                         40,
                         40,
@@ -879,7 +864,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        medicamentos === true ? false : true,
+                        datos.P_10 != "" ? false : true,
                         0,
                         40,
                         40,
@@ -894,7 +879,7 @@ export const impresionLAB010 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: `${datos.P_10 != "" ? datos.P_10 : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -989,7 +974,7 @@ export const impresionLAB010 = ({ datos }) => {
             {
               marginBottom: 5,
               colSpan: 3,
-              text: `Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito.\n\n Yo {PEPE PEPITO PEPITICO PEPOTE}, identificada (o) con el documento de identidad número {1111111111}, después de haber sido informado (a) sobre el procedimiento de Tomografía Axial Computarizada, los riesgos y beneficios, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.`,
+              text: `Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito.\n\n Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, después de haber sido informado (a) sobre el procedimiento de Tomografía Axial Computarizada, los riesgos y beneficios, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.`,
               style: "tableTitle",
               alignment: "justify",
             },
@@ -1020,50 +1005,50 @@ export const impresionLAB010 = ({ datos }) => {
             {
               marginTop: 5,
               alignment: "center",
-              image: "sampleImage.jpg",
+              image: "firma_paci",
               width: 140,
               height: 70,
             },
             {
               marginTop: 5,
               alignment: "center",
-              image: "sampleImage.jpg",
+              image: "firma_acomp",
               width: 140,
               height: 70,
             },
             {
               marginTop: 5,
               alignment: "center",
-              image: "sampleImage.jpg",
+              image: "firma_profesional",
               width: 140,
               height: 70,
             },
           ],
           [
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.paciente.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.acomp.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.prof.descrip}`,
               style: "tableTitle",
             },
           ],
           [
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.paciente.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.acomp.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.prof.cod}`,
               style: "tableTitle",
             },
           ],
@@ -1092,7 +1077,7 @@ export const impresionLAB010 = ({ datos }) => {
             {
               marginBottom: 5,
               colSpan: 3,
-              text: `Yo {PEPE PEPITO PEPITICO PEPOTE}, identificada (o) con el documento de identidad número {1111111111}, después de haber sido informado (a) sobre el procedimiento de Tomografía Axial Computarizada sus riesgos y beneficios y adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.`,
+              text: `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, después de haber sido informado (a) sobre el procedimiento de Tomografía Axial Computarizada sus riesgos y beneficios y adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.`,
               style: "tableTitle",
               alignment: "justify",
             },
@@ -1123,50 +1108,50 @@ export const impresionLAB010 = ({ datos }) => {
             {
               marginTop: 5,
               alignment: "center",
-              image: "sampleImage.jpg",
+              image: "firma_paci",
               width: 140,
               height: 70,
             },
             {
               marginTop: 5,
               alignment: "center",
-              image: "sampleImage.jpg",
+              image: "firma_acomp",
               width: 140,
               height: 70,
             },
             {
               marginTop: 5,
               alignment: "center",
-              image: "sampleImage.jpg",
+              image: "firma_profesional",
               width: 140,
               height: 70,
             },
           ],
           [
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.paciente.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.acomp.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.prof.descrip}`,
               style: "tableTitle",
             },
           ],
           [
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.paciente.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.acomp.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.prof.cod}`,
               style: "tableTitle",
             },
           ],
