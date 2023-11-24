@@ -7,41 +7,6 @@ export const impresionLAB009 = ({ datos }) => {
   };
 
   function contenidoResnciaNuclear() {
-    const tipo_id = "";
-
-    const gadolinio = true;
-
-    const marcapasos = true;
-    const neuroestimuladores = true;
-    const protesis_dentales = false;
-    const disptvo_intrauterino = true;
-    const electrodos = true;
-    const vlv_derivacion = false;
-    const sutura_metalica = true;
-    const barras_harrington = false;
-    const audifonos = false;
-    const esquirlas_mtlicas = true;
-    const bomba_isulina = true;
-    const clips_ganchos_qrgco = false;
-    const stents = true;
-    const protsis_auriculares = true;
-    const implantes_auditivos = true;
-    const protsis_cadera_rodilla = false;
-    const desfribilador_implntble = false;
-    const fract_clavo_alambre = false;
-
-    const contraste = true;
-
-    const exam_gadolinio = true;
-    const reaccion_gadolinio = true;
-    const enferm_corazon = true;
-    const enferm_rinones = true;
-    const enferm_higado = true;
-    const asma = true;
-    const alergia = true;
-    const diabetes = true;
-    const otra_enfermedad = true;
-    const medicamentos = true;
     return {
       stack: [
         datosFormatUTM({ datos }),
@@ -68,7 +33,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        gadolinio === true ? true : false,
+                        datos.proces == "S" ? true : false,
                         0,
                         55,
                         55,
@@ -92,7 +57,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        gadolinio === true ? false : true,
+                        datos.gadolinio == "N" ? true : false,
                         0,
                         55,
                         55,
@@ -241,7 +206,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(marcapasos),
+                      stack: marcaCasilla(datos.marcapasos == "S" ? true : false),
                     },
                   ],
                 },
@@ -258,7 +223,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(neuroestimuladores),
+                      stack: marcaCasilla(datos.neuroestimuladores == "S" ? true : false),
                     },
                   ],
                 },
@@ -275,7 +240,9 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(protesis_dentales),
+                      stack: marcaCasilla(
+                        datos.protesis_dental == "S" ? true : datos.protesis_dental == "S" ? true : false
+                      ),
                     },
                   ],
                 },
@@ -292,7 +259,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(disptvo_intrauterino),
+                      stack: marcaCasilla(datos.disp_intrauterino == "S" ? true : false),
                     },
                   ],
                 },
@@ -311,7 +278,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(electrodos),
+                      stack: marcaCasilla(datos.electrodos == "S" ? true : false),
                     },
                   ],
                 },
@@ -328,7 +295,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(vlv_derivacion),
+                      stack: marcaCasilla(datos.valvula_derivacion == "S" ? true : false),
                     },
                   ],
                 },
@@ -345,7 +312,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(sutura_metalica),
+                      stack: marcaCasilla(datos.suturas_metalicas == "S" ? true : false),
                     },
                   ],
                 },
@@ -362,7 +329,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(barras_harrington),
+                      stack: marcaCasilla(datos.barras_harrington == "S" ? true : false),
                     },
                   ],
                 },
@@ -381,7 +348,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(audifonos),
+                      stack: marcaCasilla(datos.protesis_dental == "S" ? true : false),
                     },
                   ],
                 },
@@ -398,7 +365,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(esquirlas_mtlicas),
+                      stack: marcaCasilla(datos.esquirlas_metalicas == "S" ? true : false),
                     },
                   ],
                 },
@@ -415,7 +382,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(bomba_isulina),
+                      stack: marcaCasilla(datos.bomba_insulina == "S" ? true : false),
                     },
                   ],
                 },
@@ -432,7 +399,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(clips_ganchos_qrgco),
+                      stack: marcaCasilla(datos.clips_quirurgicos == "S" ? true : false),
                     },
                   ],
                 },
@@ -451,7 +418,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(stents),
+                      stack: marcaCasilla(datos.stents == "S" ? true : false),
                     },
                   ],
                 },
@@ -468,12 +435,12 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(protsis_auriculares),
+                      stack: marcaCasilla(datos.protesis_auriculares == "S" ? true : false),
                     },
                   ],
                 },
                 {
-                  text: "Implantes auditivos",
+                  text: "Implantes Auditivos",
                   style: "tableTitle",
                 },
                 {
@@ -485,7 +452,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(implantes_auditivos),
+                      stack: marcaCasilla(datos.implantes_auditivos == "S" ? true : false),
                     },
                   ],
                 },
@@ -502,7 +469,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(protsis_cadera_rodilla),
+                      stack: marcaCasilla(datos.protesis_cadera == "S" ? true : false),
                     },
                   ],
                 },
@@ -524,7 +491,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(desfribilador_implntble),
+                      stack: marcaCasilla(datos.desfibrilador == "S" ? true : false),
                     },
                   ],
                 },
@@ -544,7 +511,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(fract_clavo_alambre),
+                      stack: marcaCasilla(datos.fractura_tratadas == "S" ? true : false),
                     },
                   ],
                 },
@@ -635,21 +602,7 @@ export const impresionLAB009 = ({ datos }) => {
                       style: "tableTitle",
                       alignment: "center",
                       color: "#808080",
-                    },
-                    {
-                      alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        contraste === true ? true : false,
-                        0,
-                        55,
-                        55,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
-                    },
+                    },                   
                   ],
                 },
                 {
@@ -659,20 +612,6 @@ export const impresionLAB009 = ({ datos }) => {
                       style: "tableTitle",
                       alignment: "center",
                       color: "#808080",
-                    },
-                    {
-                      alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        contraste === true ? false : true,
-                        0,
-                        55,
-                        55,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
                     },
                   ],
                 },
@@ -693,7 +632,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        exam_gadolinio === true ? true : false,
+                        datos.P_1.trim() ? true : false,
                         0,
                         38,
                         38,
@@ -717,7 +656,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        exam_gadolinio === true ? false : true,
+                        !datos.P_1.trim() ? true : false,
                         0,
                         38,
                         38,
@@ -732,7 +671,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_1,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -755,7 +694,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        reaccion_gadolinio === true ? true : false,
+                        datos.P_2.trim() ? true : false,
                         0,
                         38,
                         38,
@@ -779,7 +718,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        reaccion_gadolinio === true ? false : true,
+                        !datos.P_2.trim() ? true : false,
                         0,
                         38,
                         38,
@@ -794,7 +733,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_2,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -817,7 +756,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_corazon === true ? true : false,
+                        datos.P_3.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -841,7 +780,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_corazon === true ? false : true,
+                        !datos.P_3.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -856,7 +795,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_3,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -879,7 +818,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_rinones === true ? true : false,
+                        datos.P_4.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -903,7 +842,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_rinones === true ? false : true,
+                        !datos.P_4.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -918,7 +857,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_4,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -941,7 +880,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_higado === true ? true : false,
+                        datos.P_5.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -965,7 +904,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        enferm_higado === true ? false : true,
+                        !datos.P_5.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -980,7 +919,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_5,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -1003,7 +942,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        asma === true ? true : false,
+                        datos.P_6.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1027,7 +966,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        asma === true ? false : true,
+                        !datos.P_6.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1042,7 +981,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_6,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -1065,7 +1004,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        alergia === true ? true : false,
+                        datos.P_7.trim() ? true : false,
                         0,
                         38,
                         38,
@@ -1089,7 +1028,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        alergia === true ? false : true,
+                        !datos.P_7.trim() ? true : false,
                         0,
                         38,
                         38,
@@ -1104,7 +1043,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_7,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -1127,7 +1066,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        diabetes === true ? true : false,
+                        datos.P_8.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1151,7 +1090,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        diabetes === true ? false : true,
+                        !datos.P_8.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1166,7 +1105,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_8,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -1189,7 +1128,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        otra_enfermedad === true ? true : false,
+                        datos.P_9.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1213,7 +1152,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        otra_enfermedad === true ? false : true,
+                        !datos.P_9.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1228,7 +1167,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_9,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -1251,7 +1190,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        medicamentos === true ? true : false,
+                        datos.P_10.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1275,7 +1214,7 @@ export const impresionLAB009 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        medicamentos === true ? false : true,
+                        !datos.P_10.trim() ? true : false,
                         0,
                         40,
                         40,
@@ -1290,7 +1229,7 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {
                   colSpan: 3,
-                  text: "",
+                  text: datos.P_10,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -1306,51 +1245,6 @@ export const impresionLAB009 = ({ datos }) => {
                 },
                 {},
                 {},
-                {},
-                {},
-                {},
-              ],
-            ],
-          },
-        },
-        {
-          marginTop: 10,
-          table: {
-            widths: ["25%", "25%", "25%", "25%"],
-            body: [
-              [
-                {
-                  text: "PRIMER APELLIDO",
-                  style: "tableTitle",
-                  alignment: "center",
-                  bold: true,
-                },
-                {
-                  text: "SEGUNDO APELLIDO",
-                  style: "tableTitle",
-                  alignment: "center",
-                  bold: true,
-                },
-                {
-                  text: "PRIMER NOMBRE",
-                  style: "tableTitle",
-                  alignment: "center",
-                  bold: true,
-                },
-                {
-                  text: "SEGUNDO NOMBRE",
-                  style: "tableTitle",
-                  alignment: "center",
-                  bold: true,
-                },
-              ],
-              [
-                {
-                  colSpan: 4,
-                  text: "PEPITICO PEREZ PEPITO PEPITOTE",
-                  style: "tableTitle",
-                  alignment: "center",
-                },
                 {},
                 {},
                 {},
