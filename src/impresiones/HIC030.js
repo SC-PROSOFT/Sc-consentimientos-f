@@ -216,7 +216,7 @@ export const impresionHC030 = ({ datos }) => {
         {
           marginTop: 5,
           marginBottom: 10,
-          text: `Yo, {datos.paciente.descrip} identificado (a) con la CC No {1193220992}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia`,
+          text: `Yo, ${datos.paciente.descrip} identificado (a) con la CC No ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia`,
           alignment: "justify",
           style: "bodyNoBold",
         },
