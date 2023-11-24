@@ -91,8 +91,8 @@ onMounted(() => {
 
 const verificarSesion = async () => {
   try {
-    localStorage.setItem("ip", "34.234.185.158");
-    // localStorage.setItem("ip", window.location.hostname);
+    // localStorage.setItem("ip", "34.234.185.158");
+    localStorage.setItem("ip", window.location.hostname);
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
