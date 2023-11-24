@@ -2,7 +2,7 @@ import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
 const { getImgBs64, getEncabezado } = useApiContabilidad();
-const { getEmpresa, getPaci } = useModuleFormatos();
+const { getEmpresa } = useModuleFormatos();
 
 export const utilsFormat = ({ datos, content }) => {
   const base64 = "data:image/png;base64,";
@@ -36,13 +36,13 @@ export const utilsFormat = ({ datos, content }) => {
                   {
                     marginTop: 10,
                     marginBottom: 10,
-                    text: `${getEmpresa.nomusu} \n\n`,
+                    text: `${getEmpresa?.nomusu} \n\n`,
                     style: "headerBold",
                     alignment: "center",
                   },
                   {
                     marginTop: 15,
-                    text: `${getEncabezado.descrip}`,
+                    text: `${getEncabezado?.descrip}`,
                     style: "headerBold",
                     alignment: "center",
                   },
@@ -50,18 +50,20 @@ export const utilsFormat = ({ datos, content }) => {
               },
               {
                 stack: [
-                  getEncabezado.iso == "S" ? {
-                    text: [
-                      {
-                        text: "Código: ",
-                        bold: true,
-                      },
-                      {
-                        text: getEncabezado.codigo,
-                      },
-                    ],
-                    style: "headerEnd",
-                  } : {},
+                  getEncabezado.iso == "S"
+                    ? {
+                        text: [
+                          {
+                            text: "Código: ",
+                            bold: true,
+                          },
+                          {
+                            text: getEncabezado.codigo,
+                          },
+                        ],
+                        style: "headerEnd",
+                      }
+                    : {},
                   {
                     text: [
                       {
