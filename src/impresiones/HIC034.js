@@ -642,6 +642,7 @@ export const impresionHC034 = ({ datos }) => {
   function firmas() {
     let firmasArray = [];
     let tamanoFirmasArray = 0;
+    let anchos = [];
     
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());

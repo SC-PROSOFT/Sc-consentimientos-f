@@ -2,6 +2,7 @@ import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionHC030 = ({ datos }) => {
+  console.log("datos", datos)
   var dd = {
     stack: [contenidoCitologia(), firmas()],
   };
@@ -70,7 +71,7 @@ export const impresionHC030 = ({ datos }) => {
           alignment: "justify",
           style: "bodyNoBold",
         },
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
         {
           style: "tableNoBold",
           alignment: "justify",
@@ -113,7 +114,7 @@ export const impresionHC030 = ({ datos }) => {
     };
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     const textoAutorizo = {
       stack: [
         {
@@ -203,8 +204,30 @@ export const impresionHC030 = ({ datos }) => {
       ],
     };
 
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: `Yo, ${datos.paciente.descrip} identificado (a) con la CC No ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia`,
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
     if (autorizo) return textoAutorizo;
     else return textoRevoca;
+    }
   }
 
   function cuadro_canvas(condicion) {

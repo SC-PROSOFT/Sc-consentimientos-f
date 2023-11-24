@@ -2,6 +2,7 @@ import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB007 = ({ datos }) => {
+  console.log("LAB007 - datos", datos);
   var dd = {
     stack: [contenidoDensOsea()],
   };
@@ -121,7 +122,7 @@ export const impresionLAB007 = ({ datos }) => {
             {
               marginBottom: 5,
               colSpan: 3,
-              text: `Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito.\n\n Yo {PEPE PEPITO PEPITICO PEPOTE}, identificada (o) con el documento de identidad número {1111111111}, después de haber sido informado (a) sobre el procedimiento de Densitometría Ósea, los riesgos y beneficios, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.`,
+              text: `Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito.\n\n Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, después de haber sido informado (a) sobre el procedimiento de Densitometría Ósea, los riesgos y beneficios, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en cuenta que esta autorización puede ser revocable en cualquier momento.`,
               style: "tableTitle",
               alignment: "justify",
             },
@@ -173,29 +174,29 @@ export const impresionLAB007 = ({ datos }) => {
           ],
           [
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.paciente.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.acomp.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.prof.descrip}`,
               style: "tableTitle",
             },
           ],
           [
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.paciente.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.acomp.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.prof.cod}`,
               style: "tableTitle",
             },
           ],
@@ -224,7 +225,7 @@ export const impresionLAB007 = ({ datos }) => {
             {
               marginBottom: 5,
               colSpan: 3,
-              text: `Yo {PEPE PEPITO PEPITICO PEPOTE}, identificada (o) con el documento de identidad número {1111111111}, después de haber sido informado (a) sobre el procedimiento de Densitometría Ósea sus riesgos y beneficios y adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.`,
+              text: `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, después de haber sido informado (a) sobre el procedimiento de Densitometría Ósea sus riesgos y beneficios y adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.`,
               style: "tableTitle",
               alignment: "justify",
             },
@@ -276,29 +277,29 @@ export const impresionLAB007 = ({ datos }) => {
           ],
           [
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.paciente.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.acomp.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: PEPE PEPITO PEPITICO PEPOTE`,
+              text: `NOMBRE: ${datos.prof.descrip}`,
               style: "tableTitle",
             },
           ],
           [
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.paciente.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.acomp.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: 1111111111`,
+              text: `DOC. IDENT: ${datos.prof.cod}`,
               style: "tableTitle",
             },
           ],
