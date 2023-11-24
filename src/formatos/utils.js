@@ -2,7 +2,7 @@ import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
 const { getImgBs64, getEncabezado } = useApiContabilidad();
-const { getEmpresa, getPaci } = useModuleFormatos();
+const { getEmpresa } = useModuleFormatos();
 
 export const utilsFormat = ({ datos, content }) => {
   console.log("🚀 ~ utilsFormat ~ datosssss:", datos);
@@ -22,7 +22,123 @@ export const utilsFormat = ({ datos, content }) => {
     header: function (currentPage, pageCount) {
       return {
         margin: [35, 15, 35, 0], //Margenes deben ir en relacion a la pageMargin
-        table: datosHeader(getEncabezado.iso, currentPage, pageCount),
+        table: {
+          widths: ["20%", "54%", "26%"],
+          body: [
+            [
+              {
+                marginTop: 4,
+                image: "logo",
+                width: 90,
+                height: 65,
+                alignment: "center",
+              },
+              {
+                text: [
+                  {
+                    marginTop: 10,
+                    marginBottom: 10,
+                    text: `${getEmpresa?.nomusu} \n\n`,
+                    style: "headerBold",
+                    alignment: "center",
+                  },
+                  {
+                    marginTop: 15,
+                    text: `${getEncabezado?.descrip}`,
+                    style: "headerBold",
+                    alignment: "center",
+                  },
+                ],
+              },
+              {
+                stack: [
+                  getEncabezado.iso == "S"
+                    ? {
+                        text: [
+                          {
+                            text: "Código: ",
+                            bold: true,
+                          },
+                          {
+                            text: getEncabezado.codigo,
+                          },
+                        ],
+                        style: "headerEnd",
+                      }
+                    : {},
+                  {
+                    text: [
+                      {
+                        text: "Versión: ",
+                        bold: true,
+                      },
+                      {
+                        text: getEncabezado.version,
+                      },
+                    ],
+                    style: "headerEnd",
+                  },
+                  {
+                    text: [
+                      {
+                        text: "Aprobado el: ",
+                        bold: true,
+                      },
+                      {
+                        text: getEncabezado.fecha_aprob
+                          ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD")
+                          : "",
+                      },
+                    ],
+                    style: "headerEnd",
+                  },
+                  {
+                    text: [
+                      {
+                        text: "evisado por ",
+                        bold: true,
+                      },
+                      {
+                        text: getEncabezado.reviso,
+                      },
+                    ],
+                    style: "headerEnd",
+                  },
+                  {
+                    text: [
+                      {
+                        text: "Aprobado por ",
+                        bold: true,
+                      },
+                      {
+                        text: getEncabezado.aprobo,
+                      },
+                    ],
+                    style: "headerEnd",
+                  },
+                  {
+                    text: [
+                      {
+                        text: "Fecha de actualización: ",
+                        bold: true,
+                      },
+                      {
+                        text: getEncabezado.fecha_act
+                          ? dayjs(getEncabezado.fecha_act).format("YYYY-MM-DD")
+                          : "",
+                      },
+                    ],
+                    style: "headerEnd",
+                  },
+                  {
+                    text: "Página " + currentPage + " de " + pageCount,
+                    style: "headerEnd",
+                  },
+                ],
+              },
+            ],
+          ],
+        },
       };
     },
     content,

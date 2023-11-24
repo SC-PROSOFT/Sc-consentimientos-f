@@ -159,6 +159,7 @@
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { useModuleCon851, useApiContabilidad } from "@/store";
 import { ref, onMounted, watch, watchEffect } from "vue";
+import { foco_ } from "@/setup";
 import days from "dayjs";
 
 const { getDll$ } = useApiContabilidad();
@@ -303,7 +304,6 @@ watchEffect(() => {
 
 const resetValues = () => {
   Object.assign(reg_config.value, {
-    ...reg_config.value,
     codigo: null,
     aprobo: null,
     fecha_aprob: null,
@@ -363,24 +363,27 @@ const actualizarMaestro = async () => {
     data_envio.fecha_aprob = data_envio.fecha_aprob?.split("-").join("");
 
     const camposo_bligatorios = [
-      { nombre: "habilitar consen", campo: "habilitar" },
-      { nombre: "nit", campo: "iso" },
       { nombre: "activar por rango de edad", campo: "rango_edad" },
+      { nombre: "habilitar consen", campo: "habilitar" },
       { nombre: "activar por sexo", campo: "sexo" },
+      { nombre: "nit", campo: "iso" },
     ];
+
     if (data_envio.rango_edad == "S") {
       camposo_bligatorios.push(
         { nombre: "edad desde", campo: "edad_desde" },
         { nombre: "edad hasta", campo: "edad_hasta" }
       );
     }
-    if (reg_config.value.iso == "S") {
+    if (data_envio.iso == "S") {
       camposo_bligatorios.push({ nombre: "codigo", campo: "codigo" }, { nombre: "aprobo", campo: "aprobo" });
     }
 
     for (const campo_info of camposo_bligatorios) {
-      const valorCampo = reg_config.value[campo_info.campo];
-      if (!valorCampo) {
+      const valor_campo = data_envio[campo_info.campo];
+      if (["", null].includes(valor_campo?.trim())) {
+        console.log(valor_campo);
+        console.log(campo_info.campo);
         return CON851("02", "info", campo_info.nombre, () => foco_(form_config, campo_info.campo));
       }
     }
