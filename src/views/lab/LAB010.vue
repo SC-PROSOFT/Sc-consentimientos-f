@@ -142,13 +142,13 @@
                 class="q-pt-md"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.otros_exam"
-                :label="reg.otros_exam == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_1"
+                :label="reg_checks.P_1 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_otros_exam" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_1" v-model="reg.P_1" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -161,13 +161,13 @@
                 class="q-pt-md"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.reacc_adversa"
-                :label="reg.reacc_adversa == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_2"
+                :label="reg_checks.P_2 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_reacc_adversa" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_2" v-model="reg.P_2" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -175,16 +175,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.enferm_corzn"
-                :label="reg.enferm_corzn == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_3"
+                :label="reg_checks.P_3 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_enferm_corzn" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_3" v-model="reg.P_3" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -192,16 +192,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.enferm_rinons"
-                :label="reg.enferm_rinons == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_4"
+                :label="reg_checks.P_4 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_enferm_rinons" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_4" v-model="reg.P_4" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -209,16 +209,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.enferm_hgdo"
-                :label="reg.enferm_hgdo == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_5"
+                :label="reg_checks.P_5 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_enferm_hgdo" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_5" v-model="reg.P_5" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -226,16 +226,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.asma"
-                :label="reg.asma == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_6"
+                :label="reg_checks.P_6 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_asma" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_6" v-model="reg.P_6" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -248,13 +248,13 @@
                 class="q-pt-md"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.alergia"
-                :label="reg.alergia == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_7"
+                :label="reg_checks.P_7 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_alergia" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_7" v-model="reg.P_7" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -262,16 +262,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.diabetes"
-                :label="reg.diabetes == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_8"
+                :label="reg_checks.P_8 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_diabetes" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_8" v-model="reg.P_8" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -279,16 +279,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.otra_enferm"
-                :label="reg.otra_enferm == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_9"
+                :label="reg_checks.P_9 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_otra_enferm" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_9" v-model="reg.P_9" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -296,16 +296,16 @@
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 18%">
               <q-checkbox
-                class="q-pt-md"
+                class="q-pt-sm"
                 style="margin-top: -5px"
                 left-label
-                v-model="reg.medicamentos"
-                :label="reg.medicamentos == false ? 'NO' : 'SI'"
+                v-model="reg_checks.P_10"
+                :label="reg_checks.P_10 == false ? 'NO' : 'SI'"
               />
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 42%">
               <div class="q-mt-lg">
-                <Input_ v-model="reg.text_medicamentos" :field="form.especifique" />
+                <Input_ v-show="reg_checks.P_10" v-model="reg.P_10" :field="form.especifique" />
               </div>
             </div>
             <div class="text-justify" style="border: 1px solid #ccc; width: 100%">
@@ -387,7 +387,7 @@
         </div>
         <div class="col-12 row justify-center q-my-md">
           <q-btn
-            :disable="reg.opcion_lab002 ? false : true"
+            :disable="reg.opcion_lab010 ? false : true"
             @click="validarDatos"
             icon-right="check_circle"
             class="q-mr-lg"
@@ -433,27 +433,51 @@
     fecha_act: "",
     iodado: false,
     contraste: false,
-    otros_exam: false,
-    text_otros_exam: "",
-    reacc_adversa: false,
-    text_reacc_adversa: "",
-    enferm_corzn: false,
-    text_enferm_corzn: "",
-    enferm_rinons: false,
-    text_enferm_rinons: "",
-    enferm_hgdo: false,
-    text_enferm_hgdo: "",
-    asma: false,
-    text_asma: "",
-    alergia: false,
-    text_alergia: "",
-    diabetes: false,
-    text_diabetes: "",
-    otra_enferm: false,
-    text_otra_enferm: "",
-    medicamentos: false,
-    text_medicamentos: "",
+    //otros_exam 
+    P_1: "",
+    // reacc_adversa
+    P_2: "",
+    // enferm_corzn
+    P_3: "",
+    // enferm_rinons
+    P_4: "",
+    // enferm_hgdo
+    P_5: "",
+    // asma
+    P_6: "",
+    // alergia
+    P_7: "",
+    // diabetes
+    P_8: "",
+    // otra_enferm
+    P_9: "",
+    // medicamentos
+    P_10: "",
   });
+
+  // Este reg maneja los checkbox, al activarlos se activa el input que se guarda en cobol
+  const reg_checks = ref ({
+    //otros_exam 
+    P_1: false,
+    // reacc_adversa
+    P_2: false,
+    // enferm_corzn
+    P_3: false,
+    // enferm_rinons
+    P_4: false,
+    // enferm_hgdo
+    P_5: false,
+    // asma
+    P_6: false,
+    // alergia
+    P_7: false,
+    // diabetes
+    P_8: false,
+    // otra_enferm
+    P_9: false,
+    // medicamentos
+    P_10: false,
+  })
   
   const form = ref({
     especifique: {
