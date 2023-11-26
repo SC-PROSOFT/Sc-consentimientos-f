@@ -1,17 +1,9 @@
 <template>
   <q-card class="my-card">
     <!-- tabla para reimprimir los consentimientos -->
-    <q-table
-      :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
-      v-if="['2', '3'].includes(novedad)"
-      :rows-per-page-options="[10]"
-      :columns="columns_consen"
-      :rows="lista_consen"
-      row-key="COD_MAE"
-      bordered
-      dense
-      flat
-    >
+    <q-table :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
+      v-if="['2', '3'].includes(novedad)" :rows-per-page-options="[10]" :columns="columns_consen" :rows="lista_consen"
+      row-key="COD_MAE" bordered dense flat>
       <template v-slot:header="props">
         <q-tr :props="props">
           <!-- highlight_off -->
@@ -26,13 +18,8 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="validarAccion(props)" class="cursor">
           <q-td auto-width>
-            <q-btn
-              @click="validarAccion(props)"
-              :icon="novedad == '2' ? 'local_printshop' : 'highlight_off'"
-              class="botone"
-              :color="novedad == '2' ? 'primary' : 'red-7'"
-              size="sm"
-            >
+            <q-btn @click="validarAccion(props)" :icon="novedad == '2' ? 'local_printshop' : 'highlight_off'"
+              class="botone" :color="novedad == '2' ? 'primary' : 'red-7'" size="sm">
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -53,17 +40,8 @@
       </template>
     </q-table>
     <!-- tabla para elaborar los consentimientos -->
-    <q-table
-      title="Generar consentimiento"
-      :rows-per-page-options="[10]"
-      :rows="lista_maestros"
-      v-if="novedad == 1"
-      :columns="columns"
-      row-key="cod_mae"
-      bordered
-      dense
-      flat
-    >
+    <q-table title="Generar consentimiento" :rows-per-page-options="[10]" :rows="lista_maestros" v-if="novedad == 1"
+      :columns="columns" row-key="cod_mae" bordered dense flat>
       <template v-slot:header="props">
         <q-tr :props="props">
           <q-th auto-width> Elaborar </q-th>
@@ -93,11 +71,8 @@
         </div>
       </template>
     </q-table>
-    <DisentirConsen_
-      :consen="reg_consentimiento"
-      v-if="reg_consentimiento.estado"
-      @cerrar="reg_consentimiento.estado = false"
-    />
+    <DisentirConsen_ :consen="reg_consentimiento" v-if="reg_consentimiento.estado"
+      @cerrar="reg_consentimiento.estado = false" />
   </q-card>
 </template>
 <script setup>
@@ -106,6 +81,12 @@ import { ref, onMounted, defineAsyncComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
   impresionLAB002,
+  impresionLAB003,
+  impresionLAB004,
+  impresionLAB005,
+  impresionLAB006,
+  impresionLAB007,
+  impresionLAB008,
   impresionLAB009,
   impresionHC030,
   impresionHC031,
@@ -285,8 +266,14 @@ const disentirConsentimiento = async (row) => {
 const reimprimirConsentimiento = async (row) => {
   const opciones = {
     LAB002: impresionLAB002,
+    LAB003: impresionLAB003,
+    LAB004: impresionLAB004,
+    LAB005: impresionLAB005,
+    LAB006: impresionLAB006,
+    LAB007: impresionLAB007,
+    LAB008: impresionLAB008,
     LAB009: impresionLAB009,
-    HIC030: impresionHC030,
+    HIC030: impresionHC030, 
     HIC031: impresionHC031,
     HIC032: impresionHC032,
     HIC033: impresionHC033,
@@ -301,7 +288,7 @@ const reimprimirConsentimiento = async (row) => {
     HIC042: impresionHC042,
   };
 
-  setHeader$({ encabezado: row.reg_coninf.datos_encab });
+  await setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
   await getHuella(row.reg_paci.cod);
 
