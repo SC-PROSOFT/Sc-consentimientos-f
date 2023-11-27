@@ -12,8 +12,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
   }),
   getters: {
     getEncabezado() {
-      if (this.encabezado.codigo) return this.encabezado;
-      else if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
+      if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
+      return this.encabezado;
     },
     getImgBs64: () =>
       "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
