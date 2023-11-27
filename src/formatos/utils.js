@@ -17,6 +17,9 @@ export const utilsFormat = ({ datos, content }) => {
       huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
+    info: {
+      title: `${getPaci.cod}` //Aca se añade el titulo del archivo
+    },
     header: function (currentPage, pageCount) {
       return {
         margin: [35, 15, 35, 0], //Margenes deben ir en relacion a la pageMargin
