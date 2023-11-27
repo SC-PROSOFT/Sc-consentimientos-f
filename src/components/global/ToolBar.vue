@@ -84,7 +84,7 @@ onMounted(() => {
   operador.value = route.query.oper;
   const opciones = { HIC: "HISTORIA CLINICA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
   if (route.query.modulo == "LAB") {
-    const cod = getArtic[0].codigo.slice(0, 2);
+    const cod = getArtic[0]?.codigo?.slice(0, 2);
     if (["87", "88"].includes(cod)) {
       return (modulo.value = `${modulo.value} DE IMAGENOLOGIA`);
     }
