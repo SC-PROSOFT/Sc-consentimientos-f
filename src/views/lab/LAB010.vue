@@ -402,7 +402,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionLAB010, impresion, generarArchivo } from "@/impresiones";
+import { impresionLAB010, impresion, impresionDwld, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -596,6 +596,12 @@ const imprimirConsen = async () => {
         datos: datos_lab010,
       }),
     });
+    // const docDefinitionPrintDwnld = utilsFormat({
+    //   datos: firmas,
+    //   content: impresionLAB010({
+    //     datos: datos_lab010,
+    //   }),
+    // });
     const docDefinitionFile = utilsFormat({
       datos: firmas,
       content: impresionLAB010({
@@ -604,6 +610,7 @@ const imprimirConsen = async () => {
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
+    // await impresionDwld({ docDefinition: docDefinitionPrintDwnld });
     const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
     return response_impresion;
   } catch (error) {

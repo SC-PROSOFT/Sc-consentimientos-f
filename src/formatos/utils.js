@@ -1,7 +1,7 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
-const { getEmpresa, getArtic, getDiag, getPaci } = useModuleFormatos();
+const { getEmpresa, getArtic, getDiag, getPaci, getSesion } = useModuleFormatos();
 const { getImgBs64, getEncabezado } = useApiContabilidad();
 
 export const utilsFormat = ({ datos, content }) => {
@@ -18,7 +18,7 @@ export const utilsFormat = ({ datos, content }) => {
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     info: {
-      title: `${getPaci.cod}` //Aca se añade el titulo del archivo
+      title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format('HHmm')}` //Aca se añade el titulo del archivo
     },
     header: function (currentPage, pageCount) {
       return {

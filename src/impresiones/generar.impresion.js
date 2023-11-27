@@ -3,7 +3,7 @@ import FileSaver, { saveAs } from "file-saver";
 import "pdfmake/build/vfs_fonts";
 import pdfMake from "pdfmake/build/pdfmake";
 import { resolve } from "path-browserify";
-
+import { useModuleFormatos } from "@/store";
 import { formatNumberMask_ } from "@/setup";
 import days from "dayjs";
 
@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === "development") {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
   });
 }
+const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
 
 class _ImpresionExcel {
   workbook = new Excel.Workbook();
@@ -670,6 +671,17 @@ export function impresion({ docDefinition }) {
     }
   });
 }
+// export function impresionDwld({ docDefinition }) {
+//   return new Promise(async function (resolve, reject) {
+//     try {
+//       pdfMake.createPdf(docDefinition).download(`CONSEN - ${getPaci.cod}${getSesion.oper}${days().format('HHmm')}`);
+//       resolve(true);
+//     } catch (error) {
+//       console.error(error);
+//       reject(error);
+//     }
+//   });
+// }
 export function generarArchivo({ docDefinition }) {
   return new Promise(async function (resolve, reject) {
     try {
