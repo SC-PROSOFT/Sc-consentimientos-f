@@ -38,7 +38,7 @@
           <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center"> FECHA ACTUALIZACIÓN </strong>
             <strong class="col-12 text-center">
-              {{ days(getEncabezado.fecha_act).format("YYYY-MM-DD") }}
+              {{ days(getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") }}
             </strong>
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">

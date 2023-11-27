@@ -65,13 +65,14 @@
 </template>
 
 <script setup>
-import { useModuleCon851p, useApiContabilidad } from "@/store";
+import { useModuleCon851p, useApiContabilidad, useModuleFormatos } from "@/store";
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 
 const route = useRoute();
 const { CON851P } = useModuleCon851p();
 const { logOut$ } = useApiContabilidad();
+const { getArtic } = useModuleFormatos();
 
 defineProps({ titulo: String });
 
@@ -82,6 +83,12 @@ const operador = ref(null);
 onMounted(() => {
   operador.value = route.query.oper;
   const opciones = { HIC: "HISTORIA CLINICA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
+  if (route.query.modulo == "LAB") {
+    const cod = getArtic[0].codigo.slice(0, 2);
+    if (["87", "88"].includes(cod)) {
+      return (modulo.value = `${modulo.value} DE IMAGENOLOGIA`);
+    }
+  }
   modulo.value = `${modulo.value} DE ${opciones[route.query.modulo]}`;
 });
 
