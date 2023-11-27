@@ -1,7 +1,8 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
+import { SessionStorage } from "quasar";
 
-const { getEmpresa, getArtic, getDiag, getPaci, getSesion } = useModuleFormatos();
+const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
 const { getImgBs64, getEncabezado } = useApiContabilidad();
 
 export const utilsFormat = ({ datos, content }) => {
@@ -18,7 +19,7 @@ export const utilsFormat = ({ datos, content }) => {
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
     },
     info: {
-      title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format('HHmm')}` //Aca se añade el titulo del archivo
+      title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo
     },
     header: function (currentPage, pageCount) {
       return {
@@ -235,6 +236,8 @@ const datosHeader = (iso, currentPage, pageCount) => {
 };
 
 export const datosFormatUTM = ({ datos }) => {
+  const diag = JSON.parse(atob(getSesion.diagnosticos));
+  const artic = JSON.parse(atob(getSesion.articulos));
   const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
 
   const marcaCasilla = (condicion) => {
@@ -553,12 +556,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${getArtic[0] ? getArtic[0].codigo : ""}`,
+                text: `${artic[0] ? artic[0].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${getArtic[0] ? getArtic[0].descripcion : ""}`,
+                text: `${artic[0] ? artic[0].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
@@ -570,12 +573,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${getArtic[1] ? getArtic[1].codigo : ""}`,
+                text: `${artic[1] ? artic[1].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${getArtic[1] ? getArtic[1].descripcion : ""}`,
+                text: `${artic[1] ? artic[1].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
@@ -607,12 +610,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${getDiag[0] ? getDiag[0].codigo : ""}`,
+                text: `${diag[0] ? diag[0].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${getDiag[0] ? getDiag[0].descripcion : ""}`,
+                text: `${diag[0] ? diag[0].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],
@@ -624,12 +627,12 @@ export const datosFormatUTM = ({ datos }) => {
               },
               {
                 border: [true, false, true, true],
-                text: `${getDiag[1] ? getDiag[1].codigo : ""}`,
+                text: `${diag[1] ? diag[1].codigo : ""}`,
                 style: "tableTitle",
               },
               {
                 border: [true, false, true, true],
-                text: `${getDiag[1] ? getDiag[1].descripcion : ""}`,
+                text: `${diag[1] ? diag[1].descripcion : ""}`,
                 style: "tableTitle",
               },
             ],

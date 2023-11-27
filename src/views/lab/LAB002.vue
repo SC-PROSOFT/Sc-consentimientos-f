@@ -164,7 +164,7 @@ const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } =
   useApiContabilidad();
-const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getArtic, getDiag } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
@@ -195,6 +195,7 @@ const reg = ref({
 
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  console.log('getSesion--> 🙌', getSesion)
   getFirmaProf();
 });
 

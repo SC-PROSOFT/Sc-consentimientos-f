@@ -453,14 +453,14 @@ const reg = ref({
   // medicamentos
   P_10: "",
 
-  codigo_cie1: getDiag[0] ? getDiag[0].codigo : "",
-  descrip_cie1: getDiag[0] ? getDiag[0].descripcion : "",
-  codigo_cie2: getDiag[1] ? getDiag[1].codigo : "",
-  descrip_cie2: getDiag[1] ? getDiag[1].descripcion : "",
-  codigo_cups1: getArtic[0] ? getArtic[0].codigo : "",
-  descrip_cups1: getArtic[0] ? getArtic[0].descripcion : "",
-  codigo_cups2: getArtic[1] ? getArtic[1].codigo : "",
-  descrip_cups2: getArtic[1] ? getArtic[1].descripcion : "",
+  codigo_cie1: "",
+  descrip_cie1: "",
+  codigo_cie2: "",
+  descrip_cie2: "",
+  codigo_cups1: "",
+  descrip_cups1: "",
+  codigo_cups2: "",
+  descrip_cups2: "",
   llave_consen: `${getPaci.cod}00000000`,
   servicio: "",
 });
@@ -578,6 +578,15 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
+    reg.codigo_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].codigo : "";
+    reg.descrip_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].descripcion : "";
+    reg.codigo_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].codigo : "";
+    reg.descrip_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].descripcion : "";
+    reg.codigo_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].codigo : "";
+    reg.descrip_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].descripcion : "";
+    reg.codigo_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].codigo : "";
+    reg.descrip_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].descripcion : "";
+
     const datos_lab010 = {
       autorizo: reg.value.opcion_lab010 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,

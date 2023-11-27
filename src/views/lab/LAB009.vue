@@ -616,6 +616,15 @@ const reg = ref({
     proces: "N",
     stents: "N",
   },
+  
+  codigo_cie1: "",
+  descrip_cie1: "",
+  codigo_cie2: "",
+  descrip_cie2: "",
+  codigo_cups1: "",
+  descrip_cups1: "",
+  codigo_cups2: "",
+  descrip_cups2: "",
   servicio: "",
 
   proce_cont: {
@@ -768,7 +777,15 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    console.log("⚡  file: LAB009.vue:761  reg.value-->", reg.value)
+    reg.codigo_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].codigo : "";
+    reg.descrip_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].descripcion : "";
+    reg.codigo_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].codigo : "";
+    reg.descrip_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].descripcion : "";
+    reg.codigo_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].codigo : "";
+    reg.descrip_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].descripcion : "";
+    reg.codigo_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].codigo : "";
+    reg.descrip_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].descripcion : "";
+
     const datos_lab009 = {
       autorizo: reg.value.opcion_lab009 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,

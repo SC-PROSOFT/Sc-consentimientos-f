@@ -23,7 +23,7 @@
             </q-chip>
           </p>
         </div>
-        <DatosFormat :datos="datos" @datos="(data) => (datos.servicio = data)" />
+        <DatosFormat :datos="datos" @datos="(data) => (reg.servicio = data)" />
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
@@ -173,21 +173,21 @@ const firma_prof = ref(null);
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
-  servicio: "",
 };
 
 const reg = ref({
   opcion_lab004: "",
   fecha_act: "",
   edad: "",
-  codigo_cie1: getDiag[0] ? getDiag[0].codigo : "",
-  descrip_cie1: getDiag[0] ? getDiag[0].descripcion : "",
-  codigo_cie2: getDiag[1] ? getDiag[1].codigo : "",
-  descrip_cie2: getDiag[1] ? getDiag[1].descripcion : "",
-  codigo_cups1: getArtic[0] ? getArtic[0].codigo : "",
-  descrip_cups1: getArtic[0] ? getArtic[0].descripcion : "",
-  codigo_cups2: getArtic[1] ? getArtic[1].codigo : "",
-  descrip_cups2: getArtic[1] ? getArtic[1].descripcion : "",
+  codigo_cie1: "",
+  descrip_cie1: "",
+  codigo_cie2: "",
+  descrip_cie2: "",
+  codigo_cups1: "",
+  descrip_cups1: "",
+  codigo_cups2: "",
+  descrip_cups2: "",
+  servicio: "",
   llave_consen: `${getPaci.cod}00000000`,
 });
 
@@ -294,6 +294,15 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
+    reg.codigo_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].codigo : "";
+    reg.descrip_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].descripcion : "";
+    reg.codigo_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].codigo : "";
+    reg.descrip_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].descripcion : "";
+    reg.codigo_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].codigo : "";
+    reg.descrip_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].descripcion : "";
+    reg.codigo_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].codigo : "";
+    reg.descrip_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].descripcion : "";
+
     const datos_lab004 = {
       autorizo: reg.value.opcion_lab004 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,

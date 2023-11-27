@@ -88,10 +88,10 @@
           <p>1</p>
         </div>
         <div class="row justify-center bold" style="width: 30%">
-          <p>{{ diagnosticos[0] ? diagnosticos[0].codigo : "" }}</p>
+          <p>{{ articulos[0] ? articulos[0].codigo : "" }}</p>
         </div>
         <div class="row justify-center bold" style="width: 62%">
-          <p>{{ diagnosticos[0] ? diagnosticos[0].descripcion : "" }}</p>
+          <p>{{ articulos[0] ? articulos[0].descripcion : "" }}</p>
         </div>
       </div>
       <div class="row justify-center" style="width: 100%">
@@ -99,10 +99,10 @@
           <p>2</p>
         </div>
         <div class="row justify-center bold" style="width: 30%">
-          <p>{{ diagnosticos[1] ? diagnosticos[1].codigo : "" }}</p>
+          <p>{{ articulos[1] ? articulos[1].codigo : "" }}</p>
         </div>
         <div class="row justify-center bold" style="width: 62%">
-          <p>{{ diagnosticos[1] ? diagnosticos[1].descripcion : "" }}</p>
+          <p>{{ articulos[1] ? articulos[1].descripcion : "" }}</p>
         </div>
       </div>
       <div class="q-mt-sm row" style="width: 100%">
@@ -122,10 +122,10 @@
             <p>1</p>
           </div>
           <div class="row justify-center bold" style="width: 30%">
-            <p>{{ articulos[0] ? articulos[0].codigo : "" }}</p>
+            <p>{{ diagnosticos[0] ? diagnosticos[0].codigo : "" }}</p>
           </div>
           <div class="row justify-center bold" style="width: 62%">
-            <p>{{ articulos[0] ? articulos[0].descripcion : "" }}</p>
+            <p>{{ diagnosticos[0] ? diagnosticos[0].descripcion : "" }}</p>
           </div>
         </div>
         <div class="row justify-center" style="width: 100%">
@@ -133,10 +133,10 @@
             <p>2</p>
           </div>
           <div class="row justify-center bold" style="width: 30%">
-            <p>{{ articulos[1] ? articulos[1].codigo : "" }}</p>
+            <p>{{ diagnosticos[1] ? diagnosticos[1].codigo : "" }}</p>
           </div>
           <div class="row justify-center bold" style="width: 62%">
-            <p>{{ articulos[1] ? articulos[1].descripcion : "" }}</p>
+            <p>{{ diagnosticos[1] ? diagnosticos[1].descripcion : "" }}</p>
           </div>
         </div>
       </div>

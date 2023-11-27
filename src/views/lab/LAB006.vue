@@ -23,7 +23,7 @@
             </q-chip>
           </p>
         </div>
-        <DatosFormat :datos="datos" @datos="(data) => (datos.servicio = data)" />
+        <DatosFormat :datos="datos" @datos="(data) => (reg.servicio = data)" />
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
@@ -153,7 +153,8 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } =
+  useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getArtic, getDiag } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -173,14 +174,15 @@ const reg = ref({
   opcion_lab006: "",
   fecha_act: "",
   edad: "",
-  codigo_cie1: getDiag[0] ? getDiag[0].codigo : "",
-  descrip_cie1: getDiag[0] ? getDiag[0].descripcion : "",
-  codigo_cie2: getDiag[1] ? getDiag[1].codigo : "",
-  descrip_cie2: getDiag[1] ? getDiag[1].descripcion : "",
-  codigo_cups1: getArtic[0] ? getArtic[0].codigo : "",
-  descrip_cups1: getArtic[0] ? getArtic[0].descripcion : "",
-  codigo_cups2: getArtic[1] ? getArtic[1].codigo : "",
-  descrip_cups2: getArtic[1] ? getArtic[1].descripcion : "",
+  codigo_cie1: "",
+  descrip_cie1: "",
+  codigo_cie2: "",
+  descrip_cie2: "",
+  codigo_cups1: "",
+  descrip_cups1: "",
+  codigo_cups2: "",
+  descrip_cups2: "",
+  servicio: "",
   llave_consen: `${getPaci.cod}00000000`,
 });
 
@@ -241,9 +243,11 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
+            "YYYYMMDDHHmm"
+          )}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
-          file
+          file,
         });
         CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       },
@@ -262,9 +266,11 @@ const grabarFirmaConsen = async (llave) => {
         CON851("?", response.tipo, response.message, () => router.back());
 
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
+            "YYYYMMDDHHmm"
+          )}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
-          file
+          file,
         });
         CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       }
@@ -276,6 +282,15 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async () => {
+  reg.codigo_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].codigo : "";
+  reg.descrip_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].descripcion : "";
+  reg.codigo_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].codigo : "";
+  reg.descrip_cie2 = getSesion.diagnosticos[1] ? getSesion.diagnosticos[1].descripcion : "";
+  reg.codigo_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].codigo : "";
+  reg.descrip_cups1 = getSesion.articulos[0] ? getSesion.articulos[0].descripcion : "";
+  reg.codigo_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].codigo : "";
+  reg.descrip_cups2 = getSesion.articulos[1] ? getSesion.articulos[1].descripcion : "";
+
   try {
     const datos_lab006 = {
       autorizo: reg.value.opcion_lab006 == "AUTORIZAR" ? true : false,
