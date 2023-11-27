@@ -115,6 +115,32 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
 
+    guardarArchivo$({nombre, ruta, file = null, loader = true }) {
+      const formData = new FormData();
+      formData.append("archivo", file, nombre);
+      const data_archivo = {
+        ruta,
+      };
+
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/guardar-archivo`,
+          method: "POST",
+          data: formData,
+          params: data_archivo,
+          loader,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+          .then((response) => resolve(response))
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
+    },
+
     guardarFile$({ base64 = "", ruta = "", codigo = "", formato = "png", loader = true }) {
       if (this.empresa.unid_prog == "S") {
         ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;

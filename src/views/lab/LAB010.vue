@@ -402,7 +402,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionLAB010, impresion, impresionDwld, generarArchivo } from "@/impresiones";
+import { impresionLAB010, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -412,7 +412,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getArtic, getDiag } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -538,8 +538,14 @@ const grabarFirmaConsen = async (llave) => {
       "info",
       "¿Deseas enviar el correo del consentimientos?",
       async () => {
-        await imprimirConsen();
-        router.back();
+        
+        const file = await imprimirConsen();
+        const response_guardar = await guardarArchivo$({
+          nombre: `${getSesion.suc}${getSesion.nro_comp}.pdf`,
+          ruta: "D:\\CONSENTIMIENTOS",
+          file
+        });
+        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       },
       async () => {
         const file = await imprimirConsen();
@@ -554,6 +560,13 @@ const grabarFirmaConsen = async (llave) => {
           file,
         });
         CON851("?", response.tipo, response.message, () => router.back());
+        
+        const response_guardar = await guardarArchivo$({
+          nombre: `${getSesion.suc}${getSesion.nro_comp}.pdf`,
+          ruta: "D:\\CONSENTIMIENTOS",
+          file
+        });
+        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       }
     );
   } catch (error) {
