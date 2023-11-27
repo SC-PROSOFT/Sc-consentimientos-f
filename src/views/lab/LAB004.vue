@@ -160,7 +160,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getArtic, getDiag } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -258,7 +258,7 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
           file
         });
@@ -279,7 +279,7 @@ const grabarFirmaConsen = async (llave) => {
         CON851("?", response.tipo, response.message, () => router.back());
 
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
           file
         });
