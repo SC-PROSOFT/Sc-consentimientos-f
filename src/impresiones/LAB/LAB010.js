@@ -2,7 +2,6 @@ import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB010 = ({ datos }) => {
-  console.log("datos", datos)
   var dd = {
     stack: [contenidoTmgrfiaAxialCmptrzada()],
   };
@@ -34,7 +33,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        iodado === true ? true : false,
+                        datos.iodado === true ? true : false,
                         0,
                         55,
                         55,
@@ -58,7 +57,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        iodado === true ? false : true,
+                        datos.iodado === true ? false : true,
                         0,
                         55,
                         55,
@@ -228,7 +227,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        contraste === true ? true : false,
+                        datos.contraste === true ? true : false,
                         0,
                         55,
                         55,
@@ -252,7 +251,7 @@ export const impresionLAB010 = ({ datos }) => {
                     {
                       alignment: "center",
                       stack: marcaCasillaPrzonlzda(
-                        contraste === true ? false : true,
+                        datos.contraste === true ? false : true,
                         0,
                         55,
                         55,
