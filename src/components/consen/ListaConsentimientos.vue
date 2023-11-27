@@ -1,9 +1,17 @@
 <template>
   <q-card class="my-card">
     <!-- tabla para reimprimir los consentimientos -->
-    <q-table :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
-      v-if="['2', '3'].includes(novedad)" :rows-per-page-options="[10]" :columns="columns_consen" :rows="lista_consen"
-      row-key="COD_MAE" bordered dense flat>
+    <q-table
+      :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
+      v-if="['2', '3'].includes(novedad)"
+      :rows-per-page-options="[10]"
+      :columns="columns_consen"
+      :rows="lista_consen"
+      row-key="COD_MAE"
+      bordered
+      dense
+      flat
+    >
       <template v-slot:header="props">
         <q-tr :props="props">
           <!-- highlight_off -->
@@ -18,8 +26,13 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="validarAccion(props)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="validarAccion(props)" :icon="novedad == '2' ? 'local_printshop' : 'highlight_off'"
-              class="botone" :color="novedad == '2' ? 'primary' : 'red-7'" size="sm">
+            <q-btn
+              @click="validarAccion(props)"
+              :icon="novedad == '2' ? 'local_printshop' : 'highlight_off'"
+              class="botone"
+              :color="novedad == '2' ? 'primary' : 'red-7'"
+              size="sm"
+            >
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
@@ -40,8 +53,17 @@
       </template>
     </q-table>
     <!-- tabla para elaborar los consentimientos -->
-    <q-table title="Generar consentimiento" :rows-per-page-options="[10]" :rows="lista_maestros" v-if="novedad == 1"
-      :columns="columns" row-key="cod_mae" bordered dense flat>
+    <q-table
+      title="Generar consentimiento"
+      :rows-per-page-options="[10]"
+      :rows="lista_maestros"
+      v-if="novedad == 1"
+      :columns="columns"
+      row-key="cod_mae"
+      bordered
+      dense
+      flat
+    >
       <template v-slot:header="props">
         <q-tr :props="props">
           <q-th auto-width> Elaborar </q-th>
@@ -71,8 +93,11 @@
         </div>
       </template>
     </q-table>
-    <DisentirConsen_ :consen="reg_consentimiento" v-if="reg_consentimiento.estado"
-      @cerrar="reg_consentimiento.estado = false" />
+    <DisentirConsen_
+      :consen="reg_consentimiento"
+      v-if="reg_consentimiento.estado"
+      @cerrar="reg_consentimiento.estado = false"
+    />
   </q-card>
 </template>
 <script setup>
@@ -115,7 +140,7 @@ const route = useRoute();
 
 const { CON851 } = useModuleCon851();
 const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, setHc } = useModuleFormatos();
+const { getEmpresa, setHc, setSession } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const novedad = ref(null);
@@ -188,9 +213,8 @@ const valueEstado = (estado) => {
   return "red";
 };
 const getParametros = async () => {
-  if (Object.keys(route.query).length) {
-    sessionStorage.setItem("query", JSON.stringify(route.query));
-  }
+  if (Object.keys(route.query).length) setSession(route.query);
+
   if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
   else params_querys.value = route.query;
   novedad.value = params_querys.value.novedad;
@@ -275,7 +299,7 @@ const reimprimirConsentimiento = async (row) => {
     LAB008: impresionLAB008,
     LAB009: impresionLAB009,
     LAB010: impresionLAB010,
-    HIC030: impresionHC030, 
+    HIC030: impresionHC030,
     HIC031: impresionHC031,
     HIC032: impresionHC032,
     HIC033: impresionHC033,

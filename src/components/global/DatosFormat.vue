@@ -88,10 +88,10 @@
           <p>1</p>
         </div>
         <div class="row justify-center bold" style="width: 30%">
-          <p>{{ getArtic[0] ? getArtic[0].codigo : "" }}</p>
+          <p>{{ diagnosticos[0] ? diagnosticos[0].codigo : "" }}</p>
         </div>
         <div class="row justify-center bold" style="width: 62%">
-          <p>{{ getArtic[0] ? getArtic[0].descripcion : "" }}</p>
+          <p>{{ diagnosticos[0] ? diagnosticos[0].descripcion : "" }}</p>
         </div>
       </div>
       <div class="row justify-center" style="width: 100%">
@@ -99,10 +99,10 @@
           <p>2</p>
         </div>
         <div class="row justify-center bold" style="width: 30%">
-          <p>{{ getArtic[1] ? getArtic[1].codigo : "" }}</p>
+          <p>{{ diagnosticos[1] ? diagnosticos[1].codigo : "" }}</p>
         </div>
         <div class="row justify-center bold" style="width: 62%">
-          <p>{{ getArtic[1] ? getArtic[1].descripcion : "" }}</p>
+          <p>{{ diagnosticos[1] ? diagnosticos[1].descripcion : "" }}</p>
         </div>
       </div>
       <div class="q-mt-sm row" style="width: 100%">
@@ -122,10 +122,10 @@
             <p>1</p>
           </div>
           <div class="row justify-center bold" style="width: 30%">
-            <p>{{ getDiag[0] ? getDiag[0].codigo : "" }}</p>
+            <p>{{ articulos[0] ? articulos[0].codigo : "" }}</p>
           </div>
           <div class="row justify-center bold" style="width: 62%">
-            <p>{{ getDiag[0] ? getDiag[0].descripcion : "" }}</p>
+            <p>{{ articulos[0] ? articulos[0].descripcion : "" }}</p>
           </div>
         </div>
         <div class="row justify-center" style="width: 100%">
@@ -133,10 +133,10 @@
             <p>2</p>
           </div>
           <div class="row justify-center bold" style="width: 30%">
-            <p>{{ getDiag[1] ? getDiag[1].codigo : "" }}</p>
+            <p>{{ articulos[1] ? articulos[1].codigo : "" }}</p>
           </div>
           <div class="row justify-center bold" style="width: 62%">
-            <p>{{ getDiag[1] ? getDiag[1].descripcion : "" }}</p>
+            <p>{{ articulos[1] ? articulos[1].descripcion : "" }}</p>
           </div>
         </div>
       </div>
@@ -146,11 +146,11 @@
 
 <script setup>
 import { useModuleFormatos } from "@/store/module/formatos";
-import { computed, ref, watchEffect } from "vue";
+import { computed, ref, watchEffect, onMounted } from "vue";
 import { calcEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-const { getPaci, getEmpresa, getArtic, getDiag } = useModuleFormatos();
+const { getPaci, getEmpresa, getSesion } = useModuleFormatos();
 const props = defineProps({
   datos: {
     active_cups: Boolean,
@@ -177,6 +177,13 @@ const servicio = ref({
   },
 });
 
+const articulos = ref([]);
+const diagnosticos = ref([]);
+
+onMounted(() => {
+  articulos.value = getSesion.articulos;
+  diagnosticos.value = getSesion.diagnosticos;
+});
 const emit = defineEmits(["datos"]);
 watchEffect(() => emit("datos", servicio.value.select));
 
@@ -187,7 +194,6 @@ const datos_comp = computed(() => {
     check_id: true,
   };
 });
-
 </script>
 
 <style>

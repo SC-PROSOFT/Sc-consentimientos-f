@@ -4,6 +4,7 @@ export * from "./contab/reg_con852";
 
 export * from "./reg_encabezado";
 export * from "./reg_empresa";
+export * from "./reg_sesion";
 export * from "./reg_acomp";
 export * from "./reg_paci";
 export * from "./reg_prof";

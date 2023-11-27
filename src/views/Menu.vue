@@ -69,7 +69,7 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, setPaci, setEmpresa, setProf, setAcomp, setDiag, setArtic } = useModuleFormatos();
+const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
@@ -121,12 +121,6 @@ const validarUrl = async () => {
   } else {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
-
-  if (datos_session.articulos) {
-    setDiag(atob(datos_session.diagnosticos));
-    setArtic(atob(datos_session.articulos));
-  }
-
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
   await getPaciente();
   getVersionBuild();

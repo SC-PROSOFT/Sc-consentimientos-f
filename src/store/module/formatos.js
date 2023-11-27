@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { regHc, regEmpresa, regPaci, regProf, regAcomp } from "@/fuentes";
+import { regHc, regEmpresa, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
 import days from "dayjs";
 
 export const useModuleFormatos = defineStore("formatos", {
@@ -20,13 +20,25 @@ export const useModuleFormatos = defineStore("formatos", {
     reg_prof: regProf(),
     reg_acomp: regAcomp(),
     reg_hc: regHc(),
+    reg_sesion: regSession(),
 
     reg_empresa: Object.assign({}, regEmpresa()),
   }),
   getters: {
     getSesion() {
-      if (sessionStorage.query) return JSON.parse(sessionStorage.query);
-      return "";
+      if (sessionStorage.query) {
+        let data_session = JSON.parse(sessionStorage.query);
+        data_session.articulos = JSON.parse(atob(data_session?.articulos));
+        data_session.diagnosticos = JSON.parse(atob(data_session?.diagnosticos));
+        return data_session;
+      }
+      if (this.reg_sesion.articulos) {
+        this.reg_sesion.articulos = JSON.parse(atob(this.reg_sesion.articulos));
+      }
+      if (this.reg_sesion.diagnosticos) {
+        this.reg_sesion.diagnosticos = JSON.parse(atob(this.reg_sesion.diagnosticos));
+      }
+      return this.reg_sesion;
     },
     getLogo() {
       if (sessionStorage.logo) return `data:image/png;base64,${sessionStorage.logo}`;
@@ -73,11 +85,9 @@ export const useModuleFormatos = defineStore("formatos", {
       sessionStorage.setItem("reg_hc", JSON.stringify(reg_hic));
       Object.assign(this.reg_hc, reg_hic);
     },
-    setDiag(diagnosticos) {
-      sessionStorage.setItem("diagnosticos", JSON.parse(JSON.stringify(diagnosticos)));
-    },
-    setArtic(articulos) {
-      sessionStorage.setItem("articulos", JSON.parse(JSON.stringify(articulos)));
+    setSession(reg_sesion) {
+      sessionStorage.setItem("query", JSON.stringify(reg_sesion));
+      Object.assign(this.reg_sesion, reg_sesion);
     },
     setPaci(reg_paci) {
       sessionStorage.setItem("reg_paci", JSON.stringify(reg_paci));
