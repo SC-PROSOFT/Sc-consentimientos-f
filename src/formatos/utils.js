@@ -236,8 +236,8 @@ const datosHeader = (iso, currentPage, pageCount) => {
 };
 
 export const datosFormatUTM = ({ datos }) => {
-  const diag = JSON.parse(atob(getSesion.diagnosticos));
-  const artic = JSON.parse(atob(getSesion.articulos));
+  const diag = getSesion?.diagnosticos[0] ? getSesion?.diagnosticos : JSON.parse(atob(getSesion.diagnosticos));
+  const artic = getSesion?.articulos[0] ?  getSesion.articulos: JSON.parse(atob(getSesion.articulos));
   const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
 
   const marcaCasilla = (condicion) => {
