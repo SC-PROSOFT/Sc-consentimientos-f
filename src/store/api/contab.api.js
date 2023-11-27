@@ -25,11 +25,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
       window.close();
     },
     setHeader$({ encabezado }) {
-      sessionStorage.removeItem("encabezado");
-      if (encabezado) {
-        this.encabezado = encabezado;
-        sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
-      }
+      sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
+      Object.assign(this.encabezado, encabezado);
     },
     getVersionBuild$({}) {
       return new Promise((resolve, reject) => {
@@ -115,7 +112,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
 
-    guardarArchivo$({nombre, ruta, file = null, loader = true }) {
+    guardarArchivo$({ nombre, ruta, file = null, loader = true }) {
       const formData = new FormData();
       formData.append("archivo", file, nombre);
       const data_archivo = {
