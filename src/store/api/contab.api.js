@@ -149,7 +149,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
         apiAxios({
           url: `contabilidad/guardar-file`,
           method: "POST",
-          data: { base64, ruta: `${ruta}/${codigo}.${formato}` },
+          data: { base64: base64.slice(22), ruta: `${ruta}/${codigo}.${formato}` },
           loader,
         })
           .then((response) => resolve(response))
