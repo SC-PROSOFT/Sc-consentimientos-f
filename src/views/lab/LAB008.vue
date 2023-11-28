@@ -354,11 +354,11 @@ const imprimirConsen = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma.slice(22));
+  data_firma && (firma_recibida.value = data_firma);
 };
 
 const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma.slice(22));
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
 <style>

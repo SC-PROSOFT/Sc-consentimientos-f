@@ -234,6 +234,7 @@ const grabarConsentimiento = async () => {
 
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
+      console.log("⚡  file: LAB004.vue:238  data.llave_consen-->", data.llave_consen)
       return grabarFirmaConsen(data.llave_consen);
     })
     .catch((error) => {
@@ -351,11 +352,11 @@ const imprimirConsen = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma.slice(22));
+  data_firma && (firma_recibida.value = data_firma);
 };
 
 const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma.slice(22));
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
 

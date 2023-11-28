@@ -195,7 +195,6 @@ const reg = ref({
 
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
-  console.log('getSesion--> 🙌', getSesion)
   getFirmaProf();
 });
 
@@ -357,11 +356,11 @@ const getFirmaProf = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma.slice(22));
+  data_firma && (firma_recibida.value = data_firma);
 };
 
 const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma.slice(22));
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
 
