@@ -28,8 +28,9 @@ export const useModuleFormatos = defineStore("formatos", {
     getSesion() {
       if (sessionStorage.query) {
         let data_session = JSON.parse(sessionStorage.query);
-        data_session.articulos = JSON.parse(atob(data_session?.articulos));
-        data_session.diagnosticos = JSON.parse(atob(data_session?.diagnosticos));
+        data_session.articulos = data_session?.articulos && JSON.parse(atob(data_session?.articulos));
+        data_session.diagnosticos =
+          data_session?.diagnosticos && JSON.parse(atob(data_session?.diagnosticos));
         return data_session;
       }
       if (this.reg_sesion.articulos) {
