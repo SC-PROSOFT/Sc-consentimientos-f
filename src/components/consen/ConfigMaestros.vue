@@ -380,7 +380,7 @@ const actualizarMaestro = async () => {
     }
 
     for (const campo_info of camposo_bligatorios) {
-      const valor_campo = data_envio[campo_info.campo];
+      const valor_campo = data_envio[campo_info.campo] ? data_envio[campo_info.campo] : "";
       if (["", null].includes(valor_campo?.trim())) {
         console.log(valor_campo);
         console.log(campo_info.campo);

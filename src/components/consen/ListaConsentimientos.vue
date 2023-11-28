@@ -221,7 +221,7 @@ const getParametros = async () => {
 
   params_querys.value.modulo == "HIC" && getHistoriaClinica();
   params_querys.value.modulo == "ODO" && getOdontologia();
-  params_querys.value.modulo == "LAB" && getConsentimientosRealizados();
+  getConsentimientosRealizados();
   getMaestros();
 };
 const getOdontologia = async () => {
@@ -233,7 +233,6 @@ const getOdontologia = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
-    if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
   } catch (error) {
     CON851("?", "info", error, logOut$);
   }
@@ -249,7 +248,7 @@ const getHistoriaClinica = async () => {
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       return CON851("9Y", "info", "", logOut$);
     }
-    if (["2", "3"].includes(novedad.value)) getConsentimientosRealizados();
+
   } catch (error) {
     CON851("?", "info", error, logOut$);
   }
@@ -264,7 +263,7 @@ const getConsentimientosRealizados = async () => {
       data: {
         llave_consen: params_querys.value.llave_hc,
         modulo: params_querys.value.modulo?.toUpperCase(),
-        paso: novedad.value,
+        paso: novedad.value == "1" ? "2" : novedad.value,
       },
     });
 
@@ -275,9 +274,21 @@ const getConsentimientosRealizados = async () => {
         parseInt(`${a.reg_coninf.llave.fecha}${a.reg_coninf.llave.hora}`)
       );
     });
+
+    validarConsen();
   } catch (error) {
     CON851("?", "info", "Error consultado consentimientos");
   }
+};
+
+const validarConsen = () => {
+  //Verificamos si existe el consentimiento
+  if (novedad.value != "1") return;
+
+  const query = sessionStorage.query && JSON.parse(sessionStorage.query);
+  const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
+  const existe = lista_consen.value.find((el) => el.reg_coninf.llave_fact == llave_fact);
+  existe && CON851("?", "info", "Comprobante ya fue registrado !", logOut$);
 };
 
 const validarAccion = async ({ row }) => {
