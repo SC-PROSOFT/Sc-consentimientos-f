@@ -6,8 +6,6 @@ const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
 const { getImgBs64, getEncabezado } = useApiContabilidad();
 
 export const utilsFormat = ({ datos, content }) => {
-  console.log("🚀 ~ utilsFormat ~ datos:", datos);
-  console.log("🚀 ~ getEncabezado:", getEncabezado);
   const base64 = "data:image/png;base64,";
   return {
     pageSize: "LETTER",
