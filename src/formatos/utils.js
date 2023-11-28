@@ -6,6 +6,8 @@ const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
 const { getImgBs64, getEncabezado } = useApiContabilidad();
 
 export const utilsFormat = ({ datos, content }) => {
+  console.log("🚀 ~ utilsFormat ~ datos:", datos);
+  console.log("🚀 ~ getEncabezado:", getEncabezado);
   const base64 = "data:image/png;base64,";
   return {
     pageSize: "LETTER",
@@ -17,6 +19,7 @@ export const utilsFormat = ({ datos, content }) => {
       firma_acomp: datos.img_firma_acomp ? datos.img_firma_acomp : getImgBs64,
       huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
+      firma_disentimiento: datos.firma_disentimiento || sessionStorage.firma_disentimiento || getImgBs64,
     },
     info: {
       title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo
@@ -115,80 +118,7 @@ const datosHeader = (iso, currentPage, pageCount) => {
         },
         {
           stack: [
-            {
-              text: [
-                {
-                  text: "Código: ",
-                  bold: true,
-                },
-                {
-                  text: getEncabezado.codigo,
-                },
-              ],
-              style: "headerEnd",
-            },
-            {
-              text: [
-                {
-                  text: "Versión: ",
-                  bold: true,
-                },
-                {
-                  text: getEncabezado.version,
-                },
-              ],
-              style: "headerEnd",
-            },
-            {
-              text: [
-                {
-                  text: "Aprobado el: ",
-                  bold: true,
-                },
-                {
-                  text: getEncabezado.fecha_aprob
-                    ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD")
-                    : "",
-                },
-              ],
-              style: "headerEnd",
-            },
-            {
-              text: [
-                {
-                  text: "evisado por ",
-                  bold: true,
-                },
-                {
-                  text: getEncabezado.reviso,
-                },
-              ],
-              style: "headerEnd",
-            },
-            {
-              text: [
-                {
-                  text: "Aprobado por ",
-                  bold: true,
-                },
-                {
-                  text: getEncabezado.aprobo,
-                },
-              ],
-              style: "headerEnd",
-            },
-            {
-              text: [
-                {
-                  text: "Fecha de actualización: ",
-                  bold: true,
-                },
-                {
-                  text: getEncabezado.fecha_act ? dayjs(getEncabezado.fecha_act).format("YYYY-MM-DD") : "",
-                },
-              ],
-              style: "headerEnd",
-            },
+            construirHeaderISO(),
             {
               text: "Página " + currentPage + " de " + pageCount,
               style: "headerEnd",
@@ -235,9 +165,41 @@ const datosHeader = (iso, currentPage, pageCount) => {
   else return headerSinISO;
 };
 
+const construirHeaderISO = () => {
+  const encabezado = [];
+
+  const agregarElemento = (texto, valor) => {
+    if (valor !== " " && valor !== "") {
+      encabezado.push({
+        text: [
+          {
+            text: `${texto}: `,
+            bold: true,
+          },
+          {
+            text: valor,
+          },
+        ],
+        style: "headerEnd",
+      });
+    }
+  };
+
+  agregarElemento("Código", getEncabezado.codigo);
+  agregarElemento("Versión", getEncabezado.version);
+  agregarElemento("Fecha de actualización", getEncabezado.fecha_act ? dayjs(getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") : "");
+  agregarElemento("Aprobado el", getEncabezado.fecha_aprob ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD") : "");
+  agregarElemento("Aprobado por", getEncabezado.aprobo);
+  agregarElemento("Revisado por", getEncabezado.reviso);
+
+  return encabezado;
+};
+
 export const datosFormatUTM = ({ datos }) => {
-  const diag = getSesion?.diagnosticos.length == 2 ? getSesion?.diagnosticos : JSON.parse(atob(getSesion.diagnosticos));
-  const artic = getSesion?.articulos.length == 2 ?  getSesion?.articulos: JSON.parse(atob(getSesion.articulos));
+  const diag =
+    getSesion?.diagnosticos.length == 2 ? getSesion?.diagnosticos : JSON.parse(atob(getSesion.diagnosticos));
+  const artic =
+    getSesion?.articulos.length == 2 ? getSesion?.articulos : JSON.parse(atob(getSesion.articulos));
   const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
 
   const marcaCasilla = (condicion) => {
