@@ -199,11 +199,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
         })
           .then((response) => {
             if (response.success) resolve(`data:image/png;base64,${response.data}`);
-            else {
-              resolve(
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-              );
-            }
+            else resolve(this.getImgBs64);
           })
           .catch((error) => {
             console.error(error);
@@ -252,12 +248,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
           loader: true,
         })
           .then((response) => {
-            if (response.success) resolve(response.data);
-            else {
-              resolve(
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-              );
-            }
+            if (response.success && response.data) resolve(`data:image/png;base64,${response.data}`);
+            else resolve(this.getImgBs64);
           })
           .catch((error) => {
             console.error(error);
