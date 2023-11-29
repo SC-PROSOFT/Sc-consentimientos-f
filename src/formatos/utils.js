@@ -11,13 +11,14 @@ export const utilsFormat = ({ datos, content }) => {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
     images: {
+      firma_disentimiento: datos.firma_disentimiento || sessionStorage.firma_disentimiento || getImgBs64,
+      firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
       logo: sessionStorage.logo ? `${base64}${sessionStorage.logo}` : getImgBs64,
-      firma_consen: datos.img_firma_consen || getImgBs64,
-      firma_paci: datos.img_firma_paci || getImgBs64,
       firma_acomp: datos.img_firma_acomp ? datos.img_firma_acomp : getImgBs64,
       huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
-      firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
-      firma_disentimiento: datos.firma_disentimiento || sessionStorage.firma_disentimiento || getImgBs64,
+      firma_testigo: datos.img_firma_testigo || getImgBs64,
+      firma_consen: datos.img_firma_consen || getImgBs64,
+      firma_paci: datos.img_firma_paci || getImgBs64,
     },
     info: {
       title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo

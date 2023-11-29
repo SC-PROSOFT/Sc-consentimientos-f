@@ -343,6 +343,7 @@ const reimprimirConsentimiento = async (row) => {
     const docDefinition = utilsFormat({
       datos: {
         firma_disentimiento: firma_disentimiento.value,
+        img_firma_testigo: firma_testigo.value,
         img_firma_consen: firma_consen.value,
         img_firma_acomp: firma_acomp.value,
         img_huella_paci: huella_paci.value,
@@ -355,10 +356,11 @@ const reimprimirConsentimiento = async (row) => {
             row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
+            firma_prof: firma_prof.value ? true : false,
             firma_acomp: firma_acomp.value ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
-            firma_prof: firma_prof.value ? true : false,
+            firma_testigo: firma_testigo.value ? true : false,
             firma_disentimiento: firma_disentimiento.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
