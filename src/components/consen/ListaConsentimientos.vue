@@ -356,6 +356,8 @@ const reimprimirConsentimiento = async (row) => {
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
           hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
+          obser_disenti: row.reg_coninf.datos.reg_coninf2.obser_disenti,
+          nombre_consenti: row.reg_coninf.datos_encab.descrip,
           disentimiento: row.reg_coninf.disentimiento,
           paren_acomp: row.reg_coninf.paren_acomp,
           paciente: row.reg_paci,
