@@ -97,6 +97,7 @@
       :consen="reg_consentimiento"
       v-if="reg_consentimiento.estado"
       @cerrar="reg_consentimiento.estado = false"
+      @guardar="cerrarDisen"
     />
   </q-card>
 </template>
@@ -249,7 +250,6 @@ const getHistoriaClinica = async () => {
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       return CON851("9Y", "info", "", logOut$);
     }
-
   } catch (error) {
     CON851("?", "info", error, logOut$);
   }
@@ -289,7 +289,11 @@ const validarConsen = () => {
   const query = sessionStorage.query && JSON.parse(sessionStorage.query);
   const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
   const existe = lista_consen.value.find((el) => el.reg_coninf.llave_fact == llave_fact);
-  existe && CON851("?", "info", "Comprobante ya fue registrado !", logOut$);
+  existe &&
+    CON851("52", "info", null, () => {
+      lista_maestros.value = [];
+      logOut$();
+    });
 };
 
 const validarAccion = async ({ row }) => {
@@ -345,7 +349,8 @@ const reimprimirConsentimiento = async (row) => {
       },
       content: opciones[row.reg_coninf.cod]({
         datos: {
-          autorizo: row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
+          autorizo:
+            row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_acomp: firma_acomp.value ? true : false,
@@ -426,6 +431,8 @@ const selectConsen = async (data) => {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
 };
+
+const cerrarDisen = () => location.reload();
 </script>
 <style lang="sass" scoped>
 .my-card

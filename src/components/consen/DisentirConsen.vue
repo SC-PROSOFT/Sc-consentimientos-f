@@ -57,7 +57,7 @@ const firma_disentimiento = ref(null);
 const llave_conse = ref(null);
 const reg_consen = ref({
   firma_paciente: null,
-  obser_disenti: null
+  obser_disenti: null,
 });
 const form_config = ref({
   obser_disenti: {
@@ -119,10 +119,10 @@ const guardarDisentimiento = async () => {
     id_acomp: reg_consen.value.reg_acomp.cod.padStart(15, "0"),
     paren_acomp: datos_format.paren_acomp,
     oper_disent: getSesion.oper,
-    obser_disenti: reg_consen.value.obser_disenti
+    obser_disenti: reg_consen.value.obser_disenti,
   };
 
-  console.log("datos", datos)
+  console.log("datos", datos);
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
@@ -142,7 +142,12 @@ const guardarFirmaDisentimiento = async () => {
     if (!firma_disentimiento.value) {
       return CON851("?", "info", "No se ha realizado la firma del disentimiento");
     }
-    await guardarFile$({ base64: firma_disentimiento.value, codigo: `D${llave_conse.value}` });
+    console.log("form_config.firma_paciente--> ", form_config.firma_paciente);
+
+    if (reg_consen.value.firma_paciente == "S")
+      await guardarFile$({ base64: firma_disentimiento.value, codigo: `DP${llave_conse.value}` });
+    else await guardarFile$({ base64: firma_disentimiento.value, codigo: `DA${llave_conse.value}` });
+    CON851("?", "success", "Disentimiento registrado", () => emit("guardar"));
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
