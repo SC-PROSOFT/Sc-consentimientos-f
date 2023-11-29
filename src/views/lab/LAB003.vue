@@ -210,8 +210,9 @@ const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(reg.value));
   let datos = {
     estado: reg.value.opcion_lab003 == "AUTORIZAR" ? "1" : "2",
-    disentimiento: "N",
+    llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     llave_consen: `${getPaci.cod}00000000`,
+    disentimiento: "N",
     oper_consen: getSesion.oper,
     cod_consen: "LAB003",
     cod_med: getProf.cod,
@@ -317,9 +318,9 @@ const imprimirConsen = async () => {
     };
 
     const firmas = {
+      img_firma_testigo: firma_recibida_test.value,
       img_firma_acomp: firma_recibida_acomp.value,
-      img_firma_consen: firma_recibida_test.value,
-      img_firma_testigo: firma_recibida.value,
+      img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
