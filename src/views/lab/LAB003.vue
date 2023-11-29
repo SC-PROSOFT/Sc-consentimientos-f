@@ -103,24 +103,24 @@
     <q-card-actions>
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
         />
-
         <ContainerFirma
-          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
-          @reciFirma="callBackFirmaAcomp"
-          :registro_profe="getAcomp.cod"
-          quien_firma="TESTIGO"
+          :firma_="firma_recibida_test"
+          :firmador="getTestigo.descrip"
+          :descrip_prof="getTestigo.descrip_atiende"
+          :registro_profe="getTestigo.registro_profe"
+          quien_firma="FIRMA TESTIGO"
           class="col-4"
+          disable
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
@@ -156,11 +156,13 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
-const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getDiag, getArtic } = useModuleFormatos();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } =
+  useApiContabilidad();
+const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
+const firma_recibida_acomp = ref("");
 const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
@@ -196,6 +198,7 @@ onMounted(() => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    firma_recibida_test.value = await _getFirma$({ codigo: Number(getTestigo.cod) });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
@@ -231,7 +234,7 @@ const grabarConsentimiento = async () => {
 const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
@@ -244,9 +247,11 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
+            "YYYYMMDDHHmm"
+          )}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
-          file
+          file,
         });
         CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       },
@@ -265,9 +270,11 @@ const grabarFirmaConsen = async (llave) => {
         CON851("?", response.tipo, response.message, () => router.back());
 
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
+            "YYYYMMDDHHmm"
+          )}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
-          file
+          file,
         });
         CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       }
@@ -291,15 +298,17 @@ const imprimirConsen = async () => {
 
     const datos_lab003 = {
       autorizo: reg.value.opcion_lab003 == "AUTORIZAR" ? true : false,
+      paren_acomp: getSesion.paren_acomp,
+      testigo: getTestigo,
       empresa: getEmpresa,
       paciente: getPaci,
-      prof: getProf,
       acomp: getAcomp,
-      paren_acomp: getSesion.paren_acomp,
+      prof: getProf,
       firmas: {
+        firma_acomp: firma_recibida_acomp.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
-        firma_acomp: firma_recibida_test.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
       fecha: reg.value.fecha_act,
@@ -308,10 +317,11 @@ const imprimirConsen = async () => {
     };
 
     const firmas = {
-      img_firma_consen: firma_recibida.value,
+      img_firma_acomp: firma_recibida_acomp.value,
+      img_firma_consen: firma_recibida_test.value,
+      img_firma_testigo: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
-      img_firma_acomp: firma_recibida_test.value,
       firma_prof: firma_prof.value,
     };
 
@@ -340,18 +350,15 @@ const validarDatos = () => {
   if (!firma_recibida.value && !getAcomp.cod) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
-  if (getAcomp.cod && !firma_recibida_test.value) {
-    return CON851("?", "info", "No se ha realizado la firma del testigo");
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
   grabarConsentimiento();
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
-};
-
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma);
+  if (getAcomp.cod) firma_recibida_acomp.value = data_firma;
+  else firma_recibida.value = data_firma;
 };
 </script>
 

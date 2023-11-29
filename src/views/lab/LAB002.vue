@@ -209,9 +209,11 @@ const validarDatos = async () => {
 };
 
 const grabarConsentimiento = async () => {
+  console.log('getSesion--> ', getSesion)
   const datos_format = JSON.parse(JSON.stringify(reg.value));
   let datos = {
     estado: reg.value.opcion_lab002 == "AUTORIZAR" ? "1" : "2",
+    llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
     llave_consen: `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,

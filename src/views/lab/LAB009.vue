@@ -580,10 +580,11 @@ const DatosFormat = defineAsyncComponent(() => import("@/components/global/Datos
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
+const firma_recibida_acomp = ref("");
 const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
@@ -664,27 +665,12 @@ onMounted(() => {
 
 const getFirmaProf = async () => {
   try {
+    firma_recibida_test.value = await _getFirma$({ codigo: Number(getTestigo.cod) });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
-  }
-};
-
-const validarDatos = () => {
-  try {
-    let cont = 1;
-    for (const i in reg.value.proce_cont.check) {
-      if (reg.value.proce_cont.check[i] == "S" && !reg.value.proce_cont[`especifique_${cont}`]) {
-        return CON851("?", "info", "Campo requerido", () => foco_(form, `especifique_${cont}`));
-      }
-      cont++;
-    }
-
-    grabarConsentimiento();
-  } catch (error) {
-    CON851("?", "error", "error validando datos");
   }
 };
 
@@ -728,7 +714,7 @@ const grabarConsentimiento = async () => {
 const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({ base64: firma_recibida_test.value, codigo: `A${llave}` });
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
@@ -789,14 +775,16 @@ const imprimirConsen = async () => {
     const datos_lab009 = {
       autorizo: reg.value.opcion_lab009 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
+      testigo: getTestigo,
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
       paren_acomp: getSesion.paren_acomp,
       firmas: {
+        firma_acomp: firma_recibida_acomp.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
-        firma_acomp: firma_recibida_test.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
       fecha: reg.value.fecha_act,
@@ -814,13 +802,13 @@ const imprimirConsen = async () => {
       ...reg.value.reso_mag,
       ...reg.value,
     };
-    console.log("⚡  file: LAB009.vue:764  datos_lab009-->", datos_lab009);
-
+   
     const firmas = {
-      img_firma_consen: firma_recibida.value,
+      img_firma_acomp: firma_recibida_acomp.value,
+      img_firma_consen: firma_recibida_test.value,
+      img_firma_testigo: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
-      img_firma_acomp: firma_recibida_test.value,
       firma_prof: firma_prof.value,
     };
 
@@ -845,12 +833,19 @@ const imprimirConsen = async () => {
   }
 };
 
-const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+const validarDatos = () => {
+  if (!firma_recibida.value && !getAcomp.cod) {
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
+  grabarConsentimiento();
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma);
+const callBackFirma = (data_firma) => {
+  if (getAcomp.cod) firma_recibida_acomp.value = data_firma;
+  else firma_recibida.value = data_firma;
 };
 </script>
 
