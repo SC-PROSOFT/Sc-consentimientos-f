@@ -120,7 +120,7 @@ export const impresionLAB003 = ({ datos }) => {
               alignment: "center",
             },
             {
-              text: "ACOMPAÑANTE",
+              text: "TESTIGO",
               bold: true,
               style: "tableTitle",
               alignment: "center",
