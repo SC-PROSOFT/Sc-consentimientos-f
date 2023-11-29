@@ -57,6 +57,7 @@ const firma_disentimiento = ref(null);
 const llave_conse = ref(null);
 const reg_consen = ref({
   firma_paciente: null,
+  obser_disenti: null
 });
 const form_config = ref({
   obser_disenti: {
@@ -118,8 +119,10 @@ const guardarDisentimiento = async () => {
     id_acomp: reg_consen.value.reg_acomp.cod.padStart(15, "0"),
     paren_acomp: datos_format.paren_acomp,
     oper_disent: getSesion.oper,
+    obser_disenti: reg_consen.value.obser_disenti
   };
 
+  console.log("datos", datos)
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
