@@ -150,6 +150,7 @@ const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_consen = ref(null);
 const firma_acomp = ref(null);
+const firma_disentimiento = ref(null);
 
 const lista_consen = ref([]);
 const reg_consentimiento = ref({
@@ -335,6 +336,7 @@ const reimprimirConsentimiento = async (row) => {
   try {
     const docDefinition = utilsFormat({
       datos: {
+        firma_disentimiento: firma_disentimiento.value,
         img_firma_consen: firma_consen.value,
         img_firma_acomp: firma_acomp.value,
         img_huella_paci: huella_paci.value,
@@ -343,21 +345,23 @@ const reimprimirConsentimiento = async (row) => {
       },
       content: opciones[row.reg_coninf.cod]({
         datos: {
-          autorizo: row.reg_coninf.estado == "AUTORIZADO" ? true : false,
+          autorizo: row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_acomp: firma_acomp.value ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
             firma_prof: firma_prof.value ? true : false,
+            firma_disentimiento: firma_disentimiento.value ? true : false,
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
           hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
-          empresa: getEmpresa,
-          paciente: row.reg_paci,
-          prof: row.reg_prof,
-          acomp: row.reg_acomp,
+          disentimiento: row.reg_coninf.disentimiento,
           paren_acomp: row.reg_coninf.paren_acomp,
+          paciente: row.reg_paci,
+          acomp: row.reg_acomp,
+          empresa: getEmpresa,
+          prof: row.reg_prof,
           ...row.reg_coninf.datos,
         },
       }),
@@ -389,6 +393,7 @@ const consultarFirmaConsen = async (cod_consen) => {
     firma_acomp.value = await _getImagen$({
       codigo: `A${cod_consen}`,
     });
+    firma_disentimiento.value = await _getImagen$({ codigo: `D${cod_consen}` });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

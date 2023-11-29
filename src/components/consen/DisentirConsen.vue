@@ -102,7 +102,7 @@ const validarConfiguracion = () => {
 const cerrar = () => emit("cerrar");
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_disentimiento.value = data_firma.slice(22));
+  data_firma && (firma_disentimiento.value = data_firma);
 };
 
 const guardarDisentimiento = async () => {
