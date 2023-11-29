@@ -141,7 +141,7 @@ const route = useRoute();
 
 const { CON851 } = useModuleCon851();
 const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, setHc, setSession } = useModuleFormatos();
+const { getEmpresa, getTestigo, setHc, setSession } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const novedad = ref(null);
@@ -373,6 +373,7 @@ const reimprimirConsentimiento = async (row) => {
           paciente: row.reg_paci,
           acomp: row.reg_acomp,
           empresa: getEmpresa,
+          testigo: getTestigo,
           prof: row.reg_prof,
           ...row.reg_coninf.datos,
         },
