@@ -95,7 +95,8 @@ export const impresionLAB006 = ({ datos }) => {
             ],
           },
         },
-        textoAutoriza(true),
+        textoAutoriza(datos.autorizo),
+        textoDisentimiento(datos.disentimiento),
       ],
     };
   }
@@ -313,6 +314,102 @@ export const impresionLAB006 = ({ datos }) => {
     }
     if (autorizo) return textoAutoriza;
     else return textoRevoca;
+  }
+
+  function textoDisentimiento(disentimiento) {
+    const textoDisentimiento = {
+      marginTop: 15,
+      table: {
+        widths: ["auto", 180],
+        body: [
+          [
+            {
+              colSpan: 2,
+              text: "DISENTIMIENTO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {},
+          ],
+          [
+            {
+              marginLeft: 3,
+              marginTop: 5,
+              marginRight: 3,
+              stack: [
+                {
+                  text: `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización del procedimiento relacionado con el ${datos.nombre_consenti}`,
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+                {
+                  marginTop: 5,
+                  text: [
+                    {
+                      text: "Observaciones:",
+                      bold: true,
+                    },
+                    {
+                      text: `${datos.obser_disenti}`,
+                    },
+                  ],
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+              ],
+            },
+            {
+              stack: [
+                {
+                  text: "RESPONSABLE DISENTIMIENTO",
+                  bold: true,
+                  style: "tableTitle",
+                  alignment: "center",
+                },
+                {
+                  marginTop: 5,
+                  alignment: "center",
+                  image: "firma_disentimiento",
+                  width: 140,
+                  height: 70,
+                },
+                {
+                  marginTop: 5,
+                  columns: [
+                    {
+                      width: 48,
+                      text: "NOMBRE:",
+                      bold: true,
+                    },
+                    {
+                      width: "*",
+                      text: `${datos.paciente.descrip}`,
+                    },
+                  ],
+                  style: "tableTitle",
+                },
+                {
+                  text: [
+                    {
+                      text: "DOC. IDENT: ",
+                      bold: true,
+                    },
+                    {
+                      text: `${datos.paciente.cod}`,
+                    },
+                  ],
+                  style: "tableTitle",
+                },
+              ],
+            },
+          ],
+        ],
+      },
+    };
+
+    if (disentimiento == "S") return textoDisentimiento;
+    else return null;
   }
 
   return dd;
