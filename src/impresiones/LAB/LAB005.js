@@ -80,7 +80,7 @@ export const impresionLAB005 = ({ datos }) => {
           },
         },
         textoAutoriza(datos.autorizo),
-        textoDisentimiento(datos.disentimiento),
+        textoDisentimiento(datos.disentimiento, datos.acompa_disenti),
       ],
     };
   }
@@ -122,7 +122,7 @@ export const impresionLAB005 = ({ datos }) => {
               alignment: "center",
             },
             {
-              text: "TESTIGO",
+              text: "ACOMPAÑANTE",
               bold: true,
               style: "tableTitle",
               alignment: "center",
@@ -225,7 +225,7 @@ export const impresionLAB005 = ({ datos }) => {
               alignment: "center",
             },
             {
-              text: "TESTIGO",
+              text: "ACOMPAÑANTE",
               bold: true,
               style: "tableTitle",
               alignment: "center",
@@ -300,7 +300,9 @@ export const impresionLAB005 = ({ datos }) => {
     else return textoRevoca;
   }
 
-  function textoDisentimiento(disentimiento) {
+  function textoDisentimiento(disentimiento, acompa_disenti) {
+    const textAcompa = `Yo ${datos.acomp.descrip}, identificada (o) con el documento de identidad número ${datos.acomp.cod}, en calidad de acudiente de ${datos.paciente.descrip} , identificada (o) con el documento de identidad número ${datos.paciente.cod}, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
+    const textPacient = `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, en calidad de paciente, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
     const textoDisentimiento = {
       marginTop: 15,
       table: {
@@ -323,7 +325,7 @@ export const impresionLAB005 = ({ datos }) => {
               marginRight: 3,
               stack: [
                 {
-                  text: `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización del procedimiento relacionado con el ${datos.nombre_consenti}`,
+                  text: acompa_disenti == "S" ? textAcompa : textPacient,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -368,7 +370,7 @@ export const impresionLAB005 = ({ datos }) => {
                     },
                     {
                       width: "*",
-                      text: `${datos.paciente.descrip}`,
+                      text: `${acompa_disenti == "S" ? datos.acomp.descrip : datos.paciente.descrip}`,
                     },
                   ],
                   style: "tableTitle",
@@ -380,7 +382,7 @@ export const impresionLAB005 = ({ datos }) => {
                       bold: true,
                     },
                     {
-                      text: `${datos.paciente.cod}`,
+                      text: `${acompa_disenti == "S" ? datos.acomp.cod : datos.paciente.cod}`,
                     },
                   ],
                   style: "tableTitle",
