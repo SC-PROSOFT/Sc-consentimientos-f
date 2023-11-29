@@ -335,10 +335,7 @@ const reimprimirConsentimiento = async (row) => {
   params_querys.value.modulo == "LAB" && getFirmaTestigo();
   await getFirmaProf(row.reg_prof.cod);
   await getHuella(row.reg_paci.cod);
-
-  await consultarFirmaConsen(
-    `${row.reg_coninf.llave.id}${row.reg_coninf.llave.folio}${row.reg_coninf.llave.fecha}${row.reg_coninf.llave.hora}${row.reg_coninf.llave.oper_elab}`
-  );
+  await consultarFirmaConsen(row.reg_coninf);
   try {
     const docDefinition = utilsFormat({
       datos: {
@@ -365,11 +362,11 @@ const reimprimirConsentimiento = async (row) => {
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
           hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
-          obser_disenti: row.reg_coninf.datos.reg_coninf2.obser_disenti,
-          acompa_disenti: "N",
-          nombre_consenti: row.reg_coninf.datos_encab.descrip,
-          disentimiento: row.reg_coninf.disentimiento,
-          paren_acomp: row.reg_coninf.paren_acomp,
+          obser_disenti: row.reg_coninf.datos.reg_coninf2.obser_disenti.trim() || "",
+          acompa_disenti: row.reg_coninf.datos.reg_coninf2.acompa_disenti.trim() || "",
+          nombre_consenti: row.reg_coninf.datos_encab.descrip.trim() || "",
+          disentimiento: row.reg_coninf.disentimiento.trim() || "",
+          paren_acomp: row.reg_coninf.paren_acomp.trim() || "",
           paciente: row.reg_paci,
           acomp: row.reg_acomp,
           empresa: getEmpresa,
@@ -410,13 +407,16 @@ const getHuella = async (cod_paci) => {
     CON851("?", "info", error);
   }
 };
-const consultarFirmaConsen = async (cod_consen) => {
+const consultarFirmaConsen = async (row) => {
   try {
-    firma_consen.value = await _getImagen$({ codigo: `P${cod_consen}` });
+    const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
+    firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     firma_acomp.value = await _getImagen$({
-      codigo: `A${cod_consen}`,
+      codigo: `A${codigo}`,
     });
-    firma_disentimiento.value = await _getImagen$({ codigo: `D${cod_consen}` });
+
+    const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP"
+    firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

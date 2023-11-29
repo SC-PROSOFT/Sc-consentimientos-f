@@ -82,12 +82,20 @@ onMounted(() => {
   console.log(props.consen);
   Object.assign(reg_consen.value, props.consen);
   llave_conse.value = `${reg_consen.value.reg_coninf.llave.id}${reg_consen.value.reg_coninf.llave.folio}${reg_consen.value.reg_coninf.llave.fecha}${reg_consen.value.reg_coninf.llave.hora}${reg_consen.value.reg_coninf.llave.oper_elab}`;
+  validarAcomp();
 });
+
+const validarAcomp = () => {
+  if (!getSesion.id_acompa) {
+    reg_consen.value.firma_paciente = "S";
+    form_config.value.firma_paciente.disable = true;
+  }
+};
 
 const validarConfiguracion = () => {
   const camposo_bligatorios = [
-    { nombre: "observación", campo: "obser_disenti" },
     { nombre: "quien firma", campo: "firma_paciente" },
+    { nombre: "observación", campo: "obser_disenti" },
   ];
 
   for (const campo_info of camposo_bligatorios) {
@@ -112,17 +120,17 @@ const guardarDisentimiento = async () => {
     ...datos_format,
     estado: "3",
     disentimiento: "S",
-    llave_consen: llave_conse.value,
-    oper_consen: datos_format.llave.oper_elab,
-    cod_consen: datos_format.cod,
-    cod_med: reg_consen.value.reg_prof.cod,
-    id_acomp: reg_consen.value.reg_acomp.cod.padStart(15, "0"),
-    paren_acomp: datos_format.paren_acomp,
     oper_disent: getSesion.oper,
+    cod_consen: datos_format.cod,
+    llave_consen: llave_conse.value,
+    paren_acomp: datos_format.paren_acomp,
+    cod_med: reg_consen.value.reg_prof.cod,
+    oper_consen: datos_format.llave.oper_elab,
     obser_disenti: reg_consen.value.obser_disenti,
+    id_acomp: reg_consen.value.reg_acomp.cod.padStart(15, "0"),
+    acompa_disenti: reg_consen.value.firma_paciente == "S" ? "N" : "S",
   };
 
-  console.log("datos", datos);
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
