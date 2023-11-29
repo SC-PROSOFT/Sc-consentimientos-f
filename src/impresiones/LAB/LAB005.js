@@ -116,13 +116,13 @@ export const impresionLAB005 = ({ datos }) => {
           ],
           [
             {
-              text: "PACIENTE",
+              text: `${datos.firmas.firma_acomp ? "ACOMPAÑANTE" : "PACIENTE"}`,
               bold: true,
               style: "tableTitle",
               alignment: "center",
             },
             {
-              text: "ACOMPAÑANTE",
+              text: "TESTIGO",
               bold: true,
               style: "tableTitle",
               alignment: "center",
@@ -138,14 +138,14 @@ export const impresionLAB005 = ({ datos }) => {
             {
               marginTop: 5,
               alignment: "center",
-              image: "firma_paci",
+              image: `${datos.firmas.firma_acomp ? "firma_acomp" : "firma_paci"}`,
               width: 140,
               height: 70,
             },
             {
               marginTop: 5,
               alignment: "center",
-              image: "firma_acomp",
+              image: "firma_testigo",
               width: 140,
               height: 70,
             },
@@ -159,11 +159,11 @@ export const impresionLAB005 = ({ datos }) => {
           ],
           [
             {
-              text: `NOMBRE: ${datos.paciente.descrip}`,
+              text: `NOMBRE: ${datos.firmas.firma_acomp ? datos.acomp.descrip : datos.paciente.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: ${datos.acomp.descrip}`,
+              text: `NOMBRE: ${datos.testigo.descrip}`,
               style: "tableTitle",
             },
             {
@@ -173,11 +173,11 @@ export const impresionLAB005 = ({ datos }) => {
           ],
           [
             {
-              text: `DOC. IDENT: ${datos.paciente.cod}`,
+              text: `DOC. IDENT: ${datos.firmas.firma_acomp ? datos.acomp.cod : datos.paciente.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: ${datos.acomp.cod}`,
+              text: `DOC. IDENT: ${datos.testigo.cod}`,
               style: "tableTitle",
             },
             {
@@ -219,13 +219,13 @@ export const impresionLAB005 = ({ datos }) => {
           ],
           [
             {
-              text: "PACIENTE",
+              text: `${datos.firmas.firma_acomp ? "ACOMPAÑANTE" : "PACIENTE"}`,
               bold: true,
               style: "tableTitle",
               alignment: "center",
             },
             {
-              text: "ACOMPAÑANTE",
+              text: "TESTIGO",
               bold: true,
               style: "tableTitle",
               alignment: "center",
@@ -241,14 +241,14 @@ export const impresionLAB005 = ({ datos }) => {
             {
               marginTop: 5,
               alignment: "center",
-              image: "firma_paci",
+              image: `${datos.firmas.firma_acomp ? "firma_acomp" : "firma_paci"}`,
               width: 140,
               height: 70,
             },
             {
               marginTop: 5,
               alignment: "center",
-              image: "firma_acomp",
+              image: "firma_testigo",
               width: 140,
               height: 70,
             },
@@ -262,11 +262,11 @@ export const impresionLAB005 = ({ datos }) => {
           ],
           [
             {
-              text: `NOMBRE: ${datos.paciente.descrip}`,
+              text: `NOMBRE: ${datos.firmas.firma_acomp ? datos.acomp.descrip : datos.paciente.descrip}`,
               style: "tableTitle",
             },
             {
-              text: `NOMBRE: ${datos.acomp.descrip}`,
+              text: `NOMBRE: ${datos.testigo.descrip}`,
               style: "tableTitle",
             },
             {
@@ -276,11 +276,11 @@ export const impresionLAB005 = ({ datos }) => {
           ],
           [
             {
-              text: `DOC. IDENT: ${datos.paciente.cod}`,
+              text: `DOC. IDENT: ${datos.firmas.firma_acomp ? datos.acomp.cod : datos.paciente.cod}`,
               style: "tableTitle",
             },
             {
-              text: `DOC. IDENT: ${datos.acomp.cod}`,
+              text: `DOC. IDENT: ${datos.testigo.cod}`,
               style: "tableTitle",
             },
             {
