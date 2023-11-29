@@ -69,7 +69,7 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
+const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
@@ -122,6 +122,8 @@ const validarUrl = async () => {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
+
+  datos_session.modulo == "LAB" && getTestigo();
   await getPaciente();
   getVersionBuild();
 };
@@ -161,6 +163,16 @@ async function getMedico() {
     const cod_prof = datos_session.cod_prof || "";
     const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
     setProf(datos.reg_prof);
+  } catch (error) {
+    CON851("?", "error", "Error consultando datos medico");
+  }
+}
+
+async function getTestigo() {
+  try {
+    const cod_prof = datos_session.id_testigo || "";
+    const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
+    setTestigo(datos.reg_prof);
   } catch (error) {
     CON851("?", "error", "Error consultando datos medico");
   }
