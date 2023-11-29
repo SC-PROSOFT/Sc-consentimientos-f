@@ -11,10 +11,10 @@
           :field="form_config.firma_paciente"
         />
         <ContainerFirma_
-          :disable="!reg_consen.reg_paci.descrip ? true : false"
+          :disable="!firmador.descrip ? true : false"
           quien_firma="FIRMA PACIENTE O ACOMPAÑANTE"
-          :firmador="reg_consen.reg_paci.descrip"
-          :registro_profe="reg_consen.reg_paci.cod"
+          :firmador="firmador.descrip"
+          :registro_profe="firmador.cod"
           @reciFirma="callBackFirma"
           class="col-12"
         />
@@ -41,13 +41,13 @@
 <script setup>
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store";
-import { ref, onMounted, defineAsyncComponent } from "vue";
+import { ref, onMounted, defineAsyncComponent, computed } from "vue";
 import { foco_ } from "@/setup";
 
 const ContainerFirma_ = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 
 const { getDll$, guardarFile$ } = useApiContabilidad();
-const { getSesion, getHc } = useModuleFormatos();
+const { getSesion, getPaci, getAcomp } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
 const props = defineProps({ consen: Object });
@@ -76,6 +76,11 @@ const form_config = ref({
     required: true,
     campo_abierto: true,
   },
+});
+
+const firmador = computed(() => {
+  if (reg_consen.value.firma_paciente == "S") return getPaci;
+  return getAcomp;
 });
 
 onMounted(() => {
@@ -127,8 +132,8 @@ const guardarDisentimiento = async () => {
     cod_med: reg_consen.value.reg_prof.cod,
     oper_consen: datos_format.llave.oper_elab,
     obser_disenti: reg_consen.value.obser_disenti,
-    id_acomp: reg_consen.value.reg_acomp.cod.padStart(15, "0"),
     acompa_disenti: reg_consen.value.firma_paciente == "S" ? "N" : "S",
+    id_acomp: getAcomp.cod ? getAcomp.cod.padStart(15, "0") : "0".padStart(15, "0"),
   };
 
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })

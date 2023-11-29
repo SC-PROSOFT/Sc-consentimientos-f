@@ -125,7 +125,7 @@ const validarUrl = async () => {
 
   datos_session.modulo == "LAB" && getTestigo();
   await getPaciente();
-  getVersionBuild();
+  if (process.env.NODE_ENV != "development") getVersionBuild();
 };
 
 async function getPaciente() {
@@ -171,6 +171,7 @@ async function getMedico() {
 async function getTestigo() {
   try {
     const cod_prof = datos_session.id_testigo || "";
+    if (!cod_prof) return;
     const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
     setTestigo(datos.reg_prof);
   } catch (error) {

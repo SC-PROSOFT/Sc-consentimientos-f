@@ -277,7 +277,7 @@ const getConsentimientosRealizados = async () => {
       );
     });
 
-    validarConsen();
+    if (process.env.NODE_ENV != "development") validarConsen();
   } catch (error) {
     CON851("?", "info", "Error consultado consentimientos");
   }
@@ -415,7 +415,7 @@ const consultarFirmaConsen = async (row) => {
       codigo: `A${codigo}`,
     });
 
-    const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP"
+    const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP";
     firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
   } catch (error) {
     console.error(error);
