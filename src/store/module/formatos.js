@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { regHc, regEmpresa, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
+import { regHc, regEmpresa, regTest, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
 import days from "dayjs";
 
 export const useModuleFormatos = defineStore("formatos", {
@@ -16,6 +16,7 @@ export const useModuleFormatos = defineStore("formatos", {
     },
     logo: null,
     fecha_act: days().format("YYYY-MM-DD"),
+    reg_testigo: regTest(),
     reg_paci: regPaci(),
     reg_prof: regProf(),
     reg_acomp: regAcomp(),
@@ -60,6 +61,10 @@ export const useModuleFormatos = defineStore("formatos", {
       if (sessionStorage.reg_paci) return JSON.parse(sessionStorage.reg_paci);
       return this.reg_paci;
     },
+    getTestigo() {
+      if (sessionStorage.reg_testigo) return JSON.parse(sessionStorage.reg_testigo);
+      return this.reg_testigo;
+    },
     getProf() {
       if (sessionStorage.reg_prof) return JSON.parse(sessionStorage.reg_prof);
       return this.reg_prof;
@@ -93,6 +98,10 @@ export const useModuleFormatos = defineStore("formatos", {
     setPaci(reg_paci) {
       sessionStorage.setItem("reg_paci", JSON.stringify(reg_paci));
       Object.assign(this.reg_paci, reg_paci);
+    },
+    setTestigo(reg_testigo) {
+      sessionStorage.setItem("reg_testigo", JSON.stringify(reg_testigo));
+      Object.assign(this.reg_testigo, reg_testigo);
     },
     setAcomp(reg_acomp) {
       sessionStorage.setItem("reg_acomp", JSON.stringify(reg_acomp));

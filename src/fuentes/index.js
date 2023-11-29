@@ -7,6 +7,7 @@ export * from "./reg_empresa";
 export * from "./reg_sesion";
 export * from "./reg_acomp";
 export * from "./reg_paci";
+export * from "./reg_test";
 export * from "./reg_prof";
 export * from "./empresas";
 export * from "./reg_hc";

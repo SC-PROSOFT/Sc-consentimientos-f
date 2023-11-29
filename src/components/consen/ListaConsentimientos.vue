@@ -147,11 +147,12 @@ const { getEmpresa, setHc, setSession } = useModuleFormatos();
 const novedad = ref(null);
 const params_querys = ref(null);
 
+const firma_disentimiento = ref(null);
+const firma_testigo = ref(null);
 const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_consen = ref(null);
 const firma_acomp = ref(null);
-const firma_disentimiento = ref(null);
 
 const lista_consen = ref([]);
 const reg_consentimiento = ref({
@@ -331,6 +332,7 @@ const reimprimirConsentimiento = async (row) => {
   };
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
+  params_querys.value.modulo == "LAB" && getFirmaTestigo();
   await getFirmaProf(row.reg_prof.cod);
   await getHuella(row.reg_paci.cod);
 
@@ -387,6 +389,16 @@ const getFirmaProf = async (cod_prof) => {
     CON851("?", "info", error);
   }
 };
+
+const getFirmaTestigo = async () => {
+  try {
+    firma_testigo.value = await _getFirma$({ codigo: params_querys.value.id_testigo });
+  } catch (error) {
+    console.error(error);
+    CON851("?", "info", error);
+  }
+};
+
 const getHuella = async (cod_paci) => {
   try {
     huella_paci.value = await _getHuella$({ codigo: cod_paci });
