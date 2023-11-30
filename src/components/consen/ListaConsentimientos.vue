@@ -455,8 +455,8 @@ const selectConsen = async (data) => {
       process.env.BASE_URL
     }/${data}`;
     console.log("⚡OPEN: url-->", url);
-    window.open(url, "_blank");
     logOut$();
+    window.open(url, "_blank");
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
