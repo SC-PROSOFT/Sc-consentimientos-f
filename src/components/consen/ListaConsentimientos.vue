@@ -268,14 +268,11 @@ const getConsentimientosRealizados = async () => {
         paso: novedad.value == "1" ? "2" : novedad.value,
       },
     });
-    console.log("🚀 ~ getConsentimientosRealizados ~ response:", response)
   const query = sessionStorage.query && JSON.parse(sessionStorage.query);
     const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
-    console.log("🚀 ~ getConsentimientosRealizados ~ llave_fact:", llave_fact)
     const consentimientos_filter = response.CONSENTIMIENTOS.filter((consentimiento) => {
       return consentimiento.reg_coninf.llave_fact === llave_fact;
     });
-    console.log("🚀 ~ constconsentimientos_filter=response.CONSENTIMIENTOS.filter ~ consentimientos_filter:", consentimientos_filter)
     lista_consen.value = consentimientos_filter;
     lista_consen.value.sort((a, b) => {
       return (
