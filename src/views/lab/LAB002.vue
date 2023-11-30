@@ -268,7 +268,7 @@ const grabarFirmaConsen = async (llave) => {
 
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
-          destino: "davidsantiagolozada@gmail.com",
+          destino: getPaci.email.toLowerCase(),
           subject: getEncabezado.descrip,
           file,
         });
