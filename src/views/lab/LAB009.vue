@@ -579,7 +579,16 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
+const {
+  getDll$,
+  _getFirma$,
+  _getHuella$,
+  guardarFile$,
+  enviarCorreo$,
+  getEncabezado,
+  logOut$,
+  guardarArchivo$,
+} = useApiContabilidad();
 const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -718,7 +727,7 @@ const grabarFirmaConsen = async (llave) => {
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
-      return router.back();
+      return logOut$();
     }
     return CON851P(
       "?",
@@ -727,16 +736,18 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
+            "YYYYMMDDHHmm"
+          )}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
-          file
+          file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
+        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       },
       async () => {
         const file = await imprimirConsen();
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", () => router.back());
+          return CON851("?", "info", "El correo no es valido", logOut$);
         }
 
         const response = await enviarCorreo$({
@@ -745,14 +756,16 @@ const grabarFirmaConsen = async (llave) => {
           subject: getEncabezado.descrip,
           file,
         });
-        CON851("?", response.tipo, response.message, () => router.back());
+        CON851("?", response.tipo, response.message, logOut$);
 
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format('YYYYMMDDHHmm')}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
+            "YYYYMMDDHHmm"
+          )}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
-          file
+          file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
+        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       }
     );
   } catch (error) {
@@ -802,7 +815,7 @@ const imprimirConsen = async () => {
       ...reg.value.reso_mag,
       ...reg.value,
     };
-   
+
     const firmas = {
       img_firma_testigo: firma_recibida_test.value,
       img_firma_acomp: firma_recibida_acomp.value,

@@ -156,7 +156,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } =
+const { getDll$, _getFirma$, _getHuella$,logOut$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } =
   useApiContabilidad();
 const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
@@ -239,7 +239,7 @@ const grabarFirmaConsen = async (llave) => {
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
-      return router.back();
+      return logOut$();
     }
     return CON851P(
       "?",
@@ -254,12 +254,12 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
+        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       },
       async () => {
         const file = await imprimirConsen();
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", () => router.back());
+          return CON851("?", "info", "El correo no es valido", logOut$);
         }
 
         const response = await enviarCorreo$({
@@ -268,7 +268,7 @@ const grabarFirmaConsen = async (llave) => {
           subject: getEncabezado.descrip,
           file,
         });
-        CON851("?", response.tipo, response.message, () => router.back());
+        CON851("?", response.tipo, response.message, logOut$);
 
         const response_guardar = await guardarArchivo$({
           nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
@@ -277,7 +277,7 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
+        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       }
     );
   } catch (error) {
