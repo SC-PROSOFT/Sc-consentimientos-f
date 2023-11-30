@@ -454,9 +454,9 @@ const selectConsen = async (data) => {
     const url = `http://${window.location.hostname + (mode_dev ? ":8080" : "")}/${
       process.env.BASE_URL
     }/${data}`;
-    console.log("⚡OPEN: url-->", url);
-    logOut$();
+    console.log("⚡OPEN: url 26 -->", url);
     window.open(url, "_blank");
+    CON851("?", "info", "La sesión cerrará porque ya se intento realizar un consentimiento", logOut$);
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
