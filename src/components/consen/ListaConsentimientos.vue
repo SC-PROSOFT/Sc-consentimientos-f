@@ -269,7 +269,7 @@ const getConsentimientosRealizados = async () => {
         paso: novedad.value == "1" ? "2" : novedad.value,
       },
     });
-  const query = sessionStorage.query && JSON.parse(sessionStorage.query);
+    const query = sessionStorage.query && JSON.parse(sessionStorage.query);
     const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
     const consentimientos_filter = response.CONSENTIMIENTOS.filter((consentimiento) => {
       return consentimiento.reg_coninf.llave_fact === llave_fact;
@@ -282,7 +282,7 @@ const getConsentimientosRealizados = async () => {
       );
     });
 
-    if (!mode_dev) validarConsen();
+    if (!mode_dev || window.location.hostname != "34.234.185.158") validarConsen();
   } catch (error) {
     CON851("?", "info", "Error consultado consentimientos");
   }
@@ -449,9 +449,11 @@ const selectConsen = async (data) => {
   setHeader$({ encabezado: consen_select });
   try {
     if (params_querys.value.modulo != "LAB") return router.push({ name: data });
-    
+
     //UTM
-    const url = `http://${window.location.hostname + (mode_dev ? ":8080" : "")}/${process.env.BASE_URL}/${data}`;
+    const url = `http://${window.location.hostname + (mode_dev ? ":8080" : "")}/${
+      process.env.BASE_URL
+    }/${data}`;
     console.log("⚡OPEN: url-->", url);
     window.open(url, "_blank");
     logOut$();
