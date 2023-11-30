@@ -282,7 +282,7 @@ const getConsentimientosRealizados = async () => {
       );
     });
 
-    if (!mode_dev || window.location.hostname != "34.234.185.158") validarConsen();
+    if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
   } catch (error) {
     CON851("?", "info", "Error consultado consentimientos");
   }
