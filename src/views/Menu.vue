@@ -170,12 +170,17 @@ async function getMedico() {
 
 async function getTestigo() {
   try {
-    const cod_prof = datos_session.id_testigo || "";
-    if (!cod_prof) return;
-    const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
-    setTestigo(datos.reg_prof);
+    const tipo_testigo = datos_session.tipo_testigo || "";
+    const cod_test = datos_session.id_testigo || "";
+    if (!cod_test) return;
+
+    let datos;
+    if (tipo_testigo == 1) datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
+    else if (tipo_testigo == 2) datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof: cod_test } });
+
+    setTestigo(tipo_testigo == 1 ? datos.reg_paci : datos.reg_prof);
   } catch (error) {
-    CON851("?", "error", "Error consultando datos medico");
+    CON851("?", "error", "Error consultando datos testigo");
   }
 }
 

@@ -147,6 +147,7 @@ const { getEmpresa, getTestigo, setHc, setSession } = useModuleFormatos();
 const novedad = ref(null);
 const params_querys = ref(null);
 
+const mode_dev = process.env.NODE_ENV == "development" ? true : false;
 const firma_disentimiento = ref(null);
 const firma_testigo = ref(null);
 const firma_prof = ref(null);
@@ -281,7 +282,7 @@ const getConsentimientosRealizados = async () => {
       );
     });
 
-    if (process.env.NODE_ENV != "development") validarConsen();
+    if (!mode_dev) validarConsen();
   } catch (error) {
     CON851("?", "info", "Error consultado consentimientos");
   }
@@ -442,11 +443,18 @@ const getMaestros = async () => {
     CON851("?", "info", error);
   }
 };
+
 const selectConsen = async (data) => {
   const consen_select = lista_maestros.value.find((e) => e.cod_mae == data);
   setHeader$({ encabezado: consen_select });
   try {
-    router.push({ name: data });
+    if (params_querys.value.modulo != "LAB") return router.push({ name: data });
+    
+    //UTM
+    const url = `http://${window.location.hostname + (mode_dev ? ":8080" : "")}/${process.env.BASE_URL}/${data}`;
+    console.log("⚡OPEN: url-->", url);
+    window.open(url, "_blank");
+    logOut$();
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
