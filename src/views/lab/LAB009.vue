@@ -527,9 +527,9 @@
     <q-card-actions>
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          :registro_profe="getPaci.cod"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
