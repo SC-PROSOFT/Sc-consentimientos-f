@@ -448,15 +448,9 @@ const selectConsen = async (data) => {
   const consen_select = lista_maestros.value.find((e) => e.cod_mae == data);
   setHeader$({ encabezado: consen_select });
   try {
+    console.log("⚡Direct--> ", data);
     if (params_querys.value.modulo != "LAB") return router.push({ name: data });
-
-    //UTM
-    const url = `http://${window.location.hostname + (mode_dev ? ":8080" : "")}/${
-      process.env.BASE_URL
-    }/${data}`;
-    console.log("⚡OPEN: url 26 -->", url);
-    window.open(url, "_blank");
-    CON851("?", "info", "La sesión cerrará porque ya se intento realizar un consentimiento", logOut$);
+    return router.replace({ name: data });
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
