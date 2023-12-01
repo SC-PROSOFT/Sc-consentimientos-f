@@ -2,7 +2,6 @@ import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB005 = ({ datos }) => {
-  console.log("LAB005 - datos", datos);
   var dd = {
     stack: [contenidoRadiMujGes()],
   };

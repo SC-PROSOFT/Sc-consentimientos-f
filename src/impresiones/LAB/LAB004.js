@@ -2,7 +2,6 @@ import { datosFormatUTM } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionLAB004 = ({ datos }) => {
-  console.log("✨ LAB004 - datos", datos);
   var dd = {
     stack: [contenidoMamografia()],
   };
