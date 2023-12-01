@@ -76,6 +76,7 @@ const { CON851 } = useModuleCon851();
 const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
 
+const mode_dev = process.env.NODE_ENV == "development" ? true : false;
 const route = useRoute();
 const datos_session = {};
 const llave = ref(null);
@@ -91,8 +92,9 @@ onMounted(() => {
 
 const verificarSesion = async () => {
   try {
-    // localStorage.setItem("ip", "34.234.185.158");
-    localStorage.setItem("ip", window.location.hostname);
+    if(mode_dev) localStorage.setItem("ip", "34.234.185.158");
+    else localStorage.setItem("ip", window.location.hostname);
+    
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
@@ -125,7 +127,7 @@ const validarUrl = async () => {
 
   datos_session.modulo == "LAB" && getTestigo();
   await getPaciente();
-  if (process.env.NODE_ENV != "development") getVersionBuild();
+  if (!mode_dev) getVersionBuild();
 };
 
 async function getPaciente() {
@@ -175,8 +177,10 @@ async function getTestigo() {
     if (!cod_test) return;
 
     let datos;
-    if (tipo_testigo == 1) datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
-    else if (tipo_testigo == 2) datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof: cod_test } });
+    if (tipo_testigo == 1)
+      datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
+    else if (tipo_testigo == 2)
+      datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof: cod_test } });
 
     setTestigo(tipo_testigo == 1 ? datos.reg_paci : datos.reg_prof);
   } catch (error) {
