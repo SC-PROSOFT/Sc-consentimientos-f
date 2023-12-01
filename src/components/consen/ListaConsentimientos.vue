@@ -207,7 +207,7 @@ const columns = [
   { name: "descrip", label: "Nombre", align: "left", field: "descrip" },
 ];
 
-onMounted(() => {  
+onMounted(() => {
   getParametros();
 });
 
@@ -337,7 +337,6 @@ const reimprimirConsentimiento = async (row) => {
   };
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
-  params_querys.value.modulo == "LAB" && getFirmaTestigo();
   await getFirmaProf(row.reg_prof.cod);
   await getHuella(row.reg_paci.cod);
   await consultarFirmaConsen(row.reg_coninf);
@@ -367,8 +366,6 @@ const reimprimirConsentimiento = async (row) => {
           },
           fecha: days(row.reg_coninf.llave.fecha).format("YYYY-MM-DD"),
           hora: `${days(row.reg_coninf.llave.fecha + row.reg_coninf.llave.hora).format("HH:mm")}`,
-          obser_disenti: row.reg_coninf.datos.reg_coninf2.obser_disenti.trim() || "",
-          acompa_disenti: row.reg_coninf.datos.reg_coninf2.acompa_disenti.trim() || "",
           nombre_consenti: row.reg_coninf.datos_encab.descrip.trim() || "",
           disentimiento: row.reg_coninf.disentimiento.trim() || "",
           paren_acomp: row.reg_coninf.paren_acomp.trim() || "",
@@ -378,6 +375,7 @@ const reimprimirConsentimiento = async (row) => {
           testigo: getTestigo,
           prof: row.reg_prof,
           ...row.reg_coninf.datos,
+          ...row.reg_coninf.datos.reg_coninf2,
         },
       }),
     });
@@ -395,15 +393,6 @@ const getFirmaProf = async (cod_prof) => {
   }
 };
 
-const getFirmaTestigo = async () => {
-  try {
-    firma_testigo.value = await _getFirma$({ codigo: params_querys.value.id_testigo });
-  } catch (error) {
-    console.error(error);
-    CON851("?", "info", error);
-  }
-};
-
 const getHuella = async (cod_paci) => {
   try {
     huella_paci.value = await _getHuella$({ codigo: cod_paci });
@@ -415,6 +404,8 @@ const getHuella = async (cod_paci) => {
 const consultarFirmaConsen = async (row) => {
   try {
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
+    params_querys.value.modulo == "LAB" &&
+      (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
     firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     firma_acomp.value = await _getImagen$({
       codigo: `A${codigo}`,
