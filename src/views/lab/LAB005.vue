@@ -118,20 +118,18 @@
           class="col-4"
         />
         <ContainerFirma
-          :firma_="firma_recibida_test"
           :firmador="getTestigo.descrip"
-          :descrip_prof="getTestigo.descrip_atiende"
-          :registro_profe="getTestigo.registro_profe"
+          :registro_profe="getTestigo.cod"
+          @reciFirma="callBackFirmaTest"
           quien_firma="FIRMA TESTIGO"
           class="col-4"
-          disable
         />
         <ContainerFirma
           disable
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
+          :registro_profe="getProf.cod"
           quien_firma="FIRMA PROFESIONAL"
           class="col-4"
         />
@@ -242,7 +240,7 @@ const grabarConsentimiento = async () => {
     cod_consen: "LAB005",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
-    id_testigo: getAcomp.cod.padStart(15, "0"),
+    id_testigo: getTestigo.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
@@ -259,8 +257,9 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
@@ -373,11 +372,12 @@ const imprimirConsen = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+  if (getAcomp.cod) firma_recibida_acomp.value = data_firma;
+  else firma_recibida.value = data_firma;
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
 
