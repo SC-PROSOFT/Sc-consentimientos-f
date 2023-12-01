@@ -207,7 +207,7 @@ const columns = [
   { name: "descrip", label: "Nombre", align: "left", field: "descrip" },
 ];
 
-onMounted(() => {
+onMounted(() => {  
   getParametros();
 });
 
@@ -359,7 +359,7 @@ const reimprimirConsentimiento = async (row) => {
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_prof: firma_prof.value ? true : false,
-            firma_acomp: firma_acomp.value ? true : false,
+            firma_acomp: row.reg_acomp.cod.trim() ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
             firma_testigo: firma_testigo.value ? true : false,
@@ -448,7 +448,6 @@ const selectConsen = async (data) => {
   const consen_select = lista_maestros.value.find((e) => e.cod_mae == data);
   setHeader$({ encabezado: consen_select });
   try {
-    console.log("⚡Direct--> ", data);
     if (params_querys.value.modulo != "LAB") return router.push({ name: data });
     return router.replace({ name: data });
   } catch (error) {
