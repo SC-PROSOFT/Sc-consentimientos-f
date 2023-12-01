@@ -40,15 +40,20 @@
 
 <script setup>
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
-import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store";
+import { useModuleCon851, useModuleCon851p, useApiContabilidad, useModuleFormatos } from "@/store";
 import { ref, onMounted, defineAsyncComponent, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { foco_ } from "@/setup";
 
 const ContainerFirma_ = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 
-const { getDll$, guardarFile$ } = useApiContabilidad();
 const { getSesion, getPaci, getAcomp } = useModuleFormatos();
+const { getDll$, guardarFile$ } = useApiContabilidad();
+const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
+
+const router = useRouter();
+const route = useRoute();
 
 const props = defineProps({ consen: Object });
 const emit = defineEmits(["cerrar", "guardar"]);
@@ -160,7 +165,11 @@ const guardarFirmaDisentimiento = async () => {
     if (reg_consen.value.firma_paciente == "S")
       await guardarFile$({ base64: firma_disentimiento.value, codigo: `DP${llave_conse.value}` });
     else await guardarFile$({ base64: firma_disentimiento.value, codigo: `DA${llave_conse.value}` });
-    CON851("?", "success", "Disentimiento registrado", () => emit("guardar"));
+
+    CON851P("?", "success", "Disentimiento registrado, desea ir a reimprimir ?", null, async () => {
+      await router.push({ name: "menu", query: { ...route.query, novedad: 2 } });
+      setTimeout(() => location.reload(), 300);
+    });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
