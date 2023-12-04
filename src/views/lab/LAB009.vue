@@ -571,13 +571,10 @@ import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851
 import { impresionLAB009, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
-import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const router = useRouter();
 
 const {
   getDll$,
@@ -598,6 +595,7 @@ const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
+let datos_format = {};
 
 const datos = {
   tipo_id: getPaci.tipo_id,
@@ -674,7 +672,6 @@ onMounted(() => {
 
 const getFirmaProf = async () => {
   try {
-    firma_recibida_test.value = await _getFirma$({ codigo: Number(getTestigo.cod) });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
@@ -684,7 +681,16 @@ const getFirmaProf = async () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(reg.value));
+  datos_format = JSON.parse(JSON.stringify(reg.value));
+
+  let cont = 1;
+  for (const prop in datos_format.proce_cont.check) {
+    if (datos_format.proce_cont.check[prop] == "N") {
+      datos_format.proce_cont[`especifique_${cont}`] = "";
+    }
+    cont++;
+  }
+
   let datos = {
     llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     estado: reg.value.opcion_lab009 == "AUTORIZAR" ? "1" : "2",
@@ -803,16 +809,16 @@ const imprimirConsen = async () => {
       },
       fecha: reg.value.fecha_act,
       llave: reg.value.llave_consen,
-      P_1: reg.value.proce_cont.especifique_1,
-      P_2: reg.value.proce_cont.especifique_2,
-      P_3: reg.value.proce_cont.especifique_3,
-      P_4: reg.value.proce_cont.especifique_4,
-      P_5: reg.value.proce_cont.especifique_5,
-      P_6: reg.value.proce_cont.especifique_6,
-      P_7: reg.value.proce_cont.especifique_8,
-      P_8: reg.value.proce_cont.especifique_9,
-      P_9: reg.value.proce_cont.especifique_9,
-      P_10: reg.value.proce_cont.especifique_10,
+      P_1: datos_format.proce_cont.especifique_1,
+      P_2: datos_format.proce_cont.especifique_2,
+      P_3: datos_format.proce_cont.especifique_3,
+      P_4: datos_format.proce_cont.especifique_4,
+      P_5: datos_format.proce_cont.especifique_5,
+      P_6: datos_format.proce_cont.especifique_6,
+      P_7: datos_format.proce_cont.especifique_7,
+      P_8: datos_format.proce_cont.especifique_8,
+      P_9: datos_format.proce_cont.especifique_9,
+      P_10: datos_format.proce_cont.especifique_10,
       ...reg.value.reso_mag,
       ...reg.value,
     };
@@ -853,6 +859,9 @@ const validarDatos = () => {
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
+  if (!firma_recibida_test.value) {
+    return CON851("?", "info", "No se ha realizado la firma del testigo");
   }
   grabarConsentimiento();
 };

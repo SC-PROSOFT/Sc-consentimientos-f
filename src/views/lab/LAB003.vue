@@ -205,7 +205,6 @@ onMounted(() => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
-    firma_recibida_test.value = await _getFirma$({ codigo: Number(getTestigo.cod) });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
@@ -361,6 +360,9 @@ const validarDatos = () => {
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
+  if (!firma_recibida_test.value) {
+    return CON851("?", "info", "No se ha realizado la firma del testigo");
   }
   grabarConsentimiento();
 };

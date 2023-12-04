@@ -37,6 +37,8 @@
               left-label
               v-model="reg.iodado"
               :label="reg.iodado == false ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
         </div>
@@ -130,6 +132,8 @@
               left-label
               v-model="reg.contraste"
               :label="reg.contraste == false ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -142,13 +146,19 @@
               class="q-pt-md"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_1"
-              :label="reg_checks.P_1 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_1"
+              :label="reg.proce_cont.check.p_1 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_1" v-model="reg.P_1" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_1 != 'N'"
+                v-model="reg.proce_cont.especifique_1"
+                :field="form.especifique_1"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -161,13 +171,19 @@
               class="q-pt-md"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_2"
-              :label="reg_checks.P_2 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_2"
+              :label="reg.proce_cont.check.p_2 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_2" v-model="reg.P_2" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_2 != 'N'"
+                v-model="reg.proce_cont.especifique_2"
+                :field="form.especifique_2"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -178,13 +194,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_3"
-              :label="reg_checks.P_3 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_3"
+              :label="reg.proce_cont.check.p_3 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_3" v-model="reg.P_3" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_3 != 'N'"
+                v-model="reg.proce_cont.especifique_3"
+                :field="form.especifique_3"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -195,13 +217,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_4"
-              :label="reg_checks.P_4 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_4"
+              :label="reg.proce_cont.check.p_4 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_4" v-model="reg.P_4" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_4 != 'N'"
+                v-model="reg.proce_cont.especifique_4"
+                :field="form.especifique_4"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -212,13 +240,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_5"
-              :label="reg_checks.P_5 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_5"
+              :label="reg.proce_cont.check.p_5 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_5" v-model="reg.P_5" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_5 != 'N'"
+                v-model="reg.proce_cont.especifique_5"
+                :field="form.especifique_5"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -229,13 +263,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_6"
-              :label="reg_checks.P_6 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_6"
+              :label="reg.proce_cont.check.p_6 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_6" v-model="reg.P_6" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_6 != 'N'"
+                v-model="reg.proce_cont.especifique_6"
+                :field="form.especifique_6"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -248,13 +288,19 @@
               class="q-pt-md"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_7"
-              :label="reg_checks.P_7 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_7"
+              :label="reg.proce_cont.check.p_7 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_7" v-model="reg.P_7" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_7 != 'N'"
+                v-model="reg.proce_cont.especifique_7"
+                :field="form.especifique_7"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -265,13 +311,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_8"
-              :label="reg_checks.P_8 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_8"
+              :label="reg.proce_cont.check.p_8 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_8" v-model="reg.P_8" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_8 != 'N'"
+                v-model="reg.proce_cont.especifique_8"
+                :field="form.especifique_8"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -282,13 +334,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_9"
-              :label="reg_checks.P_9 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_9"
+              :label="reg.proce_cont.check.p_9 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_9" v-model="reg.P_9" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_9 != 'N'"
+                v-model="reg.proce_cont.especifique_9"
+                :field="form.especifique_9"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
@@ -299,13 +357,19 @@
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
-              v-model="reg_checks.P_10"
-              :label="reg_checks.P_10 == false ? 'NO' : 'SI'"
+              v-model="reg.proce_cont.check.p_10"
+              :label="reg.proce_cont.check.p_10 == 'N' ? 'NO' : 'SI'"
+              true-value="S"
+              false-value="N"
             />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 42%">
             <div class="q-mt-lg">
-              <Input_ v-show="reg_checks.P_10" v-model="reg.P_10" :field="form.especifique" />
+              <Input_
+                v-show="reg.proce_cont.check.p_10 != 'N'"
+                v-model="reg.proce_cont.especifique_10"
+                :field="form.especifique_10"
+              />
             </div>
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 100%">
@@ -384,7 +448,7 @@
           class="col-4"
         />
       </div>
-      
+
       <div class="col-12 row justify-center q-my-md">
         <q-btn
           :disable="reg.opcion_lab010 ? false : true"
@@ -405,12 +469,10 @@ import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851
 import { impresionLAB010, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
-import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const router = useRouter();
 
 const {
   getDll$,
@@ -419,7 +481,6 @@ const {
   guardarFile$,
   enviarCorreo$,
   getEncabezado,
-  logOut$,
   guardarArchivo$,
 } = useApiContabilidad();
 const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
@@ -431,6 +492,7 @@ const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
+let datos_format = {};
 
 const datos = {
   tipo_id: getPaci.tipo_id,
@@ -438,30 +500,8 @@ const datos = {
 };
 
 const reg = ref({
-  opcion_lab010: "",
-  fecha_act: "",
-  iodado: false,
-  contraste: false,
-  //otros_exam
-  P_1: "",
-  // reacc_adversa
-  P_2: "",
-  // enferm_corzn
-  P_3: "",
-  // enferm_rinons
-  P_4: "",
-  // enferm_hgdo
-  P_5: "",
-  // asma
-  P_6: "",
-  // alergia
-  P_7: "",
-  // diabetes
-  P_8: "",
-  // otra_enferm
-  P_9: "",
-  // medicamentos
-  P_10: "",
+  contraste: "N",
+  iodado: "N",
 
   codigo_cie1: "",
   descrip_cie1: "",
@@ -471,46 +511,53 @@ const reg = ref({
   descrip_cups1: "",
   codigo_cups2: "",
   descrip_cups2: "",
-  llave_consen: `${getPaci.cod}00000000`,
   servicio: "",
-});
 
-// Este reg maneja los checkbox, al activarlos se activa el input que se guarda en cobol
-const reg_checks = ref({
-  //otros_exam
-  P_1: false,
-  // reacc_adversa
-  P_2: false,
-  // enferm_corzn
-  P_3: false,
-  // enferm_rinons
-  P_4: false,
-  // enferm_hgdo
-  P_5: false,
-  // asma
-  P_6: false,
-  // alergia
-  P_7: false,
-  // diabetes
-  P_8: false,
-  // otra_enferm
-  P_9: false,
-  // medicamentos
-  P_10: false,
-});
-
-const form = ref({
-  especifique: {
-    id: "especifique",
-    label: "",
-    maxlength: "100",
-    required: true,
-    campo_abierto: true,
+  proce_cont: {
+    check: {},
   },
+
+  //extras
+  llave_consen: `${getPaci.cod}00000000`,
+  opcion_lab010: "",
+  fecha_act: "",
+});
+
+const form = ref({});
+
+for (let i = 1; i < 11; i++) {
+  reg.value.proce_cont[`especifique_${i}`] = "";
+  reg.value.proce_cont.check[`p_${i}`] = "N";
+
+  form.value[`especifique_${i}`] = {
+    id: `especifique_${i}`,
+    label: "",
+    placeholder: "",
+    counter: false,
+    maxlength: "40",
+    required: true,
+    // disable: true,
+    campo_abierto: true,
+  };
+}
+
+onMounted(() => {
+  reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  reg.value.edad = calcEdad(getPaci.nacim);
+  getFirmaProf();
 });
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(reg.value));
+  datos_format = JSON.parse(JSON.stringify(reg.value));
+
+  let cont = 1;
+  for (const prop in datos_format.proce_cont.check) {
+    if (datos_format.proce_cont.check[prop] == "N") {
+      datos_format.proce_cont[`especifique_${cont}`] = "";
+    }
+    cont++;
+  }
+
   let datos = {
     llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     estado: reg.value.opcion_lab010 == "AUTORIZAR" ? "1" : "2",
@@ -543,7 +590,6 @@ const grabarFirmaConsen = async (llave) => {
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
-      return logOut$();
     }
     return CON851P(
       "?",
@@ -558,12 +604,10 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       },
       async () => {
         const file = await imprimirConsen();
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", logOut$);
         }
 
         const response = await enviarCorreo$({
@@ -573,8 +617,6 @@ const grabarFirmaConsen = async (llave) => {
           subject: getEncabezado.descrip,
           file,
         });
-        CON851("?", response.tipo, response.message, logOut$);
-
         const response_guardar = await guardarArchivo$({
           nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
             "YYYYMMDDHHmm"
@@ -582,7 +624,6 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       }
     );
   } catch (error) {
@@ -619,6 +660,16 @@ const imprimirConsen = async () => {
       },
       fecha: reg.value.fecha_act,
       llave: reg.value.llave_consen,
+      P_1: datos_format.proce_cont.especifique_1,
+      P_2: datos_format.proce_cont.especifique_2,
+      P_3: datos_format.proce_cont.especifique_3,
+      P_4: datos_format.proce_cont.especifique_4,
+      P_5: datos_format.proce_cont.especifique_5,
+      P_6: datos_format.proce_cont.especifique_6,
+      P_7: datos_format.proce_cont.especifique_7,
+      P_8: datos_format.proce_cont.especifique_8,
+      P_9: datos_format.proce_cont.especifique_9,
+      P_10: datos_format.proce_cont.especifique_10,
       ...reg.value,
     };
 
@@ -655,7 +706,6 @@ const imprimirConsen = async () => {
 
 const getFirmaProf = async () => {
   try {
-    firma_recibida_test.value = await _getFirma$({ codigo: Number(getTestigo.cod) });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
@@ -670,6 +720,9 @@ const validarDatos = () => {
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
+  if (!firma_recibida_test.value) {
+    return CON851("?", "info", "No se ha realizado la firma del testigo");
   }
   grabarConsentimiento();
 };
