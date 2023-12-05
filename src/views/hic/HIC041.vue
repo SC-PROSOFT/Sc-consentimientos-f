@@ -426,8 +426,8 @@ const imprimirConsen = async () => {
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
     },
-    ...HIC041,
     diagnostico: getHc.rips.diagn.length ? getHc.rips.diagn[0].cod : "",
+    ...HIC041,
   };
 
   const firmas = {
