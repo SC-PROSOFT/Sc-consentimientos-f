@@ -261,7 +261,7 @@ const getConsentimientosRealizados = async () => {
     params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
   }
   try {
-    const response = await getDll$({
+    const { CONSENTIMIENTOS } = await getDll$({
       modulo: `get_consen.dll`,
       data: {
         llave_consen: params_querys.value.llave_hc,
@@ -269,12 +269,15 @@ const getConsentimientosRealizados = async () => {
         paso: novedad.value == "1" ? "2" : novedad.value,
       },
     });
-    const query = sessionStorage.query && JSON.parse(sessionStorage.query);
-    const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
-    const consentimientos_filter = response.CONSENTIMIENTOS.filter((consentimiento) => {
-      return consentimiento.reg_coninf.llave_fact === llave_fact;
-    });
-    lista_consen.value = consentimientos_filter;
+
+    let consen_filter;
+    if (params_querys.value.modulo == "LAB") {
+      const query = sessionStorage.query && JSON.parse(sessionStorage.query);
+      const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
+      consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact);
+    }
+
+    lista_consen.value = consen_filter || CONSENTIMIENTOS || [];
     lista_consen.value.sort((a, b) => {
       return (
         parseInt(`${b.reg_coninf.llave.fecha}${b.reg_coninf.llave.hora}`) -
