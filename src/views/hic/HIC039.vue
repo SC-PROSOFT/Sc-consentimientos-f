@@ -28,7 +28,7 @@
             Yo,
             <InputF_ v-model="reg_firmador.descrip" width="300" disable />
             identificado(a) con
-            <InputF_ v-model="reg.tipo_id" disable />
+            <InputF_ v-model="reg_firmador.tipo_id" disable />
             N°
             <InputF_ v-model="reg_firmador.cod" disable />
             obrando en la calidad abajo indicada, hago la siguiente declaración: Por medio del presente
@@ -208,7 +208,7 @@ const datosInit = () => {
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg.llave = getHc.llave.slice(15);
 
-  reg.select_acomp = getAcomp.cod.length ? "S" : "";
+  reg.select_acomp = getAcomp.cod.length ? "S" : "N";
   reg.select_paci = getAcomp.cod.length ? "N" : "S";
 };
 

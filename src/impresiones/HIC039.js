@@ -64,7 +64,7 @@ export const impresionHC039 = ({ datos }) => {
             {
               marginLeft: 5,
               width: "auto",
-              stack: cuadro_canvas(""),
+              stack: cuadro_canvas(datos.select_paci == "S" ? true : false),
             },
             {
               marginLeft: 15,
@@ -74,7 +74,7 @@ export const impresionHC039 = ({ datos }) => {
             {
               marginLeft: 5,
               width: "auto",
-              stack: cuadro_canvas(""),
+              stack: cuadro_canvas(datos.select_paci == "N" ? true : false),
             },
           ],
         },
@@ -103,7 +103,7 @@ export const impresionHC039 = ({ datos }) => {
                 {
                   marginLeft: 5,
                   width: "auto",
-                  stack: cuadro_canvas(""),
+                  stack: cuadro_canvas(datos.select_acomp == "S" ? true : false),
                 },
                 {
                   marginLeft: 15,
@@ -113,7 +113,7 @@ export const impresionHC039 = ({ datos }) => {
                 {
                   marginLeft: 5,
                   width: "auto",
-                  stack: cuadro_canvas(""),
+                  stack: cuadro_canvas(datos.select_acomp == "N" ? true : false),
                 },
               ],
             },
