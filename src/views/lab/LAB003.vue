@@ -117,7 +117,6 @@
           quien_firma="FIRMA TESTIGO"
           class="col-4"
         />
-        />
         <ContainerFirma
           disable
           :firma_="firma_prof"
