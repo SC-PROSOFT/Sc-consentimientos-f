@@ -249,7 +249,7 @@ const getHistoriaClinica = async () => {
     });
     setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2) {
+    if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       //Excepciones Yoal
       const allow_serv = ["02", "08"];
       const unid = params_querys.value.serv_hc;
