@@ -72,21 +72,21 @@
                   :field="form_config.aprobo"
                 />
                 <Input_
-                  class="col-xs-12 col-sm-7 col-md-7 col-lg-6 col-xl-7"
+                  class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-xl-6"
                   width_label="col-xs-6 col-sm-7 col-md-7 col-lg-6 col-xl-7"
                   width_input="col-xs-6 col-sm-5 col-md-5 col-lg-6 col-xl-5"
                   v-model="reg_config.fecha_aprob"
                   :field="form_config.fecha_aprob"
                 />
                 <Input_
-                  class="col-xs-12 col-sm-7 col-md-7 col-lg-6 col-xl-7"
+                  class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-xl-6"
                   width_label="col-xs-6 col-sm-7 col-md-7 col-lg-6 col-xl-7"
                   width_input="col-xs-6 col-sm-5 col-md-5 col-lg-6 col-xl-5"
                   v-model="reg_config.fecha_act"
                   :field="form_config.fecha_act"
                 />
                 <Input_
-                  class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
+                  class="col-xs-12 col-sm-5 col-md-6 col-lg-6 col-xl-6"
                   width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                   width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                   v-model="reg_config.version"
@@ -311,10 +311,11 @@ watchEffect(() => {
 
 const resetValues = () => {
   Object.assign(reg_config.value, {
-    codigo: null,
-    aprobo: null,
     fecha_aprob: null,
+    fecha_act: null,
     version: null,
+    aprobo: null,
+    codigo: null,
   });
 };
 
