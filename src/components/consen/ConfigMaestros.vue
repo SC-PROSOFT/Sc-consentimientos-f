@@ -72,21 +72,21 @@
                   :field="form_config.aprobo"
                 />
                 <Input_
-                  class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-xl-6"
+                  class="col-xs-12 col-sm-7 col-md-7 col-lg-6 col-xl-7"
                   width_label="col-xs-6 col-sm-7 col-md-7 col-lg-6 col-xl-7"
                   width_input="col-xs-6 col-sm-5 col-md-5 col-lg-6 col-xl-5"
                   v-model="reg_config.fecha_aprob"
                   :field="form_config.fecha_aprob"
                 />
                 <Input_
-                  class="col-xs-12 col-sm-7 col-md-6 col-lg-6 col-xl-6"
+                  class="col-xs-12 col-sm-7 col-md-7 col-lg-6 col-xl-7"
                   width_label="col-xs-6 col-sm-7 col-md-7 col-lg-6 col-xl-7"
                   width_input="col-xs-6 col-sm-5 col-md-5 col-lg-6 col-xl-5"
                   v-model="reg_config.fecha_act"
                   :field="form_config.fecha_act"
                 />
                 <Input_
-                  class="col-xs-12 col-sm-5 col-md-6 col-lg-6 col-xl-6"
+                  class="col-xs-12 col-sm-5 col-md-5 col-lg-5 col-xl-5"
                   width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                   width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
                   v-model="reg_config.version"
@@ -164,13 +164,15 @@
 
 <script setup>
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
-import { useModuleCon851, useApiContabilidad } from "@/store";
+import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store";
 import { ref, onMounted, watch, watchEffect } from "vue";
 import { foco_ } from "@/setup";
 import days from "dayjs";
 
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
+const { getEmpresa } = useModuleFormatos();
+
 
 const props = defineProps({ configuracion: Object });
 const emit = defineEmits(["cerrar", "guardar"]);
@@ -311,11 +313,10 @@ watchEffect(() => {
 
 const resetValues = () => {
   Object.assign(reg_config.value, {
-    fecha_aprob: null,
-    fecha_act: null,
-    version: null,
-    aprobo: null,
     codigo: null,
+    aprobo: null,
+    fecha_aprob: null,
+    version: null,
   });
 };
 
@@ -384,7 +385,9 @@ const actualizarMaestro = async () => {
       );
     }
     if (data_envio.iso == "S") {
-      camposo_bligatorios.push({ nombre: "codigo", campo: "codigo" }, { nombre: "aprobo", campo: "aprobo" });
+      camposo_bligatorios.push({ nombre: "codigo", campo: "codigo" });
+
+      if(getEmpresa.nitusu != 844003225) camposo_bligatorios.push( { nombre: "aprobo", campo: "aprobo" })
     }
 
     for (const campo_info of camposo_bligatorios) {
