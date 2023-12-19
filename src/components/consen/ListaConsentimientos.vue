@@ -243,6 +243,7 @@ const getOdontologia = async () => {
 };
 const getHistoriaClinica = async () => {
   try {
+    const nit_usu = parseInt(getEmpresa.nitusu) || 0;
     const response = await getDll$({
       modulo: `get_hc.dll`,
       data: { llave_hc: route.query.llave_hc },
@@ -250,10 +251,10 @@ const getHistoriaClinica = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
-      //Excepciones Yoal
+      //Valida exepcion unidad de servicio (Yopal)
       const allow_serv = ["02", "08"];
       const unid = params_querys.value.serv_hc;
-      if (getEmpresa.nitusu == 844003225 && allow_serv.includes(unid)) return;
+      if (nit_usu == 844003225 && allow_serv.includes(unid)) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
