@@ -160,7 +160,6 @@ const guardarFirmaDisentimiento = async () => {
     if (!firma_disentimiento.value) {
       return CON851("?", "info", "No se ha realizado la firma del disentimiento");
     }
-    console.log("form_config.firma_paciente--> ", form_config.firma_paciente);
 
     if (reg_consen.value.firma_paciente == "S")
       await guardarFile$({ base64: firma_disentimiento.value, codigo: `DP${llave_conse.value}` });
