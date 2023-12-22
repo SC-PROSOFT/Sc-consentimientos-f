@@ -23,7 +23,7 @@
               color="primary"
               icon-right="home"
               label="Volver al menu"
-              @click="() => router.push({ name: 'menu' })"
+              @click="router.back"
             />
           </q-card-actions>
         </q-card>
