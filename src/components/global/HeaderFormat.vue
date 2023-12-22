@@ -2,12 +2,7 @@
   <q-card class="q-mx-auto header">
     <div class="row" style="border: 1px solid #ccc">
       <div class="col-md-2 shadow-1">
-        <q-img
-          style="height: 105px; max-width: 205px"
-          spinner-color="primary "
-          :src="getLogo"
-          fit="contain"
-        />
+        <q-img style="height: 105px; max-width: 205px" spinner-color="primary " :src="logo" fit="contain" />
       </div>
 
       <div class="col-md-10">
@@ -57,10 +52,28 @@
 
 <script setup>
 import { useApiContabilidad, useModuleFormatos } from "@/store";
+import { onBeforeMount, ref } from "vue";
+import { useRoute } from "vue-router";
 import days from "dayjs";
 
-const { getEncabezado } = useApiContabilidad();
+const route = useRoute();
+
+const { _getLogo$, getEncabezado } = useApiContabilidad();
 const { getLogo, getEmpresa } = useModuleFormatos();
+
+onBeforeMount(() => validarLogo());
+
+const logo = ref(getLogo);
+
+const validarLogo = async () => {
+  const base64 = "data:image/png;base64,";
+  if (route.name == "HIC043") logo.value = await _getLogo$({ nit: "ColomPotenVida" });
+  else if (route.name == "HIC042") logo.value = await _getLogo$({ nit: "MinSalud" });
+  else return;
+
+  logo.value = `${base64}${logo.value}`;
+  return logo;
+};
 </script>
 
 <style>
