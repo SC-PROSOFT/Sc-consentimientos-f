@@ -25,6 +25,15 @@ const routes = [
           require_auth: true,
         },
       },
+      {
+        path: "/dev",
+        name: "dev",
+        component: () => import("@/components/global/Dev.vue"),
+        meta: {
+          title: `${title} - desarrollo`,
+          require_auth: true,
+        },
+      },
       ...createRouteHic(title),
       ...createRouteOdo(title),
       ...createRouteLab(title),
@@ -38,7 +47,8 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
-  next();
+  if (to.meta.maintenance) return next({ name: "dev" });
+  else next();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 

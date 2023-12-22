@@ -4,6 +4,7 @@ export const createRouteLab = (title) => [
     name: "LAB001",
     component: () => import("@/views/lab/LAB001.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO LAB001`,
       descrip: "Consentimiento informado imagenologia",

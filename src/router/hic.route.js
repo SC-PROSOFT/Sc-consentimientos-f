@@ -4,6 +4,7 @@ export const createRouteHic = (title) => [
     name: "HIC001",
     component: () => import("@/views/hic/HIC001.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC001`,
       descrip: "CONSENTIMIENTO INFORMADO PARA LA PRUEBA DE VIH (Prueba de Inmunodeficiencia Humana)",
@@ -14,6 +15,7 @@ export const createRouteHic = (title) => [
     name: "HIC002",
     component: () => import("@/views/hic/HIC002.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC002`,
       descrip: "Consentimiento informado retiro voluntario",
@@ -24,6 +26,7 @@ export const createRouteHic = (title) => [
     name: "HIC003",
     component: () => import("@/views/hic/HIC003.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC003`,
       descrip: "Consentimiento informado procedimientos invasivos",
@@ -34,6 +37,7 @@ export const createRouteHic = (title) => [
     name: "HIC006",
     component: () => import("@/views/hic/HIC006.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC006`,
       descrip:
@@ -45,6 +49,7 @@ export const createRouteHic = (title) => [
     name: "HIC008",
     component: () => import("@/views/hic/HIC008.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC008`,
       descrip: "Formato de constancia de servicios recibidos",
@@ -55,6 +60,7 @@ export const createRouteHic = (title) => [
     name: "HIC012",
     component: () => import("@/views/hic/HIC012.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC012`,
       descrip: "Consentimiento informado insercion y/o retiro implante subdermico JADELL",
@@ -65,6 +71,7 @@ export const createRouteHic = (title) => [
     name: "HIC015",
     component: () => import("@/views/hic/HIC015.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC015`,
       descrip: "Consentimiento informado procedimientos especiales",
@@ -75,6 +82,7 @@ export const createRouteHic = (title) => [
     name: "HIC016",
     component: () => import("@/views/hic/HIC016.vue"),
     meta: {
+      maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC016`,
       descrip: "consentimiento informado para dilatación bajo cicloplejia",
@@ -208,6 +216,16 @@ export const createRouteHic = (title) => [
       require_auth: true,
       title: `${title} - FORMATO HIC042`,
       descrip: "Aplicación de la vacuna contra el virus del papiloma humano - VPH",
+    },
+  },
+  {
+    path: "/HIC043",
+    name: "HIC043",
+    component: () => import("@/views/hic/HIC043.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC043`,
+      descrip: "Consentimiento informado para la aplicacion de la vacuna contra el sars-cov-2/covid-19",
     },
   },
   {
