@@ -1,6 +1,6 @@
 <template>
   <div class="background-container">
-    <div v-if="route.name != 'menu'" class="q-pa-none q-ma-none">
+    <div v-if="matchRoute()" class="q-pa-none q-ma-none">
       <Header_ :titulo="route.meta.title" />
       <HeaderFormat_ />
     </div>
@@ -14,6 +14,12 @@ import { useRoute } from "vue-router";
 
 const HeaderFormat_ = defineAsyncComponent(() => import("@/components/global/headerFormat.vue"));
 const route = ref(useRoute());
+const no_match = ["menu", "dev"];
+
+const matchRoute = () => {
+  if(no_match.includes(route.value.name)) return false
+  return true;
+};
 </script>
 
 <style>
