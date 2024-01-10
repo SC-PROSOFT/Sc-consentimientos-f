@@ -7,9 +7,11 @@ import App from "./App.vue";
 import router from "./router";
 import { pinia } from "./store";
 import registerComponents from "./setup/components";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const app = createApp(App);
 registerComponents(app);
+pinia.use(piniaPluginPersistedstate)
 
 app
   .use(router)
