@@ -128,6 +128,7 @@ import {
   impresionHC040,
   impresionHC041,
   impresionHC042,
+  impresionHC043,
   impresion,
 } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
@@ -343,6 +344,7 @@ const reimprimirConsentimiento = async (row) => {
     HIC040: impresionHC040,
     HIC041: impresionHC041,
     HIC042: impresionHC042,
+    HIC043: impresionHC043,
   };
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
