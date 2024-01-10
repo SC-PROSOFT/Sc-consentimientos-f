@@ -315,14 +315,14 @@ const imprimirConsen = async () => {
       firma_prof: firma_prof.value,
     };
 
-    const docDefinitionPrint = utilsFormat({
-      datos: firmas,
+    const docDefinitionPrint = await utilsFormat({
+      datos: { ...firmas, cod_consen: "HIC042" },
       content: impresionHC042({
         datos: datos_hic042,
       }),
     });
-    const docDefinitionFile = utilsFormat({
-      datos: firmas,
+    const docDefinitionFile = await utilsFormat({
+      datos: { ...firmas, cod_consen: "HIC042" },
       content: impresionHC042({
         datos: datos_hic042,
       }),

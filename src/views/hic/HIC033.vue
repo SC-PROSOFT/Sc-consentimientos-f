@@ -670,13 +670,13 @@ const imprimirConsen = async () => {
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
     };
-    const docDefinitionPrint = utilsFormat({
+    const docDefinitionPrint = await utilsFormat({
       datos: firmas,
       content: impresionHC033({
         datos: datos_hic033,
       }),
     });
-    const docDefinitionFile = utilsFormat({
+    const docDefinitionFile = await utilsFormat({
       datos: firmas,
       content: impresionHC033({
         datos: datos_hic033,

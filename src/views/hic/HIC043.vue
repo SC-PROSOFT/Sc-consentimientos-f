@@ -357,7 +357,7 @@ const validarDatos = () => {
     if (!reg.value.cant_dosis)
       return CON851("?", "info", "Ingrese dosis vacuna", () => foco_(form, "cant_dosis"));
   }
-  
+
   if (!firma_recibida.value && !getAcomp.cod) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
@@ -464,14 +464,14 @@ const imprimirConsen = async () => {
       firma_prof: firma_prof.value,
     };
 
-    const docDefinitionPrint = utilsFormat({
-      datos: firmas,
+    const docDefinitionPrint = await utilsFormat({
+      datos: { ...firmas, cod_consen: "HIC043" },
       content: impresionHC043({
         datos: datos_hic043,
       }),
     });
-    const docDefinitionFile = utilsFormat({
-      datos: firmas,
+    const docDefinitionFile = await utilsFormat({
+      datos: { ...firmas, cod_consen: "HIC043" },
       content: impresionHC043({
         datos: datos_hic043,
       }),
