@@ -1,6 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
-import { SessionStorage } from "quasar";
 
 const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
 const { getImgBs64, getEncabezado } = useApiContabilidad();
@@ -71,20 +70,6 @@ export const evaluarParentesco = (value) => {
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
 };
 
-const evaluarServicio = (value) => {
-  //Esto se utiliza para acortar los nombres para la impresion unicamente en caso de necesitarse
-  const servicios = [
-    { COD: "DROGUERIA", DESCRIP: "DROGUERIA" },
-    { COD: "CIRUGIAS", DESCRIP: "CIRUGIAS" },
-    { COD: "LABORATORIOS Y OTROS DIAGNOSTICOS", DESCRIP: "LABS Y OTROS DIAGNTCS" },
-    { COD: "RX - IMAGENOLOGIA", DESCRIP: "RX - IMAGENOLOGIA" },
-    { COD: "OTROS SERVICIOS", DESCRIP: "OTROS SERVICIOS" },
-    { COD: "CONSULTA Y TERAPIAS", DESCRIP: "CONSULTA Y TERAPIAS" },
-    { COD: "PATOLOGIA", DESCRIP: "PATOLOGIA" },
-    { COD: "PROMOCION Y PREVENCION", DESCRIP: "PROMOCION Y PREVENCIÓN" },
-  ];
-  return servicios.find((e) => e.COD == value)?.DESCRIP || "";
-};
 
 const datosHeader = (iso, currentPage, pageCount) => {
   const headerISO = {
