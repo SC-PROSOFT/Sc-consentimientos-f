@@ -1,18 +1,20 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
-const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
-const { getImgBs64, getEncabezado } = useApiContabilidad();
+const { getImgBs64, getEncabezado, _getLogo$ } = useApiContabilidad();
+const { getEmpresa, getPaci, getSesion, getLogo } = useModuleFormatos();
+let logo = getLogo;
 
-export const utilsFormat = ({ datos, content }) => {
-  const base64 = "data:image/png;base64,";
+export const utilsFormat = async ({ datos, content }) => {
+  await validarLogo(datos);
+
   return {
     pageSize: "LETTER",
     pageMargins: [35, 105, 35, 30],
     images: {
       firma_disentimiento: datos.firma_disentimiento || sessionStorage.firma_disentimiento || getImgBs64,
       firma_profesional: datos.firma_prof || sessionStorage.firma_prof || getImgBs64,
-      logo: sessionStorage.logo ? `${base64}${sessionStorage.logo}` : getImgBs64,
+      logo: logo || getImgBs64,
       firma_acomp: datos.img_firma_acomp ? datos.img_firma_acomp : getImgBs64,
       huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
       firma_testigo: datos.img_firma_testigo || getImgBs64,
@@ -50,6 +52,21 @@ export const utilsFormat = ({ datos, content }) => {
   };
 };
 
+const validarLogo = async (datos) => {
+  try {
+    const base64 = "data:image/png;base64,";
+    console.log("⚡LOGO HEADER-->", datos?.cod_consen);
+    if (datos?.cod_consen == "HIC043") logo = await _getLogo$({ nit: "ColomPotenVida" });
+    else if (datos?.cod_consen == "HIC042") logo = await _getLogo$({ nit: "MinSalud" });
+    else return;
+
+    logo = `${base64}${logo}`;
+    return logo;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const calcEdad = (edad) => dayjs().diff(edad, "year");
 
 export const evaluarParentesco = (value) => {
@@ -69,7 +86,6 @@ export const evaluarParentesco = (value) => {
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
 };
-
 
 const datosHeader = (iso, currentPage, pageCount) => {
   const headerISO = {
@@ -171,8 +187,14 @@ const construirHeaderISO = () => {
 
   agregarElemento("Código", getEncabezado.codigo);
   agregarElemento("Versión", getEncabezado.version);
-  agregarElemento("Fecha de actualización", getEncabezado.fecha_act ? dayjs(getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") : "");
-  agregarElemento("Aprobado el", getEncabezado.fecha_aprob ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD") : "");
+  agregarElemento(
+    "Fecha de actualización",
+    getEncabezado.fecha_act ? dayjs(getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") : ""
+  );
+  agregarElemento(
+    "Aprobado el",
+    getEncabezado.fecha_aprob ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD") : ""
+  );
   agregarElemento("Aprobado por", getEncabezado.aprobo);
   agregarElemento("Revisado por", getEncabezado.reviso);
 
