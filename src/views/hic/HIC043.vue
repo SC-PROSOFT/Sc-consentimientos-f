@@ -262,9 +262,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { calcEdad } from "@/formatos/utils";
+import { impresionHC043, impresion, generarArchivo } from "@/impresiones";
+import { ref, defineAsyncComponent, onMounted } from "vue";
+import { calcEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
@@ -350,10 +350,14 @@ const getFirmaProf = async () => {
 const validarDatos = () => {
   if (getPaci.sexo == "F" && !reg.value.embarazada)
     return CON851("?", "info", "Ingrese estado de embarazo", () => foco_(form, "embarazada"));
-  if (!reg.value.nom_vacuna)
-    return CON851("?", "info", "Ingrese nombre de la vacuna", () => foco_(form, "nom_vacuna"));
-  if (!reg.value.cant_dosis)
-    return CON851("?", "info", "Ingrese dosis vacuna", () => foco_(form, "cant_dosis"));
+
+  if (opcion_hc043.value == "AUTORIZAR") {
+    if (!reg.value.nom_vacuna)
+      return CON851("?", "info", "Ingrese nombre de la vacuna", () => foco_(form, "nom_vacuna"));
+    if (!reg.value.cant_dosis)
+      return CON851("?", "info", "Ingrese dosis vacuna", () => foco_(form, "cant_dosis"));
+  }
+  
   if (!firma_recibida.value && !getAcomp.cod) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
@@ -432,10 +436,54 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
+const imprimirConsen = async () => {
+  try {
+    const datos_hic043 = {
+      autorizo: opcion_hc043.value == "AUTORIZAR" ? true : false,
+      empresa: getEmpresa,
+      paciente: getPaci,
+      prof: getProf,
+      acomp: getAcomp,
+      paren_acomp: getSesion.paren_acomp,
+      firmas: {
+        firma_paci: firma_recibida.value ? true : false,
+        huella_paci: huella_paci.value ? true : false,
+        firma_acomp: firma_recibida_acomp.value ? true : false,
+        firma_prof: firma_prof.value ? true : false,
+      },
+      fecha: reg.value.fecha_act,
+      llave: reg.value.llave,
+      ...reg.value,
+    };
 
-const imprimirConsen = () => {
-    console.log("ENTRO IMPRIMIR --> ⚡");
-}
+    const firmas = {
+      img_firma_consen: firma_recibida.value,
+      img_firma_paci: firma_recibida.value,
+      img_huella_paci: huella_paci.value,
+      img_firma_acomp: firma_recibida_acomp.value,
+      firma_prof: firma_prof.value,
+    };
+
+    const docDefinitionPrint = utilsFormat({
+      datos: firmas,
+      content: impresionHC043({
+        datos: datos_hic043,
+      }),
+    });
+    const docDefinitionFile = utilsFormat({
+      datos: firmas,
+      content: impresionHC043({
+        datos: datos_hic043,
+      }),
+    });
+
+    await impresion({ docDefinition: docDefinitionPrint });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    return response_impresion;
+  } catch (error) {
+    console.error("error -->", error);
+  }
+};
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
