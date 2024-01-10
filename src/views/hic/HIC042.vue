@@ -174,7 +174,6 @@ import dayjs from "dayjs";
 
 const router = useRouter();
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
@@ -183,16 +182,9 @@ const { CON851P } = useModuleCon851p();
 
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
-const descrip_diagnostico = ref(null);
-
-const show_consen800 = ref(null);
-
-const fecha_citologia = ref(null);
-const opcion_hc030 = ref(null);
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const fecha_act = ref(null);
-const llave = ref(null);
 
 const reg = ref({
   opcion_hc042: "",
