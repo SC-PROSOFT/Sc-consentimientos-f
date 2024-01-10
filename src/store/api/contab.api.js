@@ -12,7 +12,6 @@ export const useApiContabilidad = defineStore("contabilidad", {
   }),
   getters: {
     getEncabezado() {
-      if (sessionStorage.encabezado) return JSON.parse(sessionStorage.encabezado);
       return this.encabezado;
     },
     getImgBs64: () =>
@@ -25,8 +24,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
       window.close();
     },
     setHeader$({ encabezado }) {
-      sessionStorage.setItem("encabezado", JSON.stringify(encabezado));
-      Object.assign(this.encabezado, encabezado);
+      this.encabezado = encabezado;
     },
     getVersionBuild$({}) {
       return new Promise((resolve, reject) => {
@@ -257,6 +255,10 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
+  },
+  persist: {
+    storage: sessionStorage,
+    paths: ["encabezado"],
   },
 });
 
