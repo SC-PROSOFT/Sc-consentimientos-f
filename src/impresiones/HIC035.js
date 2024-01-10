@@ -22,10 +22,6 @@ export const impresionHC035 = ({ datos }) => {
       acudiente: () => (acomp ? datos.paciente.descrip : guion),
     };
   }
-  
-  function iniciarTrata() {
-    return (datos.iniciar_trata = datos.iniciar_trata == "S" ? "SI" : "NO");
-  }
 
   function contenidoEISP() {
     return {
@@ -59,7 +55,13 @@ export const impresionHC035 = ({ datos }) => {
           alignment: "justify",
           text: `Yo ${llenarFirmador().descrip()} de ${calcEdad(
             llenarFirmador().nacim()
-          )} años de edad, de genero ${llenarFirmador().sexo()} identificado(a) con documento de identidad N°: ${llenarFirmador().cod()}, expedida en ${llenarFirmador().direccion()} con residencia en ${llenarFirmador().ciudad()}, teléfono número ${llenarFirmador().telefono()} actuando en nombre propio o como acudiente de ${llenarFirmador().acudiente()} en mi calidad de paciente y en pleno uso de mis facultades mentales y de mis derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la empresa social del estado ESE salud Yopal, por medio del presente documento doy mi  consentimiento informado para que se me brinden los cuidados correspondientes y se siga la conducta terapéutica  según el criterio del profesional de salud tratante.`,
+          )} años de edad, de genero ${llenarFirmador().sexo()} identificado(a) con documento de identidad N°: ${llenarFirmador().cod()}, expedida en ${llenarFirmador().direccion()} con residencia en ${llenarFirmador().ciudad()}, teléfono número ${llenarFirmador().telefono()} actuando en nombre propio o como acudiente de ${llenarFirmador().acudiente()}.`,
+        },
+        {
+          marginTop: 15,
+          style: "bodyNoBold",
+          alignment: "justify",
+          text: `Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas, que pueden requerir una extensión de otro procedimiento y/o tratamiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que aunque son procedimientos seguros pueden presentarse complicaciones como: \n ${datos.complicaciones}`,
         },
         {
           marginTop: 15,
@@ -71,15 +73,21 @@ export const impresionHC035 = ({ datos }) => {
           marginTop: 15,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `Me garantizan la confidencialidad de mis resultados y la información que he proporcionado. De lo anterior ${iniciarTrata()} acepto iniciar tratamiento y realizar los controles y seguimientos que se requieran de acuerdo a la patología en curso. Por lo tanto, en forma consciente y voluntaria, luego de haber escuchado la información y explicaciones, sin haber sido objeto de coacción, persuasión, ni manipulación manifiesto lo siguiente:`,
+          text: `Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda mis derechos para una atención posterior.`,
         },
         {
           marginTop: 15,
           style: "bodyNoBold",
           alignment: "justify",
-          text: "Me considero SATISFECHO con la información recibida y COMPRENDO la indicación, los beneficios, además de los riesgos y posibles complicaciones que podrían desprenderse de dicho acto.",
+          text: `Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.`,
         },
-        revocar(datos.autorizo),
+        {
+          marginTop: 15,
+          style: "bodyNoBold",
+          alignment: "justify",
+          text: `Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación: \n`,
+        },
+        textoAutoriza(datos.autorizo, datos.disentimiento)
       ],
     };
   }
@@ -271,6 +279,123 @@ export const impresionHC035 = ({ datos }) => {
     };
   }
 
+  function textoAutoriza(autorizo, disentir) {
+    const textoAutorizo = {
+      stack: [
+        {
+          layout: "noBorders",
+          table: {
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(true),
+                },
+                {
+                  text: [
+                    {
+                      text: "Autorizo",
+                      bold: true,
+                      decoration: "underline",
+                    },
+                    {
+                      text: ` al personal asistencial de la ${datos.empresa.nomusu}, para la realización de los procedimientos de salud: ${datos.auto_procedimiento} , cuyo
+                      objetivo es: ${datos.auto_objetivo}, ante el diagnostico`,
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+              [
+                {
+                  marginBottom: 10,
+                  marginTop: -2,
+                  colSpan: 2,
+                  text: `TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico: ${datos.diagnostico}`,
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+                {},
+              ],
+            ],
+          },
+        },
+      ],
+    };
+
+    const textoRevoca = {
+      stack: [
+        {
+          layout: "noBorders",
+          table: {
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(true),
+                },
+                {
+                  text: [
+                    {
+                      text: "Expreso mi voluntad de ",
+                    },
+                    {
+                      text: "revocar",
+                      bold: true,
+                      decoration: "underline",
+                    },
+                    {
+                      text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: EVENTOS DE INTERES EN SALUD PUBLICA \npor los siguientes motivos: ${datos.revoca_motivos}`,
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+              [
+                {
+                  marginTop: -2,
+                  marginBottom: 10,
+                  colSpan: 2,
+                  text: "",
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+                {},
+              ],
+            ],
+          },
+        },
+      ],
+    };
+
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: `Yo, ${datos.paciente.descrip} identificado (a) con la CC No ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia`,
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+    if (autorizo) return textoAutorizo;
+    else return textoRevoca;
+    }
+  }
+
   function firmaProfesional() {
     return {
       stack: [
@@ -336,20 +461,34 @@ export const impresionHC035 = ({ datos }) => {
     };
   }
 
+  function cuadro_canvas(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+
   function firmas(condicion) {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
