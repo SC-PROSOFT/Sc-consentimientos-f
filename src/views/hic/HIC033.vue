@@ -249,7 +249,7 @@
             </div>
             <div class="q-mt-md q-mb-xs row">
               <span style="font-weight: bold"
-                >Este espacio debe ser diligenciado para niños (as) menores de 12 años</span
+                >Este espacio debe ser diligenciado para niños (as) mayores de 12 años</span
               >
             </div>
             <div class="border-format q-my-sm">
