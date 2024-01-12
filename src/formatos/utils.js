@@ -58,7 +58,7 @@ const validarLogo = async (datos) => {
     console.log("⚡LOGO HEADER-->", datos?.cod_consen);
     if (datos?.cod_consen == "HIC043") logo = await _getLogo$({ nit: "ColomPotenVida" });
     else if (datos?.cod_consen == "HIC042") logo = await _getLogo$({ nit: "MinSalud" });
-    else return;
+    else return logo = getLogo;
 
     logo = `${base64}${logo}`;
     return logo;
