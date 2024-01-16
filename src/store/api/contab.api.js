@@ -205,12 +205,13 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
-    _getHuella$({ codigo = 0, formato = "jpg" }) {
-      let ruta;
-      if (this.empresa.unid_prog == "S") {
-        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/BIOMETRIA`;
-      } else if (this.empresa.unid_prog == "P") {
-        ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/BIOMETRIA`;
+    _getHuella$({ codigo = 0, formato = "jpg", ruta = "" }) {
+      if (ruta == "") {
+        if (this.empresa.unid_prog == "S") {
+          ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/BIOMETRIA`;
+        } else if (this.empresa.unid_prog == "P") {
+          ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/BIOMETRIA`;
+        }
       }
 
       return new Promise((resolve, reject) => {
