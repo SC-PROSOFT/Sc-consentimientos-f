@@ -34,10 +34,14 @@
 </template>
 
 <script setup>
-import { ref, defineAsyncComponent } from "vue";
+import { useModuleFormatos, useModuleCon851, useApiContabilidad } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarTable.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
+const { getEmpresa, getPaci } = useModuleFormatos();
+const { _getHuella$ } = useApiContabilidad();
+const { CON851 } = useModuleCon851();
 
 const emit = defineEmits(["reciFirma"]);
 
@@ -71,6 +75,28 @@ const props = defineProps({
     default: "Sin asignar",
   },
 });
+
+onMounted(() => {
+  getFirmaPaci();
+});
+
+const getFirmaPaci = async () => {
+  try {
+    /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
+    const check_paci = props.quien_firma.toLowerCase().includes("paciente");
+    if (Number(getEmpresa.nitusu) == 844003225 && check_paci) {
+      firma.value = await _getHuella$({
+        codigo: `${getPaci.cod}-FIR`,
+        ruta: "E:/SC/NEWCOBOL/DATOS/BIOMETRIA",
+        formato: "png",
+      });
+      CallBackFirma(firma.value);
+    }
+  } catch (error) {
+    console.error("Verificar si la firma del paciente esta registrada en maestro (YOPAL)");
+    CON851("?", "info", "Error consultando firma de paciente");
+  }
+};
 
 const show_firma = ref(false);
 let firma = ref(null);
