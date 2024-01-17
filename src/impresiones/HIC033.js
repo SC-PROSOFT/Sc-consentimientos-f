@@ -271,7 +271,9 @@ export const impresionHC033 = ({ datos }) => {
               bold: true,
             },
             {
-              text: `${datos.observaciones || "_______________________________________________________________"}`,
+              text: `${
+                datos.observaciones || "_______________________________________________________________"
+              }`,
             },
           ],
         },
@@ -449,7 +451,12 @@ export const impresionHC033 = ({ datos }) => {
                   bold: true,
                 },
                 {
-                  text: " a mi asesor para la realización de la prueba, procesamiento y reporte de la misma.",
+                  text: "Autorizo ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.",
+                },
+                {
+                  text: "EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.",
+                  marginTop: 10,
+                  bold: true,
                 },
               ],
             },
