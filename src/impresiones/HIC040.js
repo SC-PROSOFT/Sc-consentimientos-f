@@ -277,6 +277,7 @@ export const impresionHC040 = ({ datos }) => {
           alignment: "justify",
           text: "Declaramos que nos encontramos en capacidad de entender y expresar nuestra voluntad y en consecuencia suscribimos el presente documento en señal de conformidad con su contenido.",
         },
+        textoAutoriza(),
         {
           marginTop: 10,
           style: "bodyNoBold",
@@ -286,6 +287,60 @@ export const impresionHC040 = ({ datos }) => {
         },
       ],
     };
+  }
+
+  function cuadro_canvas(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+
+  function textoAutoriza() {
+    const textoRevoca = {
+      stack: [
+        {
+          marginTop: 15,
+          style: "bodyNoBold",
+          alignment: "justify",
+          columns: [
+            {
+              width: "4%",
+              stack: cuadro_canvas(true),
+            },
+            {
+              marginLeft: 4,
+              width: "96%",
+              text: [
+                {
+                  text: "Expreso mi voluntad de ",
+                },
+                {
+                  text: "revocar",
+                  bold: true,
+                },
+                {
+                  text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento CONDUCCION Y LA ATENCION DEL TRABAJO DE PARTO Y PARTO VAGINAL",
+                },
+                {
+                  text: `por los siguientes motivos: ${datos.revocar_motivos}`,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    if (!datos.autorizo) return textoRevoca;
+    return { text: "" };
   }
 
   function firmaHuellaPaci(huella_paci, cant_firmas) {
@@ -516,16 +571,16 @@ export const impresionHC040 = ({ datos }) => {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));

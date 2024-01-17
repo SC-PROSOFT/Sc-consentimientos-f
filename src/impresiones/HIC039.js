@@ -150,6 +150,7 @@ export const impresionHC039 = ({ datos }) => {
           alignment: "justify",
           text: `${datos.otras_considera}`,
         },
+        textoAutoriza(),
       ],
     };
   }
@@ -407,20 +408,60 @@ export const impresionHC039 = ({ datos }) => {
     };
   }
 
+  function textoAutoriza() {
+    const textoRevoca = {
+      stack: [
+        {
+          marginTop: 15,
+          style: "bodyNoBold",
+          alignment: "justify",
+          columns: [
+            {
+              width: "4%",
+              stack: cuadro_canvas(true),
+            },
+            {
+              marginLeft: 4,
+              width: "96%",
+              text: [
+                {
+                  text: "Expreso mi voluntad de ",
+                },
+                {
+                  text: "revocar",
+                  bold: true,
+                },
+                {
+                  text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento SALIDA VOLUNTARIA",
+                },
+                {
+                  text: `por los siguientes motivos: ${datos.revocar_motivos}`,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    if (!datos.autorizo) return textoRevoca;
+    return {};
+  }
+
   function firmas(condicion) {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));

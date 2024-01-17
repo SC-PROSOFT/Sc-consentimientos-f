@@ -26,29 +26,11 @@
         <div>
           <div class="row text-justify">
             <p>Historia clínica numero:</p>
-            <q-input
-              disable
-              type="text"
-              dense
-              class="col-1 q-mr-xl"
-              v-model="llave"
-            />
+            <q-input disable type="text" dense class="col-1 q-mr-xl" v-model="llave" />
             <p>Ciudad:</p>
-            <q-input
-              type="text"
-              disable
-              v-model="getEmpresa.ciudad_usuar"
-              dense
-              class="col-2 q-mr-md"
-            />
+            <q-input type="text" disable v-model="getEmpresa.ciudad_usuar" dense class="col-2 q-mr-md" />
             <p>Fecha:</p>
-            <q-input
-              v-model="HIC038.fecha_act"
-              disable
-              dense
-              type="date"
-              class="col-2"
-            />
+            <q-input v-model="HIC038.fecha_act" disable dense type="date" class="col-2" />
           </div>
 
           <div class="row text-justify">
@@ -57,23 +39,18 @@
               <InputF_ v-model="getPaci.descrip" width="300" disable />
               identificado con documento numero
               <InputF_ v-model="getPaci.cod" disable /> expedida en
-              <InputF_ v-model="getPaci.descrip_ciudad" disable /> teléfono
-              numero <InputF_ v-model="getPaci.telefono" disable />. Actuando en
-              nombre propio o como acudiente de
-              <InputF_ v-model="getPaci.descrip" width="300" disable /> en mi
-              calidad de paciente, de representante legal, familiar o allegado y
-              en pleno uso de mis facultades mentales y de mis derechos de salud
-              y habiendo solicitado por mi voluntad los servicios de salud a la
-              empresa social del estado ESE salud Yopal, por medio del presente
-              documento doy mi consentimiento informado para que se me brinden
-              los cuidados correspondientes y se siga la conducta terapéutica
-              según el criterio del médico tratante, se me ha informado que es
-              necesario y conveniente por mi situación actual de salud, realizar
-              remisión a una institución Prestadora de Servicios de Salud de
-              mayor complejidad para la atención por el o los servicios de
-              <InputF_ v-model="HIC038.servicios" width="300" /> en pro de
-              mejorar mi condición clínica de salud y dar continuidad al plan
-              terapéutico requerido.
+              <InputF_ v-model="getPaci.descrip_ciudad" disable /> teléfono numero
+              <InputF_ v-model="getPaci.telefono" disable />. Actuando en nombre propio o como acudiente de
+              <InputF_ v-model="getPaci.descrip" width="300" disable /> en mi calidad de paciente, de
+              representante legal, familiar o allegado y en pleno uso de mis facultades mentales y de mis
+              derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la empresa
+              social del estado ESE salud Yopal, por medio del presente documento doy mi consentimiento
+              informado para que se me brinden los cuidados correspondientes y se siga la conducta terapéutica
+              según el criterio del médico tratante, se me ha informado que es necesario y conveniente por mi
+              situación actual de salud, realizar remisión a una institución Prestadora de Servicios de Salud
+              de mayor complejidad para la atención por el o los servicios de
+              <InputF_ v-model="HIC038.servicios" width="300" /> en pro de mejorar mi condición clínica de
+              salud y dar continuidad al plan terapéutico requerido.
             </p>
           </div>
         </div>
@@ -82,94 +59,78 @@
           <ol>
             <li>
               <p>
-                Se me ha informado que los trámites administrativos para la
-                remisión estarán a cargo de mi EPS
-                <InputF_ v-model="getPaci.descrip_eps" width="300" disable />,
-                ellos serán los encargados de presentar mi caso antes las
-                diferentes instituciones de salud, para disponibilidad de la
-                cama de acuerdo con la Red que tengan contratada.
+                Se me ha informado que los trámites administrativos para la remisión estarán a cargo de mi EPS
+                <InputF_ v-model="getPaci.descrip_eps" width="300" disable />, ellos serán los encargados de
+                presentar mi caso antes las diferentes instituciones de salud, para disponibilidad de la cama
+                de acuerdo con la Red que tengan contratada.
               </p>
             </li>
             <li>
               <p>
-                El Periodo de tiempo para la aceptación de la remisión por parte
-                de las IPS depende de varios factores como disponibilidad de la
-                especialidad requerida, disponibilidad de cama, disponibilidad
-                de convenio entre IPS y la EPS, entre otros, por lo tanto, no se
-                puede determinar fecha ni hora exacta del proceso de remisión.
+                El Periodo de tiempo para la aceptación de la remisión por parte de las IPS depende de varios
+                factores como disponibilidad de la especialidad requerida, disponibilidad de cama,
+                disponibilidad de convenio entre IPS y la EPS, entre otros, por lo tanto, no se puede
+                determinar fecha ni hora exacta del proceso de remisión.
               </p>
             </li>
             <li>
               <p>
-                El personal de la oficina de Referencia y Contra-referencia de
-                la ESE Salud Yopal, realizara los trámites administrativos de
-                informar a la EPS la necesidad de remisión y otorgo la
-                autorización para que sean entregados todos los documentos de mi
-                historia clínica requeridos para dichos tramites.
+                El personal de la oficina de Referencia y Contra-referencia de la ESE Salud Yopal, realizara
+                los trámites administrativos de informar a la EPS la necesidad de remisión y otorgo la
+                autorización para que sean entregados todos los documentos de mi historia clínica requeridos
+                para dichos tramites.
               </p>
             </li>
             <li>
               <p>
-                En la Oficina de Referencia y Contra-referencia me entregaran
-                información sobre los avances del proceso de remisión en los
-                siguientes horarios:
+                En la Oficina de Referencia y Contra-referencia me entregaran información sobre los avances
+                del proceso de remisión en los siguientes horarios:
                 <InputF_ v-model="HIC038.horarios" width="300" />
               </p>
             </li>
             <li>
               <p>
                 En consenso familiar hemos delegado al Señor/Señora
-                <InputF_
-                  v-model="HIC038.delegado_nombre"
-                  width="260"
-                />identificado(a) con cedula de ciudadanía N°
+                <InputF_ v-model="HIC038.delegado_nombre" width="260" />identificado(a) con cedula de
+                ciudadanía N°
                 <InputF_ v-model="HIC038.delegado_cod" />
                 expedida en la ciudad de
-                <InputF_ v-model="HIC038.delegado_expedida" /> para que sea la
-                única persona que reciba la información sobre los avances de la
-                remisión en la oficina de Referencia y Contra-referencia y
+                <InputF_ v-model="HIC038.delegado_expedida" /> para que sea la única persona que reciba la
+                información sobre los avances de la remisión en la oficina de Referencia y Contra-referencia y
                 transmita esta información al resto de mis familiares.
               </p>
             </li>
             <li>
               <p>
-                Se me informa que debo definir la persona que me acompañará
-                durante el traslado y durante mi estadía en la institución de
-                referencia, esa persona debe estar disponible para ser
-                trasladado en el momento requerido.
+                Se me informa que debo definir la persona que me acompañará durante el traslado y durante mi
+                estadía en la institución de referencia, esa persona debe estar disponible para ser trasladado
+                en el momento requerido.
               </p>
             </li>
             <li>
               <p>
-                En caso de que el personal médico tratante de la ESE Salud Yopal
-                suspenda la remisión por mejoría de mi estado de salud, se nos
-                informara inmediatamente.
+                En caso de que el personal médico tratante de la ESE Salud Yopal suspenda la remisión por
+                mejoría de mi estado de salud, se nos informara inmediatamente.
               </p>
             </li>
             <li>
               <p>
-                Una vez entregado a la institución de salud remisoria para
-                continuidad del tratamiento, mi cuidado y responsabilidad estará
-                a cargo de la institución receptora.
+                Una vez entregado a la institución de salud remisoria para continuidad del tratamiento, mi
+                cuidado y responsabilidad estará a cargo de la institución receptora.
               </p>
             </li>
             <li>
               <p>
-                Me han informado que los riesgos durante el traslado en la
-                ambulancia de la ESE Salud Yopal son: accidente vial, caída de
-                la camilla, retrasos en la llegada al sitio de referencia por
-                causas externas como factores climáticos, orden público,
-                arreglos en la vía, entre otros.
+                Me han informado que los riesgos durante el traslado en la ambulancia de la ESE Salud Yopal
+                son: accidente vial, caída de la camilla, retrasos en la llegada al sitio de referencia por
+                causas externas como factores climáticos, orden público, arreglos en la vía, entre otros.
               </p>
             </li>
           </ol>
         </div>
         <div class="row text-justify q-mt-xl q-mb-xl" style="width: 100%">
           <div class="row" style="border: 1px solid #ccc; width: 80%">
-            <p>
-              Marque con una equis “X” en los espacios en blanco de acuerdo con
-              su respuesta
-            </p>
+            <p>Marque con una equis “X” en los espacios en blanco de acuerdo con su respuesta</p>
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 10%">
             <q-space />
@@ -183,56 +144,41 @@
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 80%">
             <p>
-              ¿Se me ha permitido realizar todas las observaciones y me han dado
-              respuesta las inquietudes al respecto?
+              ¿Se me ha permitido realizar todas las observaciones y me han dado respuesta las inquietudes al
+              respecto?
             </p>
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 20%">
             <q-space />
-            <q-checkbox
-              class="q-mx-md"
-              style="margin-top: -5px"
-              left-label
-              v-model="HIC038.observaciones"
-            />
+            <q-checkbox class="q-mx-md" style="margin-top: -5px" left-label v-model="HIC038.observaciones" />
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 80%">
-            <p>
-              ¿El equipo de salud me ha explicado toda la información aquí
-              descrita?
-            </p>
+            <p>¿El equipo de salud me ha explicado toda la información aquí descrita?</p>
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 20%">
             <q-space />
-            <q-checkbox
-              class="q-mx-md"
-              style="margin-top: -5px"
-              left-label
-              v-model="HIC038.explicacion"
-            />
+            <q-checkbox class="q-mx-md" style="margin-top: -5px" left-label v-model="HIC038.explicacion" />
             <q-space />
           </div>
         </div>
         <div v-show="opcion_hc038 == 'AUTORIZAR'">
           <p>
-            Para ello, manifiesto que estoy satisfecho/a con la información
-            recibida y que comprendo el alcance y los riesgos explicados.
+            Para ello, manifiesto que estoy satisfecho/a con la información recibida y que comprendo el
+            alcance y los riesgos explicados.
           </p>
         </div>
-        <div class="q-mt-xl" v-show="opcion_hc038 == 'REVOCAR'">
-          <div style="text-align: center">
-            <span style="font-size: medium; font-weight: bold"
-              >DISENTIMIENTO</span
-            >
-          </div>
-          <div>
-            <p>
-              Declaro que rechazo el procedimiento anteriormente escrito.
-              Declaro además conocer los objetivos, características, riesgos y
-              beneficios del procedimiento rechazado.
-            </p>
-          </div>
+        <div v-if="opcion_hc038 == 'REVOCAR'" class="row">
+          <p>
+            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro
+            por tanto que, tras la información recibida, no consiento someterme al procedimiento REFERENCIA Y CONTRA REFERENCIA
+            DE PACIENTES, por los siguientes motivos:
+          </p>
+          <Input_
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+            v-model="HIC038.revocar_motivos"
+            :field="form.revocar"
+          />
         </div>
         <div v-show="texto_familiar">
           <div class="row q-mt-xl text-justify">
@@ -242,45 +188,21 @@
           </div>
           <div class="row text-justify">
             <p>El (la) Señor(a)</p>
-            <q-input
-              v-model="getAcomp.descrip"
-              disable
-              type="text"
-              dense
-              class="col-6"
-            />
+            <q-input v-model="getAcomp.descrip" disable type="text" dense class="col-6" />
             <p>identificado(a) con cédula de</p>
             <p>ciudadanía N°</p>
-            <q-input
-              v-model="getAcomp.cod"
-              disable
-              type="text"
-              dense
-              class="col-3"
-            />
+            <q-input v-model="getAcomp.cod" disable type="text" dense class="col-3" />
             <p>expedida en la ciudad de</p>
-            <q-input
-              v-model="getAcomp.descrip_ciudad"
-              disable
-              type="text"
-              dense
-              class="col-4"
-            />
+            <q-input v-model="getAcomp.descrip_ciudad" disable type="text" dense class="col-4" />
             <p>en calidad de</p>
-            <q-input
-              v-model="parentesco_acomp"
-              disable
-              type="text"
-              dense
-              class="col-3"
-            />
+            <q-input v-model="parentesco_acomp" disable type="text" dense class="col-3" />
             <p>
-              , es consciente de que el paciente cuyos datos figuran en el
-              encabezamiento, no es competente para
+              , es consciente de que el paciente cuyos datos figuran en el encabezamiento, no es competente
+              para
             </p>
             <p>
-              decidir en este momento, por lo que asume la responsabilidad de la
-              decisión, en los mismos términos que haría el propio paciente.
+              decidir en este momento, por lo que asume la responsabilidad de la decisión, en los mismos
+              términos que haría el propio paciente.
             </p>
           </div>
         </div>
@@ -328,12 +250,7 @@
 </template>
 
 <script setup>
-import {
-  useModuleFormatos,
-  useApiContabilidad,
-  useModuleCon851,
-  useModuleCon851p,
-} from "@/store";
+import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat, evaluarParentesco } from "@/formatos/utils";
 import { impresionHC038, impresion, generarArchivo } from "@/impresiones";
@@ -341,20 +258,10 @@ import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 const router = useRouter();
-const ContainerFirma = defineAsyncComponent(() =>
-  import("@/components/global/containerFirma.vue")
-);
+const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } =
-  useModuleFormatos();
-const {
-  getDll$,
-  _getFirma$,
-  _getHuella$,
-  guardarFile$,
-  enviarCorreo$,
-  getEncabezado,
-} = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
@@ -374,6 +281,7 @@ const HIC038 = ref({
   horarios: "",
   observaciones: false,
   explicacion: false,
+  revocar_motivos: "",
 
   //Extras
   fecha_act: dayjs().format("YYYY-MM-DD"),
@@ -387,13 +295,14 @@ const form = ref({
     required: true,
     campo_abierto: true,
   },
+  revocar: {
+    id: "revocar",
+    label: "",
+    maxlength: "285",
+    required: true,
+    campo_abierto: true,
+  },
 });
-
-const tipos_ids = [
-  { value: "RC", label: "RC" },
-  { value: "TI", label: "TI" },
-  { value: "CC", label: "CC" },
-];
 
 watch(opcion_hc038, (val) => {
   if (val == "AUTORIZAR") {
@@ -405,9 +314,7 @@ watch(opcion_hc038, (val) => {
 
 onMounted(() => {
   texto_familiar = getAcomp.cod.length ? true : false;
-  getSesion.paren_acomp != ""
-    ? (parentesco_acomp = evaluarParentesco(getSesion.paren_acomp))
-    : "";
+  getSesion.paren_acomp != "" ? (parentesco_acomp = evaluarParentesco(getSesion.paren_acomp)) : "";
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
   getFirmaProf();
@@ -432,10 +339,7 @@ const callBackFirmaAcomp = (data_firma) => {
 };
 
 const validarDatos = async () => {
-  if (
-    opcion_hc038.value == "AUTORIZAR" &&
-    (HIC038.value.servicios == "" || HIC038.value.horarios == "")
-  ) {
+  if (opcion_hc038.value == "AUTORIZAR" && (HIC038.value.servicios == "" || HIC038.value.horarios == "")) {
     return CON851("?", "info", "Debe ingresar los datos requeridos");
   }
 
@@ -505,9 +409,7 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", () =>
-            router.back()
-          );
+          return CON851("?", "info", "El correo no es valido", () => router.back());
         }
 
         const response = await enviarCorreo$({

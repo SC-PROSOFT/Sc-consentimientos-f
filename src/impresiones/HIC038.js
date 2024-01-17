@@ -209,24 +209,36 @@ export const impresionHC038 = ({ datos }) => {
     }
 
     const textoRevoca = {
-      marginTop: 8,
       stack: [
         {
-          text: [
+          marginTop: 15,
+          style: "bodyNoBold",
+          alignment: "justify",
+          columns: [
             {
-              text: "Declaro que ",
+              width: "4%",
+              stack: cuadro_canvas(true),
             },
             {
-              text: "rechazo",
-              bold: true,
-              decoration: "underline",
-            },
-            {
-              text: " el procedimiento anteriormente escrito. Declaro además conocer los objetivos, características, riesgos y beneficios del procedimiento rechazado.",
+              marginLeft: 4,
+              width: "96%",
+              text: [
+                {
+                  text: "Expreso mi voluntad de ",
+                },
+                {
+                  text: "revocar",
+                  bold: true,
+                },
+                {
+                  text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento REFERENCIA Y CONTRA REFERENCIA DE PACIENTES",
+                },
+                {
+                  text: `por los siguientes motivos: ${datos.revocar_motivos}`,
+                },
+              ],
             },
           ],
-          alignment: "justify",
-          style: "bodyNoBold",
         },
       ],
     };

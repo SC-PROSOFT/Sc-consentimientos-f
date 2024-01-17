@@ -79,6 +79,18 @@
           <p>OTRAS CONSIDERACIONES</p>
           <Input_ v-model="reg.otras_considera" :field="form.otras_considera" class="col-12" />
         </div>
+
+        <div v-if="reg.opcion_hc039 == 'REVOCAR'" class="row">
+          <p>
+            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro
+            por tanto que, tras la información recibida, no consiento someterme al procedimiento SALIDA VOLUNTARIA, por los siguientes motivos:
+          </p>
+          <Input_
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+            v-model="reg.revocar_motivos"
+            :field="form.revocar"
+          />
+        </div>
       </q-card-section>
       <q-card-actions>
         <div class="col-12 row justify-around">
@@ -185,10 +197,18 @@ const form = ref({
     required: true,
     campo_abierto: true,
   },
+  revocar: {
+    id: "revocar",
+    label: "",
+    maxlength: "285",
+    required: true,
+    campo_abierto: true,
+  },
 });
 
 const reg = reactive({
   otras_considera: "",
+  revocar_motivos: "",
   servicio: "",
 
   // extras

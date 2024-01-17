@@ -1,6 +1,6 @@
 <template>
   <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
-    <q-form  @submit="grabarConsentimiento">
+    <q-form @submit="grabarConsentimiento">
       <q-card-section>
         <div class="text-center">
           <q-toggle
@@ -240,6 +240,19 @@
             consecuencia suscribimos el presente documento en señal de conformidad con su contenido.
           </p>
         </div>
+
+        <div v-if="reg.opcion_hc040 == 'REVOCAR'" class="row">
+          <p>
+            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro
+            por tanto que, tras la información recibida, no consiento someterme al procedimiento CONDUCCION Y
+            LA ATENCION DEL TRABAJO DE PARTO Y PARTO VAGINAL, por los siguientes motivos:
+          </p>
+          <Input_
+            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+            v-model="reg.revocar_motivos"
+            :field="form.revocar"
+          />
+        </div>
       </q-card-section>
       <q-card-actions>
         <div class="col-12 row justify-around">
@@ -288,11 +301,10 @@
 </template>
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
 import { impresionHC040, impresion, generarArchivo } from "@/impresiones";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
@@ -310,10 +322,21 @@ const firma_prof = ref(null);
 
 const reg = ref({
   fecha_empresa: "",
+  revocar_motivos: "",
   opcion_hc040: "",
   edad_acomp: "",
   edad_paci: "",
   llave: "",
+});
+
+const form = ref({
+  revocar: {
+    id: "revocar",
+    label: "",
+    maxlength: "285",
+    required: true,
+    campo_abierto: true,
+  },
 });
 
 onMounted(() => {
@@ -322,7 +345,7 @@ onMounted(() => {
   reg.value.edad_paci = calcEdad(getPaci.nacim);
   reg.value.fecha_empresa = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
 
-  getFirmaProf()
+  getFirmaProf();
 });
 
 const getFirmaProf = async () => {
@@ -409,7 +432,7 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_hic030 = {
+    const datos_hic040 = {
       autorizo: reg.value.opcion_hc040 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
@@ -424,6 +447,7 @@ const imprimirConsen = async () => {
       },
       llave: reg.value.llave,
       fecha: reg.value.fecha_empresa,
+      ...reg
     };
 
     const firmas = {
@@ -437,14 +461,14 @@ const imprimirConsen = async () => {
     const docDefinitionPrint = await utilsFormat({
       datos: firmas,
       content: impresionHC040({
-        datos: datos_hic030,
+        datos: datos_hic040,
       }),
     });
 
     const docDefinitionFile = await utilsFormat({
       datos: firmas,
       content: impresionHC040({
-        datos: datos_hic030,
+        datos: datos_hic040,
       }),
     });
 
@@ -463,7 +487,6 @@ const callBackFirma = (data_firma) => {
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };
-
 </script>
 <style>
 p {

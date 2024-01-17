@@ -346,19 +346,7 @@ export const impresionHC034 = ({ datos }) => {
             ],
           },
         },
-        {
-          marginTop: 8,
-          style: "bodyNoBold",
-          alignment: "justify",
-          text: `De acuerdo con lo anterior, Yo ${llenarFirmador().nombre()}  con C.C. N° ${llenarFirmador().cod()} de ${llenarFirmador().ciudad()} en calidad de paciente o acudiente (persona responsable del paciente), por medio del presente documento, en forma libre en pleno uso de mis facultades mentales e intelectuales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información en un lenguaje claro, senillo y adecuado acerca de los riesgos y demás circunstancias que se originen del procedimiento, por parte del profesional en Medicina (Nombres y Apellidos completos) Dr. ${datos.prof.descrip} identificado con Cédula de ciudadanía y/o Registro médico N° ${datos.prof.cod} Autorizo ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.`,
-        },
-        {
-          marginTop: 8,
-          style: "bodyNoBold",
-          alignment: "justify",
-          text: "EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.",
-          bold: true,
-        },
+        textoAutoriza(datos.autorizo),
         {
           marginTop: 8,
           style: "bodyNoBold",
@@ -372,13 +360,85 @@ export const impresionHC034 = ({ datos }) => {
     };
   }
 
-  function datosAcudiente() {
-    const existe_acomp = datos.acomp.cod.length ? true : false;
-    return {
-      nombre: () => (existe_acomp ? datos.acomp.descrip : ""),
-      cod: () => (existe_acomp ? datos.acomp.cod : ""),
-      paren: () => (existe_acomp ? datos.paren_acomp : ""),
+  function textoAutoriza(autorizo) {
+    const textoAutorizo = {
+      stack: [
+        {
+          marginTop: 7,
+          style: "bodyNoBold",
+          columns: [
+            {
+              width: "13%",
+              text: "De lo anterior",
+            },
+            {
+              width: "auto",
+              stack: cuadro_canvas(true),
+            },
+            {
+              marginLeft: 4,
+              width: "84%",
+              text: [
+                {
+                  text: "Autorizo",
+                  bold: true,
+                },
+                {
+                  text: `Autorizo ${datos.empresa.nomusu}, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.`,
+                },
+                {
+                  text: "EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.",
+                  marginTop: 10,
+                  bold: true,
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
+
+    const textoRevoca = {
+      stack: [
+        {
+          marginTop: 15,
+          style: "bodyNoBold",
+          alignment: "justify",
+          columns: [
+            {
+              width: "4%",
+              stack: cuadro_canvas(true),
+            },
+            {
+              marginLeft: 4,
+              width: "96%",
+              text: [
+                {
+                  text: "Expreso mi voluntad de ",
+                },
+                {
+                  text: "revocar",
+                  bold: true,
+                },
+                {
+                  text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de toma de laboratorio VIH",
+                },
+                {
+                  text: "(VIRUS DE INMUNODEFICIENCIA HUMANA),",
+                  bold: true,
+                },
+                {
+                  text: `por los siguientes motivos: ${datos.revocar_motivos}`,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    if (autorizo) return textoAutorizo;
+    else return textoRevoca;
   }
 
   function disentimiento(disiente) {
@@ -643,16 +703,16 @@ export const impresionHC034 = ({ datos }) => {
     let firmasArray = [];
     let tamanoFirmasArray = 0;
     let anchos = [];
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));

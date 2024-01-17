@@ -196,13 +196,26 @@
                 SARS-CoV-2/COVID-19 de brindar la atención en salud que sea necesaria por la aparición de
                 posibles reacciones adversas no reportadas.
               </p>
-              <p style="text-align: left">
+              <p style="text-align: left" v-if="opcion_hc043 != 'REVOCAR'">
                 En consecuencia, decido
                 <ins
-                  ><span class="text-bold">{{ opcion_hc043 || "_______" }}</span></ins
+                  ><span class="text-bold">AUTORIZAR</span></ins
                 >
                 con el procedimiento informado.
               </p>
+
+              <div v-if="opcion_hc043 == 'REVOCAR'" class="row">
+                <p>
+                  Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y
+                  declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento
+                  PLICACION DE LA VACUNA CONTRA EL SARS-CoV-2/COVID-19, por los siguientes motivos:
+                </p>
+                <Input_
+                  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                  v-model="reg.revocar_motivos"
+                  :field="form.revocar"
+                />
+              </div>
             </div>
           </div>
           <div class="q-mt-sm text-center">
@@ -284,6 +297,7 @@ const firma_prof = ref(null);
 const fecha_act = ref(null);
 
 const reg = ref({
+  revocar_motivos: null,
   embarazada: null,
   nom_vacuna: null,
   cant_dosis: null,
@@ -305,6 +319,13 @@ const cant_dosis = [
 ];
 
 const form = ref({
+  revocar: {
+    id: "revocar",
+    label: "",
+    maxlength: "285",
+    required: true,
+    campo_abierto: true,
+  },
   embarazada: {
     id: "embarazada",
     maxlength: "1",
