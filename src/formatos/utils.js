@@ -1,7 +1,7 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
-const { getImgBs64, getEncabezado, _getLogo$ } = useApiContabilidad();
+const { getImgBs64, _getLogo$ } = useApiContabilidad();
 const { getEmpresa, getPaci, getSesion, getLogo } = useModuleFormatos();
 let logo = getLogo;
 
@@ -27,7 +27,7 @@ export const utilsFormat = async ({ datos, content }) => {
     header: function (currentPage, pageCount) {
       return {
         margin: [35, 15, 35, 0], //Margenes deben ir en relacion a la pageMargin
-        table: datosHeader(getEncabezado.iso, currentPage, pageCount),
+        table: datosHeader(useApiContabilidad().getEncabezado.iso, currentPage, pageCount),
       };
     },
     content,
@@ -110,7 +110,7 @@ const datosHeader = (iso, currentPage, pageCount) => {
             },
             {
               marginTop: 15,
-              text: `${getEncabezado.descrip}`,
+              text: `${useApiContabilidad().getEncabezado.descrip}`,
               style: "headerBold",
               alignment: "center",
             },
@@ -151,7 +151,7 @@ const datosHeader = (iso, currentPage, pageCount) => {
             },
             {
               marginTop: 15,
-              text: `${getEncabezado.descrip}`,
+              text: `${useApiContabilidad().getEncabezado.descrip}`,
               style: "headerBold",
               alignment: "center",
             },
@@ -185,18 +185,18 @@ const construirHeaderISO = () => {
     }
   };
 
-  agregarElemento("Código", getEncabezado.codigo);
-  agregarElemento("Versión", getEncabezado.version);
+  agregarElemento("Código", useApiContabilidad().getEncabezado.codigo);
+  agregarElemento("Versión", useApiContabilidad().getEncabezado.version);
   agregarElemento(
     "Fecha de actualización",
-    getEncabezado.fecha_act ? dayjs(getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") : ""
+    useApiContabilidad().getEncabezado.fecha_act ? dayjs(useApiContabilidad().getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") : ""
   );
   agregarElemento(
     "Aprobado el",
-    getEncabezado.fecha_aprob ? dayjs(getEncabezado.fecha_aprob).format("YYYY-MM-DD") : ""
+    useApiContabilidad().getEncabezado.fecha_aprob ? dayjs(useApiContabilidad().getEncabezado.fecha_aprob).format("YYYY-MM-DD") : ""
   );
-  agregarElemento("Aprobado por", getEncabezado.aprobo);
-  agregarElemento("Revisado por", getEncabezado.reviso);
+  agregarElemento("Aprobado por", useApiContabilidad().getEncabezado.aprobo);
+  agregarElemento("Revisado por", useApiContabilidad().getEncabezado.reviso);
 
   return encabezado;
 };

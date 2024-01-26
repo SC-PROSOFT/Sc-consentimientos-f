@@ -13,36 +13,36 @@
           </div>
 
           <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
-            <strong>VERSION {{ getEncabezado.version }} </strong>
+            <strong>VERSION {{ useApiContabilidad().getEncabezado.version }} </strong>
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center">CODIGO</strong>
-            <strong class="col-12 text-center text-caption"> {{ getEncabezado.codigo }} </strong>
+            <strong class="col-12 text-center text-caption"> {{ useApiContabilidad().getEncabezado.codigo }} </strong>
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center">FECHA APROB </strong>
             <strong class="col-12 text-center">
-              {{ days(getEncabezado.fecha_aprob).format("YYYY-MM-DD") }}
+              {{ days(useApiContabilidad().getEncabezado.fecha_aprob).format("YYYY-MM-DD") }}
             </strong>
           </div>
         </div>
         <div class="row">
           <div class="col-5 text-subtitle2 q-pb-xs q-pt-xs shadow-1 text-center text-bold">
-            {{ getEncabezado.descrip || "Falta nombre formato" }}
+            {{ useApiContabilidad().getEncabezado.descrip || "Falta nombre formato" }}
           </div>
           <div class="col-3 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center"> FECHA ACTUALIZACIÓN </strong>
             <strong class="col-12 text-center">
-              {{ days(getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") }}
+              {{ days(useApiContabilidad().getEncabezado.fecha_act.trim()).format("YYYY-MM-DD") }}
             </strong>
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
             <strong class="col-12 text-center"> REVISADO POR</strong>
-            <strong class="col-12 text-center"> {{ getEncabezado.reviso }} </strong>
+            <strong class="col-12 text-center"> {{ useApiContabilidad().getEncabezado.reviso }} </strong>
           </div>
           <div class="col-2 text-subtitle2 q-pb-xs q-pt-xs shadow-1 justify-center text-bold row">
-            <strong class="col-12 text-center"> APROBADO POR {{ getEncabezado.aprobado_por }} </strong>
-            <strong class="col-12 text-center"> {{ getEncabezado.aprobo }} </strong>
+            <strong class="col-12 text-center"> APROBADO POR {{ useApiContabilidad().getEncabezado.aprobado_por }} </strong>
+            <strong class="col-12 text-center"> {{ useApiContabilidad().getEncabezado.aprobo }} </strong>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ import days from "dayjs";
 
 const route = useRoute();
 
-const { _getLogo$, getEncabezado } = useApiContabilidad();
+const { _getLogo$ } = useApiContabilidad();
 const { getLogo, getEmpresa } = useModuleFormatos();
 
 onBeforeMount(() => validarLogo());
