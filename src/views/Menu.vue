@@ -88,7 +88,7 @@ const datos_actualizacion = ref({
 });
 
 onMounted(() => {
-  validarIsConfig();
+  validIsConfig();
 });
 
 const verificarSesion = async () => {
@@ -119,7 +119,7 @@ const getLogo = async () => {
   }
 };
 
-const validarIsConfig = () => {
+const validIsConfig = () => {
   if (route.query?.modulo == "usunet") return router.replace({ name: "configUsunet" });
 
   verificarSesion();
