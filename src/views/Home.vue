@@ -14,7 +14,7 @@ import { useRoute } from "vue-router";
 
 const HeaderFormat_ = defineAsyncComponent(() => import("@/components/global/headerFormat.vue"));
 const route = ref(useRoute());
-const no_match = ["menu", "dev"];
+const no_match = ["menu", "dev", "configUsunet"];
 
 const matchRoute = () => {
   if(no_match.includes(route.value.name)) return false

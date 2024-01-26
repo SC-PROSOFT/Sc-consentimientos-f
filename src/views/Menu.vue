@@ -52,8 +52,8 @@
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { defineAsyncComponent, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { regAcomp } from "@/fuentes";
-import { useRoute } from "vue-router";
 
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
@@ -77,6 +77,7 @@ const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
 
 const mode_dev = process.env.NODE_ENV == "development" ? true : false;
+const router = useRouter();
 const route = useRoute();
 const datos_session = {};
 const llave = ref(null);
@@ -87,18 +88,18 @@ const datos_actualizacion = ref({
 });
 
 onMounted(() => {
-  verificarSesion();
+  validarIsConfig();
 });
 
 const verificarSesion = async () => {
   try {
-    if(mode_dev) localStorage.setItem("ip", "34.234.185.158");
+    if (mode_dev) localStorage.setItem("ip", "34.234.185.158");
     else localStorage.setItem("ip", window.location.hostname);
-    
+
     const response = await getDll$({ modulo: `get_usunet.dll` });
     configuracion.value.estado = false;
     setEmpresa(response);
-    getLogo();
+    await getLogo();
     return response;
   } catch (error) {
     return CON851("?", "info", error, () => {
@@ -111,10 +112,17 @@ const getLogo = async () => {
   try {
     const img = await _getLogo$({});
     sessionStorage.setItem("logo", img);
-    validarUrl();
+    await validarUrl();
   } catch (error) {
     console.error("getLogo", error);
+    throw error;
   }
+};
+
+const validarIsConfig = () => {
+  if (route.query?.modulo == "usunet") return router.replace({ name: "configUsunet" });
+
+  verificarSesion();
 };
 
 const validarUrl = async () => {
@@ -126,6 +134,7 @@ const validarUrl = async () => {
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
 
   datos_session.modulo == "LAB" && getTestigo();
+  datos_session.modulo == "configMae" && router.replace({ name: "configMae" });
   await getPaciente();
   if (!mode_dev) getVersionBuild();
 };

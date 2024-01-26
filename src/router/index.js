@@ -34,6 +34,15 @@ const routes = [
           require_auth: true,
         },
       },
+      {
+        path: "/configUsunet",
+        name: "configUsunet",
+        component: () => import("@/views/HomeConfigUsunet.vue"),
+        meta: {
+          title: `${title} - desarrollo`,
+          require_auth: true,
+        },
+      },
       ...createRouteHic(title),
       ...createRouteOdo(title),
       ...createRouteLab(title),
