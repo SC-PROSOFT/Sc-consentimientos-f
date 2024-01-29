@@ -4,16 +4,6 @@ import days from "dayjs";
 
 export const useModuleFormatos = defineStore("formatos", {
   state: () => ({
-    datos: {
-      fecha_act: days().format("YYYY-MM-DD"),
-      img_firma_acomp: Object,
-      reg_coninf: Object,
-      firma_prof: String,
-      reg_acomp: Object,
-      reg_paci: Object,
-      reg_prof: Object,
-      reg_hc: Object,
-    },
     logo: null,
     fecha_act: days().format("YYYY-MM-DD"),
     reg_testigo: regTest(),
@@ -22,7 +12,6 @@ export const useModuleFormatos = defineStore("formatos", {
     reg_acomp: regAcomp(),
     reg_hc: regHc(),
     reg_sesion: regSession(),
-
     reg_empresa: Object.assign({}, regEmpresa()),
   }),
   getters: {

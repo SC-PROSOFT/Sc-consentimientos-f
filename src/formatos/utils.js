@@ -2,11 +2,10 @@ import { useModuleFormatos, useApiContabilidad } from "@/store";
 import dayjs from "dayjs";
 
 const { getImgBs64, _getLogo$ } = useApiContabilidad();
-const { getEmpresa, getPaci, getSesion, getLogo } = useModuleFormatos();
-let logo = getLogo;
+const { getEmpresa, getPaci, getSesion } = useModuleFormatos();
 
 export const utilsFormat = async ({ datos, content }) => {
-  await validarLogo(datos);
+  const logo = await validarLogo(datos);
 
   return {
     pageSize: "LETTER",
@@ -54,11 +53,12 @@ export const utilsFormat = async ({ datos, content }) => {
 
 const validarLogo = async (datos) => {
   try {
+    let logo = ""
     const base64 = "data:image/png;base64,";
     console.log("⚡LOGO HEADER-->", datos?.cod_consen);
     if (datos?.cod_consen == "HIC043") logo = await _getLogo$({ nit: "ColomPotenVida" });
     else if (datos?.cod_consen == "HIC042") logo = await _getLogo$({ nit: "MinSalud" });
-    else return logo = getLogo;
+    else return logo = useModuleFormatos().getLogo;
 
     logo = `${base64}${logo}`;
     return logo;
