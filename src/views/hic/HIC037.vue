@@ -236,7 +236,7 @@ const grabarConsentimiento = async () => {
     disentimiento: "N",
     llave_consen: getHc.llave,
     oper_consen: getSesion.oper,
-    cod_consen: "HIC030",
+    cod_consen: "HIC037",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,

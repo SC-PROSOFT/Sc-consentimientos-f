@@ -73,12 +73,12 @@ export const impresionHC031 = ({ datos }) => {
           alignment: "justify",
           style: "bodyNoBold",
         },
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
     };
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     const textoAutorizo = {
       marginTop: 8,
       stack: [
@@ -148,8 +148,54 @@ export const impresionHC031 = ({ datos }) => {
       ],
     };
 
-    if (autorizo) return textoAutorizo;
-    else return textoRevoca;
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de COLPOSCOPIA. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos.reg_coninf2.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else  {
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
+    }
   }
 
   function cuadro_canvas(condicion) {

@@ -241,7 +241,7 @@ export const impresionHC043 = ({ datos }) => {
                 },
               ],
             },
-            textoAutoriza(),
+            textoAutoriza(datos.autorizo, datos.disentimiento),
           ],
         },
       ],
@@ -453,7 +453,7 @@ export const impresionHC043 = ({ datos }) => {
     ];
   }
 
-  function textoAutoriza() {
+  function textoAutoriza(autorizo, disentir) {
     const textoRevoca = {
       stack: [
         {
@@ -489,8 +489,54 @@ export const impresionHC043 = ({ datos }) => {
       ],
     };
 
-    if (!datos.autorizo) return textoRevoca;
-    return { text: "" };
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la APLICACION DE LA VACUNA CONTRA EL SARS-COV-2/COVID-19. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (autorizo) return { text: "" };
+      else return textoRevoca;
+    }
   }
 
   function firmaProfesional() {

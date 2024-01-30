@@ -181,14 +181,14 @@ export const impresionHC042 = ({ datos }) => {
           alignment: "justify",
           style: "bodyNoBold",
         },
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
     };
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     let text = autorizo ? "ACEPTO" : "NO ACEPTO";
-    return {
+    const textoDefault = {
       marginTop: 10,
       alignment: "justify",
       style: "bodyNoBold",
@@ -208,6 +208,52 @@ export const impresionHC042 = ({ datos }) => {
         },
       ],
     };
+
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de LA APLICACION DE LA VACUNA CONTRA EL VIRUS DEL PAPILOMA HUMANO - VPH. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else return textoDefault;
   }
 
   function cuadro_canvas(condicion) {
@@ -452,16 +498,16 @@ export const impresionHC042 = ({ datos }) => {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));

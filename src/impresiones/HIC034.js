@@ -14,16 +14,6 @@ export const impresionHC034 = ({ datos }) => {
     };
   }
 
-  function llenarFirmador() {
-    const acomp = datos.acomp.cod.length;
-
-    return {
-      ciudad: () => (acomp ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad),
-      nombre: () => (acomp ? datos.acomp.descrip : datos.paciente.descrip),
-      cod: () => (acomp ? datos.acomp.cod : datos.paciente.cod),
-    };
-  }
-
   function contenidoIVE() {
     return {
       stack: [
@@ -346,7 +336,7 @@ export const impresionHC034 = ({ datos }) => {
             ],
           },
         },
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
         {
           marginTop: 8,
           style: "bodyNoBold",
@@ -360,7 +350,7 @@ export const impresionHC034 = ({ datos }) => {
     };
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     const textoAutorizo = {
       stack: [
         {
@@ -437,8 +427,54 @@ export const impresionHC034 = ({ datos }) => {
       ],
     };
 
-    if (autorizo) return textoAutorizo;
-    else return textoRevoca;
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de INTERRUPCION VOLUNTARIA DEL EMBARAZO. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
+    }
   }
 
   function disentimiento(disiente) {

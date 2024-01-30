@@ -153,7 +153,7 @@ export const impresionHC038 = ({ datos }) => {
           },
         },
         //AÑADIR CONDICION DE TEXTO ACOMPAÑANTE
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
         textoAcomp(datos.acomp.cod != "" && datos.acomp.descrip != ""),
       ],
     };
@@ -184,14 +184,14 @@ export const impresionHC038 = ({ datos }) => {
     else return null;
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     const textoAutoriza = {
       marginTop: 10,
       stack: [
         {
           text: [
             {
-              text: "Para ello, manifiesto que estoy",
+              text: "Para ello, manifiesto que estoy ",
             },
             {
               text: "satisfecho/a",
@@ -243,8 +243,54 @@ export const impresionHC038 = ({ datos }) => {
       ],
     };
 
-    if (autorizo) return textoAutoriza;
-    else return textoRevoca;
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de REFERENCIA Y CONTRA REFERENCIA DE PACIENTES. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (autorizo) return textoAutoriza;
+      else return textoRevoca;
+    }
   }
 
   function cuadro_canvas(condicion) {

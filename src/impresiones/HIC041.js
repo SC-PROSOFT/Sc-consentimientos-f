@@ -80,83 +80,129 @@ export const impresionHC041 = ({ datos }) => {
           alignment: "justify",
           style: "bodyNoBold",
         },
-        autorizoCheck(),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
     };
   }
 
-  function autorizoCheck() {
-    if (datos.autorizo) {
-      return {
-        marginTop: 10,
-        layout: "noBorders",
-        table: {
-          widths: ["2%", "98%"],
-          body: [
-            [
-              {
-                stack: cuadro_canvas(true),
-              },
-              {
-                text: [
-                  {
-                    text: "Autorizo",
-                    bold: true,
-                    decoration: "underline",
-                  },
-                  {
-                    text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
-                  },
-                ],
-                alignment: "justify",
-                style: "bodyNoBold",
-              },
-            ],
-            [{}, {}],
+  function textoAutoriza(autorizo, disentir) {
+    const textoAutorizo = {
+      marginTop: 10,
+      layout: "noBorders",
+      table: {
+        widths: ["2%", "98%"],
+        body: [
+          [
+            {
+              stack: cuadro_canvas(true),
+            },
+            {
+              text: [
+                {
+                  text: "Autorizo",
+                  bold: true,
+                  decoration: "underline",
+                },
+                {
+                  text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
+                },
+              ],
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
           ],
-        },
-      };
-    } else {
-      return {
-        layout: "noBorders",
-        table: {
-          widths: ["2%", "98%"],
-          body: [
-            [
-              {
-                stack: cuadro_canvas(true),
-              },
-              {
-                text: [
-                  {
-                    text: "Expreso mi voluntad de ",
-                  },
-                  {
-                    text: "revocar",
-                    bold: true,
-                    decoration: "underline",
-                  },
-                  {
-                    text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: GENERAL PYP OK \npor los siguientes motivos: ${datos.revocar_motivos}`,
-                  },
-                ],
-                alignment: "justify",
-                style: "bodyNoBold",
-              },
-            ],
-            [
-              {
-                marginTop: -2,
-                colSpan: 2,
-                text: "",
-                alignment: "justify",
-                style: "bodyNoBold",
-              },
-              {},
-            ],
+          [{}, {}],
+        ],
+      },
+    };
+    const textoRevoca = {
+      layout: "noBorders",
+      table: {
+        widths: ["2%", "98%"],
+        body: [
+          [
+            {
+              stack: cuadro_canvas(true),
+            },
+            {
+              text: [
+                {
+                  text: "Expreso mi voluntad de ",
+                },
+                {
+                  text: "revocar",
+                  bold: true,
+                  decoration: "underline",
+                },
+                {
+                  text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: GENERAL PYP OK \npor los siguientes motivos: ${datos.revocar_motivos}`,
+                },
+              ],
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
           ],
+          [
+            {
+              marginTop: -2,
+              colSpan: 2,
+              text: "",
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
+            {},
+          ],
+        ],
+      },
+    };
+
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
         },
-      };
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de URGENCIAS. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
     }
   }
 
@@ -402,16 +448,16 @@ export const impresionHC041 = ({ datos }) => {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));

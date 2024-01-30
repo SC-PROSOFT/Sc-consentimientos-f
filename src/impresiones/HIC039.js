@@ -2,6 +2,7 @@ import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 export const impresionHC039 = ({ datos }) => {
+  console.log("⚡  datos-->", datos)
   const dd = {
     stack: [contenidoSalida(), firmas()],
   };
@@ -64,7 +65,7 @@ export const impresionHC039 = ({ datos }) => {
             {
               marginLeft: 5,
               width: "auto",
-              stack: cuadro_canvas(datos.select_paci == "S" ? true : false),
+              stack: cuadro_canvas(datos.acomp.cod.trim() == "" ? true : false),
             },
             {
               marginLeft: 15,
@@ -73,8 +74,8 @@ export const impresionHC039 = ({ datos }) => {
             },
             {
               marginLeft: 5,
-              width: "auto",
-              stack: cuadro_canvas(datos.select_paci == "N" ? true : false),
+              width: "auto",  
+              stack: cuadro_canvas(datos.acomp.cod.trim() != "" ? true : false),
             },
           ],
         },
@@ -103,7 +104,7 @@ export const impresionHC039 = ({ datos }) => {
                 {
                   marginLeft: 5,
                   width: "auto",
-                  stack: cuadro_canvas(datos.select_acomp == "S" ? true : false),
+                  stack: cuadro_canvas(datos.acomp.cod.trim() != "" ? true : false),
                 },
                 {
                   marginLeft: 15,
@@ -113,7 +114,7 @@ export const impresionHC039 = ({ datos }) => {
                 {
                   marginLeft: 5,
                   width: "auto",
-                  stack: cuadro_canvas(datos.select_acomp == "N" ? true : false),
+                  stack: cuadro_canvas(datos.acomp.cod.trim() == "" ? true : false),
                 },
               ],
             },
@@ -150,7 +151,7 @@ export const impresionHC039 = ({ datos }) => {
           alignment: "justify",
           text: `${datos.otras_considera}`,
         },
-        textoAutoriza(),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
     };
   }
@@ -408,7 +409,7 @@ export const impresionHC039 = ({ datos }) => {
     };
   }
 
-  function textoAutoriza() {
+  function textoAutoriza(autorizo, disentir) {
     const textoRevoca = {
       stack: [
         {
@@ -444,8 +445,53 @@ export const impresionHC039 = ({ datos }) => {
       ],
     };
 
-    if (!datos.autorizo) return textoRevoca;
-    return {};
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de SALIDA VOLUNTARIA. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (!autorizo) return textoRevoca;
+    }
   }
 
   function firmas(condicion) {

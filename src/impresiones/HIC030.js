@@ -210,12 +210,36 @@ export const impresionHC030 = ({ datos }) => {
           text: "DISENTIMIENTO",
           alignment: "center",
           style: "bodyNoBold",
-          bold: true
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
         },
         {
           marginTop: 5,
           marginBottom: 10,
-          text: `Yo, ${datos.paciente.descrip} identificado (a) con la CC No ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia`,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -224,8 +248,8 @@ export const impresionHC030 = ({ datos }) => {
 
     if (disentir == "S") return textoDisiente;
     else {
-    if (autorizo) return textoAutorizo;
-    else return textoRevoca;
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
     }
   }
 
@@ -479,16 +503,16 @@ export const impresionHC030 = ({ datos }) => {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));

@@ -377,12 +377,36 @@ export const impresionHC035 = ({ datos }) => {
           text: "DISENTIMIENTO",
           alignment: "center",
           style: "bodyNoBold",
-          bold: true
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de EVENTOS DE INTERES EN SALUD PUBLICA (EISP). \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
         },
         {
           marginTop: 5,
           marginBottom: 10,
-          text: `Yo, ${datos.paciente.descrip} identificado (a) con la CC No ${datos.paciente.cod}, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de citologia`,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
           alignment: "justify",
           style: "bodyNoBold",
         },

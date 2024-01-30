@@ -48,19 +48,19 @@ export const impresionHC037 = ({ datos }) => {
           text: "INFORMACION\n a continuación, se explica el proceso del examen el cual le van a practicar teniendo en cuenta la solicitud del médico tratante, es una exploración radiológica, en forma de RX, con el fin de proporcionar información diagnostica y tratar su enfermedad.",
           bold: true,
         },
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
     };
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     const textoAutorizo = {
       stack: [
         {
           marginTop: 8,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `Yo ${datos.paciente.descrip} identificada con cédula de ciudadanía No. ${datos.paciente.cod} de ${datos.paciente.descrip_ciudad} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna, doy el consentimiento E.S.E salud Yopal -Hospital Central de Yopal, realice toma de RX. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener uso del chaleco plomado, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas y recibí información del tecnólogo de radiología de nombre: ${datos.nombre_radiologo} CC ${datos.cedula_radiologo}.`,
+          text: `Yo, ${datos.paciente.descrip} identificada con cédula de ciudadanía No. ${datos.paciente.cod} de ${datos.paciente.descrip_ciudad} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna, doy el consentimiento E.S.E salud Yopal -Hospital Central de Yopal, realice toma de RX. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener uso del chaleco plomado, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas y recibí información del tecnólogo de radiología de nombre: ${datos.nombre_radiologo} CC ${datos.cedula_radiologo}.`,
         },
       ],
     };
@@ -94,8 +94,54 @@ export const impresionHC037 = ({ datos }) => {
       ],
     };
 
-    if (autorizo) return textoAutorizo;
-    else return textoRevoca;
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de PRUEBAS RADIOLOGICAS EN PACIENTES EN ESTADO O SOSPECHA DE GESTACION. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
+    }
   }
 
   function cuadro_canvas(condicion) {

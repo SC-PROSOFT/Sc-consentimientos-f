@@ -285,7 +285,7 @@ export const impresionHC033 = ({ datos }) => {
           bold: true,
         },
         textoDiligenciado(),
-        textoAutoriza(datos.autorizo),
+        textoAutoriza(datos.autorizo, datos.disentimiento),
         {
           alignment: "justify",
           marginTop: 20,
@@ -427,7 +427,7 @@ export const impresionHC033 = ({ datos }) => {
     else return mayorDoceAnios;
   }
 
-  function textoAutoriza(autorizo) {
+  function textoAutoriza(autorizo, disentir) {
     const textoAutorizo = {
       stack: [
         {
@@ -447,11 +447,11 @@ export const impresionHC033 = ({ datos }) => {
               width: "84%",
               text: [
                 {
-                  text: "Autorizo",
+                  text: "Autorizo ",
                   bold: true,
                 },
                 {
-                  text: "Autorizo ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.",
+                  text: "ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.",
                 },
                 {
                   text: "EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.",
@@ -504,8 +504,54 @@ export const impresionHC033 = ({ datos }) => {
       ],
     };
 
-    if (autorizo) return textoAutorizo;
-    else return textoRevoca;
+    const textoDisiente = {
+      stack: [
+        {
+          marginTop: 10,
+          text: "DISENTIMIENTO",
+          alignment: "center",
+          style: "bodyNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              text: `Yo, ${
+                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
+              } identificado (a) con la CC No ${
+                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de PRUEBA VIH. \n`,
+            },
+          ],
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 5,
+          marginBottom: 10,
+          text: [
+            {
+              text: "OBSERVACIONES:\n",
+              marginTop: 15,
+              bold: true,
+            },
+            {
+              text: `${datos?.reg_coninf2?.obser_disenti}`,
+            },
+          ],
+
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+      ],
+    };
+
+    if (disentir == "S") return textoDisiente;
+    else {
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
+    }
   }
 
   function cuadro_canvas(condicion) {
