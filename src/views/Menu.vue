@@ -119,20 +119,10 @@ const getLogo = async () => {
   }
 };
 
-const validIsConfig = async () => {
-  if (route.query?.modulo == "usunet") {
-    if (!mode_dev) {
-      await getVersionBuild()
-        .then((data) => {
-          router.replace({ name: "configUsunet" });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
-  } else {
-    verificarSesion();
-  }
+const validIsConfig = () => {
+  if (route.query?.modulo == "usunet") return router.replace({ name: "configUsunet" });
+
+  verificarSesion();
 };
 
 const validarUrl = async () => {
@@ -242,7 +232,6 @@ const getVersionBuild = async () => {
     ¿Desea actualizarla?`;
   } catch (error) {
     CON851("?", "info", error);
-    throw error;
   }
 };
 const actualizarVersion = async () => {
