@@ -51,13 +51,16 @@ export const utilsFormat = async ({ datos, content }) => {
   };
 };
 
+const min_salud = ["HIC042", "HIC036"]
+const colom_poten = ["HIC043"]
+
 const validarLogo = async (datos) => {
   try {
     let logo = ""
     const base64 = "data:image/png;base64,";
     console.log("⚡LOGO HEADER-->", datos?.cod_consen);
-    if (datos?.cod_consen == "HIC043") logo = await _getLogo$({ nit: "ColomPotenVida" });
-    else if (datos?.cod_consen == "HIC042") logo = await _getLogo$({ nit: "MinSalud" });
+    if (colom_poten.includes(datos?.cod_consen)) logo = await _getLogo$({ nit: "ColomPotenVida" });
+    else if (min_salud.includes(datos?.cod_consen)) logo = await _getLogo$({ nit: "MinSalud" });
     else return logo = useModuleFormatos().getLogo;
 
     logo = `${base64}${logo}`;

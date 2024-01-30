@@ -65,10 +65,13 @@ onBeforeMount(() => validarLogo());
 
 const logo = ref(getLogo);
 
+const min_salud = ["HIC042", "HIC036"]
+const colom_poten = ["HIC043"]
+
 const validarLogo = async () => {
   const base64 = "data:image/png;base64,";
-  if (route.name == "HIC043") logo.value = await _getLogo$({ nit: "ColomPotenVida" });
-  else if (route.name == "HIC042") logo.value = await _getLogo$({ nit: "MinSalud" });
+  if (colom_poten.includes(route.name)) logo.value = await _getLogo$({ nit: "ColomPotenVida" });
+  else if (min_salud.includes(route.name)) logo.value = await _getLogo$({ nit: "MinSalud" });
   else return;
 
   logo.value = `${base64}${logo.value}`;
