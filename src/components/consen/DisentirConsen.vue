@@ -127,9 +127,10 @@ const guardarDisentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(reg_consen.value.reg_coninf));
 
   let datos = {
-    ...datos_format,
     estado: "3",
+    ...datos_format,
     disentimiento: "S",
+    ...datos_format.datos,
     oper_disent: getSesion.oper,
     cod_consen: datos_format.cod,
     llave_consen: llave_conse.value,
