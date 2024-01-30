@@ -119,9 +119,18 @@ const getLogo = async () => {
   }
 };
 
-const validIsConfig = () => {
-  if (route.query?.modulo == "usunet") return router.replace({ name: "configUsunet" });
-
+const validIsConfig = async () => {
+  if (route.query?.modulo == "usunet") {
+    if (!mode_dev) {
+      await getVersionBuild()
+        .then((data) => {
+          router.replace({ name: "configUsunet" });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
   verificarSesion();
 };
 
@@ -134,7 +143,6 @@ const validarUrl = async () => {
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
 
   datos_session.modulo == "LAB" && getTestigo();
-  datos_session.modulo == "configMae" && router.replace({ name: "configMae" });
   await getPaciente();
   if (!mode_dev) getVersionBuild();
 };
@@ -225,7 +233,7 @@ const abrirConfiguracion = async () => {
   }
 };
 const getVersionBuild = async () => {
-  if (!["ADMI", "GEBC"].includes(datos_session.oper)) return;
+  if (!["ADMI", "GEBC"].includes(datos_session?.oper)) return;
   try {
     const response = await getVersionBuild$({});
     datos_actualizacion.value.estado = true;
@@ -233,6 +241,7 @@ const getVersionBuild = async () => {
     ¿Desea actualizarla?`;
   } catch (error) {
     CON851("?", "info", error);
+    throw error;
   }
 };
 const actualizarVersion = async () => {
