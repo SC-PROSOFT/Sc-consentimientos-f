@@ -130,8 +130,9 @@ const validIsConfig = async () => {
           console.error(err);
         });
     }
+  } else {
+    verificarSesion();
   }
-  verificarSesion();
 };
 
 const validarUrl = async () => {
