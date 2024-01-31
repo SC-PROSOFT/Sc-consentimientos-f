@@ -80,9 +80,10 @@
 </template>
 
 <script setup>
-import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { useModuleCon851, useApiContabilidad } from "@/store";
+import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { foco_ } from "@/setup";
 
 const { getDll$ } = useApiContabilidad();
@@ -90,8 +91,8 @@ const { CON851 } = useModuleCon851();
 
 const props = defineProps({ configuracion: Object });
 const emit = defineEmits(["cerrar", "guardar"]);
+const route = useRoute();
 
-const modo_project = ref(null);
 const reg_config = ref({
   nomusu: null,
   nitusu: null,
@@ -104,6 +105,7 @@ const reg_config = ref({
   dircont: null,
   envio_email: null,
 });
+
 const form_config = ref({
   nomusu: {
     id: "nomusu",
@@ -195,11 +197,17 @@ const form_config = ref({
 });
 
 onMounted(() => {
-  modo_project.value = process.env.NODE_ENV;
   Object.assign(reg_config.value, props.configuracion);
 
+  /* Modulo usunet para UTM */
+  route.query.modulo == "usunet" &&  getUsunet();
+})
+
+const getUsunet = async () => {
+  const response = await getDll$({ modulo: `get_usunet.dll` });
+  Object.assign(reg_config.value, response);
   foco_(form_config, "nomusu");
-});
+};
 
 const datoEmpresa = (event) => {
   switch (event) {
