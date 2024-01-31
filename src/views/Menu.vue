@@ -120,7 +120,7 @@ const getLogo = async () => {
 };
 
 const validIsConfig = () => {
-  if (route.query?.modulo == "usunet") return router.replace({ name: "configUsunet" });
+  if (route.query.modulo == "usunet") return router.replace({ name: "configUsunet", query: { ...route.query } });
 
   verificarSesion();
 };
