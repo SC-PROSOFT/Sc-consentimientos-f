@@ -181,7 +181,7 @@ export const impresionHC031 = ({ datos }) => {
               bold: true,
             },
             {
-              text: `${datos.reg_coninf2.obser_disenti}`,
+              text: `${datos.reg_coninf2?.obser_disenti}`,
             },
           ],
 
