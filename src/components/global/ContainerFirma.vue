@@ -39,8 +39,9 @@ import { ref, defineAsyncComponent, onMounted } from "vue";
 
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarTable.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
+
+const { _getHuella$, getImgBs64 } = useApiContabilidad();
 const { getEmpresa, getPaci } = useModuleFormatos();
-const { _getHuella$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
 const emit = defineEmits(["reciFirma"]);
@@ -89,8 +90,12 @@ const getFirmaPaci = async () => {
         codigo: `${getPaci.cod}-FIR`,
         ruta: "E:/SC/NEWCOBOL/DATOS/BIOMETRIA",
         formato: "png",
-      });
-      CallBackFirma(firma.value);
+      });    
+
+      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */
+      /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
+      const existeFirma = firma.value ? firma.value : getImgBs64
+      CallBackFirma(existeFirma);
     }
   } catch (error) {
     console.error("Verificar si la firma del paciente esta registrada en maestro (YOPAL)");
