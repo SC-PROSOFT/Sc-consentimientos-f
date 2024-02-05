@@ -229,6 +229,16 @@ export const createRouteHic = (title) => [
     },
   },
   {
+    path: "/HIC044",
+    name: "HIC044",
+    component: () => import("@/views/hic/HIC044.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC044`,
+      descrip: "Acompañamiento durante trabajo de parto, parto y post parto",
+    },
+  },
+  {
     path: "/ODO003",
     name: "ODO003",
     component: () => import("@/views/odo/ODO003.vue"),
