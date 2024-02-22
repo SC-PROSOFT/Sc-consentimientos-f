@@ -89,6 +89,7 @@ import { foco_ } from "@/setup";
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
+const mode_dev = process.env.NODE_ENV == "development" ? true : false;
 const props = defineProps({ configuracion: Object });
 const emit = defineEmits(["cerrar", "guardar"]);
 const route = useRoute();
@@ -197,13 +198,15 @@ const form_config = ref({
 });
 
 onMounted(() => {
-  Object.assign(reg_config.value, props.configuracion);
-
   /* Modulo usunet para UTM */
-  route.query.modulo == "usunet" &&  getUsunet();
-})
+  if (route.query.modulo == "usunet") getUsunet();
+  else Object.assign(reg_config.value, props.configuracion);
+});
 
 const getUsunet = async () => {
+  if (mode_dev) localStorage.setItem("ip", "34.234.185.158");
+  else localStorage.setItem("ip", window.location.hostname);
+
   const response = await getDll$({ modulo: `get_usunet.dll` });
   Object.assign(reg_config.value, response);
   foco_(form_config, "nomusu");
