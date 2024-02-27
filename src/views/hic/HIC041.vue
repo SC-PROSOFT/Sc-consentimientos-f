@@ -431,9 +431,10 @@ const imprimirConsen = async () => {
   };
 
   const firmas = {
+    img_firma_acomp: firma_recibida_acomp.value,
     img_firma_consen: firma_recibida.value,
     img_firma_paci: firma_recibida.value,
-    img_firma_acomp: firma_recibida_acomp.value,
+    img_huella_paci: huella_paci.value,
     firma_prof: firma_prof.value,
   };
 
