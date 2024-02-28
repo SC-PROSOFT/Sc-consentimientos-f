@@ -300,7 +300,7 @@ export const datosFormatUTM = ({ datos }) => {
               {},
               {
                 colSpan: 3,
-                noWrap: true,
+                noWrap: false,
                 text: `${datos.empresa.nomusu}`,
                 style: "tableTitle",
               },
