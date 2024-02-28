@@ -30,7 +30,7 @@
       <div class="row justify-center" style="border: 1px solid #ccc; width: 30%">
         <Select_ v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
       </div>
-      <div class="row justify-center" style="border: 1px solid #ccc; width: 30%">
+      <div class="row justify-center" style="border: 1px solid #ccc; width: 30%; overflow: auto">
         <p>{{ getEmpresa.nomusu }}</p>
       </div>
     </div>
