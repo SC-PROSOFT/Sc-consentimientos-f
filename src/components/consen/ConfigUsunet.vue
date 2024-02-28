@@ -199,7 +199,7 @@ const form_config = ref({
 
 onMounted(() => {
   /* Modulo usunet para UTM */
-  if (route.query.modulo == "usunet") getUsunet();
+  if (route.query.config == "S") getUsunet();
   else Object.assign(reg_config.value, props.configuracion);
 });
 
