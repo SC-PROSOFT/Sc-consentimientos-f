@@ -427,8 +427,9 @@ const getMaestros = async () => {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
       data: {
+        id_paci: query?.llave_hc?.slice(0, 15) || "",
+        config: query?.config ? "S" : "N",
         modulo: query.modulo,
-        id_paci: query.llave_hc.slice(0, 15),
         listar_todos: "1",
       },
     });
