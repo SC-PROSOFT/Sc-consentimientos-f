@@ -69,7 +69,7 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp } = useModuleFormatos();
+const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 
@@ -120,7 +120,10 @@ const getLogo = async () => {
 };
 
 const validIsConfig = () => {
-  if (route.query.modulo == "usunet") return router.replace({ name: "configUsunet", query: { ...route.query } });
+  if (route.query?.config == "S" && ["ADMI", "GEBC"].includes(route.query?.oper)) {
+    setSession(route.query);
+    return router.replace({ name: "configUsunet", query: { ...route.query } });
+  }
 
   verificarSesion();
 };
