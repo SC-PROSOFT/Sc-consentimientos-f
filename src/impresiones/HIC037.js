@@ -1,4 +1,3 @@
-import pdfMake from "pdfmake/build/pdfmake";
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
@@ -7,17 +6,26 @@ export const impresionHC037 = ({ datos }) => {
     stack: [contenidoRX(), firmas()],
   };
 
+  function llenarFirmador() {
+    const acomp = datos.acomp.cod.trim().length;
+
+    return {
+      ciudad: () => (acomp ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad),
+      descrip: () => (acomp ? datos.acomp.descrip : datos.paciente.descrip),
+      cod: () => (acomp ? datos.acomp.cod : datos.paciente.cod),
+      acudiente: () => (acomp ? datos.paciente.descrip : ""),
+    };
+  }
+
   function contenidoRX() {
     return {
       stack: [
         {
-          marginTop: 8,
           text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
           alignment: "justify",
           style: "bodyNoBold",
         },
         {
-          marginTop: 3,
           columns: [
             {
               width: "auto",
@@ -28,25 +36,49 @@ export const impresionHC037 = ({ datos }) => {
             {
               marginLeft: 50,
               width: "auto",
-              text: `Fecha: ${dayjs(datos.empresa.fecha_act).format("YYYY-MM-DD")}`,
+              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
           ],
         },
         {
-          marginTop: 15,
-          style: "bodyNoBold",
+          marginTop: 5,
+          text: `Yo, ${llenarFirmador().descrip()}, identificado (a) con cédula número ${llenarFirmador().cod()} expedida en ${llenarFirmador().ciudad()} actuando en nombre propio o como acudiente de ${llenarFirmador().acudiente()}.`,
           alignment: "justify",
-          text: "Es deber de todo de todo profesional advertir oportunamente los riesgos que pueden derivarse del tratamiento que será practicado y a los que se expone teniendo en cuenta la solicitud de su médico tratante, solicitando el consentimiento informado ley 23 del 1981 (art 15 y 16).",
-          bold: true,
+          style: "bodyNoBold",
         },
         {
-          marginTop: 15,
-          style: "bodyNoBold",
+          marginTop: 8,
+          text: `Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas, que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que aunque son procedimientos seguros pueden presentarse complicaciones como:`,
           alignment: "justify",
-          text: "INFORMACION\n a continuación, se explica el proceso del examen el cual le van a practicar teniendo en cuenta la solicitud del médico tratante, es una exploración radiológica, en forma de RX, con el fin de proporcionar información diagnostica y tratar su enfermedad.",
-          bold: true,
+          style: "bodyNoBold",
+        },
+        {
+          marginLeft: 20,
+          marginTop: 5,
+          marginBottom: 5,
+          text: `${datos.complicaciones}`,
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 3,
+          text: "Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda mis derechos para una atención posterior.",
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 10,
+          text: "Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.",
+          alignment: "justify",
+          style: "bodyNoBold",
+        },
+        {
+          marginTop: 10,
+          marginBottom: 8,
+          text: "Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:",
+          alignment: "justify",
+          style: "bodyNoBold",
         },
         textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
@@ -55,43 +87,73 @@ export const impresionHC037 = ({ datos }) => {
 
   function textoAutoriza(autorizo, disentir) {
     const textoAutorizo = {
-      stack: [
-        {
-          marginTop: 8,
-          style: "bodyNoBold",
-          alignment: "justify",
-          text: `Yo, ${datos.paciente.descrip} identificada con cédula de ciudadanía No. ${datos.paciente.cod} de ${datos.paciente.descrip_ciudad} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna, doy el consentimiento E.S.E salud Yopal -Hospital Central de Yopal, realice toma de RX. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener uso del chaleco plomado, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas y recibí información del tecnólogo de radiología de nombre: ${datos.nombre_radiologo} CC ${datos.cedula_radiologo}.`,
-        },
-      ],
-    };
-
-    const textoRevoca = {
-      stack: [
-        {
-          marginTop: 10,
-          text: [
+      marginTop: 10,
+      layout: "noBorders",
+      table: {
+        widths: ["2%", "98%"],
+        body: [
+          [
             {
-              text: "Expreso mi voluntad de ",
+              stack: cuadro_canvas(true),
             },
             {
-              text: "revocar",
-              bold: true,
-              decoration: "underline",
-            },
-            {
-              text: `el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: PRUEBAS RADIOLOGICAS EN PACIENTES EN ESTADO O SOSPECHA DE GESTACION.`,
+              text: [
+                {
+                  text: "Autorizo",
+                  bold: true,
+                  decoration: "underline",
+                },
+                {
+                  text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
+                },
+              ],
+              alignment: "justify",
+              style: "bodyNoBold",
             },
           ],
-          alignment: "justify",
-          style: "bodyNoBold",
-        },
-        {
-          marginTop: 5,
-          text: `Por los siguientes motivos: ${datos.revocar_motivos}`,
-          alignment: "justify",
-          style: "bodyNoBold",
-        },
-      ],
+          [{}, {}],
+        ],
+      },
+    };
+    const textoRevoca = {
+      layout: "noBorders",
+      table: {
+        widths: ["2%", "98%"],
+        body: [
+          [
+            {
+              stack: cuadro_canvas(true),
+            },
+            {
+              text: [
+                {
+                  text: "Expreso mi voluntad de ",
+                },
+                {
+                  text: "revocar",
+                  bold: true,
+                  decoration: "underline",
+                },
+                {
+                  text: ` el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de: GENERAL PYP OK \npor los siguientes motivos: ${datos.revocar_motivos}`,
+                },
+              ],
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
+          ],
+          [
+            {
+              marginTop: -2,
+              colSpan: 2,
+              text: "",
+              alignment: "justify",
+              style: "bodyNoBold",
+            },
+            {},
+          ],
+        ],
+      },
     };
 
     const textoDisiente = {
@@ -111,7 +173,7 @@ export const impresionHC037 = ({ datos }) => {
                 datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
               } identificado (a) con la CC No ${
                 datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
-              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de PRUEBAS RADIOLOGICAS EN PACIENTES EN ESTADO O SOSPECHA DE GESTACION. \n`,
+              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de PYP. \n`,
             },
           ],
           alignment: "justify",
@@ -386,16 +448,16 @@ export const impresionHC037 = ({ datos }) => {
     let firmasArray = [];
     let anchos = [];
     let tamanoFirmasArray = 0;
-    
+
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
     }
-    
+
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
     }
 
-    tamanoFirmasArray = firmasArray.length
+    tamanoFirmasArray = firmasArray.length;
 
     if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
@@ -413,6 +475,5 @@ export const impresionHC037 = ({ datos }) => {
       },
     };
   }
-
   return dd;
 };

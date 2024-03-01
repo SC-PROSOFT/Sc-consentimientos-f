@@ -88,7 +88,7 @@
               v-model="HIC041.objetivo"
               :field="form.objetivo"
             />
-            diagnostico
+            ante el diagnostico o impresion diagnostica
             <Input_
               style="min-width: 100px; display: inline-block"
               @validate="datoCodigoEnfermedad"

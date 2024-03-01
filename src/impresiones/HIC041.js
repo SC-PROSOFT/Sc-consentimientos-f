@@ -104,7 +104,7 @@ export const impresionHC041 = ({ datos }) => {
                   decoration: "underline",
                 },
                 {
-                  text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.diagnostico}`,
+                  text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico o impresion diagnostica ${datos.diagnostico}`,
                 },
               ],
               alignment: "justify",

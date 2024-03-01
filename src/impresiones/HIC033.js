@@ -369,7 +369,7 @@ export const impresionHC033 = ({ datos }) => {
         {
           marginTop: 16,
           style: "bodyNoBold",
-          text: "Este espacio debe ser diligenciado para niños (as) menores de 12 años.",
+          text: "Este espacio diligenciado para mayores de 12 años”",
           bold: true,
         },
         {
@@ -387,7 +387,7 @@ export const impresionHC033 = ({ datos }) => {
           marginTop: 7,
           style: "bodyNoBold",
           alignment: "justify",
-          text: "Este espacio es diligenciado para mayores de 12 años.",
+          text: "Este espacio debe ser diligenciado para niños (as) menores de 12 años",
           bold: true,
         },
         {

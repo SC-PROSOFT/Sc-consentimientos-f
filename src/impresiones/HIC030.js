@@ -81,7 +81,7 @@ export const impresionHC030 = ({ datos }) => {
                 {
                   text: [
                     {
-                      text: "FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL: ",
+                      text: "FECHA DE ULTIMA CITOLOGIA CERVICOVAGINAL: ",
                     },
                     {
                       text: ` ${llenarFechaCito()}`,

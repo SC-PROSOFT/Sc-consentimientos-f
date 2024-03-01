@@ -37,11 +37,11 @@
                 </q-chip>
               </p>
             </div>
-            <h6 class="text-center" style="margin: 0; font-size: 16px">
+            <h6 class=" text-bold" style="margin: 0; font-size: 16px">
               ASESORIA PRE TEST VIH (VIRUS DE INMUNODEFICIENCIA HUMANA)
             </h6>
             <div class="q-mt-md" style="max-width: 580px">
-              <q-list bordered>
+              <q-list>
                 <q-item tag="label" style="margin-top: -10px" v-ripple>
                   <q-item-section>
                     <q-item-label>1. ¿Sabe que es el VIH/SIDA?</q-item-label>
@@ -155,110 +155,37 @@
                 >
               </div>
               <div class="row" style="border: 1px solid #ccc; padding: 5px">
-                <p>Yo</p>
-                <q-input
-                  v-model="getAcomp.descrip"
-                  disable
-                  type="text"
-                  label="Nombre paciente"
-                  dense
-                  class="col-4"
-                />
-                <p>mayor de edad, identificado (a) con C.C. No.</p>
-                <q-input v-model="getAcomp.cod" disable label="Cédula" type="text" dense class="col-2" />
-                <p>expedida en</p>
-                <q-input
-                  v-model="getAcomp.descrip_ciudad"
-                  disable
-                  label="Ciudad expedición"
-                  type="text"
-                  dense
-                  class="col-2"
-                />
-                <p>en condición de representante legal o acudiente del niño(a)</p>
-                <q-input
-                  v-model="getPaci.descrip"
-                  disable
-                  label="Nombre paciente"
-                  type="text"
-                  dense
-                  class="col-4"
-                />
-                <p>de</p>
-                <q-input
-                  v-model="HIC033.anios_paciente"
-                  disable
-                  label="Años paci"
-                  type="text"
-                  dense
-                  class="col-1"
-                />
-                <p>Años de edad</p>
-              </div>
-            </div>
-            <div v-show="HIC033.anios_paciente > 12">
-              <div class="q-mt-lg q-mb-md row">
-                <span style="font-weight: bold">Este espacio es diligenciado mayores de 12 años</span>
-              </div>
-              <div class="row" style="border: 1px solid #ccc; padding: 5px">
-                <p>Yo</p>
-                <q-input
-                  v-model="getPaci.descrip"
-                  disable
-                  type="text"
-                  label="Nombre paciente"
-                  dense
-                  class="col-4"
-                />
-                <p>, identificado (a) con CC. No.</p>
-                <q-input v-model="getPaci.cod" disable label="Cédula" type="text" dense class="col-2" />
-                <p>expedida en</p>
-                <q-input
-                  v-model="getPaci.descrip_ciudad"
-                  disable
-                  label="Ciudad expedición"
-                  type="text"
-                  dense
-                  class="col-1"
-                />
-                <p>Certifico que: He leído (o que se me ha leído) el documento sobre consentimiento</p>
-                <p style="margin-top: -2px">
-                  informado que contiene información sobre el propósito y beneficio de la prueba, su
-                  interpretación, sus limitaciones, y su riesgo, y que entiendo su contenido, incluyendo las
-                  limitaciones, beneficios y riegos de la prueba.
-                </p>
                 <p>
-                  He recibido consejería PRE-PRUEBA (actividad realizada por un profesional de la salud para
-                  prepararme y confrontarme en relación a mis conocimientos, prácticos, y conductas, antes de
-                  realizarme las pruebas diagnósticas).
-                </p>
-                <p>
-                  También certifico que dicha persona me brindo la asesoría y que según su compromiso, de ella
-                  también recibiré una asesoría Post-prueba (procedimiento mediante el cual me entregaran mis
-                  resultados) y que estoy de acuerdo con el proceso.
-                </p>
-                <p>
-                  Entiendo que la toma de muestra es voluntaria y que no puedo retirar mi consentimiento en
-                  cualquier momento antes de que me sea tomada el examen.
-                </p>
-                <p>
-                  Fui informada de las medidas que se tomara para proteger la confidencialidad de mis
-                  resultados.
+                  Yo,
+                  <span class="text-bold">
+                    {{ HIC033.anios_paciente <= 12 ? getAcomp.descrip : "_____________" }} </span
+                  >mayor de edad, identificado (a) con C.C. No.
+                  <span class="text-bold"
+                    >{{ HIC033.anios_paciente <= 12 ? getAcomp.cod : "_____________" }} </span
+                  >expedida en
+                  {{ HIC033.anios_paciente <= 12 ? getAcomp.descrip_ciudad : "_____________" }}
+                  en condición de representante legal o acudiente del niño(a)
+                  <span class="text-bold">{{
+                    HIC033.anios_paciente <= 12 ? getPaci.descrip : "_____________"
+                  }}</span>
+                  de
+                  {{
+                    HIC033.anios_paciente <= 12 ? `${HIC033.anios_paciente} años de edad` : "_____________"
+                  }}
                 </p>
               </div>
             </div>
             <div class="q-mt-md q-mb-xs row">
-              <span style="font-weight: bold"
-                >Este espacio debe ser diligenciado para niños (as) mayores de 12 años</span
-              >
+              <span style="font-weight: bold">Este espacio diligenciado para mayores de 12 años</span>
             </div>
             <div class="border-format q-my-sm">
               <p>
-                Yo, {{ getAcomp.descrip }}, identificado(a) con {{ getAcomp.tipo_id || "___" }}. No.
-                {{ getAcomp.cod || "____________" }}, Certifico que: He leído (o que se me ha leído) el
-                documento sobre consentimiento informado que contiene información sobre el propósito y
-                beneficio de la prueba, su interpretación, sus limitaciones, y su riesgo, y que entiendo su
-                contenido, incluyendo las limitaciones, beneficios y riegos de la prueba.
+                Yo, {{ HIC033.anios_paciente > 12 ? getAcomp.descrip : "_________" }}, identificado(a) con
+                {{ HIC033.anios_paciente > 12 ? getAcomp.tipo_id : "___" }}. No.
+                {{ HIC033.anios_paciente > 12 ? getAcomp.cod : "____________" }}, Certifico que: He leído (o
+                que se me ha leído) el documento sobre consentimiento informado que contiene información sobre
+                el propósito y beneficio de la prueba, su interpretación, sus limitaciones, y su riesgo, y que
+                entiendo su contenido, incluyendo las limitaciones, beneficios y riegos de la prueba.
               </p>
               <p>
                 He recibido consejería PRE-PRUEBA (actividad realizada por un profesional de la salud para

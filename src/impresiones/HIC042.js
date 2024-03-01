@@ -118,7 +118,7 @@ export const impresionHC042 = ({ datos }) => {
         },
         {
           marginTop: 10,
-          text: `EVENTOS ADVERSOS:`,
+          text: `POSIBLES RIESGOS:`,
           bold: true,
           alignment: "justify",
           style: "bodyNoBold",

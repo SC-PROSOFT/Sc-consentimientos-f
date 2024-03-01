@@ -140,6 +140,11 @@
             :field="form.auto_objetivo"
           />
           <p>ante el diagnostico</p>
+          <Input_
+            style="min-width: 100%; display: inline-block; margin-top: 0px; margin-bottom: 10px;"
+            v-model="reg.diagnostico"
+            :field="form.diagnostico"
+          />
         </div>
         <div class="col-12 row justify-around">
           <ContainerFirma
@@ -216,6 +221,7 @@ const reg = reactive({
   auto_procedimiento: "",
   revoca_motivos: "",
   iniciar_trata: "S",
+  diagnostico: "",
   evento: "",
 
   // EXTRAS
@@ -264,6 +270,13 @@ const form = ref({
   auto_objetivo: {
     id: "auto_objetivo",
     maxlength: "285",
+    label: "",
+    required: true,
+    campo_abierto: true,
+  },
+  diagnostico: {
+    id: "diagnostico",
+    maxlength: "150",
     label: "",
     required: true,
     campo_abierto: true,

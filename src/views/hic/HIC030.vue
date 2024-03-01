@@ -133,7 +133,7 @@
             <tr>
               <th style="border: 1px solid #ccc">
                 <div class="row justify-left">
-                  <span class="q-my-auto col-8">FECHA DE ULTIMA CITOLOGIA CEVIOVAGINAL:</span>
+                  <span class="q-my-auto col-8">FECHA DE ULTIMA CITOLOGIA CERVICOVAGINAL:</span>
                   <q-input
                     class="py-0 my-0 q-my-auto col-3"
                     v-model="HIC030.fecha_ult_cito"
@@ -146,9 +146,24 @@
                 </div>
               </th>
               <th style="border: 1px solid #ccc">
-                <div class="row justify-left">
+                <div class="row">
                   <span class="custum col-6">ANTECEDENTES GINECOLOGICOS</span>
-                  <Select_ :field="form_antecedentes" v-model="HIC030.antec_gineco" :items="antecedenter" />
+                  <Input_
+                    :field="
+                      ((form.cant_antec_gineco.disable = !fecha_citologia ? true : false),
+                      form.cant_antec_gineco)
+                    "
+                    v-model="HIC030.cant_antec_gineco"
+                    :items="antecedenter"
+                    class="col-1"
+                  />
+                  <Select_
+                    v-model="HIC030.antec_gineco"
+                    :field="
+                      ((form.antecedentes.disable = !fecha_citologia ? true : false), form.antecedentes)
+                    "
+                    :items="antecedenter"
+                  />
                 </div>
               </th>
             </tr>
@@ -236,10 +251,11 @@
 </template>
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
+import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat } from "@/formatos/utils";
-import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
+import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const router = useRouter();
@@ -273,13 +289,22 @@ const form = ref({
     required: true,
     campo_abierto: true,
   },
-});
-const form_antecedentes = ref({
-  id: "form_antecedentes",
-  label: "",
-  placeholder: "",
-  required: true,
-  campo_abierto: true,
+  cant_antec_gineco: {
+    label: "",
+    tipo: "number",
+    maxlength: "1",
+    required: true,
+    campo_abierto: true,
+    id: "cant_antec_gineco",
+  },
+  antecedentes: {
+    label: "",
+    maxlength: 1,
+    required: true,
+    placeholder: "",
+    campo_abierto: true,
+    id: "antecedentes",
+  },
 });
 
 const antecedenter = [
@@ -300,6 +325,7 @@ const HIC030 = ref({
   fecha_ult_cito: "",
   complicaciones: "",
   revocar_motivos: "",
+  cant_antec_gineco: "",
 });
 
 watch(opcion_hc030, (val) => {
@@ -309,6 +335,18 @@ watch(opcion_hc030, (val) => {
     HIC030.value.diagnostico = "";
   }
 });
+
+watch(
+  () => fecha_citologia.value,
+  (newVal) => {
+    if (!newVal) {
+      HIC030.value.cant_antec_gineco = 0;
+      HIC030.value.fecha_ult_cito = "";
+      HIC030.value.antec_gineco = "";
+    }
+  }
+);
+
 onMounted(() => {
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
@@ -363,10 +401,16 @@ const callBackFirmaAcomp = (data_firma) => {
 };
 
 const validarDatos = async () => {
+  const requiere = "Le falta por completar el campo";
   await consultarEnfermedad();
   if (opcion_hc030.value == "REVOCAR") {
     revocar_motivos.value.validate();
     if (revocar_motivos.value.hasError) return revocar_motivos.value.focus();
+  }
+
+  console.log("fecha_citologia - " + fecha_citologia.value);
+  if (fecha_citologia.value && (!HIC030.value.cant_antec_gineco || !HIC030.value.antec_gineco)) {
+    return CON851("?", "info", `Complete campos de antecedentes`, () => foco_(form, "cant_antec_gineco"));
   }
 
   if (opcion_hc030.value == "AUTORIZAR") {

@@ -300,7 +300,7 @@ export const impresionHC035 = ({ datos }) => {
                     },
                     {
                       text: ` al personal asistencial de la ${datos.empresa.nomusu}, para la realización de los procedimientos de salud: ${datos.auto_procedimiento} , cuyo
-                      objetivo es: ${datos.auto_objetivo}, ante el diagnostico`,
+                      objetivo es: ${datos.auto_objetivo}, ante el diagnostico: ${datos.diagnostico}`,
                     },
                   ],
                   alignment: "justify",

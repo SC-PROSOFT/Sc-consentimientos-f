@@ -59,7 +59,7 @@
       </q-card-section>
       <q-card-section>
         <div class="row">
-          <span style="font-weight: bold; margin-bottom: 8px">EVENTOS ADVERSOS:</span>
+          <span style="font-weight: bold; margin-bottom: 8px">POSIBLES RIESGOS:</span>
         </div>
         <div class="row">
           <p class="q-ml-xl text-justify">

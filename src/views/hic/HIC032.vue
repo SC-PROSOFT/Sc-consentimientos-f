@@ -556,10 +556,6 @@ const callBackFirmaAcomp = (data_firma) => {
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
 };
-
-const requerido = (val) => {
-  return !!val || "Este campo es requerido";
-};
 </script>
 
 <style>
