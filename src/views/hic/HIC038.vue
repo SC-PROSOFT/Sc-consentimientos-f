@@ -148,17 +148,47 @@
               respecto?
             </p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 20%">
+          <div class="row" style="border: 1px solid #ccc; width: 10%">
             <q-space />
-            <q-checkbox class="q-mx-md" style="margin-top: -5px" left-label v-model="HIC038.observaciones" />
+            <q-checkbox
+              class="q-mx-md"
+              style="margin-top: -5px"
+              left-label
+              v-model="reg_text.observaciones_s"
+            />
+            <q-space />
+          </div>
+          <div class="row" style="border: 1px solid #ccc; width: 10%">
+            <q-space />
+            <q-checkbox
+              class="q-mx-md"
+              style="margin-top: -5px"
+              left-label
+              v-model="reg_text.observaciones_n"
+            />
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 80%">
             <p>¿El equipo de salud me ha explicado toda la información aquí descrita?</p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 20%">
+          <div class="row" style="border: 1px solid #ccc; width: 10%">
             <q-space />
-            <q-checkbox class="q-mx-md" style="margin-top: -5px" left-label v-model="HIC038.explicacion" />
+            <q-checkbox
+              class="q-mx-md"
+              style="margin-top: -5px"
+              left-label
+              v-model="reg_text.explicacion_s"
+            />
+            <q-space />
+          </div>
+          <div class="row" style="border: 1px solid #ccc; width: 10%">
+            <q-space />
+            <q-checkbox
+              class="q-mx-md"
+              style="margin-top: -5px"
+              left-label
+              v-model="reg_text.explicacion_n"
+            />
             <q-space />
           </div>
         </div>
@@ -171,8 +201,8 @@
         <div v-if="opcion_hc038 == 'REVOCAR'" class="row">
           <p>
             Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro
-            por tanto que, tras la información recibida, no consiento someterme al procedimiento REFERENCIA Y CONTRA REFERENCIA
-            DE PACIENTES, por los siguientes motivos:
+            por tanto que, tras la información recibida, no consiento someterme al procedimiento REFERENCIA Y
+            CONTRA REFERENCIA DE PACIENTES, por los siguientes motivos:
           </p>
           <Input_
             class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
@@ -251,7 +281,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, defineAsyncComponent, onMounted, watch, watchEffect, watchPostEffect } from "vue";
 import { utilsFormat, evaluarParentesco } from "@/formatos/utils";
 import { impresionHC038, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
@@ -287,6 +317,13 @@ const HIC038 = ref({
   fecha_act: dayjs().format("YYYY-MM-DD"),
 });
 
+const reg_text = ref({
+  observaciones_n: false,
+  observaciones_s: false,
+  explicacion_n: false,
+  explicacion_s: false,
+});
+
 const form = ref({
   explicacion: {
     id: "explicacion",
@@ -311,6 +348,26 @@ watch(opcion_hc038, (val) => {
     HIC038.value.diagnostico = "";
   }
 });
+
+watch(
+  () => [reg_text.value.explicacion_s, reg_text.value.explicacion_n],
+  (newVal) => {
+    const [first, second] = newVal;
+
+    first && (reg_text.value.explicacion_n = false);
+    second && (reg_text.value.explicacion_s = false);
+  }
+);
+
+watch(
+  () => [reg_text.value.observaciones_s, reg_text.value.observaciones_n],
+  (newVal) => {
+    const [first, second] = newVal;
+
+    first && (reg_text.value.observaciones_n = false);
+    second && (reg_text.value.observaciones_s = false);
+  }
+);
 
 onMounted(() => {
   texto_familiar = getAcomp.cod.length ? true : false;
@@ -364,6 +421,8 @@ const grabarConsentimiento = async () => {
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
+    observaciones: observaciones_n ? observaciones_n : observaciones_s,
+    explicacion: explicacion_n ? explicacion_n : explicacion_s
   };
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
