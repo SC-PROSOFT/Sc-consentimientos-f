@@ -86,11 +86,15 @@ const getFirmaPaci = async () => {
     /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
     const check_paci = props.quien_firma.toLowerCase().includes("paciente");
     if (Number(getEmpresa.nitusu) == 844003225 && check_paci) {
+      console.log("⚡  getEmpresa.nitusu-->", getEmpresa.nitusu)
+      console.log("⚡Codigo de firma-->", `${getPaci.cod}-FIR`)
+      
       firma.value = await _getHuella$({
         codigo: `${getPaci.cod}-FIR`,
         ruta: "E:/SC/NEWCOBOL/DATOS/BIOMETRIA",
         formato: "png",
       });    
+      console.log("⚡  firma.value-->", firma.value)
 
       /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */
       /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
