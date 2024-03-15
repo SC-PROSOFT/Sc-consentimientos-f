@@ -245,6 +245,7 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           @reciFirma="callBackFirma"
+          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
@@ -421,8 +422,8 @@ const grabarConsentimiento = async () => {
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
-    observaciones: observaciones_n ? observaciones_n : observaciones_s,
-    explicacion: explicacion_n ? explicacion_n : explicacion_s
+    observaciones: reg_text.value.observaciones_n ? reg_text.value.observaciones_n : reg_text.value.observaciones_s,
+    explicacion: reg_text.value.explicacion_n ? reg_text.value.explicacion_n : reg_text.value.explicacion_s
   };
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");

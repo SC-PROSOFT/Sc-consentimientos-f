@@ -423,7 +423,7 @@ export const impresionHC033 = ({ datos }) => {
       ],
     };
 
-    if (datos.anios_paciente <= 12) return menorDoceAnios;
+    if (datos.anios_paciente < 12) return menorDoceAnios;
     else return mayorDoceAnios;
   }
 

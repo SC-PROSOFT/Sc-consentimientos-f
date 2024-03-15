@@ -118,57 +118,25 @@
               dense
             />
           </div>
-          <div class="">
-            <q-toggle
-              color="primary"
-              keep-color
-              unchecked-icon="block"
-              v-model="fecha_citologia"
-              checked-icon="check_circle"
-              label="¿Desea capturar fecha de ultima citologia?"
-            />
-          </div>
 
           <table class="col-12 q-pt-lg">
             <tr>
               <th style="border: 1px solid #ccc">
-                <div class="row justify-left">
-                  <span class="q-my-auto col-8">FECHA DE ULTIMA CITOLOGIA CERVICOVAGINAL:</span>
+                <div style="display: flex;">
+                  <span class="q-my-auto q-mx-md col-8">FECHA DE ULTIMA CITOLOGIA CERVICOVAGINAL:</span>
                   <q-input
-                    class="py-0 my-0 q-my-auto col-3"
+                    class="col-3"
                     v-model="HIC030.fecha_ult_cito"
-                    :disable="!fecha_citologia ? true : false"
                     :rules="[requerido]"
                     :max="fecha_act"
                     type="date"
                     dense
                   />
                 </div>
-              </th>
-              <th style="border: 1px solid #ccc">
-                <div class="row">
-                  <span class="custum col-6">ANTECEDENTES GINECOLOGICOS</span>
-                  <Input_
-                    :field="
-                      ((form.cant_antec_gineco.disable = !fecha_citologia ? true : false),
-                      form.cant_antec_gineco)
-                    "
-                    v-model="HIC030.cant_antec_gineco"
-                    :items="antecedenter"
-                    class="col-1"
-                  />
-                  <Select_
-                    v-model="HIC030.antec_gineco"
-                    :field="
-                      ((form.antecedentes.disable = !fecha_citologia ? true : false), form.antecedentes)
-                    "
-                    :items="antecedenter"
-                  />
-                </div>
-              </th>
+              </th>              
             </tr>
             <tr>
-              <td>
+              <td style="border: 1px solid #ccc">
                 <p>
                   <strong
                     >TELEFONO 1:
@@ -336,17 +304,6 @@ watch(opcion_hc030, (val) => {
   }
 });
 
-watch(
-  () => fecha_citologia.value,
-  (newVal) => {
-    if (!newVal) {
-      HIC030.value.cant_antec_gineco = 0;
-      HIC030.value.fecha_ult_cito = "";
-      HIC030.value.antec_gineco = "";
-    }
-  }
-);
-
 onMounted(() => {
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
@@ -408,10 +365,10 @@ const validarDatos = async () => {
     if (revocar_motivos.value.hasError) return revocar_motivos.value.focus();
   }
 
-  console.log("fecha_citologia - " + fecha_citologia.value);
-  if (fecha_citologia.value && (!HIC030.value.cant_antec_gineco || !HIC030.value.antec_gineco)) {
-    return CON851("?", "info", `Complete campos de antecedentes`, () => foco_(form, "cant_antec_gineco"));
-  }
+  //TODO: SE OCULTA ANTECEDENTE GINECOLOGICOS (YOPAL)
+  // if (fecha_citologia.value && (!HIC030.value.cant_antec_gineco || !HIC030.value.antec_gineco)) {
+  //   return CON851("?", "info", `Complete campos de antecedentes`, () => foco_(form, "cant_antec_gineco"));
+  // }
 
   if (opcion_hc030.value == "AUTORIZAR") {
     if (!HIC030.value.diagnostico) return CON851("?", "info", "No hay ningun codigo del diagnostico");
