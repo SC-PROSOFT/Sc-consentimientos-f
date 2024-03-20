@@ -152,6 +152,7 @@ const leerOper = async ({ cod = "", opc = "" }) => {
       data: {
         cod,
         opc,
+        contab: getEmpresa.dircont
       },
     });
 
