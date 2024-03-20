@@ -459,6 +459,7 @@ onMounted(() => {
   const anioNacim = parseInt(getPaci.nacim.slice(0, 4));
   const anioActu = dayjs().year();
   HIC033.value.anios_paciente = anioActu - anioNacim;
+  console.log("✅ años del paciente -->", HIC033.value.anios_paciente)
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
   getFirmaProf();
