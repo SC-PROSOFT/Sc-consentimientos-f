@@ -246,14 +246,14 @@
           :firmador="getPaci.descrip"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
-          class="col-4"
+          class="col-3"
         />
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           @reciFirma="callBackFirmaAcomp"
-          class="col-4"
+          class="col-3"
         />
         <ContainerFirma
           @reciFirma="callBackFirma"
@@ -262,7 +262,14 @@
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.registro_profe"
           quien_firma="FIRMA PROFESIONAL"
-          class="col-4"
+          class="col-3"
+        />
+        <ContainerFirma
+          quien_firma="FIRMA FUNCIONARIO"
+          @datosFunc="CallBackDatosFunc"
+          @reciFirma="callBackFirmaFun"
+          :firma_="firma_func"
+          class="col-3"
         />
       </div>
       <div class="col-12 row justify-center q-my-md">
@@ -288,23 +295,25 @@ import { impresionHC038, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
-const router = useRouter();
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
+const router = useRouter();
 
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
 
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 
-const opcion_hc038 = ref(null);
-let texto_familiar = ref(false);
 const llave = ref(null);
+const datos_func = ref({});
 const fecha_act = ref(null);
 const firma_prof = ref(null);
+const firma_func = ref(null);
 const huella_paci = ref(null);
+const opcion_hc038 = ref(null);
+let texto_familiar = ref(false);
 let parentesco_acomp = ref(null);
 
 const HIC038 = ref({
@@ -392,6 +401,15 @@ const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
 };
 
+const CallBackDatosFunc = (datos) => {
+  datos_func.value = datos;
+  console.log("⚡  datos_func.value-->", datos_func.value)
+};
+
+const callBackFirmaFun = (data_firma) => {
+  data_firma && (firma_func.value = data_firma);
+};
+
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };
@@ -420,10 +438,13 @@ const grabarConsentimiento = async () => {
     cod_consen: "HIC038",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
+    id_func: datos_func.value.id.padStart(10, "0"),
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
-    observaciones: reg_text.value.observaciones_n ? reg_text.value.observaciones_n : reg_text.value.observaciones_s,
-    explicacion: reg_text.value.explicacion_n ? reg_text.value.explicacion_n : reg_text.value.explicacion_s
+    observaciones: reg_text.value.observaciones_n
+      ? reg_text.value.observaciones_n
+      : reg_text.value.observaciones_s,
+    explicacion: reg_text.value.explicacion_n ? reg_text.value.explicacion_n : reg_text.value.explicacion_s,
   };
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
@@ -449,6 +470,7 @@ const grabarConsentimiento = async () => {
 const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    await guardarFile$({ base64: firma_func.value, codigo: `FC${llave}` });
     await guardarFile$({
       base64: firma_recibida_acomp.value,
       codigo: `A${llave}`,
@@ -501,6 +523,7 @@ const imprimirConsen = async () => {
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
+        firma_func: firma_func.value ? true : false,
       },
       fecha: fecha_act.value,
       llave: llave.value,

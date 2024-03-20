@@ -1,5 +1,5 @@
 <template>
-  <q-card bordered flat>
+  <q-card bordered flat class="q-pa-xs">
     <ToolBar_ name="containerFirma" :titulo="quien_firma" :close_state="false" color="blue-grey-13" />
     <q-card-section class="row">
       <q-img
@@ -20,16 +20,36 @@
       />
     </q-card-section>
     <q-card-actions align="around">
-      <q-btn flat @click="() => (show_firma = true)" class="material-icons" :disable="disable">
-        <span class="q-ml-sm material-icons md-48"> draw </span>
+      <q-btn
+        @click="() => (show_firma = true)"
+        class="material-icons"
+        :disable="reg.disable"
+        icon="draw"
+        size="sm"
+        square
+        flat
+        >Firmar
+      </q-btn>
+      <q-btn
+        v-if="reg.quien_firma.toLowerCase().includes('funcionario')"
+        @click="() => (show_consen892 = true)"
+        class="material-icons"
+        icon="manage_search"
+        :disable="disable"
+        size="sm"
+        square
+        flat
+      >
+        <span class="text-bold">Filtrar</span>
       </q-btn>
     </q-card-actions>
     <div class="text-center">
-      <div>{{ firmador }}</div>
-      <div>{{ descrip_prof }}</div>
-      <div>{{ registro_profe ? `Reg. ${registro_profe}` : "" }}</div>
+      <div>{{ reg.firmador }}</div>
+      <div>{{ reg.descrip_prof }}</div>
+      <div>{{ reg.registro_profe ? `Reg. ${reg.registro_profe}` : "" }}</div>
     </div>
     <FIRMA v-if="show_firma" @CallBackFirma="CallBackFirma" />
+    <CONSEN892 v-if="show_consen892" @esc="CallBackConsen892" @enter="CallBackConsen892" />
   </q-card>
 </template>
 
@@ -37,14 +57,16 @@
 import { useModuleFormatos, useModuleCon851, useApiContabilidad } from "@/store";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 
+const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN982.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarTable.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
-const { _getHuella$, getImgBs64 } = useApiContabilidad();
+const { getDll$, _getHuella$, getImgBs64 } = useApiContabilidad();
 const { getEmpresa, getPaci } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
-const emit = defineEmits(["reciFirma"]);
+const emit = defineEmits(["reciFirma", "datosFunc"]);
+const show_consen892 = ref(false);
 
 const props = defineProps({
   disable: {
@@ -77,6 +99,8 @@ const props = defineProps({
   },
 });
 
+const reg = ref({ ...props });
+
 onMounted(() => {
   getFirmaPaci();
 });
@@ -90,11 +114,11 @@ const getFirmaPaci = async () => {
         codigo: `${getPaci.cod}-FIR`,
         ruta: "E:/SC/NEWCOBOL/DATOS/BIOMETRIA",
         formato: "png",
-      });    
+      });
 
       /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */
       /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
-      const existeFirma = firma.value ? firma.value : getImgBs64
+      const existeFirma = firma.value ? firma.value : getImgBs64;
       CallBackFirma(existeFirma);
     }
   } catch (error) {
@@ -113,6 +137,33 @@ function CallBackFirma(dataF) {
   }
   show_firma.value = false;
 }
+
+const CallBackConsen892 = (item) => {
+  show_consen892.value = false;
+  if (item) {
+    return leerOper({ cod: item.cod, opc: item.opc });
+  }
+};
+
+const leerOper = async ({ cod = "", opc = "" }) => {
+  try {
+    const rest = await getDll$({
+      modulo: `get_rest.dll`,
+      data: {
+        cod,
+        opc,
+      },
+    });
+
+    if ("llave" in rest) {
+      reg.value.firmador = rest.id;
+      reg.value.descrip_prof = rest.descrip_id_2;
+      return emit("datosFunc", rest);
+    } else CON851("?", "info", "No existe operador");
+  } catch (error) {
+    CON851("?", "info", error);
+  }
+};
 </script>
 
 <style>
