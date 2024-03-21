@@ -403,7 +403,6 @@ const callBackFirma = (data_firma) => {
 
 const CallBackDatosFunc = (datos) => {
   datos_func.value = datos;
-  console.log("⚡  datos_func.value-->", datos_func.value)
 };
 
 const callBackFirmaFun = (data_firma) => {
@@ -438,13 +437,11 @@ const grabarConsentimiento = async () => {
     cod_consen: "HIC038",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
-    id_func: datos_func.value.id.padStart(10, "0"),
+    id_func: datos_func.value.id ? datos_func.value.id.padStart(10, "0") : datos_func.value.id,
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
-    observaciones: reg_text.value.observaciones_n
-      ? reg_text.value.observaciones_n
-      : reg_text.value.observaciones_s,
-    explicacion: reg_text.value.explicacion_n ? reg_text.value.explicacion_n : reg_text.value.explicacion_s,
+    observaciones: reg_text.value.observaciones_s ? "S" : "N",
+    explicacion: reg_text.value.explicacion_s ? "S" : "N",
   };
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
@@ -519,8 +516,8 @@ const imprimirConsen = async () => {
       acomp: getAcomp,
       func: {
         cod: datos_func.value.id,
-        descrip:datos_func.value.descrip_id
-      }
+        descrip: datos_func.value.descrip_id,
+      },
       paren_acomp: getSesion.paren_acomp,
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
@@ -532,11 +529,14 @@ const imprimirConsen = async () => {
       fecha: fecha_act.value,
       llave: llave.value,
       ...HIC038.value,
+      observaciones: reg_text.value.observaciones_s ? "S" : "N",
+      explicacion: reg_text.value.explicacion_s ? "S" : "N",
     };
     const firmas = {
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_firma_acomp: firma_recibida_acomp.value,
+      img_firma_func: firma_func.value,
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
     };
