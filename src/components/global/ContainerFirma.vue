@@ -152,13 +152,12 @@ const leerOper = async ({ cod = "", opc = "" }) => {
       data: {
         cod,
         opc,
-        contab: getEmpresa.dircont
       },
     });
 
     if ("llave" in rest) {
       reg.value.firmador = rest.id;
-      reg.value.descrip_prof = rest.descrip_id_2;
+      reg.value.descrip_prof = rest.descrip_id;
       return emit("datosFunc", rest);
     } else CON851("?", "info", "No existe operador");
   } catch (error) {
