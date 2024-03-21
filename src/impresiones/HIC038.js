@@ -581,7 +581,7 @@ export const impresionHC038 = ({ datos }) => {
             {
               marginLeft: 5,
               style: "tableNoBold",
-              text: `${datos.prof.cod}`,
+              text: `${datos.func.cod}`,
             },
           ],
         },

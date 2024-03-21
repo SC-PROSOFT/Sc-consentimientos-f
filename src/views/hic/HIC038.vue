@@ -517,6 +517,10 @@ const imprimirConsen = async () => {
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
+      func: {
+        cod: datos_func.value.id,
+        descrip:datos_func.value.descrip_id
+      }
       paren_acomp: getSesion.paren_acomp,
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
