@@ -449,6 +449,9 @@ const grabarConsentimiento = async () => {
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
+  if (!datos_func?.value.id || !firma_func.value) {
+    return CON851("?", "info", "Faltan datos del funcionario");
+  }
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
