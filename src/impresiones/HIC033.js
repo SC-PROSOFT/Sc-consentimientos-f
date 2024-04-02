@@ -406,7 +406,24 @@ export const impresionHC033 = ({ datos }) => {
       ],
     };
 
-    if (datos.anios_paciente < 12) return menorDoceAnios;
+    const mayorDoceAnios = {
+      stack: [
+        {
+          marginTop: 16,
+          style: "bodyNoBold",
+          text: "Este espacio diligenciado para mayores de 12 años”",
+          bold: true,
+        },
+        {
+          marginTop: 7,
+          style: "bodyNoBold",
+          alignment: "justify",
+          text: `Yo ${datos.acomp.descrip} mayor de edad, identificado(a) con C.C. No. ${datos.acomp.cod} expedida en ${datos.acomp.descrip_ciudad} en condición de representante legal o acudiente del niño(a) ${datos.paciente.descrip} de ${datos.anios_paciente} años de edad`,
+        },
+      ],      
+    };
+
+    if (datos.anios_paciente <= 12) return menorDoceAnios;
     else return mayorDoceAnios;
   }
 
