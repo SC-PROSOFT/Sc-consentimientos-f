@@ -457,8 +457,11 @@ watch(opcion_hc033, (val) => {
 });
 onMounted(() => {
   const anioNacim = parseInt(getPaci.nacim.slice(0, 4));
+  console.log("💠  anioNacim--> ", anioNacim)
   const anioActu = dayjs().year();
+  console.log("💠  anioActu--> ", anioActu)
   HIC033.value.anios_paciente = anioActu - anioNacim;
+  console.log("💠  Años actuales--> ", HIC033.value.anios_paciente)
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
   getFirmaProf();
