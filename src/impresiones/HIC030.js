@@ -88,9 +88,10 @@ export const impresionHC030 = ({ datos }) => {
                     },
                   ],
                 },
-                {
-                  text: `ANTECEDENTES GINECOLOGICOS: ${datos.antec_gineco}`,
-                },
+                {},
+                // {
+                //   text: `ANTECEDENTES GINECOLOGICOS: ${datos.antec_gineco}`,
+                // },
               ],
               [
                 {

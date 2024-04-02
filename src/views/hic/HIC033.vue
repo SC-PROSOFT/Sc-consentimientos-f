@@ -37,7 +37,7 @@
                 </q-chip>
               </p>
             </div>
-            <h6 class=" text-bold" style="margin: 0; font-size: 16px">
+            <h6 class="text-bold" style="margin: 0; font-size: 16px">
               ASESORIA PRE TEST VIH (VIRUS DE INMUNODEFICIENCIA HUMANA)
             </h6>
             <div class="q-mt-md" style="max-width: 580px">
@@ -148,7 +148,7 @@
                 INMUNODEFICIENCIA HUMANA)
               </h6>
             </div>
-            <div v-show="HIC033.anios_paciente <= 12">
+            <div v-show="HIC033.anios_paciente < 12">
               <div class="q-mt-md q-mb-xs row">
                 <span style="font-weight: bold"
                   >Este espacio debe ser diligenciado para niños (as) menores de 12 años</span
@@ -158,19 +158,19 @@
                 <p>
                   Yo,
                   <span class="text-bold">
-                    {{ HIC033.anios_paciente <= 12 ? getAcomp.descrip : "_____________" }} </span
+                    {{ HIC033.anios_paciente < 12 ? getAcomp.descrip : "_____________" }} </span
                   >mayor de edad, identificado (a) con C.C. No.
                   <span class="text-bold"
-                    >{{ HIC033.anios_paciente <= 12 ? getAcomp.cod : "_____________" }} </span
+                    >{{ HIC033.anios_paciente < 12 ? getAcomp.cod : "_____________" }} </span
                   >expedida en
-                  {{ HIC033.anios_paciente <= 12 ? getAcomp.descrip_ciudad : "_____________" }}
+                  {{ HIC033.anios_paciente < 12 ? getAcomp.descrip_ciudad : "_____________" }}
                   en condición de representante legal o acudiente del niño(a)
                   <span class="text-bold">{{
-                    HIC033.anios_paciente <= 12 ? getPaci.descrip : "_____________"
+                    HIC033.anios_paciente < 12 ? getPaci.descrip : "_____________"
                   }}</span>
                   de
                   {{
-                    HIC033.anios_paciente <= 12 ? `${HIC033.anios_paciente} años de edad` : "_____________"
+                    HIC033.anios_paciente < 12 ? `${HIC033.anios_paciente} años de edad` : "_____________"
                   }}
                 </p>
               </div>
@@ -180,9 +180,9 @@
             </div>
             <div class="border-format q-my-sm">
               <p>
-                Yo, {{ HIC033.anios_paciente > 12 ? getAcomp.descrip : "_________" }}, identificado(a) con
-                {{ HIC033.anios_paciente > 12 ? getAcomp.tipo_id : "___" }}. No.
-                {{ HIC033.anios_paciente > 12 ? getAcomp.cod : "____________" }}, Certifico que: He leído (o
+                Yo, {{ HIC033.anios_paciente >= 12 ? getAcomp.descrip : "_________" }}, identificado(a) con
+                {{ HIC033.anios_paciente >= 12 ? getAcomp.tipo_id : "___" }}. No.
+                {{ HIC033.anios_paciente >= 12 ? getAcomp.cod : "____________" }}, Certifico que: He leído (o
                 que se me ha leído) el documento sobre consentimiento informado que contiene información sobre
                 el propósito y beneficio de la prueba, su interpretación, sus limitaciones, y su riesgo, y que
                 entiendo su contenido, incluyendo las limitaciones, beneficios y riegos de la prueba.
@@ -457,11 +457,8 @@ watch(opcion_hc033, (val) => {
 });
 onMounted(() => {
   const anioNacim = parseInt(getPaci.nacim.slice(0, 4));
-  console.log("💠  anioNacim--> ", anioNacim)
   const anioActu = dayjs().year();
-  console.log("💠  anioActu--> ", anioActu)
   HIC033.value.anios_paciente = anioActu - anioNacim;
-  console.log("💠  Años actuales--> ", HIC033.value.anios_paciente)
   fecha_act.value = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   llave.value = getHc.llave.slice(15);
   getFirmaProf();

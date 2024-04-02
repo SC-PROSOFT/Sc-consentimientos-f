@@ -156,6 +156,7 @@ const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_consen = ref(null);
 const firma_acomp = ref(null);
+const firma_func = ref(null);
 
 const lista_consen = ref([]);
 const reg_consentimiento = ref({
@@ -360,6 +361,7 @@ const reimprimirConsentimiento = async (row) => {
         img_firma_testigo: firma_testigo.value,
         img_firma_consen: firma_consen.value,
         img_firma_acomp: firma_acomp.value,
+        img_firma_func: firma_func.value,
         img_huella_paci: huella_paci.value,
         img_firma_paci: firma_consen.value,
         cod_consen: row.reg_coninf.cod,
@@ -373,6 +375,7 @@ const reimprimirConsentimiento = async (row) => {
           firmas: {
             firma_prof: firma_prof.value ? true : false,
             firma_acomp: row.reg_acomp.cod.trim() ? true : false,
+            firma_func: row.reg_func.cod.trim() ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
             firma_testigo: firma_testigo.value ? true : false,
@@ -388,6 +391,7 @@ const reimprimirConsentimiento = async (row) => {
           empresa: getEmpresa,
           testigo: getTestigo,
           prof: row.reg_prof,
+          func: row.reg_func,
           ...row.reg_coninf.datos,
           ...row.reg_coninf.datos.reg_coninf2,
         },
@@ -424,7 +428,14 @@ const consultarFirmaConsen = async (row) => {
     firma_acomp.value = await _getImagen$({
       codigo: `A${codigo}`,
     });
+    firma_acomp.value = await _getImagen$({
+      codigo: `A${codigo}`,
+    });
+    firma_func.value = await _getImagen$({
+      codigo: `FC${codigo}`,
+    });
 
+    //Disetio acomp. o Disentio paci.
     const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP";
     firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
   } catch (error) {

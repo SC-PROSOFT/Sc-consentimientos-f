@@ -152,6 +152,7 @@
             :firmador="getPaci.cod"
             :descrip_prof="getPaci.descrip"
             @reciFirma="callBackFirma"
+            :huella_="huella_paci"
             class="col-4"
           />
           <ContainerFirma
