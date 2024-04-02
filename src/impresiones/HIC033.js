@@ -1,7 +1,14 @@
 import { evaluarParentesco } from "@/formatos/utils";
+import { useModuleFormatos } from "@/store";
 import dayjs from "dayjs";
 
+const { getPaci } = useModuleFormatos();
+
 export const impresionHC033 = ({ datos }) => {
+  const anioNacim = parseInt(getPaci.nacim.slice(0, 4));
+  const anioActu = dayjs().year();
+  datos.anios_paciente = anioActu - anioNacim;
+
   var dd = {
     stack: [contenidoPruebaVIH(), firmas()],
   };
