@@ -112,7 +112,7 @@ const getFirmaPaci = async () => {
     if (Number(getEmpresa.nitusu) == 844003225 && check_paci) {
       firma.value = await _getHuella$({
         codigo: `${getPaci.cod}-FIR`,
-        ruta: "E:/SC/NEWCOBOL/DATOS/BIOMETRIA",
+        ruta: "C:/SC/NEWCOBOL/DATOS/BIOMETRIA",
         formato: "png",
       });
 
