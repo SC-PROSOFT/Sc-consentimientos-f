@@ -44,7 +44,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
           method: "POST",
           params: {
             modulo: "CONSEN",
-            directorio_modulo: `${validarDiscoDeploy(this.empresa.nitusu)}:/WEB/consentimientos`,
+            directorio_modulo: `D:/WEB/consentimientos`,
           },
           loader: true,
         })
