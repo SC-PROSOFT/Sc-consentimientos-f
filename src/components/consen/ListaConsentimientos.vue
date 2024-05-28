@@ -422,15 +422,19 @@ const getHuella = async (cod_paci) => {
 const consultarFirmaConsen = async (row) => {
   try {
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
+    //Testigo UTM
     params_querys.value.modulo == "LAB" &&
       (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
+
+    //Paciente
     firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
+    
+    //Acompañante
     firma_acomp.value = await _getImagen$({
       codigo: `A${codigo}`,
     });
-    firma_acomp.value = await _getImagen$({
-      codigo: `A${codigo}`,
-    });
+
+    //Funcionario (Casos especiales Yopal)
     firma_func.value = await _getImagen$({
       codigo: `FC${codigo}`,
     });
