@@ -19,7 +19,7 @@ export default defineConfig({
       API: "/api/v1/",
       APP: `${modulo}/v2/app`,
       USER_GIT: "SC-PROSOFT",
-      PORT: 8787,
+      PORT: 80,
     },
   },
   resolve: {
