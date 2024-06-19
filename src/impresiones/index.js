@@ -19,7 +19,8 @@ export * from "./HIC043";
 export * from "./HIC044";
 
 // ODONTOLOGIA
-export * from "./ODO003";
+export * from "./ODO/ODO003";
+export * from "./ODO/ODO004";
 
 // LABORATORIO
 export * from "./LAB/LAB002";
