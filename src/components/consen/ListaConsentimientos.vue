@@ -417,6 +417,7 @@ const reimprimirConsentimiento = async (row) => {
     await impresion({ docDefinition });
   } catch (error) {
     console.error("error-- >", error);
+    CON851("?", "info", "Error al generar impresión");
   }
 };
 const getFirmaProf = async (cod_prof) => {

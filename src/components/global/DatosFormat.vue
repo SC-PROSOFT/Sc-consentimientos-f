@@ -36,7 +36,7 @@
     </div>
     <div class="row justify-center" style="width: 100%">
       <div class="row justify-center bold" style="width: 100%">
-        <p>NOMBRES Y APELIIDOS COMPLETOS</p>
+        <p>NOMBRES Y APELLIDOS COMPLETOS</p>
       </div>
     </div>
     <div class="row justify-center" style="width: 100%">

@@ -147,9 +147,7 @@ async function getPaciente() {
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       /* Se hizo de esta manera por problemas con el back, quitaba espacios entre nombres */
-      if(datos_session.modulo != "LAB") {
-        data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`
-      }
+      data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`
       
       setPaci(data.reg_paci);
 
