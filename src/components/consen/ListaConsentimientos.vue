@@ -381,18 +381,18 @@ const reimprimirConsentimiento = async (row) => {
         img_firma_func: firma_func.value,
         img_huella_paci: huella_paci.value,
         img_firma_paci: firma_consen.value,
-        cod_consen: row.reg_coninf.cod,
+        cod_consen: row.reg_coninf?.cod,
         firma_prof: firma_prof.value,
       },
-      content: opciones[row.reg_coninf.cod]({
+      content: opciones[row.reg_coninf?.cod]({
         datos: {
           autorizo:
             row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_prof: firma_prof.value ? true : false,
-            firma_acomp: row.reg_acomp.cod.trim() ? true : false,
-            firma_func: row.reg_func.cod.trim() ? true : false,
+            firma_acomp: row.reg_acomp?.cod.trim() ? true : false,
+            firma_func: row.reg_func?.cod.trim() ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
             firma_testigo: firma_testigo.value ? true : false,
