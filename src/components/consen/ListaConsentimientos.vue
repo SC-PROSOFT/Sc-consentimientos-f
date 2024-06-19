@@ -106,6 +106,7 @@ import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store"
 import { ref, onMounted, defineAsyncComponent } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
+  impresionODO004,
   impresionLAB002,
   impresionLAB003,
   impresionLAB004,
@@ -138,30 +139,29 @@ import days from "dayjs";
 const DisentirConsen_ = defineAsyncComponent(() => import("@/components/consen/DisentirConsen.vue"));
 
 const props = defineProps({ cargar: Function });
+const { CON851 } = useModuleCon851();
 const router = useRouter();
 const route = useRoute();
 
-const { CON851 } = useModuleCon851();
 const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
 const { getEmpresa, getTestigo, setHc, setSession } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
-const novedad = ref(null);
 const params_querys = ref(null);
+const novedad = ref(null);
 
 const mode_dev = process.env.NODE_ENV == "development" ? true : false;
 const firma_disentimiento = ref(null);
+const llave_odo_act = ref(null);
 const firma_testigo = ref(null);
-const firma_prof = ref(null);
-const huella_paci = ref(null);
 const firma_consen = ref(null);
+const huella_paci = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
+const firma_prof = ref(null);
 
+const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
-const reg_consentimiento = ref({
-  estado: false,
-});
 
 const lista_maestros = ref([]);
 const columns_consen = [
@@ -210,40 +210,51 @@ const columns = [
   { name: "descrip", label: "Nombre", align: "left", field: "descrip" },
 ];
 
-onMounted(() => {
-  getParametros();
-});
+onMounted(() => getParametros());
 
 const valueEstado = (estado) => {
   if (estado == "AUTORIZADO") return "light-green-6";
   else if (estado == "REVOCADO") return "amber-7";
   return "red";
 };
+
 const getParametros = async () => {
-  if (Object.keys(route.query).length) setSession(route.query);
-
-  if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
-  else params_querys.value = route.query;
-  novedad.value = params_querys.value.novedad;
-
-  params_querys.value.modulo == "HIC" && getHistoriaClinica();
-  params_querys.value.modulo == "ODO" && getOdontologia();
-  getConsentimientosRealizados();
-  getMaestros();
-};
-const getOdontologia = async () => {
   try {
-    const response = await getDll$({
-      modulo: `get_odo.dll`,
-      data: { llave_hc: route.query.llave_hc },
-    });
-    setHc(response.reg_hc);
+    if (Object.keys(route.query).length) setSession(route.query);
 
-    if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
+    if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
+    else params_querys.value = route.query;
+    novedad.value = params_querys.value.novedad;
+
+    params_querys.value.modulo == "HIC" && (await getHistoriaClinica());
+    params_querys.value.modulo == "ODO" && (await getOdontologia());
+
+    if (novedad.value == 2) await getConsentimientosRealizados();
+    else await getMaestros();
   } catch (error) {
     CON851("?", "info", error, logOut$);
   }
 };
+
+const getOdontologia = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_odo.dll`,
+      data: { llave_od: route.query.llave_hc },
+    });
+
+    //El DLL puede traer una HC anteior en caso tal de no encontrar una actual, por eso se actualiza la llave.
+    llave_odo_act.value =
+      route.query.llave_hc != response.reg_od.llave ? response.reg_od.llave : route.query.llave_hc;
+    setHc(response.reg_od);
+
+    //TODO: Se omite por ahora
+    // if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getHistoriaClinica = async () => {
   try {
     const nit_usu = parseInt(getEmpresa.nitusu) || 0;
@@ -255,27 +266,32 @@ const getHistoriaClinica = async () => {
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       //Valida exepcion unidad de servicio (Yopal)
-      const allow_serv = ["01","02", "03", "04", "08", "63"];
+      const allow_serv = ["01", "02", "03", "04", "08", "63"];
       const unid = params_querys.value.serv_hc;
       if (nit_usu == 844003225 && allow_serv.includes(unid)) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
   } catch (error) {
-    CON851("?", "info", error, logOut$);
+    throw error;
   }
 };
+
 const getConsentimientosRealizados = async () => {
-  if (params_querys.value.modulo.toUpperCase() == "LAB") {
-    params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
-  }
   try {
+    if (params_querys.value.modulo.toUpperCase() == "LAB") {
+      params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
+    }
+
+    const llave_consen =
+      params_querys.value.modulo == "ODO" ? llave_odo_act.value : params_querys.value.llave_hc;
+
     const { CONSENTIMIENTOS } = await getDll$({
       modulo: `get_consen.dll`,
       data: {
-        llave_consen: params_querys.value.llave_hc,
         modulo: params_querys.value.modulo?.toUpperCase(),
         paso: novedad.value == "1" ? "2" : novedad.value,
+        llave_consen,
       },
     });
 
@@ -296,7 +312,7 @@ const getConsentimientosRealizados = async () => {
 
     if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
   } catch (error) {
-    CON851("?", "info", "Error consultado consentimientos");
+    throw error;
   }
 };
 
@@ -348,6 +364,7 @@ const reimprimirConsentimiento = async (row) => {
     HIC042: impresionHC042,
     HIC043: impresionHC043,
     HIC044: impresionHC044,
+    ODO004: impresionODO004,
   };
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
@@ -428,7 +445,7 @@ const consultarFirmaConsen = async (row) => {
 
     //Paciente
     firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
-    
+
     //Acompañante
     firma_acomp.value = await _getImagen$({
       codigo: `A${codigo}`,
@@ -460,7 +477,7 @@ const getMaestros = async () => {
     });
     lista_maestros.value = response;
   } catch (error) {
-    CON851("?", "info", error);
+    throw error;
   }
 };
 
