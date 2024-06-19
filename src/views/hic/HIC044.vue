@@ -153,9 +153,8 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHC044, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted } from "vue";
-import { calcEdad, utilsFormat } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
