@@ -55,41 +55,34 @@ import { defineAsyncComponent, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { regAcomp } from "@/fuentes";
 
+const ListaConsentimientos_ = defineAsyncComponent(() => import("@/components/consen/ListaConsentimientos.vue"));
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
 const ConfigUsunet_ = defineAsyncComponent(() => import("@/components/consen/ConfigUsunet.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBar.vue"));
 const Update_ = defineAsyncComponent(() => import("@/components/global/Update.vue"));
-const ListaConsentimientos_ = defineAsyncComponent(() =>
-  import("@/components/consen/ListaConsentimientos.vue")
-);
 
 const form_paci = ref({
-  codigo: { id: "codigo", label: "Codigo", disable: true },
   descrip: { id: "descrip", label: "Descripción", disable: true },
+  codigo: { id: "codigo", label: "Codigo", disable: true },
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
 const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
+const router = useRouter();
+const route = useRoute();
 
 const configuracion = ref({ estado: false });
 const config_maestro = ref({ estado: false });
 
 const mode_dev = process.env.NODE_ENV == "development" ? true : false;
-const router = useRouter();
-const route = useRoute();
 const datos_session = {};
 const llave = ref(null);
 
-const datos_actualizacion = ref({
-  estado: false,
-  mensaje: "",
-});
+const datos_actualizacion = ref({ estado: false, mensaje: "" });
 
-onMounted(() => {
-  validIsConfig();
-});
+onMounted(() => validIsConfig());
 
 const verificarSesion = async () => {
   try {
@@ -159,6 +152,7 @@ async function getPaciente() {
       CON851("?", "error", "Error consultando datos paciente");
     });
 }
+
 async function getAcomp() {
   try {
     if (!datos_session.id_acompa.trim()) setAcomp(regAcomp());
@@ -229,6 +223,7 @@ const abrirConfiguracion = async () => {
     });
   }
 };
+
 const getVersionBuild = async () => {
   if (!["ADMI", "GEBC"].includes(datos_session?.oper)) return;
   try {
@@ -240,6 +235,7 @@ const getVersionBuild = async () => {
     CON851("?", "info", error);
   }
 };
+
 const actualizarVersion = async () => {
   try {
     const reponse = await actualizarVersion$({});
