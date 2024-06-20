@@ -104,35 +104,8 @@
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { ref, onMounted, defineAsyncComponent } from "vue";
+import formatos from "../../impresiones/importarModulos";
 import { useRouter, useRoute } from "vue-router";
-import {
-  impresionODO004,
-  impresionLAB002,
-  impresionLAB003,
-  impresionLAB004,
-  impresionLAB005,
-  impresionLAB006,
-  impresionLAB007,
-  impresionLAB008,
-  impresionLAB009,
-  impresionLAB010,
-  impresionHC030,
-  impresionHC031,
-  impresionHC032,
-  impresionHC033,
-  impresionHC034,
-  impresionHC035,
-  impresionHC036,
-  impresionHC037,
-  impresionHC038,
-  impresionHC039,
-  impresionHC040,
-  impresionHC041,
-  impresionHC042,
-  impresionHC043,
-  impresionHC044,
-  impresion,
-} from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import days from "dayjs";
 
@@ -339,34 +312,6 @@ const disentirConsentimiento = async (row) => {
   reg_consentimiento.value.estado = true;
 };
 const reimprimirConsentimiento = async (row) => {
-  const opciones = {
-    LAB002: impresionLAB002,
-    LAB003: impresionLAB003,
-    LAB004: impresionLAB004,
-    LAB005: impresionLAB005,
-    LAB006: impresionLAB006,
-    LAB007: impresionLAB007,
-    LAB008: impresionLAB008,
-    LAB009: impresionLAB009,
-    LAB010: impresionLAB010,
-    HIC030: impresionHC030,
-    HIC031: impresionHC031,
-    HIC032: impresionHC032,
-    HIC033: impresionHC033,
-    HIC034: impresionHC034,
-    HIC035: impresionHC035,
-    HIC036: impresionHC036,
-    HIC037: impresionHC037,
-    HIC039: impresionHC039,
-    HIC038: impresionHC038,
-    HIC040: impresionHC040,
-    HIC041: impresionHC041,
-    HIC042: impresionHC042,
-    HIC043: impresionHC043,
-    HIC044: impresionHC044,
-    ODO004: impresionODO004,
-  };
-
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
   await getHuella(row.reg_paci.cod);
@@ -384,7 +329,7 @@ const reimprimirConsentimiento = async (row) => {
         cod_consen: row.reg_coninf?.cod,
         firma_prof: firma_prof.value,
       },
-      content: opciones[row.reg_coninf?.cod]({
+      content: formatos[`impresion${row.reg_coninf?.cod}`]({
         datos: {
           autorizo:
             row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
@@ -414,7 +359,7 @@ const reimprimirConsentimiento = async (row) => {
         },
       }),
     });
-    await impresion({ docDefinition });
+    await  formatos.impresion({ docDefinition });
   } catch (error) {
     console.error("error-- >", error);
     CON851("?", "info", "Error al generar impresión");
