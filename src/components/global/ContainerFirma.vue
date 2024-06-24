@@ -100,6 +100,8 @@ const props = defineProps({
 });
 
 const reg = ref({ ...props });
+const show_firma = ref(false);
+let firma = ref(null);
 
 onMounted(() => {
   getFirmaPaci();
@@ -109,16 +111,30 @@ const getFirmaPaci = async () => {
   try {
     /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
     const check_paci = props.quien_firma.toLowerCase().includes("paciente");
-    if (Number(getEmpresa.nitusu) == 844003225 && check_paci) {
-      firma.value = await _getHuella$({
-        codigo: `${getPaci.cod}-FIR`,
-        ruta: "C:/SC/NEWCOBOL/DATOS/BIOMETRIA",
-        formato: "png",
-      });
+    const check_prof = props.quien_firma.toLowerCase().includes("profesional");
+    let existeFirma = null;
+    if (Number(getEmpresa.nitusu) == 844003225) {
+      if (check_paci) {
+        firma.value = await _getHuella$({
+          codigo: `${getPaci.cod}-FIR`,
+          ruta: "C:/SC/NEWCOBOL/DATOS/BIOMETRIA",
+          formato: "png",
+        });
+
+        existeFirma = firma.value ? firma.value : getImgBs64;
+      }
+      if (check_prof) {
+        firma.value = await _getHuella$({
+          codigo: getPaci.cod,
+          ruta: "C:/SC/NEWCOBOL/HC/DATOS",
+          formato: "dat",
+        });
+
+        existeFirma = firma.value ? firma.value : getImgBs64;
+      }
 
       /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */
       /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
-      const existeFirma = firma.value ? firma.value : getImgBs64;
       CallBackFirma(existeFirma);
     }
   } catch (error) {
@@ -126,9 +142,6 @@ const getFirmaPaci = async () => {
     CON851("?", "info", "Error consultando firma de paciente");
   }
 };
-
-const show_firma = ref(false);
-let firma = ref(null);
 
 function CallBackFirma(dataF) {
   if (dataF) {
