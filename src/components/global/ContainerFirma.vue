@@ -62,7 +62,7 @@ const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarT
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
 const { getDll$, _getHuella$, getImgBs64 } = useApiContabilidad();
-const { getEmpresa, getPaci } = useModuleFormatos();
+const { getEmpresa, getPaci, getProf } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
 const emit = defineEmits(["reciFirma", "datosFunc"]);
@@ -110,8 +110,8 @@ onMounted(() => {
 const getFirmaPaci = async () => {
   try {
     /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
-    const check_paci = props.quien_firma.toLowerCase().includes("paciente");
-    const check_prof = props.quien_firma.toLowerCase().includes("profesional");
+    const check_paci = props.quien_firma.toLowerCase().includes("paciente") || false;
+    const check_prof = props.quien_firma.toLowerCase().includes("profesional") || false;
     let existeFirma = null;
     if (Number(getEmpresa.nitusu) == 844003225) {
       if (check_paci) {
@@ -120,12 +120,13 @@ const getFirmaPaci = async () => {
           ruta: "C:/SC/NEWCOBOL/DATOS/BIOMETRIA",
           formato: "png",
         });
-
+        
+        /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
         existeFirma = firma.value ? firma.value : getImgBs64;
       }
       if (check_prof) {
         firma.value = await _getHuella$({
-          codigo: getPaci.cod,
+          codigo: Number(getProf.cod),
           ruta: "C:/SC/NEWCOBOL/HC/DATOS",
           formato: "dat",
         });
@@ -133,8 +134,7 @@ const getFirmaPaci = async () => {
         existeFirma = firma.value ? firma.value : getImgBs64;
       }
 
-      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */
-      /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
+      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */      
       CallBackFirma(existeFirma);
     }
   } catch (error) {
