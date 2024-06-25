@@ -202,7 +202,7 @@ const getParametros = async () => {
     params_querys.value.modulo == "HIC" && (await getHistoriaClinica());
     params_querys.value.modulo == "ODO" && (await getOdontologia());
 
-    if (novedad.value == 2) await getConsentimientosRealizados();
+    if ([2, 3].includes(Number(novedad.value))) await getConsentimientosRealizados();
     else await getMaestros();
   } catch (error) {
     CON851("?", "info", error, logOut$);
