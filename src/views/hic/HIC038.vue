@@ -291,7 +291,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch, watchEffect, watchPostEffect } from "vue";
 import { utilsFormat, evaluarParentesco } from "@/formatos/utils";
-import { impresionHC038, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC038, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -545,13 +545,13 @@ const imprimirConsen = async () => {
     };
     const docDefinitionPrint = await utilsFormat({
       datos: firmas,
-      content: impresionHC038({
+      content: impresionHIC038({
         datos: datos_hic038,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: firmas,
-      content: impresionHC038({
+      content: impresionHIC038({
         datos: datos_hic038,
       }),
     });

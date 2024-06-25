@@ -168,7 +168,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { calcEdad, utilsFormat } from "@/formatos/utils";
-import { impresionHC042, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC042, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -317,13 +317,13 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC042" },
-      content: impresionHC042({
+      content: impresionHIC042({
         datos: datos_hic042,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC042" },
-      content: impresionHC042({
+      content: impresionHIC042({
         datos: datos_hic042,
       }),
     });
