@@ -151,7 +151,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
+// import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, watch, watchEffect } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
