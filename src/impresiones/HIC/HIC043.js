@@ -1,7 +1,7 @@
 import { calcEdad, evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-export const impresionHC043 = ({ datos }) => {
+export const impresionHIC043 = ({ datos }) => {
   const llenarDatos = {
     evaluarDosis: () => {
       const cant_dosis = {

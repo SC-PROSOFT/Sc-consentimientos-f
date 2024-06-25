@@ -1,7 +1,7 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-export const impresionHC030 = ({ datos }) => {
+export const impresionHIC030 = ({ datos }) => {
   var dd = {
     stack: [contenidoCitologia(), firmas()],
   };

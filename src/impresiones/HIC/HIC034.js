@@ -1,6 +1,6 @@
 import { calcEdad, evaluarParentesco } from "@/formatos/utils";
 
-export const impresionHC034 = ({ datos }) => {
+export const impresionHIC034 = ({ datos }) => {
   const edad = calcEdad(datos.paciente.nacim);
   var dd = {
     stack: [contenidoIVE(), firmas()],

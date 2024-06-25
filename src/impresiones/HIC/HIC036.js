@@ -2,7 +2,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-export const impresionHC036 = ({ datos }) => {
+export const impresionHIC036 = ({ datos }) => {
   var dd = {
     stack: [contenidoTDO(), firmas()],
   };

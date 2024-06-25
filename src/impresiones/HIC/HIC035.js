@@ -2,7 +2,7 @@ import { evaluarParentesco } from "@/formatos/utils";
 import { calcEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-export const impresionHC035 = ({ datos }) => {
+export const impresionHIC035 = ({ datos }) => {
   var dd = {
     stack: [contenidoEISP(), firmas()],
   };

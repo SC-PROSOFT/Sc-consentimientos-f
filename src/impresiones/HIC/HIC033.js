@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 const { getPaci } = useModuleFormatos();
 
-export const impresionHC033 = ({ datos }) => {
+export const impresionHIC033 = ({ datos }) => {
   const anioNacim = parseInt(getPaci.nacim.slice(0, 4));
   const anioActu = dayjs().year();
   datos.anios_paciente = anioActu - anioNacim;
