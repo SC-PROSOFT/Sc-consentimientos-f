@@ -204,7 +204,7 @@ import {
 } from "@/store";
 import { ref, defineAsyncComponent, onMounted, watch } from "vue";
 import { utilsFormat } from "@/formatos/utils";
-import { impresionHC036, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC036, impresion, generarArchivo } from "@/impresiones";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -394,13 +394,13 @@ const imprimirConsen = async () => {
     };
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC036" },
-      content: impresionHC036({
+      content: impresionHIC036({
         datos: datos_hic036,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC036" },
-      content: impresionHC036({
+      content: impresionHIC036({
         datos: datos_hic036,
       }),
     });
