@@ -57,8 +57,8 @@
 import { useModuleFormatos, useModuleCon851, useApiContabilidad } from "@/store";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 
-const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN982.vue"));
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarTable.vue"));
+const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN982.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
 const { getDll$, _getHuella$, getImgBs64 } = useApiContabilidad();
@@ -126,7 +126,7 @@ const getFirmaPaci = async () => {
       }
       if (check_prof) {
         firma.value = await _getHuella$({
-          codigo: Number(getProf.cod),
+          codigo: getProf.cod?.slice(2),
           ruta: "C:/SC/NEWCOBOL/HC/DATOS",
           formato: "dat",
         });
@@ -134,7 +134,7 @@ const getFirmaPaci = async () => {
         existeFirma = firma.value ? firma.value : getImgBs64;
       }
 
-      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */      
+      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */     
       CallBackFirma(existeFirma);
     }
   } catch (error) {
