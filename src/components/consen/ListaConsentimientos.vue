@@ -359,7 +359,7 @@ const reimprimirConsentimiento = async (row) => {
         },
       }),
     });
-    await  formatos.impresion({ docDefinition });
+    await formatos.impresion({ docDefinition });
   } catch (error) {
     console.error("error-- >", error);
     CON851("?", "info", "Error al generar impresión");
@@ -367,7 +367,15 @@ const reimprimirConsentimiento = async (row) => {
 };
 const getFirmaProf = async (cod_prof) => {
   try {
-    firma_prof.value = await _getFirma$({ codigo: cod_prof });
+    if (Number(getEmpresa.nitusu) == 844003225) {
+      firma_prof.value = await _getHuella$({
+        codigo: cod_prof?.slice(2),
+        ruta: "C:/SC/NEWCOBOL/HC/DATOS",
+        formato: "dat",
+      });
+    } else {
+      firma_prof.value = await _getFirma$({ codigo: cod_prof });
+    }
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
