@@ -238,10 +238,8 @@ const getHistoriaClinica = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
-      //Valida exepcion unidad de servicio (Yopal)
-      const allow_serv = ["01", "02", "03", "04", "08", "63"];
-      const unid = params_querys.value.serv_hc;
-      if (nit_usu == 844003225 && allow_serv.includes(unid)) return;
+      //(Yopal) asi la HC este cerrada deja seguir
+      if (nit_usu == 844003225) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
