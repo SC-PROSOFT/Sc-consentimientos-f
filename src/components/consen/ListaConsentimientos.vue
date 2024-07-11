@@ -36,9 +36,7 @@
             </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{
-              col.value
-            }}</q-chip>
+            <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{ col.value }}</q-chip>
             <div v-else>{{ col.value }}</div>
           </q-td>
         </q-tr>
@@ -76,8 +74,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm">
-            </q-btn>
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm"> </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.value?.toUpperCase() }}
@@ -217,8 +214,7 @@ const getOdontologia = async () => {
     });
 
     //El DLL puede traer una HC anteior en caso tal de no encontrar una actual, por eso se actualiza la llave.
-    llave_odo_act.value =
-      route.query.llave_hc != response.reg_od.llave ? response.reg_od.llave : route.query.llave_hc;
+    llave_odo_act.value = route.query.llave_hc != response.reg_od.llave ? response.reg_od.llave : route.query.llave_hc;
     setHc(response.reg_od);
 
     //TODO: Se omite por ahora
@@ -239,7 +235,7 @@ const getHistoriaClinica = async () => {
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       //(Yopal) asi la HC este cerrada deja seguir
-      if (nit_usu == 844003225) return;
+      if (parseInt(nit_usu) == 844003225) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
@@ -254,8 +250,7 @@ const getConsentimientosRealizados = async () => {
       params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
     }
 
-    const llave_consen =
-      params_querys.value.modulo == "ODO" ? llave_odo_act.value : params_querys.value.llave_hc;
+    const llave_consen = params_querys.value.modulo == "ODO" ? llave_odo_act.value : params_querys.value.llave_hc;
 
     const { CONSENTIMIENTOS } = await getDll$({
       modulo: `get_consen.dll`,
@@ -275,10 +270,7 @@ const getConsentimientosRealizados = async () => {
 
     lista_consen.value = consen_filter || CONSENTIMIENTOS || [];
     lista_consen.value.sort((a, b) => {
-      return (
-        parseInt(`${b.reg_coninf.llave.fecha}${b.reg_coninf.llave.hora}`) -
-        parseInt(`${a.reg_coninf.llave.fecha}${a.reg_coninf.llave.hora}`)
-      );
+      return parseInt(`${b.reg_coninf.llave.fecha}${b.reg_coninf.llave.hora}`) - parseInt(`${a.reg_coninf.llave.fecha}${a.reg_coninf.llave.hora}`);
     });
 
     if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
@@ -329,8 +321,7 @@ const reimprimirConsentimiento = async (row) => {
       },
       content: formatos[`impresion${row.reg_coninf?.cod}`]({
         datos: {
-          autorizo:
-            row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
+          autorizo: row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_prof: firma_prof.value ? true : false,
@@ -392,8 +383,7 @@ const consultarFirmaConsen = async (row) => {
   try {
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
     //Testigo UTM
-    params_querys.value.modulo == "LAB" &&
-      (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
+    params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
 
     //Paciente
     firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
