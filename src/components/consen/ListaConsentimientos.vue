@@ -180,7 +180,11 @@ const columns = [
   { name: "descrip", label: "Nombre", align: "left", field: "descrip" },
 ];
 
-onMounted(() => getParametros());
+onMounted(() => {
+  setTimeout(() => {
+    getParametros();
+  }, 100);
+});
 
 const valueEstado = (estado) => {
   if (estado == "AUTORIZADO") return "light-green-6";
@@ -225,24 +229,23 @@ const getOdontologia = async () => {
 };
 
 const getHistoriaClinica = async () => {
-
   try {
-    setTimeout(async () => {
-      const nit_usu = parseInt(getEmpresa.nitusu) || 0;
-      const response = await getDll$({
-        modulo: `get_hc.dll`,
-        data: { llave_hc: route.query.llave_hc },
-      });
-      setHc(response.reg_hc);
+    const nit_usu = parseInt(getEmpresa.nitusu) || 0;
+    if (!nit_usu) return setTimeout(getHistoriaClinica, 100);
 
-      if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
-        //(Yopal) asi la HC este cerrada deja seguir
-        console.log("nit_usu ->", nit_usu);
-        if (nit_usu == 844003225) return;
+    const response = await getDll$({
+      modulo: `get_hc.dll`,
+      data: { llave_hc: route.query.llave_hc },
+    });
+    setHc(response.reg_hc);
 
-        return CON851("9Y", "info", "", logOut$);
-      }
-    }, 1000);
+    if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
+      //(Yopal) asi la HC este cerrada deja seguir
+      console.log("nit_usu ->", nit_usu);
+      if (nit_usu == 844003225) return;
+
+      return CON851("9Y", "info", "", logOut$);
+    }
   } catch (error) {
     throw error;
   }
