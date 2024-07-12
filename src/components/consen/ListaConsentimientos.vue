@@ -235,7 +235,8 @@ const getHistoriaClinica = async () => {
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       //(Yopal) asi la HC este cerrada deja seguir
-      if (parseInt(nit_usu) == 844003225) return;
+      console.log("nit_usu ->", nit_usu);
+      if (nit_usu == 844003225) return;
 
       return CON851("9Y", "info", "", logOut$);
     }

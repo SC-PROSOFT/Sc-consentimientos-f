@@ -51,7 +51,7 @@
 </template>
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
-import { defineAsyncComponent, onMounted, ref } from "vue";
+import { defineAsyncComponent, onMounted,onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { regAcomp } from "@/fuentes";
 
@@ -82,7 +82,8 @@ const llave = ref(null);
 
 const datos_actualizacion = ref({ estado: false, mensaje: "" });
 
-onMounted(() => validIsConfig());
+onBeforeMount(() => validIsConfig());
+// onMounted(() => validIsConfig());
 
 const verificarSesion = async () => {
   try {
