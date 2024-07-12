@@ -51,7 +51,7 @@
 </template>
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
-import { defineAsyncComponent, onMounted,onBeforeMount, ref } from "vue";
+import { defineAsyncComponent, onMounted, onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { regAcomp } from "@/fuentes";
 
@@ -141,8 +141,8 @@ async function getPaciente() {
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       /* Se hizo de esta manera por problemas con el back, quitaba espacios entre nombres */
-      data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`
-      
+      data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`;
+
       setPaci(data.reg_paci);
 
       datos_session.novedad == "1" && getMedico();
@@ -186,10 +186,8 @@ async function getTestigo() {
     if (!cod_test) return;
 
     let datos;
-    if (tipo_testigo == 1)
-      datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
-    else if (tipo_testigo == 2)
-      datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof: cod_test } });
+    if (tipo_testigo == 1) datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
+    else if (tipo_testigo == 2) datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof: cod_test } });
 
     setTestigo(tipo_testigo == 1 ? datos.reg_paci : datos.reg_prof);
   } catch (error) {

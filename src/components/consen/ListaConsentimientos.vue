@@ -225,21 +225,24 @@ const getOdontologia = async () => {
 };
 
 const getHistoriaClinica = async () => {
+
   try {
-    const nit_usu = parseInt(getEmpresa.nitusu) || 0;
-    const response = await getDll$({
-      modulo: `get_hc.dll`,
-      data: { llave_hc: route.query.llave_hc },
-    });
-    setHc(response.reg_hc);
+    setTimeout(async () => {
+      const nit_usu = parseInt(getEmpresa.nitusu) || 0;
+      const response = await getDll$({
+        modulo: `get_hc.dll`,
+        data: { llave_hc: route.query.llave_hc },
+      });
+      setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
-      //(Yopal) asi la HC este cerrada deja seguir
-      console.log("nit_usu ->", nit_usu);
-      if (nit_usu == 844003225) return;
+      if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
+        //(Yopal) asi la HC este cerrada deja seguir
+        console.log("nit_usu ->", nit_usu);
+        if (nit_usu == 844003225) return;
 
-      return CON851("9Y", "info", "", logOut$);
-    }
+        return CON851("9Y", "info", "", logOut$);
+      }
+    }, 1000);
   } catch (error) {
     throw error;
   }
