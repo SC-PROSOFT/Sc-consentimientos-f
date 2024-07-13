@@ -231,7 +231,7 @@ const getOdontologia = async () => {
 const getHistoriaClinica = async () => {
   try {
     const nit_usu = parseInt(getEmpresa.nitusu) || 0;
-    if (!nit_usu) return setTimeout(getHistoriaClinica, 100);
+    if (nit_usu == 0) return setTimeout(getHistoriaClinica, 100);
 
     const response = await getDll$({
       modulo: `get_hc.dll`,
