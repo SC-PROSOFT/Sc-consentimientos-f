@@ -14,11 +14,7 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="opcion_hc030 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="opcion_hc030 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="opcion_hc030"
-            >
+            <q-chip :color="opcion_hc030 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hc030">
               {{ opcion_hc030 }}
             </q-chip>
           </p>
@@ -43,10 +39,9 @@
           <p>actuando en nombre propio.</p>
 
           <p class="text-justify">
-            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
-            que pueden requerir una extensión de otro procedimiento; acepto que las ciencias de la salud no
-            son una ciencia exacta, que se garantizan resultados en la atención, y que, aunque son
-            procedimientos seguros pueden presentarse complicaciones como:
+            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas, que pueden requerir una extensión de
+            otro procedimiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que,
+            aunque son procedimientos seguros pueden presentarse complicaciones como:
           </p>
           <ul>
             <li>SANGRADO</li>
@@ -64,24 +59,19 @@
             dense
           />
           <p class="q-pt-md text-justify">
-            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
-            tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que
-            exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que
-            pierda mis derechos para una atención posterior. Se me ha informado que en la ESE salud Yopal,
-            cuenta con personal idóneo, competente y capacitado para la determinación de conductas
-            terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha
-            explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi
-            condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas
-            las preguntas necesarias, y han sido resueltas satisfactoriamente.
+            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo
+            la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no
+            significa que pierda mis derechos para una atención posterior. Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo,
+            competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy
+            constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual,
+            los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas
+            satisfactoriamente.
           </p>
-          <p>
-            Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
-            manipulación:
-          </p>
+          <p>Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
           <div class="row" v-show="opcion_hc030 == 'AUTORIZAR'">
             <p>
-              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la
-              realización de los procedimientos de salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
+              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud:
+              TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
             </p>
             <p>DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico</p>
             <Input_
@@ -90,50 +80,27 @@
               v-model="HIC030.diagnostico"
               :field="form.codigo"
             />
-            <q-input
-              dense
-              disable
-              outlined
-              type="text"
-              class="col-2"
-              maxlength="4"
-              v-model="descrip_diagnostico"
-            />
+            <q-input dense disable outlined type="text" class="col-2" maxlength="4" v-model="descrip_diagnostico" />
           </div>
           <div class="row" v-show="opcion_hc030 == 'REVOCAR'">
             <p>
               Expreso mi voluntad de
-              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto
-              que, tras la información recibida, no consiento someterme al procedimiento de toma de citologia
+              <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto que, tras la información recibida, no
+              consiento someterme al procedimiento de toma de citologia
             </p>
 
             <p>por los siguientes motivos:</p>
-            <q-input
-              v-model="HIC030.revocar_motivos"
-              ref="revocar_motivos"
-              maxlength="285"
-              :rules="[requerido]"
-              class="col-7"
-              type="text"
-              dense
-            />
+            <q-input v-model="HIC030.revocar_motivos" ref="revocar_motivos" maxlength="285" :rules="[requerido]" class="col-7" type="text" dense />
           </div>
 
           <table class="col-12 q-pt-lg">
             <tr>
               <th style="border: 1px solid #ccc">
-                <div style="display: flex;">
+                <div style="display: flex">
                   <span class="q-my-auto q-mx-md col-8">FECHA DE ULTIMA CITOLOGIA CERVICOVAGINAL:</span>
-                  <q-input
-                    class="col-3"
-                    v-model="HIC030.fecha_ult_cito"
-                    :rules="[requerido]"
-                    :max="fecha_act"
-                    type="date"
-                    dense
-                  />
+                  <q-input class="col-3" v-model="HIC030.fecha_ult_cito" :rules="[requerido]" :max="fecha_act" type="date" dense />
                 </div>
-              </th>              
+              </th>
             </tr>
             <tr>
               <td style="border: 1px solid #ccc">
@@ -193,7 +160,7 @@
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          @reciFirma="callBackFirmaProf"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
@@ -353,6 +320,10 @@ const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
 };
 
+const callBackFirmaProf = (data_firma) => {
+  data_firma && (firma_prof.value = data_firma);
+};
+
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };
@@ -377,6 +348,7 @@ const validarDatos = async () => {
 };
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC030.value));
+
   datos_format.fecha_ult_cito = dayjs(datos_format.fecha_ult_cito).format("YYYYMMDD");
   let datos = {
     estado: opcion_hc030.value == "AUTORIZAR" ? "1" : "2",
@@ -412,7 +384,7 @@ const grabarConsentimiento = async () => {
 const grabarFirmaConsen = async (llave) => {
   try {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    getAcomp.cod && (await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` }));
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();

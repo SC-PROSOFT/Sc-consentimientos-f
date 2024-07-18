@@ -14,8 +14,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
     getEncabezado() {
       return this.encabezado;
     },
-    getImgBs64: () =>
-      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+    getImgBs64: () => "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
   },
   actions: {
     logOut$() {
@@ -176,9 +175,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
           .then((response) => {
             if (response.success) resolve(response.data);
             else {
-              resolve(
-                "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
-              );
+              resolve("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=");
             }
           })
           .catch((error) => {
@@ -222,8 +219,11 @@ export const useApiContabilidad = defineStore("contabilidad", {
           loader: true,
         })
           .then((response) => {
-            if (response.success) resolve(`data:image/png;base64,${response.data}`);
-            else resolve("");
+            if (response.success) {
+              resolve(`data:image/png;base64,${response.data}`);
+            } else {
+              resolve("");
+            }
           })
           .catch((error) => {
             console.error(error);
