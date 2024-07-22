@@ -1,5 +1,5 @@
 <template>
-<q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
+  <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
     <q-form @submit="validarDatos">
       <div class="text-center">
         <q-toggle
@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="reg.opcion_hc039 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="reg.opcion_hc039 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="reg.opcion_hc039"
-          >
+          <q-chip :color="reg.opcion_hc039 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc039">
             {{ reg.opcion_hc039 }}
           </q-chip>
         </p>
@@ -31,38 +27,24 @@
             <InputF_ v-model="reg_firmador.tipo_id" disable />
             N°
             <InputF_ v-model="reg_firmador.cod" disable />
-            obrando en la calidad abajo indicada, hago la siguiente declaración: Por medio del presente
-            documento, en forma libre, en pleno uso de mis facultades mentales y sin limitaciones o
-            impedimentos de carácter médico o legal, habiendo recibido información por parte del médico
+            obrando en la calidad abajo indicada, hago la siguiente declaración: Por medio del presente documento, en forma libre, en pleno uso de mis
+            facultades mentales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información por parte del médico
             tratante sobre las condiciones médicas, he decido solicitar MI ALTA VOLUNTARIA del servicio de
           </p>
           <Input_ v-model="reg.servicio" :field="form.servicio" class="col-12" />
           <p>
-            DE LA ESE SALUD YOPAL, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las
-            consecuencias que se deriven de esta decisión.
+            DE LA ESE SALUD YOPAL, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de esta
+            decisión.
           </p>
         </div>
         <div class="row">
           <p align="justify">CALIDAD EN LA QUE SE OTORGA ESTE CONSENTIMIENTO: Como paciente:</p>
-          <Select_
-            style="min-width: 100px; display: inline-block"
-            v-model="reg.select_paci"
-            :field="form.select_paci"
-            :items="arrSN"
-          />
+          <Select_ style="min-width: 100px; display: inline-block" v-model="reg.select_paci" :field="form.select_paci" :items="arrSN" />
           <p>Como responsable del paciente: (Padre o Madre si es</p>
         </div>
         <div class="row" style="margin-top: -15px">
-          <p>
-            menor; representante legal, familiar o representante u otras personas que figuren como tales en la
-            H. C.)
-          </p>
-          <Select_
-            style="min-width: 100px; display: inline-block"
-            v-model="reg.select_acomp"
-            :field="form.select_acomp"
-            :items="arrSN"
-          />
+          <p>menor; representante legal, familiar o representante u otras personas que figuren como tales en la H. C.)</p>
+          <Select_ style="min-width: 100px; display: inline-block" v-model="reg.select_acomp" :field="form.select_acomp" :items="arrSN" />
         </div>
         <div class="row">
           <p>Fecha de notificación:</p>
@@ -70,9 +52,8 @@
         </div>
         <div class="row">
           <p>
-            Certifico que he explicado los riesgos de alta voluntaria y he contestado todas las preguntas.
-            Considero que el (la) paciente, pariente/representante comprenden completamente lo que he
-            explicado.
+            Certifico que he explicado los riesgos de alta voluntaria y he contestado todas las preguntas. Considero que el (la) paciente,
+            pariente/representante comprenden completamente lo que he explicado.
           </p>
         </div>
         <div class="row">
@@ -82,14 +63,10 @@
 
         <div v-if="reg.opcion_hc039 == 'REVOCAR'" class="row">
           <p>
-            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro
-            por tanto que, tras la información recibida, no consiento someterme al procedimiento SALIDA VOLUNTARIA, por los siguientes motivos:
+            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro por tanto que, tras la información
+            recibida, no consiento someterme al procedimiento SALIDA VOLUNTARIA, por los siguientes motivos:
           </p>
-          <Input_
-            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-            v-model="reg.revocar_motivos"
-            :field="form.revocar"
-          />
+          <Input_ class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-model="reg.revocar_motivos" :field="form.revocar" />
         </div>
       </q-card-section>
       <q-card-actions>
@@ -112,7 +89,7 @@
             class="col-4"
           />
           <ContainerFirma
-            @reciFirma="callBackFirma"
+            @reciFirma="callBackFirmaProf"
             :firma_="firma_prof"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
@@ -237,8 +214,7 @@ const validarDatos = async () => {
   const firma_rq = "No se ha realizado la firma del";
 
   if (!reg.servicio) return CON851("?", "info", `${requiere}, servicio `, () => foco_(form, "servicio"));
-  if (!reg.otras_considera)
-    return CON851("?", "info", `${requiere}, consideraciones `, () => foco_(form, "otras_considera"));
+  if (!reg.otras_considera) return CON851("?", "info", `${requiere}, consideraciones `, () => foco_(form, "otras_considera"));
 
   if (!firma_recibida.value) return CON851("?", "info", `${firma_rq} paciente`);
   if (getAcomp.cod && !firma_recibida_acomp.value) return CON851("?", "info", `${firma_rq} acompañate`);
@@ -373,6 +349,10 @@ const getFirmaProf = async () => {
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
+};
+
+const callBackFirmaProf = (data_firma) => {
+  data_firma && (firma_prof.value = data_firma);
 };
 
 const callBackFirmaAcomp = (data_firma) => {

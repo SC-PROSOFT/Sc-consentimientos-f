@@ -14,27 +14,20 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="reg.opcion_hc034 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="reg.opcion_hc034 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="reg.opcion_hc034"
-            >
+            <q-chip :color="reg.opcion_hc034 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc034">
               {{ reg.opcion_hc034 }}
             </q-chip>
           </p>
         </div>
         <div class="row">
           <p class="text-justify">
-            La ley 23 de 1981 en su artículo 15 y 19, por la cual dictan las normas en materia de Ética
-            médica, estableciendo que el médico no expondrá a su paciente a riesgos injustificados; pedirá su
-            consentimiento para aplicar los tratamientos médicos y quirúrgicos que considere indispensables y
-            que pueden afectarlo física o síquicamente, salvo en los casos en que ello no fuere posible, y le
-            explicará al paciente o a sus responsables de tales consecuencias anticipadamente; igualmente en
-            cumplimiento con lo establecido en la Ley Orgánica de Protección de Datos de carácter Personal
-            (LOPD)15 del 13 de Diciembre 1999 sobre protección de datos personales y de conformidad con lo
-            previsto en la Ley Orgánica (LO) 2 del 3 de marzo del 2010, de Salud Sexual y Reproductiva y de
-            Interrupción Voluntaria del Embarazo, sus datos personales serán tratados garantizando su derecho
-            a la intimidad y confidencialidad.
+            La ley 23 de 1981 en su artículo 15 y 19, por la cual dictan las normas en materia de Ética médica, estableciendo que el médico no
+            expondrá a su paciente a riesgos injustificados; pedirá su consentimiento para aplicar los tratamientos médicos y quirúrgicos que
+            considere indispensables y que pueden afectarlo física o síquicamente, salvo en los casos en que ello no fuere posible, y le explicará al
+            paciente o a sus responsables de tales consecuencias anticipadamente; igualmente en cumplimiento con lo establecido en la Ley Orgánica de
+            Protección de Datos de carácter Personal (LOPD)15 del 13 de Diciembre 1999 sobre protección de datos personales y de conformidad con lo
+            previsto en la Ley Orgánica (LO) 2 del 3 de marzo del 2010, de Salud Sexual y Reproductiva y de Interrupción Voluntaria del Embarazo, sus
+            datos personales serán tratados garantizando su derecho a la intimidad y confidencialidad.
           </p>
         </div>
         <div class="row">
@@ -56,14 +49,7 @@
       <q-card-section>
         <div class="row" style="border: 1px solid #ccc; width: 100%">
           <p>Nombres y apellidos del paciente y/o Tutor legal o Familiar:</p>
-          <q-input
-            type="text"
-            readonly
-            label="Nombre paciente"
-            dense
-            v-model="getPaci.descrip"
-            class="col-4"
-          />
+          <q-input type="text" readonly label="Nombre paciente" dense v-model="getPaci.descrip" class="col-4" />
         </div>
         <div class="row" style="width: 100%">
           <div class="row" style="border: 1px solid #ccc; width: 50%">
@@ -77,23 +63,9 @@
         <div class="row" style="width: 100%">
           <div class="row" style="border: 1px solid #ccc; width: 50%">
             <p>Dirección:</p>
-            <q-input
-              type="text"
-              readonly
-              label="FALTA DIRECCION DIEGO!!!"
-              dense
-              v-model="reg.direccion"
-              class="col-9 q-mx-auto"
-            />
+            <q-input type="text" readonly label="FALTA DIRECCION DIEGO!!!" dense v-model="reg.direccion" class="col-9 q-mx-auto" />
             <p>Acudiente/Responsable:</p>
-            <q-input
-              type="text"
-              readonly
-              label="Nombre responsable"
-              dense
-              v-model="getAcomp.descrip"
-              class="q-ml-xs q-mr-xs q-mb-md col-12"
-            />
+            <q-input type="text" readonly label="Nombre responsable" dense v-model="getAcomp.descrip" class="q-ml-xs q-mr-xs q-mb-md col-12" />
           </div>
           <div class="row" style="border: 0px solid #ccc; width: 50%">
             <div class="row" style="border: 1px solid #ccc; width: 100%">
@@ -102,25 +74,11 @@
             </div>
             <div class="row" style="border: 1px solid #ccc; width: 50%">
               <p>CC:</p>
-              <q-input
-                type="text"
-                readonly
-                label="Identificación"
-                dense
-                v-model="getAcomp.cod"
-                class="q-ml-auto q-mr-md q-mb-md col-10"
-              />
+              <q-input type="text" readonly label="Identificación" dense v-model="getAcomp.cod" class="q-ml-auto q-mr-md q-mb-md col-10" />
             </div>
             <div class="row" style="border: 1px solid #ccc; width: 50%">
               <p>Parentesco:</p>
-              <q-input
-                type="text"
-                label="Parentesco"
-                dense
-                readonly
-                v-model="reg.parentesco"
-                class="q-ml-auto q-mr-md q-mb-md col-9"
-              />
+              <q-input type="text" label="Parentesco" dense readonly v-model="reg.parentesco" class="q-ml-auto q-mr-md q-mb-md col-9" />
             </div>
           </div>
         </div>
@@ -128,26 +86,22 @@
       <q-card-section>
         <div class="row">
           <p class="text-justify">
-            Las Gestantes hacen parte de una población de alto riesgo por su condición de embarazo, por lo
-            tanto, tendrán prioridad en su proceso de atención y apoyo en los diferentes niveles de
-            complejidad y se activarán los protocolos de acuerdo a su condición de salud.
+            Las Gestantes hacen parte de una población de alto riesgo por su condición de embarazo, por lo tanto, tendrán prioridad en su proceso de
+            atención y apoyo en los diferentes niveles de complejidad y se activarán los protocolos de acuerdo a su condición de salud.
           </p>
           <p>
-            Que la Institución para realizar la Interrupción Voluntaria del embarazo (IVE) que he solicitado
-            según la legislación vigente, solo ofrece un (1) método y es el farmacológico (mediante tabletas)
-            Mifepristona 200 microgramos via oral, dosis única y misoprostol vía vaginal o sublingual de 400
-            mcg cada 3 horas hasta 4 dosis iniciando a las 24-48 horas
+            Que la Institución para realizar la Interrupción Voluntaria del embarazo (IVE) que he solicitado según la legislación vigente, solo ofrece
+            un (1) método y es el farmacológico (mediante tabletas) Mifepristona 200 microgramos via oral, dosis única y misoprostol vía vaginal o
+            sublingual de 400 mcg cada 3 horas hasta 4 dosis iniciando a las 24-48 horas
           </p>
           <p>
-            Que los efectos secundarios más frecuentes son Nausea, vomito, Fiebre, escalofrío y diarrea. Se me
-            ha informado sobre las consecuencias psicológicas y sociales, que si bien estadísticamente son
-            poco frecuentes se puede presentar depresiones post aborto, alteraciones del deseo sexual post
-            aborto, baja autoestima y que para algunos sectores de la sociedad el Aborto está mal considerado.
+            Que los efectos secundarios más frecuentes son Nausea, vomito, Fiebre, escalofrío y diarrea. Se me ha informado sobre las consecuencias
+            psicológicas y sociales, que si bien estadísticamente son poco frecuentes se puede presentar depresiones post aborto, alteraciones del
+            deseo sexual post aborto, baja autoestima y que para algunos sectores de la sociedad el Aborto está mal considerado.
           </p>
           <p>
-            Que las complicaciones que se pueden presentar son las relacionadas a continuación y se tendrán
-            como criterios de remisión a la mediana complejidad (marque con una X, el criterio de remisión)
-            con el fin de evitar complicaciones que deriven una muerte materna.
+            Que las complicaciones que se pueden presentar son las relacionadas a continuación y se tendrán como criterios de remisión a la mediana
+            complejidad (marque con una X, el criterio de remisión) con el fin de evitar complicaciones que deriven una muerte materna.
           </p>
         </div>
       </q-card-section>
@@ -174,13 +128,7 @@
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 40%">
-            <q-checkbox
-              class="q-mx-md"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.hemorragia"
-              label="• Hemorragia"
-            />
+            <q-checkbox class="q-mx-md" style="margin-top: -5px" left-label v-model="reg.hemorragia" label="• Hemorragia" />
             <q-space />
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 50%">
@@ -277,45 +225,37 @@
           <q-input v-model="reg_firmador.cod" readonly type="text" dense class="col-3" />
           <p class="text-justify">de</p>
           <q-input v-model="reg_firmador.descrip_ciudad" readonly type="text" dense class="col-2" />
+          <p class="text-justify">en calidad de paciente o acudiente (persona responsable del paciente), por medio del presente documento, en</p>
           <p class="text-justify">
-            en calidad de paciente o acudiente (persona responsable del paciente), por medio del presente
-            documento, en
-          </p>
-          <p class="text-justify">
-            forma libre en pleno uso de mis facultades mentales e intelectuales y sin limitaciones o
-            impedimentos de carácter médico o legal, habiendo recibido información en un lenguaje claro,
-            senillo y adecuado acerca de los riesgos y demás circunstancias que se originen del procedimiento
+            forma libre en pleno uso de mis facultades mentales e intelectuales y sin limitaciones o impedimentos de carácter médico o legal, habiendo
+            recibido información en un lenguaje claro, senillo y adecuado acerca de los riesgos y demás circunstancias que se originen del
+            procedimiento
           </p>
         </div>
         <div class="row" style="margin-top: -17px">
           <p class="text-justify">
             , por parte del profesional en Medicina (Nombres y Apellidos completos) Dr
-            <InputF_ v-model="getProf.descrip" width="300" /> Identificado con Cédula de ciudadanía y/o
-            Registro médico Nº
+            <InputF_ v-model="getProf.descrip" width="300" /> Identificado con Cédula de ciudadanía y/o Registro médico Nº
             <InputF_ v-model="getProf.cod" />
           </p>
         </div>
         <div class="row">
           <div v-if="reg.opcion_hc034 != 'REVOCAR'" class="row">
             <p class="text-justify" style="margin-top: -2px">
-              Autorizo {{ getEmpresa.nomusu }}, para que se me practique la Interrupción Voluntaria del Embarazo (IVE)
-              con el método farmacológico que me ofrece la Institución.
+              Autorizo {{ getEmpresa.nomusu }}, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que
+              me ofrece la Institución.
             </p>
             <p class="text-bold">
-              EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA
-              EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.
+              EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE
+              AHORA PRESTO.
             </p>
           </div>
           <div v-if="reg.opcion_hc034 == 'REVOCAR'" class="row">
             <p>
-              Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y
-              declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento INTERRUPCION VOLUNTARIA DEL EMBARAZO, por los siguientes motivos:
+              Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro por tanto que, tras la información
+              recibida, no consiento someterme al procedimiento INTERRUPCION VOLUNTARIA DEL EMBARAZO, por los siguientes motivos:
             </p>
-            <Input_
-              class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-              v-model="reg.revocar_motivos"
-              :field="form.revocar"
-            />
+            <Input_ class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-model="reg.revocar_motivos" :field="form.revocar" />
           </div>
         </div>
       </q-card-section>
@@ -337,7 +277,7 @@
             class="col-4"
           />
           <ContainerFirma
-            @reciFirma="callBackFirma"
+            @reciFirma="callBackFirmaProf"
             :firma_="firma_prof"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
@@ -416,7 +356,7 @@ const reg = reactive({
   obser_infecciones: "",
   entre_otras: "",
   obser_entre_otras: "",
-  revocar_motivos:"",
+  revocar_motivos: "",
 
   // extras
   descrip_diagnostico: "",
@@ -595,6 +535,9 @@ const callBackFirmaAcomp = (data_firma) => {
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
+};
+const callBackFirmaProf = (data_firma) => {
+  data_firma && (firma_prof.value = data_firma);
 };
 </script>
 <style>

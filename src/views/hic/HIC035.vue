@@ -14,11 +14,7 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="reg.opcion_hc035 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="reg.opcion_hc035 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="reg.opcion_hc035"
-            >
+            <q-chip :color="reg.opcion_hc035 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc035">
               {{ reg.opcion_hc035 }}
             </q-chip>
           </p>
@@ -55,93 +51,59 @@
         </div>
         <div class="row">
           <p>
-            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas,
-            que pueden requerir una extensión de otro procedimiento y/o tratamiento; acepto que las ciencias
-            de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que aunque
-            son procedimientos seguros pueden presentarse complicaciones como:
+            Comprendo que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas, que pueden requerir una extensión de
+            otro procedimiento y/o tratamiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la
+            atención, y que aunque son procedimientos seguros pueden presentarse complicaciones como:
           </p>
-          <Input_
-            class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"
-            v-model="reg.complicaciones"
-            :field="form.complicaciones"
-          />
+          <Input_ class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10" v-model="reg.complicaciones" :field="form.complicaciones" />
         </div>
         <div class="row">
-          <p class="text-justify">
-            Dejo constancia que he sido informado(a) y he recibido información y asesoría sobre el evento:
-          </p>
-          <Input_
-            style="min-width: 100%; display: inline-block; margin-top: 0px"
-            v-model="reg.evento"
-            :field="form.evento"
-          />
+          <p class="text-justify">Dejo constancia que he sido informado(a) y he recibido información y asesoría sobre el evento:</p>
+          <Input_ style="min-width: 100%; display: inline-block; margin-top: 0px" v-model="reg.evento" :field="form.evento" />
           <p align="justify">
-            respecto del modo de contagio, estrategias y métodos de prevención, importancia de diagnostico y
-            tratamiento de la pareja de ser necesario a quien le informaré mi estado actual para que reciba la
-            asesoría, tratamiento y seguimientos que se requieran para evitar reinfecciones y/o transmisión de
-            la enfermedad a otras personas con quien se tenga contacto. Fui informado(a) de las acciones que
-            se seguirán: tratamiento y controles que debo realizar posterior al tratamiento médico, al cual
-            debo ser adherente, y recibir oportunamente y de manera adecuada; Por lo anterior me comprometo a
-            seguir las indicaciones dadas por el profesional de la salud respecto al evento presentado, de no
-            seguir las indicaciones los principales riesgos que se pueden presentar: resistencia a
-            medicamentos, náuseas, mareos, vomito, gastritis, reinfecciones.
+            respecto del modo de contagio, estrategias y métodos de prevención, importancia de diagnostico y tratamiento de la pareja de ser necesario
+            a quien le informaré mi estado actual para que reciba la asesoría, tratamiento y seguimientos que se requieran para evitar reinfecciones
+            y/o transmisión de la enfermedad a otras personas con quien se tenga contacto. Fui informado(a) de las acciones que se seguirán:
+            tratamiento y controles que debo realizar posterior al tratamiento médico, al cual debo ser adherente, y recibir oportunamente y de manera
+            adecuada; Por lo anterior me comprometo a seguir las indicaciones dadas por el profesional de la salud respecto al evento presentado, de
+            no seguir las indicaciones los principales riesgos que se pueden presentar: resistencia a medicamentos, náuseas, mareos, vomito,
+            gastritis, reinfecciones.
           </p>
 
           <p>
-            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o
-            tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que
-            exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que
-            pierda mis derechos para una atención posterior.
+            Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo
+            la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no
+            significa que pierda mis derechos para una atención posterior.
           </p>
           <p>
-            Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado
-            para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y
-            salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí,
-            los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos;
-            se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente
+            Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas
+            terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y
+            entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido
+            hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente
           </p>
-          <p>
-            Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni
-            manipulación:
-          </p>
+          <p>Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
         </div>
 
         <div v-if="reg.opcion_hc035 == 'REVOCAR'">
           <p>
-            Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro
-            por tanto que, tras la información recibida, no consiento someterme al procedimiento de:
+            Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro por tanto que, tras la información
+            recibida, no consiento someterme al procedimiento de:
           </p>
-          <Input_
-            style="min-width: 100%; display: inline-block; margin-top: 0px"
-            v-model="reg.revoca_procedi"
-            :field="form.revoca_procedi"
-          />
+          <Input_ style="min-width: 100%; display: inline-block; margin-top: 0px" v-model="reg.revoca_procedi" :field="form.revoca_procedi" />
           <p>por los siguientes motivos.</p>
-          <Input_
-            style="min-width: 100%; display: inline-block; margin-top: 0px"
-            v-model="reg.revoca_motivos"
-            :field="form.revoca_motivos"
-          />
+          <Input_ style="min-width: 100%; display: inline-block; margin-top: 0px" v-model="reg.revoca_motivos" :field="form.revoca_motivos" />
         </div>
         <div v-else>
           <p>
-            <ins class="text-bold">Autorizo</ins> al personal asistencial de {{ getEmpresa.nomusu }}, para la
-            realización de los procedimientos de salud:
+            <ins class="text-bold">Autorizo</ins> al personal asistencial de {{ getEmpresa.nomusu }}, para la realización de los procedimientos de
+            salud:
           </p>
-          <Input_
-            style="min-width: 100%; display: inline-block; margin-top: 0px"
-            v-model="reg.auto_procedimiento"
-            :field="form.auto_procedimiento"
-          />
+          <Input_ style="min-width: 100%; display: inline-block; margin-top: 0px" v-model="reg.auto_procedimiento" :field="form.auto_procedimiento" />
           <p>, cuyo objetivo es:</p>
-          <Input_
-            style="min-width: 100%; display: inline-block; margin-top: 0px"
-            v-model="reg.auto_objetivo"
-            :field="form.auto_objetivo"
-          />
+          <Input_ style="min-width: 100%; display: inline-block; margin-top: 0px" v-model="reg.auto_objetivo" :field="form.auto_objetivo" />
           <p>ante el diagnostico</p>
           <Input_
-            style="min-width: 100%; display: inline-block; margin-top: 0px; margin-bottom: 10px;"
+            style="min-width: 100%; display: inline-block; margin-top: 0px; margin-bottom: 10px"
             v-model="reg.diagnostico"
             :field="form.diagnostico"
           />
@@ -164,7 +126,7 @@
             class="col-4"
           />
           <ContainerFirma
-            @reciFirma="callBackFirma"
+            @reciFirma="callBackFirmaProf"
             :firma_="firma_prof"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
@@ -328,10 +290,8 @@ const validarDatos = async () => {
   const requiere = "Complete el siguiente campo";
 
   if (reg.opcion_hc035 == "REVOCAR") {
-    if (!reg.revoca_procedi)
-      return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_procedi"));
-    if (!reg.revoca_motivos)
-      return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_motivos"));
+    if (!reg.revoca_procedi) return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_procedi"));
+    if (!reg.revoca_motivos) return CON851("?", "info", `${requiere},  `, () => foco_(form, "revoca_motivos"));
   }
 
   if (!reg.evento) return CON851("?", "info", `${requiere}, evento `, () => foco_(form, "evento"));
@@ -470,6 +430,9 @@ const callBackFirmaAcomp = (data_firma) => {
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
+};
+const callBackFirmaProf = (data_firma) => {
+  data_firma && (firma_prof.value = data_firma);
 };
 </script>
 <style>
