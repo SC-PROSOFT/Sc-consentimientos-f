@@ -436,6 +436,7 @@
           :registro_profe="getTestigo.cod"
           @reciFirma="callBackFirmaTest"
           quien_firma="FIRMA TESTIGO"
+          :codigo_firma="getTestigo.cod"
           class="col-4"
         />
         <ContainerFirma
@@ -445,6 +446,7 @@
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.cod"
           quien_firma="FIRMA PROFESIONAL"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>

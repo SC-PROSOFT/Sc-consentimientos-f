@@ -10,26 +10,10 @@
         class="shadow-1"
         fit="contain"
       />
-      <q-img
-        v-if="huella_ ? true : false"
-        style="height: 100px"
-        spinner-color="white"
-        class="shadow-1 col-4"
-        :src="huella_"
-        fit="contain"
-      />
+      <q-img v-if="huella_ ? true : false" style="height: 100px" spinner-color="white" class="shadow-1 col-4" :src="huella_" fit="contain" />
     </q-card-section>
     <q-card-actions align="around">
-      <q-btn
-        @click="() => (show_firma = true)"
-        class="material-icons"
-        :disable="reg.disable"
-        icon="draw"
-        size="sm"
-        square
-        flat
-        >Firmar
-      </q-btn>
+      <q-btn @click="() => (show_firma = true)" class="material-icons" :disable="reg.disable" icon="draw" size="sm" square flat>Firmar </q-btn>
       <q-btn
         v-if="reg.quien_firma.toLowerCase().includes('funcionario')"
         @click="() => (show_consen892 = true)"
@@ -61,7 +45,7 @@ const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarT
 const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN982.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
-const { getDll$, _getHuella$, getImgBs64 } = useApiContabilidad();
+const { getDll$, _getHuella$, getImgBs64, _getFirma$ } = useApiContabilidad();
 const { getEmpresa, getPaci, getProf } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
@@ -78,6 +62,10 @@ const props = defineProps({
     default: "Sin asignar",
   },
   firma_: {
+    type: String,
+    default: "",
+  },
+  codigo_firma: {
     type: String,
     default: "",
   },
@@ -110,9 +98,16 @@ onMounted(() => {
 const getFirmaPaci = async () => {
   try {
     /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
+    let existeFirma = null;
     const check_paci = props.quien_firma.toLowerCase().includes("paciente") || false;
     const check_prof = props.quien_firma.toLowerCase().includes("profesional") || false;
-    let existeFirma = null;
+
+    if (getEmpresa.unid_prog == "P" && props.codigo_firma) {
+      firma.value = await _getFirma$({ codigo: props.codigo_firma });
+      existeFirma = firma.value ? firma.value : getImgBs64;
+      return CallBackFirma(existeFirma);
+    }
+
     if (Number(getEmpresa.nitusu) == 844003225) {
       if (check_paci) {
         firma.value = await _getHuella$({
@@ -120,7 +115,7 @@ const getFirmaPaci = async () => {
           ruta: "C:/SC/NEWCOBOL/DATOS/BIOMETRIA",
           formato: "png",
         });
-        
+
         /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
         existeFirma = firma.value ? firma.value : getImgBs64;
       }
@@ -134,7 +129,11 @@ const getFirmaPaci = async () => {
         existeFirma = firma.value ? firma.value : getImgBs64;
       }
 
-      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */     
+      if (props.firma_) {
+        firma.value = props.firma_;
+        return;
+      }
+      /* Yopal solicita que no es necesario que el paciente firme o tenga firma, entonces ponemos una IMG por defecto */
       CallBackFirma(existeFirma);
     }
   } catch (error) {
