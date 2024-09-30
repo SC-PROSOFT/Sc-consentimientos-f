@@ -160,10 +160,15 @@ export const useApiContabilidad = defineStore("contabilidad", {
     _getLogo$({ nit = 0, formato = "png" }) {
       nit = isNaN(nit) ? String(nit) : Number(this.empresa.nitusu);
       let ruta;
+      console.log("nit ", nit);
+
       if (this.empresa.unid_prog == "S") {
         ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/LOGOS`;
       } else if (this.empresa.unid_prog == "P") {
+        console.log("entre pare P");
+        console.log("nitusu --->> ", this.empresa.nitusu);
         ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/LOGOS`;
+        console.log("ruta -->> ", ruta);
       }
       return new Promise((resolve, reject) => {
         apiAxios({
@@ -265,6 +270,6 @@ export const useApiContabilidad = defineStore("contabilidad", {
 
 const validarDiscoDeploy = (nitusu) => {
   if ([844003225].includes(Number(nitusu))) {
-    return "C";
+    return "P";
   } else return "D";
 };
