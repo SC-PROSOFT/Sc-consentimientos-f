@@ -29,14 +29,14 @@ export const impresionODO003 = ({ datos }) => {
           columns: [
             {
               width: "auto",
-              text: `Ciudad: ${datos.empresa.CIUDAD_USUAR}`,
+              text: `Ciudad: ${datos.empresa.ciudad_usuar}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
             {
               marginLeft: 50,
               width: "auto",
-              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
+              text: `Fecha: ${dayjs(datos.fecha_act).format("YYYY-MM-DD")}`,
               alignment: "justify",
               style: "bodyNoBold",
             },
@@ -58,7 +58,7 @@ export const impresionODO003 = ({ datos }) => {
           marginLeft: 20,
           marginTop: 5,
           marginBottom: 5,
-          text: `${datos.complicaciones}`,
+          text: `${datos.complicaciones || ""}`,
           style: "bodyNoBold",
         },
         {

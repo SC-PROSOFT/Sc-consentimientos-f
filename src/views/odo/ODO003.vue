@@ -25,7 +25,7 @@
         </div>
         <div class="row">
           <p>Ciudad:</p>
-          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.CIUDAD_USUAR" />
+          <q-input disable type="text" dense class="col-1" v-model="getEmpresa.ciudad_usuar" />
           <p>fecha:</p>
           <q-input disable type="text" dense class="col-1" v-model="ODO003.fecha_act" />
         </div>
@@ -105,8 +105,9 @@
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          @reciFirma="callBackFirmaProf"
           :firma_="firma_prof"
+          :codigo_firma="getProf.cod"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.registro_profe"
@@ -133,7 +134,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHIC032, impresion, generarArchivo } from "@/impresiones";
+import { impresionODO003, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -239,9 +240,9 @@ const datosInit = () => {
   ODO003.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   ODO003.llave = getHc.llave.slice(15);
 
-  if (getHc.rips?.diagn && getHc.rips.diagn.length) {
-    ODO003.diagnostico = getHc.rips.diagn[0].cod;
-    descrip_diagnostico.value = getHc.rips.diagn[0].descrip;
+  if (getHc.rips?.diagn && getHc.rips?.diagn.length) {
+    ODO003.diagnostico = getHc.rips?.diagn[0].cod;
+    descrip_diagnostico.value = getHc.rips?.diagn[0].descrip;
   }
 };
 
@@ -365,7 +366,7 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async () => {
-  const datos_hic032 = {
+  const datos_odo003 = {
     autorizo: ODO003.opcion_odo003 == "AUTORIZAR" ? true : false,
     empresa: getEmpresa,
     paciente: getPaci,
@@ -381,7 +382,7 @@ const imprimirConsen = async () => {
       firma_prof: firma_prof.value ? true : false,
     },
     ...ODO003,
-    diagnostico: getHc.rips?.diagn.length ? getHc.rips?.diagn[0].cod : "",
+    diagnostico: getHc.rips?.diagn.length ? getHc.rips?.diagn[0]?.cod : "",
   };
 
   const firmas = {
@@ -392,17 +393,17 @@ const imprimirConsen = async () => {
     firma_prof: firma_prof.value,
   };
 
-  const docDefinitionPrint = utilsFormat({
+  const docDefinitionPrint = await utilsFormat({
     datos: firmas,
-    content: impresionHIC032({
-      datos: datos_hic032,
+    content: impresionODO003({
+      datos: datos_odo003,
     }),
   });
 
-  const docDefinitionFile = utilsFormat({
+  const docDefinitionFile = await utilsFormat({
     datos: firmas,
-    content: impresionHIC032({
-      datos: datos_hic032,
+    content: impresionODO003({
+      datos: datos_odo003,
     }),
   });
 
@@ -419,13 +420,15 @@ const callbackCONSEN800 = (data) => {
 };
 
 const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma.slice(22));
+  data_firma && (firma_recibida_acomp.value = data_firma);
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma.slice(22));
+  data_firma && (firma_recibida.value = data_firma);
 };
-
+const callBackFirmaProf = (data_firma) => {
+  data_firma && (firma_prof.value = data_firma);
+};
 const requerido = (val) => {
   return !!val || "Este campo es requerido";
 };
