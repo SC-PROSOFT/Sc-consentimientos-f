@@ -1,7 +1,7 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
 
-export const impresionHC003 = ({ datos }) => {
+export const impresionODO003 = ({ datos }) => {
   var dd = {
     stack: [contenidoConsenGeneral(), firmas()],
   };
@@ -400,7 +400,7 @@ export const impresionHC003 = ({ datos }) => {
 
   function firmas() {
     let firmasArray = [];
-    let anchos = [];
+    let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {

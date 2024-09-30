@@ -256,7 +256,7 @@ export const impresionODO007 = ({ datos }) => {
 
   function firmas() {
     let firmasArray = [];
-    let anchos = [];
+    let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {

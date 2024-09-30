@@ -265,8 +265,10 @@ export const impresionODO004 = ({ datos }) => {
 
   function firmas() {
     let firmasArray = [];
-    let anchos = [];
+    let anchos = ["40%"];
     let tamanoFirmasArray = 0;
+    console.log("firma_acomp  -->> ", datos.firmas.firma_acomp);
+    console.log("firma_prof  -->> ", datos.firmas.firma_prof);
 
     if (datos.firmas.firma_acomp) {
       firmasArray.push(firmaAcompanante());
@@ -284,8 +286,13 @@ export const impresionODO004 = ({ datos }) => {
 
     if (firmasArray.length == 2) {
       firmasArray.unshift({ border: [false, false, false, false], text: "" });
+
       anchos = ["10%", "40%", "40%"];
-    } else if (firmasArray.length == 3) anchos = ["33%", "34%", "33%"];
+    } else {
+      if (firmasArray.length == 3) anchos = ["33%", "34%", "33%"];
+    }
+    console.log("....firmasArray  ---> ", ...firmasArray);
+    console.log("anchos  ---> ", anchos);
     return {
       marginTop: 30,
       table: {
