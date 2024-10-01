@@ -269,7 +269,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
 });
 
 const validarDiscoDeploy = (nitusu) => {
-  if ([844003225].includes(Number(nitusu))) {
-    return "P";
-  } else return "D";
+  return "D";
+  // if ([844003225].includes(Number(nitusu))) {
+  //   return "D";
+  // } else return "D";
 };

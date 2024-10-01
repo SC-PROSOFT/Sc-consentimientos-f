@@ -100,7 +100,7 @@ export const impresionODO003 = ({ datos }) => {
               {
                 text: [
                   {
-                    text: "Autorizo",
+                    text: "Autorizo ",
                     bold: true,
                     decoration: "underline",
                   },
