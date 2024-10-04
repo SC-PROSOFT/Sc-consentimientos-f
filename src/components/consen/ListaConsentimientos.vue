@@ -241,7 +241,7 @@ const getHistoriaClinica = async () => {
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       //(Yopal) asi la HC este cerrada deja seguir
-      console.log("nit_usu ->", nit_usu);
+
       if (nit_usu == 844003225) return;
 
       return CON851("9Y", "info", "", logOut$);
@@ -326,6 +326,7 @@ const reimprimirConsentimiento = async (row) => {
         cod_consen: row.reg_coninf?.cod,
         firma_prof: firma_prof.value,
       },
+
       content: formatos[`impresion${row.reg_coninf?.cod}`]({
         datos: {
           autorizo: row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
@@ -362,16 +363,18 @@ const reimprimirConsentimiento = async (row) => {
   }
 };
 const getFirmaProf = async (cod_prof) => {
+  console.log("nitusu -->> ", Number(getEmpresa.nitusu));
+
   try {
-    if (Number(getEmpresa.nitusu) == 844003225) {
-      firma_prof.value = await _getHuella$({
-        codigo: cod_prof?.slice(2),
-        ruta: "C:/SC/NEWCOBOL/HC/DATOS",
-        formato: "dat",
-      });
-    } else {
-      firma_prof.value = await _getFirma$({ codigo: cod_prof });
-    }
+    // if (Number(getEmpresa.nitusu) == 844003225) {
+    //   firma_prof.value = await _getHuella$({
+    //     codigo: cod_prof?.slice(2),
+    //     ruta: "C:/SC/NEWCOBOL/HC/DATOS",
+    //     formato: "dat",
+    //   });
+    // } else {
+    firma_prof.value = await _getFirma$({ codigo: cod_prof });
+    // }
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -432,10 +435,14 @@ const getMaestros = async () => {
 
 const selectConsen = async (data) => {
   const consen_select = lista_maestros.value.find((e) => e.cod_mae == data);
+
   setHeader$({ encabezado: consen_select });
   try {
-    if (params_querys.value.modulo != "LAB") return router.push({ name: data });
-    return router.replace({ name: data });
+    if (params_querys.value.modulo != "LAB") {
+      return router.push({ name: data });
+    } else {
+      return router.replace({ name: data });
+    }
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
