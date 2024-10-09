@@ -104,7 +104,7 @@ export const evaluarParentesco = (value) => {
     { COD: "11", DESCRIP: "AMIGO(A)" },
     { COD: "12", DESCRIP: "ABUELO(A)" },
   ];
-  return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
+  return parentesco.find((e) => e.COD == value)?.DESCRIP || "";
 };
 export const evaluarDiscapacidad = (value) => {
   const discapacidad = [

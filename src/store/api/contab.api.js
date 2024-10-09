@@ -208,7 +208,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
         if (this.empresa.unid_prog == "S") {
           ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/BIOMETRIA`;
         } else if (this.empresa.unid_prog == "P") {
-          ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/BIOMETRIA`;
+          ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/PSC/PROG/DATOS/BIOMETRIA/HUELLAS`;
         }
       }
 
@@ -233,6 +233,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
     _getImagen$({ codigo = 0, formato = "png" }) {
+      console.log("codigo en _getImagen ", codigo);
+
       let ruta;
       if (this.empresa.unid_prog == "S") {
         ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;

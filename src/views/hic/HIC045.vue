@@ -33,12 +33,15 @@
         <p align="justify" class="text-bold" style="margin-bottom: 1px">Procedimiento a realizar:</p>
         <Input_ style="min-width: 100%; display: inline-block" v-model="HIC045.procedimiento" :field="form.procedimiento" />
         <p align="justify" class="text-bold" style="padding-top: 16px">Beneficios esperados:</p>
+
+        <p style="text-align: justify">Los pacientes pueden ser diagnosticados,lo que puede contrubuir a mejores resultados y tratamiento médico.</p>
+        <p align="justify" class="text-bold" style="padding-top: 16px">Riesgos o posibles complicaciones derivadas:</p>
+
         <p style="text-align: justify">
-          Los pacientes pueden ser diagnosticados,lo que puede contrubuir a mejores resultados y tratamiento médico.
-          <strong class="text-bold">RIESGOS O POSIBLES COMPLICACIONES DERIVADAS: </strong> A pesar de los esfuerzos razonables de protección, la
-          transmisión de la información médica, se pueden presentar las siguientes complicaciones. Infarto de Miocardio, Asistolia, Fibrilación
-          Ventricular, Taquicardia Ventricular, Arritmias Supraventriculares, Espasmo Coronario, Hipotensión, Hipertensión, Hipersensibilidad a
-          medicamentos (según estudio), Caidas desde su propia altura, trauma laringeo y esofagico (ETE).
+          A pesar de los esfuerzos razonables de protección, la transmisión de la información médica, se pueden presentar las siguientes
+          complicaciones. Infarto de Miocardio, Asistolia, Fibrilación Ventricular, Taquicardia Ventricular, Arritmias Supraventriculares, Espasmo
+          Coronario, Hipotensión, Hipertensión, Hipersensibilidad a medicamentos (según estudio), Caidas desde su propia altura, trauma laringeo y
+          esofagico (ETE).
         </p>
         <p style="text-align: justify">
           Manifiesto que me han explicado en términos comprensibles en que consiste el(os) procedimiento(s), cuales son sus beneficios, prosibles

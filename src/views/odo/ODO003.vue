@@ -248,7 +248,7 @@ const datosInit = () => {
 
 const getFirmaProf = async () => {
   try {
-    huella_paci.value = await _getHuella$({ codigo: Number(getPaci.cod) });
+    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
   } catch (error) {
     console.error(error);
