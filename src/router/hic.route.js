@@ -40,8 +40,7 @@ export const createRouteHic = (title) => [
       maintenance: true,
       require_auth: true,
       title: `${title} - FORMATO HIC006`,
-      descrip:
-        "Consentimiento del familiar o tutor, autorizando a hija menor para vacunarse contra el virus del papiloma humano",
+      descrip: "Consentimiento del familiar o tutor, autorizando a hija menor para vacunarse contra el virus del papiloma humano",
     },
   },
   {
@@ -236,6 +235,16 @@ export const createRouteHic = (title) => [
       require_auth: true,
       title: `${title} - FORMATO HIC044`,
       descrip: "Acompañamiento durante trabajo de parto, parto y post parto",
+    },
+  },
+  {
+    path: "/HIC045",
+    name: "HIC045",
+    component: () => import("@/views/hic/HIC045.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC045`,
+      descrip: "Consentimiento informado cardiología",
     },
   },
   {

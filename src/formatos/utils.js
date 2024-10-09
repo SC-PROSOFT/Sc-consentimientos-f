@@ -52,17 +52,17 @@ export const utilsFormat = async ({ datos, content }) => {
   };
 };
 
-const min_salud = ["HIC042", "HIC036"]
-const colom_poten = ["HIC043"]
+const min_salud = ["HIC042", "HIC036"];
+const colom_poten = ["HIC043"];
 
 const validarLogo = async (datos) => {
   try {
-    let logo = ""
+    let logo = "";
     const base64 = "data:image/png;base64,";
     console.log("⚡LOGO HEADER-->", datos?.cod_consen);
     if (colom_poten.includes(datos?.cod_consen)) logo = await _getLogo$({ nit: "ColomPotenVida" });
     else if (min_salud.includes(datos?.cod_consen)) logo = await _getLogo$({ nit: "MinSalud" });
-    else return logo = useModuleFormatos().getLogo;
+    else return (logo = useModuleFormatos().getLogo);
 
     logo = `${base64}${logo}`;
     return logo;
@@ -72,6 +72,22 @@ const validarLogo = async (datos) => {
 };
 
 export const calcEdad = (edad) => dayjs().diff(edad, "year");
+
+export const calcularEdad = (fecha_naci) => {
+  const fecha_actual = dayjs();
+  const nacimiento = dayjs(fecha_naci, "YYYYMMDD");
+  const diferencia_dias = fecha_actual.diff(nacimiento, "day");
+  const diferencia_meses = fecha_actual.diff(nacimiento, "month");
+  const diferencia_anios = fecha_actual.diff(nacimiento, "year");
+
+  if (diferencia_dias < 30) {
+    return `${diferencia_dias} días`;
+  } else if (diferencia_meses < 12) {
+    return `${diferencia_meses} meses`;
+  } else {
+    return `${diferencia_anios} años`;
+  }
+};
 
 export const evaluarParentesco = (value) => {
   const parentesco = [
@@ -89,6 +105,62 @@ export const evaluarParentesco = (value) => {
     { COD: "12", DESCRIP: "ABUELO(A)" },
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "NO TIENE PARENTESCO";
+};
+export const evaluarDiscapacidad = (value) => {
+  const discapacidad = [
+    { COD: "1", DESCRIP: "SIN DISCAPACIDAD" },
+    { COD: "2", DESCRIP: "DISCAPACIDAD FISICA" },
+    { COD: "3", DESCRIP: "DISCAPACIDAD AUDITIVA" },
+    { COD: "4", DESCRIP: "DISCAPACIDAD VISUAL" },
+    { COD: "5", DESCRIP: "DISCAPACIDAD MENTAL" },
+    { COD: "6", DESCRIP: "DISCAPACIDAD COGNITIVA" },
+  ];
+  return discapacidad.find((e) => e.COD == value)?.DESCRIP || "SIN DISCAPACIDAD";
+};
+export const evaluarTipoId = (value) => {
+  const array_tipo_id = [
+    { COD: "CC", DESCRIP: "CEDULA CIUDADANIA" },
+    { COD: "CE", DESCRIP: "CEDULA EXTRANJERIA" },
+    { COD: "PA", DESCRIP: "NUMERO PASAPORTE" },
+    { COD: "RC", DESCRIP: "REGISTRO CIVIL" },
+    { COD: "TI", DESCRIP: "TARJETA IDENTIDAD" },
+    { COD: "ASI", DESCRIP: "ADULTO SIN IDENTIDAD" },
+    { COD: "MSI", DESCRIP: "MENOR SIN IDENTIDAD" },
+    { COD: "NUI", DESCRIP: "NUM UNICO IDENTIDAD NUID" },
+    { COD: "CD", DESCRIP: "CARNET DIPLOMA" },
+    { COD: "SC", DESCRIP: "SALVO CONDUCTO" },
+    { COD: "PE", DESCRIP: "PERMISO ESPECIAL PERM" },
+    { COD: "CN", DESCRIP: "CERTIFICADO NACIDO VIVO" },
+    { COD: "PT", DESCRIP: "PERMISO PROTECCION TEMPORAL" },
+    { COD: "DE", DESCRIP: "DOC IDENTIDAD EXTRANJERA" },
+  ];
+  let busqueda = array_tipo_id.find((e) => e.COD == value.trim());
+  return busqueda ? busqueda.COD + " - " + busqueda.DESCRIP : "";
+};
+export const evaluarClaseServ = (value) => {
+  const servicio =
+    Number(getEmpresa.nitusu) == 800156469
+      ? [
+          { COD: "0", DESCRIP: "DROGUERIA" },
+          { COD: "1", DESCRIP: "CIRUGIAS" },
+          { COD: "2", DESCRIP: "ECOGRAFIAS" },
+          { COD: "3", DESCRIP: "RX - IMAGENOLOGIA" },
+          { COD: "4", DESCRIP: "DOPPLER" },
+          { COD: "5", DESCRIP: "T.A.C." },
+          { COD: "6", DESCRIP: "RESONANCIA NUCLEAR" },
+          { COD: "7", DESCRIP: "PROMOCION Y PREVENCION" },
+        ]
+      : [
+          { COD: "0", DESCRIP: "DROGUERIA" },
+          { COD: "1", DESCRIP: "CIRUGIAS" },
+          { COD: "2", DESCRIP: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+          { COD: "3", DESCRIP: "RX - IMAGENOLOGIA" },
+          { COD: "4", DESCRIP: "OTROS SERVICIOS" },
+          { COD: "5", DESCRIP: "CONSULTAS Y TERAPIAS" },
+          { COD: "6", DESCRIP: "PATOLOGIA" },
+          { COD: "7", DESCRIP: "PROMOCION Y PREVENCION" },
+        ];
+  return servicio.find((e) => e.COD == value)?.DESCRIP || " ";
 };
 
 const datosHeader = (iso, currentPage, pageCount) => {
@@ -206,10 +278,8 @@ const construirHeaderISO = () => {
 };
 
 export const datosFormatUTM = ({ datos }) => {
-  const diag =
-    getSesion?.diagnosticos.length == 2 ? getSesion?.diagnosticos : JSON.parse(atob(getSesion.diagnosticos));
-  const artic =
-    getSesion?.articulos.length == 2 ? getSesion?.articulos : JSON.parse(atob(getSesion.articulos));
+  const diag = getSesion?.diagnosticos.length == 2 ? getSesion?.diagnosticos : JSON.parse(atob(getSesion.diagnosticos));
+  const artic = getSesion?.articulos.length == 2 ? getSesion?.articulos : JSON.parse(atob(getSesion.articulos));
   const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
 
   const marcaCasilla = (condicion) => {
@@ -441,11 +511,7 @@ export const datosFormatUTM = ({ datos }) => {
               {
                 stack: [
                   {
-                    text: `${
-                      !tipos_id.includes(datos.paciente.tipo_id.trim())
-                        ? datos.paciente.tipo_id.trim()
-                        : "OTRO"
-                    }`,
+                    text: `${!tipos_id.includes(datos.paciente.tipo_id.trim()) ? datos.paciente.tipo_id.trim() : "OTRO"}`,
                     style: "tableTitle",
                   },
                   {
