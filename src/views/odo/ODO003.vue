@@ -94,13 +94,14 @@
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
+          :huella_="getAcomp.cod ? null : huella_paci"
           class="col-4"
         />
         <ContainerFirma
           :firmador="getAcomp.cod || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.cod ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
+          :huella_="huella_acomp"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
@@ -156,6 +157,7 @@ const descrip_diagnostico = ref("");
 const show_consen800 = ref(false);
 const firma_recibida = ref("");
 const huella_paci = ref(null);
+const huella_acomp = ref(null);
 const firma_prof = ref(null);
 const ODO003 = reactive({
   revocar_procedim: "",
@@ -249,6 +251,7 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
+    huella_acomp.value = await _getHuella$({ codigo: getAcomp.cod });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
   } catch (error) {
     console.error(error);
@@ -290,9 +293,14 @@ const validarDatos = async () => {
   if (!firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañate");
+
+  if (getAcomp.cod && !huella_acomp.value && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma o huella del acompañate");
   }
+
+  // if (getAcomp.cod && !huella_acomp.value && getAcomp.cod && !firma_recibida_acomp.value) {
+  //   return CON851("?", "info", "No se ha realizado la firma del acompañate");
+  // }
 
   if (!ODO003.complicaciones) return CON851("?", "info", `${requiere}, complicaciones `, () => foco_(form, "complicaciones"));
 
@@ -378,6 +386,7 @@ const imprimirConsen = async () => {
     firmas: {
       firma_paci: firma_recibida.value ? true : false,
       huella_paci: huella_paci.value ? true : false,
+      huella_acomp: huella_acomp.value ? true : false,
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
     },
@@ -390,6 +399,7 @@ const imprimirConsen = async () => {
     img_firma_consen: firma_recibida.value,
     img_firma_paci: firma_recibida.value,
     img_huella_paci: huella_paci.value,
+    img_huella_acomp: huella_acomp.value,
     firma_prof: firma_prof.value,
   };
 

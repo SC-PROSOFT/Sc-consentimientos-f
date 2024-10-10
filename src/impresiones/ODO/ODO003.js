@@ -1,6 +1,8 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
-
+import { useModuleFormatos, useApiContabilidad } from "@/store";
+const { getAcomp } = useModuleFormatos();
+const { getImgBs64 } = useApiContabilidad();
 export const impresionODO003 = ({ datos }) => {
   var dd = {
     stack: [contenidoConsenGeneral(), firmas()],
@@ -195,7 +197,7 @@ export const impresionODO003 = ({ datos }) => {
         {
           marginTop: 9,
           marginLeft: 5,
-          image: "huella_paci",
+          image: getAcomp.cod ? getImgBs64 : "huella_paci",
           width: 55,
           height: 70,
         },
@@ -260,7 +262,7 @@ export const impresionODO003 = ({ datos }) => {
     };
   }
 
-  function firmaAcompanante() {
+  function firmaAcompanante(firma_acomp, cant_firmas) {
     return {
       stack: [
         {
@@ -276,13 +278,14 @@ export const impresionODO003 = ({ datos }) => {
           style: "tableNoBold",
           fontSize: 6,
         },
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_acomp",
-          width: 130,
-          height: 70,
-        },
+        firmaHuellaAcomp(firma_acomp, cant_firmas),
+        // {
+        //   marginTop: 8,
+        //   alignment: "center",
+        //   image: "firma_acomp",
+        //   width: 130,
+        //   height: 70,
+        // },
         {
           marginTop: 10,
           columns: [
@@ -331,6 +334,46 @@ export const impresionODO003 = ({ datos }) => {
         },
       ],
     };
+  }
+  function firmaHuellaAcomp(huella_acomp, cant_firmas) {
+    let tamano_firma = 0;
+
+    if (cant_firmas == 2) {
+      tamano_firma = 100;
+    } else {
+      tamano_firma = 125;
+    }
+    const conHuella = {
+      marginLeft: 3,
+      columns: [
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_acomp",
+          width: tamano_firma,
+          height: 70,
+        },
+        {
+          marginTop: 9,
+          marginLeft: 2,
+          image: "huella_acomp",
+          width: 50,
+          height: 65,
+        },
+      ],
+    };
+
+    const sinHuella = {
+      marginLeft: 3,
+      marginTop: 9,
+      alignment: "center",
+      image: "firma_paci",
+      width: tamano_firma,
+      height: 70,
+    };
+
+    if (huella_acomp) return conHuella;
+    else return sinHuella;
   }
 
   function firmaProfesional() {
@@ -403,8 +446,8 @@ export const impresionODO003 = ({ datos }) => {
     let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
-    if (datos.firmas.firma_acomp) {
-      firmasArray.push(firmaAcompanante());
+    if (datos.firmas.firma_acomp || datos.firmas.huella_acomp) {
+      firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
     }
 
     if (datos.firmas.firma_prof) {
