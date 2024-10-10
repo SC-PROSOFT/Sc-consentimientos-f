@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="opcion_hc044 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="opcion_hc044 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="opcion_hc044"
-          >
+          <q-chip :color="opcion_hc044 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hc044">
             {{ opcion_hc044 }}
           </q-chip>
         </p>
@@ -29,83 +25,50 @@
           {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
           <span class="text-bold">ENTIDAD:</span> {{ getEmpresa.nomusu }} &nbsp;
         </p>
-        <p>
-          En forma libre y voluntaria yo <span class="text-bold"> {{ getAcomp.descrip }} </span> identificado
-          Con documento número <span class="text-bold"> {{ getAcomp.cod }} </span> manifiesto mi deseo de
-          ingresar como acompañante durante el trabajo de parto, parto y post parto de la usuaria:
+        <p><span class="text-bold">NOMBRE:</span> {{ getPaci.descrip }}&nbsp;</p>
+        <p><span class="text-bold">TIPO Y NUMERO DOCUMENTO DE INDENTIFICACIÓN:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
+        <!-- <p>
+          En forma libre y voluntaria yo <span class="text-bold"> {{ getAcomp.descrip }} </span> identificado Con documento número
+          <span class="text-bold"> {{ getAcomp.cod }} </span> manifiesto mi deseo de ingresar como acompañante durante el trabajo de parto, parto y
+          post parto de la usuaria:
           <span class="text-bold"> {{ getPaci.descrip }} </span>
-        </p>
+        </p> -->
+        <p align="justify" class="text-bold" style="margin-bottom: 1px">Procedimiento a realizar:</p>
+        <Input_ style="min-width: 100%; display: inline-block" v-model="ODO003.procedimiento" :field="form.procedimiento" />
+        <p align="justify" class="text-bold">Beneficios esperados:</p>
         <p style="text-align: justify">
-          He recibido información clara, en lenguaje sencillo sobre la importancia del acompañamiento durante
-          el trabajo de parto y parto, así como sus beneficios en la salud materna y perinatal.
+          Los pacientes pueden ser diagnosticados,lo que puede contrubuir a mejores resultados y tratamiento médico.
+          <strong class="text-bold">RIESGOS O POSIBLES COMPLICACIONES DERIVADAS: </strong> A pesar de los esfuerzos razonables de protección, la
+          transmisión de la información médica, se pueden presentar las siguientes complicaciones. Infarto de Miocardio, Asistolia, Fibrilación
+          Ventricular, Taquicardia Ventricular, Arritmias Supraventriculares, Espasmo Coronario, Hipotensión, Hipertensión, Hipersensibilidad a
+          medicamentos (según estudio), Caidas desde su propia altura, trauma laringeo y esofagico (ETE).
         </p>
-        <p>Me comprometo a:</p>
-        <ul>
-          <li>
-            Dar apoyo continuo a mi familiar para que se sienta más tranquila y segura durante su trabajo de
-            parto
-          </li>
-          <li>Respetar al personal de la salud y demás pacientes</li>
-          <li>Brindar ayuda efectiva a la mujer:</li>
-          <li>
-            Como promover la respiración consciente, el movimiento como caminar (siempre que no esté
-            contraindicado) y hidratación.
-          </li>
-          <li>
-            Permanecer en la unidad al lado de mi familiar, no deambular por el servicio ni por otros
-            servicios de la institución.
-          </li>
-          <li>Respetar la privacidad de otras usuarias.</li>
-          <li>
-            Permitir la realización de los procedimientos que requiera mi familiar durante su atención en el
-            servicio,
-          </li>
-          <li>
-            Está atento a suministrar información al personal médico, sobre datos personales y el seguimiento
-            de la atención prenatal.
-          </li>
-          <li>
-            No manipular los dispositivos médicos (Líquidos endovenosos, bombas de infusión, monitores,
-            oxigeno, etc.)
-          </li>
-          <li>En la sala de partos permanecer en la cabecera de mi familiar para brindar apoyo requerido.</li>
-          <li>
-            Retirarme del servicio ante la orden médica en caso de situaciones inesperadas para facilitar la
-            actuación del personal de salud.
-          </li>
-          <li>No realizar videos de las actuaciones del personal de salud ni de otros pacientes.</li>
-        </ul>
-        <p>
-          La empresa {{ getEmpresa.nomusu }}, respeta el derecho de las mujeres en trabajo de parto, a estar
-          acompañadas por su compañero o una persona significativa para ella durante el trabajo de parto,
-          parto y puerperio.
+
+        <p style="text-align: justify">
+          Manifiesto que me han explicado en términos comprensibles en que consiste el(os) procedimiento(s), cuales son sus beneficios, prosibles
+          riesgos y complicaciones, que han sido aclaradas todas mis dudas e inquietudes sobre la atención, en palabras claras y fácilmente
+          comprensibles y sé que en cualquier momento puedo negar o retirar mi consentimiento para la realización del procedimiento citado
+          anteriormente . Luego de comprender y ponderar la información recibida, doy mi consentimiento libre y espontáneo, en pleno uso de mis
+          capacidades mentales, para acceder a la prestación del servicio en esta Institución.
         </p>
-        <span class="text-bold text-subtitle1"
-          >Requisitos para el acompañamiento durante el trabajo de parto y parto, en la ESE Salud Yopal.</span
-        >
-        <ul>
-          <li>
-            Idealmente que haya asistido o participado del curso de preparación para la maternidad y
-            paternidad.
-          </li>
-          <li>Leer y firmar el consentimiento de acompañamiento.</li>
-          <li>usar de manera permanente tapabocas</li>
-          <li>No ingresar objetos de valor como joyas bolsos etc.</li>
-          <li>
-            Brindar ayuda efectiva a la mujer: promover la respiración constante. Brindar hidratación
-            constante
-          </li>
-          <li>Evitar el uso del celular en lo posible</li>
-          <li>Colaborar con el manejo médico y decisiones tomados por el médico tratante.</li>
-          <li>
-            Disponer con la pañalera con los elementos requeridos y estar atento de la entrega de alguno,
-            cuando se requiera.
-          </li>
-          <li>Acatar las indicaciones del personal enfermería de sala de partos.</li>
-          <li>Es voluntario entrar al parto.</li>
-          <li>Respetar la privacidad de las demás usuarias de la sala de trabajo de parto.</li>
-        </ul>
+
+        <span v-if="!getAcomp.descrip" class="text-bold text-subtitle1"
+          >MANIFIESTO QUE HE LEÍDO EN SU INTEGRIDAD EL PRESENTE DOCUMENTO Y QUE TODOS LOS ESPACIOS EN BLANCO PRECEDENTES HAN SIDO DILIGENCIADOS ANTES
+          DE MI FIRMA.
+        </span>
       </q-form>
+      <q-form v-if="getAcomp.descrip">
+        <span class="text-bold text-subtitle1">EN CASO DE INCAPACIDAD DEL PACIENTE Y/O MENOR DE EDAD. </span>
+        <p align="justify" style="margin-bottom: 1px">
+          Motivo de la incapacidad: {{ discapacidad[getPaci.discap] }} Relación/Parentesco: {{ parentesco[getSesion.paren_acomp] }}. Yo
+          {{ getAcomp.descrip }} identificado con {{ getAcomp.tipo_id }}. N° {{ getAcomp.cod }} en mi calidad de Representante Legal del paciente,
+          manifiesto que he leído en su integridad el presente documento y que me han explicado claramente en qué consiste la modalidad de atención de
+          telemedicina citada en este documento cuáles son sus beneficios, posibles riesgos y mis responsabilidades. Con base en lo anterior, de
+          manera libre y espontánea, autorizo que se realice la teleconsulta, teniendo en cuenta que se ha acreditado previamente la incapacidad de mi
+          representado para dar su consentimiento frente a la realización de esta modalidad de atención.
+        </p>
+      </q-form>
+
       <div class="col-12 row justify-around">
         <ContainerFirma
           quien_firma="FIRMA PACIENTE"
@@ -152,7 +115,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC044, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted } from "vue";
+import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
@@ -170,11 +133,54 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const fecha_act = ref(null);
+const form = ref({
+  procedimiento: {
+    id: "procedimiento",
+    maxlength: "285",
+    label: "",
+    required: true,
+    standout: "N",
+    outlined: "N",
+    campo_abierto: true,
+  },
+});
+const discapacidad = {
+  1: "SIN DISCAPACIDAD",
+  2: "DISCAPACIDAD FISICA",
+  3: "DISCAPACIDAD AUDITIVA",
+  4: "DISCAPACIDAD VISUAL",
+  5: "DISCAPACIDAD MENTAL",
+  6: "DISCAPACIDAD COGNITIVA",
+};
+const parentesco = {
+  1: "MADRE",
+  2: "PADRE",
+  3: "HIJO(A)",
+  4: "ESPOSO(A)",
+  5: "HERMANO(A)",
+  6: "TIO(A)",
+  7: "SOBRINO(A)",
+  8: "PRIMO(A)",
+  9: "MADRASTRA",
+  10: "PADRASTRO",
+  11: "AMIGO(A)",
+  12: "ABUELO(A)",
+};
+const ODO003 = reactive({
+  procedimiento: "",
+
+  //Extras
+  opcion_odo003: "",
+  fecha_act: "",
+  llave: "",
+});
 
 const reg = ref({});
 const opcion_hc044 = ref(null);
 
 onMounted(() => {
+  console.log("getSesions -->> ", getAcomp);
+
   getFirmaProf();
 });
 

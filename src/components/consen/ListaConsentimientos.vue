@@ -126,6 +126,7 @@ const llave_odo_act = ref(null);
 const firma_testigo = ref(null);
 const firma_consen = ref(null);
 const huella_paci = ref(null);
+const huella_acomp = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
 const firma_prof = ref(null);
@@ -301,6 +302,8 @@ const validarConsen = () => {
 };
 
 const validarAccion = async ({ row }) => {
+  console.log("row en validarAccion --->>", row);
+
   novedad.value == "2" && reimprimirConsentimiento(row);
   novedad.value == "3" && disentirConsentimiento(row);
 };
@@ -311,8 +314,12 @@ const disentirConsentimiento = async (row) => {
 const reimprimirConsentimiento = async (row) => {
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
+  huella_paci.value = await getHuella(row.reg_paci.cod);
+  huella_acomp.value = await getHuella(row.reg_acomp.cod);
   await getHuella(row.reg_paci.cod);
   await consultarFirmaConsen(row.reg_coninf);
+  console.log("row.reg_paci ----> ", row.reg_paci);
+
   try {
     const docDefinition = await utilsFormat({
       datos: {
@@ -322,6 +329,7 @@ const reimprimirConsentimiento = async (row) => {
         img_firma_acomp: firma_acomp.value,
         img_firma_func: firma_func.value,
         img_huella_paci: huella_paci.value,
+        img_huella_acomp: huella_acomp.value,
         img_firma_paci: firma_consen.value,
         cod_consen: row.reg_coninf?.cod,
         firma_prof: firma_prof.value,
@@ -337,6 +345,7 @@ const reimprimirConsentimiento = async (row) => {
             firma_func: row.reg_func?.cod.trim() ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
+            huella_acomp: huella_acomp.value ? true : false,
             firma_testigo: firma_testigo.value ? true : false,
             firma_disentimiento: firma_disentimiento.value ? true : false,
           },
@@ -381,9 +390,9 @@ const getFirmaProf = async (cod_prof) => {
   }
 };
 
-const getHuella = async (cod_paci) => {
+const getHuella = async (cod) => {
   try {
-    huella_paci.value = await _getHuella$({ codigo: cod_paci });
+    return await _getHuella$({ codigo: cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

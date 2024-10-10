@@ -16,6 +16,7 @@ export const utilsFormat = async ({ datos, content }) => {
       logo: logo || getImgBs64,
       firma_acomp: datos.img_firma_acomp ? datos.img_firma_acomp : getImgBs64,
       huella_paci: datos.img_huella_paci ? datos.img_huella_paci : getImgBs64,
+      huella_acomp: datos.img_huella_acomp ? datos.img_huella_acomp : getImgBs64,
       firma_testigo: datos.img_firma_testigo || getImgBs64,
       firma_func: datos.img_firma_func || getImgBs64,
       firma_consen: datos.img_firma_consen || getImgBs64,
