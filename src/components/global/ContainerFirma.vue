@@ -45,7 +45,7 @@ const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarT
 const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN982.vue"));
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
-const { getDll$, _getHuella$, getImgBs64, _getFirma$ } = useApiContabilidad();
+const { getDll$, _getHuella$, getImgBs64, _getFirma$, _getImagen$ } = useApiContabilidad();
 const { getEmpresa, getPaci, getProf } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
@@ -110,20 +110,16 @@ const getFirmaPaci = async () => {
 
     if (Number(getEmpresa.nitusu) == 844003225) {
       if (check_paci) {
-        firma.value = await _getHuella$({
-          codigo: `${getPaci.cod}-FIR`,
-          ruta: "C:/SC/NEWCOBOL/DATOS/BIOMETRIA",
-          formato: "png",
+        firma.value = await _getImagen$({
+          codigo: `P${getPaci.cod}`,
         });
 
         /* TODO: Lo mejor seria agrega una validacion por cada vista, para no guardar una imagen vacia en el servidor del cliente, queda pendiente */
         existeFirma = firma.value ? firma.value : getImgBs64;
       }
       if (check_prof) {
-        firma.value = await _getHuella$({
-          codigo: getProf.cod?.slice(2),
-          ruta: "C:/SC/NEWCOBOL/HC/DATOS",
-          formato: "dat",
+        firma.value = await _getFirma$({
+          codigo: Number(getProf.cod),
         });
 
         existeFirma = firma.value ? firma.value : getImgBs64;
@@ -137,7 +133,7 @@ const getFirmaPaci = async () => {
       CallBackFirma(existeFirma);
     }
   } catch (error) {
-    console.error("Verificar si la firma del paciente esta registrada en maestro (YOPAL)");
+    console.error("Verificar si la firma del paciente esta registrada en maestro (YOPAL), ", error);
     CON851("?", "info", "Error consultando firma de paciente");
   }
 };
