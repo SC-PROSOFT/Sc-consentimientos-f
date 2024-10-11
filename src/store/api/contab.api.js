@@ -204,6 +204,11 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
     _getHuella$({ codigo = 0, formato = "jpg", ruta = "" }) {
+      console.log("codigo en _getHuella ", codigo);
+
+      if ([" ", "", "+"].includes(codigo)) {
+        codigo = 0;
+      }
       if (ruta == "") {
         if (this.empresa.unid_prog == "S") {
           ruta = `${validarDiscoDeploy(this.empresa.nitusu)}:/SC/newcobol/DATOS/BIOMETRIA`;
