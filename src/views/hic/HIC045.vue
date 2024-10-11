@@ -146,8 +146,8 @@ const form = ref({
     maxlength: "285",
     label: "",
     required: true,
-    standout: "N",
-    outlined: "N",
+    standout: false,
+    outlined: false,
     campo_abierto: true,
   },
   revocar_motivos: {
