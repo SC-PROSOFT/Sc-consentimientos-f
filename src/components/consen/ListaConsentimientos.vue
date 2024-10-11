@@ -241,9 +241,9 @@ const getHistoriaClinica = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
-      //(Yopal) asi la HC este cerrada deja seguir
+      //(Yopal) y (SOCIEDAD CARDIOLOGICA COLOMBIA) asi la HC este cerrada deja seguir
 
-      if (nit_usu == 844003225) return;
+      if (nit_usu == 844003225 || nit_usu == 900161116) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
