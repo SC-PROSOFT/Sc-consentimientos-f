@@ -114,7 +114,7 @@ const router = useRouter();
 const route = useRoute();
 
 const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, getTestigo, setHc, setSession } = useModuleFormatos();
+const { getEmpresa, getTestigo, setHc, getHc, setSession } = useModuleFormatos();
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const params_querys = ref(null);
@@ -130,6 +130,7 @@ const huella_acomp = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
 const firma_prof = ref(null);
+const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
@@ -183,7 +184,7 @@ const columns = [
 
 onMounted(() => {
   setTimeout(() => {
-    getParametros();
+    validacionesNitHc();
   }, 100);
 });
 
@@ -193,7 +194,7 @@ const valueEstado = (estado) => {
   return "red";
 };
 
-const getParametros = async () => {
+const validacionesNitHc = async () => {
   try {
     if (Object.keys(route.query).length) setSession(route.query);
 
@@ -202,6 +203,18 @@ const getParametros = async () => {
     novedad.value = params_querys.value.novedad;
 
     params_querys.value.modulo == "HIC" && (await getHistoriaClinica());
+  } catch (error) {
+    console.error(error);
+    if (nit_usu.value == 900161116) {
+      setHc({ llave: route.query.llave_hc, descrip: "", descrip_atiende: "", registro_profe: "", diagn: "" });
+    } else {
+      CON851("?", "info", error, logOut$);
+    }
+  }
+  getParametros();
+};
+const getParametros = async () => {
+  try {
     params_querys.value.modulo == "ODO" && (await getOdontologia());
 
     if ([2, 3].includes(Number(novedad.value))) await getConsentimientosRealizados();
@@ -231,8 +244,7 @@ const getOdontologia = async () => {
 
 const getHistoriaClinica = async () => {
   try {
-    const nit_usu = parseInt(getEmpresa.nitusu) || 0;
-    if (nit_usu == 0) return setTimeout(getHistoriaClinica, 100);
+    if (nit_usu.value == 0) return setTimeout(getHistoriaClinica, 100);
 
     const response = await getDll$({
       modulo: `get_hc.dll`,
@@ -243,7 +255,7 @@ const getHistoriaClinica = async () => {
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
       //(Yopal) y (SOCIEDAD CARDIOLOGICA COLOMBIA) asi la HC este cerrada deja seguir
 
-      if (nit_usu == 844003225 || nit_usu == 900161116) return;
+      if (nit_usu.value == 844003225 || nit_usu.value == 900161116) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
@@ -263,6 +275,7 @@ const getConsentimientosRealizados = async () => {
     const { CONSENTIMIENTOS } = await getDll$({
       modulo: `get_consen.dll`,
       data: {
+        nit_entid: parseInt(getEmpresa.nitusu) || 0,
         modulo: params_querys.value.modulo?.toUpperCase(),
         paso: novedad.value == "1" ? "2" : novedad.value,
         llave_consen,
@@ -302,8 +315,6 @@ const validarConsen = () => {
 };
 
 const validarAccion = async ({ row }) => {
-  console.log("row en validarAccion --->>", row);
-
   novedad.value == "2" && reimprimirConsentimiento(row);
   novedad.value == "3" && disentirConsentimiento(row);
 };
@@ -318,7 +329,6 @@ const reimprimirConsentimiento = async (row) => {
   huella_acomp.value = await getHuella(row.reg_acomp.cod);
   await getHuella(row.reg_paci.cod);
   await consultarFirmaConsen(row.reg_coninf);
-  console.log("row.reg_paci ----> ", row.reg_paci);
 
   try {
     const docDefinition = await utilsFormat({
@@ -372,18 +382,8 @@ const reimprimirConsentimiento = async (row) => {
   }
 };
 const getFirmaProf = async (cod_prof) => {
-  console.log("nitusu -->> ", Number(getEmpresa.nitusu));
-
   try {
-    // if (Number(getEmpresa.nitusu) == 844003225) {
-    //   firma_prof.value = await _getHuella$({
-    //     codigo: cod_prof?.slice(2),
-    //     ruta: "C:/SC/NEWCOBOL/HC/DATOS",
-    //     formato: "dat",
-    //   });
-    // } else {
     firma_prof.value = await _getFirma$({ codigo: cod_prof });
-    // }
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

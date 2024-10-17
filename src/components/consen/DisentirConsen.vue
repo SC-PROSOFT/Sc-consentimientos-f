@@ -18,21 +18,10 @@
           @reciFirma="callBackFirma"
           class="col-12"
         />
-        <TextArea_
-          class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-          v-model="reg_consen.obser_disenti"
-          :field="form_config.obser_disenti"
-        />
+        <TextArea_ class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-model="reg_consen.obser_disenti" :field="form_config.obser_disenti" />
       </div>
       <q-card-actions align="center" class="text-primary text-center">
-        <q-btn
-          id="boton2"
-          color="green"
-          label="Guardar"
-          class="botone q-mx-sm"
-          icon-right="check_circle"
-          @click="validarConfiguracion"
-        />
+        <q-btn id="boton2" color="green" label="Guardar" class="botone q-mx-sm" icon-right="check_circle" @click="validarConfiguracion" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -47,7 +36,7 @@ import { foco_ } from "@/setup";
 
 const ContainerFirma_ = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 
-const { getSesion, getPaci, getAcomp } = useModuleFormatos();
+const { getSesion, getPaci, getAcomp, getEmpresa } = useModuleFormatos();
 const { getDll$, guardarFile$ } = useApiContabilidad();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -127,6 +116,7 @@ const guardarDisentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(reg_consen.value.reg_coninf));
 
   let datos = {
+    nit_entid: parseInt(getEmpresa.nitusu) || 0,
     estado: "3",
     ...datos_format,
     disentimiento: "S",
@@ -162,8 +152,7 @@ const guardarFirmaDisentimiento = async () => {
       return CON851("?", "info", "No se ha realizado la firma del disentimiento");
     }
 
-    if (reg_consen.value.firma_paciente == "S")
-      await guardarFile$({ base64: firma_disentimiento.value, codigo: `DP${llave_conse.value}` });
+    if (reg_consen.value.firma_paciente == "S") await guardarFile$({ base64: firma_disentimiento.value, codigo: `DP${llave_conse.value}` });
     else await guardarFile$({ base64: firma_disentimiento.value, codigo: `DA${llave_conse.value}` });
 
     CON851P("?", "success", "Disentimiento registrado, desea ir a reimprimir ?", null, async () => {

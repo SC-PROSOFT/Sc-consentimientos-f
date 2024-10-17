@@ -225,8 +225,6 @@ const validarDatos = () => {
   }
 
   if (opcion_hc045.value == "AUTORIZAR") {
-    console.log("pare 1 -");
-
     if (!HIC045.procedimiento) return CON851("?", "info", "Complete el campo Procedimiento", () => foco_(form, "procedimiento"));
   }
   grabarConsentimiento();
@@ -235,6 +233,7 @@ const validarDatos = () => {
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC045));
   let datos = {
+    nit_entid: parseInt(getEmpresa.nitusu) || 0,
     estado: opcion_hc045.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
