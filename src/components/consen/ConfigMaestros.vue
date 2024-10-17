@@ -25,8 +25,7 @@
           <template v-slot:body="props">
             <q-tr :props="props" @dblclick="selectConsen(props)" class="cursor">
               <q-td auto-width>
-                <q-btn @click="selectConsen(props)" icon="edit_note" class="botone" color="primary" size="sm">
-                </q-btn>
+                <q-btn @click="selectConsen(props)" icon="edit_note" class="botone" color="primary" size="sm"> </q-btn>
               </q-td>
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 {{ col.value }}
@@ -117,10 +116,7 @@
                 v-model="reg_config.rango_edad"
                 :field="form_config.rango_edad"
               />
-              <div
-                class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mt-md"
-                v-if="reg_config.rango_edad == 'S'"
-              >
+              <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-mt-md" v-if="reg_config.rango_edad == 'S'">
                 <Input_
                   width_label="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
                   width_input="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
@@ -146,14 +142,7 @@
               />
             </div>
             <q-card-actions align="center" class="text-primary text-center">
-              <q-btn
-                id="boton2"
-                color="green"
-                label="Guardar"
-                icon-right="check_circle"
-                @click="actualizarMaestro"
-                class="botone q-mx-sm q-my-md"
-              />
+              <q-btn id="boton2" color="green" label="Guardar" icon-right="check_circle" @click="actualizarMaestro" class="botone q-mx-sm q-my-md" />
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -172,7 +161,6 @@ import days from "dayjs";
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const { getEmpresa } = useModuleFormatos();
-
 
 const props = defineProps({ configuracion: Object });
 const emit = defineEmits(["cerrar", "guardar"]);
@@ -328,17 +316,11 @@ const sexos = ref([
 
 watch(reg_config.value, (val) => {
   if (val.edad_desde && val.edad_desde > 120) {
-    return (
-      CON851("?", "info", `El año desde ${val.edad_desde} no esta en el rango de 0 - 120`),
-      () => (reg_config.value.edad_desde = null)
-    );
+    return CON851("?", "info", `El año desde ${val.edad_desde} no esta en el rango de 0 - 120`), () => (reg_config.value.edad_desde = null);
   }
 
   if (val.edad_hasta && val.edad_hasta > 120) {
-    return (
-      CON851("?", "info", `El año hasta ${val.edad_hasta} no esta en el rango de 0 - 120`),
-      () => (reg_config.value.edad_hasta = null)
-    );
+    return CON851("?", "info", `El año hasta ${val.edad_hasta} no esta en el rango de 0 - 120`), () => (reg_config.value.edad_hasta = null);
   }
 });
 
@@ -379,15 +361,12 @@ const actualizarMaestro = async () => {
     ];
 
     if (data_envio.rango_edad == "S") {
-      camposo_bligatorios.push(
-        { nombre: "edad desde", campo: "edad_desde" },
-        { nombre: "edad hasta", campo: "edad_hasta" }
-      );
+      camposo_bligatorios.push({ nombre: "edad desde", campo: "edad_desde" }, { nombre: "edad hasta", campo: "edad_hasta" });
     }
     if (data_envio.iso == "S") {
       camposo_bligatorios.push({ nombre: "codigo", campo: "codigo" });
 
-      if(getEmpresa.nitusu != 844003225) camposo_bligatorios.push( { nombre: "aprobo", campo: "aprobo" })
+      if (getEmpresa.nitusu != 844003225) camposo_bligatorios.push({ nombre: "aprobo", campo: "aprobo" });
     }
 
     for (const campo_info of camposo_bligatorios) {
@@ -422,6 +401,9 @@ const actualizarMaestro = async () => {
   }
 };
 const getMaestros = async () => {
+  const nit_usu = parseInt(getEmpresa.nitusu) || 0;
+  console.log("nit_usu --> ", nit_usu);
+
   const query = sessionStorage.getItem("query") && JSON.parse(sessionStorage.getItem("query"));
   try {
     const response = await getDll$({
@@ -434,7 +416,28 @@ const getMaestros = async () => {
       },
     });
 
-    maestro_consentimientos.value = response;
+    //Las entidades Yopal y UTM tiene su respectivo consentimiento de mamografia
+    //por lo tanto se condicionan los formatos respecto al nit de la entidades
+    //------------------------------------
+    // YOPAL
+    // LAB004
+    //CONSENTIMIENTO INFORMADO MAMOGRAFIA
+    //----------------------------------
+    //UTM
+    //LAB014
+    //CONSENTIMIENTO INFORMADO MAMOGRAFIA
+    //----------------------------------
+
+    if (nit_usu == 844003225) {
+      // YOPAL (excluye LAB014)
+      maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB014");
+    } else if (nit_usu == 900193162) {
+      // UTM (excluye LAB004)
+      maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB004");
+    } else {
+      // Otras entidades (excluye LAB014 por defecto)
+      maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB014");
+    }
   } catch (error) {
     CON851("?", "info", error);
   }
