@@ -137,9 +137,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
 
     guardarFile$({ base64 = "", ruta = "", codigo = "", formato = "png", loader = true }) {
       if (this.empresa.unid_prog == "S") {
-        ruta = `${"D"(this.empresa.nitusu)}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+        ruta = `D${this.empresa.nitusu}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${"D"(this.empresa.nitusu)}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+        ruta = `D${this.empresa.nitusu}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
       }
 
       return new Promise((resolve, reject) => {
@@ -162,9 +162,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
       let ruta;
 
       if (this.empresa.unid_prog == "S") {
-        ruta = `${"D"(this.empresa.nitusu)}:/SC/newcobol/LOGOS`;
+        ruta = `D${this.empresa.nitusu}:/SC/newcobol/LOGOS`;
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${"D"(this.empresa.nitusu)}:/PSC/PROG/LOGOS`;
+        ruta = `D${this.empresa.nitusu}:/PSC/PROG/LOGOS`;
       }
       return new Promise((resolve, reject) => {
         apiAxios({
@@ -209,9 +209,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
       }
       if (ruta == "") {
         if (this.empresa.unid_prog == "S") {
-          ruta = `${"D"(this.empresa.nitusu)}:/SC/newcobol/DATOS/BIOMETRIA`;
+          ruta = `D${this.empresa.nitusu}:/SC/newcobol/DATOS/BIOMETRIA`;
         } else if (this.empresa.unid_prog == "P") {
-          ruta = `${"D"(this.empresa.nitusu)}:/PSC/PROG/DATOS/BIOMETRIA/HUELLAS`;
+          ruta = `D${this.empresa.nitusu}:/PSC/PROG/DATOS/BIOMETRIA/HUELLAS`;
         }
       }
 
@@ -238,9 +238,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
     _getImagen$({ codigo = 0, formato = "png" }) {
       let ruta;
       if (this.empresa.unid_prog == "S") {
-        ruta = `${"D"(this.empresa.nitusu)}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+        ruta = `D${this.empresa.nitusu}:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
       } else if (this.empresa.unid_prog == "P") {
-        ruta = `${"D"(this.empresa.nitusu)}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+        ruta = `D${this.empresa.nitusu}:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
       }
 
       return new Promise((resolve, reject) => {
