@@ -76,7 +76,7 @@ export const useModuleFormatos = defineStore("formatos", {
   },
   actions: {
     setHc(reg_hic) {
-      setTimeout(sessionStorage.setItem("reg_hc", JSON.stringify(reg_hic)), 200);
+      sessionStorage.setItem("reg_hc", JSON.stringify(reg_hic));
       Object.assign(this.reg_hc, reg_hic);
     },
     setSession(reg_sesion) {

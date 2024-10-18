@@ -152,6 +152,7 @@ const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
+const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const form = ref({
   procedimiento: {
     id: "procedimiento",
@@ -233,7 +234,7 @@ const validarDatos = () => {
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC045));
   let datos = {
-    nit_entid: parseInt(getEmpresa.nitusu) || 0,
+    nit_entid: nit_usu.value,
     estado: opcion_hc045.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,

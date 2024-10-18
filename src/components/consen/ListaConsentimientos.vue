@@ -113,8 +113,9 @@ const { CON851 } = useModuleCon851();
 const router = useRouter();
 const route = useRoute();
 
+const formatosStore = useModuleFormatos();
 const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, getTestigo, setHc, getHc, setSession } = useModuleFormatos();
+const { getEmpresa, getTestigo, setHc, getHc, setSession } = formatosStore;
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const params_querys = ref(null);
@@ -130,7 +131,7 @@ const huella_acomp = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
 const firma_prof = ref(null);
-const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
+const nit_usu = ref(0);
 
 const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
@@ -184,8 +185,21 @@ const columns = [
 
 onMounted(() => {
   setTimeout(() => {
-    validacionesNitHc();
-  }, 100);
+    const isFirstLoad = sessionStorage.getItem("isFirstLoad");
+    console.log("isFirstLoad ", isFirstLoad);
+
+    if (!isFirstLoad) {
+      console.log("entre refrest");
+
+      sessionStorage.setItem("isFirstLoad", "true");
+      window.location.reload();
+    } else {
+      const empresaData = sessionStorage.getItem("empresa");
+      const empresa = JSON.parse(empresaData);
+      nit_usu.value = parseInt(empresa.nitusu) || 0;
+      validacionesNitHc();
+    }
+  }, 600);
 });
 
 const valueEstado = (estado) => {
@@ -196,22 +210,40 @@ const valueEstado = (estado) => {
 
 const validacionesNitHc = async () => {
   try {
-    if (Object.keys(route.query).length) setSession(route.query);
+    if (Object.keys(route.query).length) {
+      formatosStore.setSession(route.query);
+    }
+    if (!Object.keys(route.query).length) {
+      params_querys.value = JSON.parse(sessionStorage.query);
+    } else {
+      params_querys.value = route.query;
+    }
 
-    if (!Object.keys(route.query).length) params_querys.value = JSON.parse(sessionStorage.query);
-    else params_querys.value = route.query;
     novedad.value = params_querys.value.novedad;
 
-    params_querys.value.modulo == "HIC" && (await getHistoriaClinica());
+    if (params_querys.value.modulo == "HIC") {
+      await getHistoriaClinica();
+    }
+
+    getParametros();
   } catch (error) {
     console.error(error);
+
+    console.log("nit_usu ", nit_usu.value);
     if (nit_usu.value == 900161116) {
-      setHc({ llave: route.query.llave_hc, descrip: "", descrip_atiende: "", registro_profe: "", diagn: "" });
+      formatosStore.setHc({
+        llave: route.query.llave_hc,
+        descrip: "",
+        descrip_atiende: "",
+        registro_profe: "",
+        diagn: "",
+      });
+
+      getParametros();
     } else {
-      CON851("?", "info", error, logOut$);
+      return CON851("?", "info", error, logOut$);
     }
   }
-  getParametros();
 };
 const getParametros = async () => {
   try {
@@ -238,13 +270,14 @@ const getOdontologia = async () => {
     //TODO: Se omite por ahora
     // if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
 
 const getHistoriaClinica = async () => {
   try {
-    if (nit_usu.value == 0) return setTimeout(getHistoriaClinica, 100);
+    // if (nit_usu.value == 0) return setTimeout(validacionesNitHc, 100);
 
     const response = await getDll$({
       modulo: `get_hc.dll`,
@@ -275,7 +308,7 @@ const getConsentimientosRealizados = async () => {
     const { CONSENTIMIENTOS } = await getDll$({
       modulo: `get_consen.dll`,
       data: {
-        nit_entid: parseInt(getEmpresa.nitusu) || 0,
+        nit_entid: nit_usu.value,
         modulo: params_querys.value.modulo?.toUpperCase(),
         paso: novedad.value == "1" ? "2" : novedad.value,
         llave_consen,
