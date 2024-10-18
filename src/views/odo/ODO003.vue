@@ -392,6 +392,7 @@ const imprimirConsen = async () => {
     },
     ...ODO003,
     diagnostico: getHc.rips?.diagn.length ? getHc.rips?.diagn[0]?.cod : "",
+    descrip_enfer: descrip_diagnostico.value || "",
   };
 
   const firmas = {
