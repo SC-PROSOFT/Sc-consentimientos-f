@@ -249,7 +249,9 @@ const grabarConsentimiento = async () => {
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
-        const fecha = data?.llave_consen.slice(24, 32);
+        console.log("fecha en data llave consen  ", data?.llave_consen.slice(24, 32));
+        console.log("data peticion save_consen  ", data);
+        const fecha = data?.llave_consen.slice(23, 31);
         HIC045.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       }
