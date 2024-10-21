@@ -132,17 +132,63 @@ export const impresionLAB012 = ({ datos }) => {
           table: {
             widths: ["25%", "25%", "25%", "25%"],
             body: [
-              [{ text: "EXAMEN FÍSICO ", bold: true, alignment: "center", colSpan: 4 }, { text: "" }, { text: "" }, { text: "" }],
+              [{ style: "tableTitle", text: "EXAMEN FÍSICO ", bold: true, alignment: "center", colSpan: 4 }, {}, {}, {}],
               [
-                { text: [{ text: "TA: " }, { text: datos.signo_ta_sistol }, { text: " / " }, { text: datos.signo_ta_diastol }, { text: " mm Hg" }] },
-                { text: [{ text: "FC: " }, { text: datos.signo_frec_card }, { text: " rpm" }] },
-                { text: [{ text: "FR: " }, { text: datos.signo_frec_resp }, { text: " lpm" }] },
-                { text: [{ text: "Sa02: " }, { text: datos.signo_sa_o2_porc }, { text: " %" }] },
+                {
+                  text: [
+                    { style: "tableTitle", text: "TA: " },
+                    { style: "bodyNoBold", text: datos.signo_ta_sistol },
+                    { style: "tableTitle", text: " / " },
+                    { style: "bodyNoBold", text: datos.signo_ta_diastol },
+                    { style: "tableTitle", text: " mm Hg" },
+                  ],
+                },
+                {
+                  text: [
+                    { style: "tableTitle", text: "FC: " },
+                    { style: "bodyNoBold", text: datos.signo_frec_card },
+                    { style: "tableTitle", text: " rpm" },
+                  ],
+                },
+                {
+                  text: [
+                    { style: "tableTitle", text: "FR: " },
+                    { style: "bodyNoBold", text: datos.signo_frec_resp },
+                    { style: "tableTitle", text: " lpm" },
+                  ],
+                },
+                {
+                  text: [
+                    { style: "tableTitle", text: "Sa02: " },
+                    { style: "bodyNoBold", text: datos.signo_sa_o2_porc },
+                    { style: "tableTitle", text: " %" },
+                  ],
+                },
               ],
               [
-                { text: [{ text: "Fi02" }, { text: datos.signo_fi_o2_porc }, , { text: " %" }] },
-                { text: [{ text: "PESO: " }, { text: datos.peso_kg }, { text: " Kg" }] },
-                { text: [{ text: "TALLA: " }, { text: datos.talla_cm }, { text: " cm" }], colSpan: 2 },
+                {
+                  text: [
+                    { style: "tableTitle", text: "Fi02" },
+                    { style: "bodyNoBold", text: datos.signo_fi_o2_porc },
+                    ,
+                    { style: "tableTitle", text: " %" },
+                  ],
+                },
+                {
+                  text: [
+                    { style: "tableTitle", text: "PESO: " },
+                    { style: "bodyNoBold", text: datos.peso_kg },
+                    { style: "tableTitle", text: " Kg" },
+                  ],
+                },
+                {
+                  text: [
+                    { style: "tableTitle", text: "TALLA: " },
+                    { style: "bodyNoBold", text: datos.talla_cm },
+                    { style: "tableTitle", text: " cm" },
+                  ],
+                  colSpan: 2,
+                },
                 {},
               ],
             ],
@@ -154,7 +200,7 @@ export const impresionLAB012 = ({ datos }) => {
           table: {
             widths: ["20%", "20%", "20%", "20%", "20%"],
             body: [
-              [{ text: "CLASIFICACIÓN ASA ", alignment: "left", colSpan: 5 }, {}, {}, {}, {}],
+              [{ style: "tableTitle", text: "CLASIFICACIÓN ASA ", alignment: "left", colSpan: 5 }, {}, {}, {}, {}],
               [
                 {
                   stack: [
