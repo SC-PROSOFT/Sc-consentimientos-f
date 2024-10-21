@@ -93,6 +93,7 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
           @reciFirma="callBackFirma"
           :huella_="getAcomp.cod ? null : huella_paci"
           class="col-4"
