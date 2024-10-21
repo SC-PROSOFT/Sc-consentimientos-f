@@ -30,7 +30,7 @@
     <div class="text-center">
       <div>{{ reg.firmador }}</div>
       <div>{{ reg.descrip_prof }}</div>
-      <div>{{ reg.registro_profe ? `Reg. ${reg.registro_profe}` : "" }}</div>
+      <div>{{ reg.registro_profe ? `${reg.tipo_doc ? reg.tipo_doc : "Reg ."} ${reg.registro_profe}` : "" }}</div>
     </div>
     <FIRMA v-if="show_firma" @CallBackFirma="CallBackFirma" />
     <CONSEN892 v-if="show_consen892" @esc="CallBackConsen892" @enter="CallBackConsen892" />
@@ -39,7 +39,7 @@
 
 <script setup>
 import { useModuleFormatos, useModuleCon851, useApiContabilidad } from "@/store";
-import { ref, defineAsyncComponent, onMounted } from "vue";
+import { ref, defineAsyncComponent, onMounted, computed } from "vue";
 
 const ToolBar_ = defineAsyncComponent(() => import("@/components/global/ToolBarTable.vue"));
 const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN982.vue"));
@@ -74,6 +74,10 @@ const props = defineProps({
     default: "",
   },
   descrip_prof: {
+    type: String,
+    default: "",
+  },
+  tipo_doc: {
     type: String,
     default: "",
   },

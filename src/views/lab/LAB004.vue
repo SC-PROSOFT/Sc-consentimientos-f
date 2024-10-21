@@ -14,11 +14,7 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="reg.opcion_lab004 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="reg.opcion_lab004 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="reg.opcion_lab004"
-            >
+            <q-chip :color="reg.opcion_lab004 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_lab004">
               {{ reg.opcion_lab004 }}
             </q-chip>
           </p>
@@ -27,79 +23,66 @@
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
           <p class="row text-justify">
-            La Ley 23 de 1981 al referirse a las relaciones médico – paciente, en los artículos 14, 15 y 18,
-            advierte la necesidad del consentimiento para realizar los diferentes tratamientos medico
-            quirúrgicos que se requieran. Para la resolución 3100 de 2019 el Consentimiento informado es la
-            aceptación libre, voluntaria y consciente de un paciente o usuario, manifestada en el pleno uso de
-            sus facultades, para que tenga a lugar un acto asistencial. Para que el consentimiento se
-            considere informado, el paciente o usuario deberá entender la naturaleza de la decisión a
-            consentir tras recibir información que le haga consciente de los beneficios, riesgos, alternativas
-            e implicaciones del acto asistencial
+            La Ley 23 de 1981 al referirse a las relaciones médico – paciente, en los artículos 14, 15 y 18, advierte la necesidad del consentimiento
+            para realizar los diferentes tratamientos medico quirúrgicos que se requieran. Para la resolución 3100 de 2019 el Consentimiento informado
+            es la aceptación libre, voluntaria y consciente de un paciente o usuario, manifestada en el pleno uso de sus facultades, para que tenga a
+            lugar un acto asistencial. Para que el consentimiento se considere informado, el paciente o usuario deberá entender la naturaleza de la
+            decisión a consentir tras recibir información que le haga consciente de los beneficios, riesgos, alternativas e implicaciones del acto
+            asistencial
           </p>
         </div>
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">INFORMACIÓN DEL PROCEDIMIENTO</div>
           <p class="row text-justify">
-            La Mamografía es un estudio radiológico con la particularidad de ser una proyección específica
-            para la evaluación de las mamas y con un equipo de rayos X diferente al utilizado para radiología
-            convencional. Para la adquisición de este estudio es necesario que las mamas se coloquen en una
-            superficie y se compriman para que sea más fácil la identificación de tumores o calcificaciones.
-            Es importante ese día no utilizar desodorante o cremas en el área del pecho pues estos productos
-            pueden ser detectados por los RX y causar un mal diagnóstico
+            La Mamografía es un estudio radiológico con la particularidad de ser una proyección específica para la evaluación de las mamas y con un
+            equipo de rayos X diferente al utilizado para radiología convencional. Para la adquisición de este estudio es necesario que las mamas se
+            coloquen en una superficie y se compriman para que sea más fácil la identificación de tumores o calcificaciones. Es importante ese día no
+            utilizar desodorante o cremas en el área del pecho pues estos productos pueden ser detectados por los RX y causar un mal diagnóstico
           </p>
         </div>
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">BENEFICIOS</div>
           <p class="row text-justify">
-            La mamografía de exploración juega un papel central en la detección temprana del cáncer de mamas
-            ya que puede mostrar los cambios en las mamas años antes de que el médico o el paciente los
-            adviertan. La mamografía de diagnóstico se utiliza para evaluar a una paciente con resultados
-            clínicos anormales, tales como nódulos en las mamas o descargas de los pezones, descubiertos por
-            la mujer o su médico. La mamografía de diagnóstico también puede realizarse luego de un mamograma
-            de exploración anormal, con el fin de evaluar el área conflictiva en el examen de exploración.
+            La mamografía de exploración juega un papel central en la detección temprana del cáncer de mamas ya que puede mostrar los cambios en las
+            mamas años antes de que el médico o el paciente los adviertan. La mamografía de diagnóstico se utiliza para evaluar a una paciente con
+            resultados clínicos anormales, tales como nódulos en las mamas o descargas de los pezones, descubiertos por la mujer o su médico. La
+            mamografía de diagnóstico también puede realizarse luego de un mamograma de exploración anormal, con el fin de evaluar el área conflictiva
+            en el examen de exploración.
           </p>
         </div>
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">RIESGOS</div>
           <p class="row text-justify">
-            La comprensión utilizada para tomaar el examen puede causar una pequeña molestia pero sólo durará
-            unos segundos. Todo el examen lo realiza un tecnólogo en imágenes altamente capacitado para este
-            fin. Las Mamogramas con resultado falso positivo requieren de mayor evaluación, como por ejemplo
-            la realización de mamogramas adicionales o ultrasonido. Si aparece un resultado anormal, se deberá
-            realizar un seguimiento o biopsia, de acuerdo a la valoración del medico tratante
+            La comprensión utilizada para tomaar el examen puede causar una pequeña molestia pero sólo durará unos segundos. Todo el examen lo realiza
+            un tecnólogo en imágenes altamente capacitado para este fin. Las Mamogramas con resultado falso positivo requieren de mayor evaluación,
+            como por ejemplo la realización de mamogramas adicionales o ultrasonido. Si aparece un resultado anormal, se deberá realizar un
+            seguimiento o biopsia, de acuerdo a la valoración del medico tratante
           </p>
         </div>
         <div class="border-format q-my-sm" v-if="reg.opcion_lab004 == 'AUTORIZAR'">
-          <div class="text-center text-subtitle1 text-bold q-py-xs">
-            DECLARACION DEL CONSENTIMIENTO INFORMADO
-          </div>
+          <div class="text-center text-subtitle1 text-bold q-py-xs">DECLARACION DEL CONSENTIMIENTO INFORMADO</div>
           <p class="row text-justify">
-            Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la
-            realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito
+            Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención,
+            proceda a firmar dejando su autorización por escrito
           </p>
           <p>
-            Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de
-            identidad número <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el
-            procedimiento de Mamografía, los riesgos y beneficios, declaro que la información ha sido clara,
-            que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en
+            Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de identidad número
+            <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el procedimiento de Mamografía, los riesgos y beneficios,
+            declaro que la información ha sido clara, que se me han respondido las inquietudes y que autorizo la toma del procedimiento teniendo en
             cuenta que esta autorización puede ser revocable en cualquier momento
           </p>
         </div>
         <div class="border-format q-my-sm" v-if="reg.opcion_lab004 == 'REVOCAR'">
-          <div class="text-center text-subtitle1 text-bold q-py-xs">
-            REVOCACIÓN DEL CONSENTIMIENTO INFORMADO
-          </div>
+          <div class="text-center text-subtitle1 text-bold q-py-xs">REVOCACIÓN DEL CONSENTIMIENTO INFORMADO</div>
           <p class="row text-justify">
-            Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la
-            realización del procedimiento en mención, proceda a firmar dejando su autorización por escrito
+            Si ha comprendido la información contenida en el presente documento y acepta voluntariamente la realización del procedimiento en mención,
+            proceda a firmar dejando su autorización por escrito
           </p>
           <p>
-            Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de
-            identidad número <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el
-            procedimiento de Mamografía sus riesgos y beneficios y adicionalmente, los riesgos de no
-            realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y
-            que autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del
-            procedimiento en mención.
+            Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificada (o) con el documento de identidad número
+            <InputF_ v-model="getPaci.cod" />, después de haber sido informado (a) sobre el procedimiento de Mamografía sus riesgos y beneficios y
+            adicionalmente, los riesgos de no realizármelo, declaro que la información ha sido clara, que se me han respondido las inquietudes y que
+            autorizo de forma libre y consiente, revoco mi consentimiento para continuar con la toma del procedimiento en mención.
           </p>
         </div>
       </q-form>
@@ -160,16 +143,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const router = useRouter();
 
-const {
-  getDll$,
-  _getFirma$,
-  _getHuella$,
-  guardarFile$,
-  enviarCorreo$,
-  logOut$,
-  getEncabezado,
-  guardarArchivo$,
-} = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, logOut$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
 const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -274,9 +248,7 @@ const grabarFirmaConsen = async (llave) => {
       async () => {
         const file = await imprimirConsen();
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
-            "YYYYMMDDHHmm"
-          )}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format("YYYYMMDDHHmm")}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
@@ -297,9 +269,7 @@ const grabarFirmaConsen = async (llave) => {
         CON851("?", response.tipo, response.message, logOut$);
 
         const response_guardar = await guardarArchivo$({
-          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format(
-            "YYYYMMDDHHmm"
-          )}.pdf`,
+          nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format("YYYYMMDDHHmm")}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
@@ -331,6 +301,7 @@ const imprimirConsen = async () => {
       prof: getProf,
       acomp: getAcomp,
       paren_acomp: getSesion.paren_acomp,
+      cod_consen: "LAB004",
       firmas: {
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,

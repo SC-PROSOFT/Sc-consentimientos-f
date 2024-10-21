@@ -362,6 +362,7 @@ const reimprimirConsentimiento = async (row) => {
   huella_acomp.value = await getHuella(row.reg_acomp.cod);
   await getHuella(row.reg_paci.cod);
   await consultarFirmaConsen(row.reg_coninf);
+  console.log("cod_consen --> ", row.reg_coninf?.cod);
 
   try {
     const docDefinition = await utilsFormat({
@@ -380,6 +381,7 @@ const reimprimirConsentimiento = async (row) => {
 
       content: formatos[`impresion${row.reg_coninf?.cod}`]({
         datos: {
+          cod_consen: row.reg_coninf?.cod,
           autorizo: row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {

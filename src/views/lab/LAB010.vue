@@ -653,6 +653,7 @@ const imprimirConsen = async () => {
       prof: getProf,
       acomp: getAcomp,
       paren_acomp: getSesion.paren_acomp,
+      cod_consen: "LAB010",
       firmas: {
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
