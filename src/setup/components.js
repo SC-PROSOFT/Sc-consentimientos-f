@@ -10,6 +10,7 @@ import TextArea_ from "@/components/UI/TextArea.vue";
 import TextCard_ from "@/components/UI/TextCard.vue";
 import DataTable_ from "@/components/UI/DataTable.vue";
 import Autocomplete_ from "@/components/UI/Autocomplete.vue";
+import StaticDataTable_ from "@/components/UI/StaticDataTable.vue";
 
 export default function registerComponents(app) {
   app.component("Input_", Input_);
@@ -21,4 +22,5 @@ export default function registerComponents(app) {
   app.component("TextCard_", TextCard_);
   app.component("DataTable_", DataTable_);
   app.component("Autocomplete_", Autocomplete_);
+  app.component("StaticDataTable_", StaticDataTable_);
 }
