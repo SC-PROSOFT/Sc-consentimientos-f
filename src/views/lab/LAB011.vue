@@ -305,7 +305,7 @@
 import { regHc, regEmpresa, regTest, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHIC035, impresion, generarArchivo } from "@/impresiones";
+import { impresionLAB011, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -641,12 +641,19 @@ const form = ref({
 
 onMounted(() => {
   console.log("getSesion --> ", getSesion);
-
+  // setTimeout(() => {
   datosInit();
   getFirmaProf();
+  // }, 500);
 });
 
 const datosInit = () => {
+  if (getSesion.novedad == "4") {
+    const res_consen = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
+    console.log("res_consen ", res_consen);
+    console.log("novedad ", getSesion.novedad);
+  }
+
   if (getSesion.novedad == "1") {
     reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
     reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
@@ -840,7 +847,51 @@ const imprimirConsen = async () => {
     console.error("error -->", error);
   }
 };
+const getConsentimientosRealizados = async () => {
+  try {
+    if (params_querys.value.modulo.toUpperCase() == "LAB") {
+      params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
+    }
 
+    const llave_consen = params_querys.value.modulo == "ODO" ? llave_odo_act.value : params_querys.value.llave_hc;
+
+    const { CONSENTIMIENTOS } = await getDll$({
+      modulo: `get_consen.dll`,
+      data: {
+        nit_entid: nit_usu.value,
+        modulo: params_querys.value.modulo?.toUpperCase(),
+        paso: novedad.value == "1" || novedad.value == "4" ? "2" : novedad.value,
+        llave_consen,
+      },
+    });
+
+    let consen_filter;
+    if (params_querys.value.modulo == "LAB") {
+      const query = sessionStorage.query && JSON.parse(sessionStorage.query);
+      const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
+      consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact);
+    }
+
+    lista_consen.value = consen_filter || CONSENTIMIENTOS || [];
+    lista_consen.value.sort((a, b) => {
+      return parseInt(`${b.reg_coninf.llave.fecha}${b.reg_coninf.llave.hora}`) - parseInt(`${a.reg_coninf.llave.fecha}${a.reg_coninf.llave.hora}`);
+    });
+
+    // solo se va a permitir editar los siguientes consentimientos:
+    let consen_editar = ["LAB011"];
+
+    lista_consen_elab.value = lista_consen.value.filter(
+      (item) =>
+        consen_editar.includes(item.reg_coninf.cod) &&
+        item.reg_coninf.estado == "AUTORIZADO" &&
+        item.reg_coninf.llave.fecha == days().format("YYYYMMDD")
+    );
+
+    if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
+  } catch (error) {
+    throw error;
+  }
+};
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };

@@ -167,7 +167,7 @@
 import { regHc, regEmpresa, regTest, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionHIC035, impresion, generarArchivo } from "@/impresiones";
+import { impresionLAB012, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -526,13 +526,13 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: firmas,
-      content: impresionHIC035({
+      content: impresionLAB012({
         datos: datos_lab012,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: firmas,
-      content: impresionHIC035({
+      content: impresionLAB012({
         datos: datos_lab012,
       }),
     });

@@ -157,6 +157,53 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
 
+    guardarEsquema$({ base64 = "", ruta = "", codigo = "", formato = "png", loader = true }) {
+      if (this.empresa.unid_prog == "S") {
+        ruta = `D:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+      } else if (this.empresa.unid_prog == "P") {
+        ruta = `D:/PSC/PROG/DATOS/ESQUEMAS_CONSEN`;
+      }
+
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/guardar-file`,
+          method: "POST",
+          data: { base64: base64 && base64.slice(22), ruta: `${ruta}/${codigo}.${formato}` },
+          loader,
+        })
+          .then((response) => resolve(response))
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
+    },
+    _getEsquema$({ codigo = 0, formato = "png" }) {
+      let ruta;
+      if (this.empresa.unid_prog == "S") {
+        ruta = `D:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+      } else if (this.empresa.unid_prog == "P") {
+        ruta = `D:/PSC/PROG/DATOS/ESQUEMAS_CONSEN`;
+      }
+
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/get-imagen`,
+          method: "GET",
+          params: { ruta, codigo, formato },
+          loader: true,
+        })
+          .then((response) => {
+            if (response.success && response.data) resolve(`data:image/png;base64,${response.data}`);
+            else resolve(this.getImgBs64);
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(`Error consultando esquema ${codigo}`);
+          });
+      });
+    },
+
     _getLogo$({ nit = 0, formato = "png" }) {
       nit = isNaN(nit) ? String(nit) : Number(this.empresa.nitusu);
       let ruta;
