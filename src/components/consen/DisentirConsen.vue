@@ -16,6 +16,7 @@
           :firmador="firmador.descrip"
           :registro_profe="firmador.cod"
           @reciFirma="callBackFirma"
+          :tipo_doc="firmador.tipo_id"
           class="col-12"
         />
         <TextArea_ class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-model="reg_consen.obser_disenti" :field="form_config.obser_disenti" />
@@ -73,8 +74,19 @@ const form_config = ref({
 });
 
 const firmador = computed(() => {
-  if (reg_consen.value.firma_paciente == "S") return getPaci;
-  return getAcomp;
+  console.log("firma_paciente ", reg_consen.value.firma_paciente);
+
+  if (reg_consen.value.firma_paciente == "S") {
+    console.log("getPaci ", getPaci);
+    return getPaci;
+  } else {
+    console.log("getAcomp ", getAcomp);
+    return {
+      descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
+      cod: getPaci.id_acomp,
+      tipo_id: getPaci.tipo_id_acomp,
+    };
+  }
 });
 
 onMounted(() => {

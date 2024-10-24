@@ -25,6 +25,7 @@
       bordered
       dense
       flat
+      :disable="true"
     >
       <template v-slot:no-data="{ icon, message, filter }">
         <div class="full-width row flex-center text-white q-gutter-sm">

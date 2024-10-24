@@ -16,28 +16,30 @@ export const impresionLAB011 = ({ datos }) => {
     ];
   };
   const tablaNotasAtenc = () => {
-    return datos.tabla_notas_aten.map((item) => [
-      {
-        text: item.indice_i,
-        // border: [0, 0, 0, 0],
-        // style: "center8",
-      },
-      {
-        text: item.fecha,
-        // border: [0, 0, 0, 0],
-        // style: "center8",
-      },
-      {
-        text: item.hora,
-        // border: [0, 0, 0, 0],
-        // style: "center8",
-      },
-      {
-        text: item.notas_atencion,
-        // border: [0, 0, 0, 0],
-        // style: "center8",
-      },
-    ]);
+    return datos.tabla_notas_aten
+      .filter((item) => item.indice_i != " " && item.indice_i != null && item.indice_i != "")
+      .map((item) => [
+        {
+          text: item.indice_i,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+        {
+          text: item.fecha,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+        {
+          text: item.hora,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+        {
+          text: item.notas_atencion,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+      ]);
   };
 
   var dd = {

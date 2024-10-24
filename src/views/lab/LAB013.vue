@@ -194,23 +194,24 @@
             :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
             :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
-            :tipo_doc="getAcomp.tipo_id ? getAcomp.tipo_id : getPaci.tipo_id"
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
+            :tipo_doc="getPaci.tipo_id"
             class="col-4"
           />
+          <!-- :firma_="firma_prof_enfer" -->
           <ContainerFirma
-            :firmador="getTestigo.descrip"
-            :registro_profe="getTestigo.cod"
-            @reciFirma="callBackFirmaTest"
             quien_firma="FIRMA TESTIGO"
-            :codigo_firma="getTestigo.cod"
+            @reciFirma="callBackFirmaTest"
+            :firmador="getTestigo.descrip"
+            :descrip_prof="getTestigo.descrip_atiende"
+            :registro_profe="getTestigo.registro_profe"
             class="col-4"
           />
           <ContainerFirma
             quien_firma="AUXILIAR DE ENFERMERÍA"
             @reciFirma="callBackFirmaProf"
-            :firma_="firma_prof_enfer"
+            :firma_="firma_prof_tec_radi"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
             :registro_profe="getProf.registro_profe"
@@ -350,7 +351,7 @@ const datosInit = () => {
 
 const getFirmaProf = async () => {
   try {
-    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) || 0 });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
@@ -416,12 +417,9 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({
-      base64: firma_recibida_acomp.value,
-      codigo: `A${llave}`,
-    });
-
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
       return router.back();
@@ -472,6 +470,7 @@ const imprimirConsen = async () => {
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
       },
       paren_acomp: getSesion.paren_acomp,
       fecha: reg_lab013.fecha_act,
@@ -485,6 +484,7 @@ const imprimirConsen = async () => {
       img_firma_acomp: firma_recibida_acomp.value,
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
+      img_firma_testigo: firma_recibida_test.value,
     };
 
     const docDefinitionPrint = await utilsFormat({

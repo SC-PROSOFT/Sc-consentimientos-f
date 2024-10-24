@@ -354,13 +354,10 @@
                 @deleteRow="datoTipoGrpTabla('f6', $event)"
                 :item_index="reg_tabla_not_ant.indice_i"
                 value_button="indice_i"
-                @selectRow="ubicarItem"
-                @editRow="ubicarItem"
                 :data="tabla_notas_atencion"
                 min_height="240px"
                 :headers="headers"
                 show_label_inputs
-                call_edit
               >
                 <td>
                   <Input_ v-model="reg_tabla_not_ant.indice_i" :field="form_tabla_not_ant.indice_i" />
@@ -394,22 +391,23 @@
           </div>
         </div>
 
-        <div class="col-12 row justify-around q-mt-lg">
+        <div v-show="getSesion.novedad != '4'" class="col-12 row justify-around q-mt-lg">
           <ContainerFirma
             :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
             :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
+            :tipo_doc="getPaci.tipo_id"
             class="col-4"
           />
+          <!-- :firma_="firma_prof_enfer" -->
           <ContainerFirma
-            quien_firma="AUXILIAR DE ENFERMERÍA"
-            @reciFirma="callBackFirmaProf"
-            :firma_="firma_prof_enfer"
-            :firmador="getProf.descrip"
-            :descrip_prof="getProf.descrip_atiende"
-            :registro_profe="getProf.registro_profe"
+            quien_firma="FIRMA TESTIGO"
+            @reciFirma="callBackFirmaTest"
+            :firmador="getTestigo.descrip"
+            :descrip_prof="getTestigo.descrip_atiende"
+            :registro_profe="getTestigo.registro_profe"
             class="col-4"
           />
           <ContainerFirma
@@ -462,10 +460,12 @@ const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
 const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
+const firma_recibida_test = ref("");
 const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_prof_enfer = ref(null);
 const firma_prof_tec_radi = ref(null);
+const res_consen = ref(null);
 
 const form_tabla_not_ant = ref({
   indice_i: {
@@ -500,8 +500,8 @@ const headers = [
   { name: "indice_i", label: "Item", align: "left", field: "indice_i", headerStyle: "width: 8%" },
   { name: "fecha", label: "Fecha", align: "left", field: "fecha", headerStyle: "width: 15%" },
   { name: "hora", label: "Hora", align: "left", field: "hora", headerStyle: "width: 10%" },
-  { name: "notas_atencion", label: "Notas de atención", align: "left", field: "notas_atencion", headerStyle: "width: 57%" },
-  { name: "sd", label: "", align: "left", field: "sd", headerStyle: "width: 0%" },
+  { name: "notas_atencion", label: "Notas", align: "left", field: "notas_atencion", headerStyle: "width: 57%" },
+  { name: "btn", label: "", align: "left", field: "btn", headerStyle: "width: 0%" },
 ];
 const reg_tabla_not_ant = ref({
   indice_i: null,
@@ -801,38 +801,32 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("getSesion --> ", getSesion);
-  // setTimeout(() => {
-  datosInit();
-  getFirmaProf();
-  // }, 500);
+  setTimeout(() => {
+    datosInit();
+    getFirmaProf();
+  }, 500);
 });
 
 const datosInit = () => {
   if (getSesion.novedad == "4") {
-    const res_consen = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
-    res_consen.reg_coninf.datos.peso_kg = Number(res_consen.reg_coninf.datos.peso_kg);
-    res_consen.reg_coninf.datos.talla_cm = Number(res_consen.reg_coninf.datos.talla_cm);
-    res_consen.reg_coninf.datos.creatinina = Number(res_consen.reg_coninf.datos.creatinina);
-    res_consen.reg_coninf.datos.signo_ta_sistol = Number(res_consen.reg_coninf.datos.signo_ta_sistol);
-    res_consen.reg_coninf.datos.signo_ta_diastol = Number(res_consen.reg_coninf.datos.signo_ta_diastol);
-    res_consen.reg_coninf.datos.signo_frec_card = Number(res_consen.reg_coninf.datos.signo_frec_card);
-    res_consen.reg_coninf.datos.signo_frec_resp = Number(res_consen.reg_coninf.datos.signo_frec_resp);
-    res_consen.reg_coninf.datos.signo_sa_o2_porc = Number(res_consen.reg_coninf.datos.signo_sa_o2_porc);
-    res_consen.reg_coninf.datos.signo_fi_o2_porc = Number(res_consen.reg_coninf.datos.signo_fi_o2_porc);
-    res_consen.reg_coninf.datos.signo_glasgow = Number(res_consen.reg_coninf.datos.signo_glasgow);
-    res_consen.reg_coninf.datos.tabla_notas_aten = res_consen.reg_coninf.datos.tabla_notas_aten.filter(
-      (item) => item.indice_i != null || item.indice_i.trim() != ""
-    );
+    res_consen.value = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
+    res_consen.value.reg_coninf.datos.peso_kg = Number(res_consen.value.reg_coninf.datos.peso_kg);
+    res_consen.value.reg_coninf.datos.talla_cm = Number(res_consen.value.reg_coninf.datos.talla_cm);
+    res_consen.value.reg_coninf.datos.creatinina = Number(res_consen.value.reg_coninf.datos.creatinina);
+    res_consen.value.reg_coninf.datos.signo_ta_sistol = Number(res_consen.value.reg_coninf.datos.signo_ta_sistol);
+    res_consen.value.reg_coninf.datos.signo_ta_diastol = Number(res_consen.value.reg_coninf.datos.signo_ta_diastol);
+    res_consen.value.reg_coninf.datos.signo_frec_card = Number(res_consen.value.reg_coninf.datos.signo_frec_card);
+    res_consen.value.reg_coninf.datos.signo_frec_resp = Number(res_consen.value.reg_coninf.datos.signo_frec_resp);
+    res_consen.value.reg_coninf.datos.signo_sa_o2_porc = Number(res_consen.value.reg_coninf.datos.signo_sa_o2_porc);
+    res_consen.value.reg_coninf.datos.signo_fi_o2_porc = Number(res_consen.value.reg_coninf.datos.signo_fi_o2_porc);
+    res_consen.value.reg_coninf.datos.signo_glasgow = Number(res_consen.value.reg_coninf.datos.signo_glasgow);
 
-    Object.assign(reg_lab011, res_consen.reg_coninf.datos);
-    Object.assign(tabla_notas_atencion, res_consen.reg_coninf.datos.tabla_notas_aten);
+    Object.assign(reg_lab011, res_consen.value.reg_coninf.datos);
+    Object.assign(tabla_notas_atencion, res_consen.value.reg_coninf.datos.tabla_notas_aten);
     const maxIndice = Math.max(...tabla_notas_atencion.map((item) => Number(item.indice_i) || 0));
     reg_tabla_not_ant.value.indice_i = maxIndice + 1;
-    console.log("El valor más alto de indice_i es: ", maxIndice);
     reg_lab011.opcion_hc035 = "AUTORIZAR";
-    console.log("res_consen ", res_consen);
-    console.log("novedad ", getSesion.novedad);
+    foco_(form_tabla_not_ant, "notas_atencion");
   }
 
   if (getSesion.novedad == "1") {
@@ -896,7 +890,7 @@ const grabarConsentimiento = async () => {
     estado: reg_lab011.opcion_hc035 == "AUTORIZAR" ? "1" : "2",
     llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    llave_consen: `${getPaci.cod}00000000`,
+    llave_consen: getSesion.novedad == "4" ? Object.values(res_consen.value.reg_coninf.llave).join("") : `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,
     cod_consen: "LAB011",
     cod_med: getProf.cod,
@@ -907,7 +901,9 @@ const grabarConsentimiento = async () => {
     tabla_notas_aten: tabla_notas_aten,
   };
   console.log("datos ", datos);
-
+  if (getSesion.novedad == "4") {
+    datos.novedad_consen = getSesion.novedad;
+  }
   datos.tabla_notas_aten.forEach((item, index) => {
     const new_obj = {
       indice_i: item.indice_i,
@@ -937,11 +933,9 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    await guardarFile$({
-      base64: firma_recibida_acomp.value,
-      codigo: `A${llave}`,
-    });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
@@ -973,7 +967,6 @@ const grabarFirmaConsen = async (llave) => {
     console.error(error);
     CON851("?", "info", error);
   }
-  E;
 };
 
 const imprimirConsen = async () => {
@@ -994,10 +987,12 @@ const imprimirConsen = async () => {
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
       },
       paren_acomp: getSesion.paren_acomp,
       fecha: reg_lab011.fecha_act,
       llave: reg_lab011.llave,
+      tabla_notas_aten: tabla_notas_atencion,
       ...reg_lab011,
     };
 
@@ -1007,6 +1002,7 @@ const imprimirConsen = async () => {
       img_firma_acomp: firma_recibida_acomp.value,
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
+      img_firma_testigo: firma_recibida_test.value,
     };
 
     const docDefinitionPrint = await utilsFormat({
@@ -1031,51 +1027,7 @@ const imprimirConsen = async () => {
     console.error("error -->", error);
   }
 };
-const getConsentimientosRealizados = async () => {
-  try {
-    if (params_querys.value.modulo.toUpperCase() == "LAB") {
-      params_querys.value.llave_hc = params_querys.value.llave_hc.slice(0, 15) + "00000000";
-    }
 
-    const llave_consen = params_querys.value.modulo == "ODO" ? llave_odo_act.value : params_querys.value.llave_hc;
-
-    const { CONSENTIMIENTOS } = await getDll$({
-      modulo: `get_consen.dll`,
-      data: {
-        nit_entid: nit_usu.value,
-        modulo: params_querys.value.modulo?.toUpperCase(),
-        paso: novedad.value == "1" || novedad.value == "4" ? "2" : novedad.value,
-        llave_consen,
-      },
-    });
-
-    let consen_filter;
-    if (params_querys.value.modulo == "LAB") {
-      const query = sessionStorage.query && JSON.parse(sessionStorage.query);
-      const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
-      consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact);
-    }
-
-    lista_consen.value = consen_filter || CONSENTIMIENTOS || [];
-    lista_consen.value.sort((a, b) => {
-      return parseInt(`${b.reg_coninf.llave.fecha}${b.reg_coninf.llave.hora}`) - parseInt(`${a.reg_coninf.llave.fecha}${a.reg_coninf.llave.hora}`);
-    });
-
-    // solo se va a permitir editar los siguientes consentimientos:
-    let consen_editar = ["LAB011"];
-
-    lista_consen_elab.value = lista_consen.value.filter(
-      (item) =>
-        consen_editar.includes(item.reg_coninf.cod) &&
-        item.reg_coninf.estado == "AUTORIZADO" &&
-        item.reg_coninf.llave.fecha == days().format("YYYYMMDD")
-    );
-
-    if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
-  } catch (error) {
-    throw error;
-  }
-};
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };
@@ -1085,6 +1037,9 @@ const callBackFirma = (data_firma) => {
 };
 const callBackFirmaProf = (data_firma) => {
   data_firma && (firma_prof.value = data_firma);
+};
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 
 const agregarNotaAtenc = () => {
@@ -1100,13 +1055,7 @@ const agregarNotaAtenc = () => {
   reg_tabla_not_ant.value.indice_i++;
   reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
   reg_tabla_not_ant.value.notas_atencion = "";
-};
-
-const ubicarItem = (item) => {
-  reg_tabla_not_ant.value.indice_i = item.indice_i;
-  reg_tabla_not_ant.value.fecha = item.fecha;
-  reg_tabla_not_ant.value.hora = item.hora;
-  reg_tabla_not_ant.value.notas_atencion = item.notas_atencion;
+  foco_(form_tabla_not_ant, "notas_atencion");
 };
 </script>
 <style scoped>
