@@ -5,7 +5,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="reg_lab014.opcion_"
+            v-model="reg_lab014.opcion_lab014"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -14,15 +14,19 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="reg_lab014.opcion_ == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="reg_lab014.opcion_ == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg_lab014.opcion_">
-              {{ reg_lab014.opcion_ }}
+          <p :class="reg_lab014.opcion_lab014 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="reg_lab014.opcion_lab014 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg_lab014.opcion_lab014">
+              {{ reg_lab014.opcion_lab014 }}
             </q-chip>
           </p>
         </div>
 
-        <DatosFormat :datos="datos" @datos="(data) => (reg_lab014.servicio = data)" />
-
+        <DatosFormat
+          :datos="datos"
+          @datos="(data) => (reg_lab014.servicio = data)"
+          @ambito_ante="(data) => (reg_lab014.ambito_atenc = data)"
+          @ident_genero="(data) => (reg_lab014.ident_genero = data)"
+        />
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">ANTECEDENTES GINECOLÓGICOS</div>
 
@@ -33,29 +37,32 @@
             <p class="text-left text-bold">Histerectomia</p>
             <q-radio color="primary" v-model="reg_lab014.histerect" val="S" label="SI" />
             <q-radio color="primary" v-model="reg_lab014.histerect" val="N" label="NO" />
-            <div class="row" v-show="reg_lab014.histerect == 'S'">
+
+            <div class="row">
               <p class="text-left text-bold">Fecha histerectomia</p>
-              <Input_ v-model="reg_lab014.fecha_ult_mestr" :field="form.fecha_ult_mestr" style="margin-top: 3px" />
+              <Input_ v-model="reg_lab014.fecha_histerect" :field="form.fecha_histerect" style="margin-top: 3px" />
+
+              <p class="text-left text-bold">Fecha menarquia (1° mestruación)</p>
+              <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" />
             </div>
 
-            <p class="text-left text-bold">Fecha menarquia (1° mestruación)</p>
-            <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" />
+            <div class="row">
+              <p class="text-left text-bold">Gestaciones:</p>
+              <Input_ v-model="reg_lab014.cant_gestaci" :field="form.cant_gestaci" class="col-xs-1" style="margin-top: 3px" />
+              <p class="text-left text-bold">Partos:</p>
+              <Input_ v-model="reg_lab014.cant_partos" :field="form.cant_partos" class="col-xs-1" style="margin-top: 3px" />
+              <p class="text-left text-bold">Cesáreas:</p>
+              <Input_ v-model="reg_lab014.cant_cesareas" :field="form.cant_cesareas" class="col-xs-1" style="margin-top: 3px" />
+              <p class="text-left text-bold">Abortos:</p>
+              <Input_ v-model="reg_lab014.cant_abortos" :field="form.cant_abortos" class="col-xs-1" style="margin-top: 3px" />
+              <p class="text-left text-bold">Vivos:</p>
+              <Input_ v-model="reg_lab014.cant_vivos" :field="form.cant_vivos" class="col-xs-1" style="margin-top: 3px" />
+            </div>
 
-            <p class="text-left text-bold">Gestaciones:</p>
-            <Input_ v-model="reg_lab014.cant_gestaci" :field="form.cant_gestaci" class="col-xs-2" style="margin-top: 3px" />
-
-            <p class="text-left text-bold">Partos:</p>
-            <Input_ v-model="reg_lab014.cant_partos" :field="form.cant_partos" class="col-xs-2" style="margin-top: 3px" />
-
-            <p class="text-left text-bold">Cesáreas:</p>
-            <Input_ v-model="reg_lab014.cant_cesareas" :field="form.cant_cesareas" class="col-xs-2" style="margin-top: 3px" />
-
-            <p class="text-left text-bold">Abortos:</p>
-            <Input_ v-model="reg_lab014.cant_abortos" :field="form.cant_abortos" class="col-xs-2" style="margin-top: 3px" />
-            <p class="text-left text-bold">Vivos:</p>
-            <Input_ v-model="reg_lab014.cant_vivos" :field="form.cant_vivos" class="col-xs-2" style="margin-top: 3px" />
+            <!-- <div class="row"> -->
             <p class="text-left text-bold">Muertos:</p>
-            <Input_ v-model="reg_lab014.cant_muertos" :field="form.cant_muertos" class="col-xs-2" style="margin-top: 3px" />
+            <Input_ v-model="reg_lab014.cant_muertos" :field="form.cant_muertos" class="col-xs-1" style="margin-top: 3px" />
+            <!-- </div> -->
           </div>
         </div>
         <div class="row q-mt-md q-mb-md" style="width: 100%">
@@ -335,18 +342,26 @@
         </div>
 
         <div class="row justify-center q-mt-lg" style="width: 100%">
-          <div class="row justify-center bold" style="width: 36%">
+          <div class="row justify-center bold" style="width: 33%">
             <p class="text-center text-bold q-py-xs q-mb-md">Elaborado por: Médico Especialista</p>
           </div>
           <div class="row justify-center bold" style="width: 32%">
             <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
-          <div class="row justify-center bold" style="width: 32%">
+          <div class="row justify-center bold" style="width: 35%">
             <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
           </div>
         </div>
 
         <div class="col-12 row justify-around q-mt-lg">
+          <ContainerFirma
+            :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+            :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+            :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
+            @reciFirma="callBackFirma"
+            :huella_="huella_paci"
+            class="col-4"
+          />
           <ContainerFirma
             quien_firma="AUXILIAR DE ENFERMERÍA"
             @reciFirma="callBackFirmaProf"
@@ -370,7 +385,7 @@
 
       <div class="row justify-center q-my-lg">
         <q-btn
-          :disable="reg_lab014.opcion_ ? false : true"
+          :disable="reg_lab014.opcion_lab014 ? false : true"
           @click="validarDatos"
           icon-right="check_circle"
           class="q-mb-md"
@@ -428,6 +443,7 @@ const opciones_imagen = ref({
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
+  active_encab_ampl: true,
 };
 
 const reg_paci = ref(regPaci());
@@ -472,23 +488,16 @@ const reg_lab014 = reactive({
   espec_pre_5_aut_exam: "",
   cod_img_regis_inspec: "",
   obser_regis_inspec: "",
-  servicio: "",
   ambito_atenc: "",
   ident_genero: "",
 
   // EXTRAS
-  parentesco: "",
-  opcion_: "",
+  // parentesco: "",
+  opcion_lab014: "",
   fecha_act: "",
   llave: "",
   servicio: "",
   edad: "",
-  ident_genero: "",
-  discapacidad: "",
-  acomp: "",
-  ambito_antenc: "",
-  nomb_entid_resp: "",
-  descrip_tipo_id: "",
 });
 
 const form = ref({
@@ -511,6 +520,7 @@ const form = ref({
     maxlength: "10",
     label: "",
     tipo: "date",
+    // disable: reg_lab014.histerect != "S",
     campo_abierto: true,
   },
   cant_gestaci: {
@@ -657,12 +667,8 @@ const datosInit = () => {
   Object.assign(reg_acomp.value, getAcomp);
   reg_paci.value.descrip_acomp = `${getPaci.er_nom_acomp} ${getPaci.do_nom_acomp} ${getPaci.er_apel_acomp} ${getPaci.do_apel_acomp}`;
 
-  reg_lab014.parentesco = evaluarParentesco(getSesion.paren_acomp);
-  reg_lab014.discapacidad = evaluarDiscapacidad(reg_paci.value.discap);
+  // reg_lab014.parentesco = evaluarParentesco(getSesion.paren_acomp);
   reg_lab014.servicio = evaluarClaseServ(getSesion.clase);
-  reg_lab014.descrip_tipo_id = evaluarTipoId(reg_paci.value.tipo_id);
-  //   lista_examen.value = getSesion.articulos.length > 0 && getSesion.articulos[0].codigo !== "" ? getSesion.articulos : [];
-  //   lista_diagnostico.value = getSesion.diagnosticos.length > 0 && getSesion.diagnosticos[0].codigo !== "" ? getSesion.diagnosticos : [];
 };
 
 const getFirmaProf = async () => {
@@ -685,7 +691,7 @@ const validarDatos = async () => {
   //   if (getAcomp.cod && !firma_recibida_acomp.value) {
   //     return CON851("?", "info", "No se ha realizado la firma del acompañate");
   //   }
-  if (reg_lab014.opcion_ == "AUTORIZAR") {
+  if (reg_lab014.opcion_lab014 == "AUTORIZAR") {
     // if (!reg_lab014.peso_kg) return CON851("?", "info", `${requiere},  Peso (Kg)`, () => foco_(form, "peso_kg"));
     // if (!reg_lab014.talla_cm) return CON851("?", "info", `${requiere},  Talla (Cm)`, () => foco_(form, "talla_cm"));
     // if (!reg_lab014.creatinina) return CON851("?", "info", `${requiere},  Creatinina (mg/dl)`, () => foco_(form, "creatinina"));
@@ -705,7 +711,7 @@ const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(reg_lab014));
 
   let datos = {
-    estado: reg_lab014.opcion_ == "AUTORIZAR" ? "1" : "2",
+    estado: reg_lab014.opcion_lab014 == "AUTORIZAR" ? "1" : "2",
     llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
     llave_consen: `${getPaci.cod}00000000`,
@@ -719,16 +725,10 @@ const grabarConsentimiento = async () => {
   };
   console.log("datos ", datos);
 
-  for (let i in datos) {
-    if (typeof datos[i] == "object") delete datos[i];
-  }
-
-  console.log("datos a grabar --> ", datos);
-
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
-    .then((data) => {
+    .then(async (data) => {
       if (data?.llave_consen) {
-        save();
+        await save();
         return grabarFirmaConsen(data?.llave_consen);
       } else return CON851("?", "error", "Error al guardar el consentimiento");
     })
@@ -785,11 +785,14 @@ const grabarFirmaConsen = async (llave) => {
 const imprimirConsen = async () => {
   try {
     const datos_lab14 = {
-      autorizo: reg_lab014.opcion_ == "AUTORIZAR" ? true : false,
+      autorizo: reg_lab014.opcion_lab014 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
-      acomp: getAcomp,
+      acomp: {
+        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
+        telefono: getPaci.telef_acomp,
+      },
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
@@ -848,7 +851,9 @@ const clear = () => {
   signaturePad.value.clearSignature();
 };
 
-const save = () => {
+const save = async () => {
+  console.log("save img ");
+
   const canvas = signaturePad.value.$el.querySelector("canvas");
   const ctx = canvas.getContext("2d");
 

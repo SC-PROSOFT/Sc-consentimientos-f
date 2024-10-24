@@ -1,5 +1,5 @@
 <template>
-  <q-card class="my-card">
+  <div class="my-card">
     <!-- tabla para reimprimir los consentimientos -->
     <q-table
       :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
@@ -14,10 +14,9 @@
     >
       <template v-slot:header="props">
         <q-tr :props="props">
-          <!-- highlight_off -->
-          <q-th v-if="novedad == '2'" auto-width> Imprimir </q-th>
-          <q-th v-if="novedad == '3'" auto-width> Disentir </q-th>
-          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+          <q-th v-if="novedad == '2'" auto-width class="bg-primary text-white"> Imprimir </q-th>
+          <q-th v-if="novedad == '3'" auto-width class="bg-primary text-white"> Disentir </q-th>
+          <q-th v-for="col in props.cols" :key="col.name" :props="props" class="bg-primary text-white">
             {{ col.label }}
           </q-th>
         </q-tr>
@@ -64,8 +63,8 @@
     >
       <template v-slot:header="props">
         <q-tr :props="props">
-          <q-th auto-width> Elaborar </q-th>
-          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+          <q-th auto-width class="bg-primary text-white"> Elaborar </q-th>
+          <q-th v-for="col in props.cols" :key="col.name" :props="props" class="bg-primary text-white">
             {{ col.label }}
           </q-th>
         </q-tr>
@@ -90,13 +89,57 @@
         </div>
       </template>
     </q-table>
+    <!-- añadir informacion a consentimientos realizados -->
+    <q-card class="my-card q-mt-md">
+      <q-table
+        title="Añadir información al consentimiento"
+        v-if="novedad == 4"
+        :rows-per-page-options="[10]"
+        :columns="columns_consen"
+        :rows="lista_consen_elab"
+        row-key="COD_MAE"
+        bordered
+        dense
+        flat
+      >
+        <template v-slot:header="props">
+          <q-tr :props="props">
+            <q-th auto-width class="bg-primary text-white"> Añadir </q-th>
+            <q-th v-for="col in props.cols" :key="col.name" :props="props" class="bg-primary text-white">
+              {{ col.label }}
+            </q-th>
+          </q-tr>
+        </template>
+
+        <template v-slot:body="props">
+          <q-tr :props="props" @dblclick="agregarInfConse(props)" class="cursor">
+            <q-td auto-width>
+              <q-btn @click="agregarInfConse(props)" class="botone" icon="edit_note" color="primary" size="sm"> </q-btn>
+            </q-td>
+            <q-td v-for="col in props.cols" :key="col.name" :props="props">
+              <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{ col.value }}</q-chip>
+              <div v-else>{{ col.value }}</div>
+            </q-td>
+          </q-tr>
+        </template>
+
+        <template v-slot:no-data="{ icon, message, filter }">
+          <div class="full-width row flex-center text-accent q-gutter-sm">
+            <q-icon size="2em" name="sentiment_dissatisfied" />
+            <span> No existen registros </span>
+            <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
+          </div>
+        </template>
+      </q-table>
+    </q-card>
     <DisentirConsen_
       :consen="reg_consentimiento"
       v-if="reg_consentimiento.estado"
       @cerrar="reg_consentimiento.estado = false"
       @guardar="cerrarDisen"
     />
-  </q-card>
+  </div>
+  <!-- tabla para elaborar los consentimientos 2 -->
 </template>
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
@@ -108,13 +151,13 @@ import days from "dayjs";
 
 const DisentirConsen_ = defineAsyncComponent(() => import("@/components/consen/DisentirConsen.vue"));
 
-const props = defineProps({ cargar: Function });
+// const props = defineProps({ cargar: Function });
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 const route = useRoute();
 
 const formatosStore = useModuleFormatos();
-const { getDll$, _getFirma$, _getImagen$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getImagen$, _getEsquema$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
 const { getEmpresa, getTestigo, setHc, getHc, setSession } = formatosStore;
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
@@ -130,6 +173,7 @@ const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
+const esquema_mamografia = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(0);
 
@@ -137,6 +181,7 @@ const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
 
 const lista_maestros = ref([]);
+const lista_consen_elab = ref([]);
 const columns_consen = [
   {
     name: "reg_coninf.llave.fecha",
@@ -249,7 +294,7 @@ const getParametros = async () => {
   try {
     params_querys.value.modulo == "ODO" && (await getOdontologia());
 
-    if ([2, 3].includes(Number(novedad.value))) await getConsentimientosRealizados();
+    if ([2, 3, 4].includes(Number(novedad.value))) await getConsentimientosRealizados();
     else await getMaestros();
   } catch (error) {
     CON851("?", "info", error, logOut$);
@@ -310,7 +355,7 @@ const getConsentimientosRealizados = async () => {
       data: {
         nit_entid: nit_usu.value,
         modulo: params_querys.value.modulo?.toUpperCase(),
-        paso: novedad.value == "1" ? "2" : novedad.value,
+        paso: novedad.value == "1" || novedad.value == "4" ? "2" : novedad.value,
         llave_consen,
       },
     });
@@ -326,6 +371,16 @@ const getConsentimientosRealizados = async () => {
     lista_consen.value.sort((a, b) => {
       return parseInt(`${b.reg_coninf.llave.fecha}${b.reg_coninf.llave.hora}`) - parseInt(`${a.reg_coninf.llave.fecha}${a.reg_coninf.llave.hora}`);
     });
+
+    // solo se va a permitir editar los siguientes consentimientos:
+    let consen_editar = ["LAB011"];
+
+    lista_consen_elab.value = lista_consen.value.filter(
+      (item) =>
+        consen_editar.includes(item.reg_coninf.cod) &&
+        item.reg_coninf.estado == "AUTORIZADO" &&
+        item.reg_coninf.llave.fecha == days().format("YYYYMMDD")
+    );
 
     if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
   } catch (error) {
@@ -372,6 +427,7 @@ const reimprimirConsentimiento = async (row) => {
         img_firma_consen: firma_consen.value,
         img_firma_acomp: firma_acomp.value,
         img_firma_func: firma_func.value,
+        img_esquema_mamografia: esquema_mamografia.value,
         img_huella_paci: huella_paci.value,
         img_huella_acomp: huella_acomp.value,
         img_firma_paci: firma_consen.value,
@@ -446,6 +502,10 @@ const consultarFirmaConsen = async (row) => {
     firma_acomp.value = await _getImagen$({
       codigo: `A${codigo}`,
     });
+    //esquema mamografia
+    esquema_mamografia.value = await _getEsquema$({
+      codigo: `${codigo}`,
+    });
 
     //Funcionario (Casos especiales Yopal)
     firma_func.value = await _getImagen$({
@@ -486,6 +546,24 @@ const selectConsen = async (data) => {
       return router.push({ name: data });
     } else {
       return router.replace({ name: data });
+    }
+  } catch (error) {
+    CON851("?", "info", "El consentimiento no esta disponible");
+  }
+};
+const agregarInfConse = async (data) => {
+  console.log("agregarInfConse ", data.row.reg_coninf.cod);
+  console.log("lista_maestros ", lista_consen);
+
+  const consen_select = lista_consen.value.find((e) => e.reg_coninf.cod == data.row.reg_coninf.cod);
+  console.log("consen_select ", consen_select);
+  sessionStorage.setItem("reg_conse_edit", JSON.stringify(consen_select));
+  setHeader$({ encabezado: consen_select.reg_coninf.datos_encab });
+  try {
+    if (params_querys.value.modulo != "LAB") {
+      return router.push({ name: data.row.reg_coninf.cod });
+    } else {
+      return router.replace({ name: data.row.reg_coninf.cod });
     }
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");

@@ -544,7 +544,7 @@ export const impresionLAB014 = ({ datos }) => {
                   style: "tableTitle",
                   text: {
                     bold: true,
-                    text: "Elaborado por: Médico Enfermera",
+                    text: "Elaborado por: Médico Especialista",
                   },
                 },
                 {

@@ -100,4 +100,44 @@ export const createRouteLab = (title) => [
       descrip: "Consentimiento informado tomografía axial computarizada",
     },
   },
+  {
+    path: "/LAB011",
+    name: "LAB011",
+    component: () => import("@/views/lab/LAB011.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB011`,
+      descrip: "Consentimiento informado procedimientos contrastados",
+    },
+  },
+  {
+    path: "/LAB012",
+    name: "LAB012",
+    component: () => import("@/views/lab/LAB012.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB012`,
+      descrip: "Consentimiento informado valoración preanestésica",
+    },
+  },
+  {
+    path: "/LAB013",
+    name: "LAB013",
+    component: () => import("@/views/lab/LAB013.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB013`,
+      descrip: "Consentimiento informado sedación fuera de salas de cirugía",
+    },
+  },
+  {
+    path: "/LAB014",
+    name: "LAB014",
+    component: () => import("@/views/lab/LAB014.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB014`,
+      descrip: "Consentimiento informado mamografía",
+    },
+  },
 ];

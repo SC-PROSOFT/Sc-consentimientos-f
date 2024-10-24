@@ -55,6 +55,7 @@
             <p class="text-left">Dosis:</p>
             <Input_ v-model="reg_lab011.dosis_med_contr" :field="form.dosis_med_contr" class="col-xs-5" />
           </div>
+
           <p class="text-left text-bold">Complicaciones:</p>
           <div class="row">
             <q-checkbox
@@ -96,6 +97,7 @@
               true-value="S"
               false-value="N"
             />
+
             <p class="text-left">Emesis</p>
             <q-checkbox
               :disable="getSesion.novedad === '4'"
@@ -134,8 +136,6 @@
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Antecedentes</div>
           <div class="text-letf text-subtitle1 text-bold q-py-xs q-mb-md">Patológicos</div>
 
-          <div class="row"></div>
-
           <div class="row">
             <q-checkbox
               :disable="getSesion.novedad === '4'"
@@ -147,61 +147,66 @@
               false-value="N"
             />
             <p class="text-left">Asma actual en tratamiento</p>
-
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.insuf_renal"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Insuficiencia renal</p>
-
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.diabet_mellitus"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Diabetes mellitus</p>
-
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.hipert_arterial"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Hipertensión arterial</p>
-
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.enfer_corazon"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Enfermedades del corazón</p>
-
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.enfer_higado"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Enfermedades del higado</p>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.insuf_renal"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Insuficiencia renal</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.diabet_mellitus"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Diabetes mellitus</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.hipert_arterial"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Hipertensión arterial</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.enfer_corazon"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Enfermedades del corazón</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.enfer_higado"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Enfermedades del higado</p>
+            </div>
           </div>
 
           <div class="row">
@@ -378,14 +383,14 @@
         </div>
 
         <div class="row justify-center q-mt-lg" style="width: 100%">
-          <div class="row justify-center bold" style="width: 20%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Elaborado por: Médico Especialista</p>
+          <div class="row justify-center bold" style="width: 30%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Elaborado por: Médico Especialista</p>
           </div>
-          <div class="row justify-center bold" style="width: 40%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
+          <div class="row justify-center bold" style="width: 35%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
-          <div class="row justify-center bold" style="width: 40%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
+          <div class="row justify-center bold" style="width: 35%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
           </div>
         </div>
 
@@ -604,9 +609,7 @@ const reg_lab011 = reactive({
   edad: "",
   discapacidad: "",
   acomp: "",
-  ambito_antenc: "",
-  nomb_entid_resp: "",
-  descrip_tipo_id: "",
+  // descrip_tipo_id: "",
 });
 
 const form = ref({
@@ -846,9 +849,7 @@ const datosInit = () => {
   reg_lab011.parentesco = evaluarParentesco(getSesion.paren_acomp);
   reg_lab011.discapacidad = evaluarDiscapacidad(reg_paci.value.discap);
   reg_lab011.servicio = evaluarClaseServ(getSesion.clase);
-  reg_lab011.descrip_tipo_id = evaluarTipoId(reg_paci.value.tipo_id);
-  //   lista_examen.value = getSesion.articulos.length > 0 && getSesion.articulos[0].codigo !== "" ? getSesion.articulos : [];
-  //   lista_diagnostico.value = getSesion.diagnosticos.length > 0 && getSesion.diagnosticos[0].codigo !== "" ? getSesion.diagnosticos : [];
+  // reg_lab011.descrip_tipo_id = evaluarTipoId(reg_paci.value.tipo_id);
 };
 
 const getFirmaProf = async () => {
@@ -982,7 +983,10 @@ const imprimirConsen = async () => {
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
-      acomp: getAcomp,
+      acomp: {
+        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
+        telefono: getPaci.telef_acomp,
+      },
       testigo: getTestigo,
       cod_consen: "LAB011",
       firmas: {

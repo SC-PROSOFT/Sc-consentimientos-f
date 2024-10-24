@@ -21,6 +21,7 @@ export const utilsFormat = async ({ datos, content }) => {
       firma_func: datos.img_firma_func || getImgBs64,
       firma_consen: datos.img_firma_consen || getImgBs64,
       firma_paci: datos.img_firma_paci || getImgBs64,
+      esquema_mamografia: datos.img_esquema_mamografia || getImgBs64,
     },
     info: {
       title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo
@@ -41,10 +42,11 @@ export const utilsFormat = async ({ datos, content }) => {
         fontSize: 8,
       },
       bodyNoBold: {
-        fontSize: 9,
+        fontSize: 7,
       },
       tableTitle: {
-        fontSize: 10.5,
+        // fontSize: 10.5,
+        fontSize: 8,
       },
       tableNoBold: {
         fontSize: 7,
@@ -283,6 +285,14 @@ export const datosFormatUTM = ({ datos }) => {
   const artic = getSesion?.articulos.length == 2 ? getSesion?.articulos : JSON.parse(atob(getSesion.articulos));
   const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
 
+  /* "format_encab_ampl", ESTOS FORMATOS SE LES AGREGO MAS DATOS; SEXO BIOLOGICO, IDENTIDADA DE GENERO, DISCAPACIDAD,
+   ACOMPAÑANTE, PARENTESCO, TELEF. ACOMPAÑANTE, AMBITO DE ATENCION.
+   POR LO TANTO SE CONDICIONA PARA NO AFECTAR LAS IMPRESIONES DE LOS DEMAS FORMATOS */
+  console.log("cod_consen ---> ", datos.cod_consen);
+
+  const format_encab_ampl = ["LAB011", "LAB012", "LAB014"];
+  console.log(format_encab_ampl.includes(datos.cod_consen) ? "encab_ampl" : "encab_normal");
+
   const marcaCasilla = (condicion) => {
     return [
       {
@@ -295,6 +305,788 @@ export const datosFormatUTM = ({ datos }) => {
       },
     ];
   };
+  const encab_ampl = [
+    [
+      {
+        colSpan: 3,
+        bold: true,
+        text: "FECHA",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "HORA",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        colSpan: 2,
+        bold: true,
+        text: "SERVICIO",
+        style: "tableTitle",
+      },
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "SEDE",
+        style: "tableTitle",
+      },
+      {},
+      {
+        text: "",
+        style: "tableTitle",
+      },
+    ],
+    [
+      {
+        noWrap: true,
+        text: `${dayjs().date()}`,
+        style: "tableTitle",
+      },
+      {
+        noWrap: true,
+        text: `${dayjs().month() + 1}`,
+        style: "tableTitle",
+      },
+      {
+        noWrap: true,
+        text: `${dayjs().year()}`,
+        style: "tableTitle",
+      },
+      {
+        noWrap: true,
+        colSpan: 3,
+        text: `${dayjs().format("hh:mm A")}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        noWrap: true,
+        colSpan: 2,
+        text: `${datos.servicio}`,
+        style: "tableTitle",
+      },
+      {},
+      {
+        colSpan: 3,
+        noWrap: false,
+        text: `${datos.empresa.nomusu}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 11,
+        bold: true,
+        text: "NOMBRES Y APELLIDOS COMPLETOS",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 11,
+        noWrap: true,
+        text: `${datos.paciente.descrip}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 7,
+        bold: true,
+        text: "DOCUMENTO DE IDENTIFICACIÓN",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "NÚMERO DE IDENTIFICACIÓN",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        bold: true,
+        text: "EDAD",
+        style: "tableTitle",
+      },
+    ],
+    [
+      {
+        stack: [
+          {
+            text: "CC",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CC" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "CE",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CE" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "PA",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PA" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "PT",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PT" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "RC",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "RC" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "TI",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "TI" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: `${!tipos_id.includes(datos.paciente.tipo_id.trim()) ? datos.paciente.tipo_id.trim() : "OTRO"}`,
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(!tipos_id.includes(datos.paciente.tipo_id.trim()) ? true : false),
+          },
+        ],
+      },
+      {
+        colSpan: 3,
+        text: `${datos.paciente.cod}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        text: `${calcEdad(getPaci.nacim)}`,
+        noWrap: true,
+        style: "tableTitle",
+      },
+    ],
+    [
+      {
+        colSpan: 3,
+        bold: true,
+        text: "SEXO BIOLOGICO",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        colSpan: 8,
+        bold: true,
+        text: "DISPACIDAD",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        stack: [
+          {
+            text: "M",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(getPaci.sexo.trim() == "M" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "F",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(getPaci.sexo.trim() == "F" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "I",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(getPaci.sexo.trim() != "M" && getPaci.sexo.trim() != "F" ? true : false),
+          },
+        ],
+      },
+      {
+        colSpan: 8,
+        text: `${evaluarDiscapacidad(getPaci.discap)}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 11,
+        bold: true,
+        text: "IDENTIDAD GÉNERO",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 2,
+        stack: [
+          {
+            text: "MASCULINO",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ident_genero ? (datos.ident_genero.trim() == "MASCULINO" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {
+        colSpan: 2,
+        stack: [
+          {
+            text: "FEMENINO",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ident_genero ? (datos.ident_genero.trim() == "FEMENINO" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {
+        colSpan: 2,
+        stack: [
+          {
+            text: "TRANS",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ident_genero ? (datos.ident_genero.trim() == "TRANS" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {
+        colSpan: 2,
+        stack: [
+          {
+            text: "NEUTRO",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ident_genero ? (datos.ident_genero.trim() == "NEUTRO" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {
+        colSpan: 3,
+        stack: [
+          {
+            text: "NO DECLARA",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ident_genero ? (datos.ident_genero.trim() == "NO DECLARA" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {},
+    ],
+    // ACOMPAÑANTE
+    [
+      {
+        colSpan: 8,
+        bold: true,
+        text: "ACOMPAÑANTE",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "PARENTESCO",
+        style: "tableTitle",
+      },
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 8,
+        text: `${datos.acomp.descrip}`,
+        style: "tableTitle",
+      },
+
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        colSpan: 3,
+        text: `${evaluarParentesco(datos.paren_acomp)}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 5,
+        bold: true,
+        text: "TELEFONO ACOMPAÑANTE",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {
+        colSpan: 6,
+        bold: true,
+        text: "AMBITO DE ANTENCIÓN",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 5,
+        text: `${datos.acomp.telefono}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {
+        colSpan: 3,
+        stack: [
+          {
+            text: "AMBULATORIO",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ambito_atenc ? (datos.ambito_atenc.trim() == "AMBULATORIO" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {},
+      {
+        colSpan: 3,
+        stack: [
+          {
+            text: "HOSPITALIZADO",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.ambito_atenc ? (datos.ambito_atenc.trim() == "HOSPITALIZADO" ? true : false) : false),
+          },
+        ],
+      },
+      {},
+      {},
+    ],
+    [
+      {
+        alignment: "left",
+        colSpan: 11,
+        style: "tableTitle",
+        text: [
+          {
+            bold: true,
+            text: "ENTIDAD RESPONSABLE DE PBS:",
+          },
+          {
+            text: ``,
+          },
+        ],
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+  ];
+
+  const encab_normal = [
+    [
+      {
+        colSpan: 3,
+        bold: true,
+        text: "FECHA",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "HORA",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        colSpan: 2,
+        bold: true,
+        text: "SERVICIO",
+        style: "tableTitle",
+      },
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "SEDE",
+        style: "tableTitle",
+      },
+      {},
+      {
+        text: "",
+        style: "tableTitle",
+      },
+    ],
+    [
+      {
+        noWrap: true,
+        text: `${dayjs().date()}`,
+        style: "tableTitle",
+      },
+      {
+        noWrap: true,
+        text: `${dayjs().month() + 1}`,
+        style: "tableTitle",
+      },
+      {
+        noWrap: true,
+        text: `${dayjs().year()}`,
+        style: "tableTitle",
+      },
+      {
+        noWrap: true,
+        colSpan: 3,
+        text: `${dayjs().format("hh:mm A")}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        noWrap: true,
+        colSpan: 2,
+        text: `${datos.servicio}`,
+        style: "tableTitle",
+      },
+      {},
+      {
+        colSpan: 3,
+        noWrap: false,
+        text: `${datos.empresa.nomusu}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 11,
+        bold: true,
+        text: "NOMBRES Y APELLIDOS COMPLETOS",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 11,
+        noWrap: true,
+        text: `${datos.paciente.descrip}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 7,
+        bold: true,
+        text: "DOCUMENTO DE IDENTIFICACIÓN",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        colSpan: 3,
+        bold: true,
+        text: "NÚMERO DE IDENTIFICACIÓN",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        bold: true,
+        text: "EDAD",
+        style: "tableTitle",
+      },
+    ],
+    [
+      {
+        stack: [
+          {
+            text: "CC",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CC" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "CE",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CE" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "PA",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PA" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "PT",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PT" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "RC",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "RC" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: "TI",
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(datos.paciente.tipo_id.trim() == "TI" ? true : false),
+          },
+        ],
+      },
+      {
+        stack: [
+          {
+            text: `${!tipos_id.includes(datos.paciente.tipo_id.trim()) ? datos.paciente.tipo_id.trim() : "OTRO"}`,
+            style: "tableTitle",
+          },
+          {
+            stack: marcaCasilla(!tipos_id.includes(datos.paciente.tipo_id.trim()) ? true : false),
+          },
+        ],
+      },
+      {
+        colSpan: 3,
+        text: `${datos.paciente.cod}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {
+        text: `${calcEdad(getPaci.nacim)}`,
+        noWrap: true,
+        style: "tableTitle",
+      },
+    ],
+    [
+      {
+        alignment: "left",
+        colSpan: 11,
+        style: "tableTitle",
+        text: [
+          {
+            bold: true,
+            text: "ENTIDAD RESPONSABLE DE PBS:",
+          },
+          {
+            text: ``,
+          },
+        ],
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+    ],
+  ];
 
   return {
     stack: [
@@ -302,264 +1094,7 @@ export const datosFormatUTM = ({ datos }) => {
         alignment: "center",
         table: {
           widths: ["7%", "7%", "7%", "7%", "7%", "7%", "7%", "25%", "10%", "8%", "8%"],
-          body: [
-            [
-              {
-                colSpan: 3,
-                bold: true,
-                text: "FECHA",
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {
-                colSpan: 3,
-                bold: true,
-                text: "HORA",
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {
-                colSpan: 2,
-                bold: true,
-                text: "SERVICIO",
-                style: "tableTitle",
-              },
-              {},
-              {
-                colSpan: 3,
-                bold: true,
-                text: "SEDE",
-                style: "tableTitle",
-              },
-              {},
-              {
-                text: "",
-                style: "tableTitle",
-              },
-            ],
-            [
-              {
-                noWrap: true,
-                text: `${dayjs().date()}`,
-                style: "tableTitle",
-              },
-              {
-                noWrap: true,
-                text: `${dayjs().month() + 1}`,
-                style: "tableTitle",
-              },
-              {
-                noWrap: true,
-                text: `${dayjs().year()}`,
-                style: "tableTitle",
-              },
-              {
-                noWrap: true,
-                colSpan: 3,
-                text: `${dayjs().format("hh:mm A")}`,
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {
-                noWrap: true,
-                colSpan: 2,
-                text: `${datos.servicio}`,
-                style: "tableTitle",
-              },
-              {},
-              {
-                colSpan: 3,
-                noWrap: false,
-                text: `${datos.empresa.nomusu}`,
-                style: "tableTitle",
-              },
-              {},
-              {},
-            ],
-            [
-              {
-                colSpan: 11,
-                bold: true,
-                text: "NOMBRES Y APELLIDOS COMPLETOS",
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-            ],
-            [
-              {
-                colSpan: 11,
-                noWrap: true,
-                text: `${datos.paciente.descrip}`,
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-            ],
-            [
-              {
-                colSpan: 7,
-                bold: true,
-                text: "DOCUMENTO DE IDENTIFICACIÓN",
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {
-                colSpan: 3,
-                bold: true,
-                text: "NÚMERO DE IDENTIFICACIÓN",
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {
-                bold: true,
-                text: "EDAD",
-                style: "tableTitle",
-              },
-            ],
-            [
-              {
-                stack: [
-                  {
-                    text: "CC",
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CC" ? true : false),
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "CE",
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "CE" ? true : false),
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "PA",
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PA" ? true : false),
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "PT",
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "PT" ? true : false),
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "RC",
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "RC" ? true : false),
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: "TI",
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(datos.paciente.tipo_id.trim() == "TI" ? true : false),
-                  },
-                ],
-              },
-              {
-                stack: [
-                  {
-                    text: `${!tipos_id.includes(datos.paciente.tipo_id.trim()) ? datos.paciente.tipo_id.trim() : "OTRO"}`,
-                    style: "tableTitle",
-                  },
-                  {
-                    stack: marcaCasilla(!tipos_id.includes(datos.paciente.tipo_id.trim()) ? true : false),
-                  },
-                ],
-              },
-              {
-                colSpan: 3,
-                text: `${datos.paciente.cod}`,
-                style: "tableTitle",
-              },
-              {},
-              {},
-              {
-                text: `${calcEdad(getPaci.nacim)}`,
-                noWrap: true,
-                style: "tableTitle",
-              },
-            ],
-            [
-              {
-                alignment: "left",
-                colSpan: 11,
-                style: "tableTitle",
-                text: [
-                  {
-                    bold: true,
-                    text: "ENTIDAD RESPONSABLE DE PBS:",
-                  },
-                  {
-                    text: ``,
-                  },
-                ],
-              },
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-              {},
-            ],
-          ],
+          body: format_encab_ampl.includes(datos.cod_consen) ? encab_ampl : encab_normal,
         },
       },
       {
