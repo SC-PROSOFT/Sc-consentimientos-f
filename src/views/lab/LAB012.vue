@@ -59,36 +59,41 @@
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Examen físico</div>
           <div class="row">
-            <p class="text-left">TA</p>
-            <Input_ v-model="reg_lab012.signo_ta_sistol" :field="form.signo_ta_sistol" class="col-xs-1" />
-            <p class="text-left">/</p>
-            <Input_ v-model="reg_lab012.signo_ta_diastol" :field="form.signo_ta_diastol" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 45px">mm Hg</p>
-            <p class="text-left q-ml-md">FC</p>
-            <Input_ v-model="reg_lab012.signo_frec_card" :field="form.signo_frec_card" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 45px">Ipm</p>
-            <p class="text-left q-ml-md">FR</p>
-            <Input_ v-model="reg_lab012.signo_frec_resp" :field="form.signo_frec_resp" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 45px">rpm</p>
-            <p class="text-left q-ml-md">SaO2</p>
-            <Input_ v-model="reg_lab012.signo_sa_o2_porc" :field="form.signo_sa_o2_porc" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 45px">%</p>
-            <p class="text-left q-ml-md">FiO2</p>
-            <Input_ v-model="reg_lab012.signo_fi_o2_porc" :field="form.signo_fi_o2_porc" class="col-xs-1" />
-            <p class="text-left q-ml-md" style="padding-right: 45px">%</p>
-            <p class="text-left q-ml-md">Peso (Kg):</p>
-            <Input_ v-model="reg_lab012.peso_kg" :field="form.peso_kg" class="col-xs-1" />
-
-            <p class="text-left text-bold">Talla (Cm):</p>
-            <Input_ v-model="reg_lab012.talla_cm" :field="form.talla_cm" class="col-xs-1" />
-
-            <p class="text-left text-bold">Casificación ASA:</p>
             <div class="row">
-              <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="1" label="1" />
-              <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="2" label="2" />
-              <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="3" label="3" />
-              <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="4" label="4" />
-              <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="5" label="5" />
+              <p class="text-left">TA:</p>
+              <Input_ v-model="reg_lab012.signo_ta_sistol" :field="form.signo_ta_sistol" class="col-xs-2" />
+              <p class="text-left">/</p>
+              <Input_ v-model="reg_lab012.signo_ta_diastol" :field="form.signo_ta_diastol" class="col-xs-2" />
+              <p class="text-left" style="padding-right: 45px">mm Hg</p>
+              <p class="text-left q-ml-md">FC:</p>
+              <Input_ v-model="reg_lab012.signo_frec_card" :field="form.signo_frec_card" class="col-xs-2" />
+              <p class="text-left" style="padding-right: 45px">Ipm</p>
+            </div>
+            <p class="text-left q-ml-md">FR:</p>
+            <Input_ v-model="reg_lab012.signo_frec_resp" :field="form.signo_frec_resp" class="col-xs-2" />
+            <p class="text-left" style="padding-right: 45px">rpm</p>
+            <p class="text-left q-ml-md">SaO2:</p>
+            <Input_ v-model="reg_lab012.signo_sa_o2_porc" :field="form.signo_sa_o2_porc" class="col-xs-2" />
+            <p class="text-left" style="padding-right: 45px">%</p>
+            <p class="text-left q-ml-md">FiO2:</p>
+            <Input_ v-model="reg_lab012.signo_fi_o2_porc" :field="form.signo_fi_o2_porc" class="col-xs-2" />
+            <p class="text-left q-ml-md" style="padding-right: 45px">%</p>
+            <div class="row">
+              <p class="text-left q-ml-md">Peso (Kg):</p>
+              <Input_ v-model="reg_lab012.peso_kg" :field="form.peso_kg" class="col-xs-3" />
+
+              <p class="text-left text-bold">Talla (Cm):</p>
+              <Input_ v-model="reg_lab012.talla_cm" :field="form.talla_cm" class="col-xs-3" />
+            </div>
+            <div class="row">
+              <p class="text-left text-bold">Casificación ASA:</p>
+              <div class="row">
+                <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="1" label="1" />
+                <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="2" label="2" />
+                <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="3" label="3" />
+                <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="4" label="4" />
+                <q-radio color="primary" v-model="reg_lab012.clasif_asa" val="5" label="5" />
+              </div>
             </div>
           </div>
           <div class="q-my-sm">
@@ -107,14 +112,14 @@
         </div>
 
         <div class="row justify-center q-mt-lg" style="width: 100%">
-          <div class="row justify-center bold" style="width: 20%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Elaborado por: Médico Especialista</p>
+          <div class="row justify-center bold" style="width: 35%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Elaborado por: Médico Especialista</p>
           </div>
-          <div class="row justify-center bold" style="width: 40%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
+          <div class="row justify-center bold" style="width: 30%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
-          <div class="row justify-center bold" style="width: 40%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
+          <div class="row justify-center bold" style="width: 35%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
           </div>
         </div>
 
@@ -238,7 +243,7 @@ const reg_lab012 = reactive({
   ambito_atenc: "",
   edad: "",
   discapacidad: "",
-  acomp: "",
+
   ambito_antenc: "",
   nomb_entid_resp: "",
   descrip_tipo_id: "",
@@ -249,35 +254,35 @@ const form = ref({
     id: "antec_patolog",
     maxlength: "500",
     label: "",
-    rows: 3,
+    rows: 4,
     campo_abierto: true,
   },
   antec_alergicos: {
     id: "antec_alergicos",
     maxlength: "500",
     label: "",
-    rows: 3,
+    rows: 4,
     campo_abierto: true,
   },
   antec_quirur: {
     id: "antec_quirur",
     maxlength: "500",
     label: "",
-    rows: 3,
+    rows: 4,
     campo_abierto: true,
   },
   antec_farmaco: {
     id: "antec_farmaco",
     maxlength: "500",
     label: "",
-    rows: 3,
+    rows: 4,
     campo_abierto: true,
   },
   antec_familiar: {
     id: "antec_familiar",
     maxlength: "500",
     label: "",
-    rows: 3,
+    rows: 4,
     campo_abierto: true,
   },
   signo_ta_diastol: {
@@ -501,9 +506,14 @@ const imprimirConsen = async () => {
     const datos_lab012 = {
       autorizo: reg_lab012.opcion_lab012 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
+      testigo: getTestigo,
       paciente: getPaci,
       prof: getProf,
-      acomp: getAcomp,
+      acomp: {
+        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
+        telefono: getPaci.telef_acomp,
+      },
+      cod_consen: "LAB012",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,

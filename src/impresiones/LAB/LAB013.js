@@ -29,7 +29,7 @@ export const impresionLAB013 = ({ datos }) => {
           columns: [
             {
               fontSize: 8,
-              marginTop: 15,
+              marginTop: 5,
               table: {
                 marginRigth: 1,
                 widths: ["80%", "10%", "10%"],
@@ -445,7 +445,7 @@ export const impresionLAB013 = ({ datos }) => {
           columns: [
             {
               fontSize: 8,
-              marginTop: 15,
+              marginTop: 5,
               table: {
                 marginRigth: 1,
                 widths: ["80%", "10%", "10%"],
@@ -627,7 +627,7 @@ export const impresionLAB013 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 25,
+          marginTop: 5,
           table: {
             widths: ["100%"],
             body: [
@@ -690,7 +690,7 @@ export const impresionLAB013 = ({ datos }) => {
 
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
-      marginTop: 10,
+      marginTop: 5,
       table: {
         heights: ["auto", "auto", "auto", "auto", "auto", "auto"],
         widths: [171, 172, 171],

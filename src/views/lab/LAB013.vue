@@ -178,14 +178,14 @@
         </div>
 
         <div class="row justify-center q-mt-lg" style="width: 100%">
-          <div class="row justify-center bold" style="width: 20%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Elaborado por: Enfermera</p>
+          <div class="row justify-center bold" style="width: 30%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Elaborado por: Enfermera</p>
           </div>
-          <div class="row justify-center bold" style="width: 40%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
+          <div class="row justify-center bold" style="width: 35%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
-          <div class="row justify-center bold" style="width: 40%">
-            <p class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
+          <div class="row justify-center bold" style="width: 35%">
+            <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
           </div>
         </div>
 
@@ -263,61 +263,6 @@ const huella_paci = ref(null);
 const firma_prof_enfer = ref(null);
 const firma_prof_tec_radi = ref(null);
 
-const form_tabla_not_ant = ref({
-  indice_i: {
-    id: "indice_i",
-    mask: "##",
-    maxlength: "2",
-    disable: true,
-    required: true,
-  },
-  fecha: {
-    id: "fecha",
-    disable: true,
-    maxlength: "10",
-    required: true,
-    campo_abierto: true,
-  },
-  hora: {
-    id: "hora",
-    disable: true,
-    maxlength: "5",
-    required: true,
-    campo_abierto: true,
-  },
-  notas_atencion: {
-    id: "notas_atencion",
-    maxlength: "200",
-    campo_abierto: true,
-    f0: ["f3", "f5", "f6", "f9", "arrowup", "arrowdown"],
-  },
-});
-const headers = [
-  { name: "indice_i", label: "Item", align: "left", field: "indice_i", headerStyle: "width: 8%" },
-  { name: "fecha", label: "Fecha", align: "left", field: "fecha", headerStyle: "width: 15%" },
-  { name: "hora", label: "Hora", align: "left", field: "hora", headerStyle: "width: 10%" },
-  { name: "notas_atencion", label: "Notas de atención", align: "left", field: "notas_atencion", headerStyle: "width: 57%" },
-  { name: "sd", label: "", align: "left", field: "sd", headerStyle: "width: 0%" },
-];
-const reg_tabla_not_ant = ref({
-  indice_i: null,
-  fecha: "",
-  hora: "",
-  notas_atencion: "",
-});
-
-const tabla_notas_atencion = reactive(
-  JSON.parse(
-    JSON.stringify(
-      Array(13).fill({
-        indice_i: null,
-        fecha: "",
-        hora: "",
-        notas_atencion: "",
-      })
-    )
-  )
-);
 const datos = {
   tipo_id: getPaci.tipo_id,
   active_cups: true,
@@ -361,7 +306,7 @@ const reg_lab013 = reactive({
   edad: "",
   ident_genero: "",
   discapacidad: "",
-  acomp: "",
+
   nomb_entid_resp: "",
   descrip_tipo_id: "",
 });
@@ -378,7 +323,7 @@ const form = ref({
     id: "observac",
     maxlength: "400",
     label: "",
-    rows: 4,
+    rows: 5,
     campo_abierto: true,
   },
 });
@@ -391,11 +336,6 @@ onMounted(() => {
 });
 
 const datosInit = () => {
-  if (getSesion.novedad == "1") {
-    reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
-    reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
-  }
-  reg_tabla_not_ant.value.indice_i = 1;
   reg_lab013.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg_lab013.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
@@ -406,8 +346,6 @@ const datosInit = () => {
   reg_lab013.discapacidad = evaluarDiscapacidad(reg_paci.value.discap);
   reg_lab013.servicio = evaluarClaseServ(getSesion.clase);
   reg_lab013.descrip_tipo_id = evaluarTipoId(reg_paci.value.tipo_id);
-  //   lista_examen.value = getSesion.articulos.length > 0 && getSesion.articulos[0].codigo !== "" ? getSesion.articulos : [];
-  //   lista_diagnostico.value = getSesion.diagnosticos.length > 0 && getSesion.diagnosticos[0].codigo !== "" ? getSesion.diagnosticos : [];
 };
 
 const getFirmaProf = async () => {
@@ -448,7 +386,6 @@ const validarDatos = async () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(reg_lab013));
-  const tabla_notas_aten = JSON.parse(JSON.stringify(tabla_notas_atencion));
 
   let datos = {
     estado: reg_lab013.opcion_lab013 == "AUTORIZAR" ? "1" : "2",
@@ -462,24 +399,8 @@ const grabarConsentimiento = async () => {
     id_testigo: getTestigo.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
-    tabla_notas_aten: tabla_notas_aten,
   };
   console.log("datos ", datos);
-
-  datos.tabla_notas_aten.forEach((item, index) => {
-    const new_obj = {
-      indice_i: item.indice_i,
-      fecha: item.fecha,
-      hora: item.hora,
-      notas_atencion: item.notas_atencion,
-    };
-    datos[`tabla_notas_aten${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
-  });
-  for (let i in datos) {
-    if (typeof datos[i] == "object") delete datos[i];
-  }
-
-  console.log("datos a grabar --> ", datos);
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
@@ -541,7 +462,11 @@ const imprimirConsen = async () => {
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
-      acomp: getAcomp,
+      acomp: {
+        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
+        telefono: getPaci.telef_acomp,
+      },
+      cod_consen: "LAB013",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
@@ -597,28 +522,6 @@ const callBackFirmaProf = (data_firma) => {
 };
 const callBackFirmaTest = (data_firma) => {
   data_firma && (firma_recibida_test.value = data_firma);
-};
-
-const agregarNotaAtenc = () => {
-  if (reg_tabla_not_ant.value.notas_atencion.trim().length == 0) {
-    return CON851("?", "info", "El campo esta vacio");
-  }
-  console.log("indice_i --->> ", reg_tabla_not_ant.value.indice_i);
-
-  tabla_notas_atencion[reg_tabla_not_ant.value.indice_i - 1].indice_i = reg_tabla_not_ant.value.indice_i;
-  tabla_notas_atencion[reg_tabla_not_ant.value.indice_i - 1].fecha = reg_tabla_not_ant.value.fecha;
-  tabla_notas_atencion[reg_tabla_not_ant.value.indice_i - 1].hora = reg_tabla_not_ant.value.hora;
-  tabla_notas_atencion[reg_tabla_not_ant.value.indice_i - 1].notas_atencion = reg_tabla_not_ant.value.notas_atencion;
-  reg_tabla_not_ant.value.indice_i++;
-  reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
-  reg_tabla_not_ant.value.notas_atencion = "";
-};
-
-const ubicarItem = (item) => {
-  reg_tabla_not_ant.value.indice_i = item.indice_i;
-  reg_tabla_not_ant.value.fecha = item.fecha;
-  reg_tabla_not_ant.value.hora = item.hora;
-  reg_tabla_not_ant.value.notas_atencion = item.notas_atencion;
 };
 </script>
 <style scoped>

@@ -1,10 +1,10 @@
 <template>
-  <!-- <q-form @submit="validarDatos"> -->
   <div>
     <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
       <q-card-section>
         <div class="text-center">
           <q-toggle
+            :disable="getSesion.novedad === '4'"
             v-model="reg_lab011.opcion_hc035"
             color="primary"
             keep-color
@@ -43,8 +43,8 @@
 
           <div class="row q-mt-md">
             <p class="text-left">Medio de contraste?:</p>
-            <q-radio color="primary" v-model="reg_lab011.medio_contras" val="S" label="SI" />
-            <q-radio color="primary" v-model="reg_lab011.medio_contras" val="N" label="NO" />
+            <q-radio :disable="getSesion.novedad === '4'" color="primary" v-model="reg_lab011.medio_contras" val="S" label="SI" />
+            <q-radio :disable="getSesion.novedad === '4'" color="primary" v-model="reg_lab011.medio_contras" val="N" label="NO" />
           </div>
           <div class="row q-mt-md">
             <p class="text-left q-ml-md" style="padding-left: 8px">Nombre:</p>
@@ -57,15 +57,55 @@
           </div>
           <p class="text-left text-bold">Complicaciones:</p>
           <div class="row">
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.rash_curaneo" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.rash_curaneo"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Rash curaneo</p>
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.dificult_res" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.dificult_res"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Dificultad respiratoria</p>
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.crisis_asma" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.crisis_asma"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Crisis asmatica</p>
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.emesis" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.emesis"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Emesis</p>
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.shock_anafilac" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.shock_anafilac"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Shock anafilactico</p>
           </div>
           <div class="row">
@@ -75,8 +115,14 @@
 
           <div class="row">
             <p class="text-left text-bold">Posibilidad de embarazo?</p>
-            <q-radio color="primary" v-model="reg_lab011.posib_embarazo" val="N" label="No aplica" />
-            <q-radio color="primary" v-model="reg_lab011.posib_embarazo" val="S" label="Mujer en estado fértil" />
+            <q-radio :disable="getSesion.novedad === '4'" color="primary" v-model="reg_lab011.posib_embarazo" val="N" label="No aplica" />
+            <q-radio
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              v-model="reg_lab011.posib_embarazo"
+              val="S"
+              label="Mujer en estado fértil"
+            />
           </div>
           <div class="row">
             <p class="text-left">Fecha de ultima mestruación:</p>
@@ -91,22 +137,70 @@
           <div class="row"></div>
 
           <div class="row">
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.asma_tratam" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.asma_tratam"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Asma actual en tratamiento</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.insuf_renal" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.insuf_renal"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Insuficiencia renal</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.diabet_mellitus" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.diabet_mellitus"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Diabetes mellitus</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.hipert_arterial" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.hipert_arterial"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Hipertensión arterial</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.enfer_corazon" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.enfer_corazon"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Enfermedades del corazón</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.enfer_higado" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.enfer_higado"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Enfermedades del higado</p>
           </div>
 
@@ -117,10 +211,26 @@
 
           <p class="text-left text-bold">Alérgicos:</p>
           <div class="row">
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.alerg_medicamet" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.alerg_medicamet"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Medicamentos</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.alerg_aliment" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.alerg_aliment"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Alimentos</p>
           </div>
           <div class="row">
@@ -129,13 +239,37 @@
           </div>
           <p class="text-left text-bold">Reacción alergica:</p>
           <div class="row">
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.alerg_rash_curan" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.alerg_rash_curan"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Rash curaneo</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.alerg_dific_res" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.alerg_dific_res"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Dificultad respiratoria</p>
 
-            <q-checkbox color="primary" keep-color left-label v-model="reg_lab011.alerg_shock_anafi" true-value="S" false-value="N" />
+            <q-checkbox
+              :disable="getSesion.novedad === '4'"
+              color="primary"
+              keep-color
+              left-label
+              v-model="reg_lab011.alerg_shock_anafi"
+              true-value="S"
+              false-value="N"
+            />
             <p class="text-left">Shock anafilactico</p>
           </div>
           <div class="row">
@@ -480,6 +614,7 @@ const form = ref({
     id: "ult_examen",
     maxlength: "285",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   fecha_ult_exam: {
@@ -487,6 +622,7 @@ const form = ref({
     maxlength: "10",
     label: "",
     tipo: "date",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   nomb_med_contr: {
@@ -494,6 +630,7 @@ const form = ref({
     maxlength: "200",
     label: "",
     required: true,
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   dosis_med_contr: {
@@ -501,6 +638,7 @@ const form = ref({
     maxlength: "150",
     label: "",
     required: true,
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
 
@@ -508,24 +646,28 @@ const form = ref({
     id: "antec_farmaco",
     maxlength: "200",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   antec_familiar: {
     id: "antec_familiar",
     maxlength: "200",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   antec_quirur: {
     id: "antec_quirur",
     maxlength: "250",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   compl_reac_adver: {
     id: "compl_reac_adver",
     maxlength: "200",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
 
@@ -534,6 +676,7 @@ const form = ref({
     maxlength: "10",
     label: "",
     tipo: "date",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
 
@@ -541,24 +684,28 @@ const form = ref({
     id: "otro_complic",
     maxlength: "200",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   otros_antec: {
     id: "otros_antec",
     maxlength: "200",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   otros_alerg: {
     id: "otros_alerg",
     maxlength: "200",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   otros_reacc_alerg: {
     id: "otros_reacc_alerg",
     maxlength: "150",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   peso_kg: {
@@ -566,6 +713,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   talla_cm: {
@@ -573,6 +721,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   creatinina: {
@@ -580,12 +729,14 @@ const form = ref({
     maxlength: "5",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   otro_dtos_clinic: {
     id: "otro_dtos_clinic",
     maxlength: "150",
     label: "",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_ta_sistol: {
@@ -593,6 +744,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_ta_diastol: {
@@ -600,6 +752,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_frec_card: {
@@ -607,6 +760,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_frec_resp: {
@@ -614,6 +768,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_sa_o2_porc: {
@@ -621,6 +776,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_fi_o2_porc: {
@@ -628,6 +784,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   signo_glasgow: {
@@ -635,6 +792,7 @@ const form = ref({
     maxlength: "4",
     label: "",
     tipo: "number",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
 });
@@ -650,15 +808,35 @@ onMounted(() => {
 const datosInit = () => {
   if (getSesion.novedad == "4") {
     const res_consen = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
+    res_consen.reg_coninf.datos.peso_kg = Number(res_consen.reg_coninf.datos.peso_kg);
+    res_consen.reg_coninf.datos.talla_cm = Number(res_consen.reg_coninf.datos.talla_cm);
+    res_consen.reg_coninf.datos.creatinina = Number(res_consen.reg_coninf.datos.creatinina);
+    res_consen.reg_coninf.datos.signo_ta_sistol = Number(res_consen.reg_coninf.datos.signo_ta_sistol);
+    res_consen.reg_coninf.datos.signo_ta_diastol = Number(res_consen.reg_coninf.datos.signo_ta_diastol);
+    res_consen.reg_coninf.datos.signo_frec_card = Number(res_consen.reg_coninf.datos.signo_frec_card);
+    res_consen.reg_coninf.datos.signo_frec_resp = Number(res_consen.reg_coninf.datos.signo_frec_resp);
+    res_consen.reg_coninf.datos.signo_sa_o2_porc = Number(res_consen.reg_coninf.datos.signo_sa_o2_porc);
+    res_consen.reg_coninf.datos.signo_fi_o2_porc = Number(res_consen.reg_coninf.datos.signo_fi_o2_porc);
+    res_consen.reg_coninf.datos.signo_glasgow = Number(res_consen.reg_coninf.datos.signo_glasgow);
+    res_consen.reg_coninf.datos.tabla_notas_aten = res_consen.reg_coninf.datos.tabla_notas_aten.filter(
+      (item) => item.indice_i != null || item.indice_i.trim() != ""
+    );
+
+    Object.assign(reg_lab011, res_consen.reg_coninf.datos);
+    Object.assign(tabla_notas_atencion, res_consen.reg_coninf.datos.tabla_notas_aten);
+    const maxIndice = Math.max(...tabla_notas_atencion.map((item) => Number(item.indice_i) || 0));
+    reg_tabla_not_ant.value.indice_i = maxIndice + 1;
+    console.log("El valor más alto de indice_i es: ", maxIndice);
+    reg_lab011.opcion_hc035 = "AUTORIZAR";
     console.log("res_consen ", res_consen);
     console.log("novedad ", getSesion.novedad);
   }
 
   if (getSesion.novedad == "1") {
-    reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
-    reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
+    reg_tabla_not_ant.value.indice_i = 1;
   }
-  reg_tabla_not_ant.value.indice_i = 1;
+  reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
+  reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
   reg_lab011.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg_lab011.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
@@ -675,7 +853,7 @@ const datosInit = () => {
 
 const getFirmaProf = async () => {
   try {
-    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) || 0 });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
@@ -805,6 +983,8 @@ const imprimirConsen = async () => {
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
+      testigo: getTestigo,
+      cod_consen: "LAB011",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,

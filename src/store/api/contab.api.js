@@ -246,7 +246,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
           })
           .catch((error) => {
             console.error(error);
-            reject(`Error consultando logo de nit ${nit}`);
+            reject("Error consultando firma");
           });
       });
     },
