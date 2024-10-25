@@ -341,7 +341,6 @@ const datosInit = () => {
   reg_lab013.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
   Object.assign(reg_acomp.value, getAcomp);
-  reg_paci.value.descrip_acomp = `${getPaci.er_nom_acomp} ${getPaci.do_nom_acomp} ${getPaci.er_apel_acomp} ${getPaci.do_apel_acomp}`;
 
   reg_lab013.parentesco = evaluarParentesco(getSesion.paren_acomp);
   reg_lab013.discapacidad = evaluarDiscapacidad(reg_paci.value.discap);
@@ -460,10 +459,7 @@ const imprimirConsen = async () => {
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
-      acomp: {
-        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
-        telefono: getPaci.telef_acomp,
-      },
+      acomp: getAcomp,
       cod_consen: "LAB013",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,

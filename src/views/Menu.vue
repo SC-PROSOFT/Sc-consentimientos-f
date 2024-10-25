@@ -145,7 +145,12 @@ async function getPaciente() {
       setPaci(data.reg_paci);
 
       datos_session.novedad == "1" && getMedico();
-      datos_session.id_acompa && getAcomp();
+
+      data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
+      if (datos_session.id_acompa) {
+        setAcomp({ ...data.reg_acomp, parentesco: datos_session.parentesco });
+      }
+      // && getAcomp();
     })
     .catch((error) => {
       console.error(error);
@@ -161,7 +166,6 @@ async function getAcomp() {
         modulo: `get_paci.dll`,
         data: { cod_paci: datos_session.id_acompa },
       });
-      setAcomp({ ...datos.reg_paci, parentesco: datos_session.parentesco });
     }
   } catch (error) {
     CON851("?", "error", "No existe acompañante en el archivo de pacientes");

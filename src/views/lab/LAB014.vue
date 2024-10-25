@@ -31,57 +31,43 @@
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">ANTECEDENTES GINECOLÓGICOS</div>
 
           <div class="row">
-            <p class="text-left text-bold">Fecha ultima mestruación</p>
-            <Input_ v-model="reg_lab014.fecha_ult_mestr" :field="form.fecha_ult_mestr" style="margin-top: 3px" class="col-xs-3" />
-
-            <p class="text-left text-bold">Histerectomia</p>
-            <q-radio color="primary" v-model="reg_lab014.histerect" val="S" label="SI" />
-            <q-radio color="primary" v-model="reg_lab014.histerect" val="N" label="NO" />
+            <p class="text-left text-bold">Fecha ultima mestruación:</p>
+            <Input_ v-model="reg_lab014.fecha_ult_mestr" :field="form.fecha_ult_mestr" style="margin-top: 3px" class="col-xs-2" />
+            <p class="text-left text-bold">Fecha menarquia (1° mestruación):</p>
+            <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" class="col-xs-2" />
 
             <div class="row">
-              <p class="text-left text-bold">Fecha histerectomia</p>
+              <p class="text-left text-bold">Histerectomia:</p>
+              <q-radio color="primary" v-model="reg_lab014.histerect" val="S" label="SI" />
+              <q-radio color="primary" v-model="reg_lab014.histerect" val="N" label="NO" />
+              <p class="text-left text-bold" style="padding-left: 8px">Fecha histerectomia:</p>
               <Input_ v-model="reg_lab014.fecha_histerect" :field="form.fecha_histerect" style="margin-top: 3px" />
-
-              <p class="text-left text-bold">Fecha menarquia (1° mestruación)</p>
-              <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" />
-            </div>
-
-            <div class="row">
               <p class="text-left text-bold">Gestaciones:</p>
               <Input_ v-model="reg_lab014.cant_gestaci" :field="form.cant_gestaci" class="col-xs-1" style="margin-top: 3px" />
               <p class="text-left text-bold">Partos:</p>
               <Input_ v-model="reg_lab014.cant_partos" :field="form.cant_partos" class="col-xs-1" style="margin-top: 3px" />
               <p class="text-left text-bold">Cesáreas:</p>
               <Input_ v-model="reg_lab014.cant_cesareas" :field="form.cant_cesareas" class="col-xs-1" style="margin-top: 3px" />
-              <p class="text-left text-bold">Abortos:</p>
-              <Input_ v-model="reg_lab014.cant_abortos" :field="form.cant_abortos" class="col-xs-1" style="margin-top: 3px" />
-              <p class="text-left text-bold">Vivos:</p>
-              <Input_ v-model="reg_lab014.cant_vivos" :field="form.cant_vivos" class="col-xs-1" style="margin-top: 3px" />
             </div>
 
-            <!-- <div class="row"> -->
+            <p class="text-left text-bold">Abortos:</p>
+            <Input_ v-model="reg_lab014.cant_abortos" :field="form.cant_abortos" class="col-xs-1" style="margin-top: 3px" />
+            <p class="text-left text-bold">Vivos:</p>
+            <Input_ v-model="reg_lab014.cant_vivos" :field="form.cant_vivos" class="col-xs-1" style="margin-top: 3px" />
             <p class="text-left text-bold">Muertos:</p>
             <Input_ v-model="reg_lab014.cant_muertos" :field="form.cant_muertos" class="col-xs-1" style="margin-top: 3px" />
-            <!-- </div> -->
           </div>
         </div>
         <div class="row q-mt-md q-mb-md" style="width: 100%">
           <div class="text-center" style="border: 1px solid #ccc; width: 100%">
             <p style="font-weight: bold; margin-top: 10px">ANTECEDENTES DE CÁNCER</p>
           </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Sufre o ha sufrido de cáncer de mama o útero? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_1_ant_canc"
-              :label="reg_lab014.pre_1_ant_canc == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_1_ant_canc" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_1_ant_canc" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -89,19 +75,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Sufre o ha sufrido de algún otro tipo de cáncer? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_2_ant_canc"
-              :label="reg_lab014.pre_2_ant_canc == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_2_ant_canc" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_2_ant_canc" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -109,19 +88,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Algún miembro de su familia materna ha sufrido cáncer mama o útero? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_3_ant_canc"
-              :label="reg_lab014.pre_3_ant_canc == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_3_ant_canc" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_3_ant_canc" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -129,19 +101,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Algún miembro de su familia ha sufrido algún otro tipo cáncer? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_4_ant_canc"
-              :label="reg_lab014.pre_4_ant_canc == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_4_ant_canc" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_4_ant_canc" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -149,19 +114,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Sufre de alguna enfermedad? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_5_ant_canc"
-              :label="reg_lab014.pre_5_ant_canc == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_5_ant_canc" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_5_ant_canc" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -169,19 +127,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Actualmente toma algún medicamento? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_6_ant_canc"
-              :label="reg_lab014.pre_6_ant_canc == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_6_ant_canc" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_6_ant_canc" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -194,19 +145,12 @@
           <div class="text-center" style="border: 1px solid #ccc; width: 100%">
             <p style="font-weight: bold; margin-top: 10px">AUTO EXAMEN DE MAMA</p>
           </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Le han realizado alguna cirugía en los senos? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_1_aut_exam"
-              :label="reg_lab014.pre_1_aut_exam == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_1_aut_exam" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_1_aut_exam" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -214,19 +158,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Se ha palpado masas en los senos? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_2_aut_exam"
-              :label="reg_lab014.pre_2_aut_exam == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_2_aut_exam" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_2_aut_exam" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -234,19 +171,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Ha tenido salida de secreción por el pezón? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_3_aut_exam"
-              :label="reg_lab014.pre_3_aut_exam == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_3_aut_exam" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_3_aut_exam" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -254,19 +184,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Ha notado cambios en la piel de los senos? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_4_aut_exam"
-              :label="reg_lab014.pre_4_aut_exam == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_4_aut_exam" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_4_aut_exam" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -274,19 +197,12 @@
             </div>
           </div>
 
-          <div class="text-justify" style="border: 1px solid #ccc; width: 45%">
+          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">¿Ha identificado algo más con respecto a sus senos? Especifique</p>
           </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 15%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg_lab014.pre_5_aut_exam"
-              :label="reg_lab014.pre_5_aut_exam == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
+          <div class="text-center" style="border: 1px solid #ccc; width: 20%">
+            <q-radio color="primary" v-model="reg_lab014.pre_5_aut_exam" val="S" label="SI" />
+            <q-radio color="primary" v-model="reg_lab014.pre_5_aut_exam" val="N" label="NO" />
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 40%">
             <div class="q-mt-lg">
@@ -294,10 +210,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="q-my-sm" style="display: flex; justify-content: center">
-          <q-btn @click="show_imagen = true" color="grey-4" text-color="primary" icon="draw" label="Abrir esquema" />
-        </div> -->
 
         <div class="row q-mt-md" style="width: 100%">
           <div class="text-center" style="border: 1px solid #ccc; width: 100%">
@@ -307,9 +219,7 @@
 
         <div class="row q-mb-md" style="width: 100%">
           <div class="q-mt-md q-mb-lg" style="width: 100%; display: flex; justify-content: center; align-items: center">
-            <!-- <tablero @CallBackImagen="CallBackImagen" /> -->
             <q-card class="custom-card-size">
-              <!-- <ToolBar @cerrar="close" titulo="Registro de inspección" name="trazos"></ToolBar> -->
               <q-card-section class="row items-center q-pb-none">
                 <div class="signature-container">
                   <img src="@/assets/image/mamografia.png" alt="Imagen de fondo" class="background-image" />
@@ -327,7 +237,6 @@
               </q-card-section>
               <q-separator />
               <q-card-actions align="around">
-                <!-- <q-btn flat @click="save">Guardar</q-btn> -->
                 <q-btn class="q-mt-xs" push color="deep-orange" icon="delete_forever" @click="clear">Borrar trazos</q-btn>
               </q-card-actions>
             </q-card>
@@ -363,7 +272,6 @@
             :tipo_doc="getPaci.tipo_id"
             class="col-4"
           />
-          <!-- :firma_="firma_prof_enfer" -->
           <ContainerFirma
             quien_firma="FIRMA TESTIGO"
             @reciFirma="callBackFirmaTest"
@@ -403,7 +311,7 @@
 <script setup>
 import { regHc, regEmpresa, regTest, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted, computed } from "vue";
 import { impresionLAB014, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -421,15 +329,12 @@ const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
-const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
-const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
 const esquema_mamografia = ref("");
 const firma_recibida = ref("");
 const firma_prof = ref(null);
 const firma_recibida_test = ref(null);
 const huella_paci = ref(null);
-const firma_prof_enfer = ref(null);
 const firma_prof_tec_radi = ref(null);
 const signaturePad = ref(null);
 const opciones_imagen = ref({
@@ -458,7 +363,7 @@ const reg_lab014 = reactive({
 
   fecha_ult_mestr: "",
   fecha_menarq: "",
-  histerect: "",
+  histerect: "N",
   fecha_histerect: "",
   cant_gestaci: "",
   cant_partos: "",
@@ -494,7 +399,7 @@ const reg_lab014 = reactive({
   ident_genero: "",
 
   // EXTRAS
-  // parentesco: "",
+  parentesco: "",
   opcion_lab014: "",
   fecha_act: "",
   llave: "",
@@ -522,7 +427,7 @@ const form = ref({
     maxlength: "10",
     label: "",
     tipo: "date",
-    // disable: reg_lab014.histerect != "S",
+    disable: computed(() => reg_lab014.histerect !== "S"),
     campo_abierto: true,
   },
   cant_gestaci: {
@@ -667,9 +572,8 @@ const datosInit = () => {
   reg_lab014.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
   Object.assign(reg_acomp.value, getAcomp);
-  reg_paci.value.descrip_acomp = `${getPaci.er_nom_acomp} ${getPaci.do_nom_acomp} ${getPaci.er_apel_acomp} ${getPaci.do_apel_acomp}`;
 
-  // reg_lab014.parentesco = evaluarParentesco(getSesion.paren_acomp);
+  reg_lab014.parentesco = evaluarParentesco(getSesion.paren_acomp);
   reg_lab014.servicio = evaluarClaseServ(getSesion.clase);
 };
 
@@ -789,10 +693,7 @@ const imprimirConsen = async () => {
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
-      acomp: {
-        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
-        telefono: getPaci.telef_acomp,
-      },
+      acomp: getAcomp,
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
@@ -866,6 +767,7 @@ const save = async () => {
   img.src = backgroundImage;
 
   img.onload = () => {
+    console.log("img.onload ");
     // Dibuja la imagen de fondo en el canvas
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 

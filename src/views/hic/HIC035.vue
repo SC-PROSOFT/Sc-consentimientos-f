@@ -273,7 +273,7 @@ watch(
 const datosInit = () => {
   reg.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg.llave = getHc.llave.slice(15);
-  reg.edad = calcEdad(getAcomp.nacim || getPaci.nacim);
+  reg.edad = calcEdad(getPaci.nacim);
 };
 
 const getFirmaProf = async () => {

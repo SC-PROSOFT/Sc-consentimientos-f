@@ -47,7 +47,7 @@
             <q-radio :disable="getSesion.novedad === '4'" color="primary" v-model="reg_lab011.medio_contras" val="N" label="NO" />
           </div>
           <div class="row q-mt-md">
-            <p class="text-left q-ml-md" style="padding-left: 8px">Nombre:</p>
+            <p class="text-left">Nombre:</p>
             <Input_ v-model="reg_lab011.nomb_med_contr" :field="form.nomb_med_contr" class="col-xs-8" />
           </div>
 
@@ -283,16 +283,16 @@
           </div>
           <div class="row">
             <p class="text-left text-bold">Quirúrgicos:</p>
-            <Input_ v-model="reg_lab011.antec_quirur" :field="form.antec_quirur" class="col-12" />
+            <TextArea_ v-model="reg_lab011.antec_quirur" :field="form.antec_quirur" class="col-12" />
           </div>
           <div class="row">
             <p class="text-left text-bold">Familiares:</p>
-            <Input_ v-model="reg_lab011.antec_familiar" :field="form.antec_familiar" class="col-12" />
+            <TextArea_ v-model="reg_lab011.antec_familiar" :field="form.antec_familiar" class="col-12" />
           </div>
 
           <div class="row">
             <p class="text-left text-bold">Farmacológicos:</p>
-            <Input_ v-model="reg_lab011.antec_farmaco" :field="form.antec_farmaco" class="col-12 q-mb-md" />
+            <TextArea_ v-model="reg_lab011.antec_farmaco" :field="form.antec_farmaco" class="col-12 q-mb-md" />
           </div>
         </div>
 
@@ -647,15 +647,17 @@ const form = ref({
 
   antec_farmaco: {
     id: "antec_farmaco",
-    maxlength: "200",
+    maxlength: "250",
     label: "",
+    rows: 3,
     disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
   antec_familiar: {
     id: "antec_familiar",
-    maxlength: "200",
+    maxlength: "250",
     label: "",
+    rows: 3,
     disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
@@ -663,6 +665,7 @@ const form = ref({
     id: "antec_quirur",
     maxlength: "250",
     label: "",
+    rows: 3,
     disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
@@ -670,6 +673,7 @@ const form = ref({
     id: "compl_reac_adver",
     maxlength: "200",
     label: "",
+    rows: 3,
     disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
@@ -838,7 +842,6 @@ const datosInit = () => {
   reg_lab011.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
   Object.assign(reg_acomp.value, getAcomp);
-  reg_paci.value.descrip_acomp = `${getPaci.er_nom_acomp} ${getPaci.do_nom_acomp} ${getPaci.er_apel_acomp} ${getPaci.do_apel_acomp}`;
 
   reg_lab011.parentesco = evaluarParentesco(getSesion.paren_acomp);
   reg_lab011.discapacidad = evaluarDiscapacidad(reg_paci.value.discap);
@@ -976,10 +979,7 @@ const imprimirConsen = async () => {
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
-      acomp: {
-        descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
-        telefono: getPaci.telef_acomp,
-      },
+      acomp: getAcomp,
       testigo: getTestigo,
       cod_consen: "LAB011",
       firmas: {

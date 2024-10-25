@@ -412,6 +412,8 @@ const disentirConsentimiento = async (row) => {
 };
 const reimprimirConsentimiento = async (row) => {
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
+  console.log(" reg_prof.cod --->> ", row.reg_prof.cod);
+
   await getFirmaProf(row.reg_prof.cod);
   huella_paci.value = await getHuella(row.reg_paci.cod);
   huella_acomp.value = await getHuella(row.reg_acomp.cod);
@@ -474,7 +476,7 @@ const reimprimirConsentimiento = async (row) => {
 };
 const getFirmaProf = async (cod_prof) => {
   try {
-    firma_prof.value = await _getFirma$({ codigo: cod_prof });
+    firma_prof.value = await _getFirma$({ codigo: Number(cod_prof) || 0 });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);

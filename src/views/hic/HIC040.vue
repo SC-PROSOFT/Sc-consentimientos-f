@@ -14,11 +14,7 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="reg.opcion_hc040 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="reg.opcion_hc040 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="reg.opcion_hc040"
-            >
+            <q-chip :color="reg.opcion_hc040 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc040">
               {{ reg.opcion_hc040 }}
             </q-chip>
           </p>
@@ -38,99 +34,81 @@
             <InputF_ v-model="reg.edad_paci" disable style="width: 50px; display: inline-block" />
             años de edad, identificada con
             <InputF_ v-model="getPaci.tipo_id" disable style="width: 50px; display: inline-block" /> N°
-            <InputF_ v-model="getPaci.cod" disable class="col-2" />, expedida en
-            <InputF_ v-model="getPaci.descrip_ciudad" disable class="col-2" />, con residencia en
-            <InputF_ v-model="getPaci.direccion" disable class="col-2" />, telefono número
-            <InputF_ v-model="getPaci.telefono" disable class="col-2" />, en calidad de paciente y mi
-            acompañante <InputF_ v-model="getAcomp.descrip" disable class="col-2" />, de
-            <InputF_ v-model="reg.edad_acomp" disable class="col-2" /> años de edad , identificado (a) con N°
-            <InputF_ v-model="getAcomp.cod" disable class="col-2" /> , expedida en
-            <InputF_ v-model="getAcomp.descrip_ciudad" disable class="col-2" />; en pleno uso de nuestras
-            facultades mentales y
+            <InputF_ v-model="getPaci.cod" disable class="col-2" />, expedida en <InputF_ v-model="getPaci.descrip_ciudad" disable class="col-2" />,
+            con residencia en <InputF_ v-model="getPaci.direccion" disable class="col-2" />, telefono número
+            <InputF_ v-model="getPaci.telefono" disable class="col-2" />, en calidad de paciente y mi acompañante
+            <InputF_ v-model="getAcomp.descrip" disable class="col-2" />, de <InputF_ v-model="reg.edad_acomp" disable class="col-2" /> años de
+            edad , identificado (a) con N° <InputF_ v-model="getAcomp.cod" disable class="col-2" /> , expedida en
+            <InputF_ v-model="getAcomp.descrip_ciudad" disable class="col-2" />; en pleno uso de nuestras facultades mentales y
           </p>
         </div>
         <p align="justify">
-          de nuestros derechos de salud y habiendo solicitado por nuestra voluntad los servicios de salud a la
-          empresa social del estado ESE Salud Yopal, por medio del presente documento autorizamos al equipo de
-          salud de la Institución, para atenderme y vigilarme durante la conducción del trabajo de parto y la
-          atención del parto vaginal.
+          de nuestros derechos de salud y habiendo solicitado por nuestra voluntad los servicios de salud a la empresa social del estado ESE Salud
+          Yopal, por medio del presente documento autorizamos al equipo de salud de la Institución, para atenderme y vigilarme durante la conducción
+          del trabajo de parto y la atención del parto vaginal.
         </p>
         <p align="justify">
-          Autorizo al personal médico de la ESE Salud Yopal que me atiende a solicitar y practicar las ayudas
-          diagnósticas y terapéuticas, que consideren pertinentes durante la atención y proceso de parto, de
-          mi salud previa información detallada de los posibles riesgos como son: estudio de imagenologia,
-          monitoreo fetal, pruebas de laboratorio clínico, colocación de catéteres, toma de muestras de
-          laboratorio y secreciones, actividades de higiene y confort, administración de medicamentos,
-          administración de líquidos endovenosos.
+          Autorizo al personal médico de la ESE Salud Yopal que me atiende a solicitar y practicar las ayudas diagnósticas y terapéuticas, que
+          consideren pertinentes durante la atención y proceso de parto, de mi salud previa información detallada de los posibles riesgos como son:
+          estudio de imagenologia, monitoreo fetal, pruebas de laboratorio clínico, colocación de catéteres, toma de muestras de laboratorio y
+          secreciones, actividades de higiene y confort, administración de medicamentos, administración de líquidos endovenosos.
         </p>
         <p align="justify">
-          Me informan que Aunque son procedimientos seguros pueden presentarse complicaciones como: hematomas,
-          inflamaciones, infecciones, alergias, dolores locales, sangrados, efectos adversos medicamentosos y
-          otros impredecibles.
+          Me informan que Aunque son procedimientos seguros pueden presentarse complicaciones como: hematomas, inflamaciones, infecciones, alergias,
+          dolores locales, sangrados, efectos adversos medicamentosos y otros impredecibles.
         </p>
         <p align="justify">
-          Declaro que se me ha explicado sobre los riesgos y beneficios de los procedimientos durante mi
-          estancia en los servicios de: urgencias e internación y que algunos de ellos pueden ser dados por mi
-          edad, profesión, creencias, valores y actitudes propias de mi ser.
+          Declaro que se me ha explicado sobre los riesgos y beneficios de los procedimientos durante mi estancia en los servicios de: urgencias e
+          internación y que algunos de ellos pueden ser dados por mi edad, profesión, creencias, valores y actitudes propias de mi ser.
         </p>
 
         <p align="justify">
-          Además se me ha informado que en la ESE salud Yopal, participa personal idóneo, competente y
-          capacitado para la prescripción y determinación de conductas terapéuticas que contribuyan a mejorar
-          mi calidad de vida y de mi hijo.
+          Además se me ha informado que en la ESE salud Yopal, participa personal idóneo, competente y capacitado para la prescripción y determinación
+          de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y de mi hijo.
         </p>
         <div class="row">
           <p>
             El Dr.
-            <InputF_
-              v-model="getProf.descrip"
-              disable
-              class="col-2"
-              style="width: 350px; display: inline-block"
-            />
-            me ha explicado en que consiste el trabajo de parto y el parto vaginal y me ha informado las
-            complicaciones, molestias y posibles riesgos que se puedan presentar en particular los siguientes:
+            <InputF_ v-model="getProf.descrip" disable class="col-2" style="width: 350px; display: inline-block" />
+            me ha explicado en que consiste el trabajo de parto y el parto vaginal y me ha informado las complicaciones, molestias y posibles riesgos
+            que se puedan presentar en particular los siguientes:
           </p>
         </div>
       </q-card-section>
       <q-card-section>
         <ol>
           <li>
-            Que el trabajo de parto es un proceso fisiológico donde se dilata y borra el cuello del útero,
-            permitiendo la expulsión del feto y de la placenta por vía vaginal.
+            Que el trabajo de parto es un proceso fisiológico donde se dilata y borra el cuello del útero, permitiendo la expulsión del feto y de la
+            placenta por vía vaginal.
           </li>
           <li>
-            Que existen tres etapas en el trabajo de parto que son: la dilatación y borramiento del cuello
-            uterino, el descenso y la expulsión del feto, y el alumbramiento de la placenta.
+            Que existen tres etapas en el trabajo de parto que son: la dilatación y borramiento del cuello uterino, el descenso y la expulsión del
+            feto, y el alumbramiento de la placenta.
           </li>
           <li>
-            Que durante cualquiera de las etapas del trabajo de parto se pueden presentar situaciones
-            imprevistas o complicaciones que serán, en lo posible atendidas por el personal médico de la
-            Institución.
+            Que durante cualquiera de las etapas del trabajo de parto se pueden presentar situaciones imprevistas o complicaciones que serán, en lo
+            posible atendidas por el personal médico de la Institución.
           </li>
           <li>
-            Que el trabajo de parto se adelantará dentro de la Institución con el fin de permitir la
-            vigilancia y monitoreo constante por parte del equipo asistencial.
+            Que el trabajo de parto se adelantará dentro de la Institución con el fin de permitir la vigilancia y monitoreo constante por parte del
+            equipo asistencial.
           </li>
           <li>
-            Que en algunos casos se hace necesario inducir el proceso natural del parto con productos
-            farmacológicos, tales como uterotónicos, oxitócicos o prostaglandínicos, que se aplican según
-            criterio médico y bajo vigilancia, con monitoreo constante.
+            Que en algunos casos se hace necesario inducir el proceso natural del parto con productos farmacológicos, tales como uterotónicos,
+            oxitócicos o prostaglandínicos, que se aplican según criterio médico y bajo vigilancia, con monitoreo constante.
           </li>
           <li>
-            Que en caso de distocia del parto (cuando el parto o expulsión procede de manera anormal o
-            difícil), se hace necesario instrumentar el parto con el uso de instrumentos que facilitan la
-            extracción del feto.
+            Que en caso de distocia del parto (cuando el parto o expulsión procede de manera anormal o difícil), se hace necesario instrumentar el
+            parto con el uso de instrumentos que facilitan la extracción del feto.
           </li>
         </ol>
         <div class="row">
           <p>
-            Igualmente mi acompañante y yo hemos sido informados que se pueden presentar complicaciones
-            maternas o fetales, que pueden comprometer mi salud, mi vida o la del feto. El profesional nos
-            notifica que en la actualidad la Institución no dispone de métodos que nos permitan detectar de
-            manera precoz y confiable, todas las situaciones de riesgo fetal, pero con la vigilancia constante
-            del trabajo de parto y parto, se pretende minimizar su ocurrencia y prevenir sus posibles
-            secuelas. Dentro de los riesgos materno y fetales frecuentes se encuentran:
+            Igualmente mi acompañante y yo hemos sido informados que se pueden presentar complicaciones maternas o fetales, que pueden comprometer mi
+            salud, mi vida o la del feto. El profesional nos notifica que en la actualidad la Institución no dispone de métodos que nos permitan
+            detectar de manera precoz y confiable, todas las situaciones de riesgo fetal, pero con la vigilancia constante del trabajo de parto y
+            parto, se pretende minimizar su ocurrencia y prevenir sus posibles secuelas. Dentro de los riesgos materno y fetales frecuentes se
+            encuentran:
           </p>
         </div>
         <ol type="a">
@@ -143,75 +121,58 @@
           <li>Ruptura uterina</li>
           <li>Inversión uterina post parto</li>
           <li>Distocia de hombros</li>
-          <li>
-            Embolia de líquido amniótico (cuando el líquido amniótico o el material embrionario ingresa al
-            torrente sanguíneo de la madre)
-          </li>
+          <li>Embolia de líquido amniótico (cuando el líquido amniótico o el material embrionario ingresa al torrente sanguíneo de la madre)</li>
           <span>Entre otros</span>
         </ol>
         <div class="row">
           <p>
-            Que algunas de estas complicaciones presentan riesgo potencial para mí y/o para el feto y pueden
-            generar secuelas neurológicas leves, moderadas o severas.
+            Que algunas de estas complicaciones presentan riesgo potencial para mí y/o para el feto y pueden generar secuelas neurológicas leves,
+            moderadas o severas.
           </p>
         </div>
         <div class="row">
           <p>
-            Comprendo y acepto que durante el procedimiento pueden aparecer circunstancias imprevisibles o
-            inesperadas, que pueden requerir una extensión de otro procedimiento, acepto que las ciencias de
-            la salud no son una ciencia exacta y que no se me garantizan resultados en la atención y que
-            además al presentar factores de riesgo inherentes a mi persona y patologías previas o actuales, mi
-            riesgo aumentara de manera general.
+            Comprendo y acepto que durante el procedimiento pueden aparecer circunstancias imprevisibles o inesperadas, que pueden requerir una
+            extensión de otro procedimiento, acepto que las ciencias de la salud no son una ciencia exacta y que no se me garantizan resultados en la
+            atención y que además al presentar factores de riesgo inherentes a mi persona y patologías previas o actuales, mi riesgo aumentara de
+            manera general.
           </p>
         </div>
       </q-card-section>
       <q-card-section>
         <div class="row">
           <p>
-            Que si se hace necesario la episiotomía por mi condición clínica durante el expulsivo, deberá ser
-            suturada y que sus posibles complicaciones pueden ser: desgarros perineales, que en casos extremos
-            pueden incluir músculos perineales alrededor del ano (esfínter externo del ano y recto), dolor,
-            formación de hematomas, infecciones de la herida, dehiscencia (abertura espontánea) de la sutura y
-            a largo plazo fístulas (conducto anormal de un cavidad orgánica) recto vaginales e incontinencia
-            fecal.
+            Que si se hace necesario la episiotomía por mi condición clínica durante el expulsivo, deberá ser suturada y que sus posibles
+            complicaciones pueden ser: desgarros perineales, que en casos extremos pueden incluir músculos perineales alrededor del ano (esfínter
+            externo del ano y recto), dolor, formación de hematomas, infecciones de la herida, dehiscencia (abertura espontánea) de la sutura y a
+            largo plazo fístulas (conducto anormal de un cavidad orgánica) recto vaginales e incontinencia fecal.
           </p>
         </div>
         <div class="row">
           <p>
-            Que en caso de presentar alguna complicación que me pueda llevar a la necesidad de realización de
-            una cesárea de urgencia y en algunos casos (hemorragias incontrolables) a una histerectomía total
-            o subtotal en procura de preservar mi vida y/o la de mi hijo(a); se iniciará el proceso de
-            remisión a un nivel de mayor complejidad, para realizar dicho procedimiento que no hace parte del
-            portafolio de servicios de la Institución.
+            Que en caso de presentar alguna complicación que me pueda llevar a la necesidad de realización de una cesárea de urgencia y en algunos
+            casos (hemorragias incontrolables) a una histerectomía total o subtotal en procura de preservar mi vida y/o la de mi hijo(a); se iniciará
+            el proceso de remisión a un nivel de mayor complejidad, para realizar dicho procedimiento que no hace parte del portafolio de servicios de
+            la Institución.
           </p>
         </div>
         <div class="row">
-          <p>
-            Se me ha dado la oportunidad de hacer preguntas y todas ellas han sido contestadas
-            satisfactoriamente.
-          </p>
+          <p>Se me ha dado la oportunidad de hacer preguntas y todas ellas han sido contestadas satisfactoriamente.</p>
         </div>
         <div class="row">
           <p>
-            Me comprometo a seguir las indicaciones que me brindan los profesionales de LA ESE Salud Yopal
-            para contribuir a una atención segura como son:
+            Me comprometo a seguir las indicaciones que me brindan los profesionales de LA ESE Salud Yopal para contribuir a una atención segura como
+            son:
           </p>
           <ul>
             <li>Mantener puesta la manilla de identificación.</li>
             <li>Mantener elevadas las barandas de la cama.</li>
-            <li>
-              Pedir ayuda al personal de enfermería en los casos que los requiera. (aseo diario, ir al baño.
-              etc).
-            </li>
+            <li>Pedir ayuda al personal de enfermería en los casos que los requiera. (aseo diario, ir al baño. etc).</li>
             <li>Permanecer acompañado o asistir con acompañante si hay indicación.</li>
             <li>Tomarme únicamente los medicamentos prescritos por los profesionales tratantes.</li>
+            <li>Informar si soy alérgico a algún medicamento o procedimiento y si vengo tomando medicamentos de forma regular.</li>
             <li>
-              Informar si soy alérgico a algún medicamento o procedimiento y si vengo tomando medicamentos de
-              forma regular.
-            </li>
-            <li>
-              No manipular las llaves que regulan el oxígeno, los goteos de sueros, los monitores, equipos
-              terapéuticos o dispositivos biomédicos.
+              No manipular las llaves que regulan el oxígeno, los goteos de sueros, los monitores, equipos terapéuticos o dispositivos biomédicos.
             </li>
             <li>Lavarme frecuentemente las manos para evitar infecciones.</li>
             <li>Seguir las recomendaciones de aislamiento si cumplo criterios.</li>
@@ -219,39 +180,33 @@
         </div>
         <div class="row">
           <p>
-            Por lo tanto, en forma consciente y voluntaria, luego de haber escuchado la información y
-            explicaciones, sin haber sido objeto de coacción, persuasión, ni manipulación manifiesto lo
-            siguiente:
+            Por lo tanto, en forma consciente y voluntaria, luego de haber escuchado la información y explicaciones, sin haber sido objeto de
+            coacción, persuasión, ni manipulación manifiesto lo siguiente:
           </p>
         </div>
         <div class="row">
           <p>
-            Mi acompañante y Yo que hemos recibido y comprendido toda la información, relacionada con el
-            trabajo de parto y atención del mismo, que entendemos y autorizamos las decisiones médicas que
-            durante su desarrollo se llegaren a presentar y que aceptamos los riesgos y limitaciones
-            expuestas, en el entendido que se propenderá por minimizar su ocurrencia.
+            Mi acompañante y Yo que hemos recibido y comprendido toda la información, relacionada con el trabajo de parto y atención del mismo, que
+            entendemos y autorizamos las decisiones médicas que durante su desarrollo se llegaren a presentar y que aceptamos los riesgos y
+            limitaciones expuestas, en el entendido que se propenderá por minimizar su ocurrencia.
           </p>
         </div>
       </q-card-section>
       <q-card-section>
         <div class="row">
           <p>
-            Declaramos que nos encontramos en capacidad de entender y expresar nuestra voluntad y en
-            consecuencia suscribimos el presente documento en señal de conformidad con su contenido.
+            Declaramos que nos encontramos en capacidad de entender y expresar nuestra voluntad y en consecuencia suscribimos el presente documento en
+            señal de conformidad con su contenido.
           </p>
         </div>
 
         <div v-if="reg.opcion_hc040 == 'REVOCAR'" class="row">
           <p>
-            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro
-            por tanto que, tras la información recibida, no consiento someterme al procedimiento CONDUCCION Y
-            LA ATENCION DEL TRABAJO DE PARTO Y PARTO VAGINAL, por los siguientes motivos:
+            Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro por tanto que, tras la información
+            recibida, no consiento someterme al procedimiento CONDUCCION Y LA ATENCION DEL TRABAJO DE PARTO Y PARTO VAGINAL, por los siguientes
+            motivos:
           </p>
-          <Input_
-            class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-            v-model="reg.revocar_motivos"
-            :field="form.revocar"
-          />
+          <Input_ class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-model="reg.revocar_motivos" :field="form.revocar" />
         </div>
       </q-card-section>
       <q-card-actions>
@@ -341,7 +296,7 @@ const form = ref({
 
 onMounted(() => {
   reg.value.llave = getHc.llave.slice(15);
-  reg.value.edad_acomp = calcEdad(getAcomp.nacim);
+  reg.value.edad_acomp = calcEdad(getPaci.nacim);
   reg.value.edad_paci = calcEdad(getPaci.nacim);
   reg.value.fecha_empresa = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
 
@@ -447,7 +402,7 @@ const imprimirConsen = async () => {
       },
       llave: reg.value.llave,
       fecha: reg.value.fecha_empresa,
-      ...reg
+      ...reg,
     };
 
     const firmas = {

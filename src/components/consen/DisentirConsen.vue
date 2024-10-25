@@ -74,19 +74,8 @@ const form_config = ref({
 });
 
 const firmador = computed(() => {
-  console.log("firma_paciente ", reg_consen.value.firma_paciente);
-
-  if (reg_consen.value.firma_paciente == "S") {
-    console.log("getPaci ", getPaci);
-    return getPaci;
-  } else {
-    console.log("getAcomp ", getAcomp);
-    return {
-      descrip: getPaci.er_nom_acomp + " " + getPaci.do_nom_acomp + " " + getPaci.er_apel_acomp + " " + getPaci.do_apel_acomp,
-      cod: getPaci.id_acomp,
-      tipo_id: getPaci.tipo_id_acomp,
-    };
-  }
+  if (reg_consen.value.firma_paciente == "S") return getPaci;
+  return getAcomp;
 });
 
 onMounted(() => {
