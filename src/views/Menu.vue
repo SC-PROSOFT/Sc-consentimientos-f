@@ -144,7 +144,9 @@ async function getPaciente() {
       data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`;
       setPaci(data.reg_paci);
 
-      datos_session.novedad == "1" && getMedico();
+      if (datos_session.novedad == "1" || datos_session.novedad == "4") {
+        getMedico();
+      }
 
       data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
       if (datos_session.id_acompa) {

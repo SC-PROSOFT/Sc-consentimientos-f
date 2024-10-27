@@ -412,7 +412,6 @@ const disentirConsentimiento = async (row) => {
 };
 const reimprimirConsentimiento = async (row) => {
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
-  console.log(" reg_prof.cod --->> ", row.reg_prof.cod);
 
   await getFirmaProf(row.reg_prof.cod);
   huella_paci.value = await getHuella(row.reg_paci.cod);
@@ -561,13 +560,24 @@ const agregarInfConse = async (data) => {
   console.log("consen_select ", consen_select);
   sessionStorage.setItem("reg_conse_edit", JSON.stringify(consen_select));
   setHeader$({ encabezado: consen_select.reg_coninf.datos_encab });
+  console.log("row agregar ", data);
+  console.log("data.reg_prof.cod ", data.row.reg_prof);
+
   try {
+    await getFirmaProf(data.row.reg_prof.cod);
+    huella_paci.value = await getHuella(data.row.reg_paci.cod);
+    huella_acomp.value = await getHuella(data.row.reg_acomp.cod);
+    await getHuella(data.row.reg_paci.cod);
+    await consultarFirmaConsen(data.row.reg_coninf);
+    console.log("cod_consen --> ", data.row.reg_coninf?.cod);
+
     if (params_querys.value.modulo != "LAB") {
-      return router.push({ name: data.row.reg_coninf.cod });
+      return router.push({ name: data.row.reg_coninf?.cod });
     } else {
-      return router.replace({ name: data.row.reg_coninf.cod });
+      return router.replace({ name: data.row.reg_coninf?.cod });
     }
   } catch (error) {
+    console.error(error);
     CON851("?", "info", "El consentimiento no esta disponible");
   }
 };

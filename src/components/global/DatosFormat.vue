@@ -341,7 +341,16 @@ const ambito_atenc = ref({
   },
 });
 const ident_genero = ref({
-  select: "NO DECLARA",
+  select: computed(() => {
+    switch (getPaci.sexo.trim()) {
+      case "F":
+        return "FEMENINO";
+      case "M":
+        return "MASCULINO";
+      default:
+        return "NO DECLARA";
+    }
+  }),
   items: [
     { value: "MASCULINO", label: "MASCULINO" },
     { value: "FEMENINO", label: "FEMENINO" },
@@ -393,6 +402,7 @@ watchEffect(() => {
   emit("ident_genero", ident_genero.value.select);
   emit("ambito_ante", ambito_atenc.value.select);
 });
+
 const datos_comp = computed(() => {
   return {
     active_cups: props.datos?.active_cups ? props.datos?.active_cups : false,

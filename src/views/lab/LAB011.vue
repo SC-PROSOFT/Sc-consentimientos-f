@@ -391,32 +391,40 @@
           </div>
         </div>
 
-        <div v-show="getSesion.novedad != '4'" class="col-12 row justify-around q-mt-lg">
+        <div class="col-12 row justify-around q-mt-lg">
+          <!-- <div v-show="getSesion.novedad != '4'" class="col-12 row justify-around q-mt-lg"> -->
           <ContainerFirma
             :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
             :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
+            :firma_="firma_paci"
             :tipo_doc="getPaci.tipo_id"
+            :disable="getSesion.novedad == '4'"
             class="col-4"
           />
-          <!-- :firma_="firma_prof_enfer" -->
+
           <ContainerFirma
             quien_firma="FIRMA TESTIGO"
             @reciFirma="callBackFirmaTest"
             :firmador="getTestigo.descrip"
+            :firma_="firma_testigo"
+            :codigo_firma="getTestigo.cod"
             :descrip_prof="getTestigo.descrip_atiende"
             :registro_profe="getTestigo.registro_profe"
+            :disable="getSesion.novedad == '4'"
             class="col-4"
           />
           <ContainerFirma
             quien_firma="TECNÓLOGO DE RADIOLOGÍA"
             @reciFirma="callBackFirmaProf"
             :firma_="firma_prof_tec_radi"
+            :codigo_firma="getProf.cod"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
             :registro_profe="getProf.registro_profe"
+            :disable="getSesion.novedad == '4'"
             class="col-4"
           />
         </div>
@@ -450,7 +458,7 @@ import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado, _getImagen$ } = useApiContabilidad();
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -462,6 +470,8 @@ const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const firma_recibida_test = ref("");
 const firma_prof = ref(null);
+const firma_paci = ref(null);
+const firma_testigo = ref(null);
 const huella_paci = ref(null);
 const firma_prof_enfer = ref(null);
 const firma_prof_tec_radi = ref(null);
@@ -811,7 +821,7 @@ onMounted(() => {
   }, 500);
 });
 
-const datosInit = () => {
+const datosInit = async () => {
   if (getSesion.novedad == "4") {
     res_consen.value = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
     res_consen.value.reg_coninf.datos.peso_kg = Number(res_consen.value.reg_coninf.datos.peso_kg);
@@ -829,6 +839,9 @@ const datosInit = () => {
     Object.assign(tabla_notas_atencion, res_consen.value.reg_coninf.datos.tabla_notas_aten);
     const maxIndice = Math.max(...tabla_notas_atencion.map((item) => Number(item.indice_i) || 0));
     reg_tabla_not_ant.value.indice_i = maxIndice + 1;
+    const codigo = `${res_consen.value.reg_coninf.llave.id}${res_consen.value.reg_coninf.llave.folio}${res_consen.value.reg_coninf.llave.fecha}${res_consen.value.reg_coninf.llave.hora}${res_consen.value.reg_coninf.llave.oper_elab}`;
+    firma_paci.value = await _getImagen$({ codigo: `P${codigo}` });
+    firma_recibida.value = firma_paci.value;
     reg_lab011.opcion_hc035 = "AUTORIZAR";
     foco_(form_tabla_not_ant, "notas_atencion");
   }
@@ -936,9 +949,11 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
-    await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
-    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    if (getSesion.novedad != "4") {
+      await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+      await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
+      await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    }
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
