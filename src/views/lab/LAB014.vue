@@ -269,13 +269,14 @@
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
-            :tipo_doc="getPaci.tipo_id"
+            :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
             class="col-4"
           />
           <ContainerFirma
             quien_firma="FIRMA TESTIGO"
             @reciFirma="callBackFirmaTest"
             :firmador="getTestigo.descrip"
+            :codigo_firma="getTestigo.cod"
             :descrip_prof="getTestigo.descrip_atiende"
             :registro_profe="getTestigo.registro_profe"
             class="col-4"
@@ -285,6 +286,7 @@
             @reciFirma="callBackFirmaProf"
             :firma_="firma_prof_tec_radi"
             :firmador="getProf.descrip"
+            :codigo_firma="getProf.cod"
             :descrip_prof="getProf.descrip_atiende"
             :registro_profe="getProf.registro_profe"
             class="col-4"
@@ -694,6 +696,8 @@ const imprimirConsen = async () => {
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
+      testigo: getTestigo,
+      cod_consen: "LAB014",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
@@ -714,6 +718,7 @@ const imprimirConsen = async () => {
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
       img_firma_testigo: firma_recibida_test.value,
+      img_esquema_mamografia: esquema_mamografia.value,
     };
 
     const docDefinitionPrint = await utilsFormat({
