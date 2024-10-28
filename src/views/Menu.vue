@@ -144,7 +144,7 @@ async function getPaciente() {
       data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`;
       setPaci(data.reg_paci);
 
-      if (datos_session.novedad == "1" || datos_session.novedad == "4") {
+      if (datos_session.novedad == "1") {
         getMedico();
       }
 

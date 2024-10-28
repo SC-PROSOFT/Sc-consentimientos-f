@@ -158,7 +158,7 @@ const route = useRoute();
 
 const formatosStore = useModuleFormatos();
 const { getDll$, _getFirma$, _getImagen$, _getEsquema$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, getTestigo, setHc, getHc, setSession } = formatosStore;
+const { getEmpresa, getTestigo, setHc, getHc, setSession, setProf } = formatosStore;
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const params_querys = ref(null);
@@ -231,11 +231,8 @@ const columns = [
 onMounted(() => {
   setTimeout(() => {
     const isFirstLoad = sessionStorage.getItem("isFirstLoad");
-    console.log("isFirstLoad ", isFirstLoad);
 
     if (!isFirstLoad) {
-      console.log("entre refrest");
-
       sessionStorage.setItem("isFirstLoad", "true");
       window.location.reload();
     } else {
@@ -315,7 +312,7 @@ const getOdontologia = async () => {
     //TODO: Se omite por ahora
     // if (response.reg_hc.cierre.estado == 2) return CON851("9Y", "info", "", logOut$);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 };
@@ -418,7 +415,6 @@ const reimprimirConsentimiento = async (row) => {
   huella_acomp.value = await getHuella(row.reg_acomp.cod);
   await getHuella(row.reg_paci.cod);
   await consultarFirmaConsen(row.reg_coninf);
-  console.log("cod_consen --> ", row.reg_coninf?.cod);
 
   try {
     const docDefinition = await utilsFormat({
@@ -553,15 +549,10 @@ const selectConsen = async (data) => {
   }
 };
 const agregarInfConse = async (data) => {
-  console.log("agregarInfConse ", data.row.reg_coninf.cod);
-  console.log("lista_maestros ", lista_consen);
-
+  setProf(data.row.reg_prof);
   const consen_select = lista_consen.value.find((e) => e.reg_coninf.cod == data.row.reg_coninf.cod);
-  console.log("consen_select ", consen_select);
   sessionStorage.setItem("reg_conse_edit", JSON.stringify(consen_select));
   setHeader$({ encabezado: consen_select.reg_coninf.datos_encab });
-  console.log("row agregar ", data);
-  console.log("data.reg_prof.cod ", data.row.reg_prof);
 
   try {
     await getFirmaProf(data.row.reg_prof.cod);
@@ -569,7 +560,6 @@ const agregarInfConse = async (data) => {
     huella_acomp.value = await getHuella(data.row.reg_acomp.cod);
     await getHuella(data.row.reg_paci.cod);
     await consultarFirmaConsen(data.row.reg_coninf);
-    console.log("cod_consen --> ", data.row.reg_coninf?.cod);
 
     if (params_querys.value.modulo != "LAB") {
       return router.push({ name: data.row.reg_coninf?.cod });

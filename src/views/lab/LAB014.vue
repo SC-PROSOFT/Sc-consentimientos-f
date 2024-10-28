@@ -238,6 +238,7 @@
               <q-separator />
               <q-card-actions align="around">
                 <q-btn class="q-mt-xs" push color="deep-orange" icon="delete_forever" @click="clear">Borrar trazos</q-btn>
+                <q-btn class="q-mt-xs" push color="primary" icon="undo" @click="undo">Deshacer último trazo</q-btn>
               </q-card-actions>
             </q-card>
           </div>
@@ -761,7 +762,14 @@ const callBackFirmaTest = (data_firma) => {
 const clear = () => {
   signaturePad.value.clearSignature();
 };
-
+const undo = () => {
+  const signaturePadInstance = signaturePad.value.signaturePad;
+  const data = signaturePadInstance.toData();
+  if (data.length) {
+    data.pop();
+    signaturePadInstance.fromData(data);
+  }
+};
 const save = async () => {
   console.log("save img ");
 
