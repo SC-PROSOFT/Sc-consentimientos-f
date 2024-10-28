@@ -6,9 +6,7 @@
       text_class ? `${text_class} ` : 'text-left ',
     ]"
   >
-    <label :class="`${width_label ? `${width_label}   with-background` : ''} `">{{
-      field?.label || ""
-    }}</label>
+    <label :class="`${width_label ? `${width_label}   with-background` : ''} `">{{ field?.label || "" }}</label>
     <div :class="`${width_input} q-gutter-md`">
       <q-input
         dense
@@ -44,15 +42,10 @@
         :counter="!field.nocounter ? false : field.nocounter"
         :input-class="field.tipo == 'codigo' || text_class ? 'text-center' : ''"
         :type="field.id == 'clave' ? (field.show_clave ? 'text' : 'password') : field.tipo"
+        :style="inputStyle"
         oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
         ><template v-slot:append v-if="field.f0 && field.f0.includes('f8')">
-          <q-icon
-            size="1.2em"
-            name="pageview"
-            color="primary"
-            class="cursor-pointer"
-            @click="executeEventos({ key: 'f8' })"
-          />
+          <q-icon size="1.2em" name="pageview" color="primary" class="cursor-pointer" @click="executeEventos({ key: 'f8' })" />
         </template>
         <template v-if="field.id == 'clave'" v-slot:append>
           <q-icon
@@ -81,6 +74,7 @@ const props = defineProps({
   text_class: String,
   width_label: String,
   width_input: String,
+  inputStyle: [String, Object],
   field: {
     f0: Array,
     id: String,
@@ -187,8 +181,7 @@ const scrollToFoco = () => {
   const elementos = document.querySelectorAll(`#${props.field.id}`);
   setTimeout(() => {
     elementos.forEach((input) => {
-      !input.disable &&
-        input.addEventListener("focus", () => input.scrollIntoView({ behavior: "smooth", block: "center" }));
+      !input.disable && input.addEventListener("focus", () => input.scrollIntoView({ behavior: "smooth", block: "center" }));
     });
   }, 100);
 };

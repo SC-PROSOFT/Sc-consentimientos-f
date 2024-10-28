@@ -31,31 +31,45 @@
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">ANTECEDENTES GINECOLÓGICOS</div>
 
           <div class="row">
-            <p class="text-left text-bold">Fecha ultima mestruación:</p>
-            <Input_ v-model="reg_lab014.fecha_ult_mestr" :field="form.fecha_ult_mestr" style="margin-top: 3px" class="col-xs-2" />
-            <p class="text-left text-bold">Fecha menarquia (1° mestruación):</p>
-            <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" class="col-xs-2" />
-
             <div class="row">
-              <p class="text-left text-bold">Histerectomia:</p>
-              <q-radio color="primary" v-model="reg_lab014.histerect" val="S" label="SI" />
-              <q-radio color="primary" v-model="reg_lab014.histerect" val="N" label="NO" />
-              <p class="text-left text-bold" style="padding-left: 8px">Fecha histerectomia:</p>
-              <Input_ v-model="reg_lab014.fecha_histerect" :field="form.fecha_histerect" style="margin-top: 3px" />
-              <p class="text-left text-bold">Gestaciones:</p>
-              <Input_ v-model="reg_lab014.cant_gestaci" :field="form.cant_gestaci" class="col-xs-1" style="margin-top: 3px" />
-              <p class="text-left text-bold">Partos:</p>
-              <Input_ v-model="reg_lab014.cant_partos" :field="form.cant_partos" class="col-xs-1" style="margin-top: 3px" />
-              <p class="text-left text-bold">Cesáreas:</p>
-              <Input_ v-model="reg_lab014.cant_cesareas" :field="form.cant_cesareas" class="col-xs-1" style="margin-top: 3px" />
+              <p class="text-left text-bold">Fecha ultima mestruación:</p>
+              <Input_ v-model="reg_lab014.fecha_ult_mestr" :field="form.fecha_ult_mestr" style="margin-top: 3px" />
+            </div>
+            <div class="row">
+              <p class="text-left text-bold">Fecha menarquia (1° mestruación):</p>
+              <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" />
             </div>
 
-            <p class="text-left text-bold">Abortos:</p>
-            <Input_ v-model="reg_lab014.cant_abortos" :field="form.cant_abortos" class="col-xs-1" style="margin-top: 3px" />
-            <p class="text-left text-bold">Vivos:</p>
-            <Input_ v-model="reg_lab014.cant_vivos" :field="form.cant_vivos" class="col-xs-1" style="margin-top: 3px" />
-            <p class="text-left text-bold">Muertos:</p>
-            <Input_ v-model="reg_lab014.cant_muertos" :field="form.cant_muertos" class="col-xs-1" style="margin-top: 3px" />
+            <div class="row">
+              <div class="row">
+                <p class="text-left text-bold">Histerectomia:</p>
+                <q-radio color="primary" v-model="reg_lab014.histerect" val="S" label="SI" />
+                <q-radio color="primary" v-model="reg_lab014.histerect" val="N" label="NO" />
+              </div>
+              <div class="row">
+                <p class="text-left text-bold" style="padding-left: 8px">Fecha histerectomia:</p>
+                <Input_ v-model="reg_lab014.fecha_histerect" :field="form.fecha_histerect" style="margin-top: 3px" />
+              </div>
+              <div class="row">
+                <p class="text-left text-bold">Gestaciones:</p>
+                <Input_ v-model="reg_lab014.cant_gestaci" :field="form.cant_gestaci" style="margin-top: 3px" :inputStyle="{ width: '40px' }" />
+              </div>
+              <div class="row">
+                <p class="text-left text-bold">Partos:</p>
+                <Input_ v-model="reg_lab014.cant_partos" :field="form.cant_partos" style="margin-top: 3px" :inputStyle="{ width: '40px' }" />
+              </div>
+              <div class="row">
+                <p class="text-left text-bold">Cesáreas:</p>
+                <Input_ v-model="reg_lab014.cant_cesareas" :field="form.cant_cesareas" style="margin-top: 3px" :inputStyle="{ width: '40px' }" />
+              </div>
+
+              <p class="text-left text-bold">Abortos:</p>
+              <Input_ v-model="reg_lab014.cant_abortos" :field="form.cant_abortos" style="margin-top: 3px" :inputStyle="{ width: '40px' }" />
+              <p class="text-left text-bold">Vivos:</p>
+              <Input_ v-model="reg_lab014.cant_vivos" :field="form.cant_vivos" style="margin-top: 3px" :inputStyle="{ width: '40px' }" />
+              <p class="text-left text-bold">Muertos:</p>
+              <Input_ v-model="reg_lab014.cant_muertos" :field="form.cant_muertos" style="margin-top: 3px" :inputStyle="{ width: '40px' }" />
+            </div>
           </div>
         </div>
         <div class="row q-mt-md q-mb-md" style="width: 100%">

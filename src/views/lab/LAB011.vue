@@ -38,7 +38,7 @@
 
           <div class="row q-mt-md">
             <p class="text-left">Fecha ultimo examen:</p>
-            <Input_ v-model="reg_lab011.fecha_ult_exam" :field="form.fecha_ult_exam" class="col-xs-3" />
+            <Input_ v-model="reg_lab011.fecha_ult_exam" :field="form.fecha_ult_exam" />
           </div>
 
           <div class="row q-mt-md">
@@ -58,57 +58,66 @@
 
           <p class="text-left text-bold">Complicaciones:</p>
           <div class="row">
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.rash_curaneo"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Rash curaneo</p>
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.dificult_res"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Dificultad respiratoria</p>
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.crisis_asma"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Crisis asmatica</p>
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.emesis"
-              true-value="S"
-              false-value="N"
-            />
-
-            <p class="text-left">Emesis</p>
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.shock_anafilac"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Shock anafilactico</p>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.rash_curaneo"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Rash curaneo</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.dificult_res"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Dificultad respiratoria</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.crisis_asma"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Crisis asmatica</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.emesis"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Emesis</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.shock_anafilac"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Shock anafilactico</p>
+            </div>
           </div>
           <div class="row">
             <p class="text-left">Otro:</p>
@@ -128,7 +137,7 @@
           </div>
           <div class="row">
             <p class="text-left">Fecha de ultima mestruación:</p>
-            <Input_ v-model="reg_lab011.fecha_ult_mestr" :field="form.fecha_ult_mestr" class="col-xs-3" />
+            <Input_ v-model="reg_lab011.fecha_ult_mestr" :field="form.fecha_ult_mestr" />
           </div>
         </div>
 
@@ -137,16 +146,18 @@
           <div class="text-letf text-subtitle1 text-bold q-py-xs q-mb-md">Patológicos</div>
 
           <div class="row">
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.asma_tratam"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Asma actual en tratamiento</p>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.asma_tratam"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Asma actual en tratamiento</p>
+            </div>
             <div class="row">
               <q-checkbox
                 :disable="getSesion.novedad === '4'"
@@ -216,27 +227,30 @@
 
           <p class="text-left text-bold">Alérgicos:</p>
           <div class="row">
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.alerg_medicamet"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Medicamentos</p>
-
-            <q-checkbox
-              :disable="getSesion.novedad === '4'"
-              color="primary"
-              keep-color
-              left-label
-              v-model="reg_lab011.alerg_aliment"
-              true-value="S"
-              false-value="N"
-            />
-            <p class="text-left">Alimentos</p>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.alerg_medicamet"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Medicamentos</p>
+            </div>
+            <div class="row">
+              <q-checkbox
+                :disable="getSesion.novedad === '4'"
+                color="primary"
+                keep-color
+                left-label
+                v-model="reg_lab011.alerg_aliment"
+                true-value="S"
+                false-value="N"
+              />
+              <p class="text-left">Alimentos</p>
+            </div>
           </div>
           <div class="row">
             <p class="text-left">Otros:</p>
@@ -300,14 +314,15 @@
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Datos clínicos relevantes</div>
 
           <div class="row">
-            <p class="text-left text-bold">Peso (Kg):</p>
-            <Input_ v-model="reg_lab011.peso_kg" :field="form.peso_kg" class="col-xs-1" />
-
+            <div class="row">
+              <p class="text-left text-bold">Peso (Kg):</p>
+              <Input_ v-model="reg_lab011.peso_kg" :field="form.peso_kg" :inputStyle="{ width: '60px' }" />
+            </div>
             <p class="text-left text-bold">Talla (Cm):</p>
-            <Input_ v-model="reg_lab011.talla_cm" :field="form.talla_cm" class="col-xs-1" />
+            <Input_ v-model="reg_lab011.talla_cm" :field="form.talla_cm" :inputStyle="{ width: '60px' }" />
 
             <p class="text-left text-bold">Creatinina (mg/dl):</p>
-            <Input_ v-model="reg_lab011.creatinina" :field="form.creatinina" class="col-xs-2" />
+            <Input_ v-model="reg_lab011.creatinina" :field="form.creatinina" :inputStyle="{ width: '60px' }" />
           </div>
           <div class="row q-mt-md">
             <p class="text-left text-bold">Otro:</p>
@@ -317,26 +332,38 @@
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Signos vitales</div>
           <div class="row">
-            <p class="text-left">TA</p>
-            <Input_ v-model="reg_lab011.signo_ta_sistol" :field="form.signo_ta_sistol" class="col-xs-1" />
-            <p class="text-left">/</p>
-            <Input_ v-model="reg_lab011.signo_ta_diastol" :field="form.signo_ta_diastol" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 15px">mm Hg</p>
-            <p class="text-left q-ml-md">FC</p>
-            <Input_ v-model="reg_lab011.signo_frec_card" :field="form.signo_frec_card" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 15px">Ipm</p>
-            <p class="text-left q-ml-md">FR</p>
-            <Input_ v-model="reg_lab011.signo_frec_resp" :field="form.signo_frec_resp" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 15px">rpm</p>
-            <p class="text-left q-ml-md">SaO2</p>
-            <Input_ v-model="reg_lab011.signo_sa_o2_porc" :field="form.signo_sa_o2_porc" class="col-xs-1" />
-            <p class="text-left" style="padding-right: 15px">%</p>
-            <p class="text-left q-ml-md">FiO2</p>
-            <Input_ v-model="reg_lab011.signo_fi_o2_porc" :field="form.signo_fi_o2_porc" class="col-xs-1" />
-            <p class="text-left">%</p>
-            <p class="text-left">Glasgow</p>
-            <Input_ v-model="reg_lab011.signo_glasgow" :field="form.signo_glasgow" class="col-xs-1" />
-            <p class="text-left">/15</p>
+            <div class="row">
+              <p class="text-left">TA</p>
+              <Input_ v-model="reg_lab011.signo_ta_sistol" :field="form.signo_ta_sistol" :inputStyle="{ width: '60px' }" />
+              <p class="text-left">/</p>
+              <Input_ v-model="reg_lab011.signo_ta_diastol" :field="form.signo_ta_diastol" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">mm Hg</p>
+            </div>
+            <div class="row">
+              <p class="text-left q-ml-md">FC</p>
+              <Input_ v-model="reg_lab011.signo_frec_card" :field="form.signo_frec_card" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">Ipm</p>
+            </div>
+            <div class="row">
+              <p class="text-left q-ml-md">FR</p>
+              <Input_ v-model="reg_lab011.signo_frec_resp" :field="form.signo_frec_resp" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">rpm</p>
+            </div>
+            <div class="row">
+              <p class="text-left q-ml-md">SaO2</p>
+              <Input_ v-model="reg_lab011.signo_sa_o2_porc" :field="form.signo_sa_o2_porc" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">%</p>
+            </div>
+            <div class="row">
+              <p class="text-left q-ml-md">FiO2</p>
+              <Input_ v-model="reg_lab011.signo_fi_o2_porc" :field="form.signo_fi_o2_porc" :inputStyle="{ width: '60px' }" />
+              <p class="text-left">%</p>
+            </div>
+            <div class="row">
+              <p class="text-left">Glasgow</p>
+              <Input_ v-model="reg_lab011.signo_glasgow" :field="form.signo_glasgow" :inputStyle="{ width: '60px' }" />
+              <p class="text-left">/15</p>
+            </div>
           </div>
         </div>
         <div class="border-format q-my-sm">

@@ -61,30 +61,42 @@
           <div class="row">
             <div class="row">
               <p class="text-left">TA:</p>
-              <Input_ v-model="reg_lab012.signo_ta_sistol" :field="form.signo_ta_sistol" class="col-xs-2" />
+              <Input_ v-model="reg_lab012.signo_ta_sistol" :field="form.signo_ta_sistol" :inputStyle="{ width: '60px' }" />
               <p class="text-left">/</p>
-              <Input_ v-model="reg_lab012.signo_ta_diastol" :field="form.signo_ta_diastol" class="col-xs-2" />
-              <p class="text-left" style="padding-right: 45px">mm Hg</p>
-              <p class="text-left q-ml-md">FC:</p>
-              <Input_ v-model="reg_lab012.signo_frec_card" :field="form.signo_frec_card" class="col-xs-2" />
-              <p class="text-left" style="padding-right: 45px">Ipm</p>
+              <Input_ v-model="reg_lab012.signo_ta_diastol" :field="form.signo_ta_diastol" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">mm Hg</p>
             </div>
-            <p class="text-left q-ml-md">FR:</p>
-            <Input_ v-model="reg_lab012.signo_frec_resp" :field="form.signo_frec_resp" class="col-xs-2" />
-            <p class="text-left" style="padding-right: 45px">rpm</p>
-            <p class="text-left q-ml-md">SaO2:</p>
-            <Input_ v-model="reg_lab012.signo_sa_o2_porc" :field="form.signo_sa_o2_porc" class="col-xs-2" />
-            <p class="text-left" style="padding-right: 45px">%</p>
-            <p class="text-left q-ml-md">FiO2:</p>
-            <Input_ v-model="reg_lab012.signo_fi_o2_porc" :field="form.signo_fi_o2_porc" class="col-xs-2" />
-            <p class="text-left q-ml-md" style="padding-right: 45px">%</p>
+            <div class="row">
+              <p class="text-left q-ml-md">FC:</p>
+              <Input_ v-model="reg_lab012.signo_frec_card" :field="form.signo_frec_card" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">Ipm</p>
+            </div>
+
+            <div class="row">
+              <p class="text-left q-ml-md">FR:</p>
+              <Input_ v-model="reg_lab012.signo_frec_resp" :field="form.signo_frec_resp" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">rpm</p>
+            </div>
+            <div class="row">
+              <p class="text-left q-ml-md">SaO2:</p>
+              <Input_ v-model="reg_lab012.signo_sa_o2_porc" :field="form.signo_sa_o2_porc" :inputStyle="{ width: '60px' }" />
+              <p class="text-left" style="padding-right: 15px">%</p>
+            </div>
+            <div class="row">
+              <p class="text-left q-ml-md">FiO2:</p>
+              <Input_ v-model="reg_lab012.signo_fi_o2_porc" :field="form.signo_fi_o2_porc" :inputStyle="{ width: '60px' }" />
+              <p class="text-left q-ml-md" style="padding-right: 15px">%</p>
+            </div>
+
             <div class="row">
               <p class="text-left q-ml-md">Peso (Kg):</p>
-              <Input_ v-model="reg_lab012.peso_kg" :field="form.peso_kg" class="col-xs-3" />
-
-              <p class="text-left text-bold">Talla (Cm):</p>
-              <Input_ v-model="reg_lab012.talla_cm" :field="form.talla_cm" class="col-xs-3" />
+              <Input_ v-model="reg_lab012.peso_kg" :field="form.peso_kg" :inputStyle="{ width: '60px' }" />
             </div>
+            <div class="row">
+              <p class="text-left text-bold">Talla (Cm):</p>
+              <Input_ v-model="reg_lab012.talla_cm" :field="form.talla_cm" :inputStyle="{ width: '60px' }" />
+            </div>
+
             <div class="row">
               <p class="text-left text-bold">Casificación ASA:</p>
               <div class="row">
