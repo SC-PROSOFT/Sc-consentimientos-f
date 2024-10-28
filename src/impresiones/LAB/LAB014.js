@@ -27,7 +27,7 @@ export const impresionLAB014 = ({ datos }) => {
         {
           columns: [
             {
-              marginTop: 20,
+              marginTop: 5,
               table: {
                 widths: ["30%", "15%", "15%", "5%", "5%", "15%", "15%"],
                 body: [
@@ -101,7 +101,7 @@ export const impresionLAB014 = ({ datos }) => {
         {
           columns: [
             {
-              marginTop: 20,
+              marginTop: 5,
               table: {
                 marginRigth: 1,
                 widths: ["45%", "5%", "5%", "45%"],
@@ -312,7 +312,7 @@ export const impresionLAB014 = ({ datos }) => {
         {
           columns: [
             {
-              marginTop: 20,
+              marginTop: 5,
               table: {
                 marginRigth: 1,
                 widths: ["45%", "5%", "5%", "45%"],
@@ -474,7 +474,8 @@ export const impresionLAB014 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 25,
+          pageBreak: "before", // Salto de página antes de este contenido
+          marginTop: 5,
           alignment: "center",
           table: {
             widths: ["50%", "50%"],
@@ -507,6 +508,40 @@ export const impresionLAB014 = ({ datos }) => {
             ],
           },
         },
+        // {
+        //   marginTop: 25,
+        //   alignment: "center",
+        //   table: {
+        //     widths: ["50%", "50%"],
+        //     body: [
+        //       [{ text: "REGISTRO DE INSPECCIÓN", bold: true, style: "tableTitle", alignment: "center", colSpan: 2 }, {}],
+        //       [
+        //         {
+        //           marginTop: 5,
+        //           alignment: "center",
+        //           image: "esquema_mamografia",
+        //           width: 240,
+        //           height: 100,
+        //         },
+        //         {
+        //           text: [
+        //             {
+        //               text: "OBSERVACIONES:  ",
+        //               bold: true,
+        //               style: "tableTitle",
+        //               alignment: "left",
+        //             },
+        //             {
+        //               text: datos.obser_regis_inspec,
+        //               style: "tableTitle",
+        //               alignment: "left",
+        //             },
+        //           ],
+        //         },
+        //       ],
+        //     ],
+        //   },
+        // },
 
         // {
         //   marginTop: 25,

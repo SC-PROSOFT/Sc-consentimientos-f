@@ -196,7 +196,7 @@
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
-            :tipo_doc="getPaci.tipo_id"
+            :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
             class="col-4"
           />
           <!-- :firma_="firma_prof_enfer" -->
@@ -206,12 +206,13 @@
             :firmador="getTestigo.descrip"
             :descrip_prof="getTestigo.descrip_atiende"
             :registro_profe="getTestigo.registro_profe"
+            :codigo_firma="getTestigo.cod"
             class="col-4"
           />
           <ContainerFirma
             quien_firma="AUXILIAR DE ENFERMERÍA"
             @reciFirma="callBackFirmaProf"
-            :firma_="firma_prof_tec_radi"
+            :codigo_firma="getProf.cod"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
             :registro_profe="getProf.registro_profe"
@@ -262,7 +263,6 @@ const firma_recibida_test = ref("");
 const firma_prof = ref(null);
 const huella_paci = ref(null);
 const firma_prof_enfer = ref(null);
-const firma_prof_tec_radi = ref(null);
 
 const datos = {
   tipo_id: getPaci.tipo_id,
@@ -460,6 +460,7 @@ const imprimirConsen = async () => {
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
+      testigo: getTestigo,
       cod_consen: "LAB013",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,

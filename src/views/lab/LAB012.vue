@@ -130,22 +130,24 @@
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
-            :tipo_doc="getPaci.tipo_id"
+            :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
             class="col-4"
           />
-          <!-- :firma_="firma_prof_enfer" -->
+
           <ContainerFirma
             quien_firma="FIRMA TESTIGO"
             @reciFirma="callBackFirmaTest"
             :firmador="getTestigo.descrip"
             :descrip_prof="getTestigo.descrip_atiende"
             :registro_profe="getTestigo.registro_profe"
+            :codigo_firma="getTestigo.cod"
             class="col-4"
           />
           <ContainerFirma
             quien_firma="MÉDICO ANESTESIOLOGO"
             @reciFirma="callBackFirmaProf"
             :firma_="firma_prof_tec_radi"
+            :codigo_firma="getProf.cod"
             :firmador="getProf.descrip"
             :descrip_prof="getProf.descrip_atiende"
             :registro_profe="getProf.registro_profe"

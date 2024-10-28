@@ -400,7 +400,7 @@
             @reciFirma="callBackFirma"
             :huella_="huella_paci"
             :firma_="firma_paci"
-            :tipo_doc="getPaci.tipo_id"
+            :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
             :disable="getSesion.novedad == '4'"
             class="col-4"
           />
@@ -543,8 +543,8 @@ const reg_acomp = ref(regAcomp());
 
 const reg_lab011 = reactive({
   revoca_procedi: "",
-  fecha: dayjs().format("DD-MM-YYYY"),
-  hora: dayjs().format("hh:mm A"),
+  // fecha: dayjs().format("DD-MM-YYYY"),
+  // hora: dayjs().format("hh:mm A"),
 
   ult_examen: "",
   fecha_ult_exam: "",
@@ -851,7 +851,7 @@ const datosInit = async () => {
   }
   reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
   reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
-  reg_lab011.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
+  // reg_lab011.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg_lab011.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
   Object.assign(reg_acomp.value, getAcomp);

@@ -29,7 +29,7 @@ export const impresionLAB013 = ({ datos }) => {
           columns: [
             {
               fontSize: 8,
-              marginTop: 5,
+              marginTop: 15,
               table: {
                 marginRigth: 1,
                 widths: ["80%", "10%", "10%"],
@@ -445,7 +445,7 @@ export const impresionLAB013 = ({ datos }) => {
           columns: [
             {
               fontSize: 8,
-              marginTop: 5,
+              marginTop: 15,
               table: {
                 marginRigth: 1,
                 widths: ["80%", "10%", "10%"],
@@ -627,7 +627,7 @@ export const impresionLAB013 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 5,
+          marginTop: 15,
           table: {
             widths: ["100%"],
             body: [
@@ -645,43 +645,15 @@ export const impresionLAB013 = ({ datos }) => {
                   text: datos.observac,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 8,
                 },
               ],
             ],
           },
         },
-        textoAutoriza(datos.autorizo),
         {
-          marginTop: 5,
-          alignment: "center",
-          table: {
-            widths: ["33.33%", "33.33%", "33.33%"],
-            body: [
-              [
-                {
-                  style: "tableTitle",
-                  text: {
-                    bold: true,
-                    text: "Elaborado por: Médico Enfermera",
-                  },
-                },
-                {
-                  style: "tableTitle",
-                  text: {
-                    bold: true,
-                    text: "Revisado por: Asesor de Calidad",
-                  },
-                },
-                {
-                  style: "tableTitle",
-                  text: {
-                    bold: true,
-                    text: "Aprovado por: Representante Legal",
-                  },
-                },
-              ],
-            ],
-          },
+          pageBreak: "before",
+          text: "",
         },
         textoDisentimiento(datos.disentimiento, datos.acompa_disenti),
       ],
@@ -690,7 +662,7 @@ export const impresionLAB013 = ({ datos }) => {
 
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
-      marginTop: 5,
+      marginTop: 15,
       table: {
         heights: ["auto", "auto", "auto", "auto", "auto", "auto"],
         widths: [171, 172, 171],

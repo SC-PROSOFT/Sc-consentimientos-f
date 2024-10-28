@@ -25,7 +25,7 @@ export const impresionLAB012 = ({ datos }) => {
       stack: [
         datosFormatUTM({ datos }),
         {
-          marginTop: 15,
+          marginTop: 5,
           table: {
             widths: ["100%"],
             body: [
@@ -52,6 +52,7 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.antec_patolog,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 3,
                 },
               ],
               [
@@ -69,6 +70,7 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.antec_alergicos,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 3,
                 },
               ],
               [
@@ -86,6 +88,7 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.antec_quirur,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 3,
                 },
               ],
               [
@@ -103,6 +106,7 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.antec_farmaco,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 3,
                 },
               ],
               [
@@ -127,7 +131,7 @@ export const impresionLAB012 = ({ datos }) => {
         },
         // EXAMEN FISICO
         {
-          marginTop: 15,
+          marginTop: 5,
           alignment: "center",
           table: {
             widths: ["25%", "25%", "25%", "25%"],
@@ -195,7 +199,7 @@ export const impresionLAB012 = ({ datos }) => {
           },
         },
         {
-          marginTop: 8,
+          marginTop: 5,
           alignment: "center",
           table: {
             widths: ["20%", "20%", "20%", "20%", "20%"],
@@ -262,7 +266,8 @@ export const impresionLAB012 = ({ datos }) => {
           },
         },
         {
-          marginTop: 15,
+          pageBreak: "before",
+          marginTop: 5,
           table: {
             widths: ["100%"],
             body: [
@@ -280,13 +285,15 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.observ_exam_fisic,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 5,
                 },
               ],
             ],
           },
         },
+
         {
-          marginTop: 15,
+          marginTop: 5,
           table: {
             widths: ["100%"],
             body: [
@@ -304,13 +311,14 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.plan_manejo,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 5,
                 },
               ],
             ],
           },
         },
         {
-          marginTop: 15,
+          marginTop: 5,
           table: {
             widths: ["100%"],
             body: [
@@ -328,6 +336,7 @@ export const impresionLAB012 = ({ datos }) => {
                   text: datos.educacion,
                   style: "tableTitle",
                   alignment: "justify",
+                  lineHeight: 5,
                 },
               ],
             ],
@@ -374,7 +383,7 @@ export const impresionLAB012 = ({ datos }) => {
 
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
-      marginTop: 10,
+      marginTop: 5,
       table: {
         heights: ["auto", "auto", "auto", "auto", "auto", "auto"],
         widths: [171, 172, 171],
@@ -477,7 +486,7 @@ export const impresionLAB012 = ({ datos }) => {
     };
 
     const textoRevoca = {
-      marginTop: 15,
+      marginTop: 5,
       table: {
         heights: ["auto", "auto", "auto", "auto", "auto", "auto"],
         widths: [171, 172, 171],
@@ -592,7 +601,7 @@ export const impresionLAB012 = ({ datos }) => {
     const textPacient = `Yo ${datos.paciente.descrip}, identificada (o) con el documento de identidad número ${datos.paciente.cod}, en calidad de paciente, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
 
     const textoDisentimiento = {
-      marginTop: 15,
+      marginTop: 5,
       table: {
         widths: ["auto", 180],
         body: [
