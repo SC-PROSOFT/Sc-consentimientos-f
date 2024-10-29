@@ -16,32 +16,30 @@ export const impresionLAB011 = ({ datos }) => {
     ];
   };
   const tablaNotasAtenc = () => {
-    return (
-      datos.tabla_notas_aten
-        //   .filter((item) => item.indice_i != " " && item.indice_i != null && item.indice_i != "")
-        .map((item) => [
-          {
-            text: item.indice_i,
-            // border: [0, 0, 0, 0],
-            // style: "center8",
-          },
-          {
-            text: item.fecha,
-            // border: [0, 0, 0, 0],
-            // style: "center8",
-          },
-          {
-            text: item.hora,
-            // border: [0, 0, 0, 0],
-            // style: "center8",
-          },
-          {
-            text: item.notas_atencion,
-            // border: [0, 0, 0, 0],
-            // style: "center8",
-          },
-        ])
-    );
+    return datos.tabla_notas_aten
+      .filter((item) => item.indice_i != " " && item.indice_i != null && item.indice_i != "")
+      .map((item) => [
+        {
+          text: item.indice_i,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+        {
+          text: item.fecha,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+        {
+          text: item.hora,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+        {
+          text: item.notas_atencion,
+          // border: [0, 0, 0, 0],
+          // style: "center8",
+        },
+      ]);
   };
 
   var dd = {
@@ -180,7 +178,7 @@ export const impresionLAB011 = ({ datos }) => {
                         { style: "tableTitle", text: " SI: " },
                         { style: "tableTitle", bold: true, decoration: "underline", text: datos.medio_contras == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " NO: " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.medio_contras == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.medio_contras == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " NOMBRE: " },
                         { style: "bodyNoBold", text: datos.nomb_med_contr },
                         { style: "tableTitle", text: " DOSIS: " },
@@ -193,15 +191,15 @@ export const impresionLAB011 = ({ datos }) => {
                       text: [
                         { style: "tableTitle", text: "COMPLICACIONES: " },
                         { style: "tableTitle", text: " RASH CURANEO" },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.rash_curaneo == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.rash_curaneo == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " DIFICULTAD RESPIRATORIA " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.dificult_res == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.dificult_res == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " CRISIS ASMATICA " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.crisis_asma == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.crisis_asma == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " EMESIS " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.emesis == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.emesis == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " SHOCK ANAFILACTICO: " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.shock_anafilac == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.shock_anafilac == "S" ? " X " : "    " },
                       ],
                     },
                   ],
@@ -218,7 +216,7 @@ export const impresionLAB011 = ({ datos }) => {
                       text: [
                         { style: "tableTitle", bold: true, text: "POSIBILIDAD DE EMBARAZO: " },
                         { style: "tableTitle", text: " NO APLICA " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.posib_embarazo == "N" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.posib_embarazo == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " MEF " },
                         { style: "tableTitle", bold: true, decoration: "underline", text: datos.posib_embarazo == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " FECHA DE ULTIMA MENSTRUACIÓN " },

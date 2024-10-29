@@ -164,10 +164,24 @@ export const impresionLAB013 = ({ datos }) => {
                     },
                   ],
                   [
+                    // {
+                    //   text: "¿Tiene el paciente antecedente de alergias?",
+                    //   bold: true,
+                    //   alignment: "left",
+                    // },
                     {
-                      text: "¿Tiene el paciente antecedente de alergias?",
-                      bold: true,
-                      alignment: "left",
+                      text: [
+                        {
+                          text: "¿Tiene el paciente antecedente de alergias?, ¿cuales?:  ",
+                          bold: true,
+                          alignment: "left",
+                        },
+                        {
+                          text: datos.espec_pregunta_5,
+                        },
+                      ],
+                      style: "tableTitle",
+                      alignment: "justify",
                     },
                     {
                       alignment: "center",

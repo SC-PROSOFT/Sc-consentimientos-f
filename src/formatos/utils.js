@@ -720,7 +720,7 @@ export const datosFormatUTM = ({ datos }) => {
     [
       {
         colSpan: 8,
-        text: `${datos.acomp.descrip}`,
+        text: datos.acomp.descrip || "",
         style: "tableTitle",
       },
 
