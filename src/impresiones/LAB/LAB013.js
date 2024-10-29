@@ -29,7 +29,7 @@ export const impresionLAB013 = ({ datos }) => {
           columns: [
             {
               fontSize: 8,
-              marginTop: 15,
+              marginTop: 5,
               table: {
                 marginRigth: 1,
                 widths: ["80%", "10%", "10%"],
@@ -445,7 +445,7 @@ export const impresionLAB013 = ({ datos }) => {
           columns: [
             {
               fontSize: 8,
-              marginTop: 15,
+              marginTop: 5,
               table: {
                 marginRigth: 1,
                 widths: ["80%", "10%", "10%"],
@@ -627,7 +627,7 @@ export const impresionLAB013 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 15,
+          marginTop: 5,
           table: {
             widths: ["100%"],
             body: [
@@ -654,6 +654,39 @@ export const impresionLAB013 = ({ datos }) => {
         {
           pageBreak: "before",
           text: "",
+        },
+        textoAutoriza(datos.autorizo),
+        {
+          marginTop: 5,
+          alignment: "center",
+          table: {
+            widths: ["33.33%", "33.33%", "33.33%"],
+            body: [
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    bold: true,
+                    text: "Elaborado por: Médico Enfermera",
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    bold: true,
+                    text: "Revisado por: Asesor de Calidad",
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    bold: true,
+                    text: "Aprovado por: Representante Legal",
+                  },
+                },
+              ],
+            ],
+          },
         },
         textoDisentimiento(datos.disentimiento, datos.acompa_disenti),
       ],

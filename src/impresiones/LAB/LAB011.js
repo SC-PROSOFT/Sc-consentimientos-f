@@ -595,10 +595,7 @@ export const impresionLAB011 = ({ datos }) => {
             ],
           },
         },
-        // {
-        //   pageBreak: "before", // Salto de página antes de este contenido
-        //   text: "",
-        // },
+
         textoDisentimiento(datos.disentimiento, datos.acompa_disenti),
       ],
     };
