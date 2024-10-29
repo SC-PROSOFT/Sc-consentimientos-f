@@ -156,10 +156,16 @@ const guardarFirmaDisentimiento = async () => {
     if (reg_consen.value.firma_paciente == "S") await guardarFile$({ base64: firma_disentimiento.value, codigo: `DP${llave_conse.value}` });
     else await guardarFile$({ base64: firma_disentimiento.value, codigo: `DA${llave_conse.value}` });
 
-    CON851P("?", "success", "Disentimiento registrado, desea ir a reimprimir ?", null, async () => {
-      await router.push({ name: "menu", query: { ...route.query, novedad: 2 } });
-      setTimeout(() => location.reload(), 300);
-    });
+    CON851P(
+      "?",
+      "success",
+      "Disentimiento registrado, desea ir a reimprimir ?",
+      () => location.reload(),
+      async () => {
+        await router.push({ name: "menu", query: { ...route.query, novedad: 2 } });
+        setTimeout(() => location.reload(), 300);
+      }
+    );
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
