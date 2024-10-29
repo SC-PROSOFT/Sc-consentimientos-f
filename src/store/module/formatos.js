@@ -13,6 +13,7 @@ export const useModuleFormatos = defineStore("formatos", {
     reg_hc: regHc(),
     reg_sesion: regSession(),
     reg_empresa: Object.assign({}, regEmpresa()),
+    empresa_cargada: false,
   }),
   getters: {
     getSesion() {
@@ -102,6 +103,7 @@ export const useModuleFormatos = defineStore("formatos", {
     setEmpresa(reg_empresa) {
       sessionStorage.setItem("empresa", JSON.stringify(reg_empresa));
       Object.assign(this.reg_empresa, reg_empresa);
+      this.empresa_cargada = true;
     },
   },
 });

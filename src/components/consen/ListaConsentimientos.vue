@@ -143,7 +143,7 @@
 </template>
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
-import { ref, onMounted, defineAsyncComponent } from "vue";
+import { ref, onMounted, defineAsyncComponent, watch, computed } from "vue";
 import formatos from "../../impresiones/importarModulos";
 import { useRouter, useRoute } from "vue-router";
 import { utilsFormat } from "@/formatos/utils";
@@ -228,21 +228,38 @@ const columns = [
   { name: "descrip", label: "Nombre", align: "left", field: "descrip" },
 ];
 
-onMounted(() => {
-  setTimeout(() => {
-    const isFirstLoad = sessionStorage.getItem("isFirstLoad");
+const empresa_cargada = computed(() => formatosStore.empresa_cargada);
 
-    if (!isFirstLoad) {
-      sessionStorage.setItem("isFirstLoad", "true");
-      window.location.reload();
-    } else {
-      const empresaData = sessionStorage.getItem("empresa");
-      const empresa = JSON.parse(empresaData);
-      nit_usu.value = parseInt(empresa.nitusu) || 0;
-      validacionesNitHc();
-    }
-  }, 600);
+watch(empresa_cargada, (newVal) => {
+  if (newVal) {
+    // Los datos de la sessionStorage están cargados
+    nit_usu.value = parseInt(formatosStore.getEmpresa.nitusu) || 0;
+    validacionesNitHc();
+  }
 });
+
+onMounted(() => {
+  // verifica que ya esten cargados los datos en la Si sessionStorage
+  if (empresa_cargada.value) {
+    nit_usu.value = parseInt(formatosStore.getEmpresa.nitusu) || 0;
+    validacionesNitHc();
+  }
+});
+// onMounted(() => {
+//   setTimeout(() => {
+//     const isFirstLoad = sessionStorage.getItem("isFirstLoad");
+
+//     if (!isFirstLoad) {
+//       sessionStorage.setItem("isFirstLoad", "true");
+//       window.location.reload();
+//     } else {
+//       const empresaData = sessionStorage.getItem("empresa");
+//       const empresa = JSON.parse(empresaData);
+//       nit_usu.value = parseInt(empresa.nitusu) || 0;
+//       validacionesNitHc();
+//     }
+//   }, 600);
+// });
 
 const valueEstado = (estado) => {
   if (estado == "AUTORIZADO") return "light-green-6";
@@ -542,7 +559,7 @@ const selectConsen = async (data) => {
     if (params_querys.value.modulo != "LAB") {
       return router.push({ name: data });
     } else {
-      return router.replace({ name: data });
+      return router.push({ name: data });
     }
   } catch (error) {
     CON851("?", "info", "El consentimiento no esta disponible");
@@ -564,7 +581,7 @@ const agregarInfConse = async (data) => {
     if (params_querys.value.modulo != "LAB") {
       return router.push({ name: data.row.reg_coninf?.cod });
     } else {
-      return router.replace({ name: data.row.reg_coninf?.cod });
+      return router.push({ name: data.row.reg_coninf?.cod });
     }
   } catch (error) {
     console.error(error);
