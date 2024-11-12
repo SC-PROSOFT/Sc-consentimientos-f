@@ -32,11 +32,11 @@
 
           <div class="row">
             <div class="row">
-              <p class="text-left text-bold">Fecha ultima mestruación:</p>
+              <p class="text-left text-bold">Fecha ultima menstruación:</p>
               <Input_ v-model="reg_lab014.fecha_ult_mestr" :field="form.fecha_ult_mestr" style="margin-top: 3px" />
             </div>
             <div class="row">
-              <p class="text-left text-bold">Fecha menarquia (1° mestruación):</p>
+              <p class="text-left text-bold">Fecha menarquia (1° menstruación):</p>
               <Input_ v-model="reg_lab014.fecha_menarq" :field="form.fecha_menarq" style="margin-top: 3px" />
             </div>
 
@@ -273,7 +273,7 @@
             <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
           <div class="row justify-center bold" style="width: 35%">
-            <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
+            <p class="text-center text-bold q-py-xs q-mb-md">Aprobado por: Representante Legal</p>
           </div>
         </div>
 

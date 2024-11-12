@@ -172,7 +172,7 @@ export const impresionLAB013 = ({ datos }) => {
                     {
                       text: [
                         {
-                          text: "¿Tiene el paciente antecedente de alergias?, ¿cuales?:  ",
+                          text: "¿Tiene el paciente antecedente de alergias?, ¿cuáles?:  ",
                           bold: true,
                           alignment: "left",
                         },
@@ -212,7 +212,7 @@ export const impresionLAB013 = ({ datos }) => {
                   ],
                   [
                     {
-                      text: "¿Se sospecha vía aérea difícil?/¿Se sospecha riesgo alto de brocoaspiración?",
+                      text: "¿Se sospecha vía aérea difícil?/¿Se sospecha riesgo alto de broncoaspiración?",
                       bold: true,
                       alignment: "left",
                     },
@@ -410,7 +410,7 @@ export const impresionLAB013 = ({ datos }) => {
                   ],
                   [
                     {
-                      text: "¿Monitoria del paciente colocada?",
+                      text: "¿Monitoría del paciente colocada?",
                       bold: true,
                       alignment: "left",
                     },
@@ -695,7 +695,7 @@ export const impresionLAB013 = ({ datos }) => {
                   style: "tableTitle",
                   text: {
                     bold: true,
-                    text: "Aprovado por: Representante Legal",
+                    text: "Aprobado por: Representante Legal",
                   },
                 },
               ],

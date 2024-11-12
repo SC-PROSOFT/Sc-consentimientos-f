@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="text-left" style="border: 1px solid #ccc; width: 80%">
-            <p style="font-weight: bold; margin-top: 10px">¿Se sospecha vía aérea difícil?/¿Se sospecha riesgo alto de brocoaspiración?</p>
+            <p style="font-weight: bold; margin-top: 10px">¿Se sospecha vía aérea difícil?/¿Se sospecha riesgo alto de broncoaspiración?</p>
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 20%">
             <q-radio color="primary" v-model="reg_lab013.pregunta_6" val="S" label="SI" />
@@ -118,7 +118,7 @@
             <q-radio color="primary" v-model="reg_lab013.pregunta_11" val="N" label="NO" />
           </div>
           <div class="text-left" style="border: 1px solid #ccc; width: 80%">
-            <p style="font-weight: bold; margin-top: 10px">¿Monitoria del paciente colocada?</p>
+            <p style="font-weight: bold; margin-top: 10px">¿Monitoría del paciente colocada?</p>
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 20%">
             <q-radio color="primary" v-model="reg_lab013.pregunta_12" val="S" label="SI" />
@@ -185,7 +185,7 @@
             <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
           <div class="row justify-center bold" style="width: 35%">
-            <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
+            <p class="text-center text-bold q-py-xs q-mb-md">Aprobado por: Representante Legal</p>
           </div>
         </div>
 

@@ -32,12 +32,12 @@
           <div class="text-left text-subtitle1 text-bold q-py-xs q-mb-md">Medio de contraste previo</div>
 
           <div class="row">
-            <p class="text-left">Ultimo examen realizado:</p>
+            <p class="text-left">Último examen realizado:</p>
             <Input_ v-model="reg_lab011.ult_examen" :field="form.ult_examen" class="col-xs-9" />
           </div>
 
           <div class="row q-mt-md">
-            <p class="text-left">Fecha ultimo examen:</p>
+            <p class="text-left">Fecha último examen:</p>
             <Input_ v-model="reg_lab011.fecha_ult_exam" :field="form.fecha_ult_exam" />
           </div>
 
@@ -136,7 +136,7 @@
             />
           </div>
           <div class="row">
-            <p class="text-left">Fecha de ultima mestruación:</p>
+            <p class="text-left">Fecha de ultima menstruación:</p>
             <Input_ v-model="reg_lab011.fecha_ult_mestr" :field="form.fecha_ult_mestr" />
           </div>
         </div>
@@ -414,7 +414,7 @@
             <p class="text-center text-bold q-py-xs q-mb-md">Revisado por: Asesor de Calidad</p>
           </div>
           <div class="row justify-center bold" style="width: 35%">
-            <p class="text-center text-bold q-py-xs q-mb-md">Aprovado por: Representante Legal</p>
+            <p class="text-center text-bold q-py-xs q-mb-md">Aprobado por: Representante Legal</p>
           </div>
         </div>
 

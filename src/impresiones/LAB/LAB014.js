@@ -33,7 +33,7 @@ export const impresionLAB014 = ({ datos }) => {
                 body: [
                   [{ style: "tableTitle", bold: true, text: "ANTECEDENTES GINECOLÓGICOS", alignment: "center", colSpan: 7 }, {}, {}, {}, {}, {}, {}],
                   [
-                    { style: "tableTitle", bold: true, text: "Fecha ultima mestruación", alignment: "left" },
+                    { style: "tableTitle", bold: true, text: "Fecha última menstruación", alignment: "left" },
                     { style: "tableTitle", text: datos.fecha_ult_mestr, alignment: "center" },
                     { style: "tableTitle", bold: true, text: "Histerectomia", alignment: "left" },
                     {
@@ -66,7 +66,7 @@ export const impresionLAB014 = ({ datos }) => {
                     { style: "tableTitle", text: datos.fecha_histerect, alignment: "center" },
                   ],
                   [
-                    { style: "tableTitle", bold: true, text: "Fecha menarquia (1° mestruación)", alignment: "left" },
+                    { style: "tableTitle", bold: true, text: "Fecha menarquia (1° menstruación)", alignment: "left" },
                     { style: "tableTitle", text: datos.fecha_menarq, alignment: "center" },
                     {
                       colSpan: 5,
@@ -474,7 +474,7 @@ export const impresionLAB014 = ({ datos }) => {
           ],
         },
         {
-          pageBreak: "before", // Salto de página antes de este contenido
+          pageBreak: "before",
           marginTop: 5,
           alignment: "center",
           table: {
@@ -593,7 +593,7 @@ export const impresionLAB014 = ({ datos }) => {
                   style: "tableTitle",
                   text: {
                     bold: true,
-                    text: "Aprovado por: Representante Legal",
+                    text: "Aprobado por: Representante Legal",
                   },
                 },
               ],

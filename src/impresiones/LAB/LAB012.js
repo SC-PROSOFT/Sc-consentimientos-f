@@ -369,7 +369,7 @@ export const impresionLAB012 = ({ datos }) => {
                   style: "tableTitle",
                   text: {
                     bold: true,
-                    text: "Aprovado por: Representante Legal",
+                    text: "Aprobado por: Representante Legal",
                   },
                 },
               ],

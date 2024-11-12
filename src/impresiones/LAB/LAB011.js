@@ -367,17 +367,17 @@ export const impresionLAB011 = ({ datos }) => {
                   [
                     {
                       text: [
-                        { style: "tableTitle", text: "PESO " },
+                        { style: "tableTitle", text: "PESO: " },
                         { style: "bodyNoBold", text: datos.peso_kg },
                         { style: "tableTitle", text: " kg " },
-                        { style: "tableTitle", text: " TALLA " },
+                        { style: "tableTitle", text: " TALLA: " },
                         { style: "bodyNoBold", text: datos.talla_cm },
                         { style: "tableTitle", text: " cm " },
                       ],
                     },
                     {
                       text: [
-                        { style: "tableTitle", text: "CREATININA " },
+                        { style: "tableTitle", text: "CREATININA: " },
                         { style: "bodyNoBold", text: datos.creatinina },
                         { style: "tableTitle", text: " mg/dl" },
                       ],
@@ -469,14 +469,14 @@ export const impresionLAB011 = ({ datos }) => {
                     },
                     {
                       text: [
-                        { style: "tableTitle", text: " Sa02 " },
+                        { style: "tableTitle", text: " SaO2: " },
                         { style: "bodyNoBold", text: datos.signo_sa_o2_porc },
                         { style: "tableTitle", text: " %" },
                       ],
                     },
                     {
                       text: [
-                        { style: "tableTitle", text: "Fi02 " },
+                        { style: "tableTitle", text: "FiO2: " },
                         { style: "bodyNoBold", text: datos.signo_fi_o2_porc },
                         { style: "tableTitle", text: " %" },
                       ],
@@ -586,7 +586,7 @@ export const impresionLAB011 = ({ datos }) => {
                   style: "tableTitle",
                   text: {
                     bold: true,
-                    text: "Aprovado por: Representante Legal",
+                    text: "Aprobado por: Representante Legal",
                   },
                 },
               ],
