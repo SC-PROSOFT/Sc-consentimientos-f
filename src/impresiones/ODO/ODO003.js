@@ -10,12 +10,19 @@ export const impresionODO003 = ({ datos }) => {
 
   function llenarFirmador() {
     const acomp = datos.acomp.cod.length;
+    const paci = datos.paciente.cod.length;
+    console.log("acomp -> ", datos.acomp);
+    console.log("paci -> ", datos.paciente);
+    console.log("descrip_ciudad -->> ", datos.acomp.descrip_ciudad.trim());
 
     return {
-      ciudad: () => (acomp ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad),
-      descrip: () => (acomp ? datos.acomp.descrip : datos.paciente.descrip),
-      cod: () => (acomp ? datos.acomp.cod : datos.paciente.cod),
-      acudiente: () => (acomp ? datos.paciente.descrip : ""),
+      ciudad: () =>
+        datos.acomp.descrip_ciudad.trim() != "00000" || datos.acomp.descrip_ciudad.trim() != ""
+          ? datos.acomp.descrip_ciudad
+          : datos.paciente.descrip_ciudad,
+      descrip: () => (datos.acomp.descrip.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip),
+      cod: () => (datos.acomp.cod.trim() != "" ? datos.acomp.cod : datos.paciente.cod),
+      acudiente: () => (datos.paciente.descrip.trim() != "" ? datos.paciente.descrip : ""),
     };
   }
 
