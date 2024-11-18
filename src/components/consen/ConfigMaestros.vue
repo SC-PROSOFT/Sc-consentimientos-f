@@ -415,7 +415,9 @@ const getMaestros = async () => {
         listar_todos: "1",
       },
     });
+    console.log(" maestro_consentimientos -> ", maestro_consentimientos.value);
 
+    maestro_consentimientos.value = response;
     //Las entidades Yopal y UTM tiene su respectivo consentimiento de mamografia
     //por lo tanto se condicionan los formatos respecto al nit de la entidades
     //------------------------------------
@@ -428,16 +430,17 @@ const getMaestros = async () => {
     //CONSENTIMIENTO INFORMADO MAMOGRAFIA
     //----------------------------------
 
-    if (nit_usu == 844003225) {
-      // YOPAL (excluye LAB014)
-      maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB014");
-    } else if (nit_usu == 900193162) {
-      // UTM (excluye LAB004)
-      maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB004");
-    } else {
-      // Otras entidades (excluye LAB014 por defecto)
-      maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB014");
-    }
+    // SE COMENTA LAS SIGUIENTES CONDICIONES POR FALLAS EN UTM (LOS CONSENTIMIENTOS LAB014 Y LAB004 NO ESTAN SALIENDO EN LA LISTA)
+    // if (nit_usu == 844003225) {
+    //   // YOPAL (excluye LAB014)
+    //   maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB014");
+    // } else if (nit_usu == 900193162) {
+    //   // UTM (excluye LAB004)
+    //   maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB004");
+    // } else {
+    //   // Otras entidades (excluye LAB014 por defecto)
+    //   maestro_consentimientos.value = response.filter((item) => item.cod_mae !== "LAB014");
+    // }
   } catch (error) {
     CON851("?", "info", error);
   }
