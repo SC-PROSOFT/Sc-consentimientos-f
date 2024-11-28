@@ -278,9 +278,7 @@ export const impresionHIC033 = ({ datos }) => {
               bold: true,
             },
             {
-              text: `${
-                datos.observaciones || "_______________________________________________________________"
-              }`,
+              text: `${datos.observaciones || "_______________________________________________________________"}`,
             },
           ],
         },
@@ -427,7 +425,7 @@ export const impresionHIC033 = ({ datos }) => {
           alignment: "justify",
           text: `Yo ${datos.acomp.descrip} mayor de edad, identificado(a) con C.C. No. ${datos.acomp.cod} expedida en ${datos.acomp.descrip_ciudad} en condición de representante legal o acudiente del niño(a) ${datos.paciente.descrip} de ${datos.anios_paciente} años de edad`,
         },
-      ],      
+      ],
     };
 
     if (datos.anios_paciente <= 12) return menorDoceAnios;
@@ -458,7 +456,7 @@ export const impresionHIC033 = ({ datos }) => {
                   bold: true,
                 },
                 {
-                  text: "ESE SALUD YOPAL, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.",
+                  text: `${datos.empresa.nomusu}, para que se me practique la Interrupción Voluntaria del Embarazo (IVE) con el método farmacológico que me ofrece la Institución.`,
                 },
                 {
                   text: "EN CUALQUIER MOMENTO PREVIO AL INICIO DE LA INTERVENCIÓN Y SIN NECESIDAD DE DAR NINGUNA EXPLICACION, PUEDO REVOCAR EL CONSENTIMIENTO QUE AHORA PRESTO.",
@@ -524,9 +522,7 @@ export const impresionHIC033 = ({ datos }) => {
           marginTop: 5,
           text: [
             {
-              text: `Yo, ${
-                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
-              } identificado (a) con la CC No ${
+              text: `Yo, ${datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip} identificado (a) con la CC No ${
                 datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
               }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de PRUEBA VIH. \n`,
             },

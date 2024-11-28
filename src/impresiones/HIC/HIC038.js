@@ -34,7 +34,7 @@ export const impresionHIC038 = ({ datos }) => {
         },
         {
           marginTop: 10,
-          text: `Yo, ${datos.paciente.descrip}, identificado con documento de identidad ${datos.tipo_id} ${datos.paciente.cod} expedida en ${datos.paciente.descrip_ciudad} con residencia en ${datos.paciente.descrip_ciudad}, teléfono número ${datos.paciente.telefono}. Actuando en nombre propio o como acudiente de ${datos.paciente.descrip} en mi calidad de paciente, de representante legal, familiar o allegado y en pleno uso de mis facultades mentales y de mis derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la empresa social del estado ESE salud Yopal, por medio del presente documento doy mi  consentimiento informado para que se me brinden los cuidados correspondientes y se siga la conducta terapéutica  según el criterio del médico tratante, se  me ha informado que es necesario y conveniente  por mi situación actual de salud, realizar  remisión a una institución Prestadora de Servicios de Salud de mayor complejidad para la atención por el o los servicios de ${datos.servicios} en pro de mejorar mi condición clínica de salud y dar continuidad al plan terapéutico requerido.`,
+          text: `Yo, ${datos.paciente.descrip}, identificado con documento de identidad ${datos.tipo_id} ${datos.paciente.cod} expedida en ${datos.paciente.descrip_ciudad} con residencia en ${datos.paciente.descrip_ciudad}, teléfono número ${datos.paciente.telefono}. Actuando en nombre propio o como acudiente de ${datos.paciente.descrip} en mi calidad de paciente, de representante legal, familiar o allegado y en pleno uso de mis facultades mentales y de mis derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la empresa social del estado ${datos.empresa.nomusu}, por medio del presente documento doy mi  consentimiento informado para que se me brinden los cuidados correspondientes y se siga la conducta terapéutica  según el criterio del médico tratante, se  me ha informado que es necesario y conveniente  por mi situación actual de salud, realizar  remisión a una institución Prestadora de Servicios de Salud de mayor complejidad para la atención por el o los servicios de ${datos.servicios} en pro de mejorar mi condición clínica de salud y dar continuidad al plan terapéutico requerido.`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -59,7 +59,7 @@ export const impresionHIC038 = ({ datos }) => {
             },
             {
               marginTop: 5,
-              text: "El personal de la oficina de Referencia y Contra-referencia de la ESE Salud Yopal, realizara los trámites administrativos de informar a la EPS la necesidad de remisión y otorgo la autorización para que sean entregados todos los documentos de mi historia clínica requeridos para dichos tramites.",
+              text: `El personal de la oficina de Referencia y Contra-referencia de la ${datos.empresa.nomusu}, realizara los trámites administrativos de informar a la EPS la necesidad de remisión y otorgo la autorización para que sean entregados todos los documentos de mi historia clínica requeridos para dichos tramites.`,
             },
             {
               marginTop: 5,
@@ -75,7 +75,7 @@ export const impresionHIC038 = ({ datos }) => {
             },
             {
               marginTop: 5,
-              text: "En caso de que el personal médico tratante de la ESE Salud Yopal suspenda la remisión por mejoría de mi estado de salud, se nos informara inmediatamente.",
+              text: `En caso de que el personal médico tratante de la ${datos.empresa.nomusu} suspenda la remisión por mejoría de mi estado de salud, se nos informara inmediatamente.`,
             },
             {
               marginTop: 5,
@@ -83,7 +83,7 @@ export const impresionHIC038 = ({ datos }) => {
             },
             {
               marginTop: 5,
-              text: "Me han informado que los riesgos durante el traslado en la ambulancia de la ESE Salud Yopal son: accidente vial, caída de la camilla, retrasos en la llegada al sitio de referencia por causas externas como factores climáticos, orden público, arreglos en la vía, entre otros.",
+              text: `Me han informado que los riesgos durante el traslado en la ambulancia de la ${datos.empresa.nomusu} son: accidente vial, caída de la camilla, retrasos en la llegada al sitio de referencia por causas externas como factores climáticos, orden público, arreglos en la vía, entre otros.`,
             },
           ],
         },
@@ -172,9 +172,9 @@ export const impresionHIC038 = ({ datos }) => {
           marginTop: 10,
           alignment: "justify",
           style: "bodyNoBold",
-          text: `El (la) Señor(a) ${datos.acomp.descrip}, identificado(a) con cedula de ciudadanía N° ${
-            datos.acomp.cod
-          } expedida en la ciudad de ${datos.acomp.descrip_ciudad} en calidad de ${evaluarParentesco(
+          text: `El (la) Señor(a) ${datos.acomp.descrip}, identificado(a) con cedula de ciudadanía N° ${datos.acomp.cod} expedida en la ciudad de ${
+            datos.acomp.descrip_ciudad
+          } en calidad de ${evaluarParentesco(
             datos.paren_acomp
           )}, es consciente de que el paciente cuyos datos figuran en el encabezamiento, no es competente para decidir en este momento, por lo que asume la responsabilidad de la decisión, en los mismos términos que haría el propio paciente.`,
         },
@@ -256,9 +256,7 @@ export const impresionHIC038 = ({ datos }) => {
           marginTop: 5,
           text: [
             {
-              text: `Yo, ${
-                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
-              } identificado (a) con la CC No ${
+              text: `Yo, ${datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip} identificado (a) con la CC No ${
                 datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
               }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de REFERENCIA Y CONTRA REFERENCIA DE PACIENTES. \n`,
             },

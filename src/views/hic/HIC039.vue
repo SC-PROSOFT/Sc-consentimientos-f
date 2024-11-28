@@ -33,8 +33,8 @@
           </p>
           <Input_ v-model="reg.servicio" :field="form.servicio" class="col-12" />
           <p>
-            DE LA ESE SALUD YOPAL, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de esta
-            decisión.
+            DE LA {{ getEmpresa.nomusu }}, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de
+            esta decisión.
           </p>
         </div>
         <div class="row">

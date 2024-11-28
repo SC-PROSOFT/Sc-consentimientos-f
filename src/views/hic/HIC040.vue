@@ -37,18 +37,18 @@
             <InputF_ v-model="getPaci.cod" disable class="col-2" />, expedida en <InputF_ v-model="getPaci.descrip_ciudad" disable class="col-2" />,
             con residencia en <InputF_ v-model="getPaci.direccion" disable class="col-2" />, telefono número
             <InputF_ v-model="getPaci.telefono" disable class="col-2" />, en calidad de paciente y mi acompañante
-            <InputF_ v-model="getAcomp.descrip" disable class="col-2" />, de <InputF_ v-model="reg.edad_acomp" disable class="col-2" /> años de
-            edad , identificado (a) con N° <InputF_ v-model="getAcomp.cod" disable class="col-2" /> , expedida en
+            <InputF_ v-model="getAcomp.descrip" disable class="col-2" />, de <InputF_ v-model="reg.edad_acomp" disable class="col-2" /> años de edad ,
+            identificado (a) con N° <InputF_ v-model="getAcomp.cod" disable class="col-2" /> , expedida en
             <InputF_ v-model="getAcomp.descrip_ciudad" disable class="col-2" />; en pleno uso de nuestras facultades mentales y
           </p>
         </div>
         <p align="justify">
-          de nuestros derechos de salud y habiendo solicitado por nuestra voluntad los servicios de salud a la empresa social del estado ESE Salud
-          Yopal, por medio del presente documento autorizamos al equipo de salud de la Institución, para atenderme y vigilarme durante la conducción
-          del trabajo de parto y la atención del parto vaginal.
+          de nuestros derechos de salud y habiendo solicitado por nuestra voluntad los servicios de salud a la empresa social del estado
+          {{ getEmpresa.nomusu }}, por medio del presente documento autorizamos al equipo de salud de la Institución, para atenderme y vigilarme
+          durante la conducción del trabajo de parto y la atención del parto vaginal.
         </p>
         <p align="justify">
-          Autorizo al personal médico de la ESE Salud Yopal que me atiende a solicitar y practicar las ayudas diagnósticas y terapéuticas, que
+          Autorizo al personal médico de la {{ getEmpresa.nomusu }} que me atiende a solicitar y practicar las ayudas diagnósticas y terapéuticas, que
           consideren pertinentes durante la atención y proceso de parto, de mi salud previa información detallada de los posibles riesgos como son:
           estudio de imagenologia, monitoreo fetal, pruebas de laboratorio clínico, colocación de catéteres, toma de muestras de laboratorio y
           secreciones, actividades de higiene y confort, administración de medicamentos, administración de líquidos endovenosos.
@@ -63,8 +63,8 @@
         </p>
 
         <p align="justify">
-          Además se me ha informado que en la ESE salud Yopal, participa personal idóneo, competente y capacitado para la prescripción y determinación
-          de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y de mi hijo.
+          Además se me ha informado que en la {{ getEmpresa.nomusu }}, participa personal idóneo, competente y capacitado para la prescripción y
+          determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y de mi hijo.
         </p>
         <div class="row">
           <p>
@@ -161,8 +161,8 @@
         </div>
         <div class="row">
           <p>
-            Me comprometo a seguir las indicaciones que me brindan los profesionales de LA ESE Salud Yopal para contribuir a una atención segura como
-            son:
+            Me comprometo a seguir las indicaciones que me brindan los profesionales de LA {{ getEmpresa.nomusu }} para contribuir a una atención
+            segura como son:
           </p>
           <ul>
             <li>Mantener puesta la manilla de identificación.</li>

@@ -44,6 +44,9 @@ export const utilsFormat = async ({ datos, content }) => {
       bodyNoBold: {
         fontSize: 7,
       },
+      bodyNoBold9: {
+        fontSize: 9,
+      },
       tableTitle: {
         // fontSize: 10.5,
         fontSize: 8,

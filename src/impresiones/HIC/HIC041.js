@@ -69,7 +69,7 @@ export const impresionHIC041 = ({ datos }) => {
         },
         {
           marginTop: 10,
-          text: "Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.",
+          text: `Se me ha informado que en la ${datos.empresa.nomusu}, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -104,7 +104,7 @@ export const impresionHIC041 = ({ datos }) => {
                   decoration: "underline",
                 },
                 {
-                  text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico o impresion diagnostica ${datos.diagnostico}`,
+                  text: `al personal asistencial de la ${datos.empresa.nomusu}, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico o impresion diagnostica ${datos.diagnostico}`,
                 },
               ],
               alignment: "justify",
@@ -169,9 +169,7 @@ export const impresionHIC041 = ({ datos }) => {
           marginTop: 5,
           text: [
             {
-              text: `Yo, ${
-                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
-              } identificado (a) con la CC No ${
+              text: `Yo, ${datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip} identificado (a) con la CC No ${
                 datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
               }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de URGENCIAS. \n`,
             },

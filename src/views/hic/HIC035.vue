@@ -76,10 +76,10 @@
             significa que pierda mis derechos para una atención posterior.
           </p>
           <p>
-            Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas
-            terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y
-            entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido
-            hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente
+            Se me ha informado que en la {{ getEmpresa.nomusu }}, cuenta con personal idóneo, competente y capacitado para la determinación de
+            conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo
+            claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha
+            permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente
           </p>
           <p>Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
         </div>

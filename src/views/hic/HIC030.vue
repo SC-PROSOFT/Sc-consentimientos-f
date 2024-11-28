@@ -61,8 +61,8 @@
           <p class="q-pt-md text-justify">
             Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo
             la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no
-            significa que pierda mis derechos para una atención posterior. Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo,
-            competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy
+            significa que pierda mis derechos para una atención posterior. Se me ha informado que en la {{ getEmpresa.nomusu }}, cuenta con personal
+            idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy
             constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual,
             los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas
             satisfactoriamente.
@@ -70,8 +70,8 @@
           <p>Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
           <div class="row" v-show="opcion_hc030 == 'AUTORIZAR'">
             <p>
-              <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud:
-              TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
+              <ins class="text-bold">Autorizo</ins> al personal asistencial de la {{ getEmpresa.nomusu }}, para la realización de los procedimientos
+              de salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
             </p>
             <p>DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico</p>
             <Input_

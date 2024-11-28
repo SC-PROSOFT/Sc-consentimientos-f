@@ -53,7 +53,7 @@
           significa que pierda mis derechos para una atención posterior.
         </p>
         <p class="row" align="justify">
-          Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas
+          Se me ha informado que en la {{ getEmpresa.nomusu }}, cuenta con personal idóneo, competente y capacitado para la determinación de conductas
           terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y
           entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido
           hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.
@@ -61,7 +61,8 @@
         <p align="justify">Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
         <div class="row" v-show="ODO003.opcion_odo003 == 'AUTORIZAR'">
           <p>
-            <ins class="text-bold">Autorizo</ins> al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud:
+            <ins class="text-bold">Autorizo</ins> al personal asistencial de la {{ getEmpresa.nomusu }}, para la realización de los procedimientos de
+            salud:
             <Input_ style="min-width: 100%; display: inline-block" v-model="ODO003.procedimiento" :field="form.procedimiento" />
             cuyo objetivo es:
             <Input_ style="min-width: 100%; display: inline-block" v-model="ODO003.objetivo" :field="form.objetivo" />
@@ -224,6 +225,9 @@ const form = ref({
 });
 
 onMounted(() => {
+  console.log("getEmpresa ", getEmpresa);
+  console.log("getEmpresa ", getEmpresa);
+
   datosInit();
   getFirmaProf();
 });
@@ -240,7 +244,7 @@ watch(
 );
 
 const datosInit = () => {
-  ODO003.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
+  ODO003.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   ODO003.llave = getHc.llave.slice(15);
 
   if (getHc.rips?.diagn && getHc.rips?.diagn.length) {
@@ -334,7 +338,9 @@ const grabarConsentimiento = async () => {
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
-        const fecha = data?.llave_consen.slice(24, 32);
+        const fecha = data?.llave_consen.slice(23, 32);
+        console.log("data en llave_consen ", data);
+
         ODO003.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");

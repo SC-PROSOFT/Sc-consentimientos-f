@@ -38,11 +38,11 @@
               <InputF_ v-model="getPaci.telefono" disable />. Actuando en nombre propio o como acudiente de
               <InputF_ v-model="getPaci.descrip" width="300" disable /> en mi calidad de paciente, de representante legal, familiar o allegado y en
               pleno uso de mis facultades mentales y de mis derechos de salud y habiendo solicitado por mi voluntad los servicios de salud a la
-              empresa social del estado ESE salud Yopal, por medio del presente documento doy mi consentimiento informado para que se me brinden los
-              cuidados correspondientes y se siga la conducta terapéutica según el criterio del médico tratante, se me ha informado que es necesario y
-              conveniente por mi situación actual de salud, realizar remisión a una institución Prestadora de Servicios de Salud de mayor complejidad
-              para la atención por el o los servicios de <InputF_ v-model="HIC038.servicios" width="300" /> en pro de mejorar mi condición clínica de
-              salud y dar continuidad al plan terapéutico requerido.
+              empresa social del estado {{ getEmpresa.nomusu }}, por medio del presente documento doy mi consentimiento informado para que se me
+              brinden los cuidados correspondientes y se siga la conducta terapéutica según el criterio del médico tratante, se me ha informado que es
+              necesario y conveniente por mi situación actual de salud, realizar remisión a una institución Prestadora de Servicios de Salud de mayor
+              complejidad para la atención por el o los servicios de <InputF_ v-model="HIC038.servicios" width="300" /> en pro de mejorar mi condición
+              clínica de salud y dar continuidad al plan terapéutico requerido.
             </p>
           </div>
         </div>
@@ -65,9 +65,9 @@
             </li>
             <li>
               <p>
-                El personal de la oficina de Referencia y Contra-referencia de la ESE Salud Yopal, realizara los trámites administrativos de informar
-                a la EPS la necesidad de remisión y otorgo la autorización para que sean entregados todos los documentos de mi historia clínica
-                requeridos para dichos tramites.
+                El personal de la oficina de Referencia y Contra-referencia de la {{ getEmpresa.nomusu }}, realizara los trámites administrativos de
+                informar a la EPS la necesidad de remisión y otorgo la autorización para que sean entregados todos los documentos de mi historia
+                clínica requeridos para dichos tramites.
               </p>
             </li>
             <li>
@@ -95,8 +95,8 @@
             </li>
             <li>
               <p>
-                En caso de que el personal médico tratante de la ESE Salud Yopal suspenda la remisión por mejoría de mi estado de salud, se nos
-                informara inmediatamente.
+                En caso de que el personal médico tratante de la {{ getEmpresa.nomusu }} suspenda la remisión por mejoría de mi estado de salud, se
+                nos informara inmediatamente.
               </p>
             </li>
             <li>
@@ -107,9 +107,9 @@
             </li>
             <li>
               <p>
-                Me han informado que los riesgos durante el traslado en la ambulancia de la ESE Salud Yopal son: accidente vial, caída de la camilla,
-                retrasos en la llegada al sitio de referencia por causas externas como factores climáticos, orden público, arreglos en la vía, entre
-                otros.
+                Me han informado que los riesgos durante el traslado en la ambulancia de la {{ getEmpresa.nomusu }} son: accidente vial, caída de la
+                camilla, retrasos en la llegada al sitio de referencia por causas externas como factores climáticos, orden público, arreglos en la
+                vía, entre otros.
               </p>
             </li>
           </ol>

@@ -1,213 +1,138 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import dayjs from "dayjs";
+import { useModuleFormatos } from "@/store";
 
-export const impresionHIC031 = ({ datos }) => {
+const { getPaci } = useModuleFormatos();
+
+export const impresionHIC009 = ({ datos }) => {
+  console.log("datos en HIC009 ", datos);
+
   var dd = {
-    stack: [contenidoColposcopia(), firmas()],
+    stack: [contenidoHIC009(), firmas()],
   };
+  function llenarFirmador() {
+    const acomp = datos.acomp.cod.length;
+    const paci = datos.paciente.cod.length;
 
-  function contenidoColposcopia() {
+    return {
+      ciudad: () =>
+        datos.acomp.descrip_ciudad.trim() != "00000" || datos.acomp.descrip_ciudad.trim() != ""
+          ? datos.acomp.descrip_ciudad
+          : datos.paciente.descrip_ciudad,
+      descrip: () => (datos.acomp.descrip.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip),
+      cod: () => (datos.acomp.cod.trim() != "" ? datos.acomp.cod : datos.paciente.cod),
+      acudiente: () => (datos.paciente.descrip.trim() != "" ? datos.paciente.descrip : ""),
+    };
+  }
+  function contenidoHIC009() {
     return {
       stack: [
         {
-          text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
-          alignment: "justify",
-          style: "bodyNoBold",
-        },
-        {
           columns: [
             {
-              width: "auto",
-              text: `Ciudad: ${datos.empresa.ciudad_usuar}`,
-              alignment: "justify",
-              style: "bodyNoBold",
-            },
-            {
-              marginLeft: 50,
-              width: "auto",
-              text: `Fecha: ${dayjs(datos.empresa.FECHA_ACT).format("YYYY-MM-DD")}`,
-              alignment: "justify",
-              style: "bodyNoBold",
+              text: [
+                { style: "tableTitle", text: "Fecha: " },
+                { style: "bodyNoBold9", text: dayjs(datos.fecha_act).format("YYYY-MM-DD") },
+                { style: "tableTitle", text: " Hora: " },
+                { style: "bodyNoBold9", text: datos.hora_act || datos.hora },
+              ],
             },
           ],
+          //   columns: [
+          //     {
+          //       marginLeft: 50,
+          //       //   width: "auto",
+          //       text: `Fecha: ${dayjs(datos.fecha_act).format("YYYY-MM-DD")} `,
+          //       alignment: "justify",
+          //       style: "bodyNoBold9",
+          //     },
+          //     {
+          //       width: "auto",
+          //       text: " Hora: " + datos.hora_act,
+          //       //   alignment: "justify",
+          //       style: "bodyNoBold9",
+          //     },
+          //   ],
         },
         {
-          marginTop: 8,
-          text: "LA COLPOSCOPIA",
-          alignment: "justify",
-          style: "bodyNoBold",
-          bold: true,
+          marginTop: 5,
+          text: `Yo, ${llenarFirmador().descrip()} , mayor de edad identificado con el documento N°: ${llenarFirmador().cod()} de ${llenarFirmador().ciudad()} actuando en nombre propio en pleno uso de mis facultades, libre y consciente, o como responsable del menor ${llenarFirmador().acudiente()} declaro que:`,
+          style: "bodyNoBold9",
         },
         {
-          marginTop: 8,
-          text: "Es un examen sencillo del cuello, vagina y vulva, similar a la toma de citología cervicouterina, donde se realiza observación con un microscopio especial que permite visualizar los cambios ocurridos en el cuello del útero. Para ayudarnos durante este examen se utilizan sustancias que facilitan el reconocimiento de estas lesiones. Cuando el ginecólogo visualiza las lesiones sospechosas procede a tomar una muestra pequeña (biopsia) para posteriormente ser analizado por un patólogo. Normalmente puede presentar sangrado y dolor durante el procedimiento.",
-          alignment: "justify",
-          style: "bodyNoBold",
+          marginTop: 5,
+          text: `\n 1. Otorgo mi consentimiento para el ingreso al servicio de HOSPITALIZACION  de acuerdo a los diagnósticos y plan de tratamiento, por orden del médico: ${datos.prof.descrip} `,
+          style: "bodyNoBold9",
         },
         {
-          marginTop: 8,
-          text: "Riesgos de la Colposcopia:",
-          alignment: "justify",
-          style: "bodyNoBold",
-          bold: true,
+          text: `\n 2. Acepto los servicios adicionales que requiera dentro de la estancia hospitalaria como canalización, estudios de laboratorios, radiográficos, así como la administración de medicamentos.`,
+          style: "bodyNoBold9",
         },
         {
-          ol: [
-            "Molestias producidas por las soluciones aplicadas.",
-            "Calambres, picadas o leve dolor.",
-            "Sangrado mínimo durante varios días. Si es moderado se dejará una gasa para retirarla 6 horas después.",
-            "Infección.",
-          ],
-          alignment: "justify",
-          style: "bodyNoBold",
+          text: `\n 3. Certifico que me han explicado las NORMAS DE LA INSTUCION PARA PACIENTES HOSPITALIZADOS, los horarios de visita y las restricciones.`,
+          style: "bodyNoBold9",
         },
         {
-          marginTop: 8,
-          text: "Si sospecha que está embarazada avisar al ginecólogo.",
-          alignment: "justify",
-          style: "bodyNoBold",
+          text: `\n 4. Acepto el ingreso al servicio de hospitalización y entiendo que hay  riesgos como las caídas, por lo cual  se deben mantener arriba las barandas de las camas.`,
+          style: "bodyNoBold9",
         },
-        {
-          marginTop: 8,
-          text: `Yo, ${datos.paciente.descrip}, identificada con cédula de ciudadanía No. ${datos.paciente.cod} de ${datos.paciente.descrip_ciudad} en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna:`,
-          alignment: "justify",
-          style: "bodyNoBold",
-        },
-        textoAutoriza(datos.autorizo, datos.disentimiento),
+
+        textoRevoca(datos.estado),
       ],
     };
   }
 
-  function textoAutoriza(autorizo, disentir) {
-    const textoAutorizo = {
-      marginTop: 8,
+  function textoRevoca(estado) {
+    const texto_revoca = {
       stack: [
         {
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(true),
-                },
-                {
-                  text: [
-                    {
-                      text: "Doy el consentimiento",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: ` para que el ginecólogo de la {{ getEmpresa.nomusu }}, realice el procedimiento de colposcopia y biopsia. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados que debo tener antes y después de la colposcopia, los riesgos justificados y previsibles. También se me ha dado la oportunidad de preguntar y resolver dudas. Entiendo que este procedimiento puede traer efectos adversos, como infección y sangrado, propias del procedimiento que aquí autorizo, los cuales asumo bajo mi responsabilidad.`,
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-            ],
-          },
-        },
-      ],
-    };
+          text: "REVOCACIÓN O DISENTIMIENTO",
 
-    const textoRevoca = {
-      marginTop: 8,
-      stack: [
-        {
-          layout: "noBorders",
-          table: {
-            widths: ["2%", "98%"],
-            body: [
-              [
-                {
-                  stack: cuadro_canvas(true),
-                },
-                {
-                  text: [
-                    {
-                      text: "Expreso mi voluntad de ",
-                    },
-                    {
-                      text: "revocar",
-                      bold: true,
-                      decoration: "underline",
-                    },
-                    {
-                      text: ` revocar el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento de COLPOSCOPIA, por los siguientes motivos: ${datos.revocar_motivos}`,
-                    },
-                  ],
-                  alignment: "justify",
-                  style: "bodyNoBold",
-                },
-              ],
-            ],
-          },
-        },
-      ],
-    };
-
-    const textoDisiente = {
-      stack: [
-        {
-          marginTop: 10,
-          text: "DISENTIMIENTO",
           alignment: "center",
-          style: "bodyNoBold",
+          style: "tableNoBold",
           bold: true,
         },
         {
-          marginTop: 5,
-          text: [
-            {
-              text: `Yo, ${datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip} identificado (a) con la CC No ${
-                datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
-              }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de COLPOSCOPIA. \n`,
-            },
-          ],
-          alignment: "justify",
-          style: "bodyNoBold",
-        },
-        {
-          marginTop: 5,
-          marginBottom: 10,
-          text: [
-            {
-              text: "OBSERVACIONES:\n",
-              marginTop: 15,
-              bold: true,
-            },
-            {
-              text: `${datos.reg_coninf2?.obser_disenti}`,
-            },
-          ],
+          layout: "noBorders",
 
-          alignment: "justify",
-          style: "bodyNoBold",
+          table: {
+            widths: ["2%", "98%"],
+            body: [
+              [
+                {
+                  stack: cuadro_canvas(true),
+                },
+                {
+                  text: [
+                    {
+                      text: `Yo, ${llenarFirmador().descrip()} después de ser informado de la necesidad de hospitalización, manifiesto de forma libre y consciente mi negación/ revocación para su realización, haciéndome responsable de las consecuencias que se puedan derivar de ésta decisión. `,
+                    },
+                  ],
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+              ],
+              [
+                {
+                  marginTop: -2,
+                  marginBottom: 10,
+                  colSpan: 2,
+                  text: "",
+                  alignment: "justify",
+                  style: "bodyNoBold",
+                },
+                {},
+              ],
+            ],
+          },
         },
       ],
     };
-
-    if (disentir == "S") return textoDisiente;
-    else {
-      if (autorizo) return textoAutorizo;
-      else return textoRevoca;
+    if (!datos.autorizo) {
+      return texto_revoca;
+    } else {
+      return null;
     }
-  }
-
-  function cuadro_canvas(condicion) {
-    return [
-      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
-      {
-        canvas: condicion
-          ? [
-              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
-              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
-            ]
-          : [],
-      },
-    ];
   }
 
   function firmaHuellaPaci(huella_paci, cant_firmas) {
@@ -313,23 +238,11 @@ export const impresionHIC031 = ({ datos }) => {
           fontSize: 6,
         },
         {
-          marginLeft: 3,
-          columns: [
-            {
-              marginTop: 9,
-              alignment: "center",
-              image: "firma_acomp",
-              width: 105,
-              height: 70,
-            },
-            {
-              marginTop: 9,
-              marginLeft: 8,
-              image: "firma_acomp",
-              width: 55,
-              height: 70,
-            },
-          ],
+          marginTop: 2,
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
         },
         {
           marginTop: 10,
@@ -445,10 +358,22 @@ export const impresionHIC031 = ({ datos }) => {
       ],
     };
   }
-
+  function cuadro_canvas(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
   function firmas() {
     let firmasArray = [];
-    let anchos = [];
+    let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {

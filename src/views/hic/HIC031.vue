@@ -60,12 +60,11 @@
           <p class="text-justify">en forma voluntaria y en pleno uso de mis facultades mentales y psíquicas sin presión o inducción alguna:</p>
           <div v-show="opcion_hc031 == 'AUTORIZAR'">
             <p class="text-justify" style="margin-top: -5px">
-              Doy el consentimiento para que el ginecólogo de la E.S.E salud Yopal - Hospital local de Yopal, realice el procedimiento de colposcopia
-              y biopsia. Acepto sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del
-              procedimiento, los cuidados que debo tener antes y después de la
-              <span style="font-weight: bold">COLPOSCOPIA</span>, los riesgos justificados y previsibles. También se me ha dado la oportunidad de
-              preguntar y resolver dudas. Entiendo que este procedimiento puede traer efectos adversos, como infección y sangrado, propias del
-              procedimiento que aquí autorizo, los cuales asumo bajo mi responsabilidad.
+              Doy el consentimiento para que el ginecólogo de la {{ getEmpresa.nomusu }}, realice el procedimiento de colposcopia y biopsia. Acepto
+              sus riesgos e imprevistos. Entiendo lo que he leído, se me ha explicado verbalmente y por escrito acerca del procedimiento, los cuidados
+              que debo tener antes y después de la <span style="font-weight: bold">COLPOSCOPIA</span>, los riesgos justificados y previsibles. También
+              se me ha dado la oportunidad de preguntar y resolver dudas. Entiendo que este procedimiento puede traer efectos adversos, como infección
+              y sangrado, propias del procedimiento que aquí autorizo, los cuales asumo bajo mi responsabilidad.
             </p>
           </div>
         </div>

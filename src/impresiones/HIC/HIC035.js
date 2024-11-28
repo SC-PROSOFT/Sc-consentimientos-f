@@ -79,7 +79,7 @@ export const impresionHIC035 = ({ datos }) => {
           marginTop: 15,
           style: "bodyNoBold",
           alignment: "justify",
-          text: `Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.`,
+          text: `Se me ha informado que en la ${datos.empresa.nomusu}, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.`,
         },
         {
           marginTop: 15,
@@ -87,7 +87,7 @@ export const impresionHIC035 = ({ datos }) => {
           alignment: "justify",
           text: `Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación: \n`,
         },
-        textoAutoriza(datos.autorizo, datos.disentimiento)
+        textoAutoriza(datos.autorizo, datos.disentimiento),
       ],
     };
   }
@@ -104,11 +104,9 @@ export const impresionHIC035 = ({ datos }) => {
           },
           {
             marginTop: 10,
-            text: `Yo ${datos.paciente.descrip} paciente de la ESE SALUD YOPAL, con C.C ${
+            text: `Yo ${datos.paciente.descrip} paciente de la ${datos.empresa.nomusu}, con C.C ${
               datos.paciente.cod
-            } Expreso mi voluntad de revocar el consentimiento prestado en fecha ${dayjs(
-              datos.empresa.fecha_act
-            ).format(
+            } Expreso mi voluntad de revocar el consentimiento prestado en fecha ${dayjs(datos.empresa.fecha_act).format(
               "YYYY-MM-DD"
             )} y declaro por tanto que, tras la información recibida, no consiento en someterme al procedimiento de: ${
               datos.revoca_procedi || "_______________________________________"
@@ -383,9 +381,7 @@ export const impresionHIC035 = ({ datos }) => {
           marginTop: 5,
           text: [
             {
-              text: `Yo, ${
-                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
-              } identificado (a) con la CC No ${
+              text: `Yo, ${datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip} identificado (a) con la CC No ${
                 datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
               }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de EVENTOS DE INTERES EN SALUD PUBLICA (EISP). \n`,
             },
@@ -415,8 +411,8 @@ export const impresionHIC035 = ({ datos }) => {
 
     if (disentir == "S") return textoDisiente;
     else {
-    if (autorizo) return textoAutorizo;
-    else return textoRevoca;
+      if (autorizo) return textoAutorizo;
+      else return textoRevoca;
     }
   }
 

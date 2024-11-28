@@ -11,9 +11,6 @@ export const impresionODO003 = ({ datos }) => {
   function llenarFirmador() {
     const acomp = datos.acomp.cod.length;
     const paci = datos.paciente.cod.length;
-    console.log("acomp -> ", datos.acomp);
-    console.log("paci -> ", datos.paciente);
-    console.log("descrip_ciudad -->> ", datos.acomp.descrip_ciudad.trim());
 
     return {
       ciudad: () =>
@@ -78,7 +75,7 @@ export const impresionODO003 = ({ datos }) => {
         },
         {
           marginTop: 10,
-          text: "Se me ha informado que en la ESE salud Yopal, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.",
+          text: `Se me ha informado que en la ${datos.empresa.nomusu}, cuenta con personal idóneo, competente y capacitado para la determinación de conductas terapéuticas que contribuyan a mejorar mi calidad de vida y salud. Doy constancia de que se me ha explicado en lenguaje sencillo claro, y entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios de los procedimientos; se me ha permitido hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.`,
           alignment: "justify",
           style: "bodyNoBold",
         },
@@ -114,7 +111,7 @@ export const impresionODO003 = ({ datos }) => {
                     decoration: "underline",
                   },
                   {
-                    text: `al personal asistencial de la ESE Salud Yopal, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.descrip_enfer}`,
+                    text: `al personal asistencial de la ${datos.empresa.nomusu}, para la realización de los procedimientos de salud: ${datos.procedimiento}, cuyo objetivo es: ${datos.objetivo}, ante el diagnostico ${datos.descrip_enfer}`,
                   },
                 ],
                 alignment: "justify",

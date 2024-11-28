@@ -38,7 +38,9 @@ export const impresionHIC039 = ({ datos }) => {
           alignment: "justify",
           text: `Yo ${llenarFirmador().descrip()} identificado(a) con  N° ${llenarFirmador().cod()}, obrando en la calidad abajo indicada, hago la siguiente declaración: Por medio del presente documento, en forma libre, en pleno uso de mis facultades mentales y sin limitaciones o impedimentos de carácter médico o legal, habiendo recibido información por parte del médico tratante sobre las condiciones médicas, he decido solicitar MI ALTA VOLUNTARIA del servicio de ${
             datos.servicio
-          } DE LA ESE SALUD  YOPAL, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de esta decisión.`,
+          } ${
+            datos.empresa.nomusu
+          }, motivo por el cual eximo de toda responsabilidad al Hospital y asumo las consecuencias que se deriven de esta decisión.`,
         },
         {
           marginTop: 15,
@@ -73,7 +75,7 @@ export const impresionHIC039 = ({ datos }) => {
             },
             {
               marginLeft: 5,
-              width: "auto",  
+              width: "auto",
               stack: cuadro_canvas(datos.acomp.cod.trim() != "" ? true : false),
             },
           ],
@@ -457,9 +459,7 @@ export const impresionHIC039 = ({ datos }) => {
           marginTop: 5,
           text: [
             {
-              text: `Yo, ${
-                datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip
-              } identificado (a) con la CC No ${
+              text: `Yo, ${datos.acomp.cod.trim() ? datos.acomp.descrip : datos.paciente.descrip} identificado (a) con la CC No ${
                 datos.acomp.cod.trim() ? datos.acomp.cod : datos.paciente.cod
               }, en calidad de paciente y/o acudiente, disiento este consentimiento que he prestado sobre la realización de la toma de SALIDA VOLUNTARIA. \n`,
             },
