@@ -150,15 +150,11 @@ const router = useRouter();
 const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
 const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
-const descrip_diagnostico = ref("");
-const show_consen800 = ref(false);
 const firma_recibida = ref("");
 const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
 const HIC009 = reactive({
-  revocar_procedim: "",
-
   //Extras
   opcion_hc009: "",
   fecha_act: "",
@@ -232,15 +228,6 @@ const validarDatos = async () => {
     return CON851("?", "info", "No se ha realizado la firma o huella del acompañate");
   }
 
-  // if (getAcomp.cod && !huella_acomp.value && getAcomp.cod && !firma_recibida_acomp.value) {
-  //   return CON851("?", "info", "No se ha realizado la firma del acompañate");
-  // }
-
-  if (HIC009.opcion_hc009 == "REVOCAR") {
-    HIC009.revocar_procedim = "S";
-  } else {
-    HIC009.revocar_procedim = "N";
-  }
   grabarConsentimiento();
 };
 
@@ -254,20 +241,19 @@ const grabarConsentimiento = async () => {
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
     cod_consen: "HIC009",
-    disentimiento: HIC009.revocar_procedim,
+    disentimiento: "N",
     ...datos_format,
   };
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
-      // 00000000000000101000026202411271711GEBC
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 32);
-        const hora = data?.llave_consen.slice(31, 36);
+        const hora = data?.llave_consen.slice(31, 35);
         console.log("data en llave_consen ", data);
 
         HIC009.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
-        HIC009.hora_act = dayjs(hora).format("HH:mm");
+        HIC009.hora_act = hora.slice(0, 2) + ":" + hora.slice(2);
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");
     })
