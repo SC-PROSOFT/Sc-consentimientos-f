@@ -21,10 +21,10 @@
         </div>
 
         <div class="row">
-          <p>Fecha:</p>
-          <q-input disable type="text" dense class="col-1" v-model="HIC009.fecha_act" />
-          <p>Hora:</p>
-          <q-input disable type="text" dense class="col-1" v-model="HIC009.hora_act" />
+          <p>Fecha: {{ HIC009.fecha_act }}</p>
+          <!-- <q-input disable type="text" dense class="col-1" v-model="HIC009.fecha_act" /> -->
+          <p>Hora: {{ HIC009.hora_act }}</p>
+          <!-- <q-input disable type="text" dense class="col-1" v-model="HIC009.hora_act" /> -->
         </div>
         <div class="row">
           <p>Yo, {{ getPaci.descrip }}</p>

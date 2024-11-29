@@ -2,6 +2,7 @@ export * from "./generar.impresion";
 
 // HICLIN
 export * from "./HIC/HIC009";
+export * from "./HIC/HIC010";
 export * from "./HIC/HIC030";
 export * from "./HIC/HIC031";
 export * from "./HIC/HIC032";

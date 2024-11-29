@@ -65,6 +65,16 @@ export const createRouteHic = (title) => [
     },
   },
   {
+    path: "/HIC010",
+    name: "HIC010",
+    component: () => import("@/views/hic/HIC010.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC010`,
+      descrip: "Formato de salida voluntaria hospitalización",
+    },
+  },
+  {
     path: "/HIC012",
     name: "HIC012",
     component: () => import("@/views/hic/HIC012.vue"),
