@@ -247,7 +247,8 @@ watch(
 
 const datosInit = () => {
   ODO003.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
-  ODO003.llave = getHc.llave.slice(15);
+  console.log("getHc ", getHc);
+  ODO003.llave = getHc.llave.slice(15) || "";
 
   if (getHc.rips?.diagn && getHc.rips?.diagn.length) {
     ODO003.diagnostico = getHc.rips?.diagn[0].cod;
