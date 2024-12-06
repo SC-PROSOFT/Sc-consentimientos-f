@@ -100,8 +100,10 @@
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.cod || 'NO HAY ACOMPAÑANTE'"
+          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.cod ? true : false"
+          :registro_profe="getAcomp.cod"
+          :tipo_doc="getAcomp.tipo_id"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           :huella_="huella_acomp"
           @reciFirma="callBackFirmaAcomp"
@@ -225,9 +227,7 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("getEmpresa ", getEmpresa);
-  console.log("getEmpresa ", getEmpresa);
-
+  console.log("formato ODO003");
   datosInit();
   getFirmaProf();
 });

@@ -132,7 +132,9 @@ const validarUrl = async () => {
 
   datos_session.modulo == "LAB" && getTestigo();
   await getPaciente();
-  if (datos_session.modulo == "HIC") {
+
+  console.log("datos_session antes de getAcomp ", datos_session);
+  if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa.trim() != "") {
     await getAcomp();
   }
   if (!mode_dev) getVersionBuild();
