@@ -228,8 +228,10 @@ const form = ref({
 
 onMounted(() => {
   console.log("formato ODO003");
-  datosInit();
-  getFirmaProf();
+  setTimeout(() => {
+    datosInit();
+    getFirmaProf();
+  }, 400);
 });
 
 watch(

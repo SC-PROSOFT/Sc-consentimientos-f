@@ -134,10 +134,8 @@ const validarUrl = async () => {
   await getPaciente();
 
   console.log("datos_session antes de getAcomp ", datos_session);
-  console.log("para A");
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa.trim() != "") {
-    console.log("para B");
-
+    console.log("para A");
     await getAcomp();
   }
   if (!mode_dev) getVersionBuild();
