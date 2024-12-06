@@ -324,6 +324,7 @@ const getOdontologia = async () => {
 
     //El DLL puede traer una HC anteior en caso tal de no encontrar una actual, por eso se actualiza la llave.
     llave_odo_act.value = route.query.llave_hc != response.reg_od.llave ? response.reg_od.llave : route.query.llave_hc;
+    response.reg_od.llave.trim() == "" ? route.query.llave_hc : response.reg_od.llave;
     setHc(response.reg_od);
 
     //TODO: Se omite por ahora
