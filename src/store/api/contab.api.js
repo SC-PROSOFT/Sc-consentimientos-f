@@ -250,7 +250,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
-    _getHuella$({ codigo = 0, formato = "jpg", ruta = "" }) {
+    _getHuella$({ codigo = 0, formato = "png", ruta = "" }) {
       if ([" ", "", "+"].includes(codigo)) {
         codigo = 0;
       }
