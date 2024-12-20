@@ -509,7 +509,6 @@ const grabarFirmaConsen = async (llave) => {
     console.error(error);
     CON851("?", "info", error);
   }
-  E;
 };
 
 const imprimirConsen = async () => {

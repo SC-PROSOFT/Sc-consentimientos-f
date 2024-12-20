@@ -140,4 +140,24 @@ export const createRouteLab = (title) => [
       descrip: "Consentimiento informado mamografía",
     },
   },
+  {
+    path: "/LAB015",
+    name: "LAB015",
+    component: () => import("@/views/lab/LAB015.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB015`,
+      descrip: "Consentimiento informado acto quirurgico",
+    },
+  },
+  {
+    path: "/LAB016",
+    name: "LAB016",
+    component: () => import("@/views/lab/LAB016.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB016`,
+      descrip: "Consentimiento informado acto anestesico",
+    },
+  },
 ];
