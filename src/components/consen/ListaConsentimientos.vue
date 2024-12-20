@@ -378,8 +378,8 @@ const getConsentimientosRealizados = async () => {
     let consen_filter;
     if (params_querys.value.modulo == "LAB") {
       const query = sessionStorage.query && JSON.parse(sessionStorage.query);
-      const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || 0;
-      consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact);
+      const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || "0";
+      consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact.slice(0, 9));
     }
 
     lista_consen.value = consen_filter || CONSENTIMIENTOS || [];
@@ -507,6 +507,8 @@ const getHuella = async (cod) => {
 const consultarFirmaConsen = async (row) => {
   try {
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
+    console.log("codigo firma testigo ", codigo);
+
     //Testigo UTM
     params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
 
@@ -537,12 +539,21 @@ const consultarFirmaConsen = async (row) => {
 };
 
 const getMaestros = async () => {
+  let cod_paci = params_querys.value.llave_hc.slice(0, 15).trim();
+  let cod_paci_2 = "";
+
+  let regExp = /[a-zA-Z]/g;
+  if (regExp.test(cod_paci)) {
+    cod_paci_2 = cod_paci.padStart(15, " ");
+  } else {
+    cod_paci_2 = cod_paci.padStart(15, "0");
+  }
   try {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
       data: {
         modulo: params_querys.value.modulo?.toUpperCase(),
-        id_paci: params_querys.value.llave_hc.slice(0, 15),
+        id_paci: cod_paci_2,
         listar_todos: "0",
       },
     });
