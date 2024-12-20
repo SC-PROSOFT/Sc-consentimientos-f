@@ -146,7 +146,7 @@ import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store"
 import { ref, onMounted, defineAsyncComponent, watch, computed } from "vue";
 import formatos from "../../impresiones/importarModulos";
 import { useRouter, useRoute } from "vue-router";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, validarCodPaci } from "@/formatos/utils";
 import days from "dayjs";
 
 const DisentirConsen_ = defineAsyncComponent(() => import("@/components/consen/DisentirConsen.vue"));
@@ -539,21 +539,13 @@ const consultarFirmaConsen = async (row) => {
 };
 
 const getMaestros = async () => {
-  let cod_paci = params_querys.value.llave_hc.slice(0, 15).trim();
-  let cod_paci_2 = "";
-
-  let regExp = /[a-zA-Z]/g;
-  if (regExp.test(cod_paci)) {
-    cod_paci_2 = cod_paci.padStart(15, " ");
-  } else {
-    cod_paci_2 = cod_paci.padStart(15, "0");
-  }
+  params_querys.value.llave_hc = validarCodPaci(params_querys.value.llave_hc.slice(0, 15));
   try {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
       data: {
         modulo: params_querys.value.modulo?.toUpperCase(),
-        id_paci: cod_paci_2,
+        id_paci: params_querys.value.llave_hc,
         listar_todos: "0",
       },
     });

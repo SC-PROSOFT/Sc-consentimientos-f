@@ -143,6 +143,16 @@ export const evaluarTipoId = (value) => {
   let busqueda = array_tipo_id.find((e) => e.COD == value.trim());
   return busqueda ? busqueda.COD + " - " + busqueda.DESCRIP : "";
 };
+
+export const validarCodPaci = (value) => {
+  let cod_paci = value.trim();
+  let regExp = /[a-zA-Z]/g;
+  if (regExp.test(cod_paci)) {
+    return cod_paci.padStart(15, " ");
+  } else {
+    return cod_paci.padStart(15, "0");
+  }
+};
 export const evaluarClaseServ = (value) => {
   const servicio =
     Number(getEmpresa.nitusu) == 800156469

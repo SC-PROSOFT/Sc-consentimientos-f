@@ -157,6 +157,7 @@ import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store"
 import { ref, onMounted, watch, watchEffect } from "vue";
 import { foco_ } from "@/setup";
 import days from "dayjs";
+import { validarCodPaci } from "@/formatos/utils";
 
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
@@ -409,7 +410,7 @@ const getMaestros = async () => {
     const response = await getDll$({
       modulo: `get_maeconsen.dll`,
       data: {
-        id_paci: query?.llave_hc?.slice(0, 15) || "",
+        id_paci: validarCodPaci(query?.llave_hc?.slice(0, 15)) || "",
         config: query?.config ? "S" : "N",
         modulo: query.modulo,
         listar_todos: "1",

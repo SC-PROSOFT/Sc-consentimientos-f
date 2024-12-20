@@ -54,6 +54,7 @@ import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store"
 import { defineAsyncComponent, onMounted, onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { regAcomp } from "@/fuentes";
+import { validarCodPaci } from "@/formatos/utils";
 
 const ListaConsentimientos_ = defineAsyncComponent(() => import("@/components/consen/ListaConsentimientos.vue"));
 const ConfigMaestros_ = defineAsyncComponent(() => import("@/components/consen/ConfigMaestros.vue"));
@@ -142,8 +143,8 @@ const validarUrl = async () => {
 };
 
 async function getPaciente() {
-  const cod_paci = datos_session.llave_hc.slice(0, 15) || "";
-
+  let cod_paci = datos_session.llave_hc.slice(0, 15) || "";
+  cod_paci = validarCodPaci(cod_paci);
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       /* Se hizo de esta manera por problemas con el back, quitaba espacios entre nombres */
@@ -169,6 +170,7 @@ async function getAcomp() {
   try {
     // if (!datos_session.id_acompa.trim()) setAcomp(regAcomp());
     // else {
+    datos_session.id_acompa = validarCodPaci(datos_session.id_acompa);
     const response = await getDll$({
       modulo: `get_paci.dll`,
       data: { cod_paci: datos_session.id_acompa },
