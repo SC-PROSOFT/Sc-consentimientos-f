@@ -277,4 +277,24 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado para odontología",
     },
   },
+  {
+    path: "/HIC046",
+    name: "HIC046",
+    component: () => import("@/views/lab/LAB015.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC046`,
+      descrip: "Consentimiento informado acto quirurgico",
+    },
+  },
+  {
+    path: "/HIC047",
+    name: "HIC047",
+    component: () => import("@/views/lab/LAB016.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC047`,
+      descrip: "Consentimiento informado acto anestesico",
+    },
+  },
 ];

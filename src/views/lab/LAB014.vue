@@ -326,13 +326,12 @@
   <div style="height: 5px"></div>
 </template>
 <script setup>
-import { regHc, regEmpresa, regTest, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
+import { regPaci, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, computed } from "vue";
 import { impresionLAB014, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
+import { utilsFormat, calcularEdad, evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 import backgroundImage from "@/assets/image/mamografia.png";
 

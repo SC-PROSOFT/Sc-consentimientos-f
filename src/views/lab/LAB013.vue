@@ -238,7 +238,7 @@
   <div style="height: 5px"></div>
 </template>
 <script setup>
-import { regHc, regEmpresa, regTest, regSession, regPaci, regProf, regAcomp } from "@/fuentes";
+import { regPaci, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
 import { impresionLAB013, impresion, generarArchivo } from "@/impresiones";

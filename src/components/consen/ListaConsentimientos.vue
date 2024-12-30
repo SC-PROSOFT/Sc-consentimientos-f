@@ -288,8 +288,8 @@ const validacionesNitHc = async () => {
   } catch (error) {
     console.error(error);
 
-    console.log("nit_usu ", nit_usu.value);
-    if (nit_usu.value == 900161116) {
+    console.log("nit_usu PARE NIT ", nit_usu.value);
+    if ([900161116, 900273700, 79635522].includes(nit_usu.value)) {
       formatosStore.setHc({
         llave: route.query.llave_hc,
         descrip: "",
@@ -337,7 +337,7 @@ const getOdontologia = async () => {
 
 const getHistoriaClinica = async () => {
   try {
-    // if (nit_usu.value == 0) return setTimeout(validacionesNitHc, 100);
+    console.log(route.query.llave_hc);
 
     const response = await getDll$({
       modulo: `get_hc.dll`,
@@ -346,9 +346,10 @@ const getHistoriaClinica = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
-      //(Yopal) y (SOCIEDAD CARDIOLOGICA COLOMBIA) asi la HC este cerrada deja seguir
+      //(Yopal) (SOCIEDAD CARDIOLOGICA COLOMBIA) (SANAR) (DOCTOR BERNAL) asi la HC este cerrada deja seguir
+      console.log(" nit_usu -->", nit_usu.value);
 
-      if (nit_usu.value == 844003225 || nit_usu.value == 900161116) return;
+      if ([844003225, 900161116, 900273700, 79635522].includes(nit_usu.value)) return;
 
       return CON851("9Y", "info", "", logOut$);
     }
@@ -426,6 +427,20 @@ const disentirConsentimiento = async (row) => {
   reg_consentimiento.value.estado = true;
 };
 const reimprimirConsentimiento = async (row) => {
+  let cod_consenti;
+  // validacion para cambiar el codigo del formato hic046 a lab015 y hic047 a lab016,
+  // esto es porque se usan los mismos formatos en los dos modulos (salud, historia clinica)
+  switch (row.reg_coninf?.cod) {
+    case "HIC046":
+      cod_consenti = "LAB015";
+      break;
+    case "HIC047":
+      cod_consenti = "LAB016";
+      break;
+    default:
+      cod_consenti = null;
+      break;
+  }
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
 
   await getFirmaProf(row.reg_prof.cod);
@@ -446,13 +461,13 @@ const reimprimirConsentimiento = async (row) => {
         img_huella_paci: huella_paci.value,
         img_huella_acomp: huella_acomp.value,
         img_firma_paci: firma_consen.value,
-        cod_consen: row.reg_coninf?.cod,
+        cod_consen: cod_consenti,
         firma_prof: firma_prof.value,
       },
 
-      content: formatos[`impresion${row.reg_coninf?.cod}`]({
+      content: formatos[`impresion${cod_consenti}`]({
         datos: {
-          cod_consen: row.reg_coninf?.cod,
+          cod_consen: cod_consenti,
           autorizo: row.reg_coninf.estado == "AUTORIZADO" || row.reg_coninf.estado == "DISENTIDO " ? true : false,
           llave: row.reg_coninf.llave.folio,
           firmas: {

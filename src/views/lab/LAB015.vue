@@ -135,13 +135,14 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getHc, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
 const reg_firmador = ref(getAcomp.cod.trim() != "" ? getAcomp : getPaci);
 const acudiente = ref(getAcomp.cod ? getPaci : "");
+const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const firma_recibida_acomp = ref("");
 const firma_recibida_test = ref("");
 const firma_recibida = ref("");
@@ -166,7 +167,8 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("getEmpresa ", getEmpresa);
+  // console.log("getEmpresa ", getEmpresa);
+  // console.log(" pare getSesion  --> ", getSesion);
   datosInit();
   getFirmaProf();
 });
@@ -205,12 +207,13 @@ const validarDatos = async () => {
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(LAB015));
   let datos = {
+    nit_entid: nit_usu.value,
     estado: LAB015.opcion_lab015 == "AUTORIZAR" ? "1" : "2",
-    llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
+    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    llave_consen: `${getPaci.cod}00000000`,
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,
-    cod_consen: "LAB015",
+    cod_consen: getSesion.modulo == "HIC" ? "HIC046" : "LAB015",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     id_testigo: getTestigo.cod.padStart(15, "0"),
