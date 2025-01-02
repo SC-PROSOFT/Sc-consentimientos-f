@@ -112,6 +112,16 @@ const getFirmaPaci = async () => {
       return CallBackFirma(existeFirma);
     }
 
+    if ([900273700, 79635522].includes(Number(getEmpresa.nitusu))) {
+      if (check_paci) {
+        // D:\PSC\PROG\FIRMAS
+        firma.value = await _getImagen$({
+          codigo: getPaci.cod,
+        });
+      }
+      existeFirma = firma.value ? firma.value : getImgBs64;
+      return CallBackFirma(existeFirma);
+    }
     if (Number(getEmpresa.nitusu) == 844003225) {
       if (check_paci) {
         firma.value = await _getImagen$({

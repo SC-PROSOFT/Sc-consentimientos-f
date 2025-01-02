@@ -284,10 +284,15 @@ export const useApiContabilidad = defineStore("contabilidad", {
     },
     _getImagen$({ codigo = 0, formato = "png" }) {
       let ruta;
-      if (this.empresa.unid_prog == "S") {
-        ruta = `D:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
-      } else if (this.empresa.unid_prog == "P") {
-        ruta = `D:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+      if ([900273700, 79635522].includes(Number(this.empresa.nitusu))) {
+        // ruta de la entidad sanar
+        ruta = `D:/PSC/PROG/FIRMAS/PACIENTE`;
+      } else {
+        if (this.empresa.unid_prog == "S") {
+          ruta = `D:/SC/newcobol/DATOS/FIRMAS_CONSEN`;
+        } else if (this.empresa.unid_prog == "P") {
+          ruta = `D:/PSC/PROG/DATOS/FIRMAS_CONSEN`;
+        }
       }
 
       return new Promise((resolve, reject) => {
