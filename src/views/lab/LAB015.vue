@@ -167,8 +167,6 @@ const form = ref({
 });
 
 onMounted(() => {
-  // console.log("getEmpresa ", getEmpresa);
-  // console.log(" pare getSesion  --> ", getSesion);
   datosInit();
   getFirmaProf();
 });
@@ -199,7 +197,6 @@ const validarDatos = async () => {
   if (LAB015.opcion_lab015 == "AUTORIZAR") {
     if (!LAB015.interv_quirurg) return CON851("?", "info", requiere, () => foco_(form, "interv_quirurg"));
   }
-  console.log("LAB015 ", LAB015);
 
   grabarConsentimiento();
 };
@@ -225,7 +222,6 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 32);
-        console.log("data en llave_consen ", data);
 
         LAB015.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
@@ -332,8 +328,6 @@ const callBackFirmaTest = (data_firma) => {
   data_firma && (firma_recibida_test.value = data_firma);
 };
 const callBackFirma = (data_firma) => {
-  console.log("data_firma -> ", data_firma);
-
   data_firma && (firma_recibida.value = data_firma);
 };
 const callBackFirmaProf = (data_firma) => {

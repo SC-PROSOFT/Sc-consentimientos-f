@@ -438,9 +438,11 @@ const reimprimirConsentimiento = async (row) => {
       cod_consenti = "LAB016";
       break;
     default:
-      cod_consenti = null;
+      cod_consenti = row.reg_coninf?.cod;
       break;
   }
+  console.log("cod_consenti -> ", cod_consenti);
+
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
 
   await getFirmaProf(row.reg_prof.cod);

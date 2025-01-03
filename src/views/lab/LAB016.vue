@@ -353,8 +353,6 @@ const callBackFirmaTest = (data_firma) => {
   data_firma && (firma_recibida_test.value = data_firma);
 };
 const callBackFirma = (data_firma) => {
-  console.log("data_firma -> ", data_firma);
-
   data_firma && (firma_recibida.value = data_firma);
 };
 const callBackFirmaProf = (data_firma) => {

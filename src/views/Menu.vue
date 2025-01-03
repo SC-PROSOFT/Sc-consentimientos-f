@@ -68,7 +68,7 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession } = useModuleFormatos();
+const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession, getSesion } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -87,11 +87,20 @@ onBeforeMount(() => validIsConfig());
 // onMounted(() => validIsConfig());
 
 const verificarSesion = async () => {
+  console.log("route.query --> ", route.query);
+
   try {
     if (mode_dev) localStorage.setItem("ip", "34.234.185.158");
     else localStorage.setItem("ip", window.location.hostname);
 
-    const response = await getDll$({ modulo: `get_usunet.dll` });
+    const response = await getDll$({
+      modulo: `get_usunet.dll`,
+      data: {
+        carpta: "CONTROL",
+        directorio: route.query.contab,
+        nit: route.query.nit,
+      },
+    });
     configuracion.value.estado = false;
     setEmpresa(response);
     await getLogo();
@@ -134,9 +143,7 @@ const validarUrl = async () => {
   datos_session.modulo == "LAB" && getTestigo();
   await getPaciente();
 
-  console.log("datos_session antes de getAcomp ", datos_session);
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa.trim() != "") {
-    console.log("para A");
     await getAcomp();
   }
   if (!mode_dev) getVersionBuild();
