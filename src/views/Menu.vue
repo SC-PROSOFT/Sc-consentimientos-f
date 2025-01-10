@@ -139,8 +139,11 @@ const validarUrl = async () => {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
-
-  datos_session.modulo == "LAB" && getTestigo();
+  if ([900273700, 79635522].includes(Number(parseInt(route.query.nit)))) {
+    getTestigo();
+  } else {
+    datos_session.modulo == "LAB" && getTestigo();
+  }
   await getPaciente();
 
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa.trim() != "") {
@@ -194,7 +197,10 @@ async function getAcomp() {
 async function getMedico() {
   try {
     const cod_prof = datos_session.cod_prof || "";
-    const datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof } });
+    const datos = await getDll$({
+      modulo: `get_prof.dll`,
+      data: { cod_prof, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
+    });
     setProf(datos.reg_prof);
   } catch (error) {
     CON851("?", "error", "Error consultando datos medico");
@@ -209,7 +215,16 @@ async function getTestigo() {
 
     let datos;
     if (tipo_testigo == 1) datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
-    else if (tipo_testigo == 2) datos = await getDll$({ modulo: `get_prof.dll`, data: { cod_prof: cod_test } });
+    else if (tipo_testigo == 2)
+      datos = await getDll$({
+        modulo: `get_prof.dll`,
+        data: {
+          cod_prof: cod_test,
+          carpta: "CONTROL",
+          directorio: route.query.contab,
+          nit: route.query.nit,
+        },
+      });
 
     setTestigo(tipo_testigo == 1 ? datos.reg_paci : datos.reg_prof);
   } catch (error) {

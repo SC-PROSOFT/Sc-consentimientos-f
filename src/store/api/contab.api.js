@@ -282,11 +282,17 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
-    _getImagen$({ codigo = 0, formato = "png" }) {
+    _getImagen$({ codigo = 0, tipo_test = null, formato = "png" }) {
       let ruta;
+
       if ([900273700, 79635522].includes(Number(this.empresa.nitusu))) {
         // ruta de la entidad sanar
-        ruta = `D:/PSC/PROG/FIRMAS/PACIENTE`;
+        if (tipo_test == "1") {
+          ruta = `D:/PSC/PROG/FIRMAS/PACIENTE`;
+        } else {
+          codigo = parseInt(codigo) || 0;
+          ruta = `D:/PSC/PROG/FIRMAS`;
+        }
       } else {
         if (this.empresa.unid_prog == "S") {
           ruta = `D:/SC/newcobol/DATOS/FIRMAS_CONSEN`;

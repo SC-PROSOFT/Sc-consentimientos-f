@@ -117,6 +117,7 @@ const getFirmaPaci = async () => {
         // D:\PSC\PROG\FIRMAS
         firma.value = await _getImagen$({
           codigo: getPaci.cod,
+          tipo_test: "1",
         });
       }
       existeFirma = firma.value ? firma.value : getImgBs64;

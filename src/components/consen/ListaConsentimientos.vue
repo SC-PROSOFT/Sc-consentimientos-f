@@ -245,21 +245,6 @@ onMounted(() => {
     validacionesNitHc();
   }
 });
-// onMounted(() => {
-//   setTimeout(() => {
-//     const isFirstLoad = sessionStorage.getItem("isFirstLoad");
-
-//     if (!isFirstLoad) {
-//       sessionStorage.setItem("isFirstLoad", "true");
-//       window.location.reload();
-//     } else {
-//       const empresaData = sessionStorage.getItem("empresa");
-//       const empresa = JSON.parse(empresaData);
-//       nit_usu.value = parseInt(empresa.nitusu) || 0;
-//       validacionesNitHc();
-//     }
-//   }, 600);
-// });
 
 const valueEstado = (estado) => {
   if (estado == "AUTORIZADO") return "light-green-6";
@@ -288,8 +273,7 @@ const validacionesNitHc = async () => {
   } catch (error) {
     console.error(error);
 
-    console.log("nit_usu PARE NIT ", nit_usu.value);
-    if ([900161116, 900273700, 79635522].includes(nit_usu.value)) {
+    if ([900161116, 900273700, 79635522].includes(parseInt(route.query.nit))) {
       formatosStore.setHc({
         llave: route.query.llave_hc,
         descrip: "",
@@ -341,16 +325,16 @@ const getHistoriaClinica = async () => {
 
     const response = await getDll$({
       modulo: `get_hc.dll`,
-      data: { llave_hc: route.query.llave_hc },
+      data: { llave_hc: route.query.llave_hc, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
     });
     setHc(response.reg_hc);
 
-    if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(getEmpresa.nitusu)) {
+    if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(route.query.nit)) {
       //(Yopal) (SOCIEDAD CARDIOLOGICA COLOMBIA) (SANAR) (DOCTOR BERNAL) asi la HC este cerrada deja seguir
-      console.log(" nit_usu -->", nit_usu.value);
+      console.log(" route.query.nit en listaconsen -->", route.query.nit);
+      console.log(" nit_usu en listaconsen -->", nit_usu.value);
 
-      if ([844003225, 900161116, 900273700, 79635522].includes(nit_usu.value)) return;
-
+      if ([844003225, 900161116, 900273700, 79635522].includes(parseInt(route.query.nit))) return;
       return CON851("9Y", "info", "", logOut$);
     }
   } catch (error) {
@@ -369,7 +353,7 @@ const getConsentimientosRealizados = async () => {
     const { CONSENTIMIENTOS } = await getDll$({
       modulo: `get_consen.dll`,
       data: {
-        nit_entid: nit_usu.value,
+        nit_entid: route.query.nit,
         modulo: params_querys.value.modulo?.toUpperCase(),
         paso: novedad.value == "1" || novedad.value == "4" ? "2" : novedad.value,
         llave_consen,
@@ -380,7 +364,9 @@ const getConsentimientosRealizados = async () => {
     if (params_querys.value.modulo == "LAB") {
       const query = sessionStorage.query && JSON.parse(sessionStorage.query);
       const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || "0";
-      consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact.slice(0, 9));
+      if ([900273700, 79635522].includes(!parseInt(route.query.nit))) {
+        consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact.slice(0, 9));
+      }
     }
 
     lista_consen.value = consen_filter || CONSENTIMIENTOS || [];
@@ -441,7 +427,6 @@ const reimprimirConsentimiento = async (row) => {
       cod_consenti = row.reg_coninf?.cod;
       break;
   }
-  console.log("cod_consenti -> ", cod_consenti);
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
 
@@ -500,7 +485,7 @@ const reimprimirConsentimiento = async (row) => {
     });
     await formatos.impresion({ docDefinition });
   } catch (error) {
-    console.error("error-- >", error);
+    console.error("error", error);
     CON851("?", "info", "Error al generar impresión");
   }
 };
@@ -524,13 +509,21 @@ const getHuella = async (cod) => {
 const consultarFirmaConsen = async (row) => {
   try {
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
-    console.log("codigo firma testigo ", codigo);
 
-    //Testigo UTM
-    params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
-
-    //Paciente
-    firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
+    if ([900273700, 79635522].includes(Number(parseInt(route.query.nit)))) {
+      //Testigo SANAR Y BERNAL
+      firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo });
+    } else {
+      //Testigo UTM
+      params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
+    }
+    if ([900273700, 79635522].includes(Number(parseInt(route.query.nit)))) {
+      //Paciente SANAR Y BERNAL
+      firma_consen.value = await _getImagen$({ codigo: `${row.llave.id}`, tipo_test: "1" });
+    } else {
+      //Paciente
+      firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
+    }
 
     //Acompañante
     firma_acomp.value = await _getImagen$({
