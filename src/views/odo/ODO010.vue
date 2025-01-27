@@ -20,10 +20,16 @@
       </div>
       <q-form>
         <div>
-          <p>
-            <span class="text-bold">FECHA:</span>
-            {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
-          </p>
+          <div class="row justify-between items-center">
+            <p class="text-left">
+              <span class="text-bold">Fecha:</span>
+              {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
+            </p>
+            <p class="text-right">
+              <span class="text-bold">N°. H.C.</span>
+              {{ getHc.llave }}
+            </p>
+          </div>
           <p style="text-align: justify">
             Yo <span class="text-bold"> {{ getPaci.descrip }},</span> de <span class="text-bold"> {{ getPaci.descrip_ciudad }},</span> identificado
             con el documento de identidad

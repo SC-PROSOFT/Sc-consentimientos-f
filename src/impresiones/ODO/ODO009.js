@@ -1,9 +1,11 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci } = useModuleFormatos();
+const { getPaci, getHc } = useModuleFormatos();
 
 export const impresionODO009 = ({ datos }) => {
+  console.log("datos ", datos);
+
   var dd = {
     stack: [contenidoODO009(), firmas()],
   };
@@ -12,87 +14,107 @@ export const impresionODO009 = ({ datos }) => {
     return {
       stack: [
         {
+          marginTop: 8,
+          table: {
+            widths: ["50%", "50%"],
+            body: [
+              [
+                {
+                  alignment: "left",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Fecha: " },
+                    { style: "bodyNoBold9", text: datos.fecha },
+                  ],
+                },
+                {
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "N°. H.C. " },
+                    { style: "bodyNoBold9", text: getHc.llave },
+                  ],
+                },
+              ],
+            ],
+          },
+          layout: "noBorders",
+        },
+        {
+          marginTop: 8,
           alignment: "justify",
           text: `Yo, ${getPaci.descrip} mayor de edad y/o responsable del paciente, identificado(a) como aparece al pie de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente, declaro:`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
-          text: `\n Otorgo mi consentimiento para que sea practicado el proceso quirúrgico requerido denominado: ${datos.proceso_quirurgico}.`,
-          style: "bodyContent",
+          text: `\n Otorgo mi consentimiento para que sea practicado el proceso quirúrgico requerido denominado: ${datos.proces_quirurg}.`,
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n De acuerdo al diagnóstico y plan de tratamiento programado el cual fui informado. Otros estudios de diagnóstico y medicamentos.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n  Acepto los servicios adicionales que juzguen razonables y necesarios como estudios de laboratorio, radiológicos, otros estudios de diagnóstico y medicamentos. Comprendo que en el área de cirugía bucal todos los procedimientos no están exentos de las complicaciones frecuentes como lo son:`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Riesgo de la técnica de anestesia que se utiliza.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Posible inflamación y dolor del área afectada en la intervención.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Dificultad para abrir la boca y masticar, después del procedimiento.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Riesgo de hemorragia y aparición de hematomas en zonas adyacentes.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Infección de las heridas quirúrgicas.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Posibilidad de pérdida de sensibilidad temporal o no.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n • Riesgo de fracturas óseas, sinusitis, dislocación mandibular, comunicación bucosinusal.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Estoy enterado que se me darán indicaciones pre y post operatorias, según convenga a mi caso en particular, así como la indicación farmacológica que pueda requerir antes o después de la intervención.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Por otra parte autorizo al profesional ya mencionado, aplique anestesia local en el momento que el tratamiento lo requiera.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Doy mi consentimiento y autorización para la intervención descrita anteriormente, sin coacción ni manipulación de ningún tipo.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
-          text: `\n Diente(s): ${datos.dientes}`,
-          style: "bodyContent",
+          text: `\n Diente: ${datos.dientes}`,
+          style: "bodyNoBold9",
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
 

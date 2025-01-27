@@ -19,17 +19,23 @@
         </p>
       </div>
       <q-form>
-        <div>
-          <p>
-            <span class="text-bold">FECHA:</span>
+        <div class="row justify-between items-center">
+          <p class="text-left">
+            <span class="text-bold">Fecha:</span>
             {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
           </p>
+          <p class="text-right">
+            <span class="text-bold">N°. H.C.</span>
+            {{ getHc.llave }}
+          </p>
+        </div>
+        <div>
           <p style="text-align: justify">
             Yo <span class="text-bold"> {{ getPaci.descrip }},</span> mayor de edad y/o responsable del paciente, identificado(a) como aparece al pie
             de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente, declaro:
           </p>
           <p style="text-align: justify">Otorgo mi consentimiento para que sea practicado el proceso quirúrgico requerido denominado:</p>
-          <Input_ style="min-width: 100%; display: inline-block" v-model="ODO009.proceso_quirurgico" :field="form.proceso_quirurgico" />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="ODO009.proces_quirurg" :field="form.proces_quirurg" />
           <p style="text-align: justify">
             De acuerdo al diagnóstico y plan de tratamiento programado el cual fui informado. Otros estudios de diagnóstico y medicamentos.
           </p>
@@ -90,7 +96,7 @@
             Doy mi consentimiento y autorización para la intervención descrita anteriormente, sin coacción ni manipulación de ningún tipo.
           </p>
           <div class="row">
-            <p>Diente(s):</p>
+            <p>Diente:</p>
             <Input_ v-model="ODO009.dientes" :field="form.dientes" :inputStyle="{ width: '90px' }" />
           </div>
         </div>
@@ -152,12 +158,12 @@ const huella_paci = ref(null);
 const firma_paci = ref("");
 const firma_prof = ref(null);
 const ODO009 = reactive({
-  proceso_quirurgico: "",
+  proces_quirurg: "",
   dientes: "",
 });
 const form = ref({
-  proceso_quirurgico: {
-    id: "proceso_quirurgico",
+  proces_quirurg: {
+    id: "proces_quirurg",
     maxlength: "300",
     label: "",
     required: true,

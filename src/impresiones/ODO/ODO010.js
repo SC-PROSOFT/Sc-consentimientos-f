@@ -1,9 +1,10 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci } = useModuleFormatos();
+const { getPaci, getHc } = useModuleFormatos();
 
 export const impresionODO010 = ({ datos }) => {
+  console.log("datos ", datos);
   var dd = {
     stack: [contenidoODO010(), firmas()],
   };
@@ -12,54 +13,72 @@ export const impresionODO010 = ({ datos }) => {
     return {
       stack: [
         {
+          marginTop: 8,
+          table: {
+            widths: ["50%", "50%"],
+            body: [
+              [
+                {
+                  alignment: "left",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Fecha: " },
+                    { style: "bodyNoBold9", text: datos.fecha },
+                  ],
+                },
+                {
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "N°. H.C. " },
+                    { style: "bodyNoBold9", text: getHc.llave },
+                  ],
+                },
+              ],
+            ],
+          },
+          layout: "noBorders",
+        },
+        {
           alignment: "justify",
-          text: `Yo, ${getPaci.descrip} de ${getPaci.descrip_ciudad} identificado
-            con el documento de identidad ${getPaci.cod}, por medio del presente documento hago constar lo siguiente.`,
-          style: "bodyContent",
+          text: `Yo, ${getPaci.descrip} de ${getPaci.descrip_ciudad} identificado con el documento de identidad ${getPaci.cod}, por medio del presente documento hago constar lo siguiente.`,
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n He sido informado/a que después de un diagnostico odontológico, necesito recibir atención clínica endodóntica.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Se me ha explicado de forma clara, la naturaleza de la enfermedad oral que padezco, así como el daño que ha causado; las opciones de tratamiento, los posibles riesgos del tratamiento y su pronóstico.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
 
         {
           alignment: "justify",
           text: `\n Acepto la realización de toma de radiografías que sean necesarios para fines de completar un tratamiento exitoso.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Me fueron expuestos los riesgos del uso de la anestesia local (posibles alergias, anestesias prolongadas, daños tisulares por la punción, hematoma, trismus, paresia o parestesia, taquicardia, dolor isquemia en el sitio de la punción.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Entiendo que posterior al tratamiento podría experimentar inflamación, dolor en el área, dificultad para masticar o abrir la boca, riesgo de infección.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Estoy consciente que existe la posibilidad de que los instrumentos utilizados podrían tener fracturas debido a las pequeñas dimensiones de estos, o generar perforaciones dentales cortes, punciones, o lesiones; también se me ha explicado la toxicidad de algunos materiales que son necesarios para la desinfección de la zona.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Por otra parte autorizo con mi firma al profesional para realizar los procedimientos endodonticos.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
 

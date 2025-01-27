@@ -1,9 +1,11 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci } = useModuleFormatos();
+const { getPaci, getHc } = useModuleFormatos();
 
 export const impresionODO008 = ({ datos }) => {
+  console.log("datos", datos);
+
   var dd = {
     stack: [contenidoODO008(), firmas()],
   };
@@ -12,42 +14,62 @@ export const impresionODO008 = ({ datos }) => {
     return {
       stack: [
         {
+          marginTop: 8,
+          table: {
+            widths: ["50%", "50%"],
+            body: [
+              [
+                {
+                  alignment: "left",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Fecha: " },
+                    { style: "bodyNoBold9", text: datos.fecha },
+                  ],
+                },
+                {
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "N°. H.C. " },
+                    { style: "bodyNoBold9", text: getHc.llave },
+                  ],
+                },
+              ],
+            ],
+          },
+          layout: "noBorders",
+        },
+        {
+          marginTop: 8,
           alignment: "justify",
           text: `Yo, ${getPaci.descrip} identificado con el documento de identidad ${getPaci.cod}, y por medio del presente documento hago constar lo siguiente.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Por medio de la presente doy mi consentimiento al odontólogo(a) para formular y realizar el tratamiento, intervención u otros procedimientos dentales que considere necesarios o apropiados para mí o mi hijo(a), en los cuales estaremos mutuamente de acuerdo.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Certifico que se me ha sido informado de los riesgos inherentes a los procedimientos clínicos a realizar y originados en la falta de colaboración mía o del niño, siendo los más frecuentes: el trauma de los tejidos blandos por el uso de elementos corto punzantes, la fractura radicular coronal y fractura alveolar.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n Igualmente me ha sido explicado que ante la intranquilidad del menor, existe la posibilidad de requerir durante su tratamiento la utilización de las técnicas restrictivas las cuales son utilizadas en odontopediatria y consiste en sujetar al niño(a) para controlar sus movimientos y así poder realizar el tratamiento, así mismo se me ha informado que puedo estar presente durante la atención del menor y apoyar o no en el momento de la aplicación de estas técnicas.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n También se me ha informado sobre la posibilidad de requerir la aplicación de anestesia local y sus posibles complicaciones, tales como parestesia, hematoma, dolor, isquemia de la piel, parálisis, trismus y auto mordeduras.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
         {
           alignment: "justify",
           text: `\n He tenido la oportunidad de realizar las preguntas que he considerado necesarias y todas han sido respondidas satisfactoriamente, por otra parte autorizo el uso de anestesia local en el momento que así lo requiera.`,
-          style: "bodyContent",
+          style: "bodyNoBold9",
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
 
