@@ -297,4 +297,44 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado acto anestesico",
     },
   },
+  {
+    path: "/HIC048",
+    name: "HIC048",
+    component: () => import("@/views/hic/HIC048.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC048`,
+      descrip: "Consentimiento informado para realizar la prueba presuntiva o diagnostica de VIH",
+    },
+  },
+  {
+    path: "/HIC049",
+    name: "HIC049",
+    component: () => import("@/views/hic/HIC049.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC049`,
+      descrip: "Consentimiento informado para toma de muestras ginecoloógicas",
+    },
+  },
+  {
+    path: "/HIC050",
+    name: "HIC050",
+    component: () => import("@/views/hic/HIC050.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC050`,
+      descrip: "Consentimiento informado toma de muestras de laboratorio clínico",
+    },
+  },
+  {
+    path: "/HIC051",
+    name: "HIC051",
+    component: () => import("@/views/hic/HIC051.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC051`,
+      descrip: "Consentimiento informado toma de citologia",
+    },
+  },
 ];
