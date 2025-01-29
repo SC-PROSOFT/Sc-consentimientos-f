@@ -1,10 +1,10 @@
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
 const { getPaci } = useModuleFormatos();
 
-export const impresionHIC049 = ({ datos }) => {
-  console.log("datos ", datos);
+export const impresionHIC052 = ({ datos }) => {
+  console.log("impresionHIC052 ", datos);
   const marcaCasilla = (condicion) => {
     return [
       {
@@ -19,199 +19,80 @@ export const impresionHIC049 = ({ datos }) => {
   };
 
   var dd = {
-    stack: [contenidoHIC049(), firmas()],
+    stack: [contenidoHIC052(), firmas()],
   };
 
-  function contenidoHIC049() {
+  function contenidoHIC052() {
     return {
       stack: [
         {
           marginTop: 8,
-          text: [
-            { bold: true, style: "tableTitle", text: " Fecha: " },
-            { style: "bodyNoBold9", text: datos.fecha },
-            { bold: true, style: "tableTitle", text: " Hora: " },
-            { style: "bodyNoBold9", text: datos.hora },
-          ],
-        },
-        {
-          marginTop: 8,
-          text: [
-            { bold: true, style: "bodyNoBold9", text: "Nombre: " },
-            { style: "bodyNoBold9", text: datos.paciente.descrip },
-          ],
-        },
-        {
-          marginTop: 8,
-          text: [
-            { bold: true, style: "bodyNoBold9", text: "Tipo y numero documento de identificación: " },
-            { style: "bodyNoBold9", text: datos.paciente.tipo_id + " " + datos.paciente.cod },
-          ],
-        },
-        {
-          marginTop: 10,
-          bold: true,
-          alignment: "left",
-          text: "SEÑORA USUARIA",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "Es muy importante para nosotros que usted reciba y entienda la información, acerca del examen que fue solicitado por su médico tratante, quien determino que este estudio es la ",
-            },
-            {
-              text: "alternativa ",
-              bold: true,
-            },
-            {
-              text: "más adecuada con la cual se puede ",
-            },
-            {
-              text: "beneficiar, ",
-              bold: true,
-            },
-            {
-              text: ", obtener o confirmar el diagnóstico y que nosotros con gusto realizaremos, lea con atención y no tema solicitar explicación en caso de duda, para aclarar sus inquietudes y responder sus preguntas. A continuación, se mencionan los exámenes que se realizan a partir de muestras ginecológicas, marque con una x el procedimiento a realizar.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 5,
-          alignment: "center",
           table: {
-            widths: ["5%", "95%"],
+            widths: ["50%", "50%"],
             body: [
-              [{ style: "tableTitle", text: "DESCRIPCION", alignment: "center", colSpan: 2 }, {}],
               [
                 {
-                  stack: [
-                    {
-                      text: " ",
-                      style: "tableTitle",
-                    },
-                    {
-                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
-                    },
+                  alignment: "left",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Nombre del paciente: " },
+                    { style: "bodyNoBold9", text: datos.paciente.descrip },
                   ],
                 },
                 {
-                  stack: [
-                    {
-                      alignment: "justify",
-                      text: [
-                        { text: "EXAMEN DE FLUJO VAGINAL: ", bold: true },
-                        {
-                          text: "Se tomará nuestra de la secreción vaginal para examen directo y/o cultivo, previa colocación o no de especulo vaginal (depende del caso), muestra se toma con ayuda de un aplicador.",
-                        },
-                      ],
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  stack: [
-                    {
-                      text: " ",
-                      style: "tableTitle",
-                    },
-                    {
-                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
-                    },
-                  ],
-                },
-                {
-                  stack: [
-                    {
-                      alignment: "justify",
-                      text: [
-                        { text: "CITOLOGIA VAGINAL: ", bold: true },
-                        {
-                          text: "Previa colocación	del especulo vaginal, se frotará la mucosa del cuello uterino, con un cepillo y espátula especiales, para obtener muestras del tejido celular, el material se extiende sobre una lámina, que luego de un proceso de colaboración es analizada bajo el microscopio.",
-                        },
-                      ],
-                      style: "bodyNoBold9",
-                    },
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Edad: " },
+                    { style: "bodyNoBold9", text: calcularEdad(getPaci.nacim) },
                   ],
                 },
               ],
             ],
           },
+          layout: "noBorders",
+        },
+        {
+          marginTop: 8,
+          table: {
+            widths: ["40%", "40%", "20%"],
+            body: [
+              [
+                {
+                  alignment: "left",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Identificación: " },
+                    { style: "bodyNoBold9", text: datos.paciente.cod },
+                  ],
+                },
+                {
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "EPS: " },
+                    { style: "bodyNoBold9", text: datos.paciente.descrip_eps },
+                  ],
+                },
+                {
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Fecha: " },
+                    { style: "bodyNoBold9", text: datos.fecha },
+                  ],
+                },
+              ],
+            ],
+          },
+          layout: "noBorders",
         },
         {
           marginTop: 8,
           alignment: "justify",
           text: [
-            { text: "RIESGO: ", bold: true },
             {
-              text: "No existe ningún riesgo identificado al tomar las muestras, incluso si usted se encuentra embarazada actualmente. Cuando el cuello del útero se encuentra muy inflamado, en ocasiones se presenta escaso sangrado vaginal (manchado). Que cede solo y no requiere tratamiento.",
+              text: "La edad y estado de conciencia del paciente permiten firmar este docuemento? ",
             },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "LIMITACION: ", bold: true },
-            {
-              text: "Pacientes con antecedentes de traumas o cirugía reciente en región genital y/o estructuras circundantes, que dificulten el examen.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "USTED DEBE SABER QUE: ", bold: true },
-            {
-              text: "Para este examen se utilizan elementos nuevos y desechables. Son procedimientos seguros y muy rara vez presentan complicaciones durante la toma de las muestras se puede presentar alguna molestia como dolor leve que cederá rápidamente su colaboración es muy importante para realizarlo, en el tiempo indicado y con menor incomodidad.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "No existe pruebas exactas para establecer el grado de riesgo, sin embargo, el profesional asignado establecerá si se puede o no realizar la prueba solicitada y tomara las medidas especiales para garantizar de la mejor forma de su seguridad.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "RECOMENDACIONES: ", bold: true },
-            {
-              text: "Si posteriormente el examen presenta algún síntoma como sangrado vaginal, dolor abdominal, ardor para orinar y/o fiebre, flujo vaginal de mal olor y no se encuentra en nuestras instalaciones, consulte a su médico tratante o asista al servicio de urgencias que le corresponde.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "HE COMPRENDIDO CON CLARIDAD TODO LO ESCRITO ANTERIORMENTE. ", bold: true },
-            {
-              text: "Yo he tenido la oportunidad de preguntar y resolver todas mis dudas. ",
-            },
-            { text: "ACEPTO LA REALIZACION DEL EXAMEN - DECLARO QUE LA DECISION QUE TOMO ES LIBRE Y VOLUNTARIA DOY MI CONSENTIMIENTO ", bold: true },
-            {
-              text: "para que el profesional del Hospital Local Primer Nivel E.S.E FuentedeOro me realice el procedimiento diagnostico solicitado por mi médico tratante. ",
-            },
-            {
-              text: "he aceptado la toma del estudio, la entidad en mención y el médico, quedan autorizados para llevar a cabo las conductas o procedimientos médicos necesarios tendientes a resolver las complicaciones imprevisibles del procedimiento que mediante este documento autorizo.",
-            },
+            { text: " SI: ", bold: true },
+            { style: "bodyNoBold9", bold: true, decoration: "underline", text: datos.permite_firmar == "S" ? " X " : "    " },
+            { text: " NO: ", bold: true },
+            { style: "bodyNoBold9", bold: true, decoration: "underline", text: datos.permite_firmar == "N" ? " X " : "    " },
           ],
           style: "bodyNoBold9",
         },
@@ -220,9 +101,61 @@ export const impresionHIC049 = ({ datos }) => {
           alignment: "justify",
           text: [
             {
-              text: "Entiendo que me puedo retractar de este consentimiento cuando así lo desee, debiendo informal al equipo médico de diagnóstico del cambio de esta decisión.",
+              text: "Diagnóstico principal: ",
+            },
+            {
+              text: datos.diagn_princip,
             },
           ],
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          text: "Procedimiento propuesto y explicación del mismo: TRATAMIENTO INTRAHOSPITALARIO INTEGRAL: FARMACOLÓGICO / PSICOLOGIA, TERAPIA OCUPACIONAL, ENFERMERÍA, MEDICINA GENERAL, TRABAJO SOCIAL Y NUTRICIÓN. Y EN CASO DE REQUERIRSE SE ACEPTA LA CONTENCIÓN MECÁNICA A FIN DE GARANTIZAR EL BIENESTAR PROPIO Y DE LOS DEMÁS.",
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          text: [
+            { text: " Beneficios: " },
+            {
+              bold: true,
+              text: "REDUCCION DE RIESGO DE AUTO Y HETERO AGRESION, ENTRE OTROS. ",
+            },
+          ],
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          text: [
+            { text: " Riesgos: " },
+            {
+              bold: true,
+              text: "CAÍDAS, FUGAS, EFECTOS SECUNDARIOS MEDICAMENTOSOS, ENTRE OTROS. ",
+            },
+          ],
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          text: [
+            {
+              text: "Alternativas de otros tratamientos: ",
+            },
+            {
+              text: datos.alt_otr_tratamient,
+            },
+          ],
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          text: "Por medio del presente documento, acepto recibir servicios y apoyos en salud requeridos, reconozco que se me explico y comprendí en su totalidad el procedimiento que se propone, estoy enterado de los beneficios; me dieron a conocer y comprendo de los riesgos y las probables complicaciones que se pueden presentar y se me han explicado las alternativas existentes. Soy consciente que con el tratamiento que me brindan se busca un beneficio, doy mi consentimiento sin obligación y por decisión propia para que estos se efectúen, así mismo para realizar la atención de contingencias y urgencias derivadas del acto autorizado, con base en el principio de libertad prescriptiva. Así mismo acepto el criterio médico de los profesionales de la IPS SALUD MENTAL MONTE SINAÍ.",
           style: "bodyNoBold9",
         },
       ],

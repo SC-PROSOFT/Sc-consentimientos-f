@@ -337,4 +337,14 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado toma de citologia",
     },
   },
+  {
+    path: "/HIC052",
+    name: "HIC052",
+    component: () => import("@/views/hic/HIC052.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC052`,
+      descrip: "Consentimiento informado monte sinai",
+    },
+  },
 ];

@@ -23,6 +23,7 @@ export * from "./HIC/HIC048";
 export * from "./HIC/HIC049";
 export * from "./HIC/HIC050";
 export * from "./HIC/HIC051";
+export * from "./HIC/HIC052";
 
 // ODONTOLOGIA
 export * from "./ODO/ODO003";
