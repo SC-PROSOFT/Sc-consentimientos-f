@@ -184,6 +184,7 @@ export const impresionHIC052 = ({ datos }) => {
           },
           layout: "noBorders",
         },
+        textoDisentimiento(datos.disentimiento, datos.acompa_disenti),
       ],
       styles: {
         bodyContent: {
@@ -449,6 +450,103 @@ export const impresionHIC052 = ({ datos }) => {
       },
     };
   }
+  function textoDisentimiento(disentimiento, acompa_disenti) {
+    const textAcompa = `Yo ${datos.acomp.descrip}, identificado(a) con el documento de identidad número ${datos.acomp.cod}, en calidad de acudiente de ${datos.paciente.descrip} , identificada (o) con el documento de identidad número ${datos.paciente.cod}, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
+    const textPacient = `Yo ${datos.paciente.descrip}, identificado(a) con el documento de identidad número ${datos.paciente.cod}, en calidad de paciente, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
 
+    const textoDisentimiento = {
+      marginTop: 5,
+      table: {
+        widths: ["auto", 170],
+        body: [
+          [
+            {
+              colSpan: 2,
+              text: "DISENTIMIENTO",
+              bold: true,
+              style: "tableTitle",
+              alignment: "center",
+            },
+            {},
+          ],
+          [
+            {
+              marginLeft: 3,
+              marginTop: 5,
+              marginRight: 3,
+              stack: [
+                {
+                  text: acompa_disenti == "S" ? textAcompa : textPacient,
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+                {
+                  marginTop: 5,
+                  text: [
+                    {
+                      text: "Observaciones:",
+                      bold: true,
+                    },
+                    {
+                      text: `${datos.obser_disenti}`,
+                    },
+                  ],
+                  style: "tableTitle",
+                  alignment: "justify",
+                },
+              ],
+            },
+            {
+              stack: [
+                {
+                  text: "RESPONSABLE DISENTIMIENTO",
+                  bold: true,
+                  style: "tableTitle",
+                  alignment: "center",
+                },
+                {
+                  marginTop: 5,
+                  alignment: "center",
+                  image: "firma_disentimiento",
+                  width: 140,
+                  height: 70,
+                },
+                {
+                  marginTop: 5,
+                  columns: [
+                    {
+                      width: 48,
+                      text: "NOMBRE:",
+                      bold: true,
+                    },
+                    {
+                      width: "*",
+                      text: `${acompa_disenti == "S" ? datos.acomp.descrip : datos.paciente.descrip}`,
+                    },
+                  ],
+                  style: "tableTitle",
+                },
+                {
+                  text: [
+                    {
+                      text: "DOC. IDENT: ",
+                      bold: true,
+                    },
+                    {
+                      text: `${acompa_disenti == "S" ? datos.acomp.cod : datos.paciente.cod}`,
+                    },
+                  ],
+                  style: "tableTitle",
+                },
+              ],
+            },
+          ],
+        ],
+      },
+    };
+
+    if (disentimiento == "S") return textoDisentimiento;
+    else return null;
+  }
   return dd;
 };

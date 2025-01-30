@@ -145,7 +145,8 @@ const validarUrl = async () => {
   }
   await getPaciente();
 
-  if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa.trim() != "") {
+  console.log(" datos_session ", datos_session.id_acompa);
+  if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
     await getAcomp();
   }
   if (!mode_dev) getVersionBuild();
@@ -175,6 +176,8 @@ async function getPaciente() {
 }
 
 async function getAcomp() {
+  console.log("datos_session.id_acompa  ", datos_session.id_acompa);
+
   try {
     datos_session.id_acompa = validarCodPaci(datos_session.id_acompa);
     const response = await getDll$({

@@ -574,7 +574,12 @@ const consultarFirmaConsen = async (row) => {
 
     //Disetio acomp. o Disentio paci.
     const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP";
-    firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
+    // sanar, monte sinai
+    if ([900273700, 79635522, 900772776].includes(Number(parseInt(route.query.nit)))) {
+      firma_disentimiento.value = await _getImagen$({ codigo: row.llave.id, tipo_test: "1" });
+    } else {
+      firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
+    }
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
