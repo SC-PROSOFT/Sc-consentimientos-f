@@ -64,6 +64,14 @@
             para realizar la atención de contingencias y urgencias derivadas del acto autorizado, con base en el principio de libertad prescriptiva.
             Así mismo acepto el criterio médico de los profesionales de la IPS SALUD MENTAL MONTE SINAÍ.
           </p>
+          <div class="row q-mt-md">
+            <p class="text-left">Numero de celular de contacto:</p>
+            <Input_ v-model="HIC052.telef_contact" :field="form.telef_contact" :inputStyle="{ width: '180px' }" />
+          </div>
+          <div class="row q-mt-md">
+            <p class="text-left">Correo electrónico del contacto:</p>
+            <Input_ v-model="HIC052.correo_elect_contact" :field="form.correo_elect_contact" :inputStyle="{ width: '460px' }" />
+          </div>
         </div>
       </q-card-section>
     </div>
@@ -74,6 +82,7 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
@@ -87,9 +96,10 @@
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          @reciFirma="callBackFirmaProf"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
+          :codigo_firma="getProf.cod"
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.registro_profe"
           quien_firma="FIRMA PROFESIONAL"
@@ -137,9 +147,11 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC052 = reactive({
   fecha_act: "",
-  permite_firmar: "N",
+  permite_firmar: "S",
   diagn_princip: "",
   alt_otr_tratamient: "",
+  telef_contact: "",
+  correo_elect_contact: "",
 });
 const form = ref({
   diagn_princip: {
@@ -151,6 +163,21 @@ const form = ref({
   alt_otr_tratamient: {
     id: "alt_otr_tratamient",
     maxlength: "300",
+    label: "",
+    campo_abierto: true,
+  },
+  telef_contact: {
+    id: "telef_contact",
+    label: "",
+    maxlength: "10",
+    label: "",
+    tipo: "number",
+    campo_abierto: true,
+    required: true,
+  },
+  correo_elect_contact: {
+    id: "correo_elect_contact",
+    maxlength: "150",
     label: "",
     campo_abierto: true,
   },
@@ -172,11 +199,15 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
+  const requiere = "Complete el siguiente campo";
   if (!firma_recibida.value && !getAcomp.cod) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
+  if (opcion_hc052.value == "AUTORIZAR") {
+    if (!HIC052.telef_contact) return CON851("?", "info", requiere, () => foco_(form, "telef_contact"));
   }
 
   grabarConsentimiento();
@@ -201,7 +232,7 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 31);
-        HIC052.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
+        HIC052.fecha = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       }
       CON851("?", "error", "Error al guardar el consentimiento");
@@ -303,5 +334,8 @@ const callBackFirma = (data_firma) => {
 
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
+};
+const callBackFirmaProf = (data_firma) => {
+  data_firma && (firma_prof.value = data_firma);
 };
 </script>

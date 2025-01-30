@@ -53,7 +53,6 @@
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
 import { defineAsyncComponent, onMounted, onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { regAcomp } from "@/fuentes";
 import { validarCodPaci } from "@/formatos/utils";
 
 const ListaConsentimientos_ = defineAsyncComponent(() => import("@/components/consen/ListaConsentimientos.vue"));
@@ -168,7 +167,6 @@ async function getPaciente() {
         data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
         setAcomp({ ...data.reg_acomp, parentesco: datos_session.parentesco });
       }
-      // && getAcomp();
     })
     .catch((error) => {
       console.error(error);
@@ -178,8 +176,6 @@ async function getPaciente() {
 
 async function getAcomp() {
   try {
-    // if (!datos_session.id_acompa.trim()) setAcomp(regAcomp());
-    // else {
     datos_session.id_acompa = validarCodPaci(datos_session.id_acompa);
     const response = await getDll$({
       modulo: `get_paci.dll`,

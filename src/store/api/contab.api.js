@@ -285,8 +285,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
     _getImagen$({ codigo = 0, tipo_test = null, formato = "png" }) {
       let ruta;
 
-      if ([900273700, 79635522].includes(Number(this.empresa.nitusu))) {
-        // ruta de la entidad sanar
+      if ([900273700, 79635522, 900772776].includes(Number(this.empresa.nitusu))) {
+        // ruta de las entidades sanar, monte sinai
         if (tipo_test == "1") {
           ruta = `D:/PSC/PROG/FIRMAS/PACIENTE`;
         } else {

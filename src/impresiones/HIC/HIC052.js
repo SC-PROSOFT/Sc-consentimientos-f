@@ -158,6 +158,32 @@ export const impresionHIC052 = ({ datos }) => {
           text: "Por medio del presente documento, acepto recibir servicios y apoyos en salud requeridos, reconozco que se me explico y comprendí en su totalidad el procedimiento que se propone, estoy enterado de los beneficios; me dieron a conocer y comprendo de los riesgos y las probables complicaciones que se pueden presentar y se me han explicado las alternativas existentes. Soy consciente que con el tratamiento que me brindan se busca un beneficio, doy mi consentimiento sin obligación y por decisión propia para que estos se efectúen, así mismo para realizar la atención de contingencias y urgencias derivadas del acto autorizado, con base en el principio de libertad prescriptiva. Así mismo acepto el criterio médico de los profesionales de la IPS SALUD MENTAL MONTE SINAÍ.",
           style: "bodyNoBold9",
         },
+
+        {
+          marginTop: 8,
+          table: {
+            widths: ["50%", "50%"],
+            body: [
+              [
+                {
+                  alignment: "left",
+                  text: [
+                    { style: "tableTitle", text: "Numero de celular de contacto: " },
+                    { style: "bodyNoBold9", text: datos.telef_contact },
+                  ],
+                },
+                {
+                  alignment: "right",
+                  text: [
+                    { bold: true, style: "tableTitle", text: "Correo electrónico del contacto: " },
+                    { style: "bodyNoBold9", text: datos.correo_elect_contact },
+                  ],
+                },
+              ],
+            ],
+          },
+          layout: "noBorders",
+        },
       ],
       styles: {
         bodyContent: {

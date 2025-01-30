@@ -180,6 +180,14 @@ const nit_usu = ref(0);
 const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
 
+// const concen_sanar = ref([
+//   {
+//     LAB015: { grupo_cups: ["XX", "10", "12"] },
+//     LAB016: { grupo_cups: ["XX", "10", "12"] },
+//     HIC045: { grupo_cups: ["X3", "11", "12"] },
+//     HIC046: { grupo_cups: ["X4", "11", "12"] },
+//   },
+// ]);
 const lista_maestros = ref([]);
 const lista_consen_elab = ref([]);
 const columns_consen = [
@@ -245,6 +253,31 @@ onMounted(() => {
     validacionesNitHc();
   }
 });
+// esta logica es de prueba, para ligar los codigos cups al consentimiento
+// const pruebasCupsNit = () => {
+//   let grp_cups = "XX";
+//   let nit = "123";
+//   switch (nit) {
+//     case "123":
+//       // SANAR
+//       console.log("filtrarConcenCups ", filtrarConcenCups(concen_sanar.value, grp_cups));
+//       break;
+//     default:
+//       break;
+//   }
+// };
+
+// const filtrarConcenCups = (lista, grupo) => {
+//   let filtro_conse = [];
+//   lista.forEach((item) => {
+//     Object.keys(item).forEach((key) => {
+//       if (item[key].grupo_cups.includes(grupo)) {
+//         filtro_conse.push(key);
+//       }
+//     });
+//   });
+//   return filtro_conse;
+// };
 
 const valueEstado = (estado) => {
   if (estado == "AUTORIZADO") return "light-green-6";
@@ -253,6 +286,7 @@ const valueEstado = (estado) => {
 };
 
 const validacionesNitHc = async () => {
+  // pruebasCupsNit();
   try {
     if (Object.keys(route.query).length) {
       formatosStore.setSession(route.query);
@@ -273,7 +307,7 @@ const validacionesNitHc = async () => {
   } catch (error) {
     console.error(error);
 
-    if ([900161116, 900273700, 79635522].includes(parseInt(route.query.nit))) {
+    if ([900161116, 900273700, 79635522, 822001570].includes(parseInt(route.query.nit))) {
       formatosStore.setHc({
         llave: route.query.llave_hc,
         descrip: "",
@@ -309,6 +343,7 @@ const getOdontologia = async () => {
     //El DLL puede traer una HC anteior en caso tal de no encontrar una actual, por eso se actualiza la llave.
     llave_odo_act.value = route.query.llave_hc != response.reg_od.llave ? response.reg_od.llave : route.query.llave_hc;
     response.reg_od.llave.trim() == "" ? route.query.llave_hc : response.reg_od.llave;
+
     setHc(response.reg_od);
 
     //TODO: Se omite por ahora
@@ -330,11 +365,9 @@ const getHistoriaClinica = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(route.query.nit)) {
-      //(Yopal) (SOCIEDAD CARDIOLOGICA COLOMBIA) (SANAR) (DOCTOR BERNAL) asi la HC este cerrada deja seguir
-      console.log(" route.query.nit en listaconsen -->", route.query.nit);
-      console.log(" nit_usu en listaconsen -->", nit_usu.value);
+      //(Yopal) (SOCIEDAD CARDIOLOGICA COLOMBIA) (SANAR) (DOCTOR BERNAL) (FUENTE DE ORO) asi la HC este cerrada deja seguir
 
-      if ([844003225, 900161116, 900273700, 79635522].includes(parseInt(route.query.nit))) return;
+      if ([844003225, 900161116, 900273700, 79635522, 822001570].includes(parseInt(route.query.nit))) return;
       return CON851("9Y", "info", "", logOut$);
     }
   } catch (error) {
@@ -510,15 +543,15 @@ const consultarFirmaConsen = async (row) => {
   try {
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
 
-    if ([900273700, 79635522].includes(Number(parseInt(route.query.nit)))) {
-      //Testigo SANAR Y BERNAL
+    if ([900273700, 79635522, 900772776].includes(Number(parseInt(route.query.nit)))) {
+      //Testigo SANAR, BERNAL, monte sinai
       firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo });
     } else {
       //Testigo UTM
       params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
     }
-    if ([900273700, 79635522].includes(Number(parseInt(route.query.nit)))) {
-      //Paciente SANAR Y BERNAL
+    if ([900273700, 79635522, 900772776].includes(Number(parseInt(route.query.nit)))) {
+      //Paciente SANAR, BERNAL, monte sinai
       firma_consen.value = await _getImagen$({ codigo: `${row.llave.id}`, tipo_test: "1" });
     } else {
       //Paciente
