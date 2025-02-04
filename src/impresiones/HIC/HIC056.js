@@ -3,13 +3,13 @@ import { useModuleFormatos } from "@/store";
 
 const { getPaci } = useModuleFormatos();
 
-export const impresionHIC055 = ({ datos }) => {
-  console.log("impresionHIC055 ", datos);
+export const impresionHIC056 = ({ datos }) => {
+  console.log("impresionHIC056 ", datos);
   var dd = {
-    stack: [contenidoHIC055(), firmas()],
+    stack: [contenidoHIC056(), firmas()],
   };
 
-  function contenidoHIC055() {
+  function contenidoHIC056() {
     return {
       stack: [
         {

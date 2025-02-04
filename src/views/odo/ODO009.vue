@@ -45,45 +45,15 @@
             frecuentes como lo son:
           </p>
 
-          <q-list>
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Riesgo de la técnica de anestesia que se utiliza. </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Posible inflamación y dolor del área afectada en la intervención. </q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Dificultad para abrir la boca y masticar, después del procedimiento. </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Riesgo de hemorragia y aparición de hematomas en zonas adyacentes. </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Infección de las heridas quirúrgicas. </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Posibilidad de pérdida de sensibilidad temporal o no. </q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-item-label> • Riesgo de fracturas óseas, sinusitis, dislocación mandibular, comunicación bucosinusal. </q-item-label>
-              </q-item-section>
-            </q-item>
-          </q-list>
+          <ul>
+            <li>Riesgo de la técnica de anestesia que se utiliza.</li>
+            <li>Posible inflamación y dolor del área afectada en la intervención.</li>
+            <li>Dificultad para abrir la boca y masticar, después del procedimiento.</li>
+            <li>Riesgo de hemorragia y aparición de hematomas en zonas adyacentes.</li>
+            <li>Infección de las heridas quirúrgicas.</li>
+            <li>Posibilidad de pérdida de sensibilidad temporal o no.</li>
+            <li>Riesgo de fracturas óseas, sinusitis, dislocación mandibular, comunicación bucosinusal.</li>
+          </ul>
 
           <p style="text-align: justify">
             Estoy enterado que se me darán indicaciones pre y post operatorias, según convenga a mi caso en particular, así como la indicación

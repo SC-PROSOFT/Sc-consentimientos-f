@@ -377,4 +377,14 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado guia para recepcion de visitas y llamadas a los pacientes",
     },
   },
+  {
+    path: "/HIC056",
+    name: "HIC056",
+    component: () => import("@/views/hic/HIC056.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC056`,
+      descrip: "Comprobante de prestación de servicios",
+    },
+  },
 ];
