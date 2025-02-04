@@ -3,41 +3,22 @@ import dayjs from "dayjs";
 
 export const impresionLAB011 = ({ datos }) => {
   console.log(" impresionLAB011 ", datos);
-  const marcaCasilla = (condicion) => {
-    return [
-      {
-        canvas: condicion
-          ? [
-              { type: "line", x1: 0, x2: 30, y1: -11, y2: 0, color: "#808080" },
-              { type: "line", x1: 30, x2: 0, y1: -11, y2: 0, color: "#808080" },
-            ]
-          : [],
-      },
-    ];
-  };
+
   const tablaNotasAtenc = () => {
     return datos.tabla_notas_aten
       .filter((item) => item.indice_i != " " && item.indice_i != null && item.indice_i != "")
       .map((item) => [
         {
           text: item.indice_i,
-          // border: [0, 0, 0, 0],
-          // style: "center8",
         },
         {
           text: item.fecha,
-          // border: [0, 0, 0, 0],
-          // style: "center8",
         },
         {
           text: item.hora,
-          // border: [0, 0, 0, 0],
-          // style: "center8",
         },
         {
           text: item.notas_atencion,
-          // border: [0, 0, 0, 0],
-          // style: "center8",
         },
       ]);
   };
@@ -50,107 +31,6 @@ export const impresionLAB011 = ({ datos }) => {
     return {
       stack: [
         datosFormatUTM({ datos }),
-        // {
-        //   marginTop: 15,
-        //   table: {
-        //     widths: ["100%"],
-        //     body: [
-        //       [
-        //         {
-        //           text: "ENCUESTA DE SEGURIDAD",
-        //           bold: true,
-        //           style: "tableTitle",
-        //           alignment: "center",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, true, true, false],
-        //           text: "PATOLÓGICOS:",
-        //           bold: true,
-        //           style: "tableTitle",
-        //           alignment: "left",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, false, true, true],
-        //           text: datos.antec_patolog,
-        //           style: "tableTitle",
-        //           alignment: "justify",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, true, true, false],
-        //           text: "ALÉRGICOS:",
-        //           bold: true,
-        //           style: "tableTitle",
-        //           alignment: "left",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, false, true, true],
-        //           text: datos.antec_alergicos,
-        //           style: "tableTitle",
-        //           alignment: "justify",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, true, true, false],
-        //           text: "QUIRÚRGICOS:",
-        //           bold: true,
-        //           style: "tableTitle",
-        //           alignment: "left",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, false, true, true],
-        //           text: datos.antec_quirur,
-        //           style: "tableTitle",
-        //           alignment: "justify",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, true, true, false],
-        //           text: "FARMACOLÓGICOS:",
-        //           bold: true,
-        //           style: "tableTitle",
-        //           alignment: "left",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, false, true, true],
-        //           text: datos.antec_farmaco,
-        //           style: "tableTitle",
-        //           alignment: "justify",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, true, true, false],
-        //           text: "FAMILIARES:",
-        //           bold: true,
-        //           style: "tableTitle",
-        //           alignment: "left",
-        //         },
-        //       ],
-        //       [
-        //         {
-        //           border: [true, false, true, true],
-        //           text: datos.antec_familiar,
-        //           style: "tableTitle",
-        //           alignment: "justify",
-        //         },
-        //       ],
-        //     ],
-        //   },
-        // },
         {
           columns: [
             {
@@ -178,7 +58,7 @@ export const impresionLAB011 = ({ datos }) => {
                         { style: "tableTitle", text: " SI: " },
                         { style: "tableTitle", bold: true, decoration: "underline", text: datos.medio_contras == "S" ? " X " : "    " },
                         { style: "tableTitle", text: " NO: " },
-                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.medio_contras == "S" ? " X " : "    " },
+                        { style: "tableTitle", bold: true, decoration: "underline", text: datos.medio_contras == "N" ? " X " : "    " },
                         { style: "tableTitle", text: " NOMBRE: " },
                         { style: "bodyNoBold", text: datos.nomb_med_contr },
                         { style: "tableTitle", text: " DOSIS: " },
@@ -226,14 +106,6 @@ export const impresionLAB011 = ({ datos }) => {
                   ],
                 ],
               },
-              //   layout: {
-              //     hLineWidth: function (i, node) {
-              //       return [0, 1, 2, 3, 4, 5, 6].includes(i) ? 1 : 0;
-              //     },
-              //     vLineWidth: function (i) {
-              //       return [0, 1].includes(i) ? 1 : 0;
-              //     },
-              //   },
               width: "100%",
             },
           ],
@@ -341,14 +213,6 @@ export const impresionLAB011 = ({ datos }) => {
                   ],
                 ],
               },
-              //   layout: {
-              //     hLineWidth: function (i, node) {
-              //       return [0, 1, 2, 3, 4, 5, 6, 7].includes(i) ? 1 : 0;
-              //     },
-              //     vLineWidth: function (i) {
-              //       return [0, 1].includes(i) ? 1 : 0;
-              //     },
-              //   },
               width: "100%",
             },
           ],
@@ -391,43 +255,6 @@ export const impresionLAB011 = ({ datos }) => {
                   ],
                 ],
               },
-              // {
-              //   columns: [
-              //     {
-              //       marginTop: 15,
-
-              //       table: {
-              //         marginRigth: 1,
-              //         widths: ["20%", "20%", "60%"],
-              //         body: [
-              //           [{ style: "tableTitle", bold: true, text: "DATOS CLÍNICOS RELEVANTES ", alignment: "center", colSpan: 3 }, {}, {}],
-              //           [
-              //             {
-              //               text: [
-              //                 { style: "tableTitle", text: "PESO " },
-              //                 { style: "bodyNoBold", text: datos.peso_kg },
-              //                 { style: "tableTitle", text: " kg " },
-              //                 { style: "tableTitle", text: " TALLA " },
-              //                 { style: "bodyNoBold", text: datos.talla_cm },
-              //                 { style: "tableTitle", text: " cm " },
-              //               ],
-              //             },
-              //             {
-              //               text: [
-              //                 { style: "tableTitle", text: "CREATININA " },
-              //                 { style: "bodyNoBold", text: datos.creatinina },
-              //                 { style: "tableTitle", text: " mg/dl" },
-              //               ],
-              //             },
-              //             {
-              //               text: [
-              //                 { style: "tableTitle", text: "OTRO: " },
-              //                 { style: "bodyNoBold", text: datos.otro_dtos_clinic },
-              //               ],
-              //             },
-              //           ],
-              //         ],
-              //       },
 
               width: "100%",
             },
@@ -437,7 +264,6 @@ export const impresionLAB011 = ({ datos }) => {
           columns: [
             {
               marginTop: 5,
-              //   alignment: "center",
               table: {
                 marginRigth: 1,
                 widths: ["16%", "16%", "16%", "16%", "16%", "20%"],
@@ -457,14 +283,14 @@ export const impresionLAB011 = ({ datos }) => {
                       text: [
                         { style: "tableTitle", text: "FC: " },
                         { style: "bodyNoBold", text: datos.signo_frec_card },
-                        { style: "tableTitle", text: " rpm" },
+                        { style: "tableTitle", text: " Ipm" },
                       ],
                     },
                     {
                       text: [
                         { style: "tableTitle", text: "FR: " },
                         { style: "bodyNoBold", text: datos.signo_frec_resp },
-                        { style: "tableTitle", text: " lpm " },
+                        { style: "tableTitle", text: " rpm " },
                       ],
                     },
                     {

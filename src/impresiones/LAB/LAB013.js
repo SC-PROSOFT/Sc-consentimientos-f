@@ -66,7 +66,7 @@ export const impresionLAB013 = ({ datos }) => {
                   ],
                   [
                     {
-                      text: "¿Complejidad del procedimiento adecado para realizar fuera de salas de cirugía (ASAI - ASAII)?",
+                      text: "¿Complejidad del procedimiento adecuado para realizar fuera de salas de cirugía (ASAI - ASAII)?",
                       bold: true,
                       alignment: "left",
                     },

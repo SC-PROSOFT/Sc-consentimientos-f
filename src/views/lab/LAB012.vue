@@ -413,12 +413,6 @@ const validarDatos = async () => {
   console.log("reg_lab012.value --->> ", reg_lab012);
   const requiere = "Complete el siguiente campo";
 
-  //   if (!firma_recibida.value) {
-  //     return CON851("?", "info", "No se ha realizado la firma del paciente");
-  //   }
-  //   if (getAcomp.cod && !firma_recibida_acomp.value) {
-  //     return CON851("?", "info", "No se ha realizado la firma del acompañate");
-  //   }
   if (reg_lab012.opcion_lab012 == "AUTORIZAR") {
     // if (!reg_lab012.peso_kg) return CON851("?", "info", `${requiere},  Peso (Kg)`, () => foco_(form, "peso_kg"));
     // if (!reg_lab012.talla_cm) return CON851("?", "info", `${requiere},  Talla (Cm)`, () => foco_(form, "talla_cm"));
@@ -430,10 +424,6 @@ const validarDatos = async () => {
     // if (!reg_lab012.signo_fi_o2_porc) return CON851("?", "info", `${requiere}, Signo FiO2`, () => foco_(form, "signo_fi_o2_porc"));
     // if (!reg_lab012.signo_glasgow) return CON851("?", "info", `${requiere}, Signo Glasgow`, () => foco_(form, "signo_glasgow"));
   }
-  console.log(" servicio ", reg_lab012.servicio);
-  console.log(" ident_genero  ----> ", reg_lab012.ident_genero);
-  console.log(" ambito_atenc  ----> ", reg_lab012.ambito_atenc);
-
   grabarConsentimiento();
 };
 
@@ -458,8 +448,6 @@ const grabarConsentimiento = async () => {
   for (let i in datos) {
     if (typeof datos[i] == "object") delete datos[i];
   }
-
-  console.log("datos a grabar --> ", datos);
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {

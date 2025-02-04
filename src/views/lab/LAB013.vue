@@ -41,7 +41,7 @@
           </div>
           <div class="text-left" style="border: 1px solid #ccc; width: 80%">
             <p style="font-weight: bold; margin-top: 10px">
-              ¿Complejidad del procedimiento adecado para realizar fuera de salas de cirugía (ASAI - ASAII)?
+              ¿Complejidad del procedimiento adecuado para realizar fuera de salas de cirugía (ASAI - ASAII)?
             </p>
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 20%">
