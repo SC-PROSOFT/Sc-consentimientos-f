@@ -78,7 +78,7 @@ export const impresionHIC053 = ({ datos }) => {
         {
           marginTop: 8,
           alignment: "justify",
-          text: `Yo ${datos.acomp.descrip} con cedula de ciudadanía N° ${datos.acomp.cod} de ${datos.acomp.descrip_ciudad} en calidad de familiar y/o acompañante Responsable del paciente anteriormente mencionado, al firmar la presente acta reconozco que se me explico y entendíla siguiente información:`,
+          text: `Yo ${datos.acomp.descrip} con cedula de ciudadanía N° ${datos.acomp.cod} de ${datos.acomp.descrip_ciudad} en calidad de familiar y/o acompañante responsable del paciente anteriormente mencionado, al firmar la presente acta reconozco que se me explico y entendí la siguiente información:`,
           style: "bodyNoBold9",
         },
         {
@@ -94,7 +94,7 @@ export const impresionHIC053 = ({ datos }) => {
           marginTop: 5,
           text: [
             {
-              text: "La IPS de salud mental monte monte Sinaí S.A.S le ofrece el servicio de lavandería de las prendas de vestir para el paciente por un valor de ",
+              text: "La IPS de salud mental monte Sinaí S.A.S le ofrece el servicio de lavandería de las prendas de vestir para el paciente por un valor de ",
             },
             {
               text: "$ 2.500 (DOS MIL QUINIENTOS PESOS) ",

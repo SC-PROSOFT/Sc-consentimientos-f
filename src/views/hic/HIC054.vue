@@ -38,7 +38,7 @@
             principios propios han definido la siguiente carta de derechos y deberes de los pacientes, los cuales serán un referente para asegurar la
             atención humanizada y de calidad. Principio especial: Se debe evaluar la competencia de toma de decisiones en cada paciente, teniendo en
             cuenta que en algunas enfermedades mentales ésta se ve alterada transitoria o permanentemente. La evaluación de competencia se debe
-            realizar para cada actuación y circunstancia especifica.
+            realizar para cada actuación y circunstancia específica.
           </p>
           <p style="text-align: center">
             <span class="text-bold">EN EL AMBITO DE LA SALUD MENTAL</span>
@@ -51,8 +51,8 @@
               secuelas, de los hechos o situaciones causantes de su deterioro y de las circunstancias relacionadas con su seguridad social.
             </li>
             <li>
-              Derecho a recibir la atención especializada e interdisciplinaria y los tratamientos con la mejor evidencia cientifica de acuerdo con los
-              avances cientificos en salud mental.
+              Derecho a recibir la atención especializada e interdisciplinaria y los tratamientos con la mejor evidencia científica de acuerdo con los
+              avances científicos en salud mental.
             </li>
             <li>Derecho a que las intervenciones sean las menos restrictivas de las libertades individuales de acuerdo a la ley vigente.</li>
             <li>
@@ -85,8 +85,8 @@
             <li>Información: Suministrar la información requerida sobre mi estado de salud, de manera clara, veraz, y completa.</li>
             <li>Autorización: Firmar el consentimiento informado y autorización de los procedimientos que lo requieran.</li>
             <li>Convivencia: Conocer y cumplir las normas de la Institución y del servicio en el cual me encuentro hospitalizado.</li>
-            <li>Respeto: Brindar un trato amable y respetuoso al personal de la Clinica, a los demas pacientes, a los familiares y allegados.</li>
-            <li>Cuidado de recursos: Cuidar y hacer uso racional de los recursos, dotación. servicios e instalaciones de la Clinica.</li>
+            <li>Respeto: Brindar un trato amable y respetuoso al personal de la Clínica, a los demas pacientes, a los familiares y allegados.</li>
+            <li>Cuidado de recursos: Cuidar y hacer uso racional de los recursos, dotación. servicios e instalaciones de la Clínica.</li>
             <li>Autocuidado: Cuidar mi salud e integridad física y tomar conciencia de la necesidad de mi tratamiento.</li>
             <li>Responsabilidad compartida: Exigir el cumplimiento de mis derechos y de los demás pacientes.</li>
             <li>
@@ -131,7 +131,7 @@
           </p>
           <ol>
             <li>
-              Elegir Libremente: Derecho a elegir libremente al médico y en general alos profesionales de la salud, como también a las instituciones
+              Elegir Libremente: Derecho a elegir libremente al médico y en general a los profesionales de la salud, como también a las instituciones
               de salud. que le presten la atención requerida, dentro de los recursos disponibles del país.
             </li>
             <li>

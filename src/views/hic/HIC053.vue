@@ -33,8 +33,8 @@
         <div>
           <p style="text-align: justify">
             Yo <span class="text-bold">{{ getPaci.descrip }}</span> con cedula de ciudadanía N° <span class="text-bold">{{ getPaci.cod }}</span> de
-            <span class="text-bold">{{ getPaci.descrip_ciudad }}</span> en calidad de familiar y/o acompañante Responsable del paciente anteriormente
-            mencionado, al firmar la presente acta reconozco que se me explico y entendíla siguiente información:
+            <span class="text-bold">{{ getPaci.descrip_ciudad }}</span> en calidad de familiar y/o acompañante responsable del paciente anteriormente
+            mencionado, al firmar la presente acta reconozco que se me explico y entendí la siguiente información:
           </p>
 
           <p style="text-align: justify">
@@ -46,8 +46,8 @@
           <div class="row q-mt-md q-mb-md" style="width: 100%">
             <div class="text-center" style="border: 1px solid #ccc; width: 85%">
               <p style="text-align: justify; padding: 10px">
-                La IPS de salud mental monte monte Sinaí S.A.S le ofrece el servicio de lavandería de las prendas de vestir para el paciente por un
-                valor de <span class="text-bold"> $ 2.500 (DOS MIL QUINIENTOS PESOS)</span> DIARIOS. Acepta el servicio de manera voluntaria?
+                La IPS de salud mental monte Sinaí S.A.S le ofrece el servicio de lavandería de las prendas de vestir para el paciente por un valor de
+                <span class="text-bold"> $ 2.500 (DOS MIL QUINIENTOS PESOS)</span> DIARIOS. Acepta el servicio de manera voluntaria?
               </p>
             </div>
             <div class="text-left" style="border: 1px solid #ccc; width: 15%">

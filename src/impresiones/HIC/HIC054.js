@@ -47,7 +47,7 @@ export const impresionHIC054 = ({ datos }) => {
         {
           marginTop: 8,
           alignment: "justify",
-          text: "  IPS SALUD MENTAL MONTES SINAI, de acuerdo con la misión, la visión y los valores institucionales, los requerimientos de la Ley 100 de 1993 y los códigos de ética médica y de las demás profesiones que interactúan en el Sistema General de Seguridad Social en Salud y de los principios propios han definido la siguiente carta de derechos y deberes de los pacientes, los cuales serán un referente para asegurar la atención humanizada y de calidad. Principio especial: Se debe evaluar la competencia de toma de decisiones en cada paciente, teniendo en cuenta que en algunas enfermedades mentales ésta se ve alterada transitoria o permanentemente. La evaluación de competencia se debe realizar para cada actuación y circunstancia especifica.",
+          text: "  IPS SALUD MENTAL MONTES SINAI, de acuerdo con la misión, la visión y los valores institucionales, los requerimientos de la Ley 100 de 1993 y los códigos de ética médica y de las demás profesiones que interactúan en el Sistema General de Seguridad Social en Salud y de los principios propios han definido la siguiente carta de derechos y deberes de los pacientes, los cuales serán un referente para asegurar la atención humanizada y de calidad. Principio especial: Se debe evaluar la competencia de toma de decisiones en cada paciente, teniendo en cuenta que en algunas enfermedades mentales ésta se ve alterada transitoria o permanentemente. La evaluación de competencia se debe realizar para cada actuación y circunstancia específica.",
           style: "bodyNoBold9",
         },
         {
@@ -64,7 +64,7 @@ export const impresionHIC054 = ({ datos }) => {
           ol: [
             "Derecho a recibir atención integral e integrada y humanizada por el equipo humano y los servicios especializados en salud mental.",
             "Derecho a recibir información clara, oportuna, veraz y completa de las circunstancias relacionadas con su estado de salud, diagnóstico, tratamiento y pronostico, incluyendo el propósito, método, duración probable y beneficios que se esperan, así como sus riesgos y las secuelas, de los hechos o situaciones causantes de su deterioro y de las circunstancias relacionadas con su seguridad social.",
-            "Derecho a recibir la atención especializada e interdisciplinaria y los tratamientos con la mejor evidencia cientifica de acuerdo con los avances cientificos en salud mental.",
+            "Derecho a recibir la atención especializada e interdisciplinaria y los tratamientos con la mejor evidencia científica de acuerdo con los avances científicos en salud mental.",
             "Derecho a que las intervenciones sean las menos restrictivas de las libertades individuales de acuerdo a la ley vigente.",
             "Derecho a tener un proceso psicoterapéutico con los tiempos y sesiones necesarias para asegurar un trato digno para obtener resultados en términos de cambio, bienestar y calidad de vida.",
             "Derecho a recibir psi coeducación a nivel individual y familar sobre su trastorno mental y las normas de autocuidado.",
