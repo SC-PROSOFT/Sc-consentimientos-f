@@ -347,4 +347,34 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado monte sinai",
     },
   },
+  {
+    path: "/HIC053",
+    name: "HIC053",
+    component: () => import("@/views/hic/HIC053.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC053`,
+      descrip: "Consentimiento informado acta de compromiso del familiar y/o acompañante",
+    },
+  },
+  {
+    path: "/HIC054",
+    name: "HIC054",
+    component: () => import("@/views/hic/HIC054.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC054`,
+      descrip: "Consentimiento informado derechos y deberes de los paciente",
+    },
+  },
+  {
+    path: "/HIC055",
+    name: "HIC055",
+    component: () => import("@/views/hic/HIC055.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC055`,
+      descrip: "Consentimiento informado guia para recepcion de visitas y llamadas a los pacientes",
+    },
+  },
 ];
