@@ -21,15 +21,15 @@ export const impresionHIC056 = ({ datos }) => {
                 {
                   alignment: "left",
                   text: [
-                    { bold: true, style: "tableTitle", text: "Nombre del paciente: " },
-                    { style: "bodyNoBold9", text: datos.paciente.descrip },
+                    { bold: true, style: "tableTitle", text: "Fecha: " },
+                    { style: "bodyNoBold9", text: datos.fecha },
                   ],
                 },
                 {
                   alignment: "right",
                   text: [
-                    { bold: true, style: "tableTitle", text: "Identificación: " },
-                    { style: "bodyNoBold9", text: datos.paciente.cod },
+                    { bold: true, style: "tableTitle", text: "Nombre del paciente: " },
+                    { style: "bodyNoBold9", text: datos.paciente.descrip },
                   ],
                 },
               ],
@@ -46,8 +46,8 @@ export const impresionHIC056 = ({ datos }) => {
                 {
                   alignment: "left",
                   text: [
-                    { bold: true, style: "tableTitle", text: "Fecha: " },
-                    { style: "bodyNoBold9", text: datos.fecha },
+                    { bold: true, style: "tableTitle", text: "Documento de identificación: " },
+                    { style: "bodyNoBold9", text: datos.paciente.cod },
                   ],
                 },
                 {
@@ -63,67 +63,26 @@ export const impresionHIC056 = ({ datos }) => {
           layout: "noBorders",
         },
         {
-          marginTop: 8,
-          bold: true,
-          alignment: "left",
-          text: "Objetivo:",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: "Dar a conocer a los visitantes de los pacientes hospitalizados los horarios y normas para recepción de visitas y llamadas para los usuarios hospitalizados.",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          bold: true,
-          alignment: "left",
-          text: "Condiciones Generales:",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          ul: [
-            "Los pacientes se podrán comunicar por celular (1) vez a la semana en horario diurno siempre y cuando se tenga autorizada por condición clínica esta actividad. Se hará 1 llamada al número autorizado, teniendo en cuenta la unidad donde se encuentre el paciente y el cronograma interno.",
-            "No se permitirán las video llamadas, ni las fotografías dentro de la institución.",
-            "Las llamadas que el paciente realiza serán para el acudiente Responsable o familiar registrado y autorizado.",
-            "Solo tendrá autorizado una sola llamada de 3 minutos a un solo familiar, si el paciente ya realizo la llamada al primer familiar y fue optima no podrá llamar a ningún otro número.",
-            "Si el paciente se torna hostil, o ansioso, o con llanto fácil, o con cambios de ánimos considerables en el momento de la llamada o visita, enfermería suspenderá la actividad.",
+          marginTop: 5,
+          text: [
             {
-              text: [
-                "Las visitas serán los días ",
-                { text: "martes y jueves", bold: true },
-                " de 2:00 pm a 4:00 pm y",
-                { text: " sábados ", bold: true },
-                "de 9:00 am a 11:00 am.",
-              ],
+              text: "Servicio: ",
+              bold: true,
             },
-            "Las visitas son de máximo dos (2) familiares por paciente y en caso de ser menor de 12 AÑOS o por autorización médica recibirá visitas fuera del horario establecido.",
-            "Los pacientes que tengan visitas permitidas, pero por su estado clínico no sea posible, no se les autorizara visita hasta que mejore su estado.",
-            "NO traer recipientes en vidrio.",
-            "NO ingresar cigarrillos, bebidas alcohólicas ni sustancias psicoactivas.",
-            "NO ingresar bebidas oscuras (chocolate, tinto, gaseosas negras).",
-            "NO ingresar fósforos o mecheras.",
-            "NO ingresar ningún objeto corto punzante, (tijeras, navajas, cortaúñas, bisturí, agujas, etc.).",
-            "NO se le dejara al paciente medios electrónicos como: celular, Tablet, portátiles, iPod, etc. Los familiares y/o acompañantes no podrán suministrar estos elementos a los pacientes durante el tiempo de visita.",
-            "NO ingresar animales o algún tipo de mascota.",
-            "NO entregar directamente al paciente ningún elemento, se debe entregar primero a enfermería.",
-            "Los pacientes NO podrán manejar dinero dentro de la institución.",
-            "Si tiene alguna Queja, Petición, Reclamo o Felicitación puede llenar el formato que se encuentra en el buzón de sugerencias, hacerlo de forma verbal, al correo electrónico, por la página web, o telefónicamente según su preferencia.",
-            "Si le ingresan alimentos debe ser en recipientes de icopor o plástico.",
-            "Se da conocer al paciente y familiares el manual de derechos y deberes de la IPS Monte Sinaí explicándole cada uno de los items establecidos.",
+            {
+              text: datos.servicio,
+            },
           ],
+          style: "tableTitle",
+          alignment: "justify",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          text: `Yo ${datos.paciente.descrip} confirmo que recibi atención prestada de los servicios medicos de la institución.`,
+          style: "bodyNoBold9",
         },
 
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: "Se firma en constacia de haber entendido y aceptado la información contenida en la presente guía.",
-          style: "bodyNoBold9",
-        },
         textoDisentimiento(datos.disentimiento, datos.acompa_disenti),
       ],
       styles: {

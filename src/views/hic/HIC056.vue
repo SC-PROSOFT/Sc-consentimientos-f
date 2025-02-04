@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hc054"
+            v-model="opcion_hc056"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,9 +13,9 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hc054 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hc054 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hc054">
-              {{ opcion_hc054 }}
+          <p :class="opcion_hc056 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hc056 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hc056">
+              {{ opcion_hc056 }}
             </q-chip>
           </p>
         </div>
@@ -81,7 +81,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hc054 ? false : true"
+        :disable="opcion_hc056 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -97,9 +97,8 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC056, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
@@ -115,7 +114,6 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
-
 const HIC056 = reactive({
   fecha_act: "",
   servicio: "",
@@ -123,12 +121,12 @@ const HIC056 = reactive({
 const form = ref({
   servicio: {
     id: "servicio",
-    maxlength: "500",
+    maxlength: "250",
     label: "",
     campo_abierto: true,
   },
 });
-const opcion_hc054 = ref(null);
+const opcion_hc056 = ref(null);
 
 onMounted(() => {
   getFirmaProf();
@@ -145,14 +143,12 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  const requiere = "Complete el siguiente campo";
   if (!firma_recibida.value && !getAcomp.cod) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
-
   grabarConsentimiento();
 };
 
@@ -160,7 +156,7 @@ const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC056));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hc054.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hc056.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     oper_consen: getSesion.oper,
@@ -227,7 +223,7 @@ const grabarFirmaConsen = async (llave) => {
 const imprimirConsen = async () => {
   try {
     const datos_hic056 = {
-      autorizo: opcion_hc054.value == "AUTORIZAR" ? true : false,
+      autorizo: opcion_hc056.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
