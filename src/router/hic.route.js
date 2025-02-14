@@ -344,7 +344,7 @@ export const createRouteHic = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC052`,
-      descrip: "Consentimiento informado monte sinai",
+      descrip: "Consentimiento informado internacion hospitalaria",
     },
   },
   {
