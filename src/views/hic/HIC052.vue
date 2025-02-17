@@ -39,9 +39,13 @@
             <q-radio color="primary" v-model="HIC052.permite_firmar" val="S" label="SI" />
             <q-radio color="primary" v-model="HIC052.permite_firmar" val="N" label="NO" />
           </div>
+          <div v-if="HIC052.permite_firmar == 'N'">
+            <p class="text-left">Observación:</p>
+            <TextArea_ v-model="HIC052.observ_no_firma" :field="form.observ_no_firma" class="col-12" />
+          </div>
           <p class="text-left">Diagnostico principal:</p>
           <TextArea_ v-model="HIC052.diagn_princip" :field="form.diagn_princip" class="col-12" />
-          <p class="text-left">
+          <p class="text-justify">
             Procedimiento propuesto y explicación del mismo: TRATAMIENTO INTRAHOSPITALARIO INTEGRAL: FARMACOLÓGICO / PSICOLOGIA, TERAPIA OCUPACIONAL,
             ENFERMERÍA, MEDICINA GENERAL, TRABAJO SOCIAL Y NUTRICIÓN. Y EN CASO DE REQUERIRSE SE ACEPTA LA CONTENCIÓN MECÁNICA A FIN DE GARANTIZAR EL
             BIENESTAR PROPIO Y DE LOS DEMÁS.
@@ -56,7 +60,7 @@
           </p>
           <p class="text-left">Alternativas de otros tratamientos:</p>
           <TextArea_ v-model="HIC052.alt_otr_tratamient" :field="form.alt_otr_tratamient" class="col-12" />
-          <p class="text-left">
+          <p class="text-justify">
             Por medio del presente documento, acepto recibir servicios y apoyos en salud requeridos, reconozco que se me explico y comprendí en su
             totalidad el procedimiento que se propone, estoy enterado de los beneficios; me dieron a conocer y comprendo de los riesgos y las
             probables complicaciones que se pueden presentar y se me han explicado las alternativas existentes. Soy consciente que con el tratamiento
@@ -152,6 +156,7 @@ const HIC052 = reactive({
   alt_otr_tratamient: "",
   telef_contact: "",
   correo_elect_contact: "",
+  observ_no_firma: "",
 });
 const form = ref({
   diagn_princip: {
@@ -162,6 +167,12 @@ const form = ref({
   },
   alt_otr_tratamient: {
     id: "alt_otr_tratamient",
+    maxlength: "300",
+    label: "",
+    campo_abierto: true,
+  },
+  observ_no_firma: {
+    id: "observ_no_firma",
     maxlength: "300",
     label: "",
     campo_abierto: true,
@@ -208,6 +219,8 @@ const validarDatos = () => {
   }
   if (opcion_hc052.value == "AUTORIZAR") {
     if (!HIC052.telef_contact) return CON851("?", "info", requiere, () => foco_(form, "telef_contact"));
+    if (!HIC052.diagn_princip) return CON851("?", "info", requiere, () => foco_(form, "diagn_princip"));
+    if (!HIC052.alt_otr_tratamient) return CON851("?", "info", requiere, () => foco_(form, "alt_otr_tratamient"));
   }
 
   grabarConsentimiento();

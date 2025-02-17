@@ -354,7 +354,7 @@ export const createRouteHic = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC053`,
-      descrip: "Consentimiento informado acta de compromiso del familiar y/o acompañante",
+      descrip: "Formato acta de compromiso del familiar y/o acompañante",
     },
   },
   {
@@ -364,7 +364,7 @@ export const createRouteHic = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC054`,
-      descrip: "Consentimiento informado derechos y deberes de los paciente",
+      descrip: "Formato derechos y deberes de los paciente",
     },
   },
   {
@@ -374,7 +374,7 @@ export const createRouteHic = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO HIC055`,
-      descrip: "Consentimiento informado guia para recepcion de visitas y llamadas a los pacientes",
+      descrip: "Formato guia para recepcion de visitas y llamadas a los pacientes",
     },
   },
   {
