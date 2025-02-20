@@ -93,8 +93,9 @@
           @reciFirma="callBackFirmaTest"
           :firmador="getTestigo.descrip"
           :descrip_prof="getTestigo.descrip_atiende"
-          :registro_profe="getTestigo.registro_profe"
+          :registro_profe="getTestigo.cod"
           :codigo_firma="getTestigo.cod"
+          :tipo_doc="getTestigo.tipo_id"
           class="col-4"
         />
         <ContainerFirma

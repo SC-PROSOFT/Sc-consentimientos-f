@@ -86,8 +86,6 @@ onBeforeMount(() => validIsConfig());
 // onMounted(() => validIsConfig());
 
 const verificarSesion = async () => {
-  console.log("route.query --> ", route.query);
-
   try {
     if (mode_dev) localStorage.setItem("ip", "34.234.185.158");
     else localStorage.setItem("ip", window.location.hostname);
@@ -145,7 +143,6 @@ const validarUrl = async () => {
   }
   await getPaciente();
 
-  console.log(" datos_session ", datos_session.id_acompa);
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
     await getAcomp();
   }
@@ -176,8 +173,6 @@ async function getPaciente() {
 }
 
 async function getAcomp() {
-  console.log("datos_session.id_acompa  ", datos_session.id_acompa);
-
   try {
     datos_session.id_acompa = validarCodPaci(datos_session.id_acompa);
     const response = await getDll$({
@@ -213,7 +208,7 @@ async function getTestigo() {
     if (!cod_test) return;
 
     let datos;
-    if (tipo_testigo == 1) datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
+    if (tipo_testigo == "1" || tipo_testigo == "3") datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
     else if (tipo_testigo == 2)
       datos = await getDll$({
         modulo: `get_prof.dll`,
@@ -225,7 +220,7 @@ async function getTestigo() {
         },
       });
 
-    setTestigo(tipo_testigo == 1 ? datos.reg_paci : datos.reg_prof);
+    setTestigo(tipo_testigo == "1" || tipo_testigo == "3" ? datos.reg_paci : datos.reg_prof);
   } catch (error) {
     CON851("?", "error", "Error consultando datos testigo");
   }

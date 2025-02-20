@@ -97,7 +97,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB010`,
-      descrip: "Consentimiento informado tomografía axial computarizada",
+      descrip: "Consentimiento informado tomografia axial computarizada",
     },
   },
   {

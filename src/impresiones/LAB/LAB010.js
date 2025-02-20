@@ -935,7 +935,7 @@ export const impresionLAB010 = ({ datos }) => {
               [
                 {
                   colSpan: 4,
-                  text: "PEPITICO PEREZ PEPITO PEPITOTE",
+                  text: datos.paciente.descrip,
                   style: "tableTitle",
                   alignment: "center",
                 },

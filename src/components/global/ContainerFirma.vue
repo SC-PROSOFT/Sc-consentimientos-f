@@ -46,7 +46,7 @@ const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN9
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
 const { getDll$, _getHuella$, getImgBs64, _getFirma$, _getImagen$ } = useApiContabilidad();
-const { getEmpresa, getPaci, getProf } = useModuleFormatos();
+const { getEmpresa, getPaci, getProf, getTestigo, getSesion } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
 const emit = defineEmits(["reciFirma", "datosFunc"]);
@@ -100,16 +100,16 @@ onMounted(() => {
 });
 
 const getFirmaPaci = async () => {
+  /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
+  let existeFirma = null;
+  const check_paci = props.quien_firma.toLowerCase().includes("paciente") || false;
+  const check_test = props.quien_firma.toLowerCase().includes("testigo") || false;
+  const check_prof = props.quien_firma.toLowerCase().includes("profesional") || false;
   try {
-    /* Yopal solicita la firma que ya tienen registrada en las actualizaciones del paciente. */
-    let existeFirma = null;
-    const check_paci = props.quien_firma.toLowerCase().includes("paciente") || false;
-    const check_prof = props.quien_firma.toLowerCase().includes("profesional") || false;
-
     if (getEmpresa.unid_prog == "P" && props.codigo_firma) {
       firma.value = await _getFirma$({ codigo: props.codigo_firma });
       existeFirma = firma.value ? firma.value : getImgBs64;
-      return CallBackFirma(existeFirma);
+      CallBackFirma(existeFirma);
     }
 
     if ([900273700, 79635522, 900772776].includes(Number(getEmpresa.nitusu))) {
@@ -118,6 +118,13 @@ const getFirmaPaci = async () => {
         firma.value = await _getImagen$({
           codigo: getPaci.cod,
           tipo_test: "1",
+        });
+      }
+      if (check_test) {
+        // D:\PSC\PROG\FIRMAS
+        firma.value = await _getImagen$({
+          codigo: getTestigo.cod,
+          tipo_test: getSesion.tipo_testigo,
         });
       }
       existeFirma = firma.value ? firma.value : getImgBs64;
