@@ -109,6 +109,7 @@ export const evaluarParentesco = (value) => {
     { COD: "10", DESCRIP: "PADRASTRO" },
     { COD: "11", DESCRIP: "AMIGO(A)" },
     { COD: "12", DESCRIP: "ABUELO(A)" },
+    { COD: "13", DESCRIP: "TRABAJADOR SOCIAL" },
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "";
 };

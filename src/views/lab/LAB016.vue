@@ -88,8 +88,8 @@
           :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
           :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
           :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
-          @reciFirma="callBackFirma"
-          :huella_="huella_paci"
+          @reciFirma="callBackFirmaAcomp"
+          :huella_="getAcomp.cod == '' ? huella_paci : ''"
           :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           class="col-4"
         />
@@ -132,7 +132,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB016, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -189,7 +189,7 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("getHc -> ", getHc);
+  console.log("getAcomp.cod -> ", getAcomp.cod);
 
   datosInit();
   getFirmaProf();

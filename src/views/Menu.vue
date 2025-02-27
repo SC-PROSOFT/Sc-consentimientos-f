@@ -136,8 +136,9 @@ const validarUrl = async () => {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
-  if ([900273700, 79635522].includes(Number(parseInt(route.query.nit)))) {
-    getTestigo();
+  if ([900273700, 79635522].includes(Number(route.query.nit))) {
+    await getTestigo();
+    await getAcomp();
   } else {
     datos_session.modulo == "LAB" && getTestigo();
   }
@@ -163,7 +164,9 @@ async function getPaciente() {
       }
       if (datos_session.id_acompa && datos_session.datos_session != "HIC") {
         data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
-        setAcomp({ ...data.reg_acomp, parentesco: datos_session.parentesco });
+        if ([900273700, 79635522].includes(!Number(route.query.nit))) {
+          setAcomp({ ...data.reg_acomp, parentesco: datos_session.parentesco });
+        }
       }
     })
     .catch((error) => {
@@ -181,7 +184,6 @@ async function getAcomp() {
     });
     response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci.do_nom.trim()}`;
     setAcomp({ ...response.reg_paci, parentesco: datos_session.parentesco });
-    // }
   } catch (error) {
     console.error(error);
     CON851("?", "error", "No existe acompañante en el archivo de pacientes");

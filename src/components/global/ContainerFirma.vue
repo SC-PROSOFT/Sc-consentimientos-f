@@ -46,7 +46,7 @@ const CONSEN892 = defineAsyncComponent(() => import("@/components/consen/CONSEN9
 const FIRMA = defineAsyncComponent(() => import("./firma.vue"));
 
 const { getDll$, _getHuella$, getImgBs64, _getFirma$, _getImagen$ } = useApiContabilidad();
-const { getEmpresa, getPaci, getProf, getTestigo, getSesion } = useModuleFormatos();
+const { getEmpresa, getPaci, getProf, getTestigo, getSesion, getAcomp } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 
 const emit = defineEmits(["reciFirma", "datosFunc"]);
@@ -105,6 +105,7 @@ const getFirmaPaci = async () => {
   const check_paci = props.quien_firma.toLowerCase().includes("paciente") || false;
   const check_test = props.quien_firma.toLowerCase().includes("testigo") || false;
   const check_prof = props.quien_firma.toLowerCase().includes("profesional") || false;
+  const check_acomp = props.quien_firma.toLowerCase().includes("acompañante") || false;
   try {
     if (getEmpresa.unid_prog == "P" && props.codigo_firma) {
       firma.value = await _getFirma$({ codigo: props.codigo_firma });
@@ -125,6 +126,13 @@ const getFirmaPaci = async () => {
         firma.value = await _getImagen$({
           codigo: getTestigo.cod,
           tipo_test: getSesion.tipo_testigo,
+        });
+      }
+      if (check_acomp) {
+        // D:\PSC\PROG\FIRMAS
+        firma.value = await _getImagen$({
+          codigo: getAcomp.cod,
+          tipo_test: "1",
         });
       }
       existeFirma = firma.value ? firma.value : getImgBs64;

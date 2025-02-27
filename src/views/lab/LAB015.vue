@@ -65,7 +65,7 @@
           </p>
           <p align="justify">
             Dado en Villavicencio, a los {{ LAB015.fecha_act.split("-")[2] }} días del mes de {{ LAB015.fecha_act.split("-")[1] }} del
-            {{ LAB015.fecha_act.split("-")[0] }}
+            {{ LAB015.fecha_act.split("-")[0] }}.
           </p>
         </div>
         <p align="justify">QUIEN BRINDA LA INFORMACION.</p>
@@ -83,7 +83,7 @@
           :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
           :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
+          :huella_="getAcomp.cod == '' ? huella_paci : ''"
           :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           class="col-4"
         />
