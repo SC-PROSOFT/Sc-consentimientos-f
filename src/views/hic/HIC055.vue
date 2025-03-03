@@ -116,7 +116,7 @@
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA TUTOR O FAMILIAR"
+          quien_firma="FIRMA ACOMPAÑANTE"
           :registro_profe="getAcomp.cod"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
