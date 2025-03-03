@@ -185,16 +185,6 @@
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
-        <ContainerFirma
-          @reciFirma="callBackFirmaProf"
-          :firma_="firma_prof"
-          :firmador="getProf.descrip"
-          :codigo_firma="getProf.cod"
-          :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
-          class="col-4"
-        />
       </div>
     </q-card-actions>
 
