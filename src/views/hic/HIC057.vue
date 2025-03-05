@@ -141,7 +141,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
-import { impresionODO011, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC057, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -428,14 +428,14 @@ const imprimirConsen = async () => {
 
   const docDefinitionPrint = await utilsFormat({
     datos: firmas,
-    content: impresionODO011({
+    content: impresionHIC057({
       datos: datos_hic057,
     }),
   });
 
   const docDefinitionFile = await utilsFormat({
     datos: firmas,
-    content: impresionODO011({
+    content: impresionHIC057({
       datos: datos_hic057,
     }),
   });
