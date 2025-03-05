@@ -27,7 +27,7 @@ export const impresionODO003 = ({ datos }) => {
     return {
       stack: [
         {
-          text: `asdsads Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
+          text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
           alignment: "justify",
           style: "bodyNoBold",
         },

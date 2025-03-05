@@ -387,4 +387,14 @@ export const createRouteHic = (title) => [
       descrip: "Comprobante de prestación de servicios",
     },
   },
+  {
+    path: "/HIC057",
+    name: "HIC057",
+    component: () => import("@/views/hic/HIC057.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC057`,
+      descrip: "Consentimiento informado area de rehabilitacion",
+    },
+  },
 ];

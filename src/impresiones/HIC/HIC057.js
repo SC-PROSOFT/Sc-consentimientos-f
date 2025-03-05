@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
-export const impresionODO011 = ({ datos }) => {
+export const impresionHIC057 = ({ datos }) => {
   var dd = {
     stack: [contenidoConsenGeneral(), firmas()],
   };
@@ -27,7 +27,7 @@ export const impresionODO011 = ({ datos }) => {
     return {
       stack: [
         {
-          text: `asdsads Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
+          text: `Historia clínica número: ${datos.llave.slice(0, 2)}-${datos.llave.slice(2)}`,
           alignment: "justify",
           style: "bodyNoBold",
         },

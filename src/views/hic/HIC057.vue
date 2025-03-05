@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="ODO011.opcion_odo011"
+            v-model="HIC057.opcion_hic057"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,21 +13,21 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="ODO011.opcion_odo011 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="ODO011.opcion_odo011 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="ODO011.opcion_odo011">
-              {{ ODO011.opcion_odo011 }}
+          <p :class="HIC057.opcion_hic057 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="HIC057.opcion_hic057 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="HIC057.opcion_hic057">
+              {{ HIC057.opcion_hic057 }}
             </q-chip>
           </p>
         </div>
         <div class="row">
           <p>Historia clínica numero:</p>
-          <q-input disable type="text" dense v-model="ODO011.llave" class="col-1" />
+          <q-input disable type="text" dense v-model="HIC057.llave" class="col-1" />
         </div>
         <div class="row">
           <p>Ciudad:</p>
           <q-input disable type="text" dense class="col-1" v-model="getEmpresa.ciudad_usuar" />
           <p>fecha:</p>
-          <q-input disable type="text" dense class="col-1" v-model="ODO011.fecha_act" />
+          <q-input disable type="text" dense class="col-1" v-model="HIC057.fecha_act" />
         </div>
 
         <div class="row justify-start">
@@ -45,7 +45,7 @@
             otro procedimiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que
             aunque son procedimientos seguros pueden presentarse complicaciones como:
           </p>
-          <Input_ style="min-width: 100%; display: inline-block" v-model="ODO011.complicaciones" :field="form.complicaciones" />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="HIC057.complicaciones" :field="form.complicaciones" />
         </div>
         <p align="justify">
           Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo
@@ -59,33 +59,33 @@
           hacer todas las preguntas necesarias, y han sido resueltas satisfactoriamente.
         </p>
         <p align="justify">Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
-        <div class="row" v-show="ODO011.opcion_odo011 == 'AUTORIZAR'">
+        <div class="row" v-show="HIC057.opcion_hic057 == 'AUTORIZAR'">
           <p>
             <ins class="text-bold">Autorizo</ins> al personal asistencial de la {{ getEmpresa.nomusu }}, para la realización de los procedimientos de
             salud:
-            <Input_ style="min-width: 100%; display: inline-block" v-model="ODO011.procedimiento" :field="form.procedimiento" />
+            <Input_ style="min-width: 100%; display: inline-block" v-model="HIC057.procedimiento" :field="form.procedimiento" />
             cuyo objetivo es:
-            <Input_ style="min-width: 100%; display: inline-block" v-model="ODO011.objetivo" :field="form.objetivo" />
+            <Input_ style="min-width: 100%; display: inline-block" v-model="HIC057.objetivo" :field="form.objetivo" />
             diagnostico
             <Input_
               style="min-width: 100px; display: inline-block"
               @validate="datoCodigoEnfermedad"
-              v-model="ODO011.diagnostico"
+              v-model="HIC057.diagnostico"
               :field="form.codigo"
             />
             <q-input dense disable type="text" maxlength="4" v-model="descrip_diagnostico" style="min-width: 300px; display: inline-block" />
           </p>
           En el servicio de terapia:
-          <Input_ style="min-width: 100%; display: inline-block" v-model="ODO011.serv_terapia" :field="form.serv_terapia" />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="HIC057.serv_terapia" :field="form.serv_terapia" />
         </div>
-        <div class="row" v-show="ODO011.opcion_odo011 == 'REVOCAR'">
+        <div class="row" v-show="HIC057.opcion_hic057 == 'REVOCAR'">
           <p align="justify">
             Expreso mi voluntad de <ins class="text-bold">revocar</ins> el consentimiento presentado y declaro por tanto que, tras la información
             recibida, no consiento someterme al procedimiento de:
             <strong class="text-bold">GENERAL PYP OK</strong>
             por los siguientes motivos:
           </p>
-          <Input_ style="min-width: 100%; display: inline-block" v-model="ODO011.revocar_motivos" :field="form.revocar_motivos" />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="HIC057.revocar_motivos" :field="form.revocar_motivos" />
         </div>
       </q-card-section>
     </q-form>
@@ -125,7 +125,7 @@
     </q-card-actions>
     <div class="row justify-center q-my-lg">
       <q-btn
-        :disable="ODO011.opcion_odo011 ? false : true"
+        :disable="HIC057.opcion_hic057 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -165,7 +165,7 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
-const ODO011 = reactive({
+const HIC057 = reactive({
   revocar_procedim: "",
   revocar_motivos: "",
   complicaciones: "",
@@ -175,7 +175,7 @@ const ODO011 = reactive({
   serv_terapia: "",
 
   //Extras
-  opcion_odo011: "",
+  opcion_hic057: "",
   fecha_act: "",
   llave: "",
 });
@@ -239,7 +239,7 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("formato ODO011");
+  console.log("formato HIC057");
   setTimeout(() => {
     datosInit();
     getFirmaProf();
@@ -247,23 +247,23 @@ onMounted(() => {
 });
 
 watch(
-  () => ODO011.opcion_odo011,
+  () => HIC057.opcion_hic057,
   (val) => {
     if (val == "AUTORIZAR") {
-      ODO011.revocar_motivos = "";
+      HIC057.revocar_motivos = "";
     } else {
-      ODO011.diagnostico = "";
+      HIC057.diagnostico = "";
     }
   }
 );
 
 const datosInit = () => {
-  ODO011.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC057.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   console.log("getHc ", getHc);
-  ODO011.llave = getHc.llave.slice(15);
+  HIC057.llave = getHc.llave.slice(15);
 
   if (getHc.rips?.diagn && getHc.rips?.diagn.length) {
-    ODO011.diagnostico = getHc.rips?.diagn[0].cod;
+    HIC057.diagnostico = getHc.rips?.diagn[0].cod;
     descrip_diagnostico.value = getHc.rips?.diagn[0].descrip;
   }
 };
@@ -294,7 +294,7 @@ const consultarEnfermedad = async () => {
   try {
     const response = await getDll$({
       modulo: `get_enf.dll`,
-      data: { llave: "2" + ODO011.diagnostico },
+      data: { llave: "2" + HIC057.diagnostico },
     });
     if (response.llave) {
       descrip_diagnostico.value = response.nombre;
@@ -322,30 +322,30 @@ const validarDatos = async () => {
   //   return CON851("?", "info", "No se ha realizado la firma del acompañate");
   // }
 
-  if (!ODO011.complicaciones) return CON851("?", "info", `${requiere}, complicaciones `, () => foco_(form, "complicaciones"));
+  if (!HIC057.complicaciones) return CON851("?", "info", `${requiere}, complicaciones `, () => foco_(form, "complicaciones"));
 
-  if (ODO011.opcion_odo011 == "REVOCAR") {
-    if (!ODO011.revocar_motivos) return CON851("?", "info", `${requiere}, revocar motivos `, () => foco_(form, "revocar_motivos"));
+  if (HIC057.opcion_hic057 == "REVOCAR") {
+    if (!HIC057.revocar_motivos) return CON851("?", "info", `${requiere}, revocar motivos `, () => foco_(form, "revocar_motivos"));
   }
 
-  if (ODO011.opcion_odo011 == "AUTORIZAR") {
-    if (!ODO011.diagnostico) return CON851("?", "info", requiere, () => foco_(form, "codigo"));
-    if (!ODO011.procedimiento) return CON851("?", "info", requiere, () => foco_(form, "procedimiento"));
-    if (!ODO011.objetivo) return CON851("?", "info", requiere, () => foco_(form, "objetivo"));
+  if (HIC057.opcion_hic057 == "AUTORIZAR") {
+    if (!HIC057.diagnostico) return CON851("?", "info", requiere, () => foco_(form, "codigo"));
+    if (!HIC057.procedimiento) return CON851("?", "info", requiere, () => foco_(form, "procedimiento"));
+    if (!HIC057.objetivo) return CON851("?", "info", requiere, () => foco_(form, "objetivo"));
   }
   grabarConsentimiento();
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(ODO011));
+  const datos_format = JSON.parse(JSON.stringify(HIC057));
   let datos = {
-    estado: ODO011.opcion_odo011 == "AUTORIZAR" ? "1" : "2",
+    estado: HIC057.opcion_hic057 == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "ODO011",
+    cod_consen: "HIC057",
     disentimiento: "N",
     ...datos_format,
   };
@@ -356,7 +356,7 @@ const grabarConsentimiento = async () => {
         const fecha = data?.llave_consen.slice(23, 32);
         console.log("data en llave_consen ", data);
 
-        ODO011.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
+        HIC057.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");
     })
@@ -396,8 +396,8 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async () => {
-  const datos_odo011 = {
-    autorizo: ODO011.opcion_odo011 == "AUTORIZAR" ? true : false,
+  const datos_hic057 = {
+    autorizo: HIC057.opcion_hic057 == "AUTORIZAR" ? true : false,
     empresa: getEmpresa,
     paciente: getPaci,
     prof: getProf,
@@ -412,7 +412,7 @@ const imprimirConsen = async () => {
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
     },
-    ...ODO011,
+    ...HIC057,
     diagnostico: getHc.rips?.diagn.length ? getHc.rips?.diagn[0]?.cod : "",
     descrip_enfer: descrip_diagnostico.value || "",
   };
@@ -429,14 +429,14 @@ const imprimirConsen = async () => {
   const docDefinitionPrint = await utilsFormat({
     datos: firmas,
     content: impresionODO011({
-      datos: datos_odo011,
+      datos: datos_hic057,
     }),
   });
 
   const docDefinitionFile = await utilsFormat({
     datos: firmas,
     content: impresionODO011({
-      datos: datos_odo011,
+      datos: datos_hic057,
     }),
   });
 
@@ -446,7 +446,7 @@ const imprimirConsen = async () => {
 };
 const callbackCONSEN800 = (data) => {
   if (data) {
-    ODO011.diagnostico = data.cod;
+    HIC057.diagnostico = data.cod;
     descrip_diagnostico.value = data.descrip;
   }
   show_consen800.value = false;
