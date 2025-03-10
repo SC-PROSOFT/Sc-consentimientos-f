@@ -3,12 +3,12 @@ import { useModuleFormatos } from "@/store";
 
 const { getPaci } = useModuleFormatos();
 
-export const impresionHIC060 = ({ datos }) => {
+export const impresionHIC062 = ({ datos }) => {
   console.log("datos ", datos);
   var dd = {
-    stack: [contenidoHIC060(), firmas()],
+    stack: [contenidoHIC062(), firmas()],
   };
-  function contenidoHIC060() {
+  function contenidoHIC062() {
     return {
       stack: [
         {
@@ -34,11 +34,11 @@ export const impresionHIC060 = ({ datos }) => {
             { bold: true, text: " , No autorizo: " },
             { bold: true, decoration: "underline", text: datos.autoriza == "N" ? " X " : "    " },
             {
-              text: " , al equipo básico en Atención Primaria en Salud  APS de la E.S.E. Empresa Social del Estado, en específico al auxiliar de enfermería: ",
+              text: " , al equipo básico de salud del Plan de Intervenciones Colectivas PIC de la E.S.E. Empresa Social del Estado “Solución Salud”, en específico al auxiliar de enfermería: ",
             },
             { bold: true, text: datos.aux_enfermeria.trim() },
             {
-              text: "para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud Con Enfoque ambiental,  Familiar e individual comprometiéndome a suministrar la información requerida mediante el diligenciamiento de fichas ",
+              text: " para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud Con Enfoque ambiental,  Familiar e individual comprometiéndome a suministrar la información requerida mediante el diligenciamiento de fichas ",
             },
             {
               italics: true,
@@ -58,12 +58,11 @@ export const impresionHIC060 = ({ datos }) => {
           ul: [
             "Estar presente en el domicilio la fecha indicada para la visita.",
             "Tener un trato cordial y respetuoso con el personal de salud.",
-            "Suministrar información veraz para ser consignada en las fichas de CARACTERIZACION, FAMILIAR E INDIVIDUAL EN EL ENTORNO HOGAR.",
-            "Revisar, concertar las actividades y las recomendaciones del PLAN INTEGRAL DE CUIDADO.",
-            "Cumplir con las citas asignadas por el prestador de promoción y prevención.",
+            "Suministrar información veraz para ser consignada en las fichas de CARACTERIZACION AMBIENTAL, FAMILIAR E INDIVIDUAL EN EL ENTORNO HOGAR.",
+            "Revisar, concertar las actividades y las recomendaciones del PLAN INTEGRAL DE CUIDADO PRIMARIO (PICP).",
             "Preguntar cuando no entienda algo relacionado con mi salud y la de mi núcleo familiar.",
             "Informar cambio de domicilio o número de teléfono al programa.",
-            "Acatar las indicaciones para la realización de los procedimientos de enfermería, psicología y Medicina en casa.",
+            "Acatar las indicaciones para la realización de los procedimientos de enfermería y psicología en casa.",
           ],
         },
         {
