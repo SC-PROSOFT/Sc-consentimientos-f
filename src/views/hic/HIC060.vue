@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic059"
+            v-model="opcion_hic060"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,80 +13,75 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic059 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic059 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic059">
-              {{ opcion_hic059 }}
+          <p :class="opcion_hic060 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic060 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic060">
+              {{ opcion_hic060 }}
             </q-chip>
           </p>
         </div>
 
         <div class="row">
           <p style="text-align: justify">
-            Yo <span class="text-bold">{{ getPaci.descrip }}</span> , identificado(a) con tipo de documento:
-            <span class="text-bold">{{ getPaci.tipo_id }}</span
-            >&nbsp; N°: <span class="text-bold">{{ getPaci.cod }}</span> , expedida en
+            Yo <span class="text-bold">{{ getPaci.descrip }}</span
+            >, identificado(a) con tipo de documento: <span class="text-bold">{{ getPaci.tipo_id }}</span
+            >&nbsp; N°: <span class="text-bold">{{ getPaci.cod }}</span
+            >, expedida en
           </p>
           <div class="row q-mt-xs">
             <p>
-              <span class="text-bold">{{ getPaci.descrip_ciudad }}</span> , residente del municipio:
+              <span class="text-bold">{{ getPaci.descrip_ciudad }}</span
+              >, residente del municipio:
             </p>
-            <Input_ v-model="HIC059.municipio" :field="form.municipio" :inputStyle="{ width: '482px' }" />
+            <Input_ v-model="HIC060.municipio" :field="form.municipio" :inputStyle="{ width: '482px' }" />
           </div>
-
           <div class="row q-mt-lg">
-            <p>en el MICROTERRITORIO:</p>
-            <Input_ v-model="HIC059.microterritorio" :field="form.microterritorio" :inputStyle="{ width: '581px' }" />
+            <p>en el sector:</p>
+            <Input_ v-model="HIC060.microterritorio" :field="form.microterritorio" :inputStyle="{ width: '665px' }" />
           </div>
           <div class="row q-mt-lg">
             <p>en representación de la familia:</p>
-            <Input_ v-model="HIC059.familia" :field="form.familia" :inputStyle="{ width: '536px' }" />
+            <Input_ v-model="HIC060.familia" :field="form.familia" :inputStyle="{ width: '536px' }" />
           </div>
           <div class="row">
             <div class="text-left">
               <p style="font-weight: bold; margin-top: 10px">¿Autoriza?</p>
             </div>
             <div class="text-center">
-              <q-radio color="primary" v-model="HIC059.autoriza" val="S" label="SI" />
-              <q-radio color="primary" v-model="HIC059.autoriza" val="N" label="NO" />
+              <q-radio color="primary" v-model="HIC060.autoriza" val="S" label="SI" />
+              <q-radio color="primary" v-model="HIC060.autoriza" val="N" label="NO" />
             </div>
           </div>
-          <p>
-            al equipo básico de salud del Plan de Intervenciones Colectivas PIC de la E.S.E. PRIMER NIVEL GRANADA SALUD, en específico al auxiliar de
-            enfermería, enfermera, psicólogo, médico.
-          </p>
+          <div class="row q-mb-lg">
+            <p>al equipo básico en Atención Primaria en Salud APS de la E.S.E. Empresa Social del Estado, en específico al auxiliar de enfermería:</p>
+            <Input_ v-model="HIC060.aux_enfermeria" :field="form.aux_enfermeria" :inputStyle="{ width: '745px' }" />
+          </div>
         </div>
 
         <div>
           <p style="text-align: justify">
-            Para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud comprometiéndome a suministrar la
-            información requerida mediante el diligenciamiento de fichas caracterización, y en las etapas de plan de cuidado y su respectivo
-            cumplimiento.
+            para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud Con Enfoque ambiental, Familiar e
+            individual comprometiéndome a suministrar la información requerida mediante el diligenciamiento de fichas
+            <span style="font-style: italic"> caracterización, y en las etapas de plan de cuidado y sus respectivos seguimientos.</span>
           </p>
           <p style="text-align: justify">Me comprometo a cumplir con mis obligaciones tales como:</p>
           <ul>
             <li>Estar presente en el domicilio la fecha indicada para la visita.</li>
             <li>Tener un trato cordial y respetuoso con el personal de salud.</li>
-            <li>
-              Suministrar información veraz para ser consignada en las fichas de caracterización ambiental, familiar e individual en el entorno hogar.
-            </li>
-            <li>Revisar, concertar las actividades y las recomendaciones del plan integral de cuidado primario (PICP).</li>
-            <li>Cumplir con las citas asignadas por la IPS de referencia.</li>
-            <li>
-              Participar activamente en los seguimientos y las actividades de intervenciones colectivas para cumplir con las tareas asignadas dentro
-              PICP.
-            </li>
+            <li>Suministrar información veraz para ser consignada en las fichas de CARACTERIZACION, FAMILIAR E INDIVIDUAL EN EL ENTORNO HOGAR.</li>
+            <li>Revisar, concertar las actividades y las recomendaciones del PLAN INTEGRAL DE CUIDADO.</li>
+            <li>Cumplir con las citas asignadas por el prestador de promoción y prevención.</li>
             <li>Preguntar cuando no entienda algo relacionado con mi salud y la de mi núcleo familiar.</li>
             <li>Informar cambio de domicilio o número de teléfono al programa.</li>
-            <li>Acatar las indicaciones para la realización de los procedimientos de enfermería y psicología en casa.</li>
+            <li>Acatar las indicaciones para la realización de los procedimientos de enfermería, psicología y Medicina en casa.</li>
           </ul>
         </div>
         <div class="row">
           <p style="text-align: justify">Dado en:</p>
-          <Input_ v-model="HIC059.lugar_atenc" :field="form.lugar_atenc" :inputStyle="{ width: '250px' }" />
+          <Input_ v-model="HIC060.lugar_atenc" :field="form.lugar_atenc" :inputStyle="{ width: '250px' }" />
           <p style="text-align: justify">el dia:</p>
-          <Input_ v-model="HIC059.dia_atenc" :field="form.dia_atenc" :inputStyle="{ width: '40px' }" />
+          <Input_ v-model="HIC060.dia_atenc" :field="form.dia_atenc" :inputStyle="{ width: '40px' }" />
           <p style="text-align: justify">del mes de:</p>
-          <Input_ v-model="HIC059.mes_atenc" :field="form.mes_atenc" :inputStyle="{ width: '150px' }" />
+          <Input_ v-model="HIC060.mes_atenc" :field="form.mes_atenc" :inputStyle="{ width: '150px' }" />
           <p style="text-align: justify">del año 2025.</p>
         </div>
         <div class="row q-mt-lg">
@@ -94,17 +89,17 @@
             <p style="margin-top: 10px">¿Autoriza registro fotográfico?</p>
           </div>
           <div class="text-center">
-            <q-radio color="primary" v-model="HIC059.autoriza_foto" val="S" label="SI" />
-            <q-radio color="primary" v-model="HIC059.autoriza_foto" val="N" label="NO" />
+            <q-radio color="primary" v-model="HIC060.autoriza_foto" val="S" label="SI" />
+            <q-radio color="primary" v-model="HIC060.autoriza_foto" val="N" label="NO" />
           </div>
         </div>
         <div class="row q-mt-xs">
           <p style="text-align: justify">Teléfono:</p>
-          <Input_ v-model="HIC059.telefono" :field="form.telefono" :inputStyle="{ width: '150px' }" />
+          <Input_ v-model="HIC060.telefono" :field="form.telefono" :inputStyle="{ width: '150px' }" />
         </div>
         <div class="row q-mt-lg">
           <p style="text-align: justify">Dirección:</p>
-          <Input_ v-model="HIC059.direcc" :field="form.direcc" :inputStyle="{ width: '750px' }" />
+          <Input_ v-model="HIC060.direcc" :field="form.direcc" :inputStyle="{ width: '750px' }" />
         </div>
       </q-card-section>
     </div>
@@ -141,7 +136,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic059 ? false : true"
+        :disable="opcion_hic060 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -155,7 +150,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC059, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC060, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
 import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -176,10 +171,11 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC059 = reactive({
+const HIC060 = reactive({
   fecha_act: "",
   municipio: "",
   microterritorio: "",
+  aux_enfermeria: "",
   familia: "",
   autoriza: "",
   lugar_atenc: "",
@@ -199,6 +195,12 @@ const form = ref({
   microterritorio: {
     id: "microterritorio",
     maxlength: "150",
+    label: "",
+    campo_abierto: true,
+  },
+  aux_enfermeria: {
+    id: "aux_enfermeria",
+    maxlength: "100",
     label: "",
     campo_abierto: true,
   },
@@ -241,10 +243,10 @@ const form = ref({
     campo_abierto: true,
   },
 });
-const opcion_hic059 = ref(null);
+const opcion_hic060 = ref(null);
 
 onMounted(() => {
-  HIC059.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC060.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -270,16 +272,16 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC059));
+  const datos_format = JSON.parse(JSON.stringify(HIC060));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic059.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic060.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC059",
+    cod_consen: "HIC060",
     disentimiento: "N",
     ...datos_format,
   };
@@ -338,8 +340,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_hic059 = {
-      autorizo: opcion_hic059.value == "AUTORIZAR" ? true : false,
+    const datos_hic060 = {
+      autorizo: opcion_hic060.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
@@ -351,7 +353,7 @@ const imprimirConsen = async () => {
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
-      ...HIC059,
+      ...HIC060,
     };
 
     const firmas = {
@@ -363,15 +365,15 @@ const imprimirConsen = async () => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC059" },
-      content: impresionHIC059({
-        datos: datos_hic059,
+      datos: { ...firmas, cod_consen: "HIC060" },
+      content: impresionHIC060({
+        datos: datos_hic060,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC059" },
-      content: impresionHIC059({
-        datos: datos_hic059,
+      datos: { ...firmas, cod_consen: "HIC060" },
+      content: impresionHIC060({
+        datos: datos_hic060,
       }),
     });
 
