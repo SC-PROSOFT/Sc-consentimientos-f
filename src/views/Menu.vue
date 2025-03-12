@@ -138,14 +138,18 @@ const validarUrl = async () => {
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
   if ([900273700, 79635522].includes(Number(route.query.nit))) {
     await getTestigo();
-    await getAcomp();
+    if (datos_session.id_acompa.trim() != "") {
+      await getAcomp();
+    }
   } else {
     datos_session.modulo == "LAB" && getTestigo();
   }
   await getPaciente();
 
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
-    await getAcomp();
+    if (datos_session.id_acompa.trim() != "") {
+      await getAcomp();
+    }
   }
   if (!mode_dev) getVersionBuild();
 };

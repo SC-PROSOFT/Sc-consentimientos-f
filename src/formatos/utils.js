@@ -302,7 +302,6 @@ export const datosFormatUTM = ({ datos }) => {
   /* "format_encab_ampl", ESTOS FORMATOS SE LES AGREGO MAS DATOS; SEXO BIOLOGICO, IDENTIDADA DE GENERO, DISCAPACIDAD,
    ACOMPAÑANTE, PARENTESCO, TELEF. ACOMPAÑANTE, AMBITO DE ATENCION.
    POR LO TANTO SE CONDICIONA PARA NO AFECTAR LAS IMPRESIONES DE LOS DEMAS FORMATOS */
-  console.log("cod_consen ---> ", datos.cod_consen);
 
   const format_encab_ampl = ["LAB011", "LAB012", "LAB014"];
   console.log(format_encab_ampl.includes(datos.cod_consen) ? "encab_ampl" : "encab_normal");

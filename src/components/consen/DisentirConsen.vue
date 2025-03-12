@@ -79,7 +79,6 @@ const firmador = computed(() => {
 });
 
 onMounted(() => {
-  console.log(props.consen);
   Object.assign(reg_consen.value, props.consen);
   llave_conse.value = `${reg_consen.value.reg_coninf.llave.id}${reg_consen.value.reg_coninf.llave.folio}${reg_consen.value.reg_coninf.llave.fecha}${reg_consen.value.reg_coninf.llave.hora}${reg_consen.value.reg_coninf.llave.oper_elab}`;
   validarAcomp();
@@ -136,7 +135,6 @@ const guardarDisentimiento = async () => {
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
-        console.log("llave", data?.llave_consen);
         return guardarFirmaDisentimiento(data.llave_consen);
       }
       CON851("?", "error", "Error al guardar el consentimiento");

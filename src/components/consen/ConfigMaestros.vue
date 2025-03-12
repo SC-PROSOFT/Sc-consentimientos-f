@@ -373,8 +373,6 @@ const actualizarMaestro = async () => {
     for (const campo_info of camposo_bligatorios) {
       const valor_campo = data_envio[campo_info.campo] ? data_envio[campo_info.campo] : "";
       if (["", null].includes(valor_campo?.trim())) {
-        console.log(valor_campo);
-        console.log(campo_info.campo);
         return CON851("02", "info", campo_info.nombre, () => foco_(form_config, campo_info.campo));
       }
     }
@@ -403,7 +401,6 @@ const actualizarMaestro = async () => {
 };
 const getMaestros = async () => {
   const nit_usu = parseInt(getEmpresa.nitusu) || 0;
-  console.log("nit_usu --> ", nit_usu);
 
   const query = sessionStorage.getItem("query") && JSON.parse(sessionStorage.getItem("query"));
   try {
@@ -416,7 +413,6 @@ const getMaestros = async () => {
         listar_todos: "1",
       },
     });
-    console.log(" maestro_consentimientos -> ", maestro_consentimientos.value);
 
     maestro_consentimientos.value = response;
     //Las entidades Yopal y UTM tiene su respectivo consentimiento de mamografia

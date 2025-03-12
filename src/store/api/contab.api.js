@@ -288,6 +288,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
       if ([900273700, 79635522, 900772776].includes(Number(this.empresa.nitusu))) {
         // ruta de las entidades sanar, monte sinai
         if (tipo_test == "1" || tipo_test == "3") {
+          if (/[A-Za-z]/.test(codigo)) {
+            codigo = codigo.padStart(15, " ");
+          }
           ruta = `D:/PSC/PROG/FIRMAS/PACIENTE`;
         } else {
           codigo = parseInt(codigo) || 0;
