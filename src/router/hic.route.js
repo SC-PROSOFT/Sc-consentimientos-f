@@ -397,4 +397,175 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado area de rehabilitacion",
     },
   },
+  {
+    path: "/HIC058",
+    name: "HIC058",
+    component: () => import("@/views/hic/HIC058.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC058`,
+      descrip: "Formato de consentimiento de insercion del implante subdermico",
+    },
+  },
+  {
+    path: "/HIC059",
+    name: "HIC059",
+    component: () => import("@/views/hic/HIC059.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC059`,
+      descrip: "Consentimiento informado para atencion primaria en salud-pic",
+    },
+  },
+  {
+    path: "/HIC060",
+    name: "HIC060",
+    component: () => import("@/views/hic/HIC060.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC060`,
+      descrip: "Consentimiento informado y acta de compromiso familiar de visita domiciliaria de atencion primaria en salud",
+    },
+  },
+  {
+    path: "/HIC061",
+    name: "HIC061",
+    component: () => import("@/views/hic/HIC061.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC061`,
+      descrip: "Formato consentimiento para acompanamiento y orientacion individual por psicologia",
+    },
+  },
+  {
+    path: "/HIC062",
+    name: "HIC062",
+    component: () => import("@/views/hic/HIC062.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC062`,
+      descrip: "Consentimiento informado y acta de compromiso familiar de visita domiciliaria aps",
+    },
+  },
+  {
+    path: "/HIC063",
+    name: "HIC063",
+    component: () => import("@/views/hic/HIC063.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC063`,
+      descrip: "Formato de consentimiento informado asesoria interrupcion voluntaria del embarazo (ive)",
+    },
+  },
+  {
+    path: "/HIC064",
+    name: "HIC064",
+    component: () => import("@/views/hic/HIC064.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC064`,
+      descrip:
+        "Formato registro de consentimiento informado para la realizacion dedeteccion de antigeno para sars-cov2 deteccion de anticuerpos para sars-cov2",
+    },
+  },
+  {
+    path: "/HIC065",
+    name: "HIC065",
+    component: () => import("@/views/hic/HIC065.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC065`,
+      descrip: "Formato para consentimiento informado para toma de muestra de hepatitis b",
+    },
+  },
+  {
+    path: "/HIC066",
+    name: "HIC066",
+    component: () => import("@/views/hic/HIC066.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC066`,
+      descrip: "Formato consentimiento informado para certificado de discapacidad - acompanante",
+    },
+  },
+  {
+    path: "/HIC067",
+    name: "HIC067",
+    component: () => import("@/views/hic/HIC067.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC067`,
+      descrip: "Formato consentimiento informado para certificado de discapacidad",
+    },
+  },
+  {
+    path: "/HIC068",
+    name: "HIC068",
+    component: () => import("@/views/hic/HIC068.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC068`,
+      descrip: "Formato consentimiento informado de exploracion vaginal y/o rectal",
+    },
+  },
+  {
+    path: "/HIC069",
+    name: "HIC069",
+    component: () => import("@/views/hic/HIC069.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC069`,
+      descrip: "Formato consentimiento informado de atencion domiciliaria",
+    },
+  },
+  {
+    path: "/HIC070",
+    name: "HIC070",
+    component: () => import("@/views/hic/HIC070.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC070`,
+      descrip: "Formato de consentimiento informado de procedimientos menores domiciliarios",
+    },
+  },
+  {
+    path: "/HIC071",
+    name: "HIC071",
+    component: () => import("@/views/hic/HIC071.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC071`,
+      descrip: "Consentimiento informado para la aplicacion de la vacuna contra el sars-cov-2/covid-19",
+    },
+  },
+  {
+    path: "/HIC072",
+    name: "HIC072",
+    component: () => import("@/views/hic/HIC072.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC072`,
+      descrip: "Consentimiento informado para procedimientos menores",
+    },
+  },
+  {
+    path: "/HIC073",
+    name: "HIC073",
+    component: () => import("@/views/hic/HIC073.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC073`,
+      descrip: "Formato consentimiento informado para realizar la prueba presunta o diagnostica de vih",
+    },
+  },
+  {
+    path: "/HIC074",
+    name: "HIC074",
+    component: () => import("@/views/hic/HIC074.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC074`,
+      descrip: "Formato consentimiento informado toma de citologias cervicouterina",
+    },
+  },
 ];

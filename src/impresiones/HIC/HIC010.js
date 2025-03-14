@@ -5,8 +5,6 @@ import { useModuleFormatos } from "@/store";
 const { getPaci } = useModuleFormatos();
 
 export const impresionHIC010 = ({ datos }) => {
-  console.log("datos en HIC010 ", datos);
-
   var dd = {
     stack: [contenidoHIC010(), firmas()],
   };
