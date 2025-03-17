@@ -568,4 +568,14 @@ export const createRouteHic = (title) => [
       descrip: "Formato consentimiento informado toma de citologias cervicouterina",
     },
   },
+  {
+    path: "/HIC075",
+    name: "HIC075",
+    component: () => import("@/views/hic/HIC075.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC075`,
+      descrip: "Formato consentimiento de insercion del dispositivo intrauterino (DIU)",
+    },
+  },
 ];
