@@ -24,11 +24,12 @@
           <p style="text-align: justify">
             Yo <span class="text-bold">{{ getPaci.descrip }}</span> , identificado(a) con tipo de documento:
             <span class="text-bold">{{ getPaci.tipo_id }}</span
-            >&nbsp; N°: <span class="text-bold">{{ getPaci.cod }}</span> , expedida en
+            >&nbsp; N°: <span class="text-bold">{{ getPaci.cod }}</span> , expedida en:
           </p>
           <div class="row q-mt-xs">
             <p>
-              <span class="text-bold">{{ getPaci.descrip_ciudad }}</span> , residente del municipio:
+              <span class="text-bold">{{ getPaci.descrip_ciudad }}</span
+              >, residente del municipio:
             </p>
             <Input_ v-model="HIC059.municipio" :field="form.municipio" :inputStyle="{ width: '482px' }" />
           </div>
@@ -46,8 +47,8 @@
               <p style="font-weight: bold; margin-top: 10px">¿Autoriza?</p>
             </div>
             <div class="text-center">
-              <q-radio color="primary" v-model="HIC059.autoriza" val="S" label="SI" />
-              <q-radio color="primary" v-model="HIC059.autoriza" val="N" label="NO" />
+              <q-radio disabled color="primary" v-model="autoriza" val="S" label="SI" />
+              <q-radio disabled color="primary" v-model="autoriza" val="N" label="NO" />
             </div>
           </div>
           <p>
@@ -55,7 +56,10 @@
             enfermería, enfermera, psicólogo, médico.
           </p>
         </div>
-
+        <div class="row q-mt-lg q-mb-lg">
+          <p>Otro:</p>
+          <Input_ class="col-xs-11" v-model="HIC059.otro_prof" :field="form.otro_prof" />
+        </div>
         <div>
           <p style="text-align: justify">
             Para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud comprometiéndome a suministrar la
@@ -156,11 +160,12 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC059, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
+import "dayjs/locale/es";
+dayjs.locale("es");
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const router = useRouter();
@@ -181,11 +186,10 @@ const HIC059 = reactive({
   municipio: "",
   microterritorio: "",
   familia: "",
-  autoriza: "",
   lugar_atenc: "",
   dia_atenc: "",
   mes_atenc: "",
-  autoriza_foto: "",
+  autoriza_foto: "S",
   telefono: "",
   direcc: "",
 });
@@ -211,6 +215,12 @@ const form = ref({
   lugar_atenc: {
     id: "lugar_atenc",
     maxlength: "250",
+    label: "",
+    campo_abierto: true,
+  },
+  otro_prof: {
+    id: "otro_prof",
+    maxlength: "150",
     label: "",
     campo_abierto: true,
   },
@@ -243,7 +253,16 @@ const form = ref({
 });
 const opcion_hic059 = ref(null);
 
+const autoriza = computed(() => {
+  return opcion_hic059.value == "AUTORIZAR" ? "S" : "N";
+});
 onMounted(() => {
+  HIC059.dia_atenc = dayjs().date();
+  HIC059.mes_atenc = dayjs().format("MMMM");
+  HIC059.telefono = getPaci.telefono;
+  HIC059.direcc = getPaci.direccion;
+  HIC059.municipio = getPaci.descrip_ciudad;
+
   HIC059.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
@@ -379,7 +398,7 @@ const imprimirConsen = async () => {
     const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
     return response_impresion;
   } catch (error) {
-    console.error("error -->", error);
+    console.error(error);
   }
 };
 

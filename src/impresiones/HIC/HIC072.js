@@ -3,7 +3,7 @@ import { useModuleFormatos } from "@/store";
 
 const { getPaci } = useModuleFormatos();
 
-export const impresionHIC058 = ({ datos }) => {
+export const impresionHIC072 = ({ datos }) => {
   console.log("datos ", datos);
   const marcaCasilla = (condicion) => {
     return [
@@ -19,10 +19,10 @@ export const impresionHIC058 = ({ datos }) => {
   };
 
   var dd = {
-    stack: [contenidoHIC058(), firmas()],
+    stack: [contenidoHIC072(), firmas()],
   };
 
-  function contenidoHIC058() {
+  function contenidoHIC072() {
     return {
       stack: [
         {
@@ -30,97 +30,199 @@ export const impresionHIC058 = ({ datos }) => {
           text: [
             { bold: true, style: "tableTitle", text: " Fecha: " },
             { style: "bodyNoBold9", text: datos.fecha },
+            { bold: true, style: "tableTitle", text: " Hora: " },
+            { style: "bodyNoBold9", text: datos.hora },
           ],
         },
         {
-          alignment: "center",
           marginTop: 8,
-          text: [{ bold: true, style: "bodyNoBold9", text: "CONSENTIMIENTO DE INSERCIÓN DEL IMPLANTE SUBDERMICO" }],
+          text: [
+            { bold: true, style: "bodyNoBold9", text: "Nombre: " },
+            { style: "bodyNoBold9", text: datos.paciente.descrip },
+          ],
         },
         {
           marginTop: 8,
-          alignment: "justify",
-          text: "Dentro de las normas éticas exigidas por la Ley 23 de 1981, se encuentra el deber de informar adecuada y oportunamente a todos sus pacientes los riesgos que puedan derivarse del tratamiento que le será practicado, solicitando su consentimiento anticipadamente e igualmente lo exige la guía para la atención en planificación familiar a hombres y mujeres.",
-          style: "bodyNoBold9",
+          text: [
+            { bold: true, style: "bodyNoBold9", text: "Tipo y numero documento de identificación: " },
+            { style: "bodyNoBold9", text: datos.paciente.tipo_id + " " + datos.paciente.cod },
+          ],
         },
         {
-          marginTop: 8,
-          alignment: "justify",
-          text: "El procedimiento consiste en: Previo asepsia con un antiséptico adecuado, se inserta debajo de la piel, dos barras que contienen hormona anticonceptiva (levonorgestrel X 75 mg) a través de una pequeña inserción no mayor a dos milímetros (no requiere sutura); realizada en una zona de la piel sana de la cara interna del brazo izquierdo o derecho según sea la mujer diestra o zurda, en donde ha sido aplicada anestésico local previamente. Una vez insertadas las barras se procede a colocar un vendaje, el cual debe ser removido solo por un profesional de la salud al tercer o cuarto día posterior a la consulta de inserción. Algunas de las reacciones adversas se pueden presentar en alrededor del 10% de las usuarias.",
+          marginTop: 10,
+          bold: true,
+          alignment: "left",
+          text: "SEÑORA USUARIA",
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
           text: [
-            { text: "Yo " },
-            { text: datos.paciente.descrip },
-            { text: " identificada " },
-            { text: datos.tipo_id },
-            { text: "  " },
-            { text: datos.paciente.cod },
-            { text: " , expedida en " },
-            { text: datos.paciente.descrip_ciudad },
-            { text: " , declaro que he sido suficientemente informada en términos claros y comprensibles por " },
-            { text: datos.prof_informa },
-            { text: " , identificado(a) con C.C No. " },
-            { text: datos.cod_prof_informa },
-            { text: " , acerca del procedimiento inserción de implante subdérmico hormonal." },
+            {
+              text: "Es muy importante para nosotros que usted reciba y entienda la información, acerca del examen que fue solicitado por su médico tratante, quien determino que este estudio es la ",
+            },
+            {
+              text: "alternativa ",
+              bold: true,
+            },
+            {
+              text: "más adecuada con la cual se puede ",
+            },
+            {
+              text: "beneficiar, ",
+              bold: true,
+            },
+            {
+              text: ", obtener o confirmar el diagnóstico y que nosotros con gusto realizaremos, lea con atención y no tema solicitar explicación en caso de duda, para aclarar sus inquietudes y responder sus preguntas. A continuación, se mencionan los exámenes que se realizan a partir de muestras ginecológicas, marque con una x el procedimiento a realizar.",
+            },
           ],
           style: "bodyNoBold9",
         },
         {
+          marginTop: 5,
           alignment: "center",
-          marginTop: 8,
-          text: [{ bold: true, style: "bodyNoBold9", text: "DECLARO" }],
+          table: {
+            widths: ["5%", "95%"],
+            body: [
+              [{ style: "tableTitle", text: "DESCRIPCION", alignment: "center", colSpan: 2 }, {}],
+              [
+                {
+                  stack: [
+                    {
+                      text: " ",
+                      style: "tableTitle",
+                    },
+                    {
+                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
+                    },
+                  ],
+                },
+                {
+                  stack: [
+                    {
+                      alignment: "justify",
+                      text: [
+                        { text: "EXAMEN DE FLUJO VAGINAL: ", bold: true },
+                        {
+                          text: "Se tomará nuestra de la secreción vaginal para examen directo y/o cultivo, previa colocación o no de especulo vaginal (depende del caso), muestra se toma con ayuda de un aplicador.",
+                        },
+                      ],
+                      style: "bodyNoBold9",
+                    },
+                  ],
+                },
+              ],
+              [
+                {
+                  stack: [
+                    {
+                      text: " ",
+                      style: "tableTitle",
+                    },
+                    {
+                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
+                    },
+                  ],
+                },
+                {
+                  stack: [
+                    {
+                      alignment: "justify",
+                      text: [
+                        { text: "CITOLOGIA VAGINAL: ", bold: true },
+                        {
+                          text: "Previa colocación	del especulo vaginal, se frotará la mucosa del cuello uterino, con un cepillo y espátula especiales, para obtener muestras del tejido celular, el material se extiende sobre una lámina, que luego de un proceso de colaboración es analizada bajo el microscopio.",
+                        },
+                      ],
+                      style: "bodyNoBold9",
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "1- Me han explicado en un lenguaje claro y comprensible la naturaleza y propósito del  procedimiento, también me han informado de las ventajas, complicaciones, molestias y  riesgos que pueden producirse, tales como aumento de peso, acné, nauseas pasajeras, leve dolor mamario o pélvico, cervicitis, secreción genital o prurito, irregularidades menstruales (hemorragia, ausencia de menstruación por periodos largos o manchados intermitentes) y cefalea, que disminuyen en la medida que el organismo se adapte al implante.",
+          text: [
+            { text: "RIESGO: ", bold: true },
+            {
+              text: "No existe ningún riesgo identificado al tomar las muestras, incluso si usted se encuentra embarazada actualmente. Cuando el cuello del útero se encuentra muy inflamado, en ocasiones se presenta escaso sangrado vaginal (manchado). Que cede solo y no requiere tratamiento.",
+            },
+          ],
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "2- Se me ha dado la oportunidad de hacer preguntas y mis preguntas han sido contestadas satisfactoriamente.",
+          text: [
+            { text: "LIMITACION: ", bold: true },
+            {
+              text: "Pacientes con antecedentes de traumas o cirugía reciente en región genital y/o estructuras circundantes, que dificulten el examen.",
+            },
+          ],
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "3- Se me ha informado plenamente que retirado el implante y al no iniciar inmediatamente otro método de planificación familiar tengo la oportunidad de quedar embarazada.",
+          text: [
+            { text: "USTED DEBE SABER QUE: ", bold: true },
+            {
+              text: "Para este examen se utilizan elementos nuevos y desechables. Son procedimientos seguros y muy rara vez presentan complicaciones durante la toma de las muestras se puede presentar alguna molestia como dolor leve que cederá rápidamente su colaboración es muy importante para realizarlo, en el tiempo indicado y con menor incomodidad.",
+            },
+          ],
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "4- Se me ha informado de todos los signos de alarma por los cuales debo consultar una vez se me haya realizado el procedimiento tales como: fiebre, enrojecimiento, sangrado y salida de secreción por el sitio de incisión, dolor de cabeza intenso que no cede a la toma de analgésicos, dolor intenso del brazo en el cual fue insertado el implante subdermico.",
+          text: [
+            {
+              text: "No existe pruebas exactas para establecer el grado de riesgo, sin embargo, el profesional asignado establecerá si se puede o no realizar la prueba solicitada y tomara las medidas especiales para garantizar de la mejor forma de su seguridad.",
+            },
+          ],
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "5- Tengo la opción de decidir en contra del procedimiento (sin sacrificar mis derechos a servicios o beneficios médicos, de salud y otros dentro de la eps).",
+          text: [
+            { text: "RECOMENDACIONES: ", bold: true },
+            {
+              text: "Si posteriormente el examen presenta algún síntoma como sangrado vaginal, dolor abdominal, ardor para orinar y/o fiebre, flujo vaginal de mal olor y no se encuentra en nuestras instalaciones, consulte a su médico tratante o asista al servicio de urgencias que le corresponde.",
+            },
+          ],
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "6- Se me explico que el embarazo con este método de planificación familiar ocurre en una proporción de de menos de 1 en 100 mujeres al año.",
+          text: [
+            { text: "HE COMPRENDIDO CON CLARIDAD TODO LO ESCRITO ANTERIORMENTE. ", bold: true },
+            {
+              text: "Yo he tenido la oportunidad de preguntar y resolver todas mis dudas. ",
+            },
+            { text: "ACEPTO LA REALIZACION DEL EXAMEN - DECLARO QUE LA DECISION QUE TOMO ES LIBRE Y VOLUNTARIA DOY MI CONSENTIMIENTO ", bold: true },
+            {
+              text: "para que el profesional del Hospital Local Primer Nivel E.S.E FuentedeOro me realice el procedimiento diagnostico solicitado por mi médico tratante. ",
+            },
+            {
+              text: "he aceptado la toma del estudio, la entidad en mención y el médico, quedan autorizados para llevar a cabo las conductas o procedimientos médicos necesarios tendientes a resolver las complicaciones imprevisibles del procedimiento que mediante este documento autorizo.",
+            },
+          ],
           style: "bodyNoBold9",
         },
         {
           marginTop: 8,
           alignment: "justify",
-          text: "7- Se me explico que las contraindicaciones son: enfermedad trombo embolica venosa activa, presencia o antecedentes de enfermedad hepática severa, presencia o antecedentes de tumores hepáticos malignos o benignos, sospecha o certeza de neoplasias malignas dependientes de hormonas sexuales, hemorragia vaginal sin diagnosticar; para lo cual existe registro en la historia clínica.",
-          style: "bodyNoBold9",
-        },
-        {
-          bold: true,
-          marginTop: 8,
-          alignment: "justify",
-          text: "CERTIFICO QUE HE LEIDO Y COMPRENDIDO PERFECTAMENTE LO ANTERIOR Y QUE TODOS LOS ESPACIOS EN BLANCO HAN SIDO COMPLETADOS ENTES DE MI FIRMA Y QUE ME ENCUENTRO EN LIBERTAD DE EXPRESAR MI VOLUNTAD Y POR LO TANTO AUTORIZO ME SEA REALIZADO EL PRECEDIMIENTO.",
+          text: [
+            {
+              text: "Entiendo que me puedo retractar de este consentimiento cuando así lo desee, debiendo informal al equipo médico de diagnóstico del cambio de esta decisión.",
+            },
+          ],
           style: "bodyNoBold9",
         },
       ],

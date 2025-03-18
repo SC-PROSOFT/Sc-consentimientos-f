@@ -47,8 +47,8 @@
               <p style="font-weight: bold; margin-top: 10px">¿Autoriza?</p>
             </div>
             <div class="text-center">
-              <q-radio color="primary" v-model="HIC060.autoriza" val="S" label="SI" />
-              <q-radio color="primary" v-model="HIC060.autoriza" val="N" label="NO" />
+              <q-radio disabled color="primary" v-model="autoriza" val="S" label="SI" />
+              <q-radio disabled color="primary" v-model="autoriza" val="N" label="NO" />
             </div>
           </div>
           <div class="row q-mb-lg">
@@ -151,11 +151,13 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC060, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
+import "dayjs/locale/es";
+dayjs.locale("es");
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const router = useRouter();
@@ -177,11 +179,10 @@ const HIC060 = reactive({
   microterritorio: "",
   aux_enfermeria: "",
   familia: "",
-  autoriza: "",
   lugar_atenc: "",
   dia_atenc: "",
   mes_atenc: "",
-  autoriza_foto: "",
+  autoriza_foto: "S",
   telefono: "",
   direcc: "",
 });
@@ -244,8 +245,15 @@ const form = ref({
   },
 });
 const opcion_hic060 = ref(null);
-
+const autoriza = computed(() => {
+  return opcion_hic060.value == "AUTORIZAR" ? "S" : "N";
+});
 onMounted(() => {
+  HIC060.dia_atenc = dayjs().date();
+  HIC060.mes_atenc = dayjs().format("MMMM");
+  HIC060.telefono = getPaci.telefono;
+  HIC060.direcc = getPaci.direccion;
+  HIC060.municipio = getPaci.descrip_ciudad;
   HIC060.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });

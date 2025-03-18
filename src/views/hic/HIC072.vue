@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic058"
+            v-model="opcion_hic072"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,17 +13,17 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic058 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic058 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic058">
-              {{ opcion_hic058 }}
+          <p :class="opcion_hic072 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic072 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic072">
+              {{ opcion_hic072 }}
             </q-chip>
           </p>
         </div>
         <div class="row">
           <p>Fecha:&nbsp;</p>
-          <p>{{ HIC058.fecha }}</p>
+          <p>{{ HIC072.fecha_act }}</p>
         </div>
-        <div class="row">
+        <div>
           <p style="text-align: justify">
             Dentro de las normas éticas exigidas por la Ley 23 de 1981, se encuentra el deber de informar adecuada y oportunamente a todos sus
             pacientes los riesgos que puedan derivarse del tratamiento que le será practicado, solicitando su consentimiento anticipadamente e
@@ -38,16 +38,12 @@
             profesional de la salud al tercer o cuarto día posterior a la consulta de inserción. Algunas de las reacciones adversas se pueden
             presentar en alrededor del 10% de las usuarias.
           </p>
-          <p>
-            Yo &nbsp;<span class="text-bold">{{ getPaci.descrip }}</span> identificada con <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;
-            <span class="text-bold">{{ getPaci.cod }}</span
-            >, expedida en <span class="text-bold">{{ getPaci.descrip_ciudad }},</span>
+          <p style="text-align: justify">
+            Yo <span class="text-bold">{{ getPaci.descrip }}</span> identificada con C.C. o T.I. <span class="text-bold">{{ getPaci.cod }}</span
+            >, expedida en <span class="text-bold">{{ getPaci.descrip_ciudad }}</span
+            >, declaro que he sido suficientemente informada en términos claros y comprensibles por: __________________ identificada con C.C
+            No.__________, acerca del procedimiento inserción de implante subdérmico hormonal.
           </p>
-          <p>declaro que he sido suficientemente informada en términos claros y comprensibles por:</p>
-          <Input_ v-model="HIC058.prof_informa" :field="form.prof_informa" :inputStyle="{ width: '400px' }" />
-          <p>identificado(a) con C.C No.:</p>
-          <Input_ v-model="HIC058.cod_prof_informa" :field="form.cod_prof_informa" :inputStyle="{ width: '150px' }" />
-          <p>acerca del procedimiento inserción de implante subdérmico hormonal.</p>
         </div>
         <div class="text-center" style="width: 100%">
           <p style="font-weight: bold; margin-top: 10px">DECLARO:</p>
@@ -91,18 +87,6 @@
             QUE ME ENCUENTRO EN LIBERTAD DE EXPRESAR MI VOLUNTAD Y POR LO TANTO AUTORIZO ME SEA REALIZADO EL PRECEDIMIENTO.
           </p>
         </div>
-        <!-- <div class="row">
-          <p>Fecha:&nbsp;</p>
-          <p>{{ HIC058.fecha_act }}</p>
-        </div>
-        <div class="row">
-          <p>Nombre del paciente:&nbsp;</p>
-          <p>{{ getPaci.descrip }}</p>
-        </div>
-        <div class="row">
-          <p>Tipo de identificación:&nbsp;</p>
-          <p>{{ getPaci.tipo_id }}</p>
-        </div> -->
       </q-card-section>
     </div>
     <q-separator />
@@ -121,7 +105,6 @@
           :disable="!getAcomp.descrip ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           :registro_profe="getAcomp.cod"
-          :tipo_doc="getAcomp.tipo_id"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
@@ -130,7 +113,7 @@
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.cod"
+          :registro_profe="getProf.registro_profe"
           quien_firma="FIRMA PROFESIONAL"
           class="col-4"
         />
@@ -139,7 +122,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic058 ? false : true"
+        :disable="opcion_hic072 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -153,9 +136,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC058, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC072, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
@@ -174,31 +157,17 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC058 = reactive({
-  fecha: "",
-  prof_informa: "",
-  cod_prof_informa: "",
+const HIC072 = reactive({
+  fecha_act: "",
+  hora_act: "",
+  exam_fluj_vaginal: "N",
+  citolog_vaginal: "N",
 });
 
-const form = ref({
-  prof_informa: {
-    id: "prof_informa",
-    maxlength: "150",
-    label: "",
-    campo_abierto: true,
-  },
-  cod_prof_informa: {
-    id: "cod_prof_informa",
-    maxlength: "15",
-    label: "",
-    tipo: "number",
-    campo_abierto: true,
-  },
-});
-const opcion_hic058 = ref(null);
+const opcion_hic072 = ref(null);
 
 onMounted(() => {
-  HIC058.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC072.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -213,35 +182,27 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  const requiere = "Complete el siguiente campo";
   if (!firma_recibida.value && !getAcomp.cod) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
-  if (opcion_hic058.value == "AUTORIZAR") {
-    if (!HIC058.prof_informa) {
-      return CON851("?", "info", `${requiere}, profesional `, () => foco_(form, "prof_informa"));
-    }
-    if (!HIC058.cod_prof_informa) {
-      return CON851("?", "info", `${requiere}, Identificación profesional `, () => foco_(form, "cod_prof_informa"));
-    }
-  }
+
   grabarConsentimiento();
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC058));
+  const datos_format = JSON.parse(JSON.stringify(HIC072));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic058.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic072.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC058",
+    cod_consen: "HIC072",
     disentimiento: "N",
     ...datos_format,
   };
@@ -300,8 +261,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_hic058 = {
-      autorizo: opcion_hic058.value == "AUTORIZAR" ? true : false,
+    const datos_hic072 = {
+      autorizo: opcion_hic072.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
@@ -313,7 +274,7 @@ const imprimirConsen = async () => {
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
-      ...HIC058,
+      ...HIC072,
     };
 
     const firmas = {
@@ -325,15 +286,15 @@ const imprimirConsen = async () => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC058" },
-      content: impresionHIC058({
-        datos: datos_hic058,
+      datos: { ...firmas, cod_consen: "HIC072" },
+      content: impresionHIC072({
+        datos: datos_hic072,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC058" },
-      content: impresionHIC058({
-        datos: datos_hic058,
+      datos: { ...firmas, cod_consen: "HIC072" },
+      content: impresionHIC072({
+        datos: datos_hic072,
       }),
     });
 

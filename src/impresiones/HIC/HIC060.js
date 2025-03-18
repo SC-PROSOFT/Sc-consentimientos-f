@@ -1,10 +1,5 @@
 import { evaluarParentesco } from "@/formatos/utils";
-import { useModuleFormatos } from "@/store";
-
-const { getPaci } = useModuleFormatos();
-
 export const impresionHIC060 = ({ datos }) => {
-  console.log("datos ", datos);
   var dd = {
     stack: [contenidoHIC060(), firmas()],
   };
@@ -16,29 +11,29 @@ export const impresionHIC060 = ({ datos }) => {
           alignment: "justify",
           text: [
             { text: "Yo " },
-            { text: datos.paciente.descrip },
+            { bold: true, text: datos.paciente.descrip },
             { text: ", identificado(a) con tipo de documento: " },
-            { text: datos.paciente.tipo_id },
+            { bold: true, text: datos.paciente.tipo_id },
             { text: " , N°: " },
-            { text: datos.paciente.cod },
+            { bold: true, text: datos.paciente.cod },
             { text: " , expedida en " },
-            { text: datos.paciente.descrip_ciudad },
+            { bold: true, text: datos.paciente.descrip_ciudad },
             { text: " , residente del municipio " },
-            { text: datos.municipio },
+            { bold: true, text: datos.municipio },
             { text: " , en el sector: " },
-            { text: datos.microterritorio },
+            { bold: true, text: datos.microterritorio },
             { text: " , en representación de la familia: " },
-            { text: datos.familia.trim() },
-            { bold: true, text: " , Si autorizo: " },
-            { bold: true, decoration: "underline", text: datos.autoriza == "S" ? " X " : "    " },
+            { bold: true, text: datos.familia.trim() + ",\n" },
+            { bold: true, text: " Si autorizo: " },
+            { bold: true, decoration: "underline", text: datos.autorizo ? " X " : "    " },
             { bold: true, text: " , No autorizo: " },
-            { bold: true, decoration: "underline", text: datos.autoriza == "N" ? " X " : "    " },
+            { bold: true, decoration: "underline", text: !datos.autorizo ? " X " : "    " },
             {
               text: " , al equipo básico en Atención Primaria en Salud  APS de la E.S.E. Empresa Social del Estado, en específico al auxiliar de enfermería: ",
             },
             { bold: true, text: datos.aux_enfermeria.trim() },
             {
-              text: "para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud Con Enfoque ambiental,  Familiar e individual comprometiéndome a suministrar la información requerida mediante el diligenciamiento de fichas ",
+              text: " para que ingrese a mi hogar con el objetivo de desarrollar la Estrategia de Atención Primaria en Salud Con Enfoque ambiental,  Familiar e individual comprometiéndome a suministrar la información requerida mediante el diligenciamiento de fichas ",
             },
             {
               italics: true,
@@ -53,6 +48,7 @@ export const impresionHIC060 = ({ datos }) => {
           style: "bodyNoBold9",
         },
         {
+          alignment: "justify",
           marginTop: 10,
           style: "bodyNoBold9",
           ul: [
@@ -70,11 +66,11 @@ export const impresionHIC060 = ({ datos }) => {
           marginTop: 10,
           alignment: "justify",
           text: [
-            { text: "Dado en: " },
+            { text: "Dado en " },
             { text: datos.lugar_atenc },
-            { text: "el día: " },
+            { text: "el día " },
             { text: datos.dia_atenc },
-            { text: " del mes de: " },
+            { text: " del mes de " },
             { text: datos.mes_atenc },
             { text: " del año 2025." },
           ],
@@ -84,10 +80,11 @@ export const impresionHIC060 = ({ datos }) => {
           marginTop: 10,
           alignment: "justify",
           text: [
-            { text: "Autoriza registro fotográfico: SI" },
-            { decoration: "underline", text: datos.autoriza_foto == "S" ? " X " : "    " },
-            { text: " ; NO " },
-            { decoration: "underline", text: datos.autoriza_foto == "N" ? " X " : "    " },
+            { text: "Autoriza registro fotográfico: " },
+            { bold: true, text: "SI" },
+            { bold: true, decoration: "underline", text: datos.autoriza_foto == "S" ? " X " : "    " },
+            { bold: true, text: " NO " },
+            { bold: true, decoration: "underline", text: datos.autoriza_foto == "N" ? " X " : "    " },
           ],
           style: "bodyNoBold9",
         },
@@ -102,12 +99,11 @@ export const impresionHIC060 = ({ datos }) => {
           table: {
             headerRows: 1,
             widths: ["30%", "70%"],
-
             body: [
-              ["Nombre completo", datos.paciente.descrip],
-              ["Tipo  y numero de documento", `${datos.paciente.tipo_id} ${datos.paciente.cod}`],
-              ["Teléfono", datos.telefono],
-              ["Dirección", datos.direcc],
+              [{ bold: true, text: "Nombre completo" }, datos.paciente.descrip],
+              [{ bold: true, text: "Tipo  y numero de documento" }, `${datos.paciente.tipo_id} ${datos.paciente.cod}`],
+              [{ bold: true, text: "Teléfono" }, datos.telefono],
+              [{ bold: true, text: "Dirección" }, datos.direcc],
             ],
           },
         },

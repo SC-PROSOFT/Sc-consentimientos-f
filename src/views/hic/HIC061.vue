@@ -23,69 +23,78 @@
           <p>Fecha:&nbsp;</p>
           <p>{{ HIC061.fecha_act }}</p>
         </div>
-        <div>
+        <div v-if="!getAcomp.descrip">
           <p style="text-align: justify">
-            Dentro de las normas éticas exigidas por la Ley 23 de 1981, se encuentra el deber de informar adecuada y oportunamente a todos sus
-            pacientes los riesgos que puedan derivarse del tratamiento que le será practicado, solicitando su consentimiento anticipadamente e
-            igualmente lo exige la guía para la atención en planificación familiar a hombres y mujeres.
+            Yo <span class="text-bold">{{ getPaci.descrip }}</span> identificado(a) con <span class="text-bold">{{ getPaci.tipo_id }}</span> N°.
+            <span class="text-bold">{{ getPaci.cod }}</span
+            >, con residencia en <span class="text-bold">{{ getPaci.direccion }}</span
+            >, número de teléfono <span class="text-bold">{{ getPaci.telefono }}</span>
+            , manifiesto a ustedes mi aceptación del proceso de consulta por psicología ofrecido por la E.S.E Primer Nivel Granada Salud, reconociendo
+            que me han explicado y he comprendido las condiciones generales de la atención, por lo cual, pongo en conocimiento que mi asistencia es
+            voluntaria y hace parte de mi proceso de recuperación y bienestar emocional.
           </p>
 
           <p style="text-align: justify">
-            El procedimiento consiste en: Previo asepsia con un antiséptico adecuado, se inserta debajo de la piel, dos barras que contienen hormona
-            anticonceptiva (levonorgestrel X 75 mg) a través de una pequeña inserción no mayor a dos milímetros (no requiere sutura); realizada en una
-            zona de la piel sana de la cara interna del brazo izquierdo o derecho según sea la mujer diestra o zurda, en donde ha sido aplicada
-            anestésico local previamente. Una vez insertadas las barras se procede a colocar un vendaje, el cual debe ser removido solo por un
-            profesional de la salud al tercer o cuarto día posterior a la consulta de inserción. Algunas de las reacciones adversas se pueden
-            presentar en alrededor del 10% de las usuarias.
+            Entiendo que toda la información obtenida y resultados referentes a mi procedimiento, serán tratados bajo confidencialidad y anonimato,
+            como lo dicta el código Deontológico y Bioético y otras disposiciones, no será divulgada ni entregada sin mi consentimiento expreso,
+            excepto cuando la orden de entrega provenga de una autoridad judicial competente (conforme al artículo 25 de la Ley 1090 de 2006). También
+            entiendo y por lo tanto estoy de acuerdo con la necesidad de quebrantar este principio de confidencialidad en caso de presentarse
+            situaciones que pongan en grave peligro mi integridad física o mental o de algún miembro de la comunidad. (Ley 1090 de 2006).
           </p>
+
           <p style="text-align: justify">
-            Yo <span class="text-bold">{{ getPaci.descrip }}</span> identificada con C.C. o T.I. <span class="text-bold">{{ getPaci.cod }}</span
-            >, expedida en <span class="text-bold">{{ getPaci.descrip_ciudad }}</span
-            >, declaro que he sido suficientemente informada en términos claros y comprensibles por: __________________ identificada con C.C
-            No.__________, acerca del procedimiento inserción de implante subdérmico hormonal.
+            Autorizo al psicólogo profesional a cargo de mi proceso para que consulte mi situación con otros profesionales de la E.S.E Primer Nivel
+            Granada o terceros expertos para brindar la mejor atención posible. Reconozco que la información que le brindo al profesional es verdadera
+            y corresponde a mi realidad, ya que sobre dicha información se plantean las propuestas de la orientación. También reconozco que la
+            decisión de continuar o suspender las consultas por psicología y las actividades programadas, son tomadas por mí. La orientación
+            psicológica requiere mi compromiso, asistencia, puntualidad, participación, además de mi colaboración al diligenciar registros,
+            documentos, pruebas con información personal que será utilizada por el profesional para el proceso de consulta por psicología.
           </p>
+          <p style="text-align: justify">He leído, comprendido y accedido de manera voluntaria a lo anterior mencionado.</p>
         </div>
-        <div class="text-center" style="width: 100%">
-          <p style="font-weight: bold; margin-top: 10px">DECLARO:</p>
-        </div>
-        <div>
+        <div v-if="getAcomp.descrip">
           <p style="text-align: justify">
-            1- Me han explicado en un lenguaje claro y comprensible la naturaleza y propósito del procedimiento, también me han informado de las
-            ventajas, complicaciones, molestias y riesgos que pueden producirse, tales como aumento de peso, acné, nauseas pasajeras, leve dolor
-            mamario o pélvico, cervicitis, secreción genital o prurito, irregularidades menstruales (hemorragia, ausencia de menstruación por periodos
-            largos o manchados intermitentes) y cefalea, que disminuyen en la medida que el organismo se adapte al implante.
-          </p>
-          <p style="text-align: justify">
-            2- Se me ha dado la oportunidad de hacer preguntas y mis preguntas han sido contestadas satisfactoriamente.
-          </p>
-          <p style="text-align: justify">
-            3- Se me ha informado plenamente que retirado el implante y al no iniciar inmediatamente otro método de planificación familiar tengo la
-            oportunidad de quedar embarazada.
+            Yo <span class="text-bold">{{ getAcomp.descrip }}</span> identificado(a) con <span class="text-bold">{{ getAcomp.tipo_id }}</span> N°.
+            <span class="text-bold">{{ getAcomp.cod }}</span
+            >, con residencia en <span class="text-bold">{{ getAcomp.direccion }}</span
+            >, número de teléfono <span class="text-bold">{{ getAcomp.telefono }}</span> , obrando en calidad de representante legal del (la) menor
+            <span class="text-bold">{{ getPaci.descrip }}</span> Identificado(a) con <span class="text-bold">{{ getPaci.tipo_id }}</span> N°.
+            <span class="text-bold">{{ getPaci.cod }}</span> expedida en <span class="text-bold">{{ getPaci.descrip_ciudad }}</span> manifiesto a
+            ustedes que se me ha informado del proceso de consulta por psicología ofrecido por la E.S.E Primer Nivel Granada Salud, reconociendo que
+            me han explicado y he comprendido las condiciones generales de la atención, por lo cual, pongo en conocimiento que la asistencia de mi
+            hijo/hoja es voluntaria y hace parte de su proceso de recuperación y bienestar emocional.
           </p>
           <p style="text-align: justify">
-            4- Se me ha informado de todos los signos de alarma por los cuales debo consultar una vez se me haya realizado el procedimiento tales
-            como: fiebre, enrojecimiento, sangrado y salida de secreción por el sitio de incisión, dolor de cabeza intenso que no cede a la toma de
-            analgésicos, dolor intenso del brazo en el cual fue insertado el implante subdermico.
+            Entiendo que toda la información obtenida y resultados referentes al procedimiento, serán tratados bajo confidencialidad y anonimato, como
+            lo dicta el código Deontológico y Bioético y otras disposiciones, no será divulgada ni entregada sin mi consentimiento expreso, excepto
+            cuando la orden de entrega provenga de una autoridad judicial competente (conforme al artículo 25 de la Ley 1090 de 2006). También
+            entiendo y por lo tanto estoy de acuerdo con la necesidad de quebrantar este principio de confidencialidad en caso de presentarse
+            situaciones que pongan en grave peligro mi integridad física o mental o de algún miembro de la comunidad. (Ley 1090 de 2006).
           </p>
           <p style="text-align: justify">
-            5- Tengo la opción de decidir en contra del procedimiento (sin sacrificar mis derechos a servicios o beneficios médicos, de salud y otros
-            dentro de la eps).
+            Autorizamos al psicólogo profesional a cargo del proceso para que consulte la situación con otros profesionales de la E.S.E Primer Nivel
+            Granada o terceros expertos para brindar la mejor atención posible. Reconocemos que la información que se le brindo al profesional es
+            verdadera y corresponde a mi realidad, ya que sobre dicha información se plantean las propuestas de la orientación. También reconocemos
+            que la decisión de continuar o suspender las consultas por psicología y las actividades programadas, son tomadas por nosotros. La
+            orientación psicológica requiere mi compromiso, asistencia, puntualidad, participación, además de mi colaboración al diligenciar
+            registros, documentos, pruebas con información personal que será utilizada por el profesional para el proceso de consulta por psicología.
           </p>
           <p style="text-align: justify">
-            6- Se me explico que el embarazo con este método de planificación familiar ocurre en una proporción de de menos de 1 en 100 mujeres al
-            año.
+            Para conocer su respuesta ante esta consulta individual, es necesario que por favor conteste lo siguiente:
           </p>
-          <p style="text-align: justify">
-            7- Se me explico que las contraindicaciones son: enfermedad trombo embolica venosa activa, presencia o antecedentes de enfermedad hepática
-            severa, presencia o antecedentes de tumores hepáticos malignos o benignos, sospecha o certeza de neoplasias malignas dependientes de
-            hormonas sexuales, hemorragia vaginal sin diagnosticar; para lo cual existe registro en la historia clínica.
-          </p>
-        </div>
-        <div>
-          <p style="font-weight: bold; margin-top: 10px">
-            CERTIFICO QUE HE LEIDO Y COMPRENDIDO PERFECTAMENTE LO ANTERIOR Y QUE TODOS LOS ESPACIOS EN BLANCO HAN SIDO COMPLETADOS ENTES DE MI FIRMA Y
-            QUE ME ENCUENTRO EN LIBERTAD DE EXPRESAR MI VOLUNTAD Y POR LO TANTO AUTORIZO ME SEA REALIZADO EL PRECEDIMIENTO.
-          </p>
+          <div class="row">
+            <div class="text-left">
+              <p style="font-weight: bold; margin-top: 10px">Autorizo</p>
+            </div>
+            <div class="text-center">
+              <p style="text-align: justify">
+                <q-radio disabled color="primary" v-model="autoriza" val="S" label="SI" />
+                <q-radio disabled color="primary" v-model="autoriza" val="N" label="NO" />
+                para desarrollar la asesoría individual por psicología con mi hijo/hija, conozco y comprendo el propósito de esta.
+              </p>
+            </div>
+          </div>
+          <p style="text-align: justify">He leído, comprendido y accedido de manera voluntaria a lo anterior mencionado.</p>
         </div>
       </q-card-section>
     </div>
@@ -137,7 +146,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC061, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -165,7 +174,9 @@ const HIC061 = reactive({
 });
 
 const opcion_hic061 = ref(null);
-
+const autoriza = computed(() => {
+  return opcion_hic061.value == "AUTORIZAR" ? "S" : "N";
+});
 onMounted(() => {
   HIC061.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();

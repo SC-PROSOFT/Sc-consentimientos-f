@@ -50,6 +50,12 @@ export const impresionHIC074 = ({ datos }) => {
                       bold: true,
                       text: datos.paciente.descrip_ciudad,
                     },
+                  ],
+                },
+              ],
+              [
+                {
+                  text: [
                     {
                       text: " Fecha: ",
                     },
