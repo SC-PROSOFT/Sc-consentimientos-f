@@ -204,12 +204,21 @@ const validarDatos = async () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(LAB015));
+  let llave_paci;
+  console.log("getPaci.cod ", getPaci.cod);
+
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: LAB015.opcion_lab015 == "AUTORIZAR" ? "1" : "2",
     llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${getPaci.cod}00000000`,
+    llave_consen: llave_paci,
+    // llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     oper_consen: getSesion.oper,
     cod_consen: getSesion.modulo == "HIC" ? "HIC046" : "LAB015",
     cod_med: getProf.cod,

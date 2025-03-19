@@ -228,12 +228,19 @@ const validarDatos = async () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(LAB016));
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: LAB016.opcion_lab016 == "AUTORIZAR" ? "1" : "2",
     llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${getPaci.cod}00000000`,
+    llave_consen: llave_paci,
+    // llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     oper_consen: getSesion.oper,
     cod_consen: getSesion.modulo == "HIC" ? "HIC047" : "LAB016",
     cod_med: getProf.cod,
@@ -242,7 +249,9 @@ const grabarConsentimiento = async () => {
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
-
+  {
+    PAU470624;
+  }
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
