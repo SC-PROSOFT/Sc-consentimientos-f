@@ -18,8 +18,9 @@ export const impresionHIC064 = ({ datos }) => {
           style: "bodyNoBold9",
         },
         {
-          style: "bodyNoBold9",
           marginTop: 10,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: [
             { bold: true, style: "tableTitle", text: "Pruebas basadas en detección de anticuerpos: " },
             {
@@ -28,8 +29,9 @@ export const impresionHIC064 = ({ datos }) => {
           ],
         },
         {
-          style: "bodyNoBold9",
           marginTop: 10,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: [
             { bold: true, style: "tableTitle", text: "Prueba de antígeno: " },
             {
@@ -38,8 +40,9 @@ export const impresionHIC064 = ({ datos }) => {
           ],
         },
         {
-          style: "bodyNoBold9",
           marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
           text: [
             { bold: true, style: "tableTitle", text: "Propósito de la prueba: " },
             {
@@ -48,8 +51,9 @@ export const impresionHIC064 = ({ datos }) => {
           ],
         },
         {
-          style: "bodyNoBold9",
           marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
           text: [
             { bold: true, style: "tableTitle", text: "Beneficios: " },
             {
@@ -58,8 +62,9 @@ export const impresionHIC064 = ({ datos }) => {
           ],
         },
         {
-          style: "bodyNoBold9",
           marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
           text: [
             { bold: true, style: "tableTitle", text: "Riesgos:  " },
             { bold: true, italics: true, style: "tableTitle", text: "Hisopado: " },
@@ -71,8 +76,9 @@ export const impresionHIC064 = ({ datos }) => {
           ],
         },
         {
-          style: "bodyNoBold9",
           marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
           text: [
             { style: "tableTitle", text: "Yo " },
             { bold: true, style: "tableTitle", text: datos.paciente.descrip },
@@ -140,17 +146,36 @@ export const impresionHIC064 = ({ datos }) => {
         },
         {
           marginTop: 10,
-          alignment: "left",
-          text: "Autorizo de manera voluntaria, previa y explicita a la institución para tratar mis datos personales de acuerdo con la política de tratamiento de datos personales de la empresa y para los fines relacionados con su objeto social.",
+          alignment: "justify",
           style: "bodyNoBold9",
+          text: "Autorizo de manera voluntaria, previa y explicita a la institución para tratar mis datos personales de acuerdo con la política de tratamiento de datos personales de la empresa y para los fines relacionados con su objeto social.",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          text: [
+            { bold: true, text: "Nombre paciente: " },
+            { text: datos.paciente.descrip },
+            { text: "\n " },
+            { bold: true, text: "Documento: " },
+            { text: datos.paciente.tipo_id },
+            { bold: true, text: " N°. " },
+            { text: datos.paciente.cod },
+            { text: "\n " },
+            { bold: true, text: "E-mail: " },
+            { text: datos.paciente.email },
+            { text: "\n " },
+            { bold: true, text: "Teléfono: " },
+            { text: datos.paciente.telefono },
+            { text: "\n " },
+            { bold: true, text: "Dirección: " },
+            { text: datos.paciente.direccion },
+            { text: "\n " },
+            { bold: true, text: "EPS: " },
+            { text: datos.paciente.descrip_eps },
+          ],
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
   function firmaHuellaPaci(huella_paci, cant_firmas) {

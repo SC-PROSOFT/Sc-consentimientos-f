@@ -1,7 +1,7 @@
 import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci } = useModuleFormatos();
+const { getEmpresa } = useModuleFormatos();
 
 export const impresionHIC063 = ({ datos }) => {
   console.log("datos ", datos);
@@ -18,59 +18,49 @@ export const impresionHIC063 = ({ datos }) => {
             headerRows: 1,
             widths: ["100%"],
             body: [
-              [{ text: [{ text: "Nombres y apellidos: " }, { text: datos.paciente.descrip }] }],
+              [{ text: [{ bold: true, text: "Nombres y apellidos: " }, { text: datos.paciente.descrip }] }],
               [
                 {
                   text: [
                     {
+                      bold: true,
                       text: "Tipo documento de identidad: ",
                     },
+                    { text: datos.paciente.tipo_id },
                     {
-                      text: datos.paciente.tipo_id,
+                      bold: true,
+                      text: " Número documento de identidad: ",
                     },
-                    {
-                      text: " Numero documento de identidad: ",
-                    },
-                    {
-                      text: datos.paciente.cod,
-                    },
-                    {
-                      text: " De: ",
-                    },
-                    {
-                      text: datos.paciente.descrip_ciudad,
-                    },
+                    { text: datos.paciente.cod },
+                    { bold: true, text: " De: " },
+                    { text: datos.paciente.descrip_ciudad },
                   ],
                 },
               ],
               [
                 {
                   text: [
-                    {
-                      text: "Edad: ",
-                    },
+                    { bold: true, text: "Edad: " },
                     {
                       text: calcularEdad(datos.paciente.nacim),
                     },
-                    {
-                      text: " Teléfono: ",
-                    },
+                    { bold: true, text: " Teléfono: " },
                     {
                       text: datos.paciente.telefono,
                     },
                   ],
                 },
               ],
-              [{ text: "Procedimiento: Asesoría en Interrupción Voluntaria del Embarazo" }],
+              [
+                {
+                  text: [{ bold: true, text: "Procedimiento: " }, { text: "Asesoría en Interrupción Voluntaria del Embarazo." }],
+                },
+              ],
               [
                 {
                   text: [
-                    {
-                      text: "Metodología: ",
-                    },
-                    {
-                      text: "Asesoría Individual: ",
-                    },
+                    { bold: true, text: "Metodología: " },
+                    { text: "Asesoría Individual: " },
                     {
                       bold: true,
                       decoration: "underline",
@@ -85,6 +75,11 @@ export const impresionHIC063 = ({ datos }) => {
                       text: datos.asesoria_grupal == "S" ? " X " : "    ",
                     },
                   ],
+                },
+              ],
+              [
+                {
+                  text: [{ bold: true, text: "Lugar: " }, { text: getEmpresa.nomusu }, { bold: true, text: " Fecha: " }, { text: datos.fecha }],
                 },
               ],
             ],
@@ -311,15 +306,11 @@ export const impresionHIC063 = ({ datos }) => {
             {
               text: "Quien ha informado y asesorado a la paciente sobre la sentencia C-355/06 y su procedimiento. Nombres y apellidos del profesional: ",
             },
-            {
-              text: datos.prof.descrip,
-            },
+            { bold: true, text: datos.prof.descrip },
             {
               text: " Documento de identidad: ",
             },
-            {
-              text: datos.prof.cod,
-            },
+            { bold: true, text: datos.prof.cod },
             {
               text: ".",
             },

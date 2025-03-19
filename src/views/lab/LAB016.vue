@@ -88,7 +88,7 @@
           :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
           :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
           :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
-          @reciFirma="callBackFirmaAcomp"
+          @reciFirma="callBackFirma"
           :huella_="getAcomp.cod == '' ? huella_paci : ''"
           :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           class="col-4"

@@ -57,8 +57,8 @@
             detección (prueba de antígeno).
           </p>
           <p style="text-align: justify">
-            <span class="text-bold">Riesgos:</span> Hisopado: Sangrado nasal, dolor leve y molestia en nariz o garganta. Muestra de sangre: Dolor,
-            equimosis (amoratamiento), sangrado leve en el lugar de la punción.
+            <span class="text-bold">Riesgos:</span> <span class="text-bold" style="font-style: italic">Hisopado:</span> Sangrado nasal, dolor leve y
+            molestia en nariz o garganta. Muestra de sangre: Dolor, equimosis (amoratamiento), sangrado leve en el lugar de la punción.
           </p>
           <p>
             Yo, <span class="text-bold">{{ getPaci.descrip }}</span> , identificado (a) con documento N°
@@ -87,6 +87,31 @@
             Autorizo de manera voluntaria, previa y explicita a la institución para tratar mis datos personales de acuerdo con la política de
             tratamiento de datos personales de la empresa y para los fines relacionados con su objeto social.
           </p>
+        </div>
+        <div class="row">
+          <p>Nombre paciente:&nbsp;</p>
+          <p>{{ getPaci.descrip }}</p>
+        </div>
+        <div class="row">
+          <p>Documento:&nbsp;</p>
+          <p>{{ getPaci.tipo_id }}&nbsp;</p>
+          <p>N°.&nbsp;{{ getPaci.cod }}</p>
+        </div>
+        <div class="row">
+          <p>E-mail:&nbsp;</p>
+          <p>{{ getPaci.email }}</p>
+        </div>
+        <div class="row">
+          <p>Teléfono:&nbsp;</p>
+          <p>{{ getPaci.telefono }}</p>
+        </div>
+        <div class="row">
+          <p>Dirección:&nbsp;</p>
+          <p>{{ getPaci.direccion }}</p>
+        </div>
+        <div class="row">
+          <p>EPS:&nbsp;</p>
+          <p>{{ getPaci.descrip_eps }}</p>
         </div>
       </q-card-section>
     </div>

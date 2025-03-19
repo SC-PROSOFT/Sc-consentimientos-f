@@ -20,43 +20,50 @@
           </p>
         </div>
         <div class="row q-mt-md q-mb-md" style="width: 100%">
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos: {{ getPaci.descrip }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 60%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Documento de Identificación: {{ getPaci.cod }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Documento de Identificación:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.cod }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 40%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">De: {{ getPaci.descrip_ciudad }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 40%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">De:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip_ciudad }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 60%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Edad: {{ calcularEdad(getPaci.nacim) }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Edad:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ calcularEdad(getPaci.nacim) }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 40%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Teléfono: {{ getPaci.telefono }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 40%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Teléfono:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.telefono }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Procedimiento: Asesoría en Interrupción Voluntaria del Embarazo.</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Procedimiento:</p>
+            <p style="margin-top: 10px; margin-left: 10px">Asesoría en Interrupción Voluntaria del Embarazo.</p>
           </div>
           <div class="row" style="border: 1px solid #ccc; width: 100%">
             <div>
               <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Metodología:</p>
             </div>
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Asesoría Individual</p>
+            <p style="margin-top: 10px; margin-left: 10px">Asesoría Individual</p>
             <div>
               <q-checkbox color="primary" keep-color left-label v-model="HIC063.asesoria_indiv" true-value="S" false-value="N" />
             </div>
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Asesoría Grupal</p>
+            <p style="margin-top: 10px; margin-left: 10px">Asesoría Grupal</p>
             <div>
               <q-checkbox color="primary" keep-color left-label v-model="HIC063.asesoria_grupal" true-value="S" false-value="N" />
             </div>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 80%">
+          <div class="text-left row" style="border: 1px solid #ccc; width: 80%">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Lugar:</p>
-            <Input_ v-model="HIC063.lugar" :field="form.lugar" />
+            <p style="margin-top: 10px; margin-left: 10px">{{ getEmpresa.nomusu }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 20%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha: {{ HIC063.fecha_act }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 20%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ HIC063.fecha_act }}</p>
           </div>
         </div>
         <div>
@@ -237,7 +244,6 @@ const HIC063 = reactive({
   fecha_act: "",
   asesoria_indiv: "N",
   asesoria_grupal: "N",
-  lugar: "",
   dar_adopcion: "",
   ini_ctl_prenatal: "",
   inter_voluntaria: "",
@@ -245,14 +251,7 @@ const HIC063 = reactive({
   inter_farm_super: "",
   inter_no_farmac: "",
 });
-const form = ref({
-  lugar: {
-    id: "lugar",
-    maxlength: "150",
-    label: "",
-    campo_abierto: true,
-  },
-});
+
 const opcion_hic063 = ref(null);
 
 onMounted(() => {

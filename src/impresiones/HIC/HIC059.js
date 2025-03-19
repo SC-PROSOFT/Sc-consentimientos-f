@@ -108,12 +108,6 @@ export const impresionHIC059 = ({ datos }) => {
           },
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
