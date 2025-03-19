@@ -21,7 +21,7 @@
         </div>
         <div class="row">
           <p>Fecha:&nbsp;</p>
-          <p>{{ HIC061.fecha_act }}</p>
+          <p>{{ HIC061.fecha }}</p>
         </div>
         <div v-if="!getAcomp.descrip">
           <p style="text-align: justify">
@@ -83,11 +83,9 @@
             Para conocer su respuesta ante esta consulta individual, es necesario que por favor conteste lo siguiente:
           </p>
           <div class="row">
-            <div class="text-left">
-              <p style="font-weight: bold; margin-top: 10px">Autorizo</p>
-            </div>
-            <div class="text-center">
+            <div class="text-center row">
               <p style="text-align: justify">
+                Autorizo
                 <q-radio disabled color="primary" v-model="autoriza" val="S" label="SI" />
                 <q-radio disabled color="primary" v-model="autoriza" val="N" label="NO" />
                 para desarrollar la asesoría individual por psicología con mi hijo/hija, conozco y comprendo el propósito de esta.
@@ -167,7 +165,7 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC061 = reactive({
-  fecha_act: "",
+  fecha: "",
   hora_act: "",
   exam_fluj_vaginal: "N",
   citolog_vaginal: "N",
@@ -178,7 +176,7 @@ const autoriza = computed(() => {
   return opcion_hic061.value == "AUTORIZAR" ? "S" : "N";
 });
 onMounted(() => {
-  HIC061.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC061.fecha = dayjs(getEmpresa.fecha).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
