@@ -173,7 +173,14 @@ const HIC061 = reactive({
 
 const opcion_hic061 = ref(null);
 const autoriza = computed(() => {
-  return opcion_hic061.value == "AUTORIZAR" ? "S" : "N";
+  switch (opcion_hic061.value) {
+    case "AUTORIZAR":
+      return "S";
+    case "REVOCAR":
+      return "N";
+    default:
+      return "";
+  }
 });
 onMounted(() => {
   HIC061.fecha = dayjs(getEmpresa.fecha).format("YYYY-MM-DD");

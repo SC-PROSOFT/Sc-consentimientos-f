@@ -21,11 +21,11 @@
         </div>
         <div class="row">
           <p>Fecha:&nbsp;</p>
-          <p>{{ HIC067.fecha_act }}</p>
+          <p style="font-weight: bold">{{ HIC067.fecha }}</p>
         </div>
         <div class="row">
           <p>Lugar:&nbsp;</p>
-          <Input_ v-model="HIC067.lugar" :field="form.lugar" :inputStyle="{ width: '350px' }" />
+          <p style="font-weight: bold">{{ getEmpresa.nomusu }}</p>
         </div>
         <div class="q-mt-lg">
           <p style="text-align: justify">
@@ -111,21 +111,13 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC067 = reactive({
-  fecha_act: "",
-  lugar: "",
+  fecha: "",
 });
-const form = ref({
-  lugar: {
-    id: "lugar",
-    maxlength: "150",
-    label: "",
-    campo_abierto: true,
-  },
-});
+
 const opcion_hic067 = ref(null);
 
 onMounted(() => {
-  HIC067.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC067.fecha = dayjs(getEmpresa.fecha).format("YYYY-MM-DD");
   getFirmaProf();
 });
 

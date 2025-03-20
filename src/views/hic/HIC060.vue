@@ -246,7 +246,14 @@ const form = ref({
 });
 const opcion_hic060 = ref(null);
 const autoriza = computed(() => {
-  return opcion_hic060.value == "AUTORIZAR" ? "S" : "N";
+  switch (opcion_hic060.value) {
+    case "AUTORIZAR":
+      return "S";
+    case "REVOCAR":
+      return "N";
+    default:
+      return "";
+  }
 });
 onMounted(() => {
   HIC060.dia_atenc = dayjs().date();

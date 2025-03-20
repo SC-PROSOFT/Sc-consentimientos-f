@@ -21,23 +21,23 @@
         </div>
         <div class="row">
           <p>Fecha:&nbsp;</p>
-          <p>{{ HIC065.fecha_act }}</p>
+          <p style="font-weight: bold">{{ HIC065.fecha }}</p>
         </div>
         <div class="row">
           <p>Nombre del paciente:&nbsp;</p>
-          <p>{{ getPaci.descrip }}</p>
+          <p style="font-weight: bold">{{ getPaci.descrip }}</p>
         </div>
         <div class="row">
           <p>Identificación:&nbsp;</p>
-          <p>{{ getPaci.cod }}</p>
+          <p style="font-weight: bold">{{ getPaci.cod }}</p>
         </div>
         <div class="row">
           <p>Nombre del familiar/responsable (Si es menor de edad/Discapacidad):&nbsp;</p>
-          <p>{{ getAcomp.descrip }}</p>
+          <p style="font-weight: bold">{{ getAcomp.descrip }}</p>
         </div>
         <div class="row">
           <p>Identificación familiar/responsable:&nbsp;</p>
-          <p>{{ getAcomp.cod }}</p>
+          <p style="font-weight: bold">{{ getAcomp.cod }}</p>
         </div>
         <div>
           <p style="text-align: justify">
@@ -138,7 +138,7 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC065 = reactive({
-  fecha_act: "",
+  fecha: "",
   hora_act: "",
   exam_fluj_vaginal: "N",
   citolog_vaginal: "N",
@@ -147,7 +147,7 @@ const HIC065 = reactive({
 const opcion_hic065 = ref(null);
 
 onMounted(() => {
-  HIC065.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC065.fecha = dayjs(getEmpresa.fecha).format("YYYY-MM-DD");
   getFirmaProf();
 });
 

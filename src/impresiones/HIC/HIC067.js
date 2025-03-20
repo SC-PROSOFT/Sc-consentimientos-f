@@ -1,7 +1,7 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci } = useModuleFormatos();
+const { getEmpresa } = useModuleFormatos();
 
 export const impresionHIC067 = ({ datos }) => {
   var dd = {
@@ -22,7 +22,7 @@ export const impresionHIC067 = ({ datos }) => {
           marginTop: 8,
           text: [
             { bold: true, style: "tableTitle", text: " Lugar: " },
-            { style: "bodyNoBold9", text: datos.lugar },
+            { style: "bodyNoBold9", text: getEmpresa.nomusu },
           ],
         },
         {

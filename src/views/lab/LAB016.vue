@@ -239,8 +239,8 @@ const grabarConsentimiento = async () => {
     estado: LAB016.opcion_lab016 == "AUTORIZAR" ? "1" : "2",
     llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    llave_consen: llave_paci,
-    // llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
+    // llave_consen: llave_paci,
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     oper_consen: getSesion.oper,
     cod_consen: getSesion.modulo == "HIC" ? "HIC047" : "LAB016",
     cod_med: getProf.cod,
@@ -249,9 +249,7 @@ const grabarConsentimiento = async () => {
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
-  {
-    PAU470624;
-  }
+
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {

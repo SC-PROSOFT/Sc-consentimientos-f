@@ -15,35 +15,35 @@ export const impresionHIC065 = ({ datos }) => {
           marginTop: 8,
           text: [
             { style: "tableTitle", text: "Fecha: " },
-            { style: "bodyNoBold9", text: datos.fecha },
+            { bold: true, style: "bodyNoBold9", text: datos.fecha },
           ],
         },
         {
           marginTop: 2,
           text: [
             { style: "tableTitle", text: "Nombre del paciente: " },
-            { style: "bodyNoBold9", text: datos.paciente.descrip },
+            { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
           ],
         },
         {
           marginTop: 2,
           text: [
             { style: "tableTitle", text: "Identificación: " },
-            { style: "bodyNoBold9", text: datos.paciente.cod },
+            { bold: true, style: "bodyNoBold9", text: datos.paciente.cod },
           ],
         },
         {
           marginTop: 2,
           text: [
             { style: "tableTitle", text: "Nombre del familiar/responsable (Si es menor de edad/Discapacidad): " },
-            { style: "bodyNoBold9", text: datos.acomp.descrip },
+            { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip },
           ],
         },
         {
           marginTop: 2,
           text: [
             { style: "tableTitle", text: "Identificación familiar/responsable: " },
-            { style: "bodyNoBold9", text: datos.acomp.cod },
+            { bold: true, style: "bodyNoBold9", text: datos.acomp.cod },
           ],
         },
         {

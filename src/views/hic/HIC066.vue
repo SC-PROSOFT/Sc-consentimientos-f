@@ -21,11 +21,11 @@
         </div>
         <div class="row">
           <p>Fecha:&nbsp;</p>
-          <p>{{ HIC066.fecha_act }}</p>
+          <p style="font-weight: bold">{{ HIC066.fecha }}</p>
         </div>
         <div class="row">
           <p>Lugar:&nbsp;</p>
-          <Input_ v-model="HIC066.lugar" :field="form.lugar" :inputStyle="{ width: '350px' }" />
+          <p style="font-weight: bold">{{ getEmpresa.nomusu }}</p>
         </div>
         <div class="q-mt-lg">
           <p style="text-align: justify">
@@ -91,7 +91,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC066, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
@@ -111,21 +111,13 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC066 = reactive({
-  fecha_act: "",
-  lugar: "",
+  fecha: "",
 });
-const form = ref({
-  lugar: {
-    id: "lugar",
-    maxlength: "150",
-    label: "",
-    campo_abierto: true,
-  },
-});
+
 const opcion_hic066 = ref(null);
 
 onMounted(() => {
-  HIC066.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC066.fecha = dayjs(getEmpresa.fecha).format("YYYY-MM-DD");
   getFirmaProf();
 });
 

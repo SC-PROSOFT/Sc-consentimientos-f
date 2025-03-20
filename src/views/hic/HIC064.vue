@@ -21,19 +21,11 @@
         </div>
         <div class="row">
           <p>Granada,&nbsp;</p>
-          <p>Día {{ HIC064.fecha_act_obj.dia }}</p>
-          <p>&nbsp;Mes:&nbsp;</p>
-          <p>{{ HIC064.fecha_act_obj.mes }}</p>
-          <p>&nbsp;Año:&nbsp;</p>
-          <p>{{ HIC064.fecha_act_obj.anio }}</p>
+          <p>fecha: {{ HIC064.fecha }}</p>
         </div>
         <div class="row">
-          <p>Fecha de toma de muestra,&nbsp;</p>
-          <p>Día {{ HIC064.fecha_act_obj.dia }}</p>
-          <p>&nbsp;Mes:&nbsp;</p>
-          <p>{{ HIC064.fecha_act_obj.mes }}</p>
-          <p>&nbsp;Año:&nbsp;</p>
-          <p>{{ HIC064.fecha_act_obj.anio }}</p>
+          <p class="text-left">Fecha de toma de muestra:</p>
+          <Input_ v-model="HIC064.fecha_toma_muestra" :field="form.fecha_toma_muestra" />
         </div>
         <div class="text-center" style="width: 100%">
           <p style="font-weight: bold; margin-top: 10px">INFORMACIÓN PARA LA TOMA DE MUESTRA</p>
@@ -90,28 +82,29 @@
         </div>
         <div class="row">
           <p>Nombre paciente:&nbsp;</p>
-          <p>{{ getPaci.descrip }}</p>
+          <p style="font-weight: bold">{{ getPaci.descrip }}</p>
         </div>
         <div class="row">
           <p>Documento:&nbsp;</p>
-          <p>{{ getPaci.tipo_id }}&nbsp;</p>
-          <p>N°.&nbsp;{{ getPaci.cod }}</p>
+          <p style="font-weight: bold">{{ getPaci.tipo_id }}&nbsp;</p>
+          <p>N°.</p>
+          <p style="font-weight: bold">&nbsp;{{ getPaci.cod }}</p>
         </div>
         <div class="row">
           <p>E-mail:&nbsp;</p>
-          <p>{{ getPaci.email }}</p>
+          <p style="font-weight: bold">{{ getPaci.email }}</p>
         </div>
         <div class="row">
           <p>Teléfono:&nbsp;</p>
-          <p>{{ getPaci.telefono }}</p>
+          <p style="font-weight: bold">{{ getPaci.telefono }}</p>
         </div>
         <div class="row">
           <p>Dirección:&nbsp;</p>
-          <p>{{ getPaci.direccion }}</p>
+          <p style="font-weight: bold">{{ getPaci.direccion }}</p>
         </div>
         <div class="row">
           <p>EPS:&nbsp;</p>
-          <p>{{ getPaci.descrip_eps }}</p>
+          <p style="font-weight: bold">{{ getPaci.descrip_eps }}</p>
         </div>
       </q-card-section>
     </div>
@@ -184,9 +177,10 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC064 = reactive({
-  fecha_act: "",
+  fecha: "",
   hisopa_nasof: "",
   detec_anticuerp: "",
+  fecha_toma_muestra: "",
   fecha_act_obj: {
     dia: "",
     mes: "",
@@ -194,10 +188,21 @@ const HIC064 = reactive({
   },
 });
 
+const form = ref({
+  fecha_toma_muestra: {
+    id: "fecha_toma_muestra",
+    maxlength: "10",
+    label: "",
+    tipo: "date",
+    campo_abierto: true,
+  },
+});
+
 const opcion_hic064 = ref(null);
 
 onMounted(() => {
-  HIC064.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC064.fecha = dayjs(getEmpresa.fecha).format("YYYY-MM-DD");
+  HIC064.fecha_toma_muestra = dayjs().format("YYYY-MM-DD");
   HIC064.fecha_act_obj.dia = dayjs().date();
   HIC064.fecha_act_obj.mes = dayjs().month() + 1;
   HIC064.fecha_act_obj.anio = dayjs().year();

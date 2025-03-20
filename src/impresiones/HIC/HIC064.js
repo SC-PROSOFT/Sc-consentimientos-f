@@ -12,6 +12,29 @@ export const impresionHIC064 = ({ datos }) => {
       stack: [
         {
           marginTop: 10,
+          alignment: "left",
+          text: [
+            { bold: true, text: "Granada, " },
+            { bold: true, text: " fecha: " },
+            {
+              text: datos.fecha,
+            },
+          ],
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 3,
+          alignment: "left",
+          style: "bodyNoBold9",
+          text: [
+            { bold: true, text: " Fecha de toma de muestra: " },
+            {
+              text: datos.fecha_toma_muestra,
+            },
+          ],
+        },
+        {
+          marginTop: 10,
           bold: true,
           alignment: "center",
           text: "INFORMACIÓN PARA LA TOMA DE MUESTRA",
