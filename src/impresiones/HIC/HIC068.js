@@ -20,26 +20,34 @@ export const impresionHIC068 = ({ datos }) => {
             body: [
               [
                 {
-                  text: [{ text: "Fecha: " }, { text: datos.fecha }, { text: " Sede de la atención: " }, { text: getEmpresa.nomusu }],
+                  text: [
+                    { bold: true, text: "Fecha: " },
+                    { text: datos.fecha },
+                    { bold: true, text: " Sede de la atención: " },
+                    { text: getEmpresa.nomusu },
+                  ],
                 },
               ],
-              [{ text: [{ text: "Nombres y apellidos: " }, { text: datos.paciente.descrip }] }],
+              [{ text: [{ bold: true, text: "Nombres y apellidos: " }, { text: datos.paciente.descrip }] }],
               [
                 {
                   text: [
                     {
+                      bold: true,
                       text: "Tipo documento de identidad: ",
                     },
                     {
                       text: datos.paciente.tipo_id,
                     },
                     {
+                      bold: true,
                       text: " Numero documento de identidad: ",
                     },
                     {
                       text: datos.paciente.cod,
                     },
                     {
+                      bold: true,
                       text: " De: ",
                     },
                     {
@@ -52,6 +60,7 @@ export const impresionHIC068 = ({ datos }) => {
                 {
                   text: [
                     {
+                      bold: true,
                       text: "EPS: ",
                     },
                     {
@@ -73,8 +82,9 @@ export const impresionHIC068 = ({ datos }) => {
         },
         {
           marginTop: 10,
-          text: "Que me han explicado y he entendido satisfactoriamente la naturaleza y propósitos del procedimiento, asi como los riesgos y que me han aclarado las dudas al respecto.",
           style: "bodyNoBold9",
+          alignment: "justify",
+          text: "Que me han explicado y he entendido satisfactoriamente la naturaleza y propósitos del procedimiento, asi como los riesgos y que me han aclarado las dudas al respecto.",
         },
         {
           marginTop: 10,
@@ -86,9 +96,10 @@ export const impresionHIC068 = ({ datos }) => {
               [
                 {
                   text: [
-                    { text: "Comprendo perfectamente que el procedimiento va a consistir en la " },
+                    { alignment: "justify", text: "Comprendo perfectamente que el procedimiento va a consistir en la " },
                     { text: "exploración VAGINAL, " },
                     {
+                      alignment: "justify",
                       text: "que es un examen físico en el cual el médico introduce uno o dos dedos en la vagina de la paciente o se introduce un especulo para evaluar el estado del cuello uterino y las paredes vaginales. Puede ser necesario para identificar las causas de dolor pélvico, sangrado anormal u otras molestias.",
                     },
                   ],
@@ -115,9 +126,10 @@ export const impresionHIC068 = ({ datos }) => {
               [
                 {
                   text: [
-                    { text: "Comprendo  perfectamente  que  el  procedimiento  va  a  consistir en la " },
+                    { alignment: "justify", text: "Comprendo  perfectamente  que  el  procedimiento  va  a  consistir en la " },
                     { text: "exploración RECTAL, " },
                     {
+                      alignment: "justify",
                       text: "que es un examen físico en el cual el médico introduce un dedo, usando guantes y lubricante en el recto del paciente para evaluar la próstata (en el caso de hombres) y otras estructuras en caso de  dolor rectal, sangrado, alteraciones en los intestinos o para la evaluación de condiciones como hemorroides.",
                     },
                   ],
@@ -149,44 +161,37 @@ export const impresionHIC068 = ({ datos }) => {
               [
                 {
                   text: [
-                    { text: "Yo, " },
-                    { text: datos.paciente.descrip },
+                    { bold: true, text: "Yo, " },
+                    { bold: true, text: datos.paciente.descrip },
                     {
                       text: [
-                        {
-                          text: "AUTORIZADO ",
-                        },
+                        { bold: true, text: "AUTORIZADO " },
                         {
                           bold: true,
                           decoration: "underline",
-                          text: datos.autoriza == "S" ? " X " : "    ",
+                          text: datos.autorizo ? " X " : "    ",
                         },
-                        {
-                          text: " NO AUTORIZADO ",
-                        },
+                        { bold: true, text: " NO AUTORIZADO " },
                         {
                           bold: true,
                           decoration: "underline",
-                          text: datos.autoriza == "N" ? " X " : "    ",
+                          text: !datos.autorizo ? " X " : "    ",
                         },
                       ],
                     },
                     {
+                      alignment: "justify",
                       text: " al personal asistencial de la entidad, para que, en ejercicio legal de su profesión y de acuerdo con los procedimientos establecidos, se realice  la exploración ",
                     },
                     {
                       text: [
-                        {
-                          text: "VAGINAL ",
-                        },
+                        { bold: true, text: "VAGINAL " },
                         {
                           bold: true,
                           decoration: "underline",
                           text: datos.vaginal == "S" ? " X " : "    ",
                         },
-                        {
-                          text: " RECTAL ",
-                        },
+                        { bold: true, text: " RECTAL " },
                         {
                           bold: true,
                           decoration: "underline",
@@ -216,11 +221,12 @@ export const impresionHIC068 = ({ datos }) => {
 
               [
                 {
+                  alignment: "justify",
                   text: [
                     { text: "Yo, " },
-                    { text: datos.prof.descrip.trim() },
+                    { bold: true, text: datos.prof.descrip.trim() },
                     { text: ", en desarrollo de mis actividades como " },
-                    { text: datos.prof.descrip_atiende },
+                    { bold: true, text: datos.prof.descrip_atiende },
                     { text: "Certifico que he informado al paciente/ acudiente del propósito y naturaleza del procedimiento." },
                   ],
                 },

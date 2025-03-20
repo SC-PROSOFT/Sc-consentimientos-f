@@ -20,24 +20,51 @@
           </p>
         </div>
         <div class="row justify-between items-center">
-          <p>Fecha: {{ HIC070.fecha_act }}</p>
-          <p>Hora: {{ HIC070.hora_act }}</p>
-          <p>Nombres y apellidos del paciente: {{ getPaci.descrip }}</p>
+          <div class="row">
+            <p style="font-weight: bold">Fecha:</p>
+            <p>&nbsp;{{ HIC070.fecha }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Hora:</p>
+            <p>&nbsp;{{ HIC070.hora }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Nombres y apellidos del paciente:</p>
+            <p>&nbsp;{{ getPaci.descrip }}</p>
+          </div>
         </div>
         <div class="row justify-between items-center">
-          <p>Edad: {{ calcularEdad(getPaci.nacim) }}</p>
-          <p>Sexo: {{ getPaci.sexo }}</p>
-          <p>Fecha de nacimiento: {{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }}</p>
-          <p>Dirección: {{ getPaci.direccion }}</p>
+          <div class="row">
+            <p style="font-weight: bold">Edad:</p>
+            <p>&nbsp;{{ calcularEdad(getPaci.nacim) }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Sexo:</p>
+            <p>&nbsp; {{ getPaci.sexo }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Fecha de nacimiento:</p>
+            <p>&nbsp;{{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Dirección:</p>
+            <p>&nbsp;{{ getPaci.direccion }}</p>
+          </div>
         </div>
         <div class="row justify-between items-center">
-          <p>Telefono: {{ getPaci.telefono }}</p>
-          <p>EPS: {{ getPaci.descrip_eps }}</p>
+          <div class="row">
+            <p style="font-weight: bold">Telefono:</p>
+            <p>&nbsp; {{ getPaci.telefono }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">EPS:</p>
+            <p>&nbsp; {{ getPaci.descrip_eps }}</p>
+          </div>
         </div>
         <div>
           <p style="text-align: justify">
-            Y que el señor (a):<span class="text-bold">{{ getAcomp.descrip }}</span> identificado con C.C.
-            <span class="text-bold">{{ getAcomp.cod }}</span
+            Y que el señor (a): <span class="text-bold">{{ getPaci.descrip }} </span> identificado con C.C.
+            <span class="text-bold">{{ getPaci.cod }}</span
             >, mayor de edad, actuando en calidad de representante legal y/o tutor.
           </p>
         </div>
@@ -48,8 +75,8 @@
           <p style="text-align: justify">
             En concordancia con el Artículo 1502 del Código Civil; que he comprendido satisfactoriamente la información que me han dado con respecto a
             mi estado de salud y la necesidad de atención domiciliaria, por lo tanto,
-            <q-radio color="primary" v-model="HIC070.autoriza" val="S" label="AUTORIZO" />
-            <q-radio color="primary" v-model="HIC070.autoriza" val="N" label="NO AUTORIZO" />
+            <q-radio color="primary" disabled v-model="autoriza" val="S" label="AUTORIZO" />
+            <q-radio color="primary" disabled v-model="autoriza" val="N" label="NO AUTORIZO" />
             al personal de la IPS ESE PRIMER NIVEL GRANADA SALUD, para que ingresen a mi domicilio, y, me realicen los procedimientos de enfermería
             tales como:
           </p>
@@ -139,7 +166,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC070, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -160,9 +187,8 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC070 = reactive({
-  fecha_act: "",
-  hora_act: "",
-  autoriza: "S",
+  fecha: "",
+  hora: "",
   curacion: "N",
   cambio_sonda: "N",
   glucometria: "N",
@@ -183,9 +209,19 @@ const form = ref({
 });
 
 const opcion_hic070 = ref(null);
-
+const autoriza = computed(() => {
+  switch (opcion_hic070.value) {
+    case "AUTORIZAR":
+      return "S";
+    case "REVOCAR":
+      return "N";
+    default:
+      return "";
+  }
+});
 onMounted(() => {
-  HIC070.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC070.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC070.hora = dayjs().format("HH:mm");
   getFirmaProf();
 });
 

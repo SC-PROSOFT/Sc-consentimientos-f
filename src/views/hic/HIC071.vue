@@ -20,30 +20,43 @@
           </p>
         </div>
         <div class="row justify-between items-center">
-          <p>Ciudad: Granada/Meta</p>
-          <p>Fecha: {{ HIC071.fecha_act }}</p>
-          <p>Hora: {{ HIC071.hora_act }}</p>
+          <div class="row">
+            <p style="font-weight: bold">Ciudad:</p>
+            <p>&nbsp;Granada/Meta</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Fecha:</p>
+            <p>&nbsp;{{ HIC071.fecha }}</p>
+          </div>
+          <div class="row">
+            <p style="font-weight: bold">Hora:</p>
+            <p>&nbsp;{{ HIC071.hora }}</p>
+          </div>
         </div>
 
         <div class="row q-mt-md q-mb-md">
           <div class="text-center" style="border: 1px solid #ccc; width: 100%; background-color: #e0e0e0">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">DATOS DE IDENTIFICACIÓN DE LA PERSONA</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos: {{ getPaci.descrip }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">
-              Tipo de identificación: {{ getPaci.tipo_id }}&nbsp; Numero: {{ getPaci.cod }}
-            </p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Tipo de identificación:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.tipo_id }}</p>
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Numero:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.cod }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">
-              Fecha de nacimiento: {{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }} Edad: {{ calcularEdad(getPaci.nacim) }}
-            </p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha de nacimiento:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }}</p>
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Edad:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ calcularEdad(getPaci.nacim) }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre de la EAPB responsable: {{ getEmpresa.nomusu }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre de la EAPB responsable:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getEmpresa.nomusu }}</p>
           </div>
         </div>
 
@@ -149,6 +162,13 @@
               responsabilidad a las autoridades sanitarias o gubernamentales ni a las entidades que participaron en la aplicación de la vacuna contra
               el SARS-CoV-2/COVID-19 de brindar la atención en salud que sea necesaria por la aparición de posibles reacciones adversas no reportadas.
             </p>
+            <p style="padding: 8px">
+              En consecuencia, decido
+              <q-radio color="primary" disabled v-model="autoriza" val="S" label="ACEPTAR:" />
+              que se me aplique la vacuna.
+              <q-radio color="primary" disabled v-model="autoriza" val="N" label="NO ACEPTAR:" />
+              que se me aplique la vacuna.
+            </p>
           </div>
         </div>
 
@@ -158,7 +178,10 @@
           </div>
           <div class="text-justify" style="border: 1px solid #ccc; width: 100%">
             <p style="padding: 8px">
-              INSTITUCIÓN PRESTADORA DE SERVICIOS SALUD (IPS): ESE PRIMER NIVEL GRANADA SALUD DEPARTAMENTO/DISTRITO:META MUNICIPIO: GRANADA.
+              INSTITUCIÓN PRESTADORA DE SERVICIOS SALUD (IPS):
+              <span class="text-bold q-ml-xs" style="text-decoration: underline"> ESE PRIMER NIVEL GRANADA SALUD </span>
+              DEPARTAMENTO/DISTRITO: <span class="text-bold q-ml-xs" style="text-decoration: underline"> META </span> MUNICIPIO:
+              <span class="text-bold q-ml-xs"> GRANADA. </span>
             </p>
           </div>
         </div>
@@ -217,7 +240,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC071, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -238,8 +261,8 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC071 = reactive({
-  fecha_act: "",
-  hora_act: "",
+  fecha: "",
+  hora: "",
   nomb_vacuna: "",
   dos_dosis: "N",
   dosis_unica: "N",
@@ -255,9 +278,19 @@ const form = ref({
 });
 
 const opcion_hic071 = ref(null);
-
+const autoriza = computed(() => {
+  switch (opcion_hic071.value) {
+    case "AUTORIZAR":
+      return "S";
+    case "REVOCAR":
+      return "N";
+    default:
+      return "";
+  }
+});
 onMounted(() => {
-  HIC071.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC071.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC071.hora = dayjs().format("HH:mm");
   getFirmaProf();
 });
 

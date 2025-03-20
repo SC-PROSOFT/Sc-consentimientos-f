@@ -115,26 +115,26 @@ export const impresionHIC069 = ({ datos }) => {
             },
             {
               text: [
-                {
-                  text: "AUTORIZADO ",
-                },
+                { bold: true, text: "AUTORIZADO " },
                 {
                   bold: true,
                   decoration: "underline",
-                  text: datos.autoriza == "S" ? " X " : "    ",
+                  text: datos.autorizo ? " X " : "    ",
                 },
-                {
-                  text: " NO AUTORIZADO ",
-                },
+                { bold: true, text: " NO AUTORIZADO " },
                 {
                   bold: true,
                   decoration: "underline",
-                  text: datos.autoriza == "N" ? " X " : "    ",
+                  text: !datos.autorizo ? " X " : "    ",
                 },
               ],
             },
             {
-              text: "al personal de la IPS ESE PRIMER NIVEL GRANADA SALUD, para que ingrese a mi domicilio, y, acepto que me realicen los procedimientos de enfermería y/o medicina general según se requieran, además de lo anterior me comprometo a: ",
+              text: "al personal de la ",
+            },
+            { bold: true, text: "IPS ESE PRIMER NIVEL GRANADA SALUD, " },
+            {
+              text: "para que ingrese a mi domicilio, y, acepto que me realicen los procedimientos de enfermería y/o medicina general según se requieran, además de lo anterior me comprometo a: ",
             },
           ],
           style: "bodyNoBold9",
@@ -302,7 +302,7 @@ export const impresionHIC069 = ({ datos }) => {
           marginTop: 8,
           style: "bodyNoBold9",
           alignment: "left",
-          text: "DESCRIPCIÓN DEL PROCEDIMIENTO (técnica-materiales utilizados- Observaciones).",
+          text: "DESCRIPCIÓN DEL PROCEDIMIENTO (técnica-materiales utilizados- Observaciones):",
           bold: true,
         },
         {

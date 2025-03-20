@@ -20,24 +20,30 @@
           </p>
         </div>
         <div class="row q-mt-md q-mb-md" style="width: 100%">
-          <div class="text-left" style="border: 1px solid #ccc; width: 20%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha: {{ HIC068.fecha_act }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 20%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ HIC068.fecha_act }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 80%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Sede de la atenciónc: {{ getEmpresa.nomusu }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 80%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Sede de la atención:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getEmpresa.nomusu }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos: {{ getPaci.descrip }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip }}</p>
           </div>
 
-          <div class="text-left" style="border: 1px solid #ccc; width: 60%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Documento de Identificación: {{ getPaci.cod }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Documento de Identificación:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.cod }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 40%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">De: {{ getPaci.descrip_ciudad }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 40%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">De:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip_ciudad }}</p>
           </div>
-          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">EPS: {{ getPaci.descrip_eps }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">EPS:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip_eps }}</p>
           </div>
         </div>
         <div class="text-center" style="width: 100%">
@@ -87,8 +93,8 @@
           <div class="text-left" style="border: 1px solid #ccc; width: 100%">
             <p class="q-ml-xs q-mr-xs">
               <span class="text-bold q-ml-xs"> Yo, </span> {{ getPaci.descrip }}
-              <q-radio color="primary" v-model="HIC068.autoriza" val="S" label="AUTORIZO" />
-              <q-radio color="primary" v-model="HIC068.autoriza" val="N" label="NO AUTORIZO" />
+              <q-radio color="primary" disabled v-model="autoriza" val="S" label="AUTORIZO" />
+              <q-radio color="primary" disabled v-model="autoriza" val="N" label="NO AUTORIZO" />
               al personal asistencial de la entidad, para que, en ejercicio legal de su profesión y de acuerdo con los procedimientos establecidos, se
               realice la exploración:
               <q-checkbox color="primary" keep-color label="VAGINAL" v-model="HIC068.vaginal" true-value="S" false-value="N" />
@@ -102,8 +108,9 @@
           </div>
           <div class="text-left" style="border: 1px solid #ccc; width: 100%">
             <p class="q-ml-xs q-mr-xs">
-              Yo, {{ getProf.descrip }} , en desarrollo de mis actividades como {{ getProf.descrip_atiende }} Certifico que he informado al paciente/
-              acudiente del propósito y naturaleza del procedimiento.
+              Yo, <span class="text-bold"> {{ getProf.descrip }} </span>, en desarrollo de mis actividades como
+              <span class="text-bold"> {{ getProf.descrip_atiende }} </span> Certifico que he informado al paciente/ acudiente del propósito y
+              naturaleza del procedimiento.
             </p>
           </div>
         </div>
@@ -157,7 +164,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC068, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -179,13 +186,21 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC068 = reactive({
   fecha_act: "",
-  autoriza: "S",
   vaginal: "N",
   rectal: "N",
 });
 
 const opcion_hic068 = ref(null);
-
+const autoriza = computed(() => {
+  switch (opcion_hic068.value) {
+    case "AUTORIZAR":
+      return "S";
+    case "REVOCAR":
+      return "N";
+    default:
+      return "";
+  }
+});
 onMounted(() => {
   HIC068.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();

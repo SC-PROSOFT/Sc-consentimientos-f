@@ -36,19 +36,13 @@ export const impresionHIC071 = ({ datos }) => {
             {
               text: "Granada - Meta ",
             },
-            {
-              text: "Fecha: ",
-            },
+            { bold: true, text: "Fecha: " },
             {
               text: datos.fecha,
-              bold: true,
             },
-            {
-              text: " Hora: ",
-            },
+            { bold: true, text: " Hora: " },
             {
               text: datos.hora,
-              bold: true,
             },
           ],
           style: "bodyNoBold9",
@@ -226,6 +220,25 @@ export const impresionHIC071 = ({ datos }) => {
                       alignment: "justify",
                       text: "Entiendo que la suscripción de este documento constituye una expresión autónoma de mi voluntad, y que NO tiene por objeto eximir de responsabilidad a las autoridades sanitarias o gubernamentales ni a las entidades que participaron en la aplicación de la vacuna contra el SARS-CoV-2/COVID-19 de brindar la atención en salud que sea necesaria por la aparición de posibles reacciones adversas no reportadas. \n ",
                     },
+                    {
+                      text: [
+                        { text: "En consecuencia, decido " },
+                        { bold: true, text: "ACEPTAR: " },
+                        {
+                          bold: true,
+                          decoration: "underline",
+                          text: datos.autorizo ? " X " : "    ",
+                        },
+                        { text: " que se me aplique la vacuna. " },
+                        { bold: true, text: "NO ACEPTAR: " },
+                        {
+                          bold: true,
+                          decoration: "underline",
+                          text: !datos.autorizo ? " X " : "    ",
+                        },
+                        { text: " que se me aplique la vacuna." },
+                      ],
+                    },
                   ],
                 },
               ],
@@ -239,7 +252,7 @@ export const impresionHIC071 = ({ datos }) => {
           table: {
             widths: ["100%"],
             body: [
-              [{ alignment: "center", text: "DATOS DE LA INSTITUCIÓN", bold: true }],
+              [{ alignment: "center", bold: true, text: "DATOS DE LA INSTITUCIÓN" }],
               [
                 {
                   text: [
@@ -251,8 +264,8 @@ export const impresionHIC071 = ({ datos }) => {
                     {
                       alignment: "justify",
                       bold: true,
-                      underline: true,
-                      text: "ESE PRIMER NIVEL GRANADA SALUD \n ",
+                      decoration: "underline",
+                      text: "ESE PRIMER NIVEL GRANADA SALUD ",
                     },
                     {
                       alignment: "justify",
@@ -262,7 +275,7 @@ export const impresionHIC071 = ({ datos }) => {
                     {
                       alignment: "justify",
                       bold: true,
-                      underline: true,
+                      decoration: "underline",
                       text: "META ",
                     },
                     {
@@ -273,7 +286,7 @@ export const impresionHIC071 = ({ datos }) => {
                     {
                       alignment: "justify",
                       bold: true,
-                      underline: true,
+                      decoration: "underline",
                       text: " GRANADA ",
                     },
                   ],
