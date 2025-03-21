@@ -36,202 +36,346 @@ export const impresionHIC072 = ({ datos }) => {
         },
         {
           marginTop: 8,
+          style: "bodyNoBold9",
           text: [
-            { bold: true, style: "bodyNoBold9", text: "Nombre: " },
-            { style: "bodyNoBold9", text: datos.paciente.descrip },
+            { text: "Yo, " },
+            { bold: true, text: datos.nomb_prof },
+            { text: " Certifico que TENGO UNA ORDEN MEDICA para el procedimiento a realizar, identificado a continuación." },
           ],
         },
         {
           marginTop: 8,
-          text: [
-            { bold: true, style: "bodyNoBold9", text: "Tipo y numero documento de identificación: " },
-            { style: "bodyNoBold9", text: datos.paciente.tipo_id + " " + datos.paciente.cod },
-          ],
-        },
-        {
-          marginTop: 10,
-          bold: true,
-          alignment: "left",
-          text: "SEÑORA USUARIA",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "Es muy importante para nosotros que usted reciba y entienda la información, acerca del examen que fue solicitado por su médico tratante, quien determino que este estudio es la ",
-            },
-            {
-              text: "alternativa ",
-              bold: true,
-            },
-            {
-              text: "más adecuada con la cual se puede ",
-            },
-            {
-              text: "beneficiar, ",
-              bold: true,
-            },
-            {
-              text: ", obtener o confirmar el diagnóstico y que nosotros con gusto realizaremos, lea con atención y no tema solicitar explicación en caso de duda, para aclarar sus inquietudes y responder sus preguntas. A continuación, se mencionan los exámenes que se realizan a partir de muestras ginecológicas, marque con una x el procedimiento a realizar.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 5,
-          alignment: "center",
           table: {
-            widths: ["5%", "95%"],
+            widths: ["25%", "25%", "25%", "25%"],
             body: [
-              [{ style: "tableTitle", text: "DESCRIPCION", alignment: "center", colSpan: 2 }, {}],
               [
                 {
-                  stack: [
-                    {
-                      text: " ",
-                      style: "tableTitle",
-                    },
-                    {
-                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
-                    },
-                  ],
+                  colSpan: 4,
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "ADMINISTRACIÓN DE MEDICAMENTOS: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.admin_medic == "S" ? " X " : "    " },
+                      },
+                      { text: "    NOMBRE DE MEDICAMENTO: " },
+                      { bold: true, text: datos.nomb_medicament + "\n" },
+                      { bold: true, text: "Vía:    " },
+                      { text: "IV: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.iv == "S" ? " X " : "    " },
+                      },
+                      { text: " IM: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.im == "S" ? " X " : "    " },
+                      },
+                      { text: " SC: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.sc == "S" ? " X " : "    " },
+                      },
+                      { text: " ID: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.id == "S" ? " X " : "    " },
+                      },
+                      { text: " SB: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.sb == "S" ? " X " : "    " },
+                      },
+                      { text: " VO: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.vo == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "CURACIÓN: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.curacion == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
                 },
                 {
-                  stack: [
-                    {
-                      alignment: "justify",
-                      text: [
-                        { text: "EXAMEN DE FLUJO VAGINAL: ", bold: true },
-                        {
-                          text: "Se tomará nuestra de la secreción vaginal para examen directo y/o cultivo, previa colocación o no de especulo vaginal (depende del caso), muestra se toma con ayuda de un aplicador.",
-                        },
-                      ],
-                      style: "bodyNoBold9",
-                    },
-                  ],
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "RETIRO DE PUNTOS: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.retiro_puntos == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "LAVADO DE OIDO: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.lavado_oido == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "LAVADO OCULAR: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.lavado_ocular == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
                 },
               ],
               [
                 {
-                  stack: [
-                    {
-                      text: " ",
-                      style: "tableTitle",
-                    },
-                    {
-                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
-                    },
-                  ],
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "TOMA DE ELECTROCARDIOGRAMA: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.toma_electro == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
                 },
                 {
-                  stack: [
-                    {
-                      alignment: "justify",
-                      text: [
-                        { text: "CITOLOGIA VAGINAL: ", bold: true },
-                        {
-                          text: "Previa colocación	del especulo vaginal, se frotará la mucosa del cuello uterino, con un cepillo y espátula especiales, para obtener muestras del tejido celular, el material se extiende sobre una lámina, que luego de un proceso de colaboración es analizada bajo el microscopio.",
-                        },
-                      ],
-                      style: "bodyNoBold9",
-                    },
-                  ],
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: " CATETERISMO VESICAL: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.cateterismo_vesical == "S" ? " X " : "    " },
+                      },
+                    ],
+                  },
                 },
+                {
+                  colSpan: 2,
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { text: "OTROS NO RELACIONADOS: " },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.otr_no_relac == "S" ? " X \n" : "    \n" },
+                      },
+                      { text: "¿Cuál? " },
+                      { text: datos.descrip_otr_no_relac },
+                    ],
+                  },
+                },
+                {},
+              ],
+            ],
+          },
+        },
+
+        {
+          marginTop: 8,
+          table: {
+            widths: ["25%", "25%", "25%", "25%"],
+            body: [
+              [
+                {
+                  colSpan: 4,
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, alignment: "center", text: "POSIBLES COMPLICACIONES \n" },
+                      {
+                        alignment: "justify",
+                        text: "Entiendo que este procedimiento hace parte del tratamiento instaurado por el profesional tratante y que el personal designado para su realización posee la idoneidad y el entrenamiento suficiente para hacerlo; no obstante, entiendo que pueden presentarse complicaciones en algunos casos.",
+                      },
+                    ],
+                  },
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  colSpan: 4,
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, alignment: "justify", text: "ADMINISTRACIÓN DE MEDICAMENTOS: " },
+                      {
+                        alignment: "justify",
+                        text: "Reacciones alérgicas, intolerancia, interacción con otros medicamentos que el paciente haya recibido y en caso de administración por medio de inyectología se puede presentar dolor, inflamación, flebitis, infiltraciones o hematomas.",
+                      },
+                    ],
+                  },
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "CURACIONES: " },
+                      {
+                        text: "Dolor, inflamación.",
+                      },
+                    ],
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "RETIRO DE PUNTOS: " },
+                      {
+                        text: "Rubor, equimosis, molestia, dolor.",
+                      },
+                    ],
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "LAVADO DE OIDO: " },
+                      {
+                        text: "Molestia, inflamación, mareo.",
+                      },
+                    ],
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "LAVADO OCULAR: " },
+                      {
+                        text: "Molestia, inflamación.",
+                      },
+                    ],
+                  },
+                },
+              ],
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "TOMA ELECTROCARDIOGRAMA: " },
+                      {
+                        text: "La toma de EKG no implica ningún riesgo ni complicación.",
+                      },
+                    ],
+                  },
+                },
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "CATETERISMO VESICAL: " },
+                      {
+                        text: "Falsa vía uretral Infección urinaria Retención urinaria Hematuria.",
+                      },
+                    ],
+                  },
+                },
+                {
+                  colSpan: 2,
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "EN CASO DE OTRO PROCEDIMIENTO REGISTRAR EN ESTE ESPACIO LAS POSIBLES COMPLICACIONES: " },
+                      {
+                        text: datos.descrip_otr_procedim,
+                      },
+                    ],
+                  },
+                },
+                {},
               ],
             ],
           },
         },
         {
           marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "RIESGO: ", bold: true },
-            {
-              text: "No existe ningún riesgo identificado al tomar las muestras, incluso si usted se encuentra embarazada actualmente. Cuando el cuello del útero se encuentra muy inflamado, en ocasiones se presenta escaso sangrado vaginal (manchado). Que cede solo y no requiere tratamiento.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "LIMITACION: ", bold: true },
-            {
-              text: "Pacientes con antecedentes de traumas o cirugía reciente en región genital y/o estructuras circundantes, que dificulten el examen.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "USTED DEBE SABER QUE: ", bold: true },
-            {
-              text: "Para este examen se utilizan elementos nuevos y desechables. Son procedimientos seguros y muy rara vez presentan complicaciones durante la toma de las muestras se puede presentar alguna molestia como dolor leve que cederá rápidamente su colaboración es muy importante para realizarlo, en el tiempo indicado y con menor incomodidad.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "No existe pruebas exactas para establecer el grado de riesgo, sin embargo, el profesional asignado establecerá si se puede o no realizar la prueba solicitada y tomara las medidas especiales para garantizar de la mejor forma de su seguridad.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "RECOMENDACIONES: ", bold: true },
-            {
-              text: "Si posteriormente el examen presenta algún síntoma como sangrado vaginal, dolor abdominal, ardor para orinar y/o fiebre, flujo vaginal de mal olor y no se encuentra en nuestras instalaciones, consulte a su médico tratante o asista al servicio de urgencias que le corresponde.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            { text: "HE COMPRENDIDO CON CLARIDAD TODO LO ESCRITO ANTERIORMENTE. ", bold: true },
-            {
-              text: "Yo he tenido la oportunidad de preguntar y resolver todas mis dudas. ",
-            },
-            { text: "ACEPTO LA REALIZACION DEL EXAMEN - DECLARO QUE LA DECISION QUE TOMO ES LIBRE Y VOLUNTARIA DOY MI CONSENTIMIENTO ", bold: true },
-            {
-              text: "para que el profesional del Hospital Local Primer Nivel E.S.E FuentedeOro me realice el procedimiento diagnostico solicitado por mi médico tratante. ",
-            },
-            {
-              text: "he aceptado la toma del estudio, la entidad en mención y el médico, quedan autorizados para llevar a cabo las conductas o procedimientos médicos necesarios tendientes a resolver las complicaciones imprevisibles del procedimiento que mediante este documento autorizo.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "Entiendo que me puedo retractar de este consentimiento cuando así lo desee, debiendo informal al equipo médico de diagnóstico del cambio de esta decisión.",
-            },
-          ],
-          style: "bodyNoBold9",
+          table: {
+            alignment: "justify",
+            widths: ["100%"],
+            body: [
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      { bold: true, text: "CONSENTIMIENTO / DISENTIMIENTO: " },
+                      {
+                        text: "De forma libre e informada, ",
+                      },
+                      {
+                        text: " AUTORIZO ",
+                      },
+                      {
+                        text: { bold: true, decoration: "underline", text: datos.autorizo ? " X " : "    " },
+                      },
+                      {
+                        text: " NO AUTORIZO ",
+                      },
+                      {
+                        text: { bold: true, decoration: "underline", text: !datos.autorizo ? " X " : "    " },
+                      },
+                      {
+                        text: " al personal asistencial de la entidad, para que, en ejercicio legal de su profesión y de acuerdo con los procedimientos establecidos, se practique el procedimiento relacionado anteriormente.",
+                      },
+                    ],
+                  },
+                },
+              ],
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    text: [
+                      {
+                        text: "Nombre del paciente: ",
+                      },
+                      {
+                        bold: true,
+                        text: datos.paciente.descrip,
+                      },
+                      {
+                        text: ", No. de Identificación: ",
+                      },
+                      {
+                        bold: true,
+                        text: datos.paciente.cod,
+                      },
+                      {
+                        text: ", EPS: ",
+                      },
+                      {
+                        bold: true,
+                        text: datos.paciente.descrip_eps,
+                      },
+                    ],
+                  },
+                },
+              ],
+            ],
+          },
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
 
