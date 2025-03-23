@@ -26,7 +26,7 @@
           </div>
           <div class="text-left row" style="width: 20%">
             <p style="margin-top: 1px; margin-left: 1px">Fecha:</p>
-            <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">{{ HIC075.fecha_act }}</p>
+            <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">{{ HIC075.fecha }}</p>
           </div>
           <div class="text-left row" style="width: 50%">
             <p style="margin-top: 1px; margin-left: 1px">La señora (Nombre y apellidos):</p>
@@ -70,8 +70,9 @@
         </div>
 
         <div class="row">
-          <div class="text-justify" style="width: 100%">
-            <p class="q-ml-xs q-mr-xs">Que (NOMBRE Y APELLIDOS DEL PROFESIONAL QUE PROPORCIONA LA INFORMACIÓN) {{ getProf.descrip.trim() }}.</p>
+          <div class="text-justify row" style="width: 100%">
+            <p class="q-ml-xs q-mr-xs">Que (NOMBRE Y APELLIDOS DEL PROFESIONAL QUE PROPORCIONA LA INFORMACIÓN):</p>
+            <p class="q-ml-xs q-mr-xs" style="font-weight: bold">{{ getProf.descrip.trim() }}.</p>
           </div>
         </div>
         <ol>
@@ -173,8 +174,7 @@
         </div>
 
         <p style="text-align: justify">
-          Que se me realice la colocación de un Dispositivo Intrauterino (DIU) modelo T Cu 380 A en {{ getEmpresa.nomusu }}, fecha
-          {{ HIC075.fecha_act }}.
+          Que se me realice la colocación de un Dispositivo Intrauterino (DIU) modelo T Cu 380 A en {{ getEmpresa.nomusu }}, fecha {{ HIC075.fecha }}.
         </p>
 
         <div v-if="opcion_hic075 == 'REVOCAR'">
@@ -187,10 +187,10 @@
                 Yo, <span class="text-bold">{{ getPaci.descrip }} </span> Tipo documento de identidad
                 <span class="text-bold">{{ getPaci.tipo_id }} </span> N° <span class="text-bold">{{ getPaci.cod }} </span> expedida en
                 <span class="text-bold">{{ getPaci.descrip_ciudad }} </span> con domicilio en <span class="text-bold">{{ getPaci.direccion }} </span>
-                <span class="text-bold">REVOCO </span> el consentimiento prestado en fecha <span class="text-bold">{{ HIC075.fecha_act }} </span> y no
+                <span class="text-bold">REVOCO </span> el consentimiento prestado en fecha <span class="text-bold">{{ HIC075.fecha }} </span> y no
                 deseo proseguir el procedimiento propuesto, que doy con esta fecha por finalizado. en
                 <span class="text-bold">{{ getEmpresa.nomusu }} </span> fecha
-                <span class="text-bold">{{ HIC075.fecha_act }}. </span>
+                <span class="text-bold">{{ HIC075.fecha }}. </span>
               </p>
             </div>
           </div>
@@ -266,7 +266,7 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC075 = reactive({
-  fecha_act: "",
+  fecha: "",
   autoriza: "S",
   vaginal: "N",
   rectal: "N",
@@ -275,7 +275,7 @@ const HIC075 = reactive({
 const opcion_hic075 = ref(null);
 
 onMounted(() => {
-  HIC075.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC075.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 

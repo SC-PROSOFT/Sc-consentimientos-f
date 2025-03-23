@@ -3,6 +3,8 @@ import { useModuleFormatos } from "@/store";
 
 const { getEmpresa } = useModuleFormatos();
 export const impresionHIC075 = ({ datos }) => {
+  console.log("impresionHIC075  ", datos);
+
   var dd = {
     stack: [contenidoHIC075(), firmas()],
   };
@@ -264,9 +266,9 @@ export const impresionHIC075 = ({ datos }) => {
           text: [
             { text: "Que se me realice la colocación de un Dispositivo Intrauterino (DIU) modelo T Cu 380 A \n " },
             { text: "En (LUGAR Y FECHA) " },
-            { text: getEmpresa.nomusu },
+            { bold: true, text: getEmpresa.nomusu },
             { text: " " },
-            { text: datos.fecha },
+            { bold: true, text: datos.fecha },
           ],
         },
         revocacion(),
