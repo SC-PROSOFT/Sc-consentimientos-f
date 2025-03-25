@@ -1,5 +1,4 @@
 <template>
-  <!-- <q-form @submit="validarDatos"> -->
   <div>
     <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
       <q-card-section>
