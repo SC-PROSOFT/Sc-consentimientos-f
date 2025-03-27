@@ -578,4 +578,114 @@ export const createRouteHic = (title) => [
       descrip: "Formato consentimiento de insercion del dispositivo intrauterino (DIU)",
     },
   },
+  {
+    path: "/HIC076",
+    name: "HIC076",
+    component: () => import("@/views/hic/HIC076.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC076`,
+      descrip: "Consentimiento informado autorizacion voluntaria para la atencion en salud",
+    },
+  },
+  {
+    path: "/HIC077",
+    name: "HIC077",
+    component: () => import("@/views/hic/HIC077.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC077`,
+      descrip: "Consentimiento informado para la toma de rx convencional",
+    },
+  },
+  {
+    path: "/HIC078",
+    name: "HIC078",
+    component: () => import("@/views/hic/HIC078.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC078`,
+      descrip: "Consentimiento informado para rx convencional a paciente embarazada",
+    },
+  },
+  {
+    path: "/HIC079",
+    name: "HIC079",
+    component: () => import("@/views/hic/HIC079.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC079`,
+      descrip: "Consentimiento informado de cirugia oral",
+    },
+  },
+  {
+    path: "/HIC080",
+    name: "HIC080",
+    component: () => import("@/views/hic/HIC080.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC080`,
+      descrip: "Consentimiento informado aplicacion de anestesia local",
+    },
+  },
+  {
+    path: "/HIC081",
+    name: "HIC081",
+    component: () => import("@/views/hic/HIC081.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC081`,
+      descrip: "Formato consentimiento informado para insercion o retiro de implante subdermico",
+    },
+  },
+  {
+    path: "/HIC082",
+    name: "HIC082",
+    component: () => import("@/views/hic/HIC082.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC082`,
+      descrip: "Formato consentimiento informado para insercion o retiro de DIU",
+    },
+  },
+  {
+    path: "/HIC083",
+    name: "HIC083",
+    component: () => import("@/views/hic/HIC083.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC083`,
+      descrip: "Formato consentimiento informado para toma de citologia cervico uterina",
+    },
+  },
+  {
+    path: "/HIC084",
+    name: "HIC084",
+    component: () => import("@/views/hic/HIC084.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC084`,
+      descrip: "Anexo consentimiento informado para prueba vih a las gestantes",
+    },
+  },
+  {
+    path: "/HIC085",
+    name: "HIC085",
+    component: () => import("@/views/hic/HIC085.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC085`,
+      descrip: "Formato consentimiento informado para realizar la prueba diagnostica presuntiva o prueba diagnostica suplementaria de vih",
+    },
+  },
+  {
+    path: "/HIC086",
+    name: "HIC086",
+    component: () => import("@/views/hic/HIC086.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC086`,
+      descrip: "Formato consentimiento custodia historia clinica",
+    },
+  },
 ];

@@ -47,6 +47,17 @@ export * from "./HIC/HIC072";
 export * from "./HIC/HIC073";
 export * from "./HIC/HIC074";
 export * from "./HIC/HIC075";
+export * from "./HIC/HIC076";
+export * from "./HIC/HIC077";
+export * from "./HIC/HIC078";
+export * from "./HIC/HIC079";
+export * from "./HIC/HIC080";
+export * from "./HIC/HIC081";
+export * from "./HIC/HIC082";
+export * from "./HIC/HIC083";
+export * from "./HIC/HIC084";
+export * from "./HIC/HIC085";
+export * from "./HIC/HIC086";
 
 // ODONTOLOGIA
 export * from "./ODO/ODO003";
