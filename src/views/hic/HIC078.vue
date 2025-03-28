@@ -124,7 +124,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC063, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC078, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { utilsFormat, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -147,7 +147,18 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC078 = reactive({
   fecha: "",
+  servicio: "",
 });
+const array_servic = ref([
+  { COD: "0", DESCRIP: "DROGUERIA" },
+  { COD: "1", DESCRIP: "CIRUGIAS" },
+  { COD: "2", DESCRIP: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+  { COD: "3", DESCRIP: "RX - IMAGENOLOGIA" },
+  { COD: "4", DESCRIP: "OTROS SERVICIOS" },
+  { COD: "5", DESCRIP: "CONSULTAS Y TERAPIAS" },
+  { COD: "6", DESCRIP: "PATOLOGIA" },
+  { COD: "7", DESCRIP: "PROMOCION Y PREVENCION" },
+]);
 const servicio = ref({
   select: evaluarClaseServ("3"),
   items: [
@@ -156,7 +167,7 @@ const servicio = ref({
     { value: "LABORATORIOS Y OTROS DIAGNOSTICOS", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
     { value: "RX - IMAGENOLOGIA", label: "RX - IMAGENOLOGIA" },
     { value: "OTROS SERVICIOS", label: "OTROS SERVICIOS" },
-    { value: "CONSULTA Y TERAPIAS", label: "CONSULTA Y TERAPIAS" },
+    { value: "CONSULTAS Y TERAPIAS", label: "CONSULTAS Y TERAPIAS" },
     { value: "PATOLOGIA", label: "PATOLOGIA" },
     { value: "PROMOCION Y PREVENCION", label: "PROMOCION Y PREVENCION" },
   ],
@@ -164,6 +175,7 @@ const servicio = ref({
     label: "",
     required: true,
     id: "serv_form",
+    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
 });
@@ -200,7 +212,7 @@ const validarDatos = () => {
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
-
+  HIC078.servicio = array_servic.value.find((item) => item.DESCRIP == servicio.value.select).COD;
   grabarConsentimiento();
 };
 
@@ -299,13 +311,13 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC078" },
-      content: impresionHIC063({
+      content: impresionHIC078({
         datos: datos_hic063,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC078" },
-      content: impresionHIC063({
+      content: impresionHIC078({
         datos: datos_hic063,
       }),
     });
