@@ -20,155 +20,183 @@
           </p>
         </div>
         <div class="row q-mt-md q-mb-md" style="width: 100%">
-          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombres y apellidos:</p>
+          <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">A. Datos Generales</p>
+          </div>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 50%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Servicio:</p>
+            <Select_ class="col-10 q-mt-xs" v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
+          </div>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ HIC076.fecha }}</p>
+          </div>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 20%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Hora:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ HIC076.hora_act }}</p>
+          </div>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre de usuario:</p>
             <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip }}</p>
           </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Documento de Identificación:</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 40%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Documento:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.tipo_id }}</p>
             <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.cod }}</p>
           </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 40%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">De:</p>
-            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip_ciudad }}</p>
-          </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Edad:</p>
-            <p style="margin-top: 10px; margin-left: 10px">{{ calcularEdad(getPaci.nacim) }}</p>
-          </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 40%">
+          <div class="text-left row" style="border: 1px solid #ccc; width: 30%">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Teléfono:</p>
             <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.telefono }}</p>
           </div>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 70%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Dirección:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getPaci.direccion }}</p>
+          </div>
           <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Procedimiento:</p>
-            <p style="margin-top: 10px; margin-left: 10px">Asesoría en Interrupción Voluntaria del Embarazo.</p>
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Tutor o familiar:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getAcomp.descrip }}</p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 100%">
-            <div>
-              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Metodología:</p>
-            </div>
-            <p style="margin-top: 10px; margin-left: 10px">Asesoría Individual</p>
-            <div>
-              <q-checkbox color="primary" keep-color left-label v-model="HIC076.asesoria_indiv" true-value="S" false-value="N" />
-            </div>
-            <p style="margin-top: 10px; margin-left: 10px">Asesoría Grupal</p>
-            <div>
-              <q-checkbox color="primary" keep-color left-label v-model="HIC076.asesoria_grupal" true-value="S" false-value="N" />
-            </div>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Profesional:</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ getProf.descrip }}</p>
           </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 80%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Lugar:</p>
-            <p style="margin-top: 10px; margin-left: 10px">{{ getEmpresa.nomusu }}</p>
-          </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 20%">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha:</p>
-            <p style="margin-top: 10px; margin-left: 10px">{{ HIC076.fecha_act }}</p>
+          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre del procedimiento:</p>
+            <Input_ class="q-mt-xs" v-model="HIC076.nomb_procedim" :field="form.nomb_procedim" :inputStyle="{ width: '625px' }" />
           </div>
         </div>
         <div>
-          <p style="text-align: justify">
-            Se realiza a usuaria consejería sobre la interrupción voluntaria del embarazo (IVE) a la que tiene derecho según la
-            <span class="text-bold"> resolución 051 de 2023</span>
-            que adopta la regulación única para la atención integral en salud frente a la Interrupción Voluntaria del Embarazo (IVE), en las
-            condiciones previstas por la Corte Constitucional en las Sentencias C-355 de 2006, SU-096 de 2018 y C-055 de 2022 y modificar el numeral
-            4.2 del Lineamiento Técnico y Operativo de la Ruta Integral de Atención en Salud Materno Perinatal.
-          </p>
+          <div class="row q-mt-md q-mb-md" style="width: 100%">
+            <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">B. Declaración del usuario:</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+              <ol class="q-pa-md">
+                <li>
+                  <p style="text-align: justify">
+                    En pleno uso de mis facultades mentales, autorizo al profesional mencionado y a los asistentes de su elección, para realizar en mi
+                    o en el(la) paciente el procedimiento.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    <span style="text-decoration: underline"> Además de los exámenes pertinentes</span>, se me ha explicado la naturaleza y el
+                    propósito de la intervención o procedimiento especial por realizar, así como las complicaciones y riesgos que puedan producirse,
+                    en particular los siguientes:
 
-          <p style="text-align: justify">
-            Esta resolución establece el derecho de las mujeres y personas gestantes a decidir de manera libre y autónoma sobre la interrupción del
-            embarazo. En consonancia con la decisión de la Corte Constitucional, contenida en la
-            <span class="text-bold"> Sentencia C055 de 2022,</span> la atención en salud de la IVE no debe estar condicionada al cumplimiento de
-            causales o requisitos y procede por la sola decisión de la mujer o persona gestante. Solo cuando se trate de embarazos después de la
-            vigésimo cuarta (24) semana, la IVE procede ante la identificación de alguna de las tres causales ya definidas por la misma Corte
-            Constitucional en <span class="text-bold"> Sentencia C - 355 de 2006,</span> esto es: "I) Cuando la continuación de/embarazo constituya
-            peligro para la vida o la salud de la mujer, certificada por un médico; (II Cuando exista grave malformación del feto que haga inviable su
-            vida, certificada por un médico; y, III) Cuando el embarazo sea el resultado de una conducta, debidamente denunciada, constitutiva de
-            acceso carnal o acto sexual sin consentimiento, abusivo o de inseminación artificial o transferencia de óvulo fecundado no consentidas, o
-            de incesto".
-          </p>
-          <p style="text-align: justify">
-            Se explican claramente sus opciones para interrupción de la gestación: farmacológica con misoprostol ambulatorio (para gestaciones menores
-            de 12 semanas) y métodos no farmacológicos, a realizarse de manera intrahospitalaria.
-          </p>
-          <p style="text-align: justify">Se explica claramente:</p>
-          <ul>
-            <li>
-              Se debe administrar las tabletas de misoprostol de 200 mcg: 4 tabletas cada 3 horas vía sublingual o vaginal x 3 dosis o hasta expulsión
-              de restos ovulares.
-            </li>
-            <li>Que el tratamiento es efectivo en un 85 % de los casos aproximadamente.</li>
-            <li>Presentará sangrado vaginal en volumen similar a sangrado menstrual asociado a expulsión de restos ovulares, precedido de cólico.</li>
-            <li>Puede presentar dolor pélvico/abdominal, náuseas, fiebre, escalofrío, diarrea, dolor de cabeza.</li>
-            <li>
-              Signos de alarma para consultar por urgencias: sangrado vaginal abundante (mayor a dos toallas higiénicas empapadas por hora durante más
-              de dos horas seguidas), no expulsión de fruto de la gestación, dolor intenso que no mejore tras analgesia, fiebre.
-            </li>
-            <li>Debe administrarse el método de anticoncepción de su elección lo más pronto posible (idealmente el mismo día de la IVE).</li>
-            <li>
-              Su periodo menstrual reaparecerá en características usuales a los 30-40 días después del procedimiento, con su respectivo retorno a la
-              fertilidad y riesgo de nueva gestación en caso de no adoptar un método de planificación confiable.
-            </li>
-          </ul>
-          <p style="text-align: justify">Me ha quedado claro que de acuerdo a mi decisión tengo tres alternativas sobre mi embarazo actual:</p>
+                    <span class="text-bold">
+                      reacciones adversas a medicamentos (incluyendo reacciones alérgicas), infecciones intrahospitalarias, sangrado, requerimiento de
+                      reintervención, caídas, deterioro clínico, requerimiento de reanimación básica y avanzada, requerimiento de traslado como
+                      urgencia vital a institución de mayor nivel de complejidad, muerte.
+                    </span>
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Se me han expuesto todas las posibles alternativas al tratamiento propuesto y se me ha dado la oportunidad de formular preguntas y
+                    las mismas han sido resueltas satisfactoriamente.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Autorizo al <span class="text-bold">HOSPITAL LOCAL DE GUAMAL PRIMER NIVEL DE ATENCIÓN E.S.E</span> y a sus especialistas, médicos,
+                    odontólogos, enfermeras y demás profesionales, para utilizar en el curso de la intervención o procedimiento y postoperatorio, los
+                    medicamentos, anestésicos o medios de contraste necesarios.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Reconozco que hay riesgos para la vida y la salud asociados con estos procedimientos o intervenciones, medicamentos o sustancias.
+                    Tales riesgos me han sido explicados por el médico que realizará la intervención o procedimiento.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Comprendo que en el curso de la intervención o procedimiento, pueden presentarse situaciones imprevistas que requieran
+                    procedimientos adicionales, los cuales autorizo si el médico o sus asistentes consideran necesarios.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Autorizo al <span class="text-bold"> HOSPITAL LOCAL DE GUAMAL EN PRIMER NIVEL DE ATENCIÓN E.S.E</span>, para tomar muestras de
+                    tejidos o fluidos orgánicos, con destino a exámenes de laboratorio clínico o histo-patológicos.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Acepto que no se me ha garantizado el resultado de la intervención o procedimiento, porque entiendo que la actividad médica es de
+                    medio y no de resultado, tal como me lo han explicado, independientemente de que se haga uso de todos los elementos
+                    técnico-científicos disponibles por la institución, cumpliendo con los parámetros de calidad para su ejecución, tal como lo
+                    dispone la ley 23 de 1981, la Resolución 1995 de 1999 y demás normas pertinentes.
+                  </p>
+                </li>
+                <li>
+                  <p style="text-align: justify">
+                    Certifico que he leído y comprendido el contenido de este documento, que los espacios en blanco han sido llenados antes de mi
+                    firma y me encuentro en capacidad total de expresar mi libre decisión.
+                  </p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="row q-mt-md q-mb-md" style="width: 100%">
+          <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Declaración profesional responsable</p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 100%">
+            <p class="q-pa-xs" style="margin-top: 10px; margin-left: 10px">
+              He informado al paciente del propósito y naturaleza del procedimiento descrito arriba, de sus alternativas, posibles riesgos y de los
+              resultados que se esperan.
+            </p>
+          </div>
+        </div>
+        <div class="row q-mt-md q-mb-md" style="width: 100%">
+          <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Declaración Tutor Legal o Familiar</p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 100%">
+            <p class="q-pa-xs" style="margin-top: 10px; margin-left: 5px">
+              Sé que el paciente ha sido considerado por ahora incapaz de tomar por sí mismo la decisión de aceptar o rechazar el procedimiento
+              descrito arriba. El médico me ha explicado de forma satisfactoria qué es, cómo se hace y para qué sirve este procedimiento o
+              intervención. También se me han explicado sus riesgos y complicaciones. He comprendido todo lo anterior perfectamente y por ello doy mi
+              consentimiento para que se realice el ingreso hospitalario.
+            </p>
+            <p class="q-pa-xs" style="margin-left: 5px">El paciente no puede firmar por:</p>
 
-          <ol>
-            <li class="border-format q-my-sm">
-              <div class="text-justify">
-                Quiero continuar mi embarazo e iniciar controles prenatales?
-                <q-radio color="primary" v-model="HIC076.ini_ctl_prenatal" val="S" label="SI" />
-                <q-radio color="primary" v-model="HIC076.ini_ctl_prenatal" val="N" label="NO" />
-              </div>
-            </li>
-            <li class="border-format q-my-sm">
-              <div class="text-justify">
-                Quiero continuar mi embarazo y darlo en adopción?
-                <q-radio color="primary" v-model="HIC076.dar_adopcion" val="S" label="SI" />
-                <q-radio color="primary" v-model="HIC076.dar_adopcion" val="N" label="NO" />
-              </div>
-            </li>
-            <li class="border-format q-my-sm">
-              <div class="text-justify">
-                Quiero la interrupción voluntaria de mi embarazo?
-                <q-radio color="primary" v-model="HIC076.inter_voluntaria" val="S" label="SI" />
-                <q-radio color="primary" v-model="HIC076.inter_voluntaria" val="N" label="NO" />
-              </div>
-            </li>
-          </ol>
-
-          <p style="text-align: justify">
-            Me ha quedado claro que de acuerdo a mi decisión tengo las siguientes alternativas para la interrupción voluntaria de mi gestación:
-          </p>
-
-          <ol>
-            <li class="border-format q-my-sm">
-              <div class="text-justify">
-                <span>Interrupción farmacológica ambulatoria (gestación 12 semanas)? </span>
-                <q-radio color="primary" v-model="HIC076.inter_farm_ambul" val="S" label="SI" />
-                <q-radio color="primary" v-model="HIC076.inter_farm_ambul" val="N" label="NO" />
-              </div>
-            </li>
-            <li class="border-format q-my-sm">
-              <div class="text-justify">
-                <span> Interrupción farmacológica supervisada por medico de manera intrahospitalaria (gestación menor 12 semanas)? </span>
-                <q-radio color="primary" v-model="HIC076.inter_farm_super" val="S" label="SI" />
-                <q-radio color="primary" v-model="HIC076.inter_farm_super" val="N" label="NO" />
-              </div>
-            </li>
-            <li class="border-format q-my-sm">
-              <div class="text-justify">
-                <span>
-                  Interrupción por métodos no farmacológicos supervisada por medico de manera intrahospitalaria (gestación mayor 12 semanas)?</span
-                >
-                <q-radio color="primary" v-model="HIC076.inter_no_farmac" val="S" label="SI" />
-                <q-radio color="primary" v-model="HIC076.inter_no_farmac" val="N" label="NO" />
-              </div>
-            </li>
-          </ol>
-          <p>
-            Quien ha informado y asesorado a la paciente sobre la sentencia C-355/06 y su procedimiento. Nombres y apellidos del profesional:
-            <span class="text-bold">{{ getProf.descrip }} </span> Documento de identidad: <span class="text-bold">{{ getProf.cod }}.</span>
-          </p>
+            <q-checkbox
+              class="q-pa-xs"
+              color="primary"
+              keep-color
+              left-label
+              v-model="HIC076.no_firm_menor_edad"
+              label="Menor de edad"
+              true-value="S"
+              false-value="N"
+            />
+            <q-checkbox
+              color="primary"
+              keep-color
+              left-label
+              v-model="HIC076.no_firm_discap_cognit"
+              label="Discapacidad cognitiva"
+              true-value="S"
+              false-value="N"
+            />
+            <q-checkbox
+              color="primary"
+              keep-color
+              left-label
+              v-model="HIC076.no_firm_discap_ment"
+              label="Estado neurológico o mental alterado"
+              true-value="S"
+              false-value="N"
+            />
+            <div class="row q-mt-xs">
+              <p class="q-pl-xs">Otro:</p>
+              <Input_ class="col-12 q-mb-lg" v-model="HIC076.otr_discap" :field="form.otr_discap" />
+            </div>
+          </div>
         </div>
       </q-card-section>
     </div>
@@ -221,7 +249,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC063, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { calcularEdad, utilsFormat, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
@@ -241,21 +269,61 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC076 = reactive({
-  fecha_act: "",
-  asesoria_indiv: "N",
-  asesoria_grupal: "N",
-  dar_adopcion: "",
-  ini_ctl_prenatal: "",
-  inter_voluntaria: "",
-  inter_farm_ambul: "",
-  inter_farm_super: "",
-  inter_no_farmac: "",
+  fecha: "",
+  servicio: "",
+  nomb_procedim: "",
+  no_firm_menor_edad: "N",
+  no_firm_discap_cognit: "N",
+  no_firm_discap_ment: "N",
+  otr_discap: "",
 });
-
+const form = ref({
+  nomb_procedim: {
+    id: "nomb_procedim",
+    maxlength: "250",
+    label: "",
+    campo_abierto: true,
+  },
+  otr_discap: {
+    id: "otr_discap",
+    maxlength: "250",
+    label: "",
+    campo_abierto: true,
+  },
+});
+const array_servic = ref([
+  { COD: "0", DESCRIP: "DROGUERIA" },
+  { COD: "1", DESCRIP: "CIRUGIAS" },
+  { COD: "2", DESCRIP: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+  { COD: "3", DESCRIP: "RX - IMAGENOLOGIA" },
+  { COD: "4", DESCRIP: "OTROS SERVICIOS" },
+  { COD: "5", DESCRIP: "CONSULTAS Y TERAPIAS" },
+  { COD: "6", DESCRIP: "PATOLOGIA" },
+  { COD: "7", DESCRIP: "PROMOCION Y PREVENCION" },
+]);
+const servicio = ref({
+  select: evaluarClaseServ("3"),
+  items: [
+    { value: "DROGUERIA", label: "DROGUERIA" },
+    { value: "CIRUGIAS", label: "CIRUGIAS" },
+    { value: "LABORATORIOS Y OTROS DIAGNOSTICOS", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+    { value: "RX - IMAGENOLOGIA", label: "RX - IMAGENOLOGIA" },
+    { value: "OTROS SERVICIOS", label: "OTROS SERVICIOS" },
+    { value: "CONSULTAS Y TERAPIAS", label: "CONSULTAS Y TERAPIAS" },
+    { value: "PATOLOGIA", label: "PATOLOGIA" },
+    { value: "PROMOCION Y PREVENCION", label: "PROMOCION Y PREVENCION" },
+  ],
+  serv_form: {
+    label: "",
+    required: true,
+    id: "serv_form",
+    disable: getSesion.novedad === "4",
+    campo_abierto: true,
+  },
+});
 const opcion_hic076 = ref(null);
-
 onMounted(() => {
-  HIC076.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC076.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -276,7 +344,7 @@ const validarDatos = () => {
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
-
+  HIC076.servicio = array_servic.value.find((item) => item.DESCRIP == servicio.value.select).COD;
   grabarConsentimiento();
 };
 
