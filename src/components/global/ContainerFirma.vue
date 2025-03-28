@@ -113,7 +113,7 @@ const getFirmaPaci = async () => {
       CallBackFirma(existeFirma);
     }
 
-    if ([900273700, 79635522, 900772776].includes(Number(getEmpresa.nitusu))) {
+    if ([900273700, 79635522, 900772776, 822001570].includes(Number(getEmpresa.nitusu))) {
       if (check_paci) {
         // D:\PSC\PROG\FIRMAS
         firma.value = await _getImagen$({

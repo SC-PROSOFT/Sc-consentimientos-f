@@ -285,8 +285,8 @@ export const useApiContabilidad = defineStore("contabilidad", {
     _getImagen$({ codigo = 0, tipo_test = null, formato = "png" }) {
       let ruta;
 
-      if ([900273700, 79635522, 900772776].includes(Number(this.empresa.nitusu))) {
-        // ruta de las entidades sanar, monte sinai
+      if ([900273700, 79635522, 900772776, 822001570].includes(Number(this.empresa.nitusu))) {
+        // ruta de las entidades sanar, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
         if (tipo_test == "1" || tipo_test == "3") {
           if (/[A-Za-z]/.test(codigo)) {
             codigo = codigo.padStart(15, " ");
