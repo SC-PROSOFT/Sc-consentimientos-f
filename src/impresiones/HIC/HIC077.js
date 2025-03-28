@@ -1,4 +1,4 @@
-import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
+import { evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
 const { getEmpresa } = useModuleFormatos();
@@ -12,317 +12,112 @@ export const impresionHIC077 = ({ datos }) => {
     return {
       stack: [
         {
-          marginTop: 10,
           style: "bodyNoBold9",
-          table: {
-            headerRows: 1,
-            widths: ["100%"],
-            body: [
-              [{ text: [{ bold: true, text: "Nombres y apellidos: " }, { text: datos.paciente.descrip }] }],
-              [
-                {
-                  text: [
-                    {
-                      bold: true,
-                      text: "Tipo documento de identidad: ",
-                    },
-                    { text: datos.paciente.tipo_id },
-                    {
-                      bold: true,
-                      text: " Número documento de identidad: ",
-                    },
-                    { text: datos.paciente.cod },
-                    { bold: true, text: " De: " },
-                    { text: datos.paciente.descrip_ciudad },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { bold: true, text: "Edad: " },
-                    {
-                      text: calcularEdad(datos.paciente.nacim),
-                    },
-                    { bold: true, text: " Teléfono: " },
-                    {
-                      text: datos.paciente.telefono,
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [{ bold: true, text: "Procedimiento: " }, { text: "Asesoría en Interrupción Voluntaria del Embarazo." }],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { bold: true, text: "Metodología: " },
-                    { text: "Asesoría Individual: " },
-                    {
-                      bold: true,
-                      decoration: "underline",
-                      text: datos.asesoria_indiv == "S" ? " X " : "    ",
-                    },
-                    {
-                      text: " Asesoría Grupal: ",
-                    },
-                    {
-                      bold: true,
-                      decoration: "underline",
-                      text: datos.asesoria_grupal == "S" ? " X " : "    ",
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [{ bold: true, text: "Lugar: " }, { text: getEmpresa.nomusu }, { bold: true, text: " Fecha: " }, { text: datos.fecha }],
-                },
-              ],
-            ],
-          },
-        },
-        {
-          marginTop: 10,
-          alignment: "justify",
           text: [
-            { text: "Se realiza a usuaria consejería sobre la interrupción voluntaria del embarazo (IVE) a la que tiene derecho según la " },
-            { bold: true, text: "resolución 051 de 2023 " },
+            { bold: true, text: "Servicio: " },
             {
-              text: "que adopta la regulación única para la atención integral en salud frente a la Interrupción Voluntaria del Embarazo (IVE), en las condiciones previstas por la Corte Constitucional en las Sentencias C-355 de 2006, SU-096 de 2018 y C-055 de 2022 y modificar el numeral 4.2 del Lineamiento Técnico y Operativo de la Ruta Integral de Atención en Salud Materno Perinatal. \n ",
+              text: evaluarClaseServ(datos.servicio),
+            },
+            { bold: true, text: " Lugar: " },
+            {
+              text: getEmpresa.nomusu + "\n",
+            },
+            { bold: true, text: " Nombre del paciente: " },
+            {
+              text: datos.paciente.descrip,
+            },
+            { bold: true, text: " Identificación: " },
+            {
+              text: datos.paciente.tipo_id + " ",
             },
             {
-              text: "Esta resolución establece el derecho de las mujeres y personas gestantes a decidir de manera libre y autónoma sobre la interrupción del embarazo. En consonancia con la decisión de la Corte Constitucional, contenida en la ",
+              text: datos.paciente.cod,
             },
-            { bold: true, text: "Sentencia C055 de 2022, " },
+            { bold: true, text: " Fecha: " },
             {
-              text: "la atención en salud de la IVE no debe estar condicionada al cumplimiento de causales o requisitos y procede por la sola decisión de la mujer o persona gestante. Solo cuando se trate de embarazos después de la vigésimo cuarta (24) semana, la IVE procede ante la identificación de alguna de las tres causales ya definidas por la misma Corte Constitucional en ",
-            },
-            { bold: true, text: " Sentencia C - 355 de 2006, " },
-            {
-              text: '"esto es: "I) Cuando la continuación de/embarazo constituya peligro para la vida o la salud de la mujer, certificada por un médico; (II Cuando exista grave malformación del feto que haga inviable su vida, certificada por un médico; y, III) Cuando el embarazo sea el resultado de una conducta, debidamente denunciada, constitutiva de acceso carnal o acto sexual sin consentimiento, abusivo o de inseminación artificial o transferencia de óvulo fecundado no consentidas, o de incesto."',
+              text: datos.fecha,
             },
           ],
-          style: "bodyNoBold9",
         },
         {
-          marginTop: 10,
-          text: "Se explican claramente sus opciones para interrupción de la gestación: farmacológica con misoprostol ambulatorio (para gestaciones menores de 12 semanas) y métodos no farmacológicos, a realizarse de manera intrahospitalaria.",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 10,
-          text: "Se explica claramente:",
-          style: "bodyNoBold9",
-        },
-        {
+          marginTop: 8,
           alignment: "justify",
-          marginTop: 10,
           style: "bodyNoBold9",
-          ul: [
-            {
-              marginTop: 4,
-              text: "Se debe administrar las tabletas de misoprostol de 200 mcg: 4 tabletas cada 3 horas vía sublingual o vaginal x 3 dosis o hasta expulsión de restos ovulares.",
-            },
-
-            {
-              marginTop: 4,
-              text: "Que el tratamiento es efectivo en un 85 % de los casos aproximadamente.",
-            },
-            {
-              marginTop: 4,
-              text: "Presentará sangrado vaginal en volumen similar a sangrado menstrual asociado a expulsión de restos ovulares, precedido de cólico.",
-            },
-            { marginTop: 4, text: "Puede presentar dolor pélvico/abdominal, náuseas, fiebre, escalofrío, diarrea, dolor de cabeza." },
-            {
-              marginTop: 4,
-              text: "Signos de alarma para consultar por urgencias: sangrado vaginal abundante (mayor a dos toallas higiénicas empapadas por hora durante más de dos horas seguidas), no expulsión de fruto de la gestación, dolor intenso que no mejore tras analgesia, fiebre.",
-            },
-            {
-              marginTop: 4,
-              text: "Debe administrarse el método de anticoncepción de su elección lo más pronto posible (idealmente el mismo día de la IVE).",
-            },
-            {
-              marginTop: 4,
-              text: "Su periodo menstrual reaparecerá en características usuales a los 30-40 días después del procedimiento, con su respectivo retorno a la fertilidad y riesgo de nueva gestación en caso de no adoptar un método de planificación confiable.",
-            },
-          ],
+          text: "Señor(a) usuario (a): Se le va a realizar una exploración imagenológica que utilizara radiación ionizante, en forma de rayos X, por lo anterior es necesario que usted informe si tiene sospechas de estado de embarazo para que el profesional tome consideraciones especiales en su caso y medidas protectoras para minimizar el riesgo de irradiación.",
         },
         {
-          marginTop: 10,
-          text: "Me ha quedado claro que de acuerdo a mi decisión tengo tres alternativas sobre mi embarazo actual:",
+          marginTop: 8,
           style: "bodyNoBold9",
+          alignment: "justify",
+          text: "Para proporcionar una información que nos ayuda a identificar y tratar mejor su enfermedad el tecnólogo en imágenes diagnosticas lo ubicara en el Equipo de Radiología Convencional, en el cual usted adoptara algunas posiciones sugeridas por el profesional tomándose una serie de protecciones que permitirán llevar a cabo el procedimiento solicitado.",
         },
         {
+          marginTop: 8,
           style: "bodyNoBold9",
-          ol: [
-            {
-              marginTop: 10,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Quiero continuar mi embarazo e iniciar controles prenatales?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.ini_ctl_prenatal == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.ini_ctl_prenatal == "N" ? " X " : "    " },
-                },
-              ],
-            },
-            {
-              marginTop: 4,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Quiero continuar mi embarazo y darlo en adopción?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.dar_adopcion == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.dar_adopcion == "N" ? " X " : "    " },
-                },
-              ],
-            },
-            {
-              marginTop: 4,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Quiero la interrupción voluntaria de mi embarazo?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_voluntaria == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_voluntaria == "N" ? " X " : "    " },
-                },
-              ],
-            },
-          ],
+          alignment: "justify",
+          text: "Beneficios del procedimiento: El estudio es necesario para su diagnostico y decide realizarse el RX propuesto debe saber que se efectúa con equipos calibrados y utilizados por personal calificado que minimizan la exposición a las radiaciones ionizantes protegiendo su cuerpo en la medida de lo posible. SOLO se le realizaran las radiografías indispensables.",
         },
         {
-          marginTop: 10,
-          text: "Me ha quedado claro que de acuerdo a mi decisión tengo las siguientes alternativas para la interrupción voluntaria de mi gestación:",
+          marginTop: 8,
           style: "bodyNoBold9",
-        },
-
-        {
-          style: "bodyNoBold9",
-          ol: [
-            {
-              marginTop: 10,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Interrupción farmacológica ambulatoria (gestación < 12 semanas)?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_ambul == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_ambul == "N" ? " X " : "    " },
-                },
-              ],
-            },
-            {
-              marginTop: 4,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Interrupción farmacológica supervisada por medico de manera intrahospitalaria (gestación < 12 semanas)?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_super == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_super == "N" ? " X " : "    " },
-                },
-              ],
-            },
-            {
-              marginTop: 4,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Interrupción por métodos no farmacológicos supervisada por medico de manera intrahospitalaria (gestación > 12 semanas)? \n ",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_no_farmac == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_no_farmac == "N" ? " X " : "    " },
-                },
-              ],
-            },
-          ],
+          bold: true,
+          text: "RIESGO:",
         },
         {
-          pageBreak: "before",
+          marginTop: 8,
           style: "bodyNoBold9",
-          marginTop: 10,
+          alignment: "justify",
+          text: "La realización de los estudios radiológicos se justifica bajo análisis de la relación riesgo beneficio realizado tanto por el medico tratante como por el medico radiólogo con el fin de tomar decisiones acertadas para el diagnostico y tratamiento y seguimiento de la patología en estudio.",
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          alignment: "justify",
+          text: "El Riesgo Potencial a la exposición de la radiación es bajo comparado con los beneficios obtenidos del estudio de la imagen médica.",
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          alignment: "justify",
+          text: "Una ligera elevación del riesgo de padecer alguna neoplasia en el futuro. Este riesgo en menor al 0.5%, por lo que se puede considerar muy bajo en comparación con la incidencia normal de las neoplasias en la población, que es del 33% para las mujeres y 50% para los hombres de acuerdo con la Sociedad Americana de Oncología.",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: [
+            { bold: true, text: "HE COMPRENDIDO CON CLARIDAD TODO LO ESCRITO ANTERIORMENTE " },
             {
-              text: "Quien ha informado y asesorado a la paciente sobre la sentencia C-355/06 y su procedimiento. Nombres y apellidos del profesional: ",
+              text: "Yo he tenido la oportunidad de preguntar y resolver todas mis dudas.",
             },
-            { bold: true, text: datos.prof.descrip },
+            { bold: true, text: " ACEPTO SI" },
             {
-              text: " Documento de identidad: ",
+              text: { bold: true, decoration: "underline", text: datos.atorizo ? " X " : "    " },
             },
-            { bold: true, text: datos.prof.cod },
+            { bold: true, text: " NO" },
             {
-              text: ".",
+              text: { bold: true, decoration: "underline", text: !datos.atorizo ? " X " : "    " },
+            },
+            { bold: true, text: "LA REALIZACION DEL EXAMEN – DECLARO QUE LA DECISION QUE TOMO ES LIBRE Y VOLUNTARIA " },
+            { bold: true, text: "SI" },
+            {
+              text: { bold: true, decoration: "underline", text: datos.atorizo ? " X " : "    " },
+            },
+            { bold: true, text: " NO" },
+            {
+              text: { bold: true, decoration: "underline", text: !datos.atorizo ? " X " : "    " },
+            },
+            { bold: true, text: " DOY MI CONSENTIMIENTO " },
+            {
+              text: " para que el profesional Tecnólogo en imágenes Diagnosticas me realice el procedimiento diagnostico solicitado por el médico tratante",
+            },
+            { bold: true, text: " SI " },
+            {
+              text: " he aceptado la toma del estudio, la entidad en mención y el tecnólogo en imágenes, quedan autorizados para llevar a cabo las conductas o procedimientos Imagenológicos necesarios tendientes a resolver las complicaciones imprevistas del procedimiento que mediante este documento autorizo.",
             },
           ],
         },
       ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
-          alignment: "justify",
-        },
-      },
     };
   }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
