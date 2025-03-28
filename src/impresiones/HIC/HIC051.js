@@ -1,7 +1,4 @@
 import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
-import { useModuleFormatos } from "@/store";
-
-const { getPaci } = useModuleFormatos();
 
 export const impresionHIC051 = ({ datos }) => {
   var dd = {
@@ -63,14 +60,12 @@ export const impresionHIC051 = ({ datos }) => {
         },
         {
           marginTop: 5,
-          bold: true,
           alignment: "justify",
           text: "El suscrito certifica que, habiendo sido debidamente informado, sobre la naturaleza y los propósitos del procedimiento y que para tal fin se utilizaran espéculos nuevos y desechables y que el procedimiento no tiene ningún riesgo incluso si llegara a estar embarazada y que pudiera presentar escaso sangrado vaginal(manchado) esto se presenta cuando el cuello se encuentra inflamado o erosionado.",
           style: "bodyNoBold9",
         },
         {
           marginTop: 5,
-          bold: true,
           alignment: "justify",
           text: "Autoriza la toma de la muestra para citología cérvico-uterina.",
           style: "bodyNoBold9",

@@ -1,8 +1,6 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci } = useModuleFormatos();
-
 export const impresionHIC050 = ({ datos }) => {
   console.log("datos ", datos);
   var dd = {

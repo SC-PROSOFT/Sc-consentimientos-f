@@ -121,7 +121,7 @@ export const impresionHIC049 = ({ datos }) => {
                       style: "tableTitle",
                     },
                     {
-                      stack: marcaCasilla(datos.exam_fluj_vaginal.trim() == "S" ? true : false),
+                      stack: marcaCasilla(datos.citolog_vaginal.trim() == "S" ? true : false),
                     },
                   ],
                 },

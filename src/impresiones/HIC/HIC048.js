@@ -20,7 +20,15 @@ export const impresionHIC048 = ({ datos }) => {
         {
           marginTop: 15,
           alignment: "justify",
-          text: `Yo, ${getPaci.descrip} he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y riesgos de la prueba.`,
+          text: [
+            { style: "tableTitle", text: " Yo, " },
+            { bold: true, style: "tableTitle", text: getPaci.descrip },
+            {
+              style: "bodyNoBold9",
+              text: " he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y riesgos de la prueba.",
+            },
+          ],
+
           style: "bodyNoBold9",
         },
         {

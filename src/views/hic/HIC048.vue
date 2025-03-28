@@ -22,7 +22,7 @@
         <div>
           <p>
             <span class="text-bold">Fecha:</span>
-            {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
+            {{ HIC048.fecha }}
           </p>
 
           <p style="text-align: justify">
@@ -117,9 +117,10 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const opcion_hc048 = ref(null);
 const HIC048 = reactive({
-  fecha_act: "",
+  fecha: "",
 });
 onMounted(() => {
+  HIC048.fecha = dayjs().format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -161,7 +162,6 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 31);
-        HIC048.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       }
       CON851("?", "error", "Error al guardar el consentimiento");
@@ -225,6 +225,7 @@ const imprimirConsen = async () => {
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
+      ...HIC048,
     };
 
     const firmas = {

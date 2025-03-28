@@ -24,7 +24,7 @@
           <p>
             <span class="text-bold">Fecha:</span>
             {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
-            <span class="text-bold">Hora: </span> {{ dayjs().format("hh:mm A") }}&nbsp;
+            <span class="text-bold">Hora: </span> {{ HIC049.hora }}&nbsp;
           </p>
           <p><span class="text-bold">Nombre:</span> {{ getPaci.descrip }}&nbsp;</p>
           <p><span class="text-bold">Tipo y numero documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
@@ -179,8 +179,8 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC049 = reactive({
-  fecha_act: "",
-  hora_act: "",
+  fecha: "",
+  hora: "",
   exam_fluj_vaginal: "N",
   citolog_vaginal: "N",
 });
@@ -188,6 +188,7 @@ const HIC049 = reactive({
 const opcion_hc049 = ref(null);
 
 onMounted(() => {
+  HIC049.hora = dayjs().format("hh:mm");
   getFirmaProf();
 });
 
@@ -231,7 +232,7 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 31);
-        HIC049.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
+        HIC049.fecha = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       }
       CON851("?", "error", "Error al guardar el consentimiento");

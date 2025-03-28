@@ -34,7 +34,7 @@
             <span class="text-bold">Ciudad:&nbsp;</span>
             <span>{{ getPaci.descrip_ciudad }} &nbsp;</span>
             <span class="text-bold">Fecha:&nbsp;</span>
-            <span>{{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}</span>
+            <span>{{ HIC051.fecha }}</span>
           </p>
           <p><span class="text-bold">Nombre:</span> {{ getPaci.descrip }}&nbsp;</p>
           <p><span class="text-bold">Tipo y numero documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
@@ -144,13 +144,13 @@ const form = ref({
 });
 
 const HIC051 = reactive({
-  fecha_act: "",
-  hora_act: "",
+  fecha: "",
 });
 
 const opcion_hc051 = ref(null);
 
 onMounted(() => {
+  HIC051.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
