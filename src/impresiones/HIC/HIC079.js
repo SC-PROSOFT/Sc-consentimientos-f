@@ -1,10 +1,6 @@
-import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
-import { useModuleFormatos } from "@/store";
-
-const { getEmpresa } = useModuleFormatos();
+import { evaluarParentesco } from "@/formatos/utils";
 
 export const impresionHIC079 = ({ datos }) => {
-  console.log("datos ", datos);
   var dd = {
     stack: [contenidoHIC079(), firmas()],
   };
@@ -16,314 +12,248 @@ export const impresionHIC079 = ({ datos }) => {
           style: "bodyNoBold9",
           table: {
             headerRows: 1,
-            widths: ["100%"],
+            widths: ["30%", "70%"],
             body: [
-              [{ text: [{ bold: true, text: "Nombres y apellidos: " }, { text: datos.paciente.descrip }] }],
               [
                 {
-                  text: [
-                    {
-                      bold: true,
-                      text: "Tipo documento de identidad: ",
-                    },
-                    { text: datos.paciente.tipo_id },
-                    {
-                      bold: true,
-                      text: " Número documento de identidad: ",
-                    },
-                    { text: datos.paciente.cod },
-                    { bold: true, text: " De: " },
-                    { text: datos.paciente.descrip_ciudad },
-                  ],
+                  bold: true,
+                  text: "Nombre del paciente",
+                },
+                {
+                  text: datos.paciente.descrip,
                 },
               ],
               [
                 {
+                  bold: true,
+                  text: "Tipo y número de documento",
+                },
+                {
                   text: [
-                    { bold: true, text: "Edad: " },
                     {
-                      text: calcularEdad(datos.paciente.nacim),
+                      text: datos.paciente.tipo_id,
                     },
-                    { bold: true, text: " Teléfono: " },
                     {
-                      text: datos.paciente.telefono,
+                      text: datos.paciente.cod,
                     },
                   ],
                 },
               ],
               [
                 {
-                  text: [{ bold: true, text: "Procedimiento: " }, { text: "Asesoría en Interrupción Voluntaria del Embarazo." }],
+                  bold: true,
+                  text: "Dirección",
+                },
+                {
+                  text: datos.paciente.direccion,
                 },
               ],
               [
                 {
-                  text: [
-                    { bold: true, text: "Metodología: " },
-                    { text: "Asesoría Individual: " },
-                    {
-                      bold: true,
-                      decoration: "underline",
-                      text: datos.asesoria_indiv == "S" ? " X " : "    ",
-                    },
-                    {
-                      text: " Asesoría Grupal: ",
-                    },
-                    {
-                      bold: true,
-                      decoration: "underline",
-                      text: datos.asesoria_grupal == "S" ? " X " : "    ",
-                    },
-                  ],
+                  bold: true,
+                  text: "Teléfono",
+                },
+                {
+                  text: datos.paciente.telefono,
                 },
               ],
               [
                 {
-                  text: [{ bold: true, text: "Lugar: " }, { text: getEmpresa.nomusu }, { bold: true, text: " Fecha: " }, { text: datos.fecha }],
+                  bold: true,
+                  text: "Fecha",
+                },
+                {
+                  text: datos.fecha,
                 },
               ],
             ],
           },
         },
         {
-          marginTop: 10,
+          marginTop: 8,
           alignment: "justify",
+          style: "bodyNoBold9",
           text: [
-            { text: "Se realiza a usuaria consejería sobre la interrupción voluntaria del embarazo (IVE) a la que tiene derecho según la " },
-            { bold: true, text: "resolución 051 de 2023 " },
-            {
-              text: "que adopta la regulación única para la atención integral en salud frente a la Interrupción Voluntaria del Embarazo (IVE), en las condiciones previstas por la Corte Constitucional en las Sentencias C-355 de 2006, SU-096 de 2018 y C-055 de 2022 y modificar el numeral 4.2 del Lineamiento Técnico y Operativo de la Ruta Integral de Atención en Salud Materno Perinatal. \n ",
-            },
-            {
-              text: "Esta resolución establece el derecho de las mujeres y personas gestantes a decidir de manera libre y autónoma sobre la interrupción del embarazo. En consonancia con la decisión de la Corte Constitucional, contenida en la ",
-            },
-            { bold: true, text: "Sentencia C055 de 2022, " },
-            {
-              text: "la atención en salud de la IVE no debe estar condicionada al cumplimiento de causales o requisitos y procede por la sola decisión de la mujer o persona gestante. Solo cuando se trate de embarazos después de la vigésimo cuarta (24) semana, la IVE procede ante la identificación de alguna de las tres causales ya definidas por la misma Corte Constitucional en ",
-            },
-            { bold: true, text: " Sentencia C - 355 de 2006, " },
-            {
-              text: '"esto es: "I) Cuando la continuación de/embarazo constituya peligro para la vida o la salud de la mujer, certificada por un médico; (II Cuando exista grave malformación del feto que haga inviable su vida, certificada por un médico; y, III) Cuando el embarazo sea el resultado de una conducta, debidamente denunciada, constitutiva de acceso carnal o acto sexual sin consentimiento, abusivo o de inseminación artificial o transferencia de óvulo fecundado no consentidas, o de incesto."',
-            },
+            { text: "Yo, " },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip },
+            { text: " identificado con " },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.tipo_id : datos.paciente.tipo_id },
+            { text: " No." },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.cod : datos.paciente.cod },
+            { text: " (Como paciente o acudiente de) " },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.paciente.descrip : "N/A\n" },
+            { text: " identificado con " },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.paciente.tipo_id : "N/A" },
+            { text: " No. " },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.paciente.cod : "N/A." },
           ],
-          style: "bodyNoBold9",
         },
         {
-          marginTop: 10,
-          text: "Se explican claramente sus opciones para interrupción de la gestación: farmacológica con misoprostol ambulatorio (para gestaciones menores de 12 semanas) y métodos no farmacológicos, a realizarse de manera intrahospitalaria.",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 10,
-          text: "Se explica claramente:",
-          style: "bodyNoBold9",
-        },
-        {
+          marginTop: 8,
           alignment: "justify",
-          marginTop: 10,
           style: "bodyNoBold9",
-          ul: [
-            {
-              marginTop: 4,
-              text: "Se debe administrar las tabletas de misoprostol de 200 mcg: 4 tabletas cada 3 horas vía sublingual o vaginal x 3 dosis o hasta expulsión de restos ovulares.",
-            },
-
-            {
-              marginTop: 4,
-              text: "Que el tratamiento es efectivo en un 85 % de los casos aproximadamente.",
-            },
-            {
-              marginTop: 4,
-              text: "Presentará sangrado vaginal en volumen similar a sangrado menstrual asociado a expulsión de restos ovulares, precedido de cólico.",
-            },
-            { marginTop: 4, text: "Puede presentar dolor pélvico/abdominal, náuseas, fiebre, escalofrío, diarrea, dolor de cabeza." },
-            {
-              marginTop: 4,
-              text: "Signos de alarma para consultar por urgencias: sangrado vaginal abundante (mayor a dos toallas higiénicas empapadas por hora durante más de dos horas seguidas), no expulsión de fruto de la gestación, dolor intenso que no mejore tras analgesia, fiebre.",
-            },
-            {
-              marginTop: 4,
-              text: "Debe administrarse el método de anticoncepción de su elección lo más pronto posible (idealmente el mismo día de la IVE).",
-            },
-            {
-              marginTop: 4,
-              text: "Su periodo menstrual reaparecerá en características usuales a los 30-40 días después del procedimiento, con su respectivo retorno a la fertilidad y riesgo de nueva gestación en caso de no adoptar un método de planificación confiable.",
-            },
-          ],
+          text: "DECLARO que la Odontóloga me ha explicado que el propósito de la intervención de cirugía oral menor es para resolver alguno de los siguientes problemas de la cavidad oral: extracción de piezas dentarias o restos apicales incluidos, fenestración o tracción de dientes retenido.",
         },
         {
-          marginTop: 10,
-          text: "Me ha quedado claro que de acuerdo a mi decisión tengo tres alternativas sobre mi embarazo actual:",
+          marginTop: 8,
+          alignment: "justify",
           style: "bodyNoBold9",
+          text: "Para llevar a cabo el procedimiento se aplicará anestesia, de cuyos posibles riesgos también he sido informado/a, es posible que los fármacos utilizados puedan producir determinadas alteraciones del nivel de conciencia por lo que se me ha informado que no podré realizar determinadas actividades inmediatamente.",
         },
         {
+          marginTop: 8,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Igualmente, se me ha informado de que existen ciertos riesgos potenciales y complicaciones, algunas de ellas inevitables, concretamente:",
+        },
+        {
+          marginTop: 8,
           style: "bodyNoBold9",
           ol: [
             {
-              marginTop: 10,
+              marginTop: 5,
               alignment: "justify",
-              text: [
-                {
-                  text: "Quiero continuar mi embarazo e iniciar controles prenatales?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.ini_ctl_prenatal == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.ini_ctl_prenatal == "N" ? " X " : "    " },
-                },
-              ],
+              text: "Alergia al anestésico u otro medicamento utilizado, antes o después de la cirugía.",
             },
             {
-              marginTop: 4,
+              marginTop: 5,
               alignment: "justify",
-              text: [
-                {
-                  text: "Quiero continuar mi embarazo y darlo en adopción?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.dar_adopcion == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.dar_adopcion == "N" ? " X " : "    " },
-                },
-              ],
+              text: "Hematoma y edema de la región.",
             },
             {
-              marginTop: 4,
+              marginTop: 5,
               alignment: "justify",
-              text: [
-                {
-                  text: "Quiero la interrupción voluntaria de mi embarazo?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_voluntaria == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_voluntaria == "N" ? " X " : "    " },
-                },
-              ],
+              text: "Hemorragia postoperatoria.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Dehiscencia de la sutura.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Daño de dientes adyacentes.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Hipoestesia o anestesia del nervio dentario inferior, temporal o definitivo.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Hipoestesia o anestesia del nervio lingual, temporal o definitivo.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Hipoestesia o anestesia del nervio infraorbitario, temporal o definitivo.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Infección postoperatoria.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Osteítis.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Sinusitis.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Comunicación buconasal y/o bucosinual.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Fracturas óseas.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Rotura de instrumentos.",
             },
           ],
         },
         {
-          marginTop: 10,
-          text: "Me ha quedado claro que de acuerdo a mi decisión tengo las siguientes alternativas para la interrupción voluntaria de mi gestación:",
+          marginTop: 8,
+          alignment: "justify",
           style: "bodyNoBold9",
-        },
-
-        {
-          style: "bodyNoBold9",
-          ol: [
-            {
-              marginTop: 10,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Interrupción farmacológica ambulatoria (gestación < 12 semanas)?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_ambul == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_ambul == "N" ? " X " : "    " },
-                },
-              ],
-            },
-            {
-              marginTop: 4,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Interrupción farmacológica supervisada por medico de manera intrahospitalaria (gestación < 12 semanas)?",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_super == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_farm_super == "N" ? " X " : "    " },
-                },
-              ],
-            },
-            {
-              marginTop: 4,
-              alignment: "justify",
-              text: [
-                {
-                  text: "Interrupción por métodos no farmacológicos supervisada por medico de manera intrahospitalaria (gestación > 12 semanas)? \n ",
-                },
-                {
-                  text: " SI ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_no_farmac == "S" ? " X " : "    " },
-                },
-                {
-                  text: " NO ",
-                },
-                {
-                  text: { bold: true, decoration: "underline", text: datos.inter_no_farmac == "N" ? " X " : "    " },
-                },
-              ],
-            },
-          ],
+          text: "Tras la información recibida, he comprendido la naturaleza y propósitos del tratamiento de cirugía que se me va a practicar. He comprendido lo que se me ha explicado de forma clara, con un lenguaje sencillo, habiendo resuelto todas las dudas que se me han planteado, y la información complementaria que le he solicitado. Me queda claro que en cualquier momento y sin necesidad de dar ninguna explicación, puedo revocar este consentimiento. Estoy satisfecho con la información recibida y comprendido el alcance y riesgos de este tratamiento, y en por ello, DOY MI CONSENTIMIENDO, para que se me practique el tratamiento de cirugía. En el Hospital Local de Guamal.",
         },
         {
           pageBreak: "before",
+          marginTop: 8,
+          bold: true,
+          alignment: "center",
+          text: "DECLARACIONES",
           style: "bodyNoBold9",
-          marginTop: 10,
-          text: [
-            {
-              text: "Quien ha informado y asesorado a la paciente sobre la sentencia C-355/06 y su procedimiento. Nombres y apellidos del profesional: ",
-            },
-            { bold: true, text: datos.prof.descrip },
-            {
-              text: " Documento de identidad: ",
-            },
-            { bold: true, text: datos.prof.cod },
-            {
-              text: ".",
-            },
-          ],
         },
-      ],
-      styles: {
-        bodyContent: {
-          fontSize: 11,
+        {
+          marginTop: 8,
           alignment: "justify",
+          style: "bodyNoBold9",
+          text: "He  informado al paciente del propósito y naturaleza del procedimiento descrito arriba.",
         },
-      },
+        paciDiscapac(),
+      ],
     };
+  }
+  function paciDiscapac() {
+    if (datos.acomp.cod.trim() == "") {
+      return {
+        stack: [
+          {
+            text: "",
+          },
+        ],
+      };
+    } else {
+      return {
+        stack: [
+          {
+            marginTop: 10,
+            bold: true,
+            alignment: "center",
+            text: "ESPACIO PARA PACIENTES CON DISCAPACIDAD",
+            style: "bodyNoBold9",
+          },
+          {
+            alignment: "justify",
+            marginTop: 8,
+            style: "bodyNoBold9",
+            text: [
+              { text: "Sé que el paciente " },
+              { bold: true, text: datos.paciente.descrip.trim() },
+              {
+                text: ", ha sido considerado por ahora incapaz de tomar por sí mismo la decisión de aceptar o rechazar el procedimiento descrito arriba. La funcionaria me ha explicado los riesgos y complicaciones. He comprendido todo lo anterior perfectamente y por ello: YO, ",
+              },
+              { bold: true, text: datos.acomp.descrip.trim() },
+              { text: ", con documento de identidad " },
+              { bold: true, text: datos.acomp.tipo_id },
+              { text: ", No. " },
+              { bold: true, text: datos.acomp.cod },
+              { text: ", doy mi consentimiento para que la profesional, " },
+              { bold: true, text: datos.prof.descrip.trim() },
+              { text: ", realice este procedimiento. Puedo revocar este consentimiento cuando en bien del paciente se presuma oportuno." },
+            ],
+          },
+          {
+            alignment: "justify",
+            marginTop: 8,
+            style: "bodyNoBold9",
+            text: [{ text: "NOTA: " }, { text: "En caso de ser menor de 18 años, deben firmar ambos padres." }],
+          },
+        ],
+      };
+    }
   }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
