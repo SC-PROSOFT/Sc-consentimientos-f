@@ -19,60 +19,64 @@
             </q-chip>
           </p>
         </div>
-        <div class="row">
-          <p class="q-mt-xs" style="font-weight: bold">Servicio:&nbsp;</p>
-          <div class="col-xs-5">
-            <Select_ v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
+        <div class="row q-mt-md q-mb-md">
+          <div style="border: 1px solid #ccc; width: 30%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre del paciente</p>
           </div>
-          <p class="q-mt-xs" style="font-weight: bold">Lugar:&nbsp;</p>
-          <p class="q-mt-xs">{{ getEmpresa.nomusu }}</p>
+          <div style="border: 1px solid #ccc; width: 70%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip }}</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 30%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Tipo y número de documento</p>
+          </div>
+          <div class="row" style="border: 1px solid #ccc; width: 70%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.tipo_id }}</p>
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.cod }}</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 30%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Dirección</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 70%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.direccion }}</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 30%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Teléfono</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 70%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.telefono }}</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 30%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha</p>
+          </div>
+          <div style="border: 1px solid #ccc; width: 70%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ HIC082.fecha }}</p>
+          </div>
         </div>
-        <div class="row q-mt-md">
-          <p style="font-weight: bold">Nombre paciente:&nbsp;</p>
-          <p>{{ getPaci.descrip }}</p>
-        </div>
-        <div class="row">
-          <p style="font-weight: bold">Identificación:&nbsp;</p>
-          <p>&nbsp;{{ getPaci.tipo_id }}</p>
-          <p>&nbsp;{{ getPaci.cod }}</p>
-        </div>
-        <div class="row">
-          <p style="font-weight: bold">Fecha:&nbsp;</p>
-          <p>&nbsp;{{ HIC082.fecha }}</p>
-        </div>
-        <div>
+        <p style="text-align: justify">
+          El DUI es un pequeño elemento que se coloca en el útero de la mujer y actúa creando condiciones que le impiden a los espermatozoides
+          fecundar el óvulo. La T de cobre o dispositivo intrauterino DIU, tiene una duración de hasta 12 años y un 98 % de eficacia.
+        </p>
+        <p style="text-align: left; font-weight: bold">DECLARACIÓN DEL PACIENTE</p>
+        <p style="text-align: justify">
+          Me han explicado los pasos del procedimiento de inserción de retiro, así como las posibles complicaciones del mismo dadas por difícil
+          extracción, sangrado, infección de la herida, así como los posibles cambios físicos, después del procedimiento dado por hematoma,
+          perilesional y pequeña cicatriz.
+        </p>
+        <p style="text-align: justify">Doy mi consentimiento para que se me realice el procedimiento descrito arriba.</p>
+        <p style="text-align: left; font-weight: bold">DECLARACIONES</p>
+        <p style="text-align: justify">
+          Funcionario responsable: <span class="text-bold">{{ getProf.descrip }}</span>
+          He informado al paciente del propósito y naturaleza del procedimiento descrito arriba.
+        </p>
+        <div v-if="getAcomp.cod.trim() != ''">
+          <p style="text-align: center; font-weight: bold">ESPACIO PARA PACIENTES CON DISCAPACIDAD</p>
           <p style="text-align: justify">
-            Señora usuaria: Existen exámenes Imagenológicos que utilizan radiaciones ionizantes para su realización. Algunos de estos exámenes son:
-            Radiografías, Mamografías, Densitometrías, Estudios Digestivos, Procedimientos con Apoyo Fluoroscópico y Tomografías Computadas. Las
-            radiaciones ionizantes pueden producir efectos en el embrión o feto que dependen del tiempo de gestación, y de la dosis de radiación
-            recibida. Estos efectos pueden aparecer también de forma natural o inducidos por otros factores. En el procedimiento que se le realizará,
-            la dosis recibida es muy baja y el riesgo de aparición de efectos radioinducidos es despreciable. Sin embargo, hay que tener en
-            consideración que la probabilidad de daño es mayor sobre todo al inicio del embarazo (3 primeros meses). Este riesgo es variable y no
-            predecible, y no se puede eliminar a pesar de las medidas de protección radiológicas disponibles (uso de delantal plomado). Tomando en
-            consideración lo expuesto anteriormente, su médico ha justificado la realización del estudio basándose en que los beneficios que se
-            obtienen superan ampliamente a los posibles efectos que le pueda ocasionar, y a que no hay técnicas alternativas igual de eficaces para un
-            buen diagnóstico.
-          </p>
-          <p style="font-weight: bold">RIESGO:</p>
-          <p style="text-align: justify">
-            Para la mayoría de los procedimientos diagnósticos, impartiendo dosis fetales hasta aproximadamente 1 mGy,(miligray) los riesgos asociados
-            de cáncer infantil son muy bajos (por debajo de 1 en 10000), comparado con el riesgo natural (alrededor de 1 en 500).
-          </p>
-          <p style="text-align: justify">
-            Una radiografía de tórax simple expone al paciente a alrededor de 0.1 mSv (miliSievert). Esto es aproximadamente la misma cantidad de
-            radiación a la que las personas están expuestas naturalmente durante unos 10 días.
-          </p>
-          <p style="text-align: justify">
-            <span class="text-bold">HE COMPRENDIDO CON CLARIDAD TODO LO ESCRITO ANTERIORMENTE </span> Yo he tenido la oportunidad de preguntar y
-            resolver todas mis dudas. <q-radio color="primary" disabled v-model="autoriza" val="S" left-label label="ACEPTO SI" />
-            <q-radio color="primary" disabled v-model="autoriza" val="N" left-label label="NO" />
-            <span class="text-bold">REALIZACION DEL EXAMEN – DECLARO QUE LA DECISION QUE TOMO ES LIBRE Y VOLUNTARIA </span>
-            <q-radio color="primary" disabled v-model="autoriza" val="S" left-label label="SI" />
-            <q-radio color="primary" disabled v-model="autoriza" val="N" left-label label="NO" />
-            <span class="text-bold">DOY MI CONSENTIMIENTO </span>para que el profesional Tecnólogo en imágenes Diagnosticas me realice el
-            procedimiento diagnostico solicitado por el médico tratante <span class="text-bold">SI </span> he aceptado la toma del estudio, la entidad
-            en mención y el tecnólogo en imágenes, quedan autorizados para llevar a cabo las conductas o procedimientos Imagenológicos necesarios
-            tendientes a resolver las complicaciones imprevistas del procedimiento que mediante este documento autorizo.
+            Sé que el paciente <span class="text-bold">{{ getPaci.descrip }},</span> ha sido considerado por ahora incapaz de tomar por sí mismo la
+            decisión de aceptar o rechazar el procedimiento descrito arriba. La funcionaria me ha explicado los riesgos y complicaciones. He
+            comprendido todo lo anterior perfectamente y por ello: YO, <span class="text-bold">{{ getAcomp.descrip }}</span
+            >, con documento de identidad <span class="text-bold">{{ getAcomp.tipo_id }}</span> No. <span class="text-bold">{{ getAcomp.cod }}</span
+            >, doy mi consentimiento para que la profesional, <span class="text-bold">{{ getProf.descrip }}</span> realice este procedimiento. Puedo
+            revocar este consentimiento cuando en bien del paciente se presuma oportuno.
           </p>
         </div>
       </q-card-section>
@@ -81,28 +85,29 @@
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          :registro_profe="getPaci.cod"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA TUTOR O FAMILIAR"
-          :registro_profe="getAcomp.cod"
-          @reciFirma="callBackFirmaAcomp"
+          :firmador="getTestigo.descrip"
+          :registro_profe="getTestigo.cod"
+          @reciFirma="callBackFirmaTest"
+          quien_firma="FIRMA TESTIGO"
+          :codigo_firma="getTestigo.cod"
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
+          :registro_profe="getProf.cod"
           quien_firma="FIRMA PROFESIONAL"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -124,23 +129,23 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC063, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
-import { utilsFormat, evaluarClaseServ } from "@/formatos/utils";
+import { impresionHIC082, impresion, generarArchivo } from "@/impresiones";
+import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
+const firma_recibida_test = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
@@ -148,36 +153,9 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const HIC082 = reactive({
   fecha: "",
 });
-const servicio = ref({
-  select: evaluarClaseServ("3"),
-  items: [
-    { value: "DROGUERIA", label: "DROGUERIA" },
-    { value: "CIRUGIAS", label: "CIRUGIAS" },
-    { value: "LABORATORIOS Y OTROS DIAGNOSTICOS", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
-    { value: "RX - IMAGENOLOGIA", label: "RX - IMAGENOLOGIA" },
-    { value: "OTROS SERVICIOS", label: "OTROS SERVICIOS" },
-    { value: "CONSULTA Y TERAPIAS", label: "CONSULTA Y TERAPIAS" },
-    { value: "PATOLOGIA", label: "PATOLOGIA" },
-    { value: "PROMOCION Y PREVENCION", label: "PROMOCION Y PREVENCION" },
-  ],
-  serv_form: {
-    label: "",
-    required: true,
-    id: "serv_form",
-    campo_abierto: true,
-  },
-});
+
 const opcion_hic082 = ref(null);
-const autoriza = computed(() => {
-  switch (opcion_hic082.value) {
-    case "AUTORIZAR":
-      return "S";
-    case "REVOCAR":
-      return "N";
-    default:
-      return "";
-  }
-});
+
 onMounted(() => {
   HIC082.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
@@ -194,13 +172,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
-
   grabarConsentimiento();
 };
 
@@ -273,7 +244,7 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_hic063 = {
+    const datos_hic082 = {
       autorizo: opcion_hic082.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
@@ -299,14 +270,14 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC082" },
-      content: impresionHIC063({
-        datos: datos_hic063,
+      content: impresionHIC082({
+        datos: datos_hic082,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC082" },
-      content: impresionHIC063({
-        datos: datos_hic063,
+      content: impresionHIC082({
+        datos: datos_hic082,
       }),
     });
 
@@ -324,5 +295,8 @@ const callBackFirma = (data_firma) => {
 
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
+};
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
