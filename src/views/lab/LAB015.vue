@@ -191,10 +191,6 @@ const getFirmaProf = async () => {
 const validarDatos = async () => {
   const requiere = "Complete el siguiente campo";
 
-  if (getAcomp.cod && !huella_acomp.value && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma o huella del acompañate");
-  }
-
   if (LAB015.opcion_lab015 == "AUTORIZAR") {
     if (!LAB015.interv_quirurg) return CON851("?", "info", requiere, () => foco_(form, "interv_quirurg"));
   }

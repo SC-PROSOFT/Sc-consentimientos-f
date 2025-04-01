@@ -688,4 +688,14 @@ export const createRouteHic = (title) => [
       descrip: "Formato consentimiento custodia historia clinica",
     },
   },
+  {
+    path: "/HIC087",
+    name: "HIC087",
+    component: () => import("@/views/hic/HIC087.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC087`,
+      descrip: "Consentimeinto informado para paciente",
+    },
+  },
 ];

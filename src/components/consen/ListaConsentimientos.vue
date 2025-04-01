@@ -158,7 +158,7 @@ const route = useRoute();
 
 const formatosStore = useModuleFormatos();
 const { getDll$, _getFirma$, _getImagen$, _getEsquema$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, getTestigo, setHc, getHc, setSession, setProf } = formatosStore;
+const { getEmpresa, getTestigo, setHc, getHc, setSession, setProf, setTestigo } = formatosStore;
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const params_querys = ref(null);
@@ -541,11 +541,20 @@ const getHuella = async (cod) => {
 };
 const consultarFirmaConsen = async (row) => {
   try {
+    if (params_querys.value.modulo == "HIC") {
+      // consultar testigo
+      const response = await getDll$({
+        modulo: `get_paci.dll`,
+        data: { cod_paci: row.datos.reg_coninf2.id_testigo },
+      });
+      setTestigo(response.reg_paci);
+    }
+
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
 
     if ([900273700, 79635522, 900772776, 822001570].includes(Number(parseInt(route.query.nit)))) {
       //Testigo SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
-      firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo });
+      firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo || "1" });
     } else {
       //Testigo UTM
       params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
@@ -558,10 +567,15 @@ const consultarFirmaConsen = async (row) => {
       firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     }
 
-    //Acompañante
-    firma_acomp.value = await _getImagen$({
-      codigo: `A${codigo}`,
-    });
+    if ([900273700, 79635522, 900772776, 822001570].includes(Number(parseInt(route.query.nit)))) {
+      //Acompañante SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
+      firma_acomp.value = await _getImagen$({ codigo: `${row.id_acomp}`, tipo_test: "1" });
+    } else {
+      //Acompañante
+      firma_acomp.value = await _getImagen$({
+        codigo: `A${codigo}`,
+      });
+    }
     //esquema mamografia
     esquema_mamografia.value = await _getEsquema$({
       codigo: `${codigo}`,
