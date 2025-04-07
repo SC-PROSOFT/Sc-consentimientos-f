@@ -439,7 +439,7 @@
             :firma_="firma_testigo"
             :codigo_firma="getTestigo.cod"
             :descrip_prof="getTestigo.descrip_atiende"
-            :registro_profe="getTestigo.registro_profe"
+            :registro_profe="getTestigo.cod"
             :disable="getSesion.novedad == '4'"
             class="col-4"
           />
@@ -570,8 +570,8 @@ const reg_acomp = ref(regAcomp());
 
 const reg_lab011 = reactive({
   revoca_procedi: "",
-  // fecha: dayjs().format("DD-MM-YYYY"),
-  // hora: dayjs().format("hh:mm A"),
+  fecha: dayjs().format("DD-MM-YYYY"),
+  hora: dayjs().format("HH: mm"),
 
   ult_examen: "",
   fecha_ult_exam: "",
@@ -645,7 +645,6 @@ const reg_lab011 = reactive({
   ident_genero: "",
   edad: "",
   discapacidad: "",
-  acomp: "",
   // descrip_tipo_id: "",
 });
 
@@ -900,7 +899,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = async () => {
-  console.log("reg_lab011.value --->> ", reg_lab011);
   const requiere = "Complete el siguiente campo";
 
   //   if (!firma_recibida.value) {
@@ -939,6 +937,7 @@ const grabarConsentimiento = async () => {
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     id_testigo: getTestigo.cod.padStart(15, "0"),
+    tipo_testigo: getSesion.tipo_testigo,
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
     tabla_notas_aten: tabla_notas_aten,
@@ -1070,12 +1069,9 @@ const imprimirConsen = async () => {
   }
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
-};
-
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+  if (getAcomp.cod) firma_recibida_acomp.value = data_firma;
+  else firma_recibida.value = data_firma;
 };
 const callBackFirmaProf = (data_firma) => {
   data_firma && (firma_prof.value = data_firma);
@@ -1088,7 +1084,6 @@ const agregarNotaAtenc = () => {
   if (reg_tabla_not_ant.value.notas_atencion.trim().length == 0) {
     return CON851("?", "info", "El campo esta vacio");
   }
-  console.log("indice_i --->> ", reg_tabla_not_ant.value.indice_i);
 
   tabla_notas_atencion[reg_tabla_not_ant.value.indice_i - 1].indice_i = reg_tabla_not_ant.value.indice_i;
   tabla_notas_atencion[reg_tabla_not_ant.value.indice_i - 1].fecha = reg_tabla_not_ant.value.fecha;

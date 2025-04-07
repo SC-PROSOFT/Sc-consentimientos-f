@@ -115,7 +115,46 @@
         <span>{{ datos_comp.edad }}</span>
       </div>
     </div>
+    <!--  -->
+    <div class="row justify-center" style="width: 100%">
+      <div
+        class="row justify-center bold"
+        style="width: 100%; display: flex; justify-content: center; align-items: center; min-height: 35px; background-color: #476fad"
+      >
+        <span style="color: white">ACOMPAÑANTE</span>
+      </div>
+    </div>
 
+    <div class="row justify-center" style="width: 100%">
+      <div class="row justify-center bold" style="width: 100%; display: flex; justify-content: center; align-items: center; min-height: 35px">
+        <span>{{ getAcomp.descrip }}</span>
+      </div>
+    </div>
+
+    <div class="row justify-center" style="width: 100%">
+      <div
+        class="row justify-center bold"
+        style="width: 40%; display: flex; justify-content: center; align-items: center; min-height: 35px; background-color: #476fad"
+      >
+        <span style="color: white">PARENTESCO</span>
+      </div>
+      <div
+        class="row justify-center bold"
+        style="width: 60%; display: flex; justify-content: center; align-items: center; min-height: 35px; background-color: #476fad"
+      >
+        <span style="color: white">TELEFONO ACOMPAÑANTE</span>
+      </div>
+    </div>
+
+    <div class="row justify-center" style="width: 100%">
+      <div class="row justify-center bold" style="width: 40%; display: flex; justify-content: center; align-items: center; min-height: 35px">
+        <span>{{ evaluarParentesco(getSesion.paren_acomp) }}</span>
+      </div>
+      <div class="row justify-center bold" style="width: 60%; display: flex; justify-content: center; align-items: center; min-height: 35px">
+        <span>{{ getAcomp.telefono }}</span>
+      </div>
+    </div>
+    <!--  -->
     <div
       v-if="datos_comp.active_encab_ampl"
       class="row"
@@ -315,7 +354,7 @@
 <script setup>
 import { useModuleFormatos } from "@/store/module/formatos";
 import { computed, ref, watchEffect, onMounted } from "vue";
-import { calcEdad, evaluarDiscapacidad, evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
+import { calcularEdad, evaluarDiscapacidad, evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
 import dayjs from "dayjs";
 
 const { getPaci, getEmpresa, getSesion, getAcomp } = useModuleFormatos();
@@ -407,7 +446,7 @@ const datos_comp = computed(() => {
   return {
     active_cups: props.datos?.active_cups ? props.datos?.active_cups : false,
     active_encab_ampl: props.datos?.active_encab_ampl ? props.datos?.active_encab_ampl : false,
-    edad: calcEdad(getPaci.nacim),
+    edad: calcularEdad(getPaci.nacim),
     check_id: true,
   };
 });

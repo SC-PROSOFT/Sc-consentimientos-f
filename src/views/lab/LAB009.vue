@@ -560,6 +560,7 @@ const grabarConsentimiento = async () => {
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     id_testigo: getTestigo.cod.padStart(15, "0"),
+    tipo_testigo: getSesion.tipo_testigo,
     paren_acomp: getSesion.paren_acomp,
     P_1: datos_format.proce_cont.especifique_1,
     P_2: datos_format.proce_cont.especifique_2,

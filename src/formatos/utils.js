@@ -87,15 +87,16 @@ export const calcularEdad = (fecha_naci) => {
   const diferencia_anios = fecha_actual.diff(nacimiento, "year");
 
   if (diferencia_dias < 30) {
-    return `${diferencia_dias} días`;
+    return `${diferencia_dias} Días`;
   } else if (diferencia_meses < 12) {
-    return `${diferencia_meses} meses`;
+    return `${diferencia_meses} Meses`;
   } else {
-    return `${diferencia_anios} años`;
+    return `${diferencia_anios} Años`;
   }
 };
 
 export const evaluarParentesco = (value) => {
+  console.log("evaluarParentesco", value);
   const parentesco = [
     { COD: "1", DESCRIP: "MADRE" },
     { COD: "2", DESCRIP: "PADRE" },
@@ -106,10 +107,10 @@ export const evaluarParentesco = (value) => {
     { COD: "7", DESCRIP: "SOBRINO(A)" },
     { COD: "8", DESCRIP: "PRIMO(A)" },
     { COD: "9", DESCRIP: "MADRASTRA" },
-    { COD: "10", DESCRIP: "PADRASTRO" },
-    { COD: "11", DESCRIP: "AMIGO(A)" },
-    { COD: "12", DESCRIP: "ABUELO(A)" },
-    { COD: "13", DESCRIP: "TRABAJADOR SOCIAL" },
+    { COD: "A", DESCRIP: "PADRASTRO" },
+    { COD: "B", DESCRIP: "AMIGO(A)" },
+    { COD: "C", DESCRIP: "ABUELO(A)" },
+    { COD: "D", DESCRIP: "TRABAJADOR SOCIAL" },
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "";
 };
@@ -358,23 +359,27 @@ export const datosFormatUTM = ({ datos }) => {
     [
       {
         noWrap: true,
-        text: `${dayjs().date()}`,
+        text: dayjs(datos.fecha).date(),
+        // text: `${dayjs().date()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
-        text: `${dayjs().month() + 1}`,
+        text: dayjs(datos.fecha).month() + 1,
+        // text: `${dayjs(datos.fecha).month() + 1}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
-        text: `${dayjs().year()}`,
+        text: dayjs(datos.fecha).year(),
+        // text: `${dayjs().year()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         colSpan: 3,
-        text: `${dayjs().format("hh:mm A")}`,
+        text: datos.hora,
+        // text: `${dayjs().format("hh:mm A")}`,
         style: "tableTitle",
       },
       {},
@@ -544,7 +549,7 @@ export const datosFormatUTM = ({ datos }) => {
       {},
       {},
       {
-        text: `${calcEdad(getPaci.nacim)}`,
+        text: `${calcularEdad(getPaci.nacim)}`,
         noWrap: true,
         style: "tableTitle",
       },
@@ -882,23 +887,27 @@ export const datosFormatUTM = ({ datos }) => {
     [
       {
         noWrap: true,
-        text: `${dayjs().date()}`,
+        text: dayjs(datos.fecha).date(),
+        // text: `${dayjs().date()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
-        text: `${dayjs().month() + 1}`,
+        text: dayjs(datos.fecha).month() + 1,
+        // text: `${dayjs().month() + 1}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
-        text: `${dayjs().year()}`,
+        text: dayjs(datos.fecha).year(),
+        // text: `${dayjs().year()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         colSpan: 3,
-        text: `${dayjs().format("hh:mm A")}`,
+        text: datos.hora,
+        // text: `${dayjs().format("hh:mm A")}`,
         style: "tableTitle",
       },
       {},
@@ -1068,10 +1077,59 @@ export const datosFormatUTM = ({ datos }) => {
       {},
       {},
       {
-        text: `${calcEdad(getPaci.nacim)}`,
+        text: `${calcularEdad(getPaci.nacim)}`,
         noWrap: true,
         style: "tableTitle",
       },
+    ],
+    // acompañante
+    [
+      {
+        colSpan: 7,
+        bold: true,
+        text: "ACOMPAÑANTE",
+        style: "tableTitle",
+      },
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      { bold: true, text: "TELEFONO ACOMPAÑANTE", style: "tableTitle" },
+      {
+        colSpan: 3,
+        bold: true,
+        text: "PARENTESCO",
+        style: "tableTitle",
+      },
+      {},
+      {},
+    ],
+    [
+      {
+        colSpan: 7,
+        text: datos.acomp.descrip || "",
+        style: "tableTitle",
+      },
+
+      {},
+      {},
+      {},
+      {},
+      {},
+      {},
+      {
+        text: `${datos.acomp.telefono}`,
+        style: "tableTitle",
+      },
+      {
+        colSpan: 3,
+        text: `${evaluarParentesco(datos.paren_acomp)}`,
+        style: "tableTitle",
+      },
+      {},
+      {},
     ],
     [
       {

@@ -158,7 +158,7 @@ const route = useRoute();
 
 const formatosStore = useModuleFormatos();
 const { getDll$, _getFirma$, _getImagen$, _getEsquema$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, getTestigo, setHc, getHc, setSession, setProf, setTestigo } = formatosStore;
+const { getEmpresa, getTestigo, setHc, getHc, setSession, setProf, setTestigo, setAcomp, getAcomp } = formatosStore;
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const params_querys = ref(null);
@@ -446,6 +446,41 @@ const disentirConsentimiento = async (row) => {
   reg_consentimiento.value.estado = true;
 };
 const reimprimirConsentimiento = async (row) => {
+  let reg_acomp = {};
+
+  // consultar testigo. El testigo se debe consultar respecto al formato elegido puesto que el testigo puede variar
+  if (params_querys.value.modulo == "LAB") {
+    let testigo;
+    if (row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3") {
+      testigo = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.datos.reg_coninf2.id_testigo.padStart(15, "0") } });
+    } else if (row.reg_coninf.datos.reg_coninf2.tipo_testigo == 2) {
+      testigo = await getDll$({
+        modulo: `get_prof.dll`,
+        data: {
+          cod_prof: Number(row.reg_coninf.datos.reg_coninf2.id_testigo) || 0,
+          carpta: "CONTROL",
+          directorio: route.query.contab,
+          nit: route.query.nit,
+        },
+      });
+    }
+    setTestigo(
+      row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3"
+        ? testigo.reg_paci
+        : testigo.reg_prof
+    );
+  }
+  if (params_querys.value.modulo == "LAB") {
+    if ([900273700, 79635522].includes(Number(route.query.nit))) {
+      const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
+      reg_acomp = { ...response.reg_paci };
+      setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
+    } else {
+      const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
+      reg_acomp = { ...response.reg_acomp };
+      setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+    }
+  }
   let cod_consenti;
   // validacion para cambiar el codigo del formato hic046 a lab015 y hic047 a lab016,
   // esto es porque se usan los mismos formatos en los dos modulos (salud, historia clinica)
@@ -492,7 +527,7 @@ const reimprimirConsentimiento = async (row) => {
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_prof: firma_prof.value ? true : false,
-            firma_acomp: row.reg_acomp?.cod.trim() ? true : false,
+            firma_acomp: reg_acomp?.cod.trim() ? true : false,
             firma_func: row.reg_func?.cod.trim() ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
@@ -506,7 +541,8 @@ const reimprimirConsentimiento = async (row) => {
           disentimiento: row.reg_coninf.disentimiento.trim() || "",
           paren_acomp: row.reg_coninf.paren_acomp.trim() || "",
           paciente: row.reg_paci,
-          acomp: row.reg_acomp,
+          acomp: getAcomp,
+          // acomp: row.reg_acomp,
           empresa: getEmpresa,
           testigo: getTestigo,
           prof: row.reg_prof,

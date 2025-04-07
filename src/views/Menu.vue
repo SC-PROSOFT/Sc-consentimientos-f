@@ -166,10 +166,10 @@ async function getPaciente() {
       if (datos_session.novedad == "1") {
         getMedico();
       }
-      if (datos_session.id_acompa && datos_session.datos_session != "HIC") {
+      if (datos_session.id_acompa && datos_session.modulo != "HIC") {
         data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
-        if ([900273700, 79635522].includes(!Number(route.query.nit))) {
-          setAcomp({ ...data.reg_acomp, parentesco: datos_session.parentesco });
+        if (![900273700, 79635522].includes(Number(route.query.nit))) {
+          setAcomp({ ...data.reg_acomp });
         }
       }
     })
@@ -187,7 +187,8 @@ async function getAcomp() {
       data: { cod_paci: datos_session.id_acompa },
     });
     response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci.do_nom.trim()}`;
-    setAcomp({ ...response.reg_paci, parentesco: datos_session.parentesco });
+    console.log("setAcomp 2");
+    setAcomp({ ...response.reg_paci });
   } catch (error) {
     console.error(error);
     CON851("?", "error", "No existe acompañante en el archivo de pacientes");
