@@ -107,7 +107,8 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB011`,
-      descrip: "Consentimiento informado procedimientos contrastados",
+      descrip: "Formato historia clinica de procedimientos contrastados",
+      // descrip: "Consentimiento informado procedimientos contrastados",
     },
   },
   {
