@@ -139,9 +139,6 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC065 = reactive({
   fecha: "",
-  hora_act: "",
-  exam_fluj_vaginal: "N",
-  citolog_vaginal: "N",
 });
 
 const opcion_hic065 = ref(null);

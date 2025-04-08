@@ -217,13 +217,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
-
   grabarConsentimiento();
 };
 

@@ -33,7 +33,7 @@
           </div>
           <div class="text-left row" style="border: 1px solid #ccc; width: 20%">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Hora:</p>
-            <p style="margin-top: 10px; margin-left: 10px">{{ HIC076.hora_act }}</p>
+            <p style="margin-top: 10px; margin-left: 10px">{{ HIC076.hora }}</p>
           </div>
           <div class="text-left row" style="border: 1px solid #ccc; width: 60%">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre de usuario:</p>
@@ -60,15 +60,15 @@
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Profesional:</p>
             <p style="margin-top: 10px; margin-left: 10px">{{ getProf.descrip }}</p>
           </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 100%">
+          <div class="text-left" style="border: 1px solid #ccc; width: 100%">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre del procedimiento:</p>
-            <Input_ class="q-mt-xs" v-model="HIC076.nomb_procedim" :field="form.nomb_procedim" :inputStyle="{ width: '625px' }" />
+            <TextArea_ v-model="HIC076.nomb_procedim" :field="form.nomb_procedim" />
           </div>
         </div>
         <div>
           <div class="row q-mt-md q-mb-md" style="width: 100%">
             <div class="text-center" style="border: 1px solid #ccc; width: 100%">
-              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">B. Declaración del usuario:</p>
+              <p style="font-weight: bold; margin-top: 10px">B. Declaración del usuario:</p>
             </div>
             <div class="text-center" style="border: 1px solid #ccc; width: 100%">
               <ol class="q-pa-md">
@@ -204,28 +204,29 @@
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          :registro_profe="getPaci.cod"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
+          :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA TUTOR O FAMILIAR"
-          :registro_profe="getAcomp.cod"
-          @reciFirma="callBackFirmaAcomp"
+          quien_firma="FIRMA TESTIGO"
+          :firmador="getTestigo.descrip"
+          :registro_profe="getTestigo.cod"
+          @reciFirma="callBackFirmaTest"
+          :codigo_firma="getTestigo.cod"
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
+          quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
+          :registro_profe="getProf.cod"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -247,7 +248,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC063, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC076, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
 import { calcularEdad, utilsFormat, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -258,10 +259,10 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
-
+const firma_recibida_test = ref("");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
@@ -270,6 +271,7 @@ const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC076 = reactive({
   fecha: "",
+  hora: "",
   servicio: "",
   nomb_procedim: "",
   no_firm_menor_edad: "N",
@@ -282,6 +284,7 @@ const form = ref({
     id: "nomb_procedim",
     maxlength: "250",
     label: "",
+    rows: 5,
     campo_abierto: true,
   },
   otr_discap: {
@@ -324,6 +327,7 @@ const servicio = ref({
 const opcion_hic076 = ref(null);
 onMounted(() => {
   HIC076.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC076.hora = dayjs().format("HH:mm");
   getFirmaProf();
 });
 
@@ -338,12 +342,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
   HIC076.servicio = array_servic.value.find((item) => item.DESCRIP == servicio.value.select).COD;
   grabarConsentimiento();
 };
@@ -355,6 +353,8 @@ const grabarConsentimiento = async () => {
     estado: opcion_hic076.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
+    id_testigo: getTestigo.cod.padStart(15, "0"),
+    tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
@@ -417,9 +417,10 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_hic063 = {
+    const datos_hic076 = {
       autorizo: opcion_hic076.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
+      testigo: getTestigo,
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
@@ -429,11 +430,13 @@ const imprimirConsen = async () => {
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
       },
       ...HIC076,
     };
 
     const firmas = {
+      img_firma_testigo: firma_recibida_test.value,
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
@@ -443,14 +446,14 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC076" },
-      content: impresionHIC063({
-        datos: datos_hic063,
+      content: impresionHIC076({
+        datos: datos_hic076,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC076" },
-      content: impresionHIC063({
-        datos: datos_hic063,
+      content: impresionHIC076({
+        datos: datos_hic076,
       }),
     });
 
@@ -461,12 +464,15 @@ const imprimirConsen = async () => {
     console.error("error -->", error);
   }
 };
-
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+  if (getAcomp.cod) {
+    data_firma && (firma_recibida_acomp.value = data_firma);
+  } else {
+    data_firma && (firma_recibida.value = data_firma);
+  }
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
