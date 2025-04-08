@@ -81,28 +81,29 @@
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          :registro_profe="getPaci.cod"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
+          :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA TUTOR O FAMILIAR"
-          :registro_profe="getAcomp.cod"
-          @reciFirma="callBackFirmaAcomp"
+          quien_firma="FIRMA TESTIGO"
+          :firmador="getTestigo.descrip"
+          :registro_profe="getTestigo.cod"
+          @reciFirma="callBackFirmaTest"
+          :codigo_firma="getTestigo.cod"
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
+          quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
+          :registro_profe="getProf.cod"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -135,10 +136,10 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
-
+const firma_recibida_test = ref("");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
@@ -223,6 +224,8 @@ const grabarConsentimiento = async () => {
     estado: opcion_hic078.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
+    id_testigo: getTestigo.cod.padStart(15, "0"),
+    tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
@@ -288,6 +291,7 @@ const imprimirConsen = async () => {
     const datos_hic063 = {
       autorizo: opcion_hic078.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
+      testigo: getTestigo,
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
@@ -297,11 +301,13 @@ const imprimirConsen = async () => {
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
       },
       ...HIC078,
     };
 
     const firmas = {
+      img_firma_testigo: firma_recibida_test.value,
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
@@ -331,10 +337,14 @@ const imprimirConsen = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+  if (getAcomp.cod) {
+    data_firma && (firma_recibida_acomp.value = data_firma);
+  } else {
+    data_firma && (firma_recibida.value = data_firma);
+  }
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
