@@ -163,6 +163,7 @@ export const impresionHIC082 = ({ datos }) => {
       };
     }
   }
+
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
 
@@ -355,7 +356,7 @@ export const impresionHIC082 = ({ datos }) => {
       marginLeft: 3,
       marginTop: 9,
       alignment: "center",
-      image: "firma_paci",
+      image: "firma_acomp",
       width: tamano_firma,
       height: 70,
     };

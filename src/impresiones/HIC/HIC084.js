@@ -1,4 +1,4 @@
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 
 export const impresionHIC084 = ({ datos }) => {
   var dd = {
@@ -8,74 +8,142 @@ export const impresionHIC084 = ({ datos }) => {
     return {
       stack: [
         {
-          marginTop: 2,
-          alignment: "justify",
+          text: "ESTRATEGIA PARA LA REDUCCIÓN DE LA TRANSMISIÓN PERINATAL DEL VIH",
+          bold: true,
           style: "bodyNoBold9",
-          text: "El consentimiento informado es una “manifestación libre y voluntaria, que da una persona por escrito luego de la asesoría pre prueba, con el fin de realizarle el examen diagnóstico de laboratorio para detectar la infección por VIH, el cual deberá consignarse en la historia clínica”.",
+          alignment: "center",
+        },
+        { marginTop: 4, text: "REGISTRO INICIAL DE LA GESTANTE", bold: true, style: "bodyNoBold9", alignment: "center" },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "33%", alignment: "left", text: [{ bold: true, text: "Fecha: " }, { text: datos.fecha }] },
+            { width: "33%", alignment: "center", text: [{ bold: true, text: "Departamento: " }, { text: "Meta" }] },
+            { width: "33%", alignment: "right", text: [{ bold: true, text: "Codigo: " }, { text: datos.codigo }] },
+          ],
         },
         {
           marginTop: 8,
-          alignment: "justify",
           style: "bodyNoBold9",
-          text: [
-            { text: "Yo, " },
-            { bold: true, text: datos.paciente.descrip },
-            { text: " identificado con " },
-            { bold: true, text: datos.paciente.tipo_id },
-            { text: " No." },
-            { bold: true, text: datos.paciente.cod },
+          columns: [
+            { width: "70%", alignment: "left", text: [{ bold: true, text: "Nombre de la gestante: " }, { text: datos.paciente.descrip }] },
+            { width: "30%", alignment: "right", text: [{ bold: true, text: "Edad: " }, { text: calcularEdad(datos.paciente.nacim) }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Tipo de documento de identidad: " }, { text: datos.paciente.tipo_id }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Número de documento de identidad: " }, { text: datos.paciente.cod }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
             {
-              text: " certifico que han explicado en qué consiste este consentimiento informado y que entiendo su contenido, incluyendo propósitos, limitaciones, beneficios y riesgos de realizarme una prueba diagnóstica para VIH. En virtud de ello manifiesto que:",
+              width: "50%",
+              alignment: "left",
+              text: [{ bold: true, text: "Sistema de seguridad social: " }, { text: datos.paciente.descrip_tipo_afil }],
+            },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Teléfono: " }, { text: datos.paciente.telefono }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Ocupación: " }, { text: datos.paciente.descrip_ocup }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Dirección: " }, { text: datos.paciente.direccion }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "30%", alignment: "left", text: [{ bold: true, text: "Barrio/Vereda: " }, { text: datos.paciente.descrip_barrio }] },
+            {
+              width: "70%",
+              alignment: "right",
+              text: [{ bold: true, text: "Acudiente o responsable de la gestante: " }, { text: datos.acomp.descrip }],
             },
           ],
         },
         {
-          marginTop: 5,
-          ul: [
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
             {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "He recibido la asesoría pre-prueba, con el fin de realizarme el examen diagnóstico de laboratorio para detectar la infección por VIH.",
+              width: "70%",
+              alignment: "left",
+              text: [{ bold: true, text: "Edad gestacional a la captación (semanas): " }, { text: datos.edad_gest }],
+            },
+            { width: "30%", alignment: "right", text: [{ bold: true, text: "FPP Fecha: " }, { text: datos.ffp_fecha }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            {
+              width: "50%",
+              alignment: "left",
+              text: [
+                { bold: true, text: "Recibió asesoría PRE TEST: " },
+                { bold: true, text: "SI " },
+                { bold: true, decoration: "underline", text: datos.recib_ases_pre_test == "S" ? " X " : "    " },
+                { text: " NO " },
+                { bold: true, decoration: "underline", text: datos.recib_ases_pre_test == "N" ? " X " : "    " },
+              ],
+            },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Fecha de la asesoría: " }, { text: datos.fecha_ases_pre_test }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            {
+              width: "50%",
+              alignment: "left",
+              text: [
+                { bold: true, text: "Recibio asesoria POST TEST: " },
+                { bold: true, text: "SI " },
+                { bold: true, decoration: "underline", text: datos.recib_ases_post_test == "S" ? " X " : "    " },
+                { text: " NO " },
+                { bold: true, decoration: "underline", text: datos.recib_ases_post_test == "N" ? " X " : "    " },
+              ],
+            },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Fecha de la asesoría: " }, { text: datos.fecha_ases_post_test }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            {
+              width: "60%",
+              alignment: "left",
+              text: [
+                { bold: true, text: "Acepto las pruebas diagnosticas: " },
+                { bold: true, text: "SI " },
+                { bold: true, decoration: "underline", text: datos.acept_prueb_diagn == "S" ? " X " : "    " },
+                { text: " NO " },
+                { bold: true, decoration: "underline", text: datos.acept_prueb_diagn == "N" ? " X " : "    " },
+              ],
             },
             {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Personal entrenado y calificado en consejería, me ha preparado y confrontado en relación con mis conocimientos, mis prácticas y conductas relacionadas con el VIH.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Entiendo que la toma de muestra para la prueba de detección del VIH es voluntaria y que puedo retirar mi consentimiento en cualquier momento anterior a la toma de la muestra de sangre.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Para la entrega del resultado indistintivamente del mismo recibiré otra asesoría denominada postprueba.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "He discutido el procedimiento a seguir con la persona que me realizó la asesoría, lo he comprendido y estoy de acuerdo.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Fui informado de las acciones que se seguirán para proteger la confidencialidad de la información que he proporcionado y del resultado de mi examen.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "La prueba diagnosticada presuntiva es el examen de laboratorio que indica posible infección por el Virus de Inmunodeficiencia Humana (VIH) y cuyo resultado en caso de ser reactivo, requiere confirmación por otro procedimiento de mayor especificidad denominado Prueba Diagnóstica Suplementaria mediante el cual se confirma la infección por el VIH.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Para garantizar el derecho a mi intimidad, la información y datos que he dado en la consulta, el diagnostico, y de toda la información que pertenezca a mi vida íntima y/o a mi orientación sexual, así como también el resultado de la prueba es de carácter confidencial y se utilizaran solo con fines sanitarios guardando mi identidad.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "He comprendido las medidas de protección que se deben tomar para evitar exponerme a la infección por VIH.",
+              width: "40%",
+              alignment: "right",
+              text: [
+                { bold: true, text: "Desplazada: " },
+                { bold: true, text: "SI " },
+                { bold: true, decoration: "underline", text: datos.desplazad == "S" ? " X " : "    " },
+                { text: " NO " },
+                { bold: true, decoration: "underline", text: datos.desplazad == "N" ? " X " : "    " },
+              ],
             },
           ],
         },
@@ -83,57 +151,123 @@ export const impresionHIC084 = ({ datos }) => {
           marginTop: 10,
           style: "bodyNoBold9",
           table: {
-            headerRows: 1,
-            widths: ["50%", "50%"],
+            widths: ["20%", "10%", "35%", "35%"],
             body: [
               [
                 {
+                  colSpan: 2,
                   alignment: "center",
                   bold: true,
-                  text: "ASESORIA PRE -TEST",
+                  text: "PRUEBA REALIZADA",
+                },
+                {},
+                {
+                  alignment: "center",
+                  bold: true,
+                  text: "FECHA",
                 },
                 {
                   alignment: "center",
                   bold: true,
-                  text: "ASESORIA POS- TEST",
+                  text: "RESULTADO",
                 },
               ],
               [
+                { border: [true, true, false, true], bold: true, text: "EISA 1" },
                 {
-                  text: [
-                    {
-                      text: "Fecha: ",
-                    },
-                    {
-                      bold: true,
-                      text: datos.fecha_pre_test,
-                    },
-                    {
-                      text: " Hora: ",
-                    },
-                    {
-                      bold: true,
-                      text: datos.hora_pre_test,
-                    },
-                  ],
+                  border: [false, true, true, true],
+                  alignment: "center",
+                  stack: datos.eisa_1 == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { alignment: "center", bold: true, text: datos.fecha_eisa_1 },
+                {
+                  alignment: "center",
+                  bold: true,
+                  text: datos.result_eisa_1 == "RE" ? "Reactivo" : "No reactivo",
+                },
+              ],
+              [
+                { border: [true, true, false, true], bold: true, text: "ELISA 2" },
+                {
+                  border: [false, true, true, true],
+                  alignment: "center",
+                  stack: datos.elisa_2 == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { alignment: "center", bold: true, text: datos.fecha_elisa_2 },
+                {
+                  alignment: "center",
+                  bold: true,
+                  text: datos.result_elisa_2 == "RE" ? "Reactivo" : "No reactivo",
+                },
+              ],
+              [
+                { border: [true, true, false, true], bold: true, text: "WESTERN BLOT" },
+                {
+                  border: [false, true, true, true],
+                  alignment: "center",
+                  stack: datos.western_blot == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { alignment: "center", bold: true, text: datos.fecha_western_blot },
+                {
+                  alignment: "center",
+                  bold: true,
+                  text:
+                    datos.result_western_blot == "PO"
+                      ? "Positivo"
+                      : datos.result_western_blot == "NE"
+                      ? "Negativo"
+                      : datos.result_western_blot == "IN"
+                      ? "Indeterminado"
+                      : "",
+                },
+              ],
+            ],
+          },
+        },
+        {
+          marginTop: 20,
+          text: "ATENCIÓN EN CONTROL DE TRABAJO DE PARTO SIN CONTROL PRENATAL",
+          bold: true,
+          style: "bodyNoBold9",
+          alignment: "center",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          table: {
+            widths: ["20%", "10%", "35%", "35%"],
+            body: [
+              [
+                {
+                  colSpan: 2,
+                  alignment: "center",
+                  bold: true,
+                  text: "PRUEBA REALIZADA",
+                },
+                {},
+                {
+                  alignment: "center",
+                  bold: true,
+                  text: "FECHA",
                 },
                 {
-                  text: [
-                    {
-                      text: "Fecha: ",
-                    },
-                    {
-                      bold: true,
-                      text: datos.fecha_pos_test,
-                    },
-                    {
-                      text: " Hora: ",
-                    },
-                    {
-                      bold: true,
-                      text: datos.hora_pos_test,
-                    },
-                  ],
+                  alignment: "center",
+                  bold: true,
+                  text: "RESULTADO",
+                },
+              ],
+              [
+                { border: [true, true, false, true], bold: true, text: "PRUEBA RAPIDA" },
+                {
+                  border: [false, true, true, true],
+                  alignment: "center",
+                  stack: datos.prb_rapiada == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { alignment: "center", bold: true, text: datos.fecha_prb_rapiada },
+                {
+                  alignment: "center",
+                  bold: true,
+                  text: datos.result_prb_rapiada == "PO" ? "Positivo" : "Negativo",
                 },
               ],
             ],
@@ -141,6 +275,22 @@ export const impresionHIC084 = ({ datos }) => {
         },
       ],
     };
+  }
+  function cuadro_canvas_x(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+  function cuadro_canvas() {
+    return [{ canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] }];
   }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
@@ -163,12 +313,13 @@ export const impresionHIC084 = ({ datos }) => {
         {
           marginTop: 9,
           marginLeft: 5,
-          image: "huella_paci",
+          image: getAcomp.cod ? getImgBs64 : "huella_paci",
           width: 55,
           height: 70,
         },
       ],
     };
+
     const sinHuella = {
       marginLeft: 3,
       marginTop: 9,
@@ -226,7 +377,8 @@ export const impresionHIC084 = ({ datos }) => {
       ],
     };
   }
-  function firmaAcompanante() {
+
+  function firmaAcompanante(firma_acomp, cant_firmas) {
     return {
       stack: [
         {
@@ -242,13 +394,14 @@ export const impresionHIC084 = ({ datos }) => {
           style: "tableNoBold",
           fontSize: 6,
         },
-        {
-          marginTop: 2,
-          alignment: "center",
-          image: "firma_acomp",
-          width: 130,
-          height: 70,
-        },
+        firmaHuellaAcomp(firma_acomp, cant_firmas),
+        // {
+        //   marginTop: 8,
+        //   alignment: "center",
+        //   image: "firma_acomp",
+        //   width: 125,
+        //   height: 70,
+        // },
         {
           marginTop: 10,
           columns: [
@@ -299,11 +452,52 @@ export const impresionHIC084 = ({ datos }) => {
     };
   }
 
+  function firmaHuellaAcomp(huella_acomp, cant_firmas) {
+    let tamano_firma = 0;
+
+    if (cant_firmas == 2) {
+      tamano_firma = 100;
+    } else {
+      tamano_firma = 125;
+    }
+    const conHuella = {
+      marginLeft: 3,
+      columns: [
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_acomp",
+          width: tamano_firma,
+          height: 60,
+        },
+        // {
+        //   marginTop: 9,
+        //   marginLeft: 2,
+        //   image: "huella_acomp",
+        //   width: 50,
+        //   height: 65,
+        // },
+      ],
+    };
+
+    const sinHuella = {
+      marginLeft: 3,
+      marginTop: 9,
+      alignment: "center",
+      image: "firma_acomp",
+      width: tamano_firma,
+      height: 70,
+    };
+
+    if (huella_acomp) return conHuella;
+    else return sinHuella;
+  }
+
   function firmaProfesional() {
     return {
       stack: [
         {
-          text: "FIRMA PROFESIONAL",
+          text: "QUIEN BRINDA LA INFORMACIÓN",
 
           alignment: "center",
           style: "tableNoBold",
@@ -363,15 +557,66 @@ export const impresionHIC084 = ({ datos }) => {
       ],
     };
   }
+  function firmaTestigo() {
+    return {
+      stack: [
+        {
+          text: "TESTIGO",
 
+          alignment: "center",
+          style: "tableNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_testigo",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 8,
+          text: [
+            {
+              text: "NOMBRE: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: `${datos.testigo.descrip}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.testigo.cod}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {
-      firmasArray.push(firmaAcompanante());
+      firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
     }
+
+    firmasArray.push(firmaTestigo());
 
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
@@ -379,7 +624,7 @@ export const impresionHIC084 = ({ datos }) => {
 
     tamanoFirmasArray = firmasArray.length;
 
-    if (datos.firmas.firma_paci) {
+    if (!datos.firmas.firma_acomp) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
     }
 

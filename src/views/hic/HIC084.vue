@@ -19,43 +19,216 @@
             </q-chip>
           </p>
         </div>
-        <p style="text-align: justify">
-          El consentimiento informado es una “manifestación libre y voluntaria, que da una persona por escrito luego de la asesoría pre prueba, con el
-          fin de realizarle el examen diagnóstico de laboratorio para detectar la infección por VIH, el cual deberá consignarse en la historia
-          clínica”.
+        <p class="text-center q-mb-lg">
+          <span class="text-bold">ESTRATEGIA PARA LA REDUCCIÓN DE LA TRANSMISIÓN PERINATAL DEL VIH</span>
         </p>
-        <p style="text-align: justify">
-          Yo, <span class="text-bold">{{ getPaci.descrip }} </span> identificado con <span class="text-bold">{{ getPaci.tipo_id }} </span> No.
-          <span class="text-bold">{{ getPaci.cod }} </span> certifico que han explicado en qué consiste este consentimiento informado y que entiendo
-          su contenido, incluyendo propósitos, limitaciones, beneficios y riesgos de realizarme una prueba diagnóstica para VIH. En virtud de ello
-          manifiesto que:
+
+        <p class="text-center q-mb-lg">
+          <span class="text-bold">REGISTRO INICIAL DE LA GESTANTE</span>
         </p>
-        <div class="row q-mt-md q-mb-md">
-          <div style="border: 1px solid #ccc; width: 50%">
-            <p class="text-center" style="font-weight: bold; margin-top: 10px; margin-left: 10px">ASESORIA PRE -TEST</p>
+
+        <div class="row justify-between items-center">
+          <p>
+            <span class="text-bold">Fecha:</span>
+            {{ dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD") }}
+          </p>
+          <p>
+            <span class="text-bold">Departamento:</span>
+            Meta
+          </p>
+          <div class="row">
+            <p class="text-bold">Codigo:</p>
+            <Input_ v-model="HIC084.codigo" :field="form.codigo" />
           </div>
-          <div style="border: 1px solid #ccc; width: 50%">
-            <p class="text-center" style="font-weight: bold; margin-top: 10px; margin-left: 10px">ASESORIA POS- TEST</p>
+          <p>
+            <span class="text-bold">Nombre de la gestante:</span>
+            {{ getPaci.descrip }}
+          </p>
+          <p>
+            <span class="text-bold">Tipo de documento de identidad:</span>
+            {{ getPaci.tipo_id }}
+          </p>
+          <p>
+            <span class="text-bold">Número de documento de identidad:</span>
+            {{ getPaci.cod }}
+          </p>
+          <p>
+            <span class="text-bold">Edad:</span>
+            {{ calcularEdad(getPaci.nacim) }}
+          </p>
+          <p>
+            <span class="text-bold">Sistema de seguridad social:</span>
+            {{ getPaci.descrip_tipo_afil }}
+          </p>
+          <p>
+            <span class="text-bold">Dirección:</span>
+            {{ getPaci.direccion }}
+          </p>
+          <p>
+            <span class="text-bold">Barrio/Vereda:</span>
+            {{ getPaci.descrip_barrio }}
+          </p>
+          <p>
+            <span class="text-bold">Ocupación:</span>
+            {{ getPaci.descrip_ocup }}
+          </p>
+          <p>
+            <span class="text-bold">Telefono:</span>
+            {{ getPaci.telefono }}
+          </p>
+          <p>
+            <span class="text-bold">Acudiente o responsable de la gestante:</span>
+            {{ getAcomp.descrip }}
+          </p>
+          <div class="row q-mt-lg">
+            <p>
+              <span class="text-bold">Edad gestacional a la captación (semanas):</span>
+            </p>
+            <Input_ v-model="HIC084.edad_gest" :field="form.edad_gest" :inputStyle="{ width: '160px' }" />
           </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 50%">
-            <div class="row q-mt-md q-mb-md">
-              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha</p>
-              <Input_ v-model="HIC084.fecha_pre_test" :field="form.fecha_pre_test" />
-            </div>
-            <div class="row q-mt-md q-mb-md">
-              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Hora</p>
-              <Input_ v-model="HIC084.hora_pre_test" :field="form.hora_pre_test" />
-            </div>
+          <div class="row">
+            <p>
+              <span class="text-bold">FPP Fecha:</span>
+            </p>
+            <Input_ v-model="HIC084.ffp_fecha" :field="form.ffp_fecha" :inputStyle="{ width: '160px' }" />
           </div>
-          <div class="text-left row" style="border: 1px solid #ccc; width: 50%">
-            <div class="row q-mt-md q-mb-md">
-              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha</p>
-              <Input_ v-model="HIC084.fecha_pos_test" :field="form.fecha_pos_test" />
-            </div>
-            <div class="row q-mt-md q-mb-md">
-              <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Hora</p>
-              <Input_ v-model="HIC084.hora_pos_test" :field="form.hora_pos_test" />
-            </div>
+          <div class="row q-mt-md">
+            <p>
+              <span class="text-bold">Recibio asesoria PRE TEST:</span>
+              <q-radio color="primary" v-model="HIC084.recib_ases_pre_test" val="S" label="SI" />
+              <q-radio color="primary" v-model="HIC084.recib_ases_pre_test" val="N" label="NO" />
+              <span class="text-bold">&nbsp; Fecha de la asesoria:</span>
+            </p>
+            <Input_ v-model="HIC084.fecha_ases_pre_test" :field="form.fecha_ases_pre_test" :inputStyle="{ width: '160px' }" />
+          </div>
+          <div class="row">
+            <p>
+              <span class="text-bold">Recibio asesoria POST TEST:</span>
+              <q-radio color="primary" v-model="HIC084.recib_ases_post_test" val="S" label="SI" />
+              <q-radio color="primary" v-model="HIC084.recib_ases_post_test" val="N" label="NO" />
+              <span class="text-bold">&nbsp; Fecha de la asesoria:</span>
+            </p>
+            <Input_ v-model="HIC084.fecha_ases_post_test" :field="form.fecha_ases_post_test" :inputStyle="{ width: '160px' }" />
+          </div>
+          <div class="row">
+            <p>
+              <span class="text-bold">Acepto las pruebas diagnosticas:</span>
+              <q-radio color="primary" v-model="HIC084.acept_prueb_diagn" val="S" label="SI" />
+              <q-radio color="primary" v-model="HIC084.acept_prueb_diagn" val="N" label="NO" />
+            </p>
+          </div>
+          <div class="row">
+            <p>
+              <span class="text-bold">Desplazada:</span>
+              <q-radio color="primary" v-model="HIC084.desplazad" val="S" label="SI" />
+              <q-radio color="primary" v-model="HIC084.desplazad" val="N" label="NO" />
+            </p>
+          </div>
+        </div>
+        <div class="row q-mt-lg q-mb-md">
+          <div class="text-center" style="border: 1px solid #ccc; width: 40%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">PRUEBA REALIZADA</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">FECHA</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">RESULTADO</p>
+          </div>
+          <div class="text-left" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">EISA 1</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 10%">
+            <q-checkbox class="q-pa-xs" color="primary" keep-color left-label v-model="HIC084.eisa_1" true-value="S" false-value="N" />
+          </div>
+          <div style="border: 1px solid #ccc; width: 30%">
+            <Input_ class="q-mt-lg q-mb-xs" v-model="HIC084.fecha_eisa_1" :field="form.fecha_eisa_1" />
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <Select_
+              class="q-mt-lg q-mb-xs"
+              v-model="HIC084.result_eisa_1"
+              :field="form.result_eisa_1"
+              :items="[
+                { value: 'RE', label: 'Reactivo' },
+                { value: 'NR', label: 'No reactivo' },
+              ]"
+            />
+          </div>
+          <div class="text-left" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">ELISA 2</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 10%">
+            <q-checkbox class="q-pa-xs" color="primary" keep-color left-label v-model="HIC084.elisa_2" true-value="S" false-value="N" />
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <Input_ class="q-mt-lg q-mb-xs" v-model="HIC084.fecha_elisa_2" :field="form.fecha_elisa_2" />
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <Select_
+              class="q-mt-lg q-mb-xs"
+              v-model="HIC084.result_elisa_2"
+              :field="form.result_elisa_2"
+              :items="[
+                { value: 'RE', label: 'Reactivo' },
+                { value: 'NR', label: 'No reactivo' },
+              ]"
+            />
+          </div>
+          <div class="text-left" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">WESTERN BLOT</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 10%">
+            <q-checkbox class="q-pa-xs" color="primary" keep-color left-label v-model="HIC084.western_blot" true-value="S" false-value="N" />
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <Input_ class="q-mt-lg q-mb-xs" v-model="HIC084.fecha_western_blot" :field="form.fecha_western_blot" />
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <Select_
+              class="q-mt-lg q-mb-xs"
+              v-model="HIC084.result_western_blot"
+              :field="form.result_western_blot"
+              :items="[
+                { value: 'PO', label: 'Positivo' },
+                { value: 'NE', label: 'Negativo' },
+                { value: 'IN', label: 'Indeterminado' },
+              ]"
+            />
+          </div>
+        </div>
+        <p class="text-center q-mt-lg">
+          <span class="text-bold">ATENCIÓN EN CONTROL DE TRABAJO DE PARTO SIN CONTROL PRENATAL</span>
+        </p>
+        <div class="row q-mt-lg q-mb-md">
+          <div class="text-center" style="border: 1px solid #ccc; width: 40%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">PRUEBA REALIZADA</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">FECHA</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">RESULTADO</p>
+          </div>
+          <div class="text-left" style="border: 1px solid #ccc; width: 30%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">PRUEBA RAPIDA</p>
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 10%">
+            <q-checkbox class="q-pa-xs" color="primary" keep-color left-label v-model="HIC084.prb_rapiada" true-value="S" false-value="N" />
+          </div>
+          <div style="border: 1px solid #ccc; width: 30%">
+            <Input_ class="q-mt-lg q-mb-xs" v-model="HIC084.fecha_prb_rapiada" :field="form.fecha_prb_rapiada" />
+          </div>
+          <div class="text-center" style="border: 1px solid #ccc; width: 30%">
+            <Select_
+              class="q-mt-lg q-mb-xs"
+              v-model="HIC084.result_prb_rapiada"
+              :field="form.result_prb_rapiada"
+              :items="[
+                { value: 'PO', label: 'Positivo' },
+                { value: 'NE', label: 'Negativo' },
+              ]"
+            />
           </div>
         </div>
       </q-card-section>
@@ -64,28 +237,29 @@
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          :registro_profe="getPaci.cod"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
+          :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA TUTOR O FAMILIAR"
-          :registro_profe="getAcomp.cod"
-          @reciFirma="callBackFirmaAcomp"
+          quien_firma="FIRMA TESTIGO"
+          :firmador="getTestigo.descrip"
+          :registro_profe="getTestigo.cod"
+          @reciFirma="callBackFirmaTest"
+          :codigo_firma="getTestigo.cod"
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
+          quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
+          :registro_profe="getProf.cod"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -109,7 +283,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC085, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -117,65 +291,124 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
+const firma_recibida_test = ref("");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const array_tipo_afilia = ref([
-  { COD: "1", DESCRIP: "COTIZANTE     " },
-  { COD: "2", DESCRIP: "BENEFICIARIO  " },
-  { COD: "3", DESCRIP: "COT. PENSIONAD" },
-  { COD: "4", DESCRIP: "UPC ADICIONAL " },
-  { COD: "5", DESCRIP: "CABEZA FAMILIA" },
-  { COD: "6", DESCRIP: "GRUPO FAMILIAR" },
-  { COD: "0", DESCRIP: "SIN DETERMINAR" },
-]);
 const HIC084 = reactive({
   fecha: "",
   codigo: "",
-  departamento: "",
-  municipio: "",
-  otr_tipo_afilia: "",
-
-  fecha_pos_test: "",
-  fecha_pre_test: "",
-  hora_pos_test: "",
-  hora_pre_test: "",
+  ffp_fecha: "",
+  recib_ases_pre_test: "",
+  fecha_ases_pre_test: "",
+  recib_ases_post_test: "",
+  fecha_ases_post_test: "",
+  acept_prueb_diagn: "",
+  desplazad: "",
+  edad_gest: "",
+  eisa_1: "N",
+  fecha_eisa_1: "",
+  elisa_2: "N",
+  fecha_elisa_2: "",
+  western_blot: "N",
+  fecha_western_blot: "",
+  result_eisa_1: "",
+  result_elisa_2: "",
+  result_western_blot: "",
+  prb_rapiada: "N",
+  fecha_prb_rapiada: "",
+  result_prb_rapiada: "",
 });
 
 const form = ref({
-  fecha_pos_test: {
-    id: "fecha_pos_test",
+  codigo: {
+    id: "codigo",
+    maxlength: "20",
+    label: "",
+    campo_abierto: true,
+  },
+  edad_gest: {
+    id: "edad_gest",
+    maxlength: "2",
+    label: "",
+    tipo: "number",
+    campo_abierto: true,
+  },
+  ffp_fecha: {
+    id: "ffp_fecha",
     maxlength: "10",
     label: "",
     tipo: "date",
     campo_abierto: true,
   },
-  fecha_pre_test: {
-    id: "fecha_pre_test",
+  fecha_ases_pre_test: {
+    id: "fecha_ases_pre_test",
     maxlength: "10",
     label: "",
     tipo: "date",
     campo_abierto: true,
   },
-  hora_pos_test: {
-    id: "hora_pos_test",
+  fecha_ases_post_test: {
+    id: "fecha_ases_post_test",
     maxlength: "10",
     label: "",
-    tipo: "time",
+    tipo: "date",
     campo_abierto: true,
   },
-  hora_pre_test: {
-    id: "hora_pre_test",
+  fecha_eisa_1: {
+    id: "fecha_eisa_1",
     maxlength: "10",
     label: "",
-    tipo: "time",
+    tipo: "date",
+    campo_abierto: true,
+  },
+  fecha_elisa_2: {
+    id: "fecha_elisa_2",
+    maxlength: "10",
+    label: "",
+    tipo: "date",
+    campo_abierto: true,
+  },
+  fecha_western_blot: {
+    id: "fecha_western_blot",
+    maxlength: "10",
+    label: "",
+    tipo: "date",
+    campo_abierto: true,
+  },
+  fecha_prb_rapiada: {
+    id: "fecha_prb_rapiada",
+    maxlength: "10",
+    label: "",
+    tipo: "date",
+    campo_abierto: true,
+  },
+
+  result_eisa_1: {
+    id: "result_eisa_1",
+    required: true,
+    campo_abierto: true,
+  },
+  result_elisa_2: {
+    id: "result_elisa_2",
+    required: true,
+    campo_abierto: true,
+  },
+  result_western_blot: {
+    id: "result_western_blot",
+    required: true,
+    campo_abierto: true,
+  },
+  result_prb_rapiada: {
+    id: "result_prb_rapiada",
+    required: true,
     campo_abierto: true,
   },
 });
@@ -197,13 +430,7 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
-
+  console.log("HIC084---> ", HIC084);
   grabarConsentimiento();
 };
 
@@ -214,6 +441,8 @@ const grabarConsentimiento = async () => {
     estado: opcion_hic084.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
+    id_testigo: getTestigo.cod.padStart(15, "0"),
+    tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
@@ -279,6 +508,7 @@ const imprimirConsen = async () => {
     const datos_hic085 = {
       autorizo: opcion_hic084.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
+      testigo: getTestigo,
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
@@ -288,11 +518,13 @@ const imprimirConsen = async () => {
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
+        firma_test: firma_recibida_test.value ? true : false,
       },
       ...HIC084,
     };
 
     const firmas = {
+      img_firma_testigo: firma_recibida_test.value,
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
@@ -322,10 +554,14 @@ const imprimirConsen = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+  if (getAcomp.cod) {
+    data_firma && (firma_recibida_acomp.value = data_firma);
+  } else {
+    data_firma && (firma_recibida.value = data_firma);
+  }
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>

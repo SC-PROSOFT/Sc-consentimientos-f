@@ -208,45 +208,6 @@ export const impresionHIC083 = ({ datos }) => {
       };
     }
   }
-  function firmaHuellaPaci(huella_paci, cant_firmas) {
-    let tamano_firma = 0;
-
-    if (cant_firmas == 2) {
-      tamano_firma = 105;
-    } else {
-      tamano_firma = 130;
-    }
-    const conHuella = {
-      marginLeft: 3,
-      columns: [
-        {
-          marginTop: 9,
-          alignment: "center",
-          image: "firma_paci",
-          width: tamano_firma,
-          height: 70,
-        },
-        {
-          marginTop: 9,
-          marginLeft: 5,
-          image: "huella_paci",
-          width: 55,
-          height: 70,
-        },
-      ],
-    };
-    const sinHuella = {
-      marginLeft: 3,
-      marginTop: 9,
-      alignment: "center",
-      image: "firma_paci",
-      width: tamano_firma,
-      height: 70,
-    };
-
-    if (huella_paci) return conHuella;
-    else return sinHuella;
-  }
 
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
@@ -440,7 +401,7 @@ export const impresionHIC083 = ({ datos }) => {
       marginLeft: 3,
       marginTop: 9,
       alignment: "center",
-      image: "firma_paci",
+      image: "firma_acomp",
       width: tamano_firma,
       height: 70,
     };
@@ -539,7 +500,7 @@ export const impresionHIC083 = ({ datos }) => {
               bold: true,
             },
             {
-              text: datos.testigo?.descrip,
+              text: `${datos.testigo.descrip}`,
               style: "tableNoBold",
             },
           ],
@@ -556,7 +517,7 @@ export const impresionHIC083 = ({ datos }) => {
             {
               marginLeft: 5,
               style: "tableNoBold",
-              text: datos.testigo?.cod,
+              text: `${datos.testigo.cod}`,
             },
           ],
         },
@@ -596,5 +557,6 @@ export const impresionHIC083 = ({ datos }) => {
       },
     };
   }
+
   return dd;
 };
