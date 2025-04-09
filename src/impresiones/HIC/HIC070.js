@@ -294,6 +294,22 @@ export const impresionHIC070 = ({ datos }) => {
     };
   }
 
+  function cuadro_canvas_x(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+  function cuadro_canvas() {
+    return [{ canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] }];
+  }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
 
@@ -315,7 +331,7 @@ export const impresionHIC070 = ({ datos }) => {
         {
           marginTop: 9,
           marginLeft: 5,
-          image: "huella_paci",
+          image: getAcomp.cod ? getImgBs64 : "huella_paci",
           width: 55,
           height: 70,
         },
@@ -379,23 +395,8 @@ export const impresionHIC070 = ({ datos }) => {
       ],
     };
   }
-  function cuadro_canvas_x(condicion) {
-    return [
-      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
-      {
-        canvas: condicion
-          ? [
-              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
-              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
-            ]
-          : [],
-      },
-    ];
-  }
-  function cuadro_canvas() {
-    return [{ canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] }];
-  }
-  function firmaAcompanante() {
+
+  function firmaAcompanante(firma_acomp, cant_firmas) {
     return {
       stack: [
         {
@@ -411,13 +412,14 @@ export const impresionHIC070 = ({ datos }) => {
           style: "tableNoBold",
           fontSize: 6,
         },
-        {
-          marginTop: 2,
-          alignment: "center",
-          image: "firma_acomp",
-          width: 130,
-          height: 70,
-        },
+        firmaHuellaAcomp(firma_acomp, cant_firmas),
+        // {
+        //   marginTop: 8,
+        //   alignment: "center",
+        //   image: "firma_acomp",
+        //   width: 125,
+        //   height: 70,
+        // },
         {
           marginTop: 10,
           columns: [
@@ -468,11 +470,52 @@ export const impresionHIC070 = ({ datos }) => {
     };
   }
 
+  function firmaHuellaAcomp(huella_acomp, cant_firmas) {
+    let tamano_firma = 0;
+
+    if (cant_firmas == 2) {
+      tamano_firma = 100;
+    } else {
+      tamano_firma = 125;
+    }
+    const conHuella = {
+      marginLeft: 3,
+      columns: [
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_acomp",
+          width: tamano_firma,
+          height: 60,
+        },
+        // {
+        //   marginTop: 9,
+        //   marginLeft: 2,
+        //   image: "huella_acomp",
+        //   width: 50,
+        //   height: 65,
+        // },
+      ],
+    };
+
+    const sinHuella = {
+      marginLeft: 3,
+      marginTop: 9,
+      alignment: "center",
+      image: "firma_acomp",
+      width: tamano_firma,
+      height: 70,
+    };
+
+    if (huella_acomp) return conHuella;
+    else return sinHuella;
+  }
+
   function firmaProfesional() {
     return {
       stack: [
         {
-          text: "FIRMA PROFESIONAL",
+          text: "QUIEN BRINDA LA INFORMACIÓN",
 
           alignment: "center",
           style: "tableNoBold",
@@ -532,15 +575,66 @@ export const impresionHIC070 = ({ datos }) => {
       ],
     };
   }
+  function firmaTestigo() {
+    return {
+      stack: [
+        {
+          text: "TESTIGO",
 
+          alignment: "center",
+          style: "tableNoBold",
+          bold: true,
+        },
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_testigo",
+          width: 130,
+          height: 70,
+        },
+        {
+          marginTop: 8,
+          text: [
+            {
+              text: "NOMBRE: ",
+              style: "tableNoBold",
+              bold: true,
+            },
+            {
+              text: `${datos.testigo.descrip}`,
+              style: "tableNoBold",
+            },
+          ],
+        },
+
+        {
+          columns: [
+            {
+              width: "auto",
+              style: "tableNoBold",
+              text: "DOCUMENTO: ",
+              bold: true,
+            },
+            {
+              marginLeft: 5,
+              style: "tableNoBold",
+              text: `${datos.testigo.cod}`,
+            },
+          ],
+        },
+      ],
+    };
+  }
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {
-      firmasArray.push(firmaAcompanante());
+      firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
     }
+
+    firmasArray.push(firmaTestigo());
 
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
@@ -548,7 +642,7 @@ export const impresionHIC070 = ({ datos }) => {
 
     tamanoFirmasArray = firmasArray.length;
 
-    if (datos.firmas.firma_paci) {
+    if (!datos.firmas.firma_acomp) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
     }
 

@@ -21,7 +21,7 @@
         </div>
         <div class="row">
           <p style="font-weight: bold">Fecha de asesoria:&nbsp;</p>
-          <p>{{ HIC073.fecha_act }}</p>
+          <p>{{ HIC073.fecha }}</p>
         </div>
         <div>
           <p style="text-align: justify">
@@ -75,28 +75,29 @@
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around">
         <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          :registro_profe="getPaci.cod"
+          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
+          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
+          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
+          :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
           @reciFirma="callBackFirma"
-          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
-          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-          :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA TUTOR O FAMILIAR"
-          :registro_profe="getAcomp.cod"
-          @reciFirma="callBackFirmaAcomp"
+          quien_firma="FIRMA TESTIGO"
+          :firmador="getTestigo.descrip"
+          :registro_profe="getTestigo.cod"
+          @reciFirma="callBackFirmaTest"
+          :codigo_firma="getTestigo.cod"
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
+          quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
+          :registro_profe="getProf.cod"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -118,21 +119,21 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC072, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC073, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
+const firma_recibida_test = ref("");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
@@ -140,7 +141,7 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
 const HIC073 = reactive({
-  fecha_act: "",
+  fecha: "",
   gestante: "N",
   fecha_toma_muestra: "",
 });
@@ -157,7 +158,7 @@ const form = ref({
 const opcion_hic073 = ref(null);
 
 onMounted(() => {
-  HIC073.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC073.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -172,13 +173,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
-
   grabarConsentimiento();
 };
 
@@ -189,6 +183,8 @@ const grabarConsentimiento = async () => {
     estado: opcion_hic073.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
+    id_testigo: getTestigo.cod.padStart(15, "0"),
+    tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
@@ -254,6 +250,7 @@ const imprimirConsen = async () => {
     const datos_hic072 = {
       autorizo: opcion_hic073.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
+      testigo: getTestigo,
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
@@ -268,6 +265,7 @@ const imprimirConsen = async () => {
     };
 
     const firmas = {
+      img_firma_testigo: firma_recibida_test.value,
       img_firma_consen: firma_recibida.value,
       img_firma_paci: firma_recibida.value,
       img_huella_paci: huella_paci.value,
@@ -277,13 +275,13 @@ const imprimirConsen = async () => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC073" },
-      content: impresionHIC072({
+      content: impresionHIC073({
         datos: datos_hic072,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC073" },
-      content: impresionHIC072({
+      content: impresionHIC073({
         datos: datos_hic072,
       }),
     });
@@ -297,10 +295,14 @@ const imprimirConsen = async () => {
 };
 
 const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
+  if (getAcomp.cod) {
+    data_firma && (firma_recibida_acomp.value = data_firma);
+  } else {
+    data_firma && (firma_recibida.value = data_firma);
+  }
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
+const callBackFirmaTest = (data_firma) => {
+  data_firma && (firma_recibida_test.value = data_firma);
 };
 </script>
