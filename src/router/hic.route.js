@@ -698,4 +698,84 @@ export const createRouteHic = (title) => [
       descrip: "Consentimeinto informado para paciente",
     },
   },
+  {
+    path: "/HIC088",
+    name: "HIC088",
+    component: () => import("@/views/hic/HIC088.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC088`,
+      descrip: "Consentimiento informado para ingreso a hospitalizacion",
+    },
+  },
+  {
+    path: "/HIC089",
+    name: "HIC089",
+    component: () => import("@/views/hic/HIC089.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC089`,
+      descrip: "Consentimiento informado para procedimientos invasivos",
+    },
+  },
+  {
+    path: "/HIC090",
+    name: "HIC090",
+    component: () => import("@/views/hic/HIC090.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC090`,
+      descrip: "Consentimiento informado para referencia de pacientes sin aceptacion",
+    },
+  },
+  {
+    path: "/HIC091",
+    name: "HIC091",
+    component: () => import("@/views/hic/HIC091.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC091`,
+      descrip: "Consentimiento informado pata toma de muestrascovid 19",
+    },
+  },
+  {
+    path: "/HIC092",
+    name: "HIC092",
+    component: () => import("@/views/hic/HIC092.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC092`,
+      descrip: "Consentimiento informado toma de citologias",
+    },
+  },
+  {
+    path: "/HIC093",
+    name: "HIC093",
+    component: () => import("@/views/hic/HIC093.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC093`,
+      descrip: "Consentimiento inserccion y retiro de dispositivo intrauterino",
+    },
+  },
+  {
+    path: "/HIC094",
+    name: "HIC094",
+    component: () => import("@/views/hic/HIC094.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC094`,
+      descrip: "Consentimiento insercion y retiro implante subdermico",
+    },
+  },
+  {
+    path: "/HIC095",
+    name: "HIC095",
+    component: () => import("@/views/hic/HIC095.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC095`,
+      descrip: "Formato salida voluntaria urgencias",
+    },
+  },
 ];
