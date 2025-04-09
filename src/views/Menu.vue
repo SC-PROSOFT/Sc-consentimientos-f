@@ -216,7 +216,7 @@ async function getTestigo() {
 
     let datos;
     if (tipo_testigo == "1" || tipo_testigo == "3") datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
-    else if (tipo_testigo == 2)
+    else if (tipo_testigo == "2")
       datos = await getDll$({
         modulo: `get_prof.dll`,
         data: {

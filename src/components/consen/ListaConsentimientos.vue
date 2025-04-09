@@ -356,8 +356,6 @@ const getOdontologia = async () => {
 
 const getHistoriaClinica = async () => {
   try {
-    console.log(route.query.llave_hc);
-
     const response = await getDll$({
       modulo: `get_hc.dll`,
       data: { llave_hc: route.query.llave_hc, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
@@ -480,6 +478,9 @@ const reimprimirConsentimiento = async (row) => {
       reg_acomp = { ...response.reg_acomp };
       setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
     }
+  } else {
+    setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+    reg_acomp = { ...row.reg_acomp };
   }
   let cod_consenti;
   // validacion para cambiar el codigo del formato hic046 a lab015 y hic047 a lab016,
@@ -527,7 +528,7 @@ const reimprimirConsentimiento = async (row) => {
           llave: row.reg_coninf.llave.folio,
           firmas: {
             firma_prof: firma_prof.value ? true : false,
-            firma_acomp: reg_acomp?.cod.trim() ? true : false,
+            firma_acomp: reg_acomp?.cod?.trim() ? true : false,
             firma_func: row.reg_func?.cod.trim() ? true : false,
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
@@ -577,13 +578,21 @@ const getHuella = async (cod) => {
 };
 const consultarFirmaConsen = async (row) => {
   try {
-    if (params_querys.value.modulo == "HIC") {
+    if (params_querys.value.modulo == "HIC" && row.datos.reg_coninf2.id_testigo.trim() != "") {
       // consultar testigo
-      const response = await getDll$({
-        modulo: `get_paci.dll`,
-        data: { cod_paci: row.datos.reg_coninf2.id_testigo },
-      });
-      setTestigo(response.reg_paci);
+      if (route.query.tipo_testigo == "1" || route.query.tipo_testigo == "3") {
+        const response = await getDll$({
+          modulo: `get_paci.dll`,
+          data: { cod_paci: row.datos.reg_coninf2.id_testigo.trim() },
+        });
+        setTestigo(response.reg_paci);
+      } else {
+        const response = await getDll$({
+          modulo: `get_prof.dll`,
+          data: { cod_prof: Number(row.datos.reg_coninf2.id_testigo) || 0, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
+        });
+        setTestigo(response.reg_prof);
+      }
     }
 
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
