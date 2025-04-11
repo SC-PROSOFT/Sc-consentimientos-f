@@ -197,7 +197,6 @@ const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 const HIC093 = reactive({
   fecha: "",
   hora: "",
-  indicaciones: "",
   insercion: "N",
   retiro: "N",
 });

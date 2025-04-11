@@ -157,8 +157,6 @@ const HIC095 = reactive({
   diagnostico: "",
   motiv_retiro: "",
   observac: "",
-  insercion: "N",
-  retiro: "N",
 });
 const form = ref({
   fecha_ingr_urg: {

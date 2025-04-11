@@ -1,7 +1,6 @@
-import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
+import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
-import dayjs from "dayjs";
-const { getPaci } = useModuleFormatos();
+const { getAcomp } = useModuleFormatos();
 
 export const impresionHIC088 = ({ datos }) => {
   console.log("datos ", datos);

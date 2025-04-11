@@ -182,17 +182,8 @@ const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 const HIC090 = reactive({
   fecha: "",
   hora: "",
-  anestesia_local: "",
   medico_informa: "",
   indicaciones: "",
-  canaliz_inyect: "N",
-  curacion: "N",
-  sutura: "N",
-  inserc_retiro: "N",
-  administ_medicam: "N",
-  intubac_orotraq: "N",
-  extraer_cuerpo: "N",
-  autor_anestes_local: "",
 });
 const form = ref({
   medico_informa: {

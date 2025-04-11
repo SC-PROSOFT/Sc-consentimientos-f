@@ -44,7 +44,7 @@
               <span class="text-bold">{{ reg_acudiente.cod ? getPaci.cod : "N/A." }}</span> declaro que:
             </p>
             <p class="q-pa-xs" style="text-align: justify">
-              Otorgo mi consentimiento para que sea practicado el procedimiento: (marque con una x el/los procedimiento(s) que le van a realizar
+              Otorgo mi consentimiento para que sea practicado el procedimiento: (marque con un ✓ el/los procedimiento(s) que le van a realizar
               mencionados en el cuadro 1.) del cual se me brinda información y se me han explicado tanto la necesidad de hacerlo como los riesgos del
               mismo.
             </p>
@@ -65,6 +65,7 @@
             </p>
           </div>
         </div>
+        <p style="font-weight: bold">Cuadro 1.</p>
         <div class="row q-mt-md q-mb-md" style="width: 100%">
           <div class="text-center" style="border: 1px solid #ccc; width: 20%">
             <p class="q-pa-xs" style="text-align: center; font-weight: bold">PROCEDIMIENTO</p>
@@ -245,6 +246,7 @@ const HIC089 = reactive({
   fecha: "",
   hora: "",
   anestesia_local: "",
+  autor_anestes_local: "",
   canaliz_inyect: "N",
   curacion: "N",
   sutura: "N",
@@ -252,7 +254,6 @@ const HIC089 = reactive({
   administ_medicam: "N",
   intubac_orotraq: "N",
   extraer_cuerpo: "N",
-  autor_anestes_local: "",
 });
 
 const opcion_hic089 = ref(null);

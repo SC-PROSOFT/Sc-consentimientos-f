@@ -22,11 +22,11 @@
         <div class="row justify-between items-center">
           <div class="row">
             <p style="font-weight: bold">Fecha:</p>
-            <p>&nbsp;{{ HIC090.fecha }}</p>
+            <p>&nbsp;{{ HIC092.fecha }}</p>
           </div>
           <div class="row">
             <p style="font-weight: bold">Hora:</p>
-            <p>&nbsp;{{ HIC090.hora }}</p>
+            <p>&nbsp;{{ HIC092.hora }}</p>
           </div>
         </div>
 
@@ -131,7 +131,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC090, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC092, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -151,15 +151,15 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
-const HIC090 = reactive({
+const HIC092 = reactive({
   fecha: "",
   hora: "",
 });
 
 const opcion_hic092 = ref(null);
 onMounted(() => {
-  HIC090.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
-  HIC090.hora = dayjs().format("HH:mm");
+  HIC092.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC092.hora = dayjs().format("HH:mm");
   getFirmaProf();
 });
 
@@ -178,7 +178,7 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC090));
+  const datos_format = JSON.parse(JSON.stringify(HIC092));
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hic092.value == "AUTORIZAR" ? "1" : "2",
@@ -189,7 +189,7 @@ const grabarConsentimiento = async () => {
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC090",
+    cod_consen: "HIC092",
     disentimiento: "N",
     ...datos_format,
   };
@@ -248,7 +248,7 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async () => {
   try {
-    const datos_hic090 = {
+    const datos_hic092 = {
       autorizo: opcion_hic092.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
@@ -263,7 +263,7 @@ const imprimirConsen = async () => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC090,
+      ...HIC092,
     };
 
     const firmas = {
@@ -276,15 +276,15 @@ const imprimirConsen = async () => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC090" },
-      content: impresionHIC090({
-        datos: datos_hic090,
+      datos: { ...firmas, cod_consen: "HIC092" },
+      content: impresionHIC092({
+        datos: datos_hic092,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC090" },
-      content: impresionHIC090({
-        datos: datos_hic090,
+      datos: { ...firmas, cod_consen: "HIC092" },
+      content: impresionHIC092({
+        datos: datos_hic092,
       }),
     });
 

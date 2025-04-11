@@ -128,7 +128,7 @@
               false-value="N"
             />
             <p class="q-pa-xs">cual:</p>
-            <Input_ v-model="HIC091.cual_cons" :field="form.cual_cons" />
+            <Input_ v-model="HIC091.cual_consult" :field="form.cual_consult" />
             <q-checkbox
               class="q-ml-xs"
               color="primary"
@@ -278,7 +278,7 @@ const HIC091 = reactive({
   hora: "",
   fecha_solic_prueb: "",
   progr_prom_mant: "",
-  cual_cons: "",
+  cual_consult: "",
   sospecha_clinic: "N",
   medico_legal: "N",
   consul_urgencias: "N",
@@ -300,8 +300,8 @@ const form = ref({
     label: "",
     campo_abierto: true,
   },
-  cual_cons: {
-    id: "cual_cons",
+  cual_consult: {
+    id: "cual_consult",
     maxlength: "250",
     label: "",
     campo_abierto: true,
