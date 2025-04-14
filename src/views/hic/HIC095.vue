@@ -332,6 +332,7 @@ const imprimirConsen = async () => {
         firma_test: firma_recibida_test.value ? true : false,
       },
       ...HIC095,
+      descrip_enfer: descrip_diagnostico.value || "",
     };
 
     const firmas = {
