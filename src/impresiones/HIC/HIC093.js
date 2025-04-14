@@ -98,32 +98,31 @@ export const impresionHIC093 = ({ datos }) => {
               ],
               [
                 {
-                  // alignment: "justify",
                   style: "bodyNoBold9",
                   text: [
-                    {
-                      text: "DECLARO QUE: \n",
-                    },
+                    { alignment: "center", bold: true, text: "DECLARO QUE: \n" },
                     { text: " \n" },
                     {
+                      alignment: "justify",
                       text: "1. Me han explicado en un lenguaje claro y comprensible la naturaleza y propósito del procedimiento, también me han informado de las ventajas, complicaciones, molestias y riesgos que pueden producirse, tales como dolor, abdominal, sangrado, ruptura uterina, enfermedad pélvica inflamatoria, embarazo, cólicos menstruales más fuertes, desplazamientos o expulsión del DIU entre otros. \n",
                     },
                     { text: " \n" },
                     {
+                      alignment: "justify",
                       text: "2. Se me ha dado la oportunidad de hacer preguntas y mis preguntas han sido contestadas satisfactoriamente. \n",
                     },
                     { text: " \n" },
                     {
+                      alignment: "justify",
                       text: "3. Se me ha informado plenamente que retirado el DIU y al no iniciar inmediatamente otro método de planificación familiar tengo la oportunidad de quedar embarazada. \n",
                     },
                     { text: " \n" },
                     {
+                      alignment: "justify",
                       text: "4. Se me ha informado de todos los signos de alarma por los cuales debo consultar una vez se me haya realizado el procedimiento tales como: sangrado abundante, dolor abdominal que no cede a analgésicos orales , distensión abdominal, fiebre, escalofríos, salida de secreción vaginal mal oliente, entre otras. Y que debo acudir a la cita de control al mes y luego cada año. \n",
                     },
                     { text: " \n" },
-                    {
-                      text: "5. Tengo la opción de decidir en contra del procedimiento. \n",
-                    },
+                    { alignment: "justify", text: "5. Tengo la opción de decidir en contra del procedimiento. \n" },
                     { text: " \n" },
                   ],
                 },
