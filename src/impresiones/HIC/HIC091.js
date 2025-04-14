@@ -1,306 +1,288 @@
 import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
-import { useModuleFormatos } from "@/store";
 import dayjs from "dayjs";
-const { getPaci } = useModuleFormatos();
-
 export const impresionHIC091 = ({ datos }) => {
-  console.log("datos ", datos);
-
   var dd = {
     stack: [contenidoHIC091(), firmas()],
   };
-
   function contenidoHIC091() {
     return {
       stack: [
         {
-          marginTop: 8,
-          table: {
-            widths: ["auto", "*", "auto", "*", "auto", "*"],
-            body: [
-              [
-                { text: "Fecha:", bold: true, style: "tableTitle" },
-                { text: datos.fecha, style: "bodyNoBold9" },
-                { text: "Hora:", bold: true, style: "tableTitle" },
-                { text: datos.hora, style: "bodyNoBold9" },
-                { text: "Nombres y apellidos del paciente:", bold: true, style: "tableTitle" },
-                { text: datos.paciente.descrip, style: "bodyNoBold9" },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          table: {
-            widths: ["auto", "*", "auto", "*", "auto", "*"],
-            body: [
-              [
-                { text: "Edad:", bold: true, style: "tableTitle" },
-                { text: calcularEdad(datos.paciente.nacim), style: "bodyNoBold9" },
-                { text: "Sexo:", bold: true, style: "tableTitle" },
-                { text: datos.hora, style: "bodyNoBold9" },
-                { text: "Fecha nacimiento:", bold: true, style: "tableTitle" },
-                { text: dayjs(datos.paciente.nacim).format("YYYY-MM-DD"), style: "bodyNoBold9" },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          table: {
-            widths: ["auto", "*", "auto", "*", "auto", "*"],
-            body: [
-              [
-                { text: "Dirección:", bold: true, style: "tableTitle" },
-                { text: datos.paciente.direccion, style: "bodyNoBold9" },
-                { text: "Teléfono:", bold: true, style: "tableTitle" },
-                { text: datos.paciente.telefono, style: "bodyNoBold9" },
-                { text: "EPS:", bold: true, style: "tableTitle" },
-                { text: datos.paciente.descrip_eps, style: "bodyNoBold9" },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "Yo, ",
-            },
-            {
-              text: datos.paciente.descrip,
-              bold: true,
-            },
-            {
-              text: "identificado con C.C ",
-            },
-            {
-              text: datos.paciente.cod,
-              bold: true,
-            },
-            {
-              text: " , mayor de edad, actuando en calidad de representante legal y/o tutor.",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
           marginTop: 10,
-          bold: true,
-          decoration: "underline",
-          alignment: "center",
-          text: "DECLARO LIBRE Y VOLUNTARIAMENTE",
           style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          text: [
-            {
-              text: "En concordancia con el Artículo 1502 del Código Civil; que he comprendido satisfactoriamente la información que me han dado con respecto a mi estado de salud y la necesidad de atención domiciliaria, por lo tanto,  ",
-            },
-            {
-              text: [
-                { bold: true, text: "AUTORIZADO " },
-                {
-                  bold: true,
-                  decoration: "underline",
-                  text: datos.autorizo ? " X " : "    ",
-                },
-                { bold: true, text: " NO AUTORIZADO " },
-                {
-                  bold: true,
-                  decoration: "underline",
-                  text: !datos.autorizo ? " X " : "    ",
-                },
-              ],
-            },
-            {
-              text: "al personal de la ",
-            },
-            { bold: true, text: "IPS ESE PRIMER NIVEL GRANADA SALUD, " },
-            {
-              text: "para que ingrese a mi domicilio, y, acepto que me realicen los procedimientos de enfermería y/o medicina general según se requieran, además de lo anterior me comprometo a: ",
-            },
-          ],
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          style: "bodyNoBold9",
-          ul: [
-            "Seguir las recomendaciones dadas por el personal de salud durante la visita domiciliaria.",
-            "Tener un trato cordial y respetuoso con el personal de salud.",
-            "Preguntar cuando no comprenda algo relacionado con mi salud.",
-            "Acatar las indicaciones para la realización de los procedimientos de enfermería en casa.",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Fecha solicitud prueba: " }, { text: datos.fecha_solic_prueb }] },
+            { width: "50%", alignment: "center", text: [{ bold: true, text: "Nombre y apellido: " }, { text: datos.paciente.descrip }] },
           ],
         },
         {
           marginTop: 8,
           style: "bodyNoBold9",
-          alignment: "justify",
-          text: [
-            { text: "AUTORIZO ", bold: true },
-            {
-              text: "al personal asistencial de la entidad, para que, en ejercicio legal de su profesión y de acuerdo con los procedimientos establecidos, se realice la atención domiciliaria.",
-            },
+          columns: [
+            { width: "30%", alignment: "left", text: [{ bold: true, text: "Tipo de documento de identidad: " }, { text: datos.paciente.tipo_id }] },
+            { width: "45%", alignment: "center", text: [{ bold: true, text: "Número de documento de identidad: " }, { text: datos.paciente.cod }] },
+            { width: "15%", alignment: "center", text: [{ bold: true, text: "Edad: " }, { text: calcularEdad(datos.paciente.nacim) }] },
+            { width: "10%", alignment: "right", text: [{ bold: true, text: "Sexo: " }, { text: datos.paciente.sexo }] },
           ],
         },
+
         {
           marginTop: 8,
           style: "bodyNoBold9",
-          alignment: "center",
-          text: "Procedimientos",
-          bold: true,
-        },
-        {
-          marginTop: 8,
           columns: [
             {
-              layout: "noBorders",
-              table: {
-                widths: ["2%", "98%"],
-                body: [
-                  [
-                    {
-                      stack: datos.curacion == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Curación",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                  [
-                    {
-                      stack: datos.cambio_sonda == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Cambio de sonda",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                ],
-              },
+              width: "40%",
+              alignment: "left",
+              text: [{ bold: true, text: "Fecha de nacimiento: " }, { text: dayjs(datos.paciente.nacim).format("YYYY-MM-DD") }],
             },
-            // columna 2,
+            { width: "60%", alignment: "right", text: [{ bold: true, text: "Direccion de residencia: " }, { text: datos.paciente.direccion }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Ocupación: " }, { text: datos.paciente.descrip_ocup }] },
             {
-              layout: "noBorders",
-              table: {
-                widths: ["2%", "98%"],
-                body: [
-                  [
-                    {
-                      stack: datos.glucometria == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Glucometría",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                  [
-                    {
-                      stack: datos.retiro_sutura == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Retiro de sutura",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                ],
-              },
-            },
-            // columna 3,
-            {
-              layout: "noBorders",
-              table: {
-                widths: ["2%", "98%"],
-                body: [
-                  [
-                    {
-                      stack: datos.lavado_nasal == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Lavado nasal",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                  [
-                    {
-                      stack: datos.lavado_ocular == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Lavado ocular",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                ],
-              },
-            },
-            // columna 4,
-            {
-              layout: "noBorders",
-              table: {
-                widths: ["2%", "98%"],
-                body: [
-                  [
-                    {
-                      stack: datos.lavado_oido == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
-                    },
-                    {
-                      marginLeft: 10,
-                      text: "Lavado de oído",
-                      alignment: "justify",
-                      style: "bodyNoBold9",
-                    },
-                  ],
-                ],
-              },
+              width: "50%",
+              alignment: "right",
+              text: [{ bold: true, text: "Regimen: " }, { text: datos.paciente.descrip_tipo_afil }],
+              text: [{ bold: true, text: "EPS: " }, { text: datos.paciente.descrip_eps }],
             },
           ],
-          columnGap: 1,
         },
         {
-          marginTop: 8,
+          marginTop: 5,
           style: "bodyNoBold9",
-          alignment: "left",
-          text: "Administración de medicamento:",
-          bold: true,
+          table: {
+            widths: ["20%", "30%", "25%", "25%"],
+            body: [
+              [{ border: [true, true, true, false], colSpan: 4, alignment: "center", bold: true, text: "MOTIVO DE LA PRUEBA" }, {}, {}, {}],
+              [
+                { border: [true, false, false, true], text: "SOSPECHA CLINICA" },
+                {
+                  border: [false, false, false, true],
+                  alignment: "left",
+                  stack: datos.sospecha_clinic == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { border: [false, false, false, true], text: "CONTACTO ESTRECHO" },
+                {
+                  border: [false, false, true, true],
+                  alignment: "left",
+                  stack: datos.contacto_estrecho == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+              ],
+            ],
+          },
         },
         {
-          marginTop: 2,
+          marginTop: 5,
           style: "bodyNoBold9",
-          alignment: "justify",
-          text: datos.admin_medicam,
+          table: {
+            widths: ["20%", "30%", "25%", "25%"],
+            body: [
+              [{ border: [true, true, true, false], colSpan: 4, alignment: "center", bold: true, text: "DEMANDA INDUCIDA" }, {}, {}, {}],
+              [
+                {
+                  border: [true, false, true, false],
+                  colSpan: 4,
+                  alignment: "justify",
+                  text: "Programa promocion y mantenimiento de la salud: " + datos.progr_prom_mant,
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                { border: [true, false, false, false], text: "CONSULTA EXTERNA" },
+                {
+                  border: [false, false, false, false],
+                  alignment: "left",
+                  stack: datos.consul_extern == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { border: [false, false, false, false], text: "CONSULTA ESPECIALIZADA" },
+                {
+                  border: [false, false, true, false],
+                  alignment: "left",
+                  stack: datos.contacto_estrecho == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+              ],
+              [
+                {
+                  border: [true, false, true, false],
+                  colSpan: 4,
+                  alignment: "justify",
+                  text: "Cual: " + datos.cual_consult,
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                { border: [true, false, false, true], text: "MEDICO LEGAL" },
+                {
+                  border: [false, false, false, true],
+                  alignment: "left",
+                  stack: datos.medico_legal == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+                { border: [false, false, false, true], text: "CONSULTA URGENCIAS" },
+                {
+                  border: [false, false, true, true],
+                  alignment: "left",
+                  stack: datos.consul_urgencias == "S" ? cuadro_canvas_x(true) : cuadro_canvas(true),
+                },
+              ],
+            ],
+          },
         },
         {
-          marginTop: 8,
+          marginTop: 5,
           style: "bodyNoBold9",
-          alignment: "left",
-          text: "DESCRIPCIÓN DEL PROCEDIMIENTO (técnica-materiales utilizados- Observaciones):",
-          bold: true,
+          table: {
+            widths: ["20%", "30%", "25%", "25%"],
+            body: [
+              [
+                {
+                  border: [true, true, true, false],
+                  colSpan: 4,
+                  alignment: "center",
+                  bold: true,
+                  text: "CONSENTIMIENTO INFORMADO TOMA DE LA MUESTRA",
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  border: [true, false, true, false],
+                  colSpan: 4,
+                  alignment: "justify",
+                  text: "Certifico que me han dado información sobre los riesgos asociados al procedimiento, así: Ante la extracción de sangre puede presentarse los siguientes riesgos:",
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  border: [true, false, true, false],
+                  colSpan: 4,
+                  alignment: "justify",
+                  text: "1. Sensación de dolor moderado; Sensación pulsátil; Se pueden formar hematomas; Leve inflamación y/o sangrado temporal; A causa de la ansiedad que genera el pinchazo: Puede sentir malestar (náuseas, mareo). Entiendo la información y he dialogado con la persona que me brindo información (actividad realizada por un profesional de la salud para prepararme y confrontarme con relación a mis conocimientos, prácticas y conductas antes de realizarme las pruebas de diagnóstico en laboratorio),se me ha explicado el procedimiento mediante el cual recibire mis resultados y que estoy de acuerdo. Entiendo que la toma de muestra es voluntaria y que puedo retirar mi consentimiento en cualquier momento antes de que sea tomado el examen.",
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  border: [true, false, true, true],
+                  colSpan: 4,
+                  alignment: "justify",
+                  text: "2. Ante la toma de Hisopado nasofaríngeo o Aspirado naso faríngeo, se pueden presentar los siguientes riesgos: Molestias nasales, sensación de estornudo, ruptura de pequeños vasos lo que ocasionaría un pequeño sangrado.",
+                },
+                {},
+                {},
+                {},
+              ],
+            ],
+          },
         },
         {
-          marginTop: 2,
+          marginTop: 5,
           style: "bodyNoBold9",
-          alignment: "justify",
-          text: datos.descrip_procedim,
+          table: {
+            widths: ["20%", "30%", "25%", "25%"],
+            body: [
+              [
+                {
+                  border: [true, true, true, false],
+                  colSpan: 4,
+                  alignment: "center",
+                  bold: true,
+                  text: "ACEPTO REALIZARME LA PRUEBA",
+                },
+                {},
+                {},
+                {},
+              ],
+              [
+                {
+                  border: [true, false, true, true],
+                  colSpan: 4,
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: [
+                    { text: "Nombres y apellidos usuario: " },
+                    { bold: true, text: datos.paciente.descrip.trim() },
+                    { text: ", nombre de quien toma la muestra: " },
+                    { bold: true, text: datos.prof.descrip.trim() },
+                    { text: " , fecha: " },
+                    { bold: true, text: datos.fecha },
+                    { text: " profesión: " },
+                    { bold: true, text: datos.prof.descrip_atiende.trim() },
+                  ],
+                },
+                {},
+                {},
+                {},
+              ],
+            ],
+          },
         },
+        revocacion(),
       ],
     };
+  }
+  function revocacion() {
+    if (datos.autorizo) {
+      return {
+        stack: [
+          {
+            text: "",
+          },
+        ],
+      };
+    } else {
+      return {
+        stack: [
+          {
+            marginTop: 5,
+            table: {
+              widths: ["100%"],
+              body: [
+                [
+                  {
+                    stack: [
+                      {
+                        marginTop: 10,
+                        bold: true,
+                        alignment: "center",
+                        text: "DILIGENCIAR ESTE ESPACIO EN CASO DE REVOCACIÓN O DISENTIMIENTO",
+                        style: "bodyNoBold9",
+                      },
+                      {
+                        alignment: "justify",
+                        marginTop: 8,
+                        style: "bodyNoBold9",
+                        text: [
+                          { text: "Yo, " },
+                          { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip },
+                          {
+                            text: ", después de ser informado de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi negación/ revocación para su realización, haciéndome responsable de las consecuencias que se puedan derivar de ésta decisión.",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      };
+    }
   }
   function cuadro_canvas_x(condicion) {
     return [
@@ -666,5 +648,6 @@ export const impresionHIC091 = ({ datos }) => {
       },
     };
   }
+
   return dd;
 };
