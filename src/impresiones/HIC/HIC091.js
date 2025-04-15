@@ -1,4 +1,8 @@
 import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
+import { useModuleFormatos, useApiContabilidad } from "@/store";
+
+const { getAcomp } = useModuleFormatos();
+const { getImgBs64 } = useApiContabilidad();
 import dayjs from "dayjs";
 export const impresionHIC091 = ({ datos }) => {
   var dd = {

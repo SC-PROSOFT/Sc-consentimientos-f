@@ -1,7 +1,8 @@
 import { evaluarParentesco } from "@/formatos/utils";
-import { useModuleFormatos } from "@/store";
-const { getAcomp } = useModuleFormatos();
+import { useModuleFormatos, useApiContabilidad } from "@/store";
 
+const { getAcomp } = useModuleFormatos();
+const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC094 = ({ datos }) => {
   console.log("datos ", datos);
 

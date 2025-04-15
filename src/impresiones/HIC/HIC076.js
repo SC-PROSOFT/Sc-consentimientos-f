@@ -1,4 +1,4 @@
-import { evaluarParentesco, calcularEdad, evaluarClaseServ } from "@/formatos/utils";
+import { evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
 import { useModuleFormatos, useApiContabilidad } from "@/store";
 
 const { getAcomp } = useModuleFormatos();
