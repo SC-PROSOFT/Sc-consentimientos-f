@@ -578,7 +578,7 @@ const getHuella = async (cod) => {
 };
 const consultarFirmaConsen = async (row) => {
   try {
-    if (params_querys.value.modulo == "HIC" && row.datos.reg_coninf2.id_testigo.trim() != "") {
+    if (params_querys.value.modulo == "HIC" && Number(row.datos.reg_coninf2.id_testigo) != 0) {
       // consultar testigo
       if (route.query.tipo_testigo == "1" || route.query.tipo_testigo == "3") {
         const response = await getDll$({
