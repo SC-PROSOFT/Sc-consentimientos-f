@@ -67,12 +67,13 @@
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          disable
+          quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
+          :registro_profe="getProf.cod"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -96,9 +97,8 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC048, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
