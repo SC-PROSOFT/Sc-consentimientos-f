@@ -93,12 +93,12 @@
           class="col-4"
         />
         <ContainerFirma
-          @reciFirma="callBackFirma"
+          quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.registro_profe"
-          quien_firma="FIRMA PROFESIONAL"
+          :codigo_firma="getProf.cod"
           class="col-4"
         />
       </div>
@@ -122,9 +122,8 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC050, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { calcularEdad, utilsFormat } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
@@ -140,26 +139,6 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
-const form = ref({
-  procedimiento: {
-    id: "procedimiento",
-    maxlength: "285",
-    label: "",
-    required: true,
-    standout: false,
-    outlined: false,
-    campo_abierto: true,
-  },
-  revocar_motivos: {
-    id: "revocar_motivos",
-    maxlength: "285",
-    label: "",
-    required: true,
-    standout: false,
-    outlined: false,
-    campo_abierto: true,
-  },
-});
 
 const HIC050 = reactive({
   fecha: "",
