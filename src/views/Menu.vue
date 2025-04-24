@@ -36,6 +36,15 @@
           v-model="llave"
           :field="form_paci.folio"
         />
+        <q-btn
+          v-if="accesoMovil"
+          size="sm"
+          class="botone"
+          color="orange"
+          icon="undo"
+          label="Regresar y elegir otro paciente"
+          @click="router.back()"
+        />
       </div>
     </div>
     <div class="q-ma-lg">
@@ -51,7 +60,7 @@
 </template>
 <script setup>
 import { useApiContabilidad, useModuleCon851, useModuleFormatos } from "@/store";
-import { defineAsyncComponent, onMounted, onBeforeMount, ref } from "vue";
+import { defineAsyncComponent, onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { validarCodPaci } from "@/formatos/utils";
 
@@ -67,7 +76,7 @@ const form_paci = ref({
   folio: { id: "folio", label: "Folio", disable: true },
 });
 
-const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession, getSesion } = useModuleFormatos();
+const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession, accesoMovil } = useModuleFormatos();
 const { getDll$, _getLogo$, getVersionBuild$, actualizarVersion$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const router = useRouter();

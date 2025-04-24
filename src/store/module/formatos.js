@@ -14,6 +14,7 @@ export const useModuleFormatos = defineStore("formatos", {
     reg_sesion: regSession(),
     reg_empresa: Object.assign({}, regEmpresa()),
     empresa_cargada: false,
+    cerrando_sesion: false,
   }),
   getters: {
     getSesion() {
@@ -78,6 +79,9 @@ export const useModuleFormatos = defineStore("formatos", {
       if (sessionStorage.datosh) return sessionStorage.datosh;
       else return "";
     },
+    accesoMovil() {
+      return /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+    },
   },
   actions: {
     setHc(reg_hic) {
@@ -108,6 +112,9 @@ export const useModuleFormatos = defineStore("formatos", {
       sessionStorage.setItem("empresa", JSON.stringify(reg_empresa));
       Object.assign(this.reg_empresa, reg_empresa);
       this.empresa_cargada = true;
+    },
+    setcerrandoSesion(value) {
+      this.cerrando_sesion = value;
     },
   },
 });

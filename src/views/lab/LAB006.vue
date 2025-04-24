@@ -223,7 +223,7 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$f);
+        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       },
       async () => {
         const file = await imprimirConsen();

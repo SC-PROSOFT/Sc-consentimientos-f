@@ -31,7 +31,8 @@
       <ToolBarTable_ titulo="Configura conexión al servidor" @cerrar="cerrarConfigUsunet" />
       <div class="row q-pa-sm">
         <Input_ class="col-xs-5" v-model="reg_login.ip" :field="form_login.ip" />
-        <Input_ class="col-xs-3" v-model="reg_login.anio_contab" :field="form_login.anio_contab" />
+        <Select_ class="col-xs-3" v-model="reg_login.anio_contab" :field="form_login.anio_contab" :items="lista_contab" />
+
         <Select_ class="col-xs-4" v-model="reg_login.mes_contab" :field="form_login.mes_contab" :items="meses" />
       </div>
       <q-card-actions align="center" class="text-primary text-center">
@@ -41,12 +42,13 @@
   </q-dialog>
 </template>
 <script setup>
-import { useModuleCon851, useApiContabilidad } from "@/store";
+import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store";
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
+const formatosStore = useModuleFormatos();
 const router = useRouter();
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
@@ -58,6 +60,7 @@ const reg_login = ref({
   mes_contab: null,
   anio_contab: "",
 });
+const lista_contab = ref([]);
 const meses = ref([
   { value: 1, label: "Ene" },
   { value: 2, label: "Feb" },
@@ -118,12 +121,39 @@ const form_login = ref({
   },
 });
 onMounted(() => {
-  reg_login.value.anio_contab = dayjs().year();
+  console.log("formatosStore -> ", formatosStore);
+
   reg_login.value.mes_contab = dayjs().month() + 1;
-  if (localStorage.getItem("ip")) {
-    reg_login.value.ip = localStorage.getItem("ip");
+  if (window.location.hostname != "localhost") {
+    reg_login.value.ip = window.location.hostname;
+    localStorage.setItem("ip", reg_login.value.ip);
+    consultarContabilidad();
   }
 });
+const consultarContabilidad = async () => {
+  await getDll$({
+    directorio_dll: "MAIN-ELECT/APP/INDEX/SC-USUNET.dll",
+    data: {
+      datosh: "GEBC|",
+      crear_nuevo_anio: "N",
+    },
+  })
+    .then((data) => {
+      console.log("data -> ", data.Usunet[0].CONTAB);
+      const contab_orden = data.Usunet[0].CONTAB.sort((a, b) => extraerNumero(b.DIR) - extraerNumero(a.DIR));
+      contab_orden.forEach((item) => {
+        lista_contab.value.push({ value: item.DIR, label: item.DIR });
+      });
+      console.log("contab_orden -> ", contab_orden);
+    })
+
+    .catch((error) => {
+      console.error(error);
+      CON851("?", "error", "Error al consultar contabilidad");
+      s;
+    });
+};
+
 const validarFormulario = () => {
   if (!reg_login.value.usuario || reg_login.value.clave == null)
     return CON851("?", "info", "El usuario y/o contraseña no es valido", () => foco_(form_login, "usuario"));
@@ -159,12 +189,21 @@ const setContabServidor = () => {
   if (!reg_login.value.ip) {
     return CON851("?", "info", "El campo IP Servidor es obligatorio", null);
   }
-  if (!reg_login.value.anio_contab) {
+  if (!reg_login.value.anio_contab && window.location.hostname != "localhost") {
     return CON851("?", "info", "El campo año es obligatorio", null);
   }
+
+  if (window.location.hostname == "localhost") {
+    consultarContabilidad();
+  }
+
   localStorage.setItem("ip", reg_login.value.ip);
   show_conex_serv.value = false;
   CON851("?", "success", "La configuración se guardo correctamente");
+};
+const extraerNumero = (dato) => {
+  const match = dato.match(/\d+/);
+  return match ? parseInt(match[0], 10) : 0;
 };
 const abrirConfigUsunet = () => {
   show_conex_serv.value = true;

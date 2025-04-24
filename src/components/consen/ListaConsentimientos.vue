@@ -28,7 +28,7 @@
             <q-btn
               @click="validarAccion(props)"
               :icon="novedad == '2' ? 'local_printshop' : 'highlight_off'"
-              class="botone"
+              class="q-ma-xs botone"
               :color="novedad == '2' ? 'primary' : 'red-7'"
               size="sm"
             >
@@ -73,7 +73,7 @@
       <template v-slot:body="props">
         <q-tr :props="props" @dblclick="selectConsen(props.key)" class="cursor">
           <q-td auto-width>
-            <q-btn @click="selectConsen(props.key)" icon="note_add" class="botone" color="primary" size="sm"> </q-btn>
+            <q-btn @click="selectConsen(props.key)" icon="note_add" class="q-ma-xs botone" color="primary" size="sm"> </q-btn>
           </q-td>
           <q-td v-for="col in props.cols" :key="col.name" :props="props">
             {{ col.value?.toUpperCase() }}
@@ -114,7 +114,7 @@
         <template v-slot:body="props">
           <q-tr :props="props" @dblclick="agregarInfConse(props)" class="cursor">
             <q-td auto-width>
-              <q-btn @click="agregarInfConse(props)" class="botone" icon="edit_note" color="primary" size="sm"> </q-btn>
+              <q-btn @click="agregarInfConse(props)" class="q-ma-xs botone" icon="edit_note" color="primary" size="sm"> </q-btn>
             </q-td>
             <q-td v-for="col in props.cols" :key="col.name" :props="props">
               <q-chip v-if="col.label == 'Estado'" class="text-white" :color="valueEstado(col.value)">{{ col.value }}</q-chip>
