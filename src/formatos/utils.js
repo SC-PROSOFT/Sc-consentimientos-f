@@ -155,6 +155,18 @@ export const validarCodPaci = (value) => {
     return cod_paci.padStart(15, "0");
   }
 };
+// Reemplazo carácteres especiales
+export const replaceEsp = (value) => {
+  if (typeof value !== "string") return value;
+  return value.replace(/[\!\*\]\[\}\{\"\'\&\t]/g, "");
+};
+
+// Reemplazo salto de línea/enter por caracter &
+export const enterReplace = (value) => {
+  if (typeof value !== "string") return value;
+  return value.replace(/(\r\n|\n|\r)/gm, "&");
+};
+
 export const evaluarClaseServ = (value) => {
   const servicio =
     Number(getEmpresa.nitusu) == 800156469

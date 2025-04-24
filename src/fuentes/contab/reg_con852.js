@@ -4,6 +4,7 @@ export const msgCon852_ = (codigo) => {
     "02": " El visualizador de listados soporta solo hasta 500 paginas. Su archivo supera este numero pero solo mostraremos en pantalla las primeras 30.000 lineas ",
     10: " Intento seguir leyendo un archivo que llego a su fin. Informe al programador ",
     22: " Intento escribir en una secuencia que ya existe! ",
+    26: " Clave invalida! ",
     30: " No se pudo accesar el archivo. El problema es de hardware, revise conexiones de RED, Impresoras o espacio disponible en disco duro ",
     35: " No existe el archivo",
     37: " No tiene acceso al hardware. El disco duro no esta compartido o el archivo esta protejido con atributos o la impresora no esta disponible ",

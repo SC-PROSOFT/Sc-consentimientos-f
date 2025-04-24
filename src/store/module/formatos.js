@@ -74,6 +74,10 @@ export const useModuleFormatos = defineStore("formatos", {
       if (sessionStorage.articulos) return JSON.parse(sessionStorage.articulos);
       else return [];
     },
+    datosh() {
+      if (sessionStorage.datosh) return sessionStorage.datosh;
+      else return "";
+    },
   },
   actions: {
     setHc(reg_hic) {
