@@ -4,10 +4,15 @@ body {
 }
 
 .format {
-  width: 65%;
+  width: 88vw; 
   border: 1px solid #ccc;
 }
 
+@media (min-width: 768px) {  
+  .format {
+    width: 65vw;
+  }
+}
 .input-p {
   min-width: 200px;
   display: inline-block;

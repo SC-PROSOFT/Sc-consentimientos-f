@@ -1,8 +1,8 @@
 <template>
   <div class="background-container">
-    <div v-if="matchRoute()" class="q-pa-none q-ma-none">
+    <div v-if="!excludeHeaders()" class="q-pa-none q-ma-none">
       <Header_ :titulo="route.meta.title" />
-      <HeaderFormat_ />
+      <HeaderFormat_ v-if="route.name != 'elaborarconsent'" />
     </div>
     <RouterView />
   </div>
@@ -14,11 +14,11 @@ import { useRoute } from "vue-router";
 
 const HeaderFormat_ = defineAsyncComponent(() => import("@/components/global/headerFormat.vue"));
 const route = ref(useRoute());
-const no_match = ["menu", "dev", "configUsunet"];
 
-const matchRoute = () => {
-  if(no_match.includes(route.value.name)) return false
-  return true;
+const noHeadersRoutes = ["menu", "dev", "configUsunet", "login"];
+
+const excludeHeaders = () => {
+  return noHeadersRoutes.includes(route.value.name);
 };
 </script>
 

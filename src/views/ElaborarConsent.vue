@@ -122,48 +122,6 @@
       </div>
     </q-card>
   </q-dialog>
-  <!-- dejo esto comentado puesto que en primera fase el testigo del consentimiento va a ser el mismo profesional que ingresa al aplicativo -->
-  <!-- <q-dialog v-model="show_tipo_testigo" persistent>
-    <q-card
-      class="my-card"
-      bordered
-      :style="{
-        'border-left': `4px solid #123D7D`,
-        'border-radius': '15px',
-        width: '790px',
-        maxWidth: '90vw',
-      }"
-    >
-      <div class="row">
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 q-my-auto">
-          <LottieAnimation
-            :animation-data="info"
-            style="height: 115px"
-            :loopDelayMin="2.5"
-            :auto-play="true"
-            :loopDelayMax="5"
-            class="q-mt-20"
-            :loop="true"
-            :speed="1"
-            ref="anim"
-          />
-        </div>
-        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-          <q-card-section class="q-pb-sm">
-            <div :class="`text-info text-center`" class="text-h5 text-bold">¡Atención!</div>
-            <q-separator color="info" class="q-pb-xs" />
-          </q-card-section>
-          <q-card-section class="q-pt-none text-center text-h7" v-html="mensaje_2"> </q-card-section>
-          <q-card-actions align="center" class="text-primary text-center">
-            <q-btn outline id="boton1" color="red-14" label="Cancelar" class="botone q-mx-sm" @click="cancelarTipoTestigo" :color="'#123D7D'" />
-            <q-btn outline id="boton3" color="green" label="Profesional" class="botone q-mx-sm" @click="tipTestProf" :color="'#123D7D'" />
-            <q-btn outline id="boton2" color="primary" label="Otro Paciente" class="botone q-mx-sm" @click="tipTestOtrPaciente" />
-            <q-btn outline id="boton3" color="orange" label="Otra persona" class="botone q-mx-sm" @click="tipTestOtrPersona" :color="'#123D7D'" />
-          </q-card-actions>
-        </div>
-      </div>
-    </q-card>
-  </q-dialog> -->
   <q-dialog v-model="show_valida_acomp" persistent no-shake>
     <q-card
       class="my-card"
@@ -187,7 +145,7 @@
       </div>
       <q-card-actions align="center" class="text-primary text-center">
         <q-btn color="orange" label="Cambiar datos" class="botone q-mx-sm" icon-right="manage_accounts" @click="guardarCambiosDtosAcomp" />
-        <q-btn color="green" label="Continuar" class="botone q-mx-sm" icon-right="output" @click="continuarATestigo" />
+        <q-btn color="green" label="Continuar" class="botone q-mx-sm" icon-right="output" @click="continuar" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -197,34 +155,33 @@
 <script setup>
 import { useModuleCon851, useApiContabilidad, useModuleFormatos, useModuleCon851p } from "@/store";
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
-import { ref, onMounted, onBeforeMount, defineAsyncComponent } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { foco_ } from "@/setup";
-import { validarCodPaci, evaluarTipoId, evaluarParentesco, replaceEsp, enterReplace } from "@/formatos/utils";
-import { regHc, regEmpresa, regTest, regSession, regPaci, regAcomp } from "@/fuentes";
+import { ref, onBeforeMount, defineAsyncComponent } from "vue";
+import { useRouter } from "vue-router";
+import { validarCodPaci, replaceEsp, enterReplace } from "@/formatos/utils";
+import { regPaci, regAcomp } from "@/fuentes";
 import { LottieAnimation } from "lottie-web-vue";
+import info from "@/assets/json/info.json";
 const { CON851P } = useModuleCon851p();
-import dayjs from "dayjs";
 const router = useRouter();
-const route = useRoute();
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
 const SER810 = defineAsyncComponent(() => import("@/components/consen/SER810.vue"));
-const { getPaci, setTestigo, setPaci, setEmpresa, getProf, getAcomp, setProf, setAcomp, setSession, datosh } = useModuleFormatos();
-import info from "@/assets/json/info.json";
+const { datosh } = useModuleFormatos();
+
 const show_ser810 = ref(false);
 const show_autoriza_consen = ref(false);
-// const show_tipo_testigo = ref(false);
 const show_valida_acomp = ref(false);
 const show_artic_comp = ref(false);
+
 const firma_acomp = ref(false);
 const reg_usunet = ref(null);
 const reg_paci = ref(regPaci());
 const reg_acomp = ref(regAcomp());
-const llave_comp = ref("");
+const reg_acomp_copia = ref(regAcomp());
 const comp_selec = ref("");
 const mensaje_1 = ref("¿Quién autoriza el consentimiento?");
-const mensaje_2 = ref("¿Testigo del consentimiento?");
+const llave_comp = ref("");
+
 const lista_consen = ref([]);
 const lista_artic = ref([]);
 const tabla_articulos = ref(JSON.parse(JSON.stringify(Array(2).fill({ codigo: "", descripcion: "" }))));
@@ -410,13 +367,11 @@ const columns_consen = [
     field: (row) => row.cuenta,
   },
 ];
-
 onBeforeMount(() => {
   reg_usunet.value = JSON.parse(sessionStorage.getItem("usunet"));
   reg_paci.value = regPaci();
   reg_acomp.value = regAcomp();
 });
-// PENDIENTE: Falta hacer el codigo que permita llenar las variables de la Configuración del servidor de manera interna get_usunet.dll
 
 async function buscarPaciente() {
   let cod_paci = validarCodPaci(reg_elab_cons.value.id_paciente);
@@ -424,8 +379,8 @@ async function buscarPaciente() {
     .then((data) => {
       data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`;
       reg_paci.value = data.reg_paci;
-      setPaci(data.reg_paci);
       Object.assign(reg_acomp.value, data.reg_acomp);
+      Object.assign(reg_acomp_copia.value, data.reg_acomp);
       tipo_id_acomp.value.select = reg_acomp.value.tipo_id.trim();
       buscarComprobantes();
     })
@@ -445,10 +400,24 @@ async function buscarComprobantes() {
     })
     .catch((error) => {
       console.error(error);
-      CON851("?", "error", "Error consultando datos paciente");
+      CON851("?", "error", "No se encontraron comprobantes con el documento " + cod_paci);
     });
 }
+const compararObjetos = (obj1, obj2) => {
+  const diferencias = [];
+  for (const propiedad in obj1) {
+    if (obj1[propiedad] !== obj2[propiedad]) {
+      diferencias.push({
+        propiedad,
+        valor1: obj1[propiedad],
+        valor2: obj2[propiedad],
+      });
+    }
+  }
+  return diferencias;
+};
 const validarDtosAcomp = () => {
+  // VALIDAR CAMPOS VACIOS
   if (paren_acomp.value.select == "") {
     CON851("?", "info", "El parentesco es obligatorio", null);
     return false;
@@ -469,28 +438,80 @@ const validarDtosAcomp = () => {
     CON851("?", "info", "El teléfono es obligatorio", null);
     return false;
   }
-  return true; // Validación exitosa
+  return true;
 };
-// const validarDtosAcomp = () => {
-//   if (paren_acomp.value.select == "") {
-//     return CON851("?", "info", "El parentesco es obligatorio", null);
-//   }
-//   if (reg_acomp.value.tipo_id_acomp == "") {
-//     return CON851("?", "info", "El tipo id es obligatorio", null);
-//   }
-//   if (reg_acomp.value.er_apel.trim() == "") {
-//     return CON851("?", "info", "El primer apellido es obligatorio", null);
-//   }
-//   if (reg_acomp.value.er_nom.trim() == "") {
-//     return CON851("?", "info", "El primer nombre es obligatorio", null);
-//   }
-//   if (reg_acomp.value.telefono == 0) {
-//     return CON851("?", "info", "El telefono es obligatorio", null);
-//   }
-// };
+
+const guardarPaci = async (reg_) => {
+  let reg_paci_electron = {};
+  // GET_PACI
+  let cod_paci = validarCodPaci(reg_elab_cons.value.id_paciente);
+  await getDll$({
+    directorio_dll: "MAIN-ELECT/APP/SALUD/GET_PACI.DLL",
+    data: { datosh: datosh, cod_paci: cod_paci },
+  })
+    .then((data) => {
+      Object.assign(reg_paci_electron, data);
+    })
+    .catch((error) => {
+      console.error(error);
+      CON851("?", "error", "Error consultando datos paciente");
+    });
+  console.log("reg_paci_electron -> ", reg_paci_electron);
+
+  // SAVE_PACI
+  reg_paci_electron.novedad = "8";
+  reg_paci_electron.datos_acomp.id_acomp = reg_.cod;
+  reg_paci_electron.datos_acomp.tipo_id_acomp = reg_.tipo_id;
+  reg_paci_electron.acompa._1er_apela = reg_.er_apel;
+  reg_paci_electron.acompa._2do_apela = reg_.do_apel;
+  reg_paci_electron.acompa2._1er_nomac = reg_.er_nom;
+  reg_paci_electron.acompa2._2do_nomac = reg_.do_nom;
+  reg_paci_electron.correo_acomp = reg_.email;
+  reg_paci_electron.num_acom.tel_acom = reg_.telefono;
+  reg_paci_electron.direcc_acomp = reg_.direccion;
+
+  let reg_paci_ = JSON.parse(JSON.stringify(reg_paci_electron));
+
+  reg_paci_.notas.observ_nota_pac2 = replaceEsp(reg_paci_.notas.observ_nota_pac2);
+  reg_paci_.notas.observ_nota_pac2 = enterReplace(reg_paci_.notas.observ_nota_pac2);
+
+  reg_paci_ = {
+    ...reg_paci_,
+    ...reg_paci_.notas,
+    ...reg_paci_.dato_act,
+  };
+
+  for (let i in reg_paci_) {
+    if (typeof reg_paci_[i] == "object") {
+      if ("anio" in reg_paci_[i] || "hr" in reg_paci_[i]) {
+        reg_paci_[i] = Object.values(reg_paci_[i]).join("");
+      } else {
+        reg_paci_ = {
+          ...reg_paci_,
+          ...reg_paci_[i],
+        };
+      }
+    }
+  }
+
+  for (let i in reg_paci_) {
+    if (typeof reg_paci_[i] == "object") delete reg_paci_[i];
+  }
+
+  await getDll$({
+    directorio_dll: "MAIN-ELECT/APP/SALUD/SAVE_PACI.DLL",
+    data: { datosh: datosh, ...reg_paci_ },
+  })
+    .then((data) => {
+      CON851("?", "success", "Se guardo correctamente el acompañante");
+    })
+    .catch((error) => {
+      console.error(error);
+      CON851("?", "error", "Error consultando datos paciente");
+    });
+};
 const guardarCambiosDtosAcomp = async () => {
   if (!validarDtosAcomp()) return;
-  let reg_paci_electron = {};
   reg_acomp.value.tipo_id = tipo_id_acomp.value.items.find((item) => item.value == tipo_id_acomp.value.select).value;
   CON851P(
     "?",
@@ -499,88 +520,40 @@ const guardarCambiosDtosAcomp = async () => {
     null,
 
     async () => {
-      // GET_PACI
-      let cod_paci = validarCodPaci(reg_elab_cons.value.id_paciente);
-      await getDll$({
-        directorio_dll: "MAIN-ELECT/APP/SALUD/GET_PACI.DLL",
-        data: { datosh: datosh, cod_paci: cod_paci },
-      })
-        .then((data) => {
-          Object.assign(reg_paci_electron, data);
-        })
-        .catch((error) => {
-          console.error(error);
-          CON851("?", "error", "Error consultando datos paciente");
-        });
-      console.log("reg_paci_electron -> ", reg_paci_electron);
-
-      // SAVE_PACI
-      reg_paci_electron.novedad = "8";
-      reg_paci_electron.datos_acomp.id_acomp = reg_acomp.value.cod;
-      reg_paci_electron.datos_acomp.tipo_id_acomp = reg_acomp.value.tipo_id;
-      reg_paci_electron.acompa._1er_apela = reg_acomp.value.er_apel;
-      reg_paci_electron.acompa._2do_apela = reg_acomp.value.do_apel;
-      reg_paci_electron.acompa2._1er_nomac = reg_acomp.value.er_nom;
-      reg_paci_electron.acompa2._2do_nomac = reg_acomp.value.do_nom;
-      reg_paci_electron.correo_acomp = reg_acomp.value.email;
-      reg_paci_electron.num_acom.tel_acom = reg_acomp.value.telefono;
-      reg_paci_electron.direcc_acomp = reg_acomp.value.direccion;
-
-      let reg_paci_ = JSON.parse(JSON.stringify(reg_paci_electron));
-
-      reg_paci_.notas.observ_nota_pac2 = replaceEsp(reg_paci_.notas.observ_nota_pac2);
-      reg_paci_.notas.observ_nota_pac2 = enterReplace(reg_paci_.notas.observ_nota_pac2);
-
-      reg_paci_ = {
-        ...reg_paci_,
-        ...reg_paci_.notas,
-        ...reg_paci_.dato_act,
-      };
-
-      for (let i in reg_paci_) {
-        if (typeof reg_paci_[i] == "object") {
-          if ("anio" in reg_paci_[i] || "hr" in reg_paci_[i]) {
-            reg_paci_[i] = Object.values(reg_paci_[i]).join("");
-          } else {
-            reg_paci_ = {
-              ...reg_paci_,
-              ...reg_paci_[i],
-            };
-          }
-        }
-      }
-
-      for (let i in reg_paci_) {
-        if (typeof reg_paci_[i] == "object") delete reg_paci_[i];
-      }
-
-      await getDll$({
-        directorio_dll: "MAIN-ELECT/APP/SALUD/SAVE_PACI.DLL",
-        data: { datosh: datosh, ...reg_paci_ },
-      })
-        .then((data) => {
-          CON851("?", "success", "Se guardo correctamente el acompañante");
-        })
-        .catch((error) => {
-          console.error(error);
-          CON851("?", "error", "Error consultando datos paciente");
-        });
+      await guardarPaci(reg_acomp.value);
     }
   );
 };
-const continuarATestigo = () => {
+const continuar = () => {
   if (!validarDtosAcomp()) return;
+  // VALIDAR CAMBIOS
+  const resultado = compararObjetos(reg_acomp_copia.value, reg_acomp.value);
+  if (resultado.length > 0) {
+    CON851P(
+      "?",
+      "warning",
+      "Has cambiado datos del acompañante. ¿Deseas guardar estos cambios?",
+      () => {
+        continuarFormatConsen();
+      },
+      async () => {
+        await guardarPaci(reg_acomp.value);
+        continuarFormatConsen();
+      }
+    );
+  } else {
+    continuarFormatConsen();
+  }
+};
+const continuarFormatConsen = () => {
   show_valida_acomp.value = false;
   setTimeout(() => {
     autorizaPaci();
-    // show_tipo_testigo.value = true;
   }, 300);
 };
-
 const selecComprobante = (data) => {
   CON851P("?", "info", `¿Deseas realizar el consentimientos sobre el comprobante ${data.key}?`, null, () => {
     comp_selec.value = data.row;
-    console.log("comp_selec --> ", comp_selec.value);
     buscarFacturaDeComp();
   });
 };
@@ -614,24 +587,11 @@ const mostrarArticulos = (row) => {
   llave_comp.value = row.llave;
   show_artic_comp.value = true;
 };
-// const cancelarTipoTestigo = () => {
-//   show_tipo_testigo.value = false;
-// };
-// const tipTestOtrPaciente = () => {
-//   show_tipo_testigo.value = false;
-// };
-// const tipTestProf = () => {
-//   show_tipo_testigo.value = false;
-// };
-// const tipTestOtrPersona = () => {
-//   show_tipo_testigo.value = false;
-// };
 
 const cancelarAutoriza = () => {
   show_autoriza_consen.value = false;
 };
 const autorizaPaci = () => {
-  console.log("autorizaPaci");
   show_autoriza_consen.value = false;
 
   router.push({
@@ -652,7 +612,7 @@ const autorizaPaci = () => {
       clase: comp_selec.value.cl,
       suc: comp_selec.value.suc,
       nit: reg_usunet.value.NITUSUNET,
-      contab: dayjs().year(),
+      contab: datosh.split("|")[1],
     },
   });
 };
@@ -678,7 +638,6 @@ const callbackSER810 = (data) => {
 </script>
 
 <style scoped>
-/* Contenedor principal */
 .login-container {
   display: flex;
   justify-content: center;
@@ -687,7 +646,6 @@ const callbackSER810 = (data) => {
   background-color: #f0f0f0;
 }
 
-/* Tarjeta del formulario e imagen */
 .login-card {
   display: flex;
   flex-direction: row;
@@ -701,19 +659,16 @@ const callbackSER810 = (data) => {
   align-items: center;
 }
 
-/* Contenedor del formulario */
 .form-container {
-  flex: 1; /* Ocupa el 50% del espacio horizontal */
+  flex: 1;
 }
 
-/* Título del login */
 .login-title {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
   color: #333;
 }
 
-/* Información adicional */
 .info-container {
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
@@ -724,7 +679,6 @@ const callbackSER810 = (data) => {
   margin: 0.2rem 0;
 }
 
-/* Estilo de los campos del formulario */
 .form-group {
   margin-bottom: 1rem;
 }
@@ -744,7 +698,6 @@ input {
   font-size: 1rem;
 }
 
-/* Estilo del botón */
 .login-button {
   width: 100%;
   padding: 0.8rem;
@@ -762,16 +715,14 @@ input {
   background-color: #0056b3;
 }
 
-/* Mensaje de error */
 .error-message {
   color: red;
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
 
-/* Contenedor de la imagen */
 .image-container {
-  flex: 1; /* Ocupa el 50% del espacio horizontal */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;

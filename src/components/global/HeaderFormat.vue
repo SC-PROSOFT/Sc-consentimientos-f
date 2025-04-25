@@ -81,8 +81,14 @@ const validarLogo = async () => {
 
 <style>
 .header {
-  width: 65%;
+  width: 88vw;
   margin-top: 20px;
   margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    width: 65vw;
+  }
 }
 </style>

@@ -1,3 +1,4 @@
+import { useModuleFormatos } from "@/store";
 import { createRouter, createWebHistory } from "vue-router";
 import { createRouteHic } from "./hic.route";
 import { createRouteOdo } from "./odo.route";
@@ -5,6 +6,9 @@ import { createRouteLab } from "./lab.route";
 
 const title = "Prosoft";
 
+function accesoMovil() {
+  return /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+}
 const routes = [
   { path: "/:pathMatch(.*)*", redirect: `/` },
   { path: "/", redirect: "/menu" },
@@ -22,6 +26,24 @@ const routes = [
         component: () => import("@/views/Menu.vue"),
         meta: {
           title: `${title} - Menu principal`,
+          require_auth: true,
+        },
+      },
+      {
+        path: "/login",
+        name: "login",
+        component: () => import("@/views/Login.vue"),
+        meta: {
+          title: `${title} - Login`,
+          require_auth: false,
+        },
+      },
+      {
+        path: "/elaborarconsent",
+        name: "elaborarconsent",
+        component: () => import("@/views/ElaborarConsent.vue"),
+        meta: {
+          title: `${title} - Información para el consentimiento`,
           require_auth: true,
         },
       },
@@ -49,15 +71,38 @@ const routes = [
     ],
   },
 ];
+
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
+// Middleware global para gestionar las reglas de navegación
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
+  const movil = accesoMovil();
+  const usuario_ingreso = sessionStorage.getItem("usunet");
+  if (to.name === "login" && useModuleFormatos().cerrando_sesion) {
+    useModuleFormatos().setcerrandoSesion(false);
+    return next();
+  }
+  if (movil && to.name === "menu" && !sessionStorage.getItem("usunet")) {
+    return next({ name: "login" });
+  }
+  if (to.name === "login" && usuario_ingreso) {
+    return next({ name: "elaborarconsent" });
+  }
+  if (from.name === "elaborarconsent" && to.name === "login") {
+    return next({ name: "elaborarconsent" });
+  }
+  if (to.name === "menu" && !to.query.llave_hc) {
+    return next({ name: "login" });
+  }
+  if (to.name === "elaborarconsent" && !sessionStorage.getItem("usunet")) {
+    return next({ name: "login" });
+  }
   if (to.meta.maintenance) return next({ name: "dev" });
-  else next();
+  next();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
