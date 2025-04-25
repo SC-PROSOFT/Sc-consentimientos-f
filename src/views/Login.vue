@@ -150,7 +150,6 @@ const consultarContabilidad = async () => {
     .catch((error) => {
       console.error(error);
       CON851("?", "error", "Error al consultar contabilidad");
-      s;
     });
 };
 
