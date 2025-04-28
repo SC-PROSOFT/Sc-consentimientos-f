@@ -177,7 +177,10 @@ const ingresar = async () => {
         "datosh",
         "|" + reg_login.value.anio_contab + "|" + meses.value.find((mes) => mes.value == reg_login.value.mes_contab).label + "|"
       );
-      router.push({ name: "elaborarconsent" });
+      // router.push({ name: "elaborarconsent" });
+      router.push({ name: "elaborarconsent" }).then(() => {
+        window.location.reload();
+      });
     })
     .catch((error) => {
       console.error(error);

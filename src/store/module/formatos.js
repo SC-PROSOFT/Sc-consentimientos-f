@@ -76,7 +76,7 @@ export const useModuleFormatos = defineStore("formatos", {
       else return [];
     },
     datosh() {
-      if (sessionStorage.datosh) return sessionStorage.datosh;
+      if (sessionStorage.datosh) return sessionStorage.getItem("datosh");
       else return "";
     },
     accesoMovil() {
@@ -115,6 +115,9 @@ export const useModuleFormatos = defineStore("formatos", {
     },
     setcerrandoSesion(value) {
       this.cerrando_sesion = value;
+    },
+    setDatosh(value) {
+      sessionStorage.setItem("datosh", value);
     },
   },
 });
