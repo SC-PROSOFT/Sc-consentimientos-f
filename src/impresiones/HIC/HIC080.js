@@ -1,7 +1,8 @@
 import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
-import { useModuleFormatos } from "@/store";
+import { useModuleFormatos, useApiContabilidad } from "@/store";
 
-const { getEmpresa } = useModuleFormatos();
+const { getEmpresa, getAcomp } = useModuleFormatos();
+const { getImgBs64 } = useApiContabilidad();
 
 export const impresionHIC080 = ({ datos }) => {
   console.log("datos ", datos);

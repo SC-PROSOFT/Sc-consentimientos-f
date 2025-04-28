@@ -1,5 +1,8 @@
 import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
+import { useModuleFormatos, useApiContabilidad } from "@/store";
 
+const { getAcomp } = useModuleFormatos();
+const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC084 = ({ datos }) => {
   var dd = {
     stack: [contenidoHIC084(), firmas()],

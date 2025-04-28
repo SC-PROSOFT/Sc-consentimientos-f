@@ -597,23 +597,23 @@ const consultarFirmaConsen = async (row) => {
 
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
 
-    if ([900273700, 79635522, 900772776, 822001570].includes(Number(parseInt(route.query.nit)))) {
-      //Testigo SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
+    if ([900273700, 79635522, 900772776, 822001570, 800037202].includes(Number(parseInt(route.query.nit)))) {
+      //Testigo SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO, HOSPITAL LOCAL GUAMAL I NIVEL
       firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo || "1" });
     } else {
       //Testigo UTM
       params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
     }
-    if ([900273700, 79635522, 900772776, 822001570].includes(Number(parseInt(route.query.nit)))) {
-      //Paciente SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
+    if ([900273700, 79635522, 900772776, 822001570, 800037202].includes(Number(parseInt(route.query.nit)))) {
+      //Paciente SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO, HOSPITAL LOCAL GUAMAL I NIVEL
       firma_consen.value = await _getImagen$({ codigo: `${row.llave.id}`, tipo_test: "1" });
     } else {
       //Paciente
       firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     }
 
-    if ([900273700, 79635522, 900772776, 822001570].includes(Number(parseInt(route.query.nit)))) {
-      //Acompañante SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
+    if ([900273700, 79635522, 900772776, 822001570, 800037202].includes(Number(parseInt(route.query.nit)))) {
+      //Acompañante SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO, HOSPITAL LOCAL GUAMAL I NIVEL
       firma_acomp.value = await _getImagen$({ codigo: `${row.id_acomp}`, tipo_test: "1" });
     } else {
       //Acompañante

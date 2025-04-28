@@ -4,7 +4,7 @@
       >{{ empresa?.NOMUSU }}
       <div class="text-subtitle2 text-bold text-white">{{ titulo }}</div>
     </q-toolbar-title>
-    <div class="text-subtitle2 text-bold text-white">{{ reg_usunet.NOMUSU }}</div>
+    <div class="text-subtitle2 text-bold text-white">{{ reg_usunet?.NOMUSU }}</div>
     <q-toolbar-title class="text-white q-ma-xs"> </q-toolbar-title>
 
     <q-btn
