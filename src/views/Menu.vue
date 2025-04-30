@@ -156,7 +156,7 @@ const validarUrl = async () => {
   await getPaciente();
 
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
-    if (datos_session.id_acompa.trim() != "") {
+    if (datos_session?.id_acompa?.trim() != "") {
       await getAcomp();
     }
   }
