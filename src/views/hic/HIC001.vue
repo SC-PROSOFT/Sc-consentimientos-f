@@ -13,27 +13,22 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="reg.opcion_hic001 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="reg.opcion_hic001 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="reg.opcion_hic001"
-          >
+          <q-chip :color="reg.opcion_hic001 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hic001">
             {{ reg.opcion_hic001 }}
           </q-chip>
         </p>
       </div>
       <div>
         <p class="row" align="start">
-          El presente documento tiene como objetivo que usted, luego de haber recibido información, manifieste
-          de manera libre y voluntaria, a través de su firma, la autorización o rechazo a la realización del
-          examen de detección del VIH, según se establece en la normatividad Decreto 1543 de 1997 del
-          Ministerio de la Protección Social por el cual reglamenta los mecanismos de prevención, diagnóstico,
-          manejo y reporte epidemiológico de la infección por VIH.
+          El presente documento tiene como objetivo que usted, luego de haber recibido información, manifieste de manera libre y voluntaria, a través
+          de su firma, la autorización o rechazo a la realización del examen de detección del VIH, según se establece en la normatividad Decreto 1543
+          de 1997 del Ministerio de la Protección Social por el cual reglamenta los mecanismos de prevención, diagnóstico, manejo y reporte
+          epidemiológico de la infección por VIH.
         </p>
 
         <p>
-          Yo identificada con número {{ getPaci.descrip }}. Acepto y autorizo al laboratorio clínico del asad,
-          para que me realice el exámen de detección de VIH.
+          Yo identificada con número {{ getPaci.descrip }}. Acepto y autorizo al laboratorio clínico del asad, para que me realice el exámen de
+          detección de VIH.
         </p>
 
         <div class="text-bold q-mb-sm">MOTIVO PRUEBA</div>
@@ -98,15 +93,7 @@
             />
           </div>
           <div class="col-4 border-format">
-            <q-checkbox
-              true-value="S"
-              false-value="N"
-              style="width: 100%"
-              left-label
-              class="col-12 q-px-md"
-              v-model="reg.pep_kit"
-              label="PEP KIT"
-            />
+            <q-checkbox true-value="S" false-value="N" style="width: 100%" left-label class="col-12 q-px-md" v-model="reg.pep_kit" label="PEP KIT" />
             <q-checkbox
               true-value="S"
               false-value="N"
@@ -192,48 +179,43 @@
       <div class="border-format q-mt-sm">
         <div class="text-bold q-mt-lg">INTRODUCCION:</div>
         <p>
-          Este procedimiento se realiza con el fin de brindar consejería sobre la realización de la prueba
-          para detectar el virus de la inmunodeficiencia humana (VIH) y dar así cumplimiento a la normatividad
+          Este procedimiento se realiza con el fin de brindar consejería sobre la realización de la prueba para detectar el virus de la
+          inmunodeficiencia humana (VIH) y dar así cumplimiento a la normatividad
         </p>
       </div>
       <div class="border-format q-mt-sm">
         <div class="text-bold q-mt-lg">¿QUE ES EL SINDROME DE INMUNODEFICIENCIA ADQUIRIDA (SIDA)?</div>
         <p>
-          Es una enfermedad producida por un virus conocido como el VIH, el cual infecta y destruye las
-          células encargadas de la defensa del organismo, originando una falla progresiva y grave de este
-          sistema, quedando el cuerpo expuesto a las infecciones. No tiene cura, pero si tratamiento que puede
-          mejorar la calidad de vida del paciente si se detecta a tiempo.
+          Es una enfermedad producida por un virus conocido como el VIH, el cual infecta y destruye las células encargadas de la defensa del
+          organismo, originando una falla progresiva y grave de este sistema, quedando el cuerpo expuesto a las infecciones. No tiene cura, pero si
+          tratamiento que puede mejorar la calidad de vida del paciente si se detecta a tiempo.
         </p>
       </div>
       <div class="border-format q-mt-sm">
         <div class="text-bold q-mt-lg">¿COMO SE ADQUIERE LA ENFERMEDAD?</div>
         <p>
-          La enfermedad se adquiere principalmente por contacto sexual con personas infectadas con el VIH. Por
-          exposición a la sangre y fluidos corporales, al compartir agujas para el suministro de ciertas
-          drogas como la heroína (drogadictos). Además durante el embarazo las madres infectadas con el VIH
-          pueden transmitir la enfermedad a su hijo a través de la placenta.
+          La enfermedad se adquiere principalmente por contacto sexual con personas infectadas con el VIH. Por exposición a la sangre y fluidos
+          corporales, al compartir agujas para el suministro de ciertas drogas como la heroína (drogadictos). Además durante el embarazo las madres
+          infectadas con el VIH pueden transmitir la enfermedad a su hijo a través de la placenta.
         </p>
       </div>
       <div class="border-format q-mt-sm">
         <div class="text-bold q-mt-lg">¿COMO SE HACE EL DIAGNOSTICO DE LA INFECCION?</div>
         <p>
-          El diagnóstico se realiza examinando una muestra de sangre para detectar la presencia del Virus de
-          Inmunodeficiencia Humana (VIH). Existen varias pruebas de laboratorio. El primer paso es examinar la
-          sangre utilizando una prueba rápida; si esta resulta “POSITIVA”, se repite nuevamente y se debe
-          realizar una prueba confirmatoria (Western Blot); si esta última se confirma como “POSITIVA”
-          significa que la persona está infectada con el VIH y que la puede transmitir (si no se toma las
-          medidas de protección adecuadas) el virus a otras personas. Si el resultado es NEGATIVO, significa
-          que no hay evidencia de laboratorio, hasta ese momento, de que la persona esté infectada con el VIH
+          El diagnóstico se realiza examinando una muestra de sangre para detectar la presencia del Virus de Inmunodeficiencia Humana (VIH). Existen
+          varias pruebas de laboratorio. El primer paso es examinar la sangre utilizando una prueba rápida; si esta resulta “POSITIVA”, se repite
+          nuevamente y se debe realizar una prueba confirmatoria (Western Blot); si esta última se confirma como “POSITIVA” significa que la persona
+          está infectada con el VIH y que la puede transmitir (si no se toma las medidas de protección adecuadas) el virus a otras personas. Si el
+          resultado es NEGATIVO, significa que no hay evidencia de laboratorio, hasta ese momento, de que la persona esté infectada con el VIH
         </p>
       </div>
       <div class="border-format q-mt-sm">
         <div class="text-bold q-mt-lg">CONSENTIMIENTO</div>
         <p>
-          Declaro haber comprendido este documento y haber recibido Consejería ASESORÍA PRE TEST y entiendo
-          que la toma de la muestra es voluntaria Acepto la responsabilidad de retirar personalmente el
-          resultado; en caso de no retirarlo en la fecha acordada, acepto que se me contacte
-          confidencialmente, según los procedimientos que me han informado (llamado telefónico, visita
-          domiciliaria, carta certificada, correo electrónico).
+          Declaro haber comprendido este documento y haber recibido Consejería ASESORÍA PRE TEST y entiendo que la toma de la muestra es voluntaria
+          Acepto la responsabilidad de retirar personalmente el resultado; en caso de no retirarlo en la fecha acordada, acepto que se me contacte
+          confidencialmente, según los procedimientos que me han informado (llamado telefónico, visita domiciliaria, carta certificada, correo
+          electrónico).
         </p>
       </div>
     </q-card-section>
@@ -284,22 +266,11 @@
 </template>
 
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-// import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat, calcEdad } from "@/formatos/utils";
-import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
-import dayjs from "dayjs";
+import { useModuleFormatos } from "@/store";
+import { ref, defineAsyncComponent } from "vue";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const router = useRouter();
-
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { CON851P } = useModuleCon851p();
-const { CON851 } = useModuleCon851();
+const { getPaci, getAcomp, getProf } = useModuleFormatos();
 
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");

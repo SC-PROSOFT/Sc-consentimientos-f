@@ -337,10 +337,9 @@ import backgroundImage from "@/assets/image/mamografia.png";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const tablero = defineAsyncComponent(() => import("@/components/global/tablero.vue"));
 
 const { getDll$, _getFirma$, guardarFile$, guardarEsquema$, _getHuella$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -575,10 +574,7 @@ const form = ref({
     campo_abierto: true,
   },
 });
-const show_imagen = ref(false);
 onMounted(() => {
-  console.log("getSesion --> ", getSesion);
-
   datosInit();
   getFirmaProf();
 });
@@ -604,8 +600,7 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = async () => {
-  console.log("reg_lab014.value --->> ", reg_lab014);
-  const requiere = "Complete el siguiente campo";
+  // const requiere = "Complete el siguiente campo";
 
   //   if (!firma_recibida.value) {
   //     return CON851("?", "info", "No se ha realizado la firma del paciente");
@@ -645,7 +640,6 @@ const grabarConsentimiento = async () => {
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
-  console.log("datos ", datos);
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then(async (data) => {
@@ -784,8 +778,6 @@ const undo = () => {
   }
 };
 const save = async () => {
-  console.log("save img ");
-
   const canvas = signaturePad.value.$el.querySelector("canvas");
   const ctx = canvas.getContext("2d");
 
@@ -793,7 +785,6 @@ const save = async () => {
   img.src = backgroundImage;
 
   img.onload = () => {
-    console.log("img.onload ");
     // Dibuja la imagen de fondo en el canvas
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 

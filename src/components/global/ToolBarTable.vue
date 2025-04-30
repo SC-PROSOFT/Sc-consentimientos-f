@@ -1,5 +1,5 @@
 <template>
-<q-toolbar :class="`bg-${color}`" style="min-height: 33px;">
+  <q-toolbar :class="`bg-${color}`" style="min-height: 33px">
     <q-toolbar-title class="text-bold text-center text-white">
       <span style="font-size: 15px">{{ titulo }}</span>
       <q-icon round v-if="icon" class="q-my-auto" color="white" :name="icon" />

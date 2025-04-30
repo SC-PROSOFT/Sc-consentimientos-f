@@ -196,7 +196,6 @@ async function getAcomp() {
       data: { cod_paci: datos_session.id_acompa },
     });
     response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci.do_nom.trim()}`;
-    console.log("setAcomp 2");
     setAcomp({ ...response.reg_paci });
   } catch (error) {
     console.error(error);

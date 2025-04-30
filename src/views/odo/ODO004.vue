@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="opcion_odo004 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="opcion_odo004 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="opcion_odo004"
-          >
+          <q-chip :color="opcion_odo004 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_odo004">
             {{ opcion_odo004 }}
           </q-chip>
         </p>
@@ -27,50 +23,37 @@
           <p>
             Yo <span class="text-bold"> {{ getPaci.descrip }},</span> identificado con documento No.
             <span class="text-bold">{{ getPaci.cod }}</span>
-            en pleno uso de mis facultades mentales, libre y conscientemente declaro que doy mi consentimiento
-            al Odontólogo(a) de la IPS, para formular y realizar el tratamiento requerido por mi o por mi hijo
-            (a), intervención u otros procedimientos dentales Que considere necesarios o apropiados y en los
-            cuales estemos mutuamente de acuerdo.
+            en pleno uso de mis facultades mentales, libre y conscientemente declaro que doy mi consentimiento al Odontólogo(a) de la IPS, para
+            formular y realizar el tratamiento requerido por mi o por mi hijo (a), intervención u otros procedimientos dentales Que considere
+            necesarios o apropiados y en los cuales estemos mutuamente de acuerdo.
           </p>
           <p>
-            Que considere necesarios o apropiados y en los cuales estemos mutuamente de acuerdo. Me han
-            informado sobre los beneficios del tratamiento y los riesgos que pueden presentarse en el
-            procedimiento, las opciones de tratamiento.los riesgos que se pueden presentar en los
-            procedimientos clínicos a realizar y/o originados en la falta de colaboración mía o del niño.
-            Siendo las más frecuentes: el trauma de tejidos blandos por el uso de elementos corto punzantes,
-            la fractura radicular, la fractura coronal y la fractura alveolar. Igualmente, me ha sido
-            explicado que ante la falta de colaboración del menor de edad, existe la Posibilidad de requerir
-            durante su tratamiento, la utilización de las técnicas restrictivas, las cuales son utilizadas en
-            odontopediatria y consisten en aplicar medidas tales como sujetar al niño (a), para controlar sus
-            movimientos y así poder realizar el tratamiento. Así mismo, se me ha informado que puedo estar
-            presente durante la atención del menor y apoyar o no en el momento De la aplicación de estas
-            técnicas.
+            Que considere necesarios o apropiados y en los cuales estemos mutuamente de acuerdo. Me han informado sobre los beneficios del tratamiento
+            y los riesgos que pueden presentarse en el procedimiento, las opciones de tratamiento.los riesgos que se pueden presentar en los
+            procedimientos clínicos a realizar y/o originados en la falta de colaboración mía o del niño. Siendo las más frecuentes: el trauma de
+            tejidos blandos por el uso de elementos corto punzantes, la fractura radicular, la fractura coronal y la fractura alveolar. Igualmente, me
+            ha sido explicado que ante la falta de colaboración del menor de edad, existe la Posibilidad de requerir durante su tratamiento, la
+            utilización de las técnicas restrictivas, las cuales son utilizadas en odontopediatria y consisten en aplicar medidas tales como sujetar
+            al niño (a), para controlar sus movimientos y así poder realizar el tratamiento. Así mismo, se me ha informado que puedo estar presente
+            durante la atención del menor y apoyar o no en el momento De la aplicación de estas técnicas.
           </p>
           <p>
-            También se me ha informado sobre la posibilidad de requerir la aplicación de anestesia local y sus
-            posibles complicaciones, tales como: parestesia, hematoma, dolor, isquemia de la piel en el lugar
-            de la infiltración, parálisis del velo del paladar, trismus, afectación muscular y auto mordeduras
-            (frecuente en niños). He tenido la oportunidad de hacer las preguntas que he considerado
-            necesarias y todas han sido Resueltas satisfactoriamente.
+            También se me ha informado sobre la posibilidad de requerir la aplicación de anestesia local y sus posibles complicaciones, tales como:
+            parestesia, hematoma, dolor, isquemia de la piel en el lugar de la infiltración, parálisis del velo del paladar, trismus, afectación
+            muscular y auto mordeduras (frecuente en niños). He tenido la oportunidad de hacer las preguntas que he considerado necesarias y todas han
+            sido Resueltas satisfactoriamente.
           </p>
           <p>
-            Por otra parte autorizo al odontólogo de la IPS, aplique anestesia local en el momento en que el
-            tratamiento odontológico lo requiera. Igualmente estoy enterado (a) que las coronas, prótesis
-            total, prótesis removible, tratamientos de ortodoncia, periodontales y radiografía panorámica, no
-            están cubiertos por el Plan Obligatorio de Salud.
+            Por otra parte autorizo al odontólogo de la IPS, aplique anestesia local en el momento en que el tratamiento odontológico lo requiera.
+            Igualmente estoy enterado (a) que las coronas, prótesis total, prótesis removible, tratamientos de ortodoncia, periodontales y radiografía
+            panorámica, no están cubiertos por el Plan Obligatorio de Salud.
           </p>
         </div>
       </q-form>
     </q-card-section>
     <q-card-actions>
       <div class="col-12 row justify-around">
-        <ContainerFirma
-          quien_firma="FIRMA PACIENTE"
-          :firmador="getPaci.descrip"
-          @reciFirma="callBackFirma"
-          :huella_="huella_paci"
-          class="col-4"
-        />
+        <ContainerFirma quien_firma="FIRMA PACIENTE" :firmador="getPaci.descrip" @reciFirma="callBackFirma" :huella_="huella_paci" class="col-4" />
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
@@ -109,7 +92,6 @@ import { impresionODO004, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const router = useRouter();

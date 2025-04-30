@@ -227,7 +227,6 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("formato ODO003");
   setTimeout(() => {
     datosInit();
     getFirmaProf();
@@ -247,7 +246,6 @@ watch(
 
 const datosInit = () => {
   ODO003.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
-  console.log("getHc ", getHc);
   ODO003.llave = getHc.llave.slice(15);
 
   if (getHc.rips?.diagn && getHc.rips?.diagn.length) {
@@ -306,10 +304,6 @@ const validarDatos = async () => {
     return CON851("?", "info", "No se ha realizado la firma o huella del acompañate");
   }
 
-  // if (getAcomp.cod && !huella_acomp.value && getAcomp.cod && !firma_recibida_acomp.value) {
-  //   return CON851("?", "info", "No se ha realizado la firma del acompañate");
-  // }
-
   if (!ODO003.complicaciones) return CON851("?", "info", `${requiere}, complicaciones `, () => foco_(form, "complicaciones"));
 
   if (ODO003.opcion_odo003 == "REVOCAR") {
@@ -342,8 +336,6 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 32);
-        console.log("data en llave_consen ", data);
-
         ODO003.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");

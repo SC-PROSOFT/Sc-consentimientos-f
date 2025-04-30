@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="reg.opcion_hc003 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="reg.opcion_hc003 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="reg.opcion_hc003"
-          >
+          <q-chip :color="reg.opcion_hc003 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc003">
             {{ reg.opcion_hc003 }}
           </q-chip>
         </p>
@@ -31,15 +27,13 @@
 
       <p>
         Yo, {{ reg_firmador.descrip }}, mayor de edad identificado con documento N°: {{ reg_firmador.cod }} de
-        {{ reg_firmador.descrip_ciudad }} actuando en nombre propio en pleno uso de mis facultades, libre y
-        consciente, o como responsable del menor {{ acudiente_de.descrip }} identificado con N°:
-        {{ acudiente_de.cod }} declaro que:
+        {{ reg_firmador.descrip_ciudad }} actuando en nombre propio en pleno uso de mis facultades, libre y consciente, o como responsable del menor
+        {{ acudiente_de.descrip }} identificado con N°: {{ acudiente_de.cod }} declaro que:
       </p>
 
       <p>
-        torgo mi consentimiento para que sea practicado el procedimiento: (marque con una x el/los
-        procedimiento(s) que le van a realizar mencionados en el cuadro 1.) del cual se me brinda información
-        y se me han explicado tanto la necesidad de hacerlo como los riesgos del mismo
+        torgo mi consentimiento para que sea practicado el procedimiento: (marque con una x el/los procedimiento(s) que le van a realizar mencionados
+        en el cuadro 1.) del cual se me brinda información y se me han explicado tanto la necesidad de hacerlo como los riesgos del mismo
       </p>
       <q-checkbox
         left-label
@@ -78,10 +72,7 @@
           <q-checkbox left-label class="col-12" v-model="reg.curaciones" true-value="S" false-value="N" />
         </div>
         <div class="col-5 border-format">
-          <p>
-            Dolor, Hemorragia, Pérdida de tejido, Infección, Apertura de herida, Hipersensibilidad del área,
-            cicatrices
-          </p>
+          <p>Dolor, Hemorragia, Pérdida de tejido, Infección, Apertura de herida, Hipersensibilidad del área, cicatrices</p>
         </div>
       </div>
       <div class="row">
@@ -96,13 +87,7 @@
       <div class="row">
         <div class="col-5 border-format">Inserción y retiro de sondas vesical, orogástrica, nasogástrica</div>
         <div class="col-2 border-format">
-          <q-checkbox
-            left-label
-            class="col-12"
-            v-model="reg.sondas_vesi_oro_naso"
-            true-value="S"
-            false-value="N"
-          />
+          <q-checkbox left-label class="col-12" v-model="reg.sondas_vesi_oro_naso" true-value="S" false-value="N" />
         </div>
         <div class="col-5 border-format">
           <p>Desgarro y/o ruptura de órgano implicado, hemorragia, edema o inflamación, dolor</p>
@@ -129,13 +114,7 @@
       <div class="row">
         <div class="col-5 border-format">Extracción de cuerpo extraño</div>
         <div class="col-2 border-format">
-          <q-checkbox
-            left-label
-            class="col-12"
-            v-model="reg.extraccion_cuerpo"
-            true-value="S"
-            false-value="N"
-          />
+          <q-checkbox left-label class="col-12" v-model="reg.extraccion_cuerpo" true-value="S" false-value="N" />
         </div>
         <div class="col-5 border-format">
           <p>Lesiones del tejido en el lugar de ubicación del cuerpo extraño, sangrado</p>
@@ -148,15 +127,14 @@
         </div>
         <div class="col-5 border-format">
           <p>
-            Retención de líquido e humedad en el canal auditivo ocasiones estimulación de crecimiento
-            bacteriano, perforación membrana timpánica, tinitus m vértigo.
+            Retención de líquido e humedad en el canal auditivo ocasiones estimulación de crecimiento bacteriano, perforación membrana timpánica,
+            tinitus m vértigo.
           </p>
         </div>
       </div>
       <div class="row">
         <div class="col-5 border-format">
-          Toma de muestras de laboratorio (química sanguínea, frotis vaginal, muestra de esputo, muestra
-          uroanalisis y coprológico)
+          Toma de muestras de laboratorio (química sanguínea, frotis vaginal, muestra de esputo, muestra uroanalisis y coprológico)
         </div>
         <div class="col-2 border-format">
           <q-checkbox left-label class="col-12" v-model="reg.toma_muestras" true-value="S" false-value="N" />
@@ -168,20 +146,18 @@
 
       <div class="q-mt-lg">
         <p>
-          Certifico que se me ha explicado el procedimiento y entiendo sus posibles riesgos y complicaciones
-          También me han explicado los cuidados que debo tener posteriormente al egreso
+          Certifico que se me ha explicado el procedimiento y entiendo sus posibles riesgos y complicaciones También me han explicado los cuidados que
+          debo tener posteriormente al egreso
         </p>
       </div>
 
       <div v-if="reg.opcion_hc003 == 'REVOCAR'">
-        <div class="text-bold text-center">
-          DILIGENCIAR ESTE ESPACIO EN CASO DE REVOCACIÓN O DISENTIMIENTO
-        </div>
+        <div class="text-bold text-center">DILIGENCIAR ESTE ESPACIO EN CASO DE REVOCACIÓN O DISENTIMIENTO</div>
         <div>
           <p>
-            Yo {{ reg_firmador.descrip }}, después de ser informado de la naturaleza y riesgos del
-            procedimiento propuesto, manifiesto de forma libre y consciente mi negación/ revocación para su
-            realización, haciéndome responsable de las consecuencias que se puedan derivar de ésta decisión.
+            Yo {{ reg_firmador.descrip }}, después de ser informado de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre
+            y consciente mi negación/ revocación para su realización, haciéndome responsable de las consecuencias que se puedan derivar de ésta
+            decisión.
           </p>
         </div>
       </div>
@@ -232,22 +208,12 @@
 </template>
 
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-// import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat, calcEdad } from "@/formatos/utils";
-import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
+import { useModuleFormatos } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const router = useRouter();
-
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { CON851P } = useModuleCon851p();
-const { CON851 } = useModuleCon851();
+const { getPaci, getAcomp, getProf, getEmpresa } = useModuleFormatos();
 
 const acudiente_de = ref(getAcomp.cod ? { descrip: getPaci.descrip, cod: getPaci.cod } : "");
 const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);

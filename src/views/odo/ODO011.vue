@@ -231,7 +231,6 @@ import { ref, reactive, defineAsyncComponent, onMounted, watch, computed } from 
 import { impresionODO011, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
@@ -302,7 +301,6 @@ const autoriza = computed(() => {
   }
 });
 onMounted(() => {
-  console.log("formato ODO011");
   setTimeout(() => {
     datosInit();
     getFirmaProf();
@@ -323,7 +321,6 @@ watch(
 const datosInit = () => {
   ODO011.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   ODO011.hora = dayjs().format("hh:mm");
-  console.log("getHc ", getHc);
   ODO011.llave = getHc.llave.slice(15);
 
   if (getHc.rips?.diagn && getHc.rips?.diagn.length) {
@@ -376,8 +373,6 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 32);
-        console.log("data en llave_consen ", data);
-
         ODO011.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");

@@ -14,11 +14,7 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="reg.opcion_hc004 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="reg.opcion_hc004 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="reg.opcion_hc004"
-            >
+            <q-chip :color="reg.opcion_hc004 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc004">
               {{ reg.opcion_hc004 }}
             </q-chip>
           </p>
@@ -43,9 +39,7 @@
           <q-input v-model="getProf.descrip" type="text" class="col-3" disable dense />
           <p>, identificado (a) con cédula N°</p>
           <q-input v-model="getProf.cod" type="text" class="col-2" disable dense />
-          <p>
-            me ha informado sobre su intención de divulgar y hacer público el caso clínico correspondiente a:
-          </p>
+          <p>me ha informado sobre su intención de divulgar y hacer público el caso clínico correspondiente a:</p>
           <q-input
             placeholder="Ingrese nombre completo"
             v-model="reg.nombre_corrspndnte"
@@ -67,33 +61,27 @@
             dense
           />
           <p class="text-justify">
-            Con propósitos puramente académicos y científicos, haciendo uso de la información que de forma
-            verídica le he referido, exámenes de laboratorio y demás estudios que él ha considerado
-            pertinentes. Del mismo modo solicita mi permiso para tomar fotografías clínicas que serán
-            utilizadas de manera profesional. Manifiesto que he sido informado que esta información podrá
-            ayudar a personas que padezcan la misma condición médica, que la identidad no será revelada y que
-            siempre se velará por que la privacidad y anonimato se mantengan en todo momento, así mismo no
-            recibiré una contribución económica por el uso de dicha información.
+            Con propósitos puramente académicos y científicos, haciendo uso de la información que de forma verídica le he referido, exámenes de
+            laboratorio y demás estudios que él ha considerado pertinentes. Del mismo modo solicita mi permiso para tomar fotografías clínicas que
+            serán utilizadas de manera profesional. Manifiesto que he sido informado que esta información podrá ayudar a personas que padezcan la
+            misma condición médica, que la identidad no será revelada y que siempre se velará por que la privacidad y anonimato se mantengan en todo
+            momento, así mismo no recibiré una contribución económica por el uso de dicha información.
           </p>
         </div>
         <div class="row" v-show="reg.opcion_hc004 == 'AUTORIZAR'">
           <p class="text-justify">
-            Basado en lo anterior, autorizo al doctor la reproducción de la información antes mencionada y el
-            uso de las fotografías que ha tomado bajo mi autorización.
+            Basado en lo anterior, autorizo al doctor la reproducción de la información antes mencionada y el uso de las fotografías que ha tomado
+            bajo mi autorización.
           </p>
         </div>
         <div class="row" v-show="reg.opcion_hc004 == 'REVOCAR'">
           <p class="text-justify">
             Expreso mi voluntad de
-            <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto que,
-            tras la información recibida, no consiento la divulgación del contenido anteriormente mencionado
+            <ins class="text-bold">revocar</ins> revocar el consentimiento presentado y declaro por tanto que, tras la información recibida, no
+            consiento la divulgación del contenido anteriormente mencionado
           </p>
           <p>por los siguientes motivos:</p>
-          <Input_
-            style="min-width: 100%; display: inline-block"
-            v-model="reg.revocar_motivos"
-            :field="form.revocar_motivos"
-          />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="reg.revocar_motivos" :field="form.revocar_motivos" />
         </div>
       </q-form>
     </q-card-section>
@@ -142,21 +130,14 @@
   </q-card>
 </template>
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat } from "@/formatos/utils";
-// import { impresionHIC004, impresion, generarArchivo } from "@/impresiones";
-import { useRouter } from "vue-router";
+import { useModuleFormatos, useApiContabilidad, useModuleCon851 } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import dayjs from "dayjs";
 
-const router = useRouter();
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
-
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa } = useModuleFormatos();
+const { _getFirma$, _getHuella$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
-const { CON851P } = useModuleCon851p();
 
 const llave = ref(null);
 const firma_recibida_acomp = ref("");
@@ -183,14 +164,6 @@ const form = ref({
     campo_abierto: true,
   },
 });
-
-// watch(opcion_hc004, (val) => {
-//   if (val == "AUTORIZAR") {
-//     reg.value.revocar_motivos = "";
-//   } else {
-//     reg.value.diagnostico = "";
-//   }
-// });
 
 onMounted(() => {
   reg.value.fecha_act = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");

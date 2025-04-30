@@ -59,8 +59,6 @@ const reg_usunet = ref(JSON.parse(sessionStorage.getItem("usunet")));
 const empresa = ref(sessionStorage.empresa);
 const datos = ref("");
 onMounted(() => {
-  console.log("route.name  ", route.value.name);
-
   if (Object.values(encabezado).length) datos.value = encabezado;
   else datos.value = sessionStorage.encabezado && JSON.parse(sessionStorage.encabezado);
 

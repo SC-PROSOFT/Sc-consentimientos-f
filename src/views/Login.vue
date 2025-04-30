@@ -121,8 +121,6 @@ const form_login = ref({
   },
 });
 onMounted(() => {
-  console.log("formatosStore -> ", formatosStore);
-
   reg_login.value.mes_contab = dayjs().month() + 1;
   if (window.location.hostname != "localhost") {
     reg_login.value.ip = window.location.hostname;
@@ -139,12 +137,10 @@ const consultarContabilidad = async () => {
     },
   })
     .then((data) => {
-      console.log("data -> ", data.Usunet[0].CONTAB);
       const contab_orden = data.Usunet[0].CONTAB.sort((a, b) => extraerNumero(b.DIR) - extraerNumero(a.DIR));
       contab_orden.forEach((item) => {
         lista_contab.value.push({ value: item.DIR, label: item.DIR });
       });
-      console.log("contab_orden -> ", contab_orden);
     })
 
     .catch((error) => {
@@ -162,7 +158,6 @@ const validarFormulario = () => {
   ingresar();
 };
 const ingresar = async () => {
-  console.log("ingresar");
   let datosh = reg_login.value.usuario.toUpperCase() + "|" + reg_login.value.clave + "|" + "SAL" + "|";
   await getDll$({
     directorio_dll: "MAIN-ELECT/APP/INDEX/INDEX.dll",
@@ -171,7 +166,6 @@ const ingresar = async () => {
     },
   })
     .then((data) => {
-      console.log("data -> ", data);
       sessionStorage.setItem("usunet", JSON.stringify(data.Usunet[0]));
       sessionStorage.setItem(
         "datosh",

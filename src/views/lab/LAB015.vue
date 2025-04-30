@@ -126,7 +126,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB015, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";

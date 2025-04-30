@@ -239,7 +239,7 @@
 <script setup>
 import { regPaci, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB013, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -249,7 +249,7 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
@@ -329,8 +329,6 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("getSesion --> ", getSesion);
-
   datosInit();
   getFirmaProf();
 });
@@ -358,8 +356,7 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = async () => {
-  console.log("reg_lab013.value --->> ", reg_lab013);
-  const requiere = "Complete el siguiente campo";
+  // const requiere = "Complete el siguiente campo";
 
   //   if (!firma_recibida.value) {
   //     return CON851("?", "info", "No se ha realizado la firma del paciente");
@@ -399,7 +396,6 @@ const grabarConsentimiento = async () => {
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
-  console.log("datos ", datos);
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {

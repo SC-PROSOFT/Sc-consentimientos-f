@@ -185,9 +185,9 @@
   <div style="height: 5px"></div>
 </template>
 <script setup>
-import { regPaci, regProf, regAcomp } from "@/fuentes";
+import { regPaci, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB012, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -197,19 +197,16 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
-const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
-const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const firma_prof = ref(null);
 const firma_recibida_test = ref("");
 const huella_paci = ref(null);
-const firma_prof_enfer = ref(null);
 const firma_prof_tec_radi = ref(null);
 
 const datos = {

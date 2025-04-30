@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="reg.opcion_hc006 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="reg.opcion_hc006 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="reg.opcion_hc006"
-          >
+          <q-chip :color="reg.opcion_hc006 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc006">
             {{ reg.opcion_hc006 }}
           </q-chip>
         </p>
@@ -32,13 +28,12 @@
 
       <div class="border-format">
         <div class="text-bold text-center">
-          CONSENTIMIENTO INFORMADO DEL PADRE, MADRE, O TUTOR, AUTORIZANDO A SU HIJA MENOR PARA VACUNARSE
-          CONTRA EL VIRUS DEL PAPILOMA HUMANO (VPH)
+          CONSENTIMIENTO INFORMADO DEL PADRE, MADRE, O TUTOR, AUTORIZANDO A SU HIJA MENOR PARA VACUNARSE CONTRA EL VIRUS DEL PAPILOMA HUMANO (VPH)
         </div>
         <div class="text-center text-caption q-mt-sm">
-          El Ministerio de Salud de Colombia, desde el año 2012, incluyo en el Plan Ampliado de Inmunización –
-          PAI, la vacuna contra el Virus del Papiloma Humano – VPH. La cual se ofrece en forma gratuita a las
-          niñas entre 9 a 17 años de edad en los establecimientos de salud del territorio nacional.
+          El Ministerio de Salud de Colombia, desde el año 2012, incluyo en el Plan Ampliado de Inmunización – PAI, la vacuna contra el Virus del
+          Papiloma Humano – VPH. La cual se ofrece en forma gratuita a las niñas entre 9 a 17 años de edad en los establecimientos de salud del
+          territorio nacional.
         </div>
       </div>
 
@@ -46,12 +41,12 @@
         <div class="text-bold">BENEFICIOS</div>
         <ul>
           <li>
-            Esta vacuna previene la infección por el Virus del Papiloma Humano (VPH) responsable del cáncer de
-            cuello uterino, verrugas genitales y otros tipos de cáncer frecuentes en regiones genitales.
+            Esta vacuna previene la infección por el Virus del Papiloma Humano (VPH) responsable del cáncer de cuello uterino, verrugas genitales y
+            otros tipos de cáncer frecuentes en regiones genitales.
           </li>
           <li>
-            Para gozar de la protección de la vacuna, es necesario que la niña reciba las 2 dosis de vacuna:
-            La 1ra dosis al primer contacto con la niña y la 2da dosis 6 meses después de la primera dosis.
+            Para gozar de la protección de la vacuna, es necesario que la niña reciba las 2 dosis de vacuna: La 1ra dosis al primer contacto con la
+            niña y la 2da dosis 6 meses después de la primera dosis.
           </li>
         </ul>
       </div>
@@ -66,8 +61,8 @@
 
       <q-card flat style="background-color: rgb(198, 194, 194)" class="q-mt-xs">
         <div class="q-pa-sm text-center">
-          <span class="text-bold">IMPORTANTE:</span> Toda niña vacunada, igualmente a futuro, debe realizarse
-          control ginecológico regular y la realización periódica del Papanicolaou.
+          <span class="text-bold">IMPORTANTE:</span> Toda niña vacunada, igualmente a futuro, debe realizarse control ginecológico regular y la
+          realización periódica del Papanicolaou.
         </div>
       </q-card>
 
@@ -75,34 +70,28 @@
         <div class="text-bold text-center">POSIBLES REACCIONES DESPUÉS DE LA VACUNACIÓN</div>
         <p>
           <span class="text-bold">La reacción más frecuente es en el sitio de inyección puede ser:</span>
-          dolor, enrojecimiento e hinchazón en el lugar de vacunación. Desaparece (sin tratamiento médico)
-          dentro de las 48 horas Otras reacciones poco frecuentes son: dolor de cabeza, fatiga, fiebre,
-          náuseas, que desaparecen en las siguientes 48 horas. Si persisten, buscar atención en los
-          establecimientos de salud.
+          dolor, enrojecimiento e hinchazón en el lugar de vacunación. Desaparece (sin tratamiento médico) dentro de las 48 horas Otras reacciones
+          poco frecuentes son: dolor de cabeza, fatiga, fiebre, náuseas, que desaparecen en las siguientes 48 horas. Si persisten, buscar atención en
+          los establecimientos de salud.
         </p>
 
         <div class="text-bold">Reacciones menos frecuentes no asociadas a la vacuna pero reportadas:</div>
         <ul>
           <li>
-            Desmayo: Esta reacción puede producirse por temor o miedo y no por la vacuna propiamente. Para
-            evitar esta reacción se recomienda administrar la vacuna a la niña sentada y permanecer así en
-            observación 15 minutos después de la administración de la vacuna.
+            Desmayo: Esta reacción puede producirse por temor o miedo y no por la vacuna propiamente. Para evitar esta reacción se recomienda
+            administrar la vacuna a la niña sentada y permanecer así en observación 15 minutos después de la administración de la vacuna.
           </li>
-          <li>
-            Reacciones alérgicas como ronchas o picazón que pasan rápidamente. Si persisten, buscar atención
-            en el establecimiento de salud.
-          </li>
+          <li>Reacciones alérgicas como ronchas o picazón que pasan rápidamente. Si persisten, buscar atención en el establecimiento de salud.</li>
         </ul>
       </div>
       <div class="border-format q-mt-xs">
         <div class="text-bold text-center">DECLARACIÓN</div>
         <p>
-          Yo {{ getAcomp.descrip }} identificado con N°: {{ getAcomp.cod }} familiar, tutor o representante
-          legal de la niña {{ getPaci.descrip }} , identificada con el No. {{ getPaci.cod }}
-          dejo constancia de haber sido informado sobre los beneficios, seguridad y posibles reacciones a la
-          administración de la vacuna contra el Virus del Papiloma Humano. Por lo tanto autorizo al Personal
-          de la entidad a vacunar a mi menor hija por voluntad propia y me comprometo a completar las 2 dosis
-          que son necesarias para su protección contra el cáncer de cuello uterino.
+          Yo {{ getAcomp.descrip }} identificado con N°: {{ getAcomp.cod }} familiar, tutor o representante legal de la niña {{ getPaci.descrip }} ,
+          identificada con el No. {{ getPaci.cod }}
+          dejo constancia de haber sido informado sobre los beneficios, seguridad y posibles reacciones a la administración de la vacuna contra el
+          Virus del Papiloma Humano. Por lo tanto autorizo al Personal de la entidad a vacunar a mi menor hija por voluntad propia y me comprometo a
+          completar las 2 dosis que son necesarias para su protección contra el cáncer de cuello uterino.
         </p>
       </div>
     </q-card-section>
@@ -154,25 +143,13 @@
 </template>
 
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-// import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat, calcEdad } from "@/formatos/utils";
-import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
+import { useModuleFormatos } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const router = useRouter();
+const { getPaci, getAcomp, getProf, getEmpresa } = useModuleFormatos();
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { CON851P } = useModuleCon851p();
-const { CON851 } = useModuleCon851();
-
-const acudiente_de = ref(getAcomp.cod ? { descrip: getPaci.descrip, cod: getPaci.cod } : "");
-const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);

@@ -189,8 +189,6 @@ const form = ref({
 });
 
 onMounted(() => {
-  console.log("getAcomp.cod -> ", getAcomp.cod);
-
   datosInit();
   getFirmaProf();
 });
@@ -217,8 +215,6 @@ const validarDatos = async () => {
   if (LAB016.opcion_lab016 == "AUTORIZAR") {
     if (!LAB016.interv_quirurg) return CON851("?", "info", requiere, () => foco_(form, "interv_quirurg"));
   }
-  console.log("LAB016 ", LAB016);
-
   grabarConsentimiento();
 };
 
@@ -235,7 +231,6 @@ const grabarConsentimiento = async () => {
     estado: LAB016.opcion_lab016 == "AUTORIZAR" ? "1" : "2",
     llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    // llave_consen: llave_paci,
     llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     oper_consen: getSesion.oper,
     cod_consen: getSesion.modulo == "HIC" ? "HIC047" : "LAB016",
@@ -250,8 +245,6 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 32);
-        console.log("data en llave_consen ", data);
-
         LAB016.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");

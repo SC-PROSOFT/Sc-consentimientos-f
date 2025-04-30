@@ -31,30 +31,12 @@
           </q-card-section>
           <q-card-section
             class="q-pt-none text-center text-h7"
-            v-html="
-              use_loader.loader ? 'Actualizando porfavor espera a que finalice la instalación' : mensaje
-            "
+            v-html="use_loader.loader ? 'Actualizando porfavor espera a que finalice la instalación' : mensaje"
           >
           </q-card-section>
           <q-card-actions align="center" class="text-primary text-center" v-show="!use_loader.loader">
-            <q-btn
-              outline
-              id="boton1"
-              color="red-14"
-              label="Cancelar"
-              @click="cancelar"
-              icon-right="cancel"
-              class="botone q-mx-sm"
-            />
-            <q-btn
-              outline
-              id="boton2"
-              color="green"
-              label="Aceptar"
-              @click="aceptar"
-              class="botone q-mx-sm"
-              icon-right="check_circle"
-            />
+            <q-btn outline id="boton1" color="red-14" label="Cancelar" @click="cancelar" icon-right="cancel" class="botone q-mx-sm" />
+            <q-btn outline id="boton2" color="green" label="Aceptar" @click="aceptar" class="botone q-mx-sm" icon-right="check_circle" />
           </q-card-actions>
           <div v-show="use_loader.loader" class="q-mb-md animacion-tres-puntos">
             <div class="punto">...</div>

@@ -65,8 +65,8 @@ onBeforeMount(() => validarLogo());
 
 const logo = ref(getLogo);
 
-const min_salud = ["HIC042", "HIC036"]
-const colom_poten = ["HIC043"]
+const min_salud = ["HIC042", "HIC036"];
+const colom_poten = ["HIC043"];
 
 const validarLogo = async () => {
   const base64 = "data:image/png;base64,";

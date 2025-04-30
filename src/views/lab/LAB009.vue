@@ -437,7 +437,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionLAB009, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
 

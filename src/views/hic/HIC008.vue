@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="reg.opcion_hc006 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="reg.opcion_hc006 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="reg.opcion_hc006"
-          >
+          <q-chip :color="reg.opcion_hc006 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc006">
             {{ reg.opcion_hc006 }}
           </q-chip>
         </p>
@@ -33,48 +29,19 @@
       <div class="text-bold text-center">FORMATO DE CONSTANCIA DE SERVICIOS RECIBIDOS</div>
       <div>
         <p>
-          Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificado con el documento N°:
-          <InputF_ v-model="getPaci.cod" /> de <InputF_ v-model="getPaci.descrip_ciudad" />, manifiesto bajo
-          la gravedad de juramento que recibí los servicios que consta en la Factura número
+          Yo <InputF_ v-model="getPaci.descrip" width="300" />, identificado con el documento N°: <InputF_ v-model="getPaci.cod" /> de
+          <InputF_ v-model="getPaci.descrip_ciudad" />, manifiesto bajo la gravedad de juramento que recibí los servicios que consta en la Factura
+          número
           <InputF_ v-model="getPaci.descrip" width="300" />
         </p>
         <div>
-          <q-checkbox
-            true-value="S"
-            false-value="N"
-            left-label
-            class="col-12 q-px-md"
-            v-model="reg.consulta_ext"
-            label="Sospecha clinica"
-          />
-          <q-checkbox
-            true-value="S"
-            false-value="N"
-            left-label
-            class="col-12 q-px-md"
-            v-model="reg.hospitaliza"
-            label="Sospecha clinica"
-          />
-          <q-checkbox
-            true-value="S"
-            false-value="N"
-            left-label
-            class="col-12 q-px-md"
-            v-model="reg.urgencias"
-            label="Sospecha clinica"
-          />
-          <q-checkbox
-            true-value="S"
-            false-value="N"
-            left-label
-            class="col-12 q-px-md"
-            v-model="reg.ayudas_diag"
-            label="Sospecha clinica"
-          />
+          <q-checkbox true-value="S" false-value="N" left-label class="col-12 q-px-md" v-model="reg.consulta_ext" label="Sospecha clinica" />
+          <q-checkbox true-value="S" false-value="N" left-label class="col-12 q-px-md" v-model="reg.hospitaliza" label="Sospecha clinica" />
+          <q-checkbox true-value="S" false-value="N" left-label class="col-12 q-px-md" v-model="reg.urgencias" label="Sospecha clinica" />
+          <q-checkbox true-value="S" false-value="N" left-label class="col-12 q-px-md" v-model="reg.ayudas_diag" label="Sospecha clinica" />
         </div>
         <p>
-          En {{ getEmpresa.nomusu }} . Lo anterior en cumplimiento a la Resolución 3047 de 2008, numeral 8,
-          literal A del anexo técnico 5.
+          En {{ getEmpresa.nomusu }} . Lo anterior en cumplimiento a la Resolución 3047 de 2008, numeral 8, literal A del anexo técnico 5.
           <br />
           Dado en {{ getEmpresa.dirusu }}, a los
           {{ dayjs().day() }}
@@ -131,9 +98,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-// import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat, calcEdad } from "@/formatos/utils";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";

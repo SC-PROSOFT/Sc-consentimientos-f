@@ -476,9 +476,9 @@
 <script setup>
 import { regPaci, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, watch } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB011, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
+import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
@@ -486,13 +486,11 @@ import dayjs from "dayjs";
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado, _getImagen$ } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
-const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
-const acudiente = ref(getAcomp.cod ? getPaci.descrip : "");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const firma_recibida_test = ref("");
@@ -500,7 +498,6 @@ const firma_prof = ref(null);
 const firma_paci = ref(null);
 const firma_testigo = ref(null);
 const huella_paci = ref(null);
-const firma_prof_enfer = ref(null);
 const firma_prof_tec_radi = ref(null);
 const res_consen = ref(null);
 
@@ -625,16 +622,6 @@ const reg_lab011 = reactive({
 
   compl_reac_adver: "",
 
-  //   revoca_motivos: "",
-  //   iniciar_trata: "S",
-  //   evento: "",
-
-  // 28500
-
-  // 2007
-  // 2756
-  // = 4763
-
   // EXTRAS
   parentesco: "",
   opcion_hc035: "",
@@ -645,7 +632,6 @@ const reg_lab011 = reactive({
   ident_genero: "",
   edad: "",
   discapacidad: "",
-  // descrip_tipo_id: "",
 });
 
 const form = ref({
@@ -885,7 +871,6 @@ const datosInit = async () => {
   reg_lab011.parentesco = evaluarParentesco(getSesion.paren_acomp);
   reg_lab011.discapacidad = evaluarDiscapacidad(reg_paci.value.discap);
   reg_lab011.servicio = evaluarClaseServ(getSesion.clase);
-  // reg_lab011.descrip_tipo_id = evaluarTipoId(reg_paci.value.tipo_id);
 };
 
 const getFirmaProf = async () => {

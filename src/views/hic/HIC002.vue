@@ -13,11 +13,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="reg.opcion_hic002 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="reg.opcion_hic002 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="reg.opcion_hic002"
-          >
+          <q-chip :color="reg.opcion_hic002 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hic002">
             {{ reg.opcion_hic002 }}
           </q-chip>
         </p>
@@ -32,13 +28,11 @@
 
       <div>
         <p>
-          Yo {{ reg_firmador.descrip }}, identificado con documento No.{{ reg_firmador.cod }} , mayor de edad
-          y/o responsable del paciente {{ acudiente_de.descrip || "________________" }} identificado con No.
-          {{ acudiente_de.cod || "________________" }}, actuando en nombre propio en pleno uso de mis
-          facultades, libre y consciente declaro: Que por mi propia voluntad y pleno conocimiento de riesgos
-          complicaciones explicadas por el personal médico, he decidido solicitar el retiro voluntario,
-          eximiendo de toda responsabilidad a esta institución y al personal que en ella labora, por las
-          consecuencias que puedan sobrevenir por mi determinación
+          Yo {{ reg_firmador.descrip }}, identificado con documento No.{{ reg_firmador.cod }} , mayor de edad y/o responsable del paciente
+          {{ acudiente_de.descrip || "________________" }} identificado con No. {{ acudiente_de.cod || "________________" }}, actuando en nombre
+          propio en pleno uso de mis facultades, libre y consciente declaro: Que por mi propia voluntad y pleno conocimiento de riesgos complicaciones
+          explicadas por el personal médico, he decidido solicitar el retiro voluntario, eximiendo de toda responsabilidad a esta institución y al
+          personal que en ella labora, por las consecuencias que puedan sobrevenir por mi determinación
         </p>
       </div>
 
@@ -102,22 +96,12 @@
 </template>
 
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-// import { impresionHC030, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat, calcEdad } from "@/formatos/utils";
-import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
+import { useModuleFormatos } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-const router = useRouter();
-
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { CON851P } = useModuleCon851p();
-const { CON851 } = useModuleCon851();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa } = useModuleFormatos();
 
 const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
 const acudiente_de = ref(getAcomp.cod ? { descrip: getPaci.descrip, cod: getPaci.cod } : "");

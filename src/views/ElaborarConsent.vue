@@ -456,7 +456,6 @@ const guardarPaci = async (reg_) => {
       console.error(error);
       CON851("?", "error", "Error consultando datos paciente");
     });
-  console.log("reg_paci_electron -> ", reg_paci_electron);
 
   // SAVE_PACI
   reg_paci_electron.novedad = "8";

@@ -14,11 +14,7 @@
             label="¿Autorizar o revocar este consentimiento?"
           />
           <p :class="reg.opcion_hc005 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip
-              :color="reg.opcion_hc005 == 'AUTORIZAR' ? 'green' : 'red'"
-              class="text-white"
-              v-if="reg.opcion_hc005"
-            >
+            <q-chip :color="reg.opcion_hc005 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="reg.opcion_hc005">
               {{ reg.opcion_hc005 }}
             </q-chip>
           </p>
@@ -41,29 +37,17 @@
           <q-input v-model="getPaci.cod" type="text" class="col-2" disable dense />
           <p>de</p>
           <q-input v-model="getPaci.descrip_ciudad" type="text" class="col-2" disable dense />
-          <p>
-            actuando en nombre propio en pleno uso de mis facultades, libre y consciente, o como responsable
-            del menor,
-          </p>
+          <p>actuando en nombre propio en pleno uso de mis facultades, libre y consciente, o como responsable del menor,</p>
           <p>declaro que:</p>
-          <Input_
-            style="min-width: 100%; display: inline-block"
-            v-model="reg.rechazo_remitido"
-            :field="form.rechazo_remitido"
-          />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="reg.rechazo_remitido" :field="form.rechazo_remitido" />
           <p>El doctor (a) / o responsable,</p>
           <q-input v-model="getProf.descrip" type="text" class="col-4" disable dense />
           <p>me ha explicado claramente la necesidad de ser trasladado a</p>
-          <p style="margin-top: -5px;">
-            centro de mayor complejidad a razón de mis condiciones clínicas. Igualmente me han explicado de
-            los riesgos y consecuencias al rechazar esta remisión, declaro la decisión de permanecer en esta
-            institución por:
+          <p style="margin-top: -5px">
+            centro de mayor complejidad a razón de mis condiciones clínicas. Igualmente me han explicado de los riesgos y consecuencias al rechazar
+            esta remisión, declaro la decisión de permanecer en esta institución por:
           </p>
-          <Input_
-            style="min-width: 100%; display: inline-block"
-            v-model="reg.motivo_rechazo"
-            :field="form.motivo_rechazo"
-          />
+          <Input_ style="min-width: 100%; display: inline-block" v-model="reg.motivo_rechazo" :field="form.motivo_rechazo" />
         </div>
       </q-form>
     </q-card-section>
@@ -112,21 +96,14 @@
   </q-card>
 </template>
 <script setup>
-import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { ref, defineAsyncComponent, onMounted, watch } from "vue";
-import { utilsFormat } from "@/formatos/utils";
-// import { impresionHIC005, impresion, generarArchivo } from "@/impresiones";
-import { useRouter } from "vue-router";
+import { useModuleFormatos, useApiContabilidad, useModuleCon851 } from "@/store";
+import { ref, defineAsyncComponent, onMounted } from "vue";
 import dayjs from "dayjs";
 
-const router = useRouter();
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
-const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
-
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa } = useModuleFormatos();
+const { _getFirma$, _getHuella$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
-const { CON851P } = useModuleCon851p();
 
 const llave = ref(null);
 const firma_recibida_acomp = ref("");

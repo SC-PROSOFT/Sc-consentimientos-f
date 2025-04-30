@@ -158,7 +158,7 @@ const route = useRoute();
 
 const formatosStore = useModuleFormatos();
 const { getDll$, _getFirma$, _getImagen$, _getEsquema$, _getHuella$, setHeader$, logOut$ } = useApiContabilidad();
-const { getEmpresa, getTestigo, setHc, getHc, setSession, setProf, setTestigo, setAcomp, getAcomp } = formatosStore;
+const { getEmpresa, getTestigo, setHc, setSession, setProf, setTestigo, setAcomp, getAcomp } = formatosStore;
 
 /* Novedad 1 elabora consentimientos 2 imprime  vienen de los querys 3 para disentir los autorizados */
 const params_querys = ref(null);
@@ -465,7 +465,7 @@ const reimprimirConsentimiento = async (row) => {
     setTestigo(
       row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3"
         ? testigo.reg_paci
-        : testigo.reg_prof
+        : testigo?.reg_prof
     );
   }
   if (params_querys.value.modulo == "LAB") {
@@ -591,7 +591,9 @@ const consultarFirmaConsen = async (row) => {
           modulo: `get_prof.dll`,
           data: { cod_prof: Number(row.datos.reg_coninf2.id_testigo) || 0, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
         });
-        setTestigo(response.reg_prof);
+        if (response?.reg_prof) {
+          setTestigo(response.reg_prof);
+        }
       }
     }
 
