@@ -242,7 +242,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_1 != "" ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
+                      stack: marcaCasillaPrzonlzda(datos.P_1.trim() != "" ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -256,13 +256,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_1 != "" ? false : true, 0, 38, 38, 0, -13, -13, 13, 13),
+                      stack: marcaCasillaPrzonlzda(datos.P_1.trim() != "" ? false : true, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_1 != "" ? datos.P_1 : ""}`,
+                  text: `${datos.P_1.trim() != "" ? datos.P_1.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -284,7 +284,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_2 != "" ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
+                      stack: marcaCasillaPrzonlzda(datos.P_2.trim() != "" ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -298,13 +298,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_2 != "" ? false : true, 0, 38, 38, 0, -13, -13, 13, 13),
+                      stack: marcaCasillaPrzonlzda(datos.P_2.trim() != "" ? false : true, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_2 != "" ? datos.P_2 : ""}`,
+                  text: `${datos.P_2.trim() != "" ? datos.P_2.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -326,7 +326,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_3 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_3.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -340,13 +340,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_3 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_3.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_3 != "" ? datos.P_3 : ""}`,
+                  text: `${datos.P_3.trim() != "" ? datos.P_3.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -368,7 +368,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_4 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_4.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -382,13 +382,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_4 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_4.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_4 != "" ? datos.P_4 : ""}`,
+                  text: `${datos.P_4.trim() != "" ? datos.P_4.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -410,7 +410,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_5 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_5.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -424,13 +424,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_5 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_5.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_5 != "" ? datos.P_5 : ""}`,
+                  text: `${datos.P_5.trim() != "" ? datos.P_5.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -452,7 +452,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_6 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_6.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -466,13 +466,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_6 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_6.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_6 != "" ? datos.P_6 : ""}`,
+                  text: `${datos.P_6.trim() != "" ? datos.P_6.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -494,7 +494,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_7 != "" ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
+                      stack: marcaCasillaPrzonlzda(datos.P_7.trim() != "" ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -508,13 +508,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_7 != "" ? false : true, 0, 38, 38, 0, -13, -13, 13, 13),
+                      stack: marcaCasillaPrzonlzda(datos.P_7.trim() != "" ? false : true, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_7 != "" ? datos.P_7 : ""}`,
+                  text: `${datos.P_7.trim() != "" ? datos.P_7.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -536,7 +536,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_8 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_8.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -550,13 +550,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_8 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_8.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_8 != "" ? datos.P_8 : ""}`,
+                  text: `${datos.P_8.trim() != "" ? datos.P_8.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -578,7 +578,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_9 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_9.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -592,13 +592,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_9 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_9.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_9 != "" ? datos.P_9 : ""}`,
+                  text: `${datos.P_9.trim() != "" ? datos.P_9.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },
@@ -620,7 +620,7 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_10 != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_10.trim() != "" ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -634,13 +634,13 @@ export const impresionLAB010 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(datos.P_10 != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
+                      stack: marcaCasillaPrzonlzda(datos.P_10.trim() != "" ? false : true, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
                 {
                   colSpan: 3,
-                  text: `${datos.P_10 != "" ? datos.P_10 : ""}`,
+                  text: `${datos.P_10.trim() != "" ? datos.P_10.trim() : ""}`,
                   style: "tableTitle",
                   alignment: "justify",
                 },

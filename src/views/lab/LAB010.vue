@@ -25,7 +25,9 @@
             <p style="font-weight: bold; margin-top: 10px">PROCEDIMIENTO QUE REQUIERE MEDIO DE CONTRASTE (IODADO)</p>
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 20%">
-            <q-checkbox
+            <q-radio color="primary" left-label v-model="reg.iodado" val="S" label="SI" />
+            <q-radio color="primary" left-label v-model="reg.iodado" val="N" label="NO" />
+            <!-- <q-checkbox
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
@@ -33,7 +35,7 @@
               :label="reg.iodado == false ? 'NO' : 'SI'"
               true-value="S"
               false-value="N"
-            />
+            /> -->
           </div>
         </div>
         <div class="border-format q-my-sm">
@@ -102,8 +104,11 @@
           <div class="text-center" style="border: 1px solid #ccc; width: 70%">
             <p style="font-weight: bold; margin-top: 10px">ENCUESTA DE SEGURIDAD (PROCEDIMIENTO CON CONTRASTE)</p>
           </div>
+
           <div class="text-center" style="border: 1px solid #ccc; width: 30%">
-            <q-checkbox
+            <q-radio color="primary" left-label v-model="reg.contraste" val="S" label="SI" />
+            <q-radio color="primary" left-label v-model="reg.contraste" val="N" label="NO" />
+            <!-- <q-checkbox
               class="q-pt-sm"
               style="margin-top: -5px"
               left-label
@@ -111,198 +116,221 @@
               :label="reg.contraste == false ? 'NO' : 'SI'"
               true-value="S"
               false-value="N"
-            />
+            /> -->
           </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Le han practicado exámenes con inyección de medio de contraste yodado?, ¿Otros TAC? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-md"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_1"
-              :label="reg.proce_cont.check.p_1 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_1 != 'N'" v-model="reg.proce_cont.especifique_1" :field="form.especifique_1" />
+          <div v-if="reg.contraste == 'S'" class="row q-mt-md q-mb-md" style="width: 100%">
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Le han practicado exámenes con inyección de medio de contraste yodado?, ¿Otros TAC? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_1" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_1" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-md"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_1"
+                :label="reg.proce_cont.check.p_1 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_1 != 'N'" v-model="reg.proce_cont.especifique_1" :field="form.especifique_1" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presentó alguna reacción adversa al medio de contraste (Yodado)? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_2" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_2" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-md"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_2"
+                :label="reg.proce_cont.check.p_2 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_2 != 'N'" v-model="reg.proce_cont.especifique_2" :field="form.especifique_2" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta enfermedades del corazón? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_3" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_3" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_3"
+                :label="reg.proce_cont.check.p_3 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_3 != 'N'" v-model="reg.proce_cont.especifique_3" :field="form.especifique_3" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta enfermedades de los riñones? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_4" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_4" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_4"
+                :label="reg.proce_cont.check.p_4 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_4 != 'N'" v-model="reg.proce_cont.especifique_4" :field="form.especifique_4" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta enfermedades del hígado? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_5" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_5" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_5"
+                :label="reg.proce_cont.check.p_5 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_5 != 'N'" v-model="reg.proce_cont.especifique_5" :field="form.especifique_5" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Padece de asma? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_6" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_6" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_6"
+                :label="reg.proce_cont.check.p_6 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_6 != 'N'" v-model="reg.proce_cont.especifique_6" :field="form.especifique_6" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta algún tipo de alergia? (a medicamentos, alimentos, otras sustancias) Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_7" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_7" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-md"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_7"
+                :label="reg.proce_cont.check.p_7 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_7 != 'N'" v-model="reg.proce_cont.especifique_7" :field="form.especifique_7" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Padece de diabetes? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_8" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_8" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_8"
+                :label="reg.proce_cont.check.p_8 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_8 != 'N'" v-model="reg.proce_cont.especifique_8" :field="form.especifique_8" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Padece de otro tipo de enfermedad? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_9" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_9" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_9"
+                :label="reg.proce_cont.check.p_9 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_9 != 'N'" v-model="reg.proce_cont.especifique_9" :field="form.especifique_9" />
+              </div>
+            </div>
+            <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
+              <p class="q-ml-sm q-mt-sm q-mr-sm">¿Consume medicamentos? Especifique</p>
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 18%">
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_10" val="S" label="SI" />
+              <q-radio color="primary" left-label v-model="reg.proce_cont.check.p_10" val="N" label="NO" />
+              <!-- <q-checkbox
+                class="q-pt-sm"
+                style="margin-top: -5px"
+                left-label
+                v-model="reg.proce_cont.check.p_10"
+                :label="reg.proce_cont.check.p_10 == 'N' ? 'NO' : 'SI'"
+                true-value="S"
+                false-value="N"
+              /> -->
+            </div>
+            <div class="text-center" style="border: 1px solid #ccc; width: 42%">
+              <div class="q-mt-lg">
+                <Input_ v-show="reg.proce_cont.check.p_10 != 'N'" v-model="reg.proce_cont.especifique_10" :field="form.especifique_10" />
+              </div>
             </div>
           </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presentó alguna reacción adversa al medio de contraste (Yodado)? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-md"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_2"
-              :label="reg.proce_cont.check.p_2 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_2 != 'N'" v-model="reg.proce_cont.especifique_2" :field="form.especifique_2" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta enfermedades del corazón? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_3"
-              :label="reg.proce_cont.check.p_3 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_3 != 'N'" v-model="reg.proce_cont.especifique_3" :field="form.especifique_3" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta enfermedades de los riñones? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_4"
-              :label="reg.proce_cont.check.p_4 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_4 != 'N'" v-model="reg.proce_cont.especifique_4" :field="form.especifique_4" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta enfermedades del hígado? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_5"
-              :label="reg.proce_cont.check.p_5 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_5 != 'N'" v-model="reg.proce_cont.especifique_5" :field="form.especifique_5" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Padece de asma? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_6"
-              :label="reg.proce_cont.check.p_6 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_6 != 'N'" v-model="reg.proce_cont.especifique_6" :field="form.especifique_6" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Presenta algún tipo de alergia? (a medicamentos, alimentos, otras sustancias) Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-md"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_7"
-              :label="reg.proce_cont.check.p_7 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_7 != 'N'" v-model="reg.proce_cont.especifique_7" :field="form.especifique_7" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Padece de diabetes? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_8"
-              :label="reg.proce_cont.check.p_8 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_8 != 'N'" v-model="reg.proce_cont.especifique_8" :field="form.especifique_8" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Padece de otro tipo de enfermedad? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_9"
-              :label="reg.proce_cont.check.p_9 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_9 != 'N'" v-model="reg.proce_cont.especifique_9" :field="form.especifique_9" />
-            </div>
-          </div>
-          <div class="text-justify" style="border: 1px solid #ccc; width: 40%">
-            <p class="q-ml-sm q-mt-sm q-mr-sm">¿Consume medicamentos? Especifique</p>
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 18%">
-            <q-checkbox
-              class="q-pt-sm"
-              style="margin-top: -5px"
-              left-label
-              v-model="reg.proce_cont.check.p_10"
-              :label="reg.proce_cont.check.p_10 == 'N' ? 'NO' : 'SI'"
-              true-value="S"
-              false-value="N"
-            />
-          </div>
-          <div class="text-center" style="border: 1px solid #ccc; width: 42%">
-            <div class="q-mt-lg">
-              <Input_ v-show="reg.proce_cont.check.p_10 != 'N'" v-model="reg.proce_cont.especifique_10" :field="form.especifique_10" />
-            </div>
-          </div>
+
           <div class="text-justify" style="border: 1px solid #ccc; width: 100%">
             <p class="q-ml-sm q-mt-sm q-mr-sm">
               Recuerde que si su examen requiere la administración de medio de contraste endovenoso, el auxiliar de enfermería procederá a canalizarle
@@ -417,8 +445,8 @@ const datos = {
 };
 
 const reg = ref({
-  contraste: "N",
-  iodado: "N",
+  contraste: "",
+  iodado: "",
 
   codigo_cie1: "",
   descrip_cie1: "",
