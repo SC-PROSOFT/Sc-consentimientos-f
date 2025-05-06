@@ -175,15 +175,22 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hc050.value == "AUTORIZAR" ? "1" : "2",
+    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     oper_consen: getSesion.oper,
-    llave_consen: getHc.llave,
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     cod_med: getProf.cod,
-    cod_consen: "HIC050",
+    cod_consen: getSesion.modulo == "HIC" ? "HIC050" : "LAB019",
     disentimiento: "N",
   };
 

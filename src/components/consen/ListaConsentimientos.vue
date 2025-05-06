@@ -492,6 +492,18 @@ const reimprimirConsentimiento = async (row) => {
     case "HIC047":
       cod_consenti = "LAB016";
       break;
+    case "LAB017":
+      cod_consenti = "HIC048";
+      break;
+    case "LAB018":
+      cod_consenti = "HIC049";
+      break;
+    case "LAB019":
+      cod_consenti = "HIC050";
+      break;
+    case "LAB020":
+      cod_consenti = "HIC051";
+      break;
     default:
       cod_consenti = row.reg_coninf?.cod;
       break;

@@ -161,4 +161,44 @@ export const createRouteLab = (title) => [
       descrip: "Consentimiento informado acto anestesico",
     },
   },
+  {
+    path: "/LAB017",
+    name: "LAB017",
+    component: () => import("@/views/hic/HIC048.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB017`,
+      descrip: "Consentimiento informado para realizar la prueba presuntiva o diagnostica de VIH",
+    },
+  },
+  {
+    path: "/LAB018",
+    name: "LAB018",
+    component: () => import("@/views/hic/HIC049.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB018`,
+      descrip: "Consentimiento informado para toma de muestras ginecoloógicas",
+    },
+  },
+  {
+    path: "/LAB019",
+    name: "LAB019",
+    component: () => import("@/views/hic/HIC050.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB019`,
+      descrip: "Consentimiento informado toma de muestras de laboratorio clínico",
+    },
+  },
+  {
+    path: "/LAB020",
+    name: "LAB020",
+    component: () => import("@/views/hic/HIC051.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB020`,
+      descrip: "Consentimiento informado toma de citologia",
+    },
+  },
 ];
