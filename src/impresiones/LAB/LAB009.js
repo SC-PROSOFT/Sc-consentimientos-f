@@ -32,17 +32,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.proces == "S" ? true : false,
-                        0,
-                        55,
-                        55,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.proces == "S" ? true : false, 0, 55, 55, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -56,17 +46,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.gadolinio == "N" ? true : false,
-                        0,
-                        55,
-                        55,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.gadolinio == "N" ? true : false, 0, 55, 55, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -240,9 +220,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasilla(
-                        datos.protesis_dental == "S" ? true : datos.protesis_dental == "S" ? true : false
-                      ),
+                      stack: marcaCasilla(datos.protesis_dental == "S" ? true : datos.protesis_dental == "S" ? true : false),
                     },
                   ],
                 },
@@ -631,17 +609,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_1.trim() ? true : false,
-                        0,
-                        38,
-                        38,
-                        0,
-                        -13,
-                        -13,
-                        13,
-                        13
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_1.trim() ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -655,17 +623,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_1.trim() ? true : false,
-                        0,
-                        38,
-                        38,
-                        0,
-                        -13,
-                        -13,
-                        13,
-                        13
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_1.trim() ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -693,17 +651,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_2.trim() ? true : false,
-                        0,
-                        38,
-                        38,
-                        0,
-                        -13,
-                        -13,
-                        13,
-                        13
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_2.trim() ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -717,17 +665,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_2.trim() ? true : false,
-                        0,
-                        38,
-                        38,
-                        0,
-                        -13,
-                        -13,
-                        13,
-                        13
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_2.trim() ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -755,17 +693,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_3.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_3.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -779,17 +707,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_3.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_3.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -817,17 +735,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_4.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_4.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -841,17 +749,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_4.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_4.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -879,17 +777,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_5.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_5.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -903,17 +791,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_5.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_5.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -941,17 +819,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_6.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_6.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -965,17 +833,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_6.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_6.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -1003,17 +861,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_7.trim() ? true : false,
-                        0,
-                        38,
-                        38,
-                        0,
-                        -13,
-                        -13,
-                        13,
-                        13
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_7.trim() ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -1027,17 +875,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_7.trim() ? true : false,
-                        0,
-                        38,
-                        38,
-                        0,
-                        -13,
-                        -13,
-                        13,
-                        13
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_7.trim() ? true : false, 0, 38, 38, 0, -13, -13, 13, 13),
                     },
                   ],
                 },
@@ -1065,17 +903,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_8.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_8.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -1089,17 +917,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_8.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_8.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -1127,17 +945,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_9.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_9.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -1151,17 +959,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_9.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_9.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -1189,17 +987,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        datos.P_10.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(datos.P_10.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },
@@ -1213,17 +1001,7 @@ export const impresionLAB009 = ({ datos }) => {
                     },
                     {
                       alignment: "center",
-                      stack: marcaCasillaPrzonlzda(
-                        !datos.P_10.trim() ? true : false,
-                        0,
-                        40,
-                        40,
-                        0,
-                        -13,
-                        -13,
-                        0,
-                        0
-                      ),
+                      stack: marcaCasillaPrzonlzda(!datos.P_10.trim() ? true : false, 0, 40, 40, 0, -13, -13, 0, 0),
                     },
                   ],
                 },

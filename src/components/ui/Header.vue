@@ -18,7 +18,6 @@
       color="white"
       @click="() => router.back()"
     >
-      <q-tooltip anchor="center right" self="center left" :offset="[10, 10]" class="bg-red">Regresar</q-tooltip>
     </q-btn>
     <q-btn
       v-if="route.name == 'elaborarconsent'"

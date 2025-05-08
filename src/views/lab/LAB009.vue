@@ -21,13 +21,18 @@
         </div>
         <DatosFormat :datos="datos" @datos="(data) => (reg.servicio = data)" />
         <div class="row justify-center border-format q-my-sm">
-          <q-checkbox
+          <p style="font-weight: bold; margin-top: 10px">PROCEDIMIENTO QUE REQUIERE MEDIO DE CONTRASTE (GADOLINIO)</p>
+          <div class="q-ml-md">
+            <q-radio color="primary" left-label v-model="reg.reso_mag.proces" val="S" label="SI" />
+            <q-radio color="primary" left-label v-model="reg.reso_mag.proces" val="N" label="NO" />
+          </div>
+          <!-- <q-checkbox
             left-label
             true-value="S"
             false-value="N"
             v-model="reg.reso_mag.proces"
             label="PROCEDIMIENTO QUE REQUIERE MEDIO DE CONTRASTE (GADOLINIO)"
-          />
+          /> -->
         </div>
         <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs">NORMATIVIDAD VIGENTE</div>
@@ -441,10 +446,12 @@ import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
 
+import { useRouter } from "vue-router";
+
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
-
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, logOut$, guardarArchivo$ } = useApiContabilidad();
+const router = useRouter();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
 const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
@@ -480,7 +487,7 @@ const reg = ref({
     marcapasos: "N",
     electrodos: "N",
     audifonos: "N",
-    proces: "N",
+    proces: "",
     stents: "N",
   },
 
@@ -594,7 +601,7 @@ const grabarFirmaConsen = async (llave) => {
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen();
-      return logOut$();
+      return router.back();
     }
     return CON851P(
       "?",
@@ -607,12 +614,12 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
+        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       },
       async () => {
         const file = await imprimirConsen();
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", logOut$);
+          return CON851("?", "info", "El correo no es valido", () => router.back());
         }
 
         const response = await enviarCorreo$({
@@ -621,14 +628,14 @@ const grabarFirmaConsen = async (llave) => {
           subject: getEncabezado.descrip,
           file,
         });
-        CON851("?", response.tipo, response.message, logOut$);
+        CON851("?", response.tipo, response.message, () => router.back());
 
         const response_guardar = await guardarArchivo$({
           nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format("YYYYMMDDHHmm")}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
+        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       }
     );
   } catch (error) {
@@ -719,6 +726,9 @@ const validarDatos = () => {
   }
   if (!firma_recibida_test.value) {
     return CON851("?", "info", "No se ha realizado la firma del testigo");
+  }
+  if (!reg.value.reso_mag.proces) {
+    return CON851("?", "info", "No se ha respondido ¿PROCEDIMIENTO QUE REQUIERE MEDIO DE CONTRASTE (GADOLINIO)?");
   }
   grabarConsentimiento();
 };

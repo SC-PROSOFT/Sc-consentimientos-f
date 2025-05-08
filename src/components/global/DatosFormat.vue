@@ -254,10 +254,14 @@
       class="row justify-center bold"
       style="width: 100%; display: flex; justify-content: center; align-items: center; min-height: 35px; background-color: #476fad"
     >
-      <!-- <p style="margin-left: 20px; margin-top: 6px; margin-bottom: 6px">ENTIDAD RESPONSABLE PBS</p> -->
       <span style="color: white">ENTIDAD RESPONSABLE PBS</span>
     </div>
-    <div class="row justify-start bold" style="width: 100%"></div>
+
+    <div class="row justify-center" style="width: 100%">
+      <div class="row justify-center bold" style="width: 100%; display: flex; justify-content: center; align-items: center; min-height: 35px">
+        <span>{{ getPaci.descrip_eps }}</span>
+      </div>
+    </div>
 
     <!---------------------------------- TABLA CUPS ---------------------------------->
     <div class="q-mt-sm row" v-if="datos_comp.active_cups" style="width: 100%">

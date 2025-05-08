@@ -423,7 +423,7 @@ import { impresionLAB010, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
-
+import { foco_ } from "@/setup";
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 
@@ -666,6 +666,9 @@ const validarDatos = () => {
   }
   if (!firma_recibida_test.value) {
     return CON851("?", "info", "No se ha realizado la firma del testigo");
+  }
+  if (!reg.value.iodado) {
+    return CON851("?", "info", "No se ha respondido ¿PROCEDIMIENTO QUE REQUIERE MEDIO DE CONTRASTE (GADOLINIO)?");
   }
   grabarConsentimiento();
 };

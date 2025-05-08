@@ -93,11 +93,12 @@
           class="col-4"
         />
         <ContainerFirma
+          disable
           quien_firma="FIRMA PROFESIONAL"
           :firma_="firma_prof"
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
-          :registro_profe="getProf.registro_profe"
+          :registro_profe="getProf.cod"
           :codigo_firma="getProf.cod"
           class="col-4"
         />

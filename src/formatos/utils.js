@@ -308,6 +308,8 @@ const construirHeaderISO = () => {
 };
 
 export const datosFormatUTM = ({ datos }) => {
+  console.log("datosFormatUTM", datos);
+
   const diag = getSesion?.diagnosticos.length == 2 ? getSesion?.diagnosticos : JSON.parse(atob(getSesion.diagnosticos));
   const artic = getSesion?.articulos.length == 2 ? getSesion?.articulos : JSON.parse(atob(getSesion.articulos));
   const tipos_id = ["CC", "CE", "PA", "PT", "RC", "TI"];
@@ -842,7 +844,7 @@ export const datosFormatUTM = ({ datos }) => {
             text: "ENTIDAD RESPONSABLE DE PBS:",
           },
           {
-            text: ``,
+            text: datos.paciente.descrip_eps,
           },
         ],
       },
@@ -1151,10 +1153,10 @@ export const datosFormatUTM = ({ datos }) => {
         text: [
           {
             bold: true,
-            text: "ENTIDAD RESPONSABLE DE PBS:",
+            text: "ENTIDAD RESPONSABLE DE PBS: ",
           },
           {
-            text: ``,
+            text: datos.paciente.descrip_eps,
           },
         ],
       },
