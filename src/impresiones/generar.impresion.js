@@ -3,10 +3,10 @@ import FileSaver, { saveAs } from "file-saver";
 import "pdfmake/build/vfs_fonts";
 import pdfMake from "pdfmake/build/pdfmake";
 import { resolve } from "path-browserify";
-import { useModuleFormatos } from "@/store";
+import { useModuleFormatos, useApiContabilidad } from "@/store";
 import { formatNumberMask_ } from "@/setup";
 import days from "dayjs";
-
+const { guardarPdf$ } = useApiContabilidad();
 if (process.env.NODE_ENV === "development") {
   import("pdfmake/build/vfs_fonts").then((pdfFonts) => {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -283,13 +283,7 @@ Finalmente devolverá true. */
           let actual = cell.value ? (cell.value.length || 10) + 5 : 10;
           width = actual > width ? actual : width;
         }
-        if (
-          coord > parseInt(limite_ini) &&
-          columna == parent_columna &&
-          config_column &&
-          config_column.format &&
-          config_column.format == "money"
-        ) {
+        if (coord > parseInt(limite_ini) && columna == parent_columna && config_column && config_column.format && config_column.format == "money") {
           cell.alignment = {
             vertical: "middle",
             horizontal: "right",
@@ -297,13 +291,7 @@ Finalmente devolverá true. */
           cell.numFmt = "$#,##0.00;[Red]-$#,##0.00";
         }
 
-        if (
-          coord > parseInt(limite_ini) &&
-          columna == parent_columna &&
-          config_column &&
-          config_column.format &&
-          config_column.format == "fecha"
-        )
+        if (coord > parseInt(limite_ini) && columna == parent_columna && config_column && config_column.format && config_column.format == "fecha")
           cell.numFmt = "dd/mm/yyyy";
       });
 
@@ -342,9 +330,7 @@ class _impresion_pdf {
   async imprimir() {
     let tipo_imp = 0;
     if (
-      (["043", "03", "041"].includes(localStorage.idOpciondata) &&
-        $_USUA_GLOBAL[0].NIT == 822000327 &&
-        sessionStorage.Modulo == "HIC") ||
+      (["043", "03", "041"].includes(localStorage.idOpciondata) && $_USUA_GLOBAL[0].NIT == 822000327 && sessionStorage.Modulo == "HIC") ||
       (["09421", "097C13"].includes(localStorage.idOpciondata) &&
         [800037021, 845000038].includes($_USUA_GLOBAL[0].NIT) &&
         sessionStorage.Modulo == "SAL")
@@ -395,8 +381,7 @@ class _impresion_pdf {
         imagenes[val] = "data:image/png;base64," + base64;
       } catch {
         //imagen en blanco
-        imagenes[val] =
-          "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+        imagenes[val] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
       }
     });
     data.images = imagenes;
@@ -663,6 +648,8 @@ export const generarImpresion = async (params) => {
 export function impresion({ docDefinition }) {
   return new Promise(async function (resolve, reject) {
     try {
+      console.log("docDefinition -->> ", docDefinition);
+
       pdfMake.createPdf(docDefinition).open();
       resolve(true);
     } catch (error) {
@@ -682,15 +669,47 @@ export function impresion({ docDefinition }) {
 //     }
 //   });
 // }
-export function generarArchivo({ docDefinition }) {
-  return new Promise(async function (resolve, reject) {
-    try {
+export async function generarArchivo({ docDefinition }) {
+  try {
+    const blob = await new Promise((resolve, reject) => {
       pdfMake.createPdf(docDefinition).getBlob((blob) => {
-        resolve(blob);
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(new Error("Error al generar el archivo PDF"));
+        }
       });
+    });
+    try {
+      const file = new File([blob], `${docDefinition.info.nomb_archivo}.pdf`, { type: "application/pdf" });
+      await guardarPdf$({ data_archivo: file });
     } catch (error) {
-      console.error(error);
-      reject(error);
+      console.error("Error al guardar el archivo:", error);
+      throw error;
     }
-  });
+    return blob;
+  } catch (error) {
+    console.error("Error en generarArchivo:", error);
+    throw error;
+  }
 }
+
+// export function generarArchivo({ docDefinition }) {
+//   console.log("docDefinition -->> ", docDefinition);
+//   return new Promise(async function (resolve, reject) {
+//     try {
+//       pdfMake.createPdf(docDefinition).getBlob((blob) => {
+//         try {
+//           const file = new File([blob], "documento.pdf", { type: "application/pdf" });
+//           guardarPdf$({ data_archivo: file });
+//         } catch (error) {
+//           console.log(error);
+//         }
+//         resolve(blob);
+//       });
+//     } catch (error) {
+//       console.error(error);
+//       reject(error);
+//     }
+//   });
+// }

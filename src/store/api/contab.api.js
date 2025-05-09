@@ -178,6 +178,24 @@ export const useApiContabilidad = defineStore("contabilidad", {
           });
       });
     },
+    guardarPdf$({ data_archivo, loader = true }) {
+      const ruta = `D:\\psc\\prog\\DATOS\\ANEXOS\\CONSENTIMIENTOS`;
+      const formData = new FormData();
+      formData.append("archivo", data_archivo);
+      return new Promise((resolve, reject) => {
+        apiAxios({
+          url: `contabilidad/guardar-archivo?ruta=${ruta}`,
+          method: "POST",
+          data: formData,
+          loader,
+        })
+          .then((response) => resolve(response))
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
+    },
     _getEsquema$({ codigo = 0, formato = "png" }) {
       let ruta;
       if (this.empresa.unid_prog == "S") {
