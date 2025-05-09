@@ -778,4 +778,24 @@ export const createRouteHic = (title) => [
       descrip: "Formato salida voluntaria urgencias",
     },
   },
+  {
+    path: "/HIC096",
+    name: "HIC096",
+    component: () => import("@/views/hic/HIC096.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC096`,
+      descrip: "Autorizacion para intervencion en planificacion familiar; insercion o retiro de implante subdermico",
+    },
+  },
+  {
+    path: "/HIC097",
+    name: "HIC097",
+    component: () => import("@/views/hic/HIC097.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC097`,
+      descrip: "Autorizacion para intervencion en planificacion familiar; insercion o retiro de diu",
+    },
+  },
 ];
