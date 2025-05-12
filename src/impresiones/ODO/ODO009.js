@@ -1,7 +1,7 @@
 import { evaluarParentesco } from "@/formatos/utils";
 import { useModuleFormatos } from "@/store";
 
-const { getPaci, getHc } = useModuleFormatos();
+const { getPaci } = useModuleFormatos();
 
 export const impresionODO009 = ({ datos }) => {
   console.log("datos ", datos);
@@ -30,7 +30,7 @@ export const impresionODO009 = ({ datos }) => {
                   alignment: "right",
                   text: [
                     { bold: true, style: "tableTitle", text: "N°. H.C. " },
-                    { style: "bodyNoBold9", text: getHc.llave },
+                    { style: "bodyNoBold9", text: datos.llave },
                   ],
                 },
               ],

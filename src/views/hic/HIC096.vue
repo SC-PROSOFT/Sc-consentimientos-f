@@ -38,7 +38,7 @@
           <p><span class="text-bold">Nombre:</span> {{ getPaci.descrip }}&nbsp;</p>
           <p><span class="text-bold">Tipo y numero documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
           <p>
-            <span class="text-bold">N° Historia Clínica: &nbsp;</span><span>{{ getHc.llave }}</span> &nbsp;
+            <span class="text-bold">N° Historia Clínica: &nbsp;</span><span>{{ getHc.llave.slice(15) }}</span> &nbsp;
           </p>
           <p>
             <span class="text-bold">Edad: &nbsp;</span><span>{{ calcularEdad(getPaci.nacim) }}</span> &nbsp;

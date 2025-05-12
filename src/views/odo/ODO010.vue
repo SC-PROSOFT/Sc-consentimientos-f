@@ -27,7 +27,7 @@
             </p>
             <p class="text-right">
               <span class="text-bold">N°. H.C.</span>
-              {{ getHc.llave }}
+              {{ getHc.llave.slice(15) }}
             </p>
           </div>
           <p style="text-align: justify">
@@ -218,6 +218,7 @@ const imprimirConsen = async () => {
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
     },
+    llave: getHc.llave.slice(15),
   };
 
   const firmas = {
