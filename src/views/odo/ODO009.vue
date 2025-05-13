@@ -31,8 +31,9 @@
         </div>
         <div>
           <p style="text-align: justify">
-            Yo <span class="text-bold"> {{ getPaci.descrip }},</span> mayor de edad y/o responsable del paciente, identificado(a) como aparece al pie
-            de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente, declaro:
+            Yo <span class="text-bold"> {{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }},</span> mayor de edad y/o responsable del
+            paciente, identificado(a) como aparece al pie de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente,
+            declaro:
           </p>
           <p style="text-align: justify">Otorgo mi consentimiento para que sea practicado el proceso quirúrgico requerido denominado:</p>
           <Input_ style="min-width: 100%; display: inline-block" v-model="ODO009.proces_quirurg" :field="form.proces_quirurg" />
@@ -74,10 +75,20 @@
     </q-card-section>
     <q-card-actions>
       <div class="col-12 row justify-around">
-        <ContainerFirma quien_firma="FIRMA PACIENTE" :firmador="getPaci.descrip" @reciFirma="callBackFirma" :huella_="huella_paci" class="col-4" />
+        <ContainerFirma
+          quien_firma="FIRMA PACIENTE"
+          :firmador="getPaci.descrip"
+          @reciFirma="callBackFirma"
+          :huella_="huella_paci"
+          :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
+          class="col-4"
+        />
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
+          :registro_profe="getAcomp.cod"
+          :tipo_doc="getAcomp.tipo_id"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
@@ -123,7 +134,7 @@ const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabe
 const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
-
+const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 const firma_recibida_acomp = ref("");
 const huella_paci = ref(null);
 const firma_paci = ref("");

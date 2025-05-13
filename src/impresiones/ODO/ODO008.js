@@ -41,7 +41,9 @@ export const impresionODO008 = ({ datos }) => {
         {
           marginTop: 8,
           alignment: "justify",
-          text: `Yo, ${getPaci.descrip} identificado con el documento de identidad ${getPaci.cod}, y por medio del presente documento hago constar lo siguiente.`,
+          text: `Yo, ${
+            datos.acomp.cod.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip
+          } mayor de edad y/o responsable del paciente, identificado(a) como aparece al pie de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente, declaro:`,
           style: "bodyNoBold9",
         },
         {
@@ -209,7 +211,7 @@ export const impresionODO008 = ({ datos }) => {
             {
               marginLeft: 5,
               style: "tableNoBold",
-              text: `${datos.acomp.cod}`,
+              text: `${datos.acomp.tipo_id} - ${datos.acomp.cod}`,
             },
           ],
         },

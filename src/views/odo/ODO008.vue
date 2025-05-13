@@ -31,10 +31,15 @@
         </div>
 
         <div>
-          <p style="text-align: justify">
+          <!-- <p style="text-align: justify">
             Yo <span class="text-bold"> {{ getPaci.descrip }},</span> identificado con el documento de identidad
             <span class="text-bold">{{ getPaci.cod }}</span>
             y por medio del presente documento hago constar lo siguiente.
+          </p> -->
+          <p style="text-align: justify">
+            Yo <span class="text-bold"> {{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }},</span> mayor de edad y/o responsable del
+            paciente, identificado(a) como aparece al pie de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente,
+            declaro:
           </p>
           <p style="text-align: justify">
             Por medio de la presente doy mi consentimiento al odontólogo(a) para formular y realizar el tratamiento, intervención u otros
@@ -64,10 +69,20 @@
     </q-card-section>
     <q-card-actions>
       <div class="col-12 row justify-around">
-        <ContainerFirma quien_firma="FIRMA PACIENTE" :firmador="getPaci.descrip" @reciFirma="callBackFirma" :huella_="huella_paci" class="col-4" />
+        <ContainerFirma
+          quien_firma="FIRMA PACIENTE"
+          :firmador="getPaci.descrip"
+          @reciFirma="callBackFirma"
+          :huella_="huella_paci"
+          :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
+          class="col-4"
+        />
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
+          :registro_profe="getAcomp.cod"
+          :tipo_doc="getAcomp.tipo_id"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
@@ -118,7 +133,7 @@ const firma_recibida_acomp = ref("");
 const huella_paci = ref(null);
 const firma_paci = ref("");
 const firma_prof = ref(null);
-
+const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 const opcion_odo008 = ref(null);
 
 const reg_firmador = ref(getAcomp.cod ? getAcomp : getPaci);
