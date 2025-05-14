@@ -22,6 +22,7 @@ export const utilsFormat = async ({ datos, content }) => {
       firma_consen: datos.img_firma_consen || getImgBs64,
       firma_paci: datos.img_firma_paci || getImgBs64,
       esquema_mamografia: datos.img_esquema_mamografia || getImgBs64,
+      tabla_sedacion: datos.img_tabla_sedacion || getImgBs64,
     },
     info: {
       title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo

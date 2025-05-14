@@ -36,6 +36,14 @@ export const impresionHIC050 = ({ datos }) => {
         {
           marginTop: 8,
           alignment: "justify",
+          text: `Yo, ${
+            datos.acomp.cod.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip
+          } mayor de edad y/o responsable del paciente, identificado(a) como aparece al pie de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente, declaro:`,
+          style: "bodyNoBold9",
+        },
+        {
+          marginTop: 8,
+          alignment: "justify",
           text: "El propósito principal del procedimiento de toma y recepción de muestras de laboratorio consiste en: Recolectar sangre, orina o tejidos corporales para posteriormente procesarlos y determinar si los resultados obtenidos están dentro de los límites normales.",
           style: "bodyNoBold9",
         },
@@ -192,7 +200,7 @@ export const impresionHIC050 = ({ datos }) => {
             {
               marginLeft: 5,
               style: "tableNoBold",
-              text: `${datos.paciente.cod}`,
+              text: `${datos.paciente.tipo_id} - ${datos.paciente.cod}`,
             },
           ],
         },
@@ -250,7 +258,7 @@ export const impresionHIC050 = ({ datos }) => {
             {
               marginLeft: 5,
               style: "tableNoBold",
-              text: `${datos.acomp.cod}`,
+              text: `${datos.acomp.tipo_id} - ${datos.acomp.cod}`,
             },
           ],
         },
@@ -353,9 +361,9 @@ export const impresionHIC050 = ({ datos }) => {
 
     tamanoFirmasArray = firmasArray.length;
 
-    if (datos.firmas.firma_paci) {
-      firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
-    }
+    // if (datos.firmas.firma_paci) {
+    firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
+    // }
 
     if (firmasArray.length == 2) {
       firmasArray.unshift({ border: [false, false, false, false], text: "" });

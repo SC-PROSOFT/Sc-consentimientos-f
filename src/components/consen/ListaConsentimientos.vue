@@ -174,6 +174,7 @@ const huella_acomp = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
 const esquema_mamografia = ref(null);
+const tabla_sedacion = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(0);
 
@@ -526,6 +527,7 @@ const reimprimirConsentimiento = async (row) => {
         img_firma_acomp: firma_acomp.value,
         img_firma_func: firma_func.value,
         img_esquema_mamografia: esquema_mamografia.value,
+        img_tabla_sedacion: tabla_sedacion.value,
         img_huella_paci: huella_paci.value,
         img_huella_acomp: huella_acomp.value,
         img_firma_paci: firma_consen.value,
@@ -589,6 +591,8 @@ const getHuella = async (cod) => {
   }
 };
 const consultarFirmaConsen = async (row) => {
+  console.log("row --->> ", row);
+
   try {
     if (params_querys.value.modulo == "HIC" && Number(row.datos.reg_coninf2.id_testigo) != 0) {
       // consultar testigo
@@ -638,6 +642,10 @@ const consultarFirmaConsen = async (row) => {
     //esquema mamografia
     esquema_mamografia.value = await _getEsquema$({
       codigo: `${codigo}`,
+    });
+    //tabla sedacion
+    tabla_sedacion.value = await _getEsquema$({
+      codigo: `${row.cod}${codigo}`,
     });
 
     //Funcionario (Casos especiales Yopal)

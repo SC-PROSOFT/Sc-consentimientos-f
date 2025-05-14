@@ -201,4 +201,14 @@ export const createRouteLab = (title) => [
       descrip: "Consentimiento informado toma de citologia",
     },
   },
+  {
+    path: "/LAB021",
+    name: "LAB021",
+    component: () => import("@/views/lab/LAB021.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB021`,
+      descrip: "Formato historia clinica registro de sedacion",
+    },
+  },
 ];

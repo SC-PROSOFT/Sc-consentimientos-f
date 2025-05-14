@@ -31,6 +31,11 @@
         </div>
         <div>
           <p style="text-align: justify">
+            Yo <span class="text-bold"> {{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }},</span> mayor de edad y/o responsable del
+            paciente, identificado(a) como aparece al pie de la firma, actuando en nombre propio en pleno uso de mis facultades, libre y consiente,
+            declaro:
+          </p>
+          <p style="text-align: justify">
             El propósito principal del procedimiento de toma y recepción de muestras de laboratorio consiste en: Recolectar sangre, orina o tejidos
             corporales para posteriormente procesarlos y determinar si los resultados obtenidos están dentro de los límites normales.
           </p>
@@ -80,6 +85,7 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
@@ -89,6 +95,7 @@
           :disable="!getAcomp.descrip ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           :registro_profe="getAcomp.cod"
+          :tipo_doc="getAcomp.tipo_id"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
@@ -135,6 +142,7 @@ const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFo
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
+const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
