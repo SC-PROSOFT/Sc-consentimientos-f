@@ -72,6 +72,20 @@ export const impresionHIC056 = ({ datos }) => {
             {
               text: datos.servicio,
             },
+            {
+              text: " Fecha desde: ",
+              bold: true,
+            },
+            {
+              text: datos.fecha_ini,
+            },
+            {
+              text: " Fecha hasta: ",
+              bold: true,
+            },
+            {
+              text: datos.fecha_fin,
+            },
           ],
           style: "tableTitle",
           alignment: "justify",

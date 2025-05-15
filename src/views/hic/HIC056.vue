@@ -36,9 +36,21 @@
           </p>
         </div>
         <div class="row">
-          <p class="text-left">Servicio:</p>
-          <Input_ v-model="HIC056.servicio" :field="form.servicio" :inputStyle="{ width: '460px' }" />
+          <div class="row">
+            <p class="text-left text-bold">Servicio:</p>
+            <Input_ v-model="HIC056.servicio" :field="form.servicio" :inputStyle="{ width: '460px' }" />
+          </div>
+
+          <div class="row">
+            <p class="text-left text-bold q-mt-sm">Fecha desde:</p>
+            <Input_ v-model="HIC056.fecha_ini" :field="form.fecha_ini" style="margin-top: 3px" />
+          </div>
+          <div class="row">
+            <p class="text-left text-bold q-mt-sm">Fecha hasta:</p>
+            <Input_ v-model="HIC056.fecha_fin" :field="form.fecha_fin" style="margin-top: 3px" />
+          </div>
         </div>
+
         <div>
           <p style="text-align: justify">
             Yo {{ getPaci.descrip }} confirmo que recibi la atención prestada de los servicios medicos de la institución.
@@ -106,6 +118,8 @@ const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const HIC056 = reactive({
   fecha_act: "",
+  fecha_ini: "",
+  fecha_fin: "",
   servicio: "",
 });
 const form = ref({
@@ -113,6 +127,20 @@ const form = ref({
     id: "servicio",
     maxlength: "250",
     label: "",
+    campo_abierto: true,
+  },
+  fecha_ini: {
+    id: "fecha_ini",
+    maxlength: "10",
+    label: "",
+    tipo: "date",
+    campo_abierto: true,
+  },
+  fecha_fin: {
+    id: "fecha_fin",
+    maxlength: "10",
+    label: "",
+    tipo: "date",
     campo_abierto: true,
   },
 });
