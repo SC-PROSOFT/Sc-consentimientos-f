@@ -25,10 +25,18 @@
             {{ HIC048.fecha }}
           </p>
 
-          <p style="text-align: justify">
+          <p v-if="!getAcomp.cod" style="text-align: justify">
             Yo <span class="text-bold"> {{ getPaci.descrip }},</span> he leído (o que se me ha leído) el documento sobre Consentimiento informado que
             contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su
             contenido, incluyendo las limitaciones, beneficios y riesgos de la prueba.
+          </p>
+          <p v-if="getAcomp.cod" style="text-align: justify">
+            Yo <span class="text-bold"> {{ reg_acudiente.descrip }},</span> responsable del menor
+            <span class="text-bold"> {{ getPaci.descrip }},</span> con <span class="text-bold"> {{ getPaci.tipo_id }}</span> -
+            <span class="text-bold"> {{ getPaci.cod }},</span>
+            certifico que he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y
+            beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios
+            y riesgos de la prueba.
           </p>
 
           <p style="text-align: justify">
@@ -109,6 +117,7 @@ const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion } = useModuleFo
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
+const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);

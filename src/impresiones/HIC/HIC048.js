@@ -17,20 +17,7 @@ export const impresionHIC048 = ({ datos }) => {
             { style: "bodyNoBold9", text: datos.fecha },
           ],
         },
-        {
-          marginTop: 15,
-          alignment: "justify",
-          text: [
-            { style: "tableTitle", text: " Yo, " },
-            { bold: true, style: "tableTitle", text: getPaci.descrip },
-            {
-              style: "bodyNoBold9",
-              text: " he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y riesgos de la prueba.",
-            },
-          ],
-
-          style: "bodyNoBold9",
-        },
+        autorizaPaciOAcomp(),
         {
           alignment: "justify",
           text: `\n He recibido consejería PRE-TEST (actividad realizada por un profesional de salud para prepararme y confrontarme con relación a mis conocimientos, prácticas y conductas, antes de realizarme las pruebas diagnósticas).`,
@@ -55,6 +42,54 @@ export const impresionHIC048 = ({ datos }) => {
     };
   }
 
+  function autorizaPaciOAcomp() {
+    if (datos.acomp.cod) {
+      return {
+        marginTop: 15,
+        alignment: "justify",
+        text: [
+          { style: "tableTitle", text: " Yo, " },
+          { bold: true, style: "tableTitle", text: datos.acomp.descrip },
+          {
+            style: "bodyNoBold9",
+            text: " responsable del menor ",
+          },
+          { bold: true, style: "tableTitle", text: datos.paciente.descrip },
+          {
+            style: "bodyNoBold9",
+            text: " con ",
+          },
+          { bold: true, style: "tableTitle", text: datos.paciente.tipo_id },
+          {
+            style: "bodyNoBold9",
+            text: " - ",
+          },
+          { bold: true, style: "tableTitle", text: datos.paciente.cod },
+          {
+            style: "bodyNoBold9",
+            text: " certifico que he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y  riesgos de la prueba.",
+          },
+        ],
+
+        style: "bodyNoBold9",
+      };
+    } else {
+      return {
+        marginTop: 15,
+        alignment: "justify",
+        text: [
+          { style: "tableTitle", text: " Yo, " },
+          { bold: true, style: "tableTitle", text: datos.paciente.descrip },
+          {
+            style: "bodyNoBold9",
+            text: " he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y beneficio de la prueba, su interpretación, sus limitaciones y riesgo, y que entiendo su contenido, incluyendo las limitaciones, beneficios y riesgos de la prueba.",
+          },
+        ],
+
+        style: "bodyNoBold9",
+      };
+    }
+  }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
 

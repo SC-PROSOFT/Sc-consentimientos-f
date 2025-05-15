@@ -149,7 +149,6 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-  <SER810 v-if="show_ser810" @esc="callbackSER810" @enter="callbackSER810" />
 </template>
 
 <script setup>
@@ -165,7 +164,6 @@ const { CON851P } = useModuleCon851p();
 const router = useRouter();
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
-const SER810 = defineAsyncComponent(() => import("@/components/consen/SER810.vue"));
 const { datosh } = useModuleFormatos();
 
 const show_ser810 = ref(false);

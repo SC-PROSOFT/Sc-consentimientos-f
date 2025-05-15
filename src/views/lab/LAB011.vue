@@ -525,7 +525,7 @@ const form_tabla_not_ant = ref({
   },
   notas_atencion: {
     id: "notas_atencion",
-    maxlength: "200",
+    maxlength: "900",
     campo_abierto: true,
     f0: ["f3", "f5", "f6", "f9", "arrowup", "arrowdown"],
   },

@@ -179,7 +179,7 @@ export const useApiContabilidad = defineStore("contabilidad", {
       });
     },
     guardarPdf$({ data_archivo, loader = true }) {
-      const ruta = `D:\\psc\\prog\\DATOS\\ANEXOS\\CONSENTIMIENTOS`;
+      const ruta = `D:/PSC/PROG/DATOS/ANEXOS/CONSENTIMIENTOS`;
       const formData = new FormData();
       formData.append("archivo", data_archivo);
       return new Promise((resolve, reject) => {
@@ -189,7 +189,9 @@ export const useApiContabilidad = defineStore("contabilidad", {
           data: formData,
           loader,
         })
-          .then((response) => resolve(response))
+          .then((response) => {
+            resolve(response);
+          })
           .catch((error) => {
             console.error(error);
             reject(error);

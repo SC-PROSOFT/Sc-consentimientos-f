@@ -105,7 +105,9 @@ const getFirmaPaci = async () => {
   const check_paci = props.quien_firma.toLowerCase().includes("paciente") || false;
   const check_test = props.quien_firma.toLowerCase().includes("testigo") || false;
   const check_prof = props.quien_firma.toLowerCase().includes("profesional") || false;
-  const check_acomp = props.quien_firma.toLowerCase().includes("acompañante") || false;
+  const keywords = ["acompañante", "tutor", "familiar"];
+  const check_acomp = keywords.some((keyword) => props.quien_firma.toLowerCase().includes(keyword)) || false;
+
   try {
     if (getEmpresa.unid_prog == "P" && props.codigo_firma) {
       firma.value = await _getFirma$({ codigo: props.codigo_firma });

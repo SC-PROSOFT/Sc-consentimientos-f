@@ -269,6 +269,10 @@ const callBackFirma = (data_firma) => {
 };
 
 const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
+  if (getAcomp.cod) {
+    data_firma && (firma_recibida_acomp.value = data_firma);
+  } else {
+    data_firma && (firma_recibida.value = data_firma);
+  }
 };
 </script>
