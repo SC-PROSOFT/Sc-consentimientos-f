@@ -669,7 +669,7 @@ export function impresion({ docDefinition }) {
 //     }
 //   });
 // }
-export async function generarArchivo({ docDefinition }) {
+export async function generarArchivo({ docDefinition, nomb_archivo }) {
   try {
     const blob = await new Promise((resolve, reject) => {
       pdfMake.createPdf(docDefinition).getBlob((blob) => {
@@ -681,7 +681,7 @@ export async function generarArchivo({ docDefinition }) {
       });
     });
     try {
-      const file = new File([blob], `${docDefinition.info.nomb_archivo}.pdf`, { type: "application/pdf" });
+      const file = new File([blob], `${nomb_archivo}.pdf`, { type: "application/pdf" });
       await guardarPdf$({ data_archivo: file });
     } catch (error) {
       console.error("Error al guardar el archivo:", error);

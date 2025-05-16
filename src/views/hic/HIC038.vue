@@ -424,7 +424,7 @@ const grabarFirmaConsen = async (llave) => {
     });
 
     if (getEmpresa.envio_email == "N") {
-      await imprimirConsen();
+      await imprimirConsen(llave);
       return router.back();
     }
     return CON851P(
@@ -432,11 +432,11 @@ const grabarFirmaConsen = async (llave) => {
       "info",
       "¿Deseas enviar el correo del consentimientos?",
       async () => {
-        await imprimirConsen();
+        await imprimirConsen(llave);
         router.back();
       },
       async () => {
-        const file = await imprimirConsen();
+        const file = await imprimirConsen(llave);
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", () => router.back());
         }
@@ -456,7 +456,7 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
-const imprimirConsen = async () => {
+const imprimirConsen = async (llave) => {
   try {
     const datos_hic038 = {
       autorizo: opcion_hc038.value == "AUTORIZAR" ? true : false,
@@ -506,6 +506,7 @@ const imprimirConsen = async () => {
     await impresion({ docDefinition: docDefinitionPrint });
     const response_impresion = await generarArchivo({
       docDefinition: docDefinitionFile,
+      nomb_archivo: `${llave}-HIC-038`,
     });
     return response_impresion;
   } catch (error) {

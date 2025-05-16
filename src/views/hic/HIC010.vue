@@ -352,11 +352,11 @@ const grabarFirmaConsen = async (llave) => {
       "info",
       "¿Deseas enviar el correo del consentimientos?",
       async () => {
-        await imprimirConsen();
+        await imprimirConsen(llave);
         router.back();
       },
       async () => {
-        const file = await imprimirConsen();
+        const file = await imprimirConsen(llave);
         const response = await enviarCorreo$({
           cuerpo: `SE ADJUNTA ${getEncabezado.descrip} PARA ${getPaci.descrip} IDENTIDICADO CON ${getPaci.cod}`,
           destino: getPaci.email,
@@ -418,7 +418,7 @@ const imprimirConsen = async () => {
   });
 
   await impresion({ docDefinition: docDefinitionPrint });
-  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-010` });
   return response_impresion;
 };
 const callbackCONSEN800 = (data) => {

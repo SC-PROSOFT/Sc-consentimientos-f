@@ -1,14 +1,7 @@
 <template>
   <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
     <q-card-section>
-      <q-tabs
-        v-model="tab"
-        dense
-        class="text-grey"
-        active-color="primary"
-        indicator-color="primary"
-        align="justify"
-      >
+      <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify">
         <q-tab name="pagina1" label="Pagina 1" />
         <q-tab name="pagina2" label="Pagina 2" />
       </q-tabs>
@@ -24,11 +17,7 @@
           label="¿Autorizar o revocar este consentimiento?"
         />
         <p :class="opcion_hc043 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-          <q-chip
-            :color="opcion_hc043 == 'AUTORIZAR' ? 'green' : 'red'"
-            class="text-white"
-            v-if="opcion_hc043"
-          >
+          <q-chip :color="opcion_hc043 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hc043">
             {{ opcion_hc043 }}
           </q-chip>
         </p>
@@ -44,9 +33,7 @@
         <q-tab-panel name="pagina1" class="q-pa-none">
           <q-form>
             <div class="border-format">
-              <div class="text-center text-subtitle1 text-bold q-py-xs">
-                DATOS DE IDENTIFICACIÓN DE LA PERSONA
-              </div>
+              <div class="text-center text-subtitle1 text-bold q-py-xs">DATOS DE IDENTIFICACIÓN DE LA PERSONA</div>
               <div class="q-pa-md">
                 <p>
                   <span class="text-bold">NOMBRE: &nbsp;</span> {{ getPaci.descrip }},
@@ -54,48 +41,37 @@
                   <span class="text-bold">&nbsp;NUMERO &nbsp;</span> {{ getPaci.cod }}
                 </p>
                 <p>
-                  <span class="text-bold">FECHA DE NACIMIENTO: &nbsp;</span
-                  >{{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }}, {{ calcEdad(getPaci.nacim) }} años
+                  <span class="text-bold">FECHA DE NACIMIENTO: &nbsp;</span>{{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }},
+                  {{ calcEdad(getPaci.nacim) }} años
                 </p>
-                <p>
-                  <span class="text-bold"> NOMBRE DE LA EAPB RESPONSABLE:&nbsp;</span> {{ getEmpresa.nomusu }}
-                </p>
+                <p><span class="text-bold"> NOMBRE DE LA EAPB RESPONSABLE:&nbsp;</span> {{ getEmpresa.nomusu }}</p>
                 <p v-if="getPaci.sexo == 'F'">
                   <span class="text-bold">MUJER EN ESTADO DE EMBARAZO &nbsp;</span>
-                  <Select_
-                    style="min-width: 100px; display: inline-block"
-                    v-model="reg.embarazada"
-                    :field="form.embarazada"
-                    :items="embarazada"
-                  />
+                  <Select_ style="min-width: 100px; display: inline-block" v-model="reg.embarazada" :field="form.embarazada" :items="embarazada" />
                 </p>
               </div>
             </div>
             <div class="border-format q-mt-sm">
               <div class="text-center text-subtitle1 text-bold q-py-xs">INFORMACIÓN PREVIA</div>
               <p style="text-align: justify">
-                La vacunación es una forma segura y eficaz de prevenir enfermedades y salvar muchas vidas. En
-                la actualidad el país dispone de vacunas para proteger contra al menos 26 enfermedades, entre
-                ellas, la difteria, el tétanos, la tos ferina, la poliomielitis, la hepatitis, el cáncer de
-                útero y el sarampión. En conjunto, estas vacunas salvan cada año millones de vidas en el
-                mundo. Con la aplicación de las vacunas las personas se protegen a sí mismas y a quienes las
-                rodean.
+                La vacunación es una forma segura y eficaz de prevenir enfermedades y salvar muchas vidas. En la actualidad el país dispone de vacunas
+                para proteger contra al menos 26 enfermedades, entre ellas, la difteria, el tétanos, la tos ferina, la poliomielitis, la hepatitis, el
+                cáncer de útero y el sarampión. En conjunto, estas vacunas salvan cada año millones de vidas en el mundo. Con la aplicación de las
+                vacunas las personas se protegen a sí mismas y a quienes las rodean.
               </p>
               <p style="text-align: justify">
-                La vacunación contra el SARS- CoV-2/COVID-19 reducirá la posibilidad de presentar la
-                enfermedad. En esta etapa de la emergencia, en la cual se inicia la aplicación de esta vacuna,
-                se han reconocido beneficios y riesgos, que es importante que usted conozca antes de dar el
-                consentimiento para su aplicación.
+                La vacunación contra el SARS- CoV-2/COVID-19 reducirá la posibilidad de presentar la enfermedad. En esta etapa de la emergencia, en la
+                cual se inicia la aplicación de esta vacuna, se han reconocido beneficios y riesgos, que es importante que usted conozca antes de dar
+                el consentimiento para su aplicación.
               </p>
               <p style="text-align: justify">
-                Esta vacuna tiene aprobación de uso de emergencia y surtió los pasos para la validación
-                científica y sanitaria que permite su aplicación segura en humanos.
+                Esta vacuna tiene aprobación de uso de emergencia y surtió los pasos para la validación científica y sanitaria que permite su
+                aplicación segura en humanos.
               </p>
             </div>
             <div class="border-format q-mt-sm">
               <div class="text-center text-subtitle1 q-py-xs">
-                <span class="text-bold">DATOS IMPORTANTES DE LA VACUNA </span> (Por favor, leer con
-                detenimiento. Puede formular preguntas)
+                <span class="text-bold">DATOS IMPORTANTES DE LA VACUNA </span> (Por favor, leer con detenimiento. Puede formular preguntas)
               </div>
               <div class="row">
                 <div class="col-3" style="background-color: #b2ceeb">
@@ -122,45 +98,38 @@
                   </div>
                   <div class="border-b-r row" style="height: 95px">
                     <p>
-                      Prevención de la enfermedad COVID-19, causada por el virus SARS-CoV-2. Reducción de la
-                      severidad de la enfermedad en caso de presentarse. Potencial protección del entorno
-                      familiar y los allegados. RIESGOS Presentación de efectos adversos a corto y mediano
-                      plazo
+                      Prevención de la enfermedad COVID-19, causada por el virus SARS-CoV-2. Reducción de la severidad de la enfermedad en caso de
+                      presentarse. Potencial protección del entorno familiar y los allegados. RIESGOS Presentación de efectos adversos a corto y
+                      mediano plazo
                     </p>
                   </div>
                   <div class="border-b-r row" style="height: 150px">
                     <p>
-                      Presentación de efectos adversos a corto y mediano plazo posterior a su aplicación como:
-                      dolor en el sitio de inyección, dolor de cabeza (cefalea, articulaciones (artralgia),
-                      muscular (mialgia); fatiga (cansancio); resfriado; fiebre (pirexias); enrojecimiento e
-                      inflamación leve en el lugar de la inyección; inflamación de los ganglios
-                      (linfadenopatía); malestar general; sensación de adormecimiento en las extremidades,
-                      reacciones alérgicas leves, moderadas o severas. Estos no se presentan en todas las
-                      personas.
+                      Presentación de efectos adversos a corto y mediano plazo posterior a su aplicación como: dolor en el sitio de inyección, dolor
+                      de cabeza (cefalea, articulaciones (artralgia), muscular (mialgia); fatiga (cansancio); resfriado; fiebre (pirexias);
+                      enrojecimiento e inflamación leve en el lugar de la inyección; inflamación de los ganglios (linfadenopatía); malestar general;
+                      sensación de adormecimiento en las extremidades, reacciones alérgicas leves, moderadas o severas. Estos no se presentan en todas
+                      las personas.
                     </p>
                   </div>
                   <div class="border-b-r row" style="height: 60px">
-                    A la fecha no se ha identificado otra medida farmacológica más eficaz que la vacunación
-                    para la prevención de la COVID-19.
+                    A la fecha no se ha identificado otra medida farmacológica más eficaz que la vacunación para la prevención de la COVID-19.
                   </div>
                 </div>
               </div>
             </div>
             <div class="border-format q-mt-sm">
-              <div class="text-center text-subtitle1 q-py-xs text-bold">
-                INFORMACION ESPECIFICA PARA GESTANTES
-              </div>
+              <div class="text-center text-subtitle1 q-py-xs text-bold">INFORMACION ESPECIFICA PARA GESTANTES</div>
               <p style="text-align: justify">
-                La vacuna de Pfizer es la única que tiene aprobado el uso en mujeres gestantes desde la semana
-                doce (12) y durante los 40 días postparto, siempre que los posibles beneficios superen los
-                posibles riesgos con base en la evaluación clínica realizada en conjunto por el médico
-                tratante y la gestante.
+                La vacuna de Pfizer es la única que tiene aprobado el uso en mujeres gestantes desde la semana doce (12) y durante los 40 días
+                postparto, siempre que los posibles beneficios superen los posibles riesgos con base en la evaluación clínica realizada en conjunto
+                por el médico tratante y la gestante.
               </p>
               <p style="text-align: justify">
-                La vacuna que s ele esta administrando es eficaz para evitar complicaciones severas y muerte
-                por SARS CoV-2 COVID-19 en la gestante, en el feto o neonato. <br />
-                A la fecha no hay pruebas que la vacuna cause efectos adversos diferentes a los observados en
-                la población general importantes para la mujer embarazada, el feto o la placenta.
+                La vacuna que s ele esta administrando es eficaz para evitar complicaciones severas y muerte por SARS CoV-2 COVID-19 en la gestante,
+                en el feto o neonato. <br />
+                A la fecha no hay pruebas que la vacuna cause efectos adversos diferentes a los observados en la población general importantes para la
+                mujer embarazada, el feto o la placenta.
               </p>
             </div>
           </q-form>
@@ -168,64 +137,51 @@
         <q-tab-panel name="pagina2" class="q-pa-none">
           <div class="border-format">
             <p style="text-align: justify">
-              A nivel poblacional son muchos mayores los beneficios de administrar la vacuna, sobre los
-              riesgos de llegar a padecer COVID-19 durante la gestación, por el impacto que sobre la salud
-              materna y perinatal produce la infección por SARS-CoV2 y ante el alto riesgo de complicaciones
-              severas, ingreso a UCI morbilidad y mortalidad materna y fetal asociada a esta enfermedad.
+              A nivel poblacional son muchos mayores los beneficios de administrar la vacuna, sobre los riesgos de llegar a padecer COVID-19 durante
+              la gestación, por el impacto que sobre la salud materna y perinatal produce la infección por SARS-CoV2 y ante el alto riesgo de
+              complicaciones severas, ingreso a UCI morbilidad y mortalidad materna y fetal asociada a esta enfermedad.
             </p>
             <p>
-              Manifiesto que soy mujer con mas de 12 semanas de gestación o que me encuentro dentro de los 40
-              días postparto y realicé previamente la evaluación riesgo-beneficio junto con mi médico.
+              Manifiesto que soy mujer con mas de 12 semanas de gestación o que me encuentro dentro de los 40 días postparto y realicé previamente la
+              evaluación riesgo-beneficio junto con mi médico.
             </p>
           </div>
           <div class="border-format q-mt-sm">
             <div class="text-center">
               <span class="text-bold">EXPRESIÓN DE LA VOLUNTAD </span>
               <p style="text-align: justify">
-                De manera voluntaria, después de haber recibido información por el personal de salud, de
-                manera clara, concreta, sencilla y en términos acordes con mi condición, así como las
-                explicaciones adecuadas, informo que comprendo los beneficios, riesgos, alternativas e
-                implicaciones de la aplicación de la vacuna que se me ofrece. De la misma manera, se me han
-                indicado las recomendaciones que debo seguir, de acuerdo con la información entregada por el
-                laboratorio productor de la vacuna.
+                De manera voluntaria, después de haber recibido información por el personal de salud, de manera clara, concreta, sencilla y en
+                términos acordes con mi condición, así como las explicaciones adecuadas, informo que comprendo los beneficios, riesgos, alternativas e
+                implicaciones de la aplicación de la vacuna que se me ofrece. De la misma manera, se me han indicado las recomendaciones que debo
+                seguir, de acuerdo con la información entregada por el laboratorio productor de la vacuna.
               </p>
               <p style="text-align: justify">
-                Entiendo que la suscripción de este documento constituye una expresión autónoma de mi
-                voluntad, y que NO tiene por objeto eximir de responsabilidad a las autoridades sanitarias o
-                gubernamentales ni a las entidades que participaron en la aplicación de la vacuna contra el
-                SARS-CoV-2/COVID-19 de brindar la atención en salud que sea necesaria por la aparición de
-                posibles reacciones adversas no reportadas.
+                Entiendo que la suscripción de este documento constituye una expresión autónoma de mi voluntad, y que NO tiene por objeto eximir de
+                responsabilidad a las autoridades sanitarias o gubernamentales ni a las entidades que participaron en la aplicación de la vacuna
+                contra el SARS-CoV-2/COVID-19 de brindar la atención en salud que sea necesaria por la aparición de posibles reacciones adversas no
+                reportadas.
               </p>
               <p style="text-align: left" v-if="opcion_hc043 != 'REVOCAR'">
                 En consecuencia, decido
-                <ins
-                  ><span class="text-bold">AUTORIZAR</span></ins
-                >
+                <ins><span class="text-bold">AUTORIZAR</span></ins>
                 con el procedimiento informado.
               </p>
 
               <div v-if="opcion_hc043 == 'REVOCAR'" class="row">
                 <p>
-                  Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y
-                  declaro por tanto que, tras la información recibida, no consiento someterme al procedimiento
-                  PLICACION DE LA VACUNA CONTRA EL SARS-CoV-2/COVID-19, por los siguientes motivos:
+                  Expreso mi voluntad de <ins class="text-bold">Revocar</ins> el consentimiento presentado y declaro por tanto que, tras la
+                  información recibida, no consiento someterme al procedimiento PLICACION DE LA VACUNA CONTRA EL SARS-CoV-2/COVID-19, por los
+                  siguientes motivos:
                 </p>
-                <Input_
-                  class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-                  v-model="reg.revocar_motivos"
-                  :field="form.revocar"
-                />
+                <Input_ class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-model="reg.revocar_motivos" :field="form.revocar" />
               </div>
             </div>
           </div>
           <div class="q-mt-sm text-center">
+            <p><span class="text-bold">Nota:</span> Cuanto se trate de menores de edad, deberá firmar el menor junto con representación legal.</p>
             <p>
-              <span class="text-bold">Nota:</span> Cuanto se trate de menores de edad, deberá firmar el menor
-              junto con representación legal.
-            </p>
-            <p>
-              <span class="text-bold">Tipos de documentos de identidad:</span> RC: Registro Civil, TI: Tarjeta
-              de Identidad, CC: Cédula de ciudadanía, CE: Cédula de extranjería
+              <span class="text-bold">Tipos de documentos de identidad:</span> RC: Registro Civil, TI: Tarjeta de Identidad, CC: Cédula de ciudadanía,
+              CE: Cédula de extranjería
             </p>
           </div>
         </q-tab-panel>
@@ -369,14 +325,11 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (getPaci.sexo == "F" && !reg.value.embarazada)
-    return CON851("?", "info", "Ingrese estado de embarazo", () => foco_(form, "embarazada"));
+  if (getPaci.sexo == "F" && !reg.value.embarazada) return CON851("?", "info", "Ingrese estado de embarazo", () => foco_(form, "embarazada"));
 
   if (opcion_hc043.value == "AUTORIZAR") {
-    if (!reg.value.nom_vacuna)
-      return CON851("?", "info", "Ingrese nombre de la vacuna", () => foco_(form, "nom_vacuna"));
-    if (!reg.value.cant_dosis)
-      return CON851("?", "info", "Ingrese dosis vacuna", () => foco_(form, "cant_dosis"));
+    if (!reg.value.nom_vacuna) return CON851("?", "info", "Ingrese nombre de la vacuna", () => foco_(form, "nom_vacuna"));
+    if (!reg.value.cant_dosis) return CON851("?", "info", "Ingrese dosis vacuna", () => foco_(form, "cant_dosis"));
   }
 
   if (!firma_recibida.value && !getAcomp.cod) {
@@ -425,7 +378,7 @@ const grabarFirmaConsen = async (llave) => {
     await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
 
     if (getEmpresa.envio_email == "N") {
-      await imprimirConsen();
+      await imprimirConsen(llave);
       return router.back();
     }
     return CON851P(
@@ -433,11 +386,11 @@ const grabarFirmaConsen = async (llave) => {
       "info",
       "¿Deseas enviar el correo del consentimientos?",
       async () => {
-        await imprimirConsen();
+        await imprimirConsen(llave);
         router.back();
       },
       async () => {
-        const file = await imprimirConsen();
+        const file = await imprimirConsen(llave);
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", () => router.back());
         }
@@ -457,7 +410,7 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
-const imprimirConsen = async () => {
+const imprimirConsen = async (llave) => {
   try {
     const datos_hic043 = {
       autorizo: opcion_hc043.value == "AUTORIZAR" ? true : false,
@@ -499,7 +452,7 @@ const imprimirConsen = async () => {
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-043` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

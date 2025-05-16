@@ -26,9 +26,6 @@ export const utilsFormat = async ({ datos, content }) => {
     },
     info: {
       title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo
-      nomb_archivo: `${getPaci.cod}${getSesion.suc || "00"}${getSesion.nro_comp || "000000"}${dayjs().format("YYYYMMDD")}${dayjs().format("HHmm")}${
-        getSesion.oper
-      }`,
     },
     header: function (currentPage, pageCount) {
       return {

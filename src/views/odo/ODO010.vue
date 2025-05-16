@@ -186,7 +186,7 @@ const grabarFirmaConsen = async (llave) => {
     await guardarFile$({ base64: firma_paci.value, codigo: `P${llave}` });
     getAcomp.cod && (await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` }));
     if (getEmpresa.envio_email == "N") {
-      await imprimirConsen();
+      await imprimirConsen(llave);
       return router.back();
     }
 
@@ -195,11 +195,11 @@ const grabarFirmaConsen = async (llave) => {
       "info",
       "¿Deseas enviar el correo del consentimientos?",
       async () => {
-        await imprimirConsen();
+        await imprimirConsen(llave);
         router.back();
       },
       async () => {
-        const file = await imprimirConsen();
+        const file = await imprimirConsen(llave);
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", () => router.back());
         }
@@ -218,7 +218,7 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
-const imprimirConsen = async () => {
+const imprimirConsen = async (llave) => {
   const datos_ODO010 = {
     autorizo: opcion_odo010 == "AUTORIZAR" ? true : false,
     empresa: { ...getEmpresa },
@@ -261,6 +261,7 @@ const imprimirConsen = async () => {
   await impresion({ docDefinition: docDefinitionPrint });
   const response_impresion = await generarArchivo({
     docDefinition: docDefinitionFile,
+    nomb_archivo: `${llave}-ODO-010`,
   });
   return response_impresion;
 };

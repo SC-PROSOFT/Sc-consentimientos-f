@@ -217,7 +217,7 @@ const grabarFirmaConsen = async (llave) => {
     await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
 
     if (getEmpresa.envio_email == "N") {
-      await imprimirConsen();
+      await imprimirConsen(llave);
       return logOut$();
     }
     return CON851P(
@@ -225,7 +225,7 @@ const grabarFirmaConsen = async (llave) => {
       "info",
       "¿Deseas enviar el correo del consentimientos?",
       async () => {
-        const file = await imprimirConsen();
+        const file = await imprimirConsen(llave);
         const response_guardar = await guardarArchivo$({
           nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format("YYYYMMDDHHmm")}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
@@ -234,7 +234,7 @@ const grabarFirmaConsen = async (llave) => {
         CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
       },
       async () => {
-        const file = await imprimirConsen();
+        const file = await imprimirConsen(llave);
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
           return CON851("?", "info", "El correo no es valido", logOut$);
         }
@@ -261,7 +261,7 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
-const imprimirConsen = async () => {
+const imprimirConsen = async (llave) => {
   try {
     reg.codigo_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].codigo : "";
     reg.descrip_cie1 = getSesion.diagnosticos[0] ? getSesion.diagnosticos[0].descripcion : "";
@@ -316,7 +316,7 @@ const imprimirConsen = async () => {
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-LAB-003` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
