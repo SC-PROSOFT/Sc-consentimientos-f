@@ -335,9 +335,11 @@
             <p class="q-ml-sm q-mt-sm q-mr-sm">
               Recuerde que si su examen requiere la administración de medio de contraste endovenoso, el auxiliar de enfermería procederá a canalizarle
               una vena periférica (venoclisis) para administrar el medio de contraste. El procedimiento de venoclisis es seguro, sin embargo, Ud.
-              puede presentar: ardor, malestar, sangrado escaso, hematoma y flebitis. Si el medio de contraste es vía oral, Ud. deberá tomar el
-              material en agua de acuerdo a las recomendaciones del personal de salud. Recuerde que una adecuada preparación permitirá que las
-              imágenes tomadas sean de calidad para la valoración médica.
+              puede presentar: ardor, malestar, sangrado escaso, hematoma, flebitis, extravasación y/o infiltración.
+            </p>
+            <p class="q-ml-sm q-mt-sm q-mr-sm">
+              Si el medio de contraste es vía oral, Ud. deberá tomar el material en agua de acuerdo a las recomendaciones del personal de salud.
+              Recuerde que una adecuada preparación permitirá que las imágenes tomadas sean de calidad para la valoración médica.
             </p>
           </div>
           <div class="text-center" style="border: 1px solid #ccc; width: 100%">

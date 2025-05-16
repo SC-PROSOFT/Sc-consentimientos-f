@@ -366,10 +366,10 @@
             :field="((form.especifique_10.disable = reg.proce_cont.check.p_10 == 'S' ? false : true), form.especifique_10)"
           />
         </div>
-        <div class="border-format">
+        <div class="border-format text-justify">
           Recuerde que si su examen requiere la administración de medio de contraste endovenoso, el auxiliar de enfermería procederá a canalizarle una
           vena periférica (venoclisis) para administrar el medio de contraste. El procedimiento de venoclisis es seguro, sin embargo, Ud. puede
-          presentar: ardor, malestar, sangrado escaso, hematoma y flebitis
+          presentar: ardor, malestar, sangrado escaso, hematoma, flebitis, extravasación y/o infiltración.
         </div>
         <div class="border-format q-my-sm" v-if="reg.opcion_lab009 == 'AUTORIZAR'">
           <div class="text-center text-subtitle1 text-bold q-py-xs">DECLARACION DEL CONSENTIMIENTO INFORMADO</div>

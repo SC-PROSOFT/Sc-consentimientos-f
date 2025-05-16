@@ -42,13 +42,12 @@
   </q-dialog>
 </template>
 <script setup>
-import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store";
+import { useModuleCon851, useApiContabilidad } from "@/store";
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
 import dayjs from "dayjs";
-const formatosStore = useModuleFormatos();
 const router = useRouter();
 const { getDll$ } = useApiContabilidad();
 const { CON851 } = useModuleCon851();
@@ -113,7 +112,7 @@ const form_login = ref({
   },
   anio_contab: {
     id: "anio_contab",
-    label: "Año",
+    label: "Contabilidad",
     maxlength: "15",
     required: true,
     disable: false,
@@ -210,7 +209,6 @@ const cerrarConfigUsunet = () => {
 </script>
 
 <style scoped>
-/* Contenedor principal */
 .login-container {
   display: flex;
   justify-content: center;
@@ -218,7 +216,6 @@ const cerrarConfigUsunet = () => {
   height: 100vh;
   background-color: #f0f0f0;
 }
-/* Tarjeta del formulario e imagen */
 .login-card {
   display: flex;
   flex-direction: row;
@@ -231,17 +228,14 @@ const cerrarConfigUsunet = () => {
   text-align: left;
   align-items: center;
 }
-/* Contenedor del formulario */
 .form-container {
-  flex: 1; /* Ocupa el 50% del espacio horizontal */
+  flex: 1;
 }
-/* Título del login */
 .login-title {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
   color: #333;
 }
-/* Información adicional */
 .info-container {
   margin-bottom: 1.5rem;
   font-size: 0.9rem;
@@ -263,7 +257,6 @@ input {
   border-radius: 5px;
   font-size: 1rem;
 }
-/* Estilo del botón */
 .login-button {
   width: 100%;
   padding: 0.8rem;
@@ -279,9 +272,8 @@ input {
 .login-button:hover {
   background-color: #0056b3;
 }
-/* Contenedor de la imagen */
 .image-container {
-  flex: 1; /* Ocupa el 50% del espacio horizontal */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1017,7 +1017,7 @@ export const impresionLAB009 = ({ datos }) => {
               [
                 {
                   colSpan: 6,
-                  text: "Recuerde que si su examen requiere la administración de medio de contraste endovenoso, el auxiliar de enfermería procederá a canalizarle una vena periférica (venoclisis) para administrar el medio de contraste. El procedimiento de venoclisis es seguro, sin embargo, Ud. puede presentar: ardor, malestar, sangrado escaso, hematoma y flebitis.",
+                  text: "Recuerde que si su examen requiere la administración de medio de contraste endovenoso, el auxiliar de enfermería procederá a canalizarle una vena periférica (venoclisis) para administrar el medio de contraste. El procedimiento de venoclisis es seguro, sin embargo, Ud. puede presentar: ardor, malestar, sangrado escaso, hematoma, flebitis, extravasación y/o infiltración.",
                   style: "tableTitle",
                   alignment: "justify",
                 },

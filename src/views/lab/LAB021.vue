@@ -166,7 +166,7 @@
           <ContainerFirma
             quien_firma="MÉDICO ANESTESIOLOGO"
             @reciFirma="callBackFirmaProf"
-            :firma_="firma_prof_tec_radi"
+            :firma_="firma_prof"
             :firmador="getProf.descrip"
             :codigo_firma="getProf.cod"
             :descrip_prof="getProf.descrip_atiende"
@@ -210,13 +210,13 @@ const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
-const firma_recibida_acomp = ref("");
+// const firma_recibida_acomp = ref("");
 const tabla_sedacion = ref("");
-const firma_recibida = ref("");
+// const firma_recibida = ref("");
 const firma_prof = ref(null);
-const firma_recibida_test = ref(null);
-const huella_paci = ref(null);
-const firma_prof_tec_radi = ref(null);
+// const firma_recibida_test = ref(null);
+// const huella_paci = ref(null);
+// const firma_prof_tec_radi = ref(null);
 const signaturePad = ref(null);
 const opciones_imagen = ref({
   dotSize: (1 + 1.5) / 2,
@@ -295,7 +295,6 @@ const reg_acomp = ref(regAcomp());
 
 const reg_lab021 = reactive({
   revoca_procedi: "",
-  // fecha: "",
   hora: dayjs().format("hh:mm A"),
 
   tipo_sedacion: "",
@@ -351,7 +350,7 @@ const datosInit = () => {
   if (getSesion.novedad == "1") {
     reg_tabla_not_ant.value.indice_i = 1;
   }
-  // reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
+  reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
   reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
   reg_lab021.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg_lab021.edad = calcularEdad(getAcomp.nacim);
@@ -365,7 +364,7 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
-    huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
+    // huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -420,9 +419,9 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
-    await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
-    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
+    // await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    // await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
+    // await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarEsquema$({
       base64: tabla_sedacion.value,
       codigo: `LAB021${llave}`,
@@ -471,11 +470,11 @@ const imprimirConsen = async () => {
       testigo: getTestigo,
       cod_consen: "LAB021",
       firmas: {
-        firma_paci: firma_recibida.value ? true : false,
-        huella_paci: huella_paci.value ? true : false,
-        firma_acomp: firma_recibida_acomp.value ? true : false,
+        // firma_paci: firma_recibida.value ? true : false,
+        // huella_paci: huella_paci.value ? true : false,
+        // firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
-        firma_test: firma_recibida_test.value ? true : false,
+        // firma_test: firma_recibida_test.value ? true : false,
       },
       paren_acomp: getSesion.paren_acomp,
       fecha: reg_lab021.fecha_act,
@@ -485,12 +484,12 @@ const imprimirConsen = async () => {
     };
 
     const firmas = {
-      img_firma_consen: firma_recibida.value,
-      img_firma_paci: firma_recibida.value,
-      img_firma_acomp: firma_recibida_acomp.value,
-      img_huella_paci: huella_paci.value,
+      // img_firma_consen: firma_recibida.value,
+      // img_firma_paci: firma_recibida.value,
+      // img_firma_acomp: firma_recibida_acomp.value,
+      // img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
-      img_firma_testigo: firma_recibida_test.value,
+      // img_firma_testigo: firma_recibida_test.value,
       img_tabla_sedacion: tabla_sedacion.value,
     };
 
@@ -585,7 +584,7 @@ const save = async () => {
 
         // Guardar el canvas combinado (fondo + trazos)
         tabla_sedacion.value = tempCanvas.toDataURL("image/png");
-        console.log("Imagen combinada generada con éxito:", tabla_sedacion.value);
+        console.log("Imagen combinada generada con éxito");
       };
 
       signatureImg.onerror = (err) => {
@@ -594,7 +593,7 @@ const save = async () => {
     } else {
       // Si no hay trazos, guardar solo la imagen de fondo
       tabla_sedacion.value = tempCanvas.toDataURL("image/png");
-      console.log("Se guardó solo la imagen de fondo:", tabla_sedacion.value);
+      console.log("Se guardó solo la imagen de fondo");
     }
   };
 
