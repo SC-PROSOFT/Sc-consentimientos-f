@@ -127,6 +127,10 @@
             </div>
           </q-card>
         </div>
+        <div class="border-format q-my-sm q-mt-xl">
+          <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">TEST DE RECUPERACIÓN POST-ANESTESICA ALDRETE</div>
+          <TextArea_ v-model="reg_lab021.test_recupera_anest" :field="form.test_recupera_anest" />
+        </div>
 
         <div class="row justify-center q-mt-lg" style="width: 100%">
           <div class="row justify-center bold" style="width: 33%">
@@ -141,7 +145,7 @@
         </div>
 
         <div class="col-12 row justify-around q-mt-lg">
-          <ContainerFirma
+          <!-- <ContainerFirma
             :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
             :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
             :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
@@ -158,9 +162,9 @@
             :descrip_prof="getTestigo.descrip_atiende"
             :registro_profe="getTestigo.registro_profe"
             class="col-4"
-          />
+          /> -->
           <ContainerFirma
-            quien_firma="TECNÓLOGO DE RADIOLOGÍA"
+            quien_firma="MÉDICO ANESTESIOLOGO"
             @reciFirma="callBackFirmaProf"
             :firma_="firma_prof_tec_radi"
             :firmador="getProf.descrip"
@@ -216,8 +220,8 @@ const firma_prof_tec_radi = ref(null);
 const signaturePad = ref(null);
 const opciones_imagen = ref({
   dotSize: (1 + 1.5) / 2,
-  minWidth: 1.5,
-  maxWidth: 1,
+  minWidth: 0.7,
+  maxWidth: 0.7,
   throttle: 16,
   minDistance: 5,
   backgroundColor: "rgba(0,0,0,0)",
@@ -255,7 +259,7 @@ const form_tabla_not_ant = ref({
   },
   notas_atencion: {
     id: "notas_atencion",
-    maxlength: "1000",
+    maxlength: "900",
     campo_abierto: true,
     f0: ["f3", "f5", "f6", "f9", "arrowup", "arrowdown"],
   },
@@ -291,7 +295,7 @@ const reg_acomp = ref(regAcomp());
 
 const reg_lab021 = reactive({
   revoca_procedi: "",
-  fecha: dayjs().format("DD-MM-YYYY"),
+  // fecha: "",
   hora: dayjs().format("hh:mm A"),
 
   tipo_sedacion: "",
@@ -312,7 +316,7 @@ const reg_lab021 = reactive({
 const form = ref({
   tubo_orotraqueal: {
     id: "tubo_orotraqueal",
-    maxlength: "4",
+    maxlength: "3",
     label: "",
     tipo: "number",
     required: true,
@@ -329,9 +333,17 @@ const form = ref({
     required: true,
     campo_abierto: true,
   },
+  test_recupera_anest: {
+    id: "test_recupera_anest",
+    maxlength: "900",
+    label: "",
+    rows: 5,
+    campo_abierto: true,
+  },
 });
 onMounted(() => {
   datosInit();
+  ajustarTamanoCanvas();
   getFirmaProf();
 });
 
@@ -339,7 +351,7 @@ const datosInit = () => {
   if (getSesion.novedad == "1") {
     reg_tabla_not_ant.value.indice_i = 1;
   }
-  reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
+  // reg_tabla_not_ant.value.fecha = dayjs().format("DD-MM-YYYY");
   reg_tabla_not_ant.value.hora = dayjs().format("HH: mm");
   reg_lab021.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg_lab021.edad = calcularEdad(getAcomp.nacim);
@@ -468,6 +480,7 @@ const imprimirConsen = async () => {
       paren_acomp: getSesion.paren_acomp,
       fecha: reg_lab021.fecha_act,
       llave: reg_lab021.llave,
+      tabla_notas_aten: tabla_notas_atencion,
       ...reg_lab021,
     };
 
@@ -504,18 +517,17 @@ const imprimirConsen = async () => {
   }
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
-};
-
-const callBackFirma = (data_firma) => {
-  data_firma && (firma_recibida.value = data_firma);
-};
+// const callBackFirmaAcomp = (data_firma) => {
+//   data_firma && (firma_recibida_acomp.value = data_firma);
+// };
+// const callBackFirma = (data_firma) => {
+//   data_firma && (firma_recibida.value = data_firma);
+// };
+// const callBackFirmaTest = (data_firma) => {
+//   data_firma && (firma_recibida_test.value = data_firma);
+// };
 const callBackFirmaProf = (data_firma) => {
   data_firma && (firma_prof.value = data_firma);
-};
-const callBackFirmaTest = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma);
 };
 
 const clear = () => {
@@ -529,33 +541,68 @@ const undo = () => {
     signaturePadInstance.fromData(data);
   }
 };
+const ajustarTamanoCanvas = () => {
+  const canvas = signaturePad.value.$el.querySelector("canvas");
+  const container = canvas.parentElement; // Contenedor del canvas
+
+  // Ajustar el tamaño del canvas al tamaño del contenedor
+  canvas.width = container.offsetWidth;
+  canvas.height = container.offsetHeight;
+
+  // Redimensionar el contenido del pad de firma
+  signaturePad.value.resizeCanvas();
+};
+
 const save = async () => {
   const canvas = signaturePad.value.$el.querySelector("canvas");
-  const ctx = canvas.getContext("2d");
 
-  const img = new Image();
-  img.src = backgroundImage;
+  // Crear un canvas temporal para manejar el escalado
+  const tempCanvas = document.createElement("canvas");
+  const tempCtx = tempCanvas.getContext("2d");
 
-  img.onload = () => {
-    // Dibuja la imagen de fondo en el canvas
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  // Establecer un tamaño fijo y proporcional para la imagen generada
+  const imgWidth = 800; // Ancho deseado (puedes ajustarlo según tus necesidades)
+  const imgHeight = (canvas.height / canvas.width) * imgWidth; // Mantener la proporción
+  tempCanvas.width = imgWidth;
+  tempCanvas.height = imgHeight;
 
-    // Ahora dibuja la trazos
+  // Dibujar la imagen de fondo en el canvas temporal
+  const backgroundImg = new Image();
+  backgroundImg.src = backgroundImage;
+
+  backgroundImg.onload = () => {
+    tempCtx.drawImage(backgroundImg, 0, 0, tempCanvas.width, tempCanvas.height);
+
+    // Verificar si hay trazos en el pad de firma
     const signatureDataUrl = signaturePad.value.saveSignature().data;
+    if (signatureDataUrl) {
+      // Dibujar los trazos encima de la imagen de fondo
+      const signatureImg = new Image();
+      signatureImg.src = signatureDataUrl;
 
-    const signatureImg = new Image();
-    signatureImg.src = signatureDataUrl;
-    // console.log(signatureDataUrl);
+      signatureImg.onload = () => {
+        tempCtx.drawImage(signatureImg, 0, 0, tempCanvas.width, tempCanvas.height);
 
-    signatureImg.onload = () => {
-      // Dibuja la trazos encima de la imagen de fondo
-      ctx.drawImage(signatureImg, 0, 0, canvas.width, canvas.height);
+        // Guardar el canvas combinado (fondo + trazos)
+        tabla_sedacion.value = tempCanvas.toDataURL("image/png");
+        console.log("Imagen combinada generada con éxito:", tabla_sedacion.value);
+      };
 
-      // Generar el DataURL final con la imagen de fondo y la trazos
-      tabla_sedacion.value = canvas.toDataURL("image/png");
-    };
+      signatureImg.onerror = (err) => {
+        console.error("Error al cargar los trazos:", err);
+      };
+    } else {
+      // Si no hay trazos, guardar solo la imagen de fondo
+      tabla_sedacion.value = tempCanvas.toDataURL("image/png");
+      console.log("Se guardó solo la imagen de fondo:", tabla_sedacion.value);
+    }
+  };
+
+  backgroundImg.onerror = (err) => {
+    console.error("Error al cargar la imagen de fondo:", err);
   };
 };
+
 const agregarNotaAtenc = () => {
   if (reg_tabla_not_ant.value.notas_atencion.trim().length == 0) {
     return CON851("?", "info", "El campo esta vacio");

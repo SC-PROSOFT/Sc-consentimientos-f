@@ -422,8 +422,10 @@ import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851
 import { impresionLAB010, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat, calcEdad } from "@/formatos/utils";
+import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 import { foco_ } from "@/setup";
+const router = useRouter();
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 
@@ -466,6 +468,7 @@ const reg = ref({
   llave_consen: `${getPaci.cod}00000000`,
   opcion_lab010: "",
   fecha_act: "",
+  hora: dayjs().format("HH: mm"),
 });
 
 const form = ref({});
@@ -548,6 +551,7 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
+        router.back();
       },
       async () => {
         const file = await imprimirConsen();
