@@ -798,4 +798,14 @@ export const createRouteHic = (title) => [
       descrip: "Autorizacion para intervencion en planificacion familiar; insercion o retiro de diu",
     },
   },
+  {
+    path: "/HIC098",
+    name: "HIC098",
+    component: () => import("@/views/hic/HIC098.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC098`,
+      descrip: "Formato salida voluntaria",
+    },
+  },
 ];
