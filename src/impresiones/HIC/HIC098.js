@@ -44,6 +44,10 @@ export const impresionHIC098 = ({ datos }) => {
             { text: "identificado con documento " },
             {
               bold: true,
+              text: `${datos.acomp.cod.trim() != "" ? datos.acomp.tipo_id : datos.paciente.tipo_id} `,
+            },
+            {
+              bold: true,
               text: `${datos.acomp.cod.trim() != "" ? datos.acomp.cod : datos.paciente.cod} `,
             },
             { text: "mayor de edad y/o responsable del paciente " },
