@@ -54,6 +54,7 @@ export const impresionLAB021 = ({ datos }) => {
           alignment: "center",
           image: "tabla_sedacion",
           width: 542,
+          height: 380,
         },
         {
           marginTop: 3,

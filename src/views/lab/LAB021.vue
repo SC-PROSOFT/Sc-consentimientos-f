@@ -34,7 +34,6 @@
         </div>
         <div class="text-left row q-mt-lg">
           <div class="col-6 row">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Tipo de sedación:</p>
             <Select_
               class="col-7"
               style="min-width: 100px; display: inline-block"
@@ -47,31 +46,46 @@
               ]"
             />
           </div>
-          <div class="col-6 row">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Vía aérea:</p>
-            <Select_
-              class="col-8"
-              style="min-width: 100px; display: inline-block"
-              v-model="reg_lab021.via_aerea"
-              :field="form.via_aerea"
-              :items="[
-                { value: '1', label: 'CÁNULA NASAL' },
-                { value: '2', label: 'MASCARILLA VENTURI' },
-                { value: '3', label: 'MASCARA LARÍNGEA' },
-              ]"
+        </div>
+        <div class="sedacion-scroll-container">
+          <div class="sedacion-fixed-area">
+            <img src="@/assets/image/capa2.png" alt="Imagen de fondo" class="background-image" draggable="false" />
+            <VueSignaturePad
+              ref="signaturePad"
+              class="signature-pad"
+              :options="{
+                ...opciones_imagen,
+                onBegin: () => {
+                  signaturePad.resizeCanvas();
+                },
+              }"
             />
           </div>
-          <div class="col-6 row">
-            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Tubo orotraqueal #:</p>
-            <Input_ class="q-mt-xs" v-model="reg_lab021.tubo_orotraqueal" :field="form.tubo_orotraqueal" />
+          <div class="row q-mt-md">
+            <div class="col-6 row">
+              <Select_
+                class="col-8"
+                style="min-width: 100px; display: inline-block"
+                v-model="reg_lab021.via_aerea"
+                :field="form.via_aerea"
+                :items="[
+                  { value: '1', label: 'CÁNULA NASAL' },
+                  { value: '2', label: 'MASCARILLA VENTURI' },
+                  { value: '3', label: 'MASCARA LARÍNGEA' },
+                ]"
+              />
+            </div>
+            <div class="col-6 row">
+              <Input_ class="q-mt-xs" v-model="reg_lab021.tubo_orotraqueal" :field="form.tubo_orotraqueal" />
+            </div>
           </div>
         </div>
-        <div class="row q-mb-lg" style="width: 100%">
+        <!-- <div class="row q-mb-lg" style="width: 100%">
           <div class="q-mt-md q-mb-lg" style="width: 100%; display: flex; justify-content: center; align-items: center">
             <q-card class="custom-card-size">
-              <q-card-section class="row items-center q-pb-none" style="width: 100%; display: flex">
+              <q-card-section class="row items-center" style="width: 100%; display: flex">
                 <div class="signature-container">
-                  <img src="@/assets/image/tablasedacion.png" alt="Imagen de fondo" class="background-image" />
+                  <img src="@/assets/image/capa2.png" alt="Imagen de fondo" class="background-image" />
                   <VueSignaturePad
                     ref="signaturePad"
                     class="signature-pad"
@@ -83,17 +97,67 @@
                     }"
                   />
                 </div>
+                <div class="q-mt-md col-6 row">
+                  <Select_
+                    class="col-8"
+                    style="min-width: 100px; display: inline-block"
+                    v-model="reg_lab021.via_aerea"
+                    :field="form.via_aerea"
+                    :items="[
+                      { value: '1', label: 'CÁNULA NASAL' },
+                      { value: '2', label: 'MASCARILLA VENTURI' },
+                      { value: '3', label: 'MASCARA LARÍNGEA' },
+                    ]"
+                  />
+                </div>
+                <div class="q-mt-md col-6 row">
+                  <Input_ class="q-mt-xs" v-model="reg_lab021.tubo_orotraqueal" :field="form.tubo_orotraqueal" />
+                </div>
               </q-card-section>
-              <q-separator />
-              <q-card-actions align="around">
-                <q-btn class="q-mt-xs" push color="deep-orange" icon="delete_forever" @click="clear">Borrar trazos</q-btn>
-                <q-btn class="q-mt-xs" push color="primary" icon="undo" @click="undo">Deshacer último trazo</q-btn>
-              </q-card-actions>
             </q-card>
           </div>
+        </div> -->
+        <div>
+          <q-card-actions class="q-mt-xl" align="around">
+            <q-btn class="q-mt-xs" push color="deep-orange" icon="delete_forever" @click="clear">Borrar trazos</q-btn>
+            <q-btn class="q-mt-xs" push color="primary" icon="undo" @click="undo">Deshacer último trazo</q-btn>
+          </q-card-actions>
         </div>
+        <!-- <div class="row">
+          <Input_
+            class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+            v-model="tabla_notas_atencion[0].indice_i"
+            :field="form.indice_i"
+            style="margin: 0; padding: 0"
+          />
+          <Input_
+            class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+            v-model="tabla_notas_atencion[0].fecha"
+            :field="form.fecha"
+            style="margin: 0; padding: 0"
+          />
+          <Input_
+            class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
+            v-model="tabla_notas_atencion[0].hora"
+            :field="form.hora"
+            style="margin: 0; padding: 0"
+          />
+          <Input_
+            class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+            v-model="tabla_notas_atencion[0].notas_atencion"
+            :field="form.notas_atencion"
+            style="margin: 0; padding: 0"
+          />
+        </div> -->
+        <!-- <Input_
+        class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+        width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
+          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
+          v-model="getPaci.descrip"
+          :field="form.descrip"
+        /> -->
 
-        <div class="border-format q-my-sm q-mt-xl">
+        <div class="border-format q-my-sm">
           <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Notas de atención</div>
           <q-card class="full-width q-mx-none">
             <div class="row q-pa-sm q-col">
@@ -145,24 +209,6 @@
         </div>
 
         <div class="col-12 row justify-around q-mt-lg">
-          <!-- <ContainerFirma
-            :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
-            :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
-            :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
-            @reciFirma="callBackFirma"
-            :huella_="huella_paci"
-            :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
-            class="col-4"
-          />
-          <ContainerFirma
-            quien_firma="FIRMA TESTIGO"
-            @reciFirma="callBackFirmaTest"
-            :firmador="getTestigo.descrip"
-            :codigo_firma="getTestigo.cod"
-            :descrip_prof="getTestigo.descrip_atiende"
-            :registro_profe="getTestigo.registro_profe"
-            class="col-4"
-          /> -->
           <ContainerFirma
             quien_firma="MÉDICO ANESTESIOLOGO"
             @reciFirma="callBackFirmaProf"
@@ -187,36 +233,31 @@
           type="submit"
         />
       </div>
+ 
     </q-card>
   </div>
 </template>
 <script setup>
 import { regPaci, regAcomp } from "@/fuentes";
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, computed } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB021, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 import backgroundImage from "@/assets/image/tablasedacion.png";
 import { foco_ } from "@/setup";
-
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 
-const { getDll$, _getFirma$, guardarFile$, guardarEsquema$, _getHuella$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getDll$, _getFirma$, guardarEsquema$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
-// const firma_recibida_acomp = ref("");
 const tabla_sedacion = ref("");
-// const firma_recibida = ref("");
 const firma_prof = ref(null);
-// const firma_recibida_test = ref(null);
-// const huella_paci = ref(null);
-// const firma_prof_tec_radi = ref(null);
 const signaturePad = ref(null);
 const opciones_imagen = ref({
   dotSize: (1 + 1.5) / 2,
@@ -234,14 +275,12 @@ const datos = {
   active_encab_ampl: false,
 };
 
-// variables tabla notas de atencion
 const form_tabla_not_ant = ref({
   indice_i: {
     id: "indice_i",
     mask: "##",
     maxlength: "2",
     disable: true,
-    required: true,
   },
   fecha: {
     id: "fecha",
@@ -261,7 +300,6 @@ const form_tabla_not_ant = ref({
     id: "notas_atencion",
     maxlength: "900",
     campo_abierto: true,
-    f0: ["f3", "f5", "f6", "f9", "arrowup", "arrowdown"],
   },
 });
 const headers = [
@@ -313,10 +351,35 @@ const reg_lab021 = reactive({
 });
 
 const form = ref({
+  indice_i: {
+    id: "indice_i",
+    mask: "##",
+    maxlength: "2",
+    label: "Indice",
+    disable: true,
+  },
+  fecha: {
+    id: "fecha",
+    label: "Fecha",
+    tipo: "number",
+    disable: true,
+  },
+  hora: {
+    id: "hora",
+    label: "Hora",
+    tipo: "number",
+    disable: true,
+  },
+  notas_atencion: {
+    id: "notas_atencion",
+    label: "Nota",
+    maxlength: "900",
+    campo_abierto: true,
+  },
   tubo_orotraqueal: {
     id: "tubo_orotraqueal",
     maxlength: "3",
-    label: "",
+    label: "Tubo orotraqueal #",
     tipo: "number",
     required: true,
     campo_abierto: true,
@@ -325,9 +388,11 @@ const form = ref({
   tipo_sedacion: {
     id: "tipo_sedacion",
     required: true,
+    label: "Tipo de sedación",
     campo_abierto: true,
   },
   via_aerea: {
+    label: "Vía aérea",
     id: "via_aerea",
     required: true,
     campo_abierto: true,
@@ -341,10 +406,42 @@ const form = ref({
   },
 });
 onMounted(() => {
+  for (let n = 0; n < 30; n++) {
+    list.value.push({
+      id: Math.round(Math.random() * 10000).toString(),
+      x: Math.random() * stageSize.width,
+      y: Math.random() * stageSize.height,
+      rotation: Math.random() * 180,
+      scale: Math.random(),
+    });
+  }
   datosInit();
   ajustarTamanoCanvas();
   getFirmaProf();
 });
+
+// logica de konvajs
+const stageSize = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
+const list = ref([]);
+const dragItemId = ref(null);
+
+const handleDragstart = (e) => {
+  // save drag element:
+  dragItemId.value = e.target.id();
+  // move current element to the top:
+  const item = list.value.find((i) => i.id === dragItemId.value);
+  const index = list.value.indexOf(item);
+  list.value.splice(index, 1);
+  list.value.push(item);
+};
+
+const handleDragend = () => {
+  dragItemId.value = null;
+};
 
 const datosInit = () => {
   if (getSesion.novedad == "1") {
@@ -364,7 +461,6 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
-    // huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -407,7 +503,6 @@ const grabarConsentimiento = async () => {
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then(async (data) => {
       if (data?.llave_consen) {
-        await save();
         return grabarFirmaConsen(data?.llave_consen);
       } else return CON851("?", "error", "Error al guardar el consentimiento");
     })
@@ -418,10 +513,9 @@ const grabarConsentimiento = async () => {
 };
 
 const grabarFirmaConsen = async (llave) => {
+  await save();
+  console.log("despues de llamar el save ahora en grabarFirmaConsen ", tabla_sedacion.value);
   try {
-    // await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
-    // await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
-    // await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     await guardarEsquema$({
       base64: tabla_sedacion.value,
       codigo: `LAB021${llave}`,
@@ -459,7 +553,9 @@ const grabarFirmaConsen = async (llave) => {
   }
 };
 
-const imprimirConsen = async () => {
+const imprimirConsen = async (llave) => {
+  console.log("en imprimirConsen -> ", tabla_sedacion.value);
+
   try {
     const datos_lab21 = {
       autorizo: reg_lab021.opcion_lab021 == "AUTORIZAR" ? true : false,
@@ -470,11 +566,7 @@ const imprimirConsen = async () => {
       testigo: getTestigo,
       cod_consen: "LAB021",
       firmas: {
-        // firma_paci: firma_recibida.value ? true : false,
-        // huella_paci: huella_paci.value ? true : false,
-        // firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
-        // firma_test: firma_recibida_test.value ? true : false,
       },
       paren_acomp: getSesion.paren_acomp,
       fecha: reg_lab021.fecha_act,
@@ -484,12 +576,7 @@ const imprimirConsen = async () => {
     };
 
     const firmas = {
-      // img_firma_consen: firma_recibida.value,
-      // img_firma_paci: firma_recibida.value,
-      // img_firma_acomp: firma_recibida_acomp.value,
-      // img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
-      // img_firma_testigo: firma_recibida_test.value,
       img_tabla_sedacion: tabla_sedacion.value,
     };
 
@@ -517,15 +604,6 @@ const imprimirConsen = async () => {
   }
 };
 
-// const callBackFirmaAcomp = (data_firma) => {
-//   data_firma && (firma_recibida_acomp.value = data_firma);
-// };
-// const callBackFirma = (data_firma) => {
-//   data_firma && (firma_recibida.value = data_firma);
-// };
-// const callBackFirmaTest = (data_firma) => {
-//   data_firma && (firma_recibida_test.value = data_firma);
-// };
 const callBackFirmaProf = (data_firma) => {
   data_firma && (firma_prof.value = data_firma);
 };
@@ -543,64 +621,53 @@ const undo = () => {
 };
 const ajustarTamanoCanvas = () => {
   const canvas = signaturePad.value.$el.querySelector("canvas");
-  const container = canvas.parentElement; // Contenedor del canvas
-
-  // Ajustar el tamaño del canvas al tamaño del contenedor
-  canvas.width = container.offsetWidth;
-  canvas.height = container.offsetHeight;
-
-  // Redimensionar el contenido del pad de firma
+  canvas.width = 894;
+  canvas.height = 803;
   signaturePad.value.resizeCanvas();
 };
-
 const save = async () => {
-  const canvas = signaturePad.value.$el.querySelector("canvas");
+  return new Promise((resolve, reject) => {
+    const canvas = signaturePad.value.$el.querySelector("canvas");
+    const imgWidth = 894;
+    const imgHeight = 803;
 
-  // Crear un canvas temporal para manejar el escalado
-  const tempCanvas = document.createElement("canvas");
-  const tempCtx = tempCanvas.getContext("2d");
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = imgWidth;
+    tempCanvas.height = imgHeight;
+    const tempCtx = tempCanvas.getContext("2d");
 
-  // Establecer un tamaño fijo y proporcional para la imagen generada
-  const imgWidth = 800; // Ancho deseado (puedes ajustarlo según tus necesidades)
-  const imgHeight = (canvas.height / canvas.width) * imgWidth; // Mantener la proporción
-  tempCanvas.width = imgWidth;
-  tempCanvas.height = imgHeight;
+    const backgroundImg = new window.Image();
+    backgroundImg.src = backgroundImage;
 
-  // Dibujar la imagen de fondo en el canvas temporal
-  const backgroundImg = new Image();
-  backgroundImg.src = backgroundImage;
+    backgroundImg.onload = () => {
+      tempCtx.drawImage(backgroundImg, 0, 0, imgWidth, imgHeight);
 
-  backgroundImg.onload = () => {
-    tempCtx.drawImage(backgroundImg, 0, 0, tempCanvas.width, tempCanvas.height);
+      const signatureDataUrl = signaturePad.value.saveSignature().data;
 
-    // Verificar si hay trazos en el pad de firma
-    const signatureDataUrl = signaturePad.value.saveSignature().data;
-    if (signatureDataUrl) {
-      // Dibujar los trazos encima de la imagen de fondo
-      const signatureImg = new Image();
-      signatureImg.src = signatureDataUrl;
-
-      signatureImg.onload = () => {
-        tempCtx.drawImage(signatureImg, 0, 0, tempCanvas.width, tempCanvas.height);
-
-        // Guardar el canvas combinado (fondo + trazos)
+      if (signatureDataUrl) {
+        const signatureImg = new window.Image();
+        signatureImg.src = signatureDataUrl;
+        signatureImg.onload = () => {
+          tempCtx.drawImage(signatureImg, 0, 0, imgWidth, imgHeight);
+          tabla_sedacion.value = tempCanvas.toDataURL("image/png");
+          console.log("Imagen combinada generada con éxito", tabla_sedacion.value);
+          resolve(tabla_sedacion.value);
+        };
+        signatureImg.onerror = (err) => {
+          console.error("Error al cargar los trazos:", err);
+          reject(err);
+        };
+      } else {
         tabla_sedacion.value = tempCanvas.toDataURL("image/png");
-        console.log("Imagen combinada generada con éxito");
-      };
-
-      signatureImg.onerror = (err) => {
-        console.error("Error al cargar los trazos:", err);
-      };
-    } else {
-      // Si no hay trazos, guardar solo la imagen de fondo
-      tabla_sedacion.value = tempCanvas.toDataURL("image/png");
-      console.log("Se guardó solo la imagen de fondo");
-    }
-  };
-
-  backgroundImg.onerror = (err) => {
-    console.error("Error al cargar la imagen de fondo:", err);
-  };
+        console.log("Se guardó solo la imagen de fondo");
+        resolve(tabla_sedacion.value);
+      }
+    };
+    backgroundImg.onerror = (err) => {
+      console.error("Error al cargar la imagen de fondo:", err);
+      reject(err);
+    };
+  });
 };
 
 const agregarNotaAtenc = () => {
@@ -632,15 +699,12 @@ p {
   color: white;
 }
 
-/* Ampliar el tamaño del contenedor */
 .signature-container {
   position: relative;
   width: 100%;
-  height: 500px; /* Aumentar la altura del tablero */
-  /* border: 1px solid #ccc; */
+  height: 500px;
 }
 
-/* Ajustar la imagen de fondo al nuevo tamaño */
 .background-image {
   position: absolute;
   top: 0;
@@ -650,19 +714,72 @@ p {
   z-index: 1;
 }
 
-/* Ajustar el canvas al nuevo tamaño */
+.custom-card-size {
+  width: 800px;
+  height: 520px;
+}
+.sedacion-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sedacion-scroll-outer {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.sedacion-scroll-inner {
+  display: flex;
+  justify-content: center;
+  min-width: 100%;
+}
+
+.sedacion-fixed-area {
+  position: relative;
+  width: 894px;
+  height: 803px;
+  min-width: 894px;
+  min-height: 803px;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 894px;
+  height: 803px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
 .signature-pad {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 894px;
+  height: 803px;
   z-index: 2;
 }
+.sedacion-fixed-area {
+  position: relative;
+  width: 894px;
+  height: 803px;
+  min-width: 894px;
+  min-height: 803px;
+  margin: 0 auto; /* Centrado horizontal */
+}
 
-/* Ampliar el tamaño de la tarjeta si es necesario */
-.custom-card-size {
-  width: 800px; /* Aumentar el ancho de la tarjeta */
-  height: 520px; /* Aumentar la altura de la tarjeta */
+.background-image,
+.signature-pad {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 894px;
+  height: 803px;
+  z-index: 1;
+}
+.signature-pad {
+  z-index: 2;
 }
 </style>
