@@ -171,6 +171,7 @@ const firma_testigo = ref(null);
 const firma_consen = ref(null);
 const huella_paci = ref(null);
 const huella_acomp = ref(null);
+const huella_testigo = ref(null);
 const firma_acomp = ref(null);
 const firma_func = ref(null);
 const esquema_mamografia = ref(null);
@@ -445,6 +446,8 @@ const disentirConsentimiento = async (row) => {
   reg_consentimiento.value.estado = true;
 };
 const reimprimirConsentimiento = async (row) => {
+  console.log("reimprimirConsentimiento --> ", row);
+
   let reg_acomp = {};
 
   // consultar testigo. El testigo se debe consultar respecto al formato elegido puesto que el testigo puede variar
@@ -463,17 +466,22 @@ const reimprimirConsentimiento = async (row) => {
         },
       });
     }
-    setTestigo(
-      row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3"
-        ? testigo.reg_paci
-        : testigo?.reg_prof
-    );
+    if (testigo) {
+      setTestigo(
+        row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3"
+          ? testigo.reg_paci
+          : testigo?.reg_prof
+      );
+    }
   }
   if (params_querys.value.modulo == "LAB") {
     if ([900273700, 79635522].includes(Number(route.query.nit))) {
-      const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
-      reg_acomp = { ...response.reg_paci };
-      setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
+      if (Number(row.reg_coninf.id_acomp) != 0) {
+        console.log("pare A ", row.reg_coninf.id_acomp);
+        const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
+        reg_acomp = { ...response.reg_paci };
+        setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
+      }
     } else {
       const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
       reg_acomp = { ...response.reg_acomp };
@@ -511,10 +519,11 @@ const reimprimirConsentimiento = async (row) => {
   }
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
-
   await getFirmaProf(row.reg_prof.cod);
   huella_paci.value = await getHuella(row.reg_paci.cod);
   huella_acomp.value = await getHuella(row.reg_acomp.cod);
+  huella_testigo.value = await getHuella(row.reg_coninf.datos.reg_coninf2.id_testigo);
+
   await getHuella(row.reg_paci.cod);
   await consultarFirmaConsen(row.reg_coninf);
 
@@ -530,6 +539,7 @@ const reimprimirConsentimiento = async (row) => {
         img_tabla_sedacion: tabla_sedacion.value,
         img_huella_paci: huella_paci.value,
         img_huella_acomp: huella_acomp.value,
+        img_huella_testigo: huella_testigo.value,
         img_firma_paci: firma_consen.value,
         cod_consen: cod_consenti,
         firma_prof: firma_prof.value,
@@ -547,6 +557,7 @@ const reimprimirConsentimiento = async (row) => {
             firma_paci: firma_consen.value ? true : false,
             huella_paci: huella_paci.value ? true : false,
             huella_acomp: huella_acomp.value ? true : false,
+            huella_testigo: huella_testigo.value ? true : false,
             firma_testigo: firma_testigo.value ? true : false,
             firma_disentimiento: firma_disentimiento.value ? true : false,
           },

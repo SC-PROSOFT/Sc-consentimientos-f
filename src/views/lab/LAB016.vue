@@ -102,6 +102,7 @@
           :registro_profe="getTestigo.cod"
           :codigo_firma="getTestigo.cod"
           :tipo_doc="getTestigo.tipo_id"
+          :huella_="huella_testigo"
           class="col-4"
         />
         <ContainerFirma
@@ -154,6 +155,7 @@ const firma_recibida_acomp = ref("");
 const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
+const huella_testigo = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
 const LAB016 = reactive({
@@ -201,6 +203,7 @@ const datosInit = () => {
 const getFirmaProf = async () => {
   try {
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
+    huella_testigo.value = await _getHuella$({ codigo: getTestigo.cod });
     huella_acomp.value = await _getHuella$({ codigo: getAcomp.cod });
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
   } catch (error) {
@@ -306,6 +309,7 @@ const imprimirConsen = async (llave) => {
     firmas: {
       firma_paci: firma_recibida.value ? true : false,
       huella_paci: huella_paci.value ? true : false,
+      huella_testigo: huella_testigo.value ? true : false,
       firma_acomp: firma_recibida_acomp.value ? true : false,
       firma_prof: firma_prof.value ? true : false,
       firma_test: firma_recibida_test.value ? true : false,
@@ -322,6 +326,7 @@ const imprimirConsen = async (llave) => {
     img_huella_paci: huella_paci.value,
     firma_prof: firma_prof.value,
     img_huella_acomp: huella_acomp.value,
+    img_huella_testigo: huella_testigo.value,
   };
 
   const docDefinitionPrint = await utilsFormat({

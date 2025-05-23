@@ -207,8 +207,10 @@ async function getTestigo() {
     if (!cod_test) return;
 
     let datos;
-    if (tipo_testigo == "1" || tipo_testigo == "3") datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
-    else if (tipo_testigo == "2")
+    if (tipo_testigo == "1" || tipo_testigo == "3") {
+      datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
+      datos.reg_paci.descrip = `${datos.reg_paci?.er_apel?.trim()} ${datos.reg_paci?.do_apel?.trim()} ${datos.reg_paci?.er_nom?.trim()} ${datos.reg_paci.do_nom.trim()}`;
+    } else if (tipo_testigo == "2") {
       datos = await getDll$({
         modulo: `get_prof.dll`,
         data: {
@@ -218,7 +220,7 @@ async function getTestigo() {
           nit: route.query.nit,
         },
       });
-
+    }
     setTestigo(tipo_testigo == "1" || tipo_testigo == "3" ? datos.reg_paci : datos.reg_prof);
   } catch (error) {
     CON851("?", "error", "Error consultando datos testigo");

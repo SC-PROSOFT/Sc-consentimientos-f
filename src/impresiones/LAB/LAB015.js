@@ -366,38 +366,34 @@ export const impresionLAB015 = ({ datos }) => {
       ],
     };
   }
-  function firmaTestigo() {
+  function firmaTestigo(huella_testigo, cant_firmas) {
     return {
       stack: [
         {
           text: "TESTIGO",
-
           alignment: "center",
           style: "tableNoBold",
           bold: true,
         },
+
+        firmaHuellaTestigo(huella_testigo, cant_firmas),
+
         {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_testigo",
-          width: 130,
-          height: 70,
-        },
-        {
-          marginTop: 8,
-          text: [
+          marginTop: 10,
+          columns: [
             {
-              text: "NOMBRE: ",
+              width: "auto",
               style: "tableNoBold",
+              text: "NOMBRE: ",
               bold: true,
             },
             {
-              text: `${datos.testigo.descrip}`,
+              marginLeft: 5,
               style: "tableNoBold",
+              text: `${datos.testigo.descrip}`,
             },
           ],
         },
-
         {
           columns: [
             {
@@ -416,7 +412,46 @@ export const impresionLAB015 = ({ datos }) => {
       ],
     };
   }
+  function firmaHuellaTestigo(huella_testigo, cant_firmas) {
+    let tamano_firma = 0;
 
+    if (cant_firmas == 2) {
+      tamano_firma = 100;
+    } else {
+      tamano_firma = 125;
+    }
+    const conHuella = {
+      marginLeft: 3,
+      columns: [
+        {
+          marginTop: 8,
+          alignment: "center",
+          image: "firma_testigo",
+          width: tamano_firma,
+          height: 70,
+        },
+        {
+          marginTop: 9,
+          marginLeft: 2,
+          image: "huella_testigo",
+          width: 50,
+          height: 65,
+        },
+      ],
+    };
+
+    const sinHuella = {
+      marginLeft: 3,
+      marginTop: 9,
+      alignment: "center",
+      image: "firma_testigo",
+      width: tamano_firma,
+      height: 70,
+    };
+
+    if (huella_testigo) return conHuella;
+    else return sinHuella;
+  }
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
@@ -426,7 +461,9 @@ export const impresionLAB015 = ({ datos }) => {
       firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
     }
 
-    firmasArray.push(firmaTestigo());
+    if (datos.firmas.firma_test || datos.firmas.huella_testigo) {
+      firmasArray.push(firmaTestigo(datos.firmas.huella_testigo, tamanoFirmasArray));
+    }
 
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
