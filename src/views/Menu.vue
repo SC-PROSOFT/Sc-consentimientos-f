@@ -15,31 +15,15 @@
     />
     <div class="q-ma-lg">
       <div class="row my-card justify-center q-mx-auto">
-        <Input_
-          class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-          width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-          v-model="getPaci.cod"
-          :field="form_paci.codigo"
-        />
-        <Input_
-          class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
-          width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-          v-model="getPaci.descrip"
-          :field="form_paci.descrip"
-        />
-        <Input_
-          class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"
-          width_label="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"
-          width_input="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8"
-          v-model="llave"
-          :field="form_paci.folio"
-        />
+        <Input_ :inputStyle="{ width: '155px' }" v-model="getPaci.cod" :field="form_paci.codigo" />
+        <Input_ :inputStyle="{ width: '360px' }" v-model="getPaci.descrip" :field="form_paci.descrip" />
+        <Input_ :inputStyle="{ width: '155px' }" v-model="llave" :field="form_paci.folio" />
+      </div>
+      <div class="text-center q-ma-lg">
         <q-btn
           v-if="accesoMovil"
           size="sm"
-          class="botone"
+          class="botone q-mt-lg"
           color="orange"
           icon="undo"
           label="Regresar y elegir otro paciente"

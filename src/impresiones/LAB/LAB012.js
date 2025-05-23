@@ -1,8 +1,6 @@
 import { datosFormatUTM } from "@/formatos/utils";
-import dayjs from "dayjs";
 
 export const impresionLAB012 = ({ datos }) => {
-  console.log(" impresionLAB012 ", datos);
   const marcaCasilla = (condicion) => {
     return [
       {

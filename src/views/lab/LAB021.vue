@@ -49,7 +49,7 @@
         </div>
         <div class="sedacion-scroll-container">
           <div class="sedacion-fixed-area">
-            <img src="@/assets/image/capa2.png" alt="Imagen de fondo" class="background-image" draggable="false" />
+            <img src="@/assets/image/tabla_sedacion.png" alt="Imagen de fondo" class="background-image" draggable="false" />
             <VueSignaturePad
               ref="signaturePad"
               class="signature-pad"
@@ -85,7 +85,7 @@
             <q-card class="custom-card-size">
               <q-card-section class="row items-center" style="width: 100%; display: flex">
                 <div class="signature-container">
-                  <img src="@/assets/image/capa2.png" alt="Imagen de fondo" class="background-image" />
+                  <img src="@/assets/image/tabla_sedacion.png" alt="Imagen de fondo" class="background-image" />
                   <VueSignaturePad
                     ref="signaturePad"
                     class="signature-pad"
@@ -233,7 +233,6 @@
           type="submit"
         />
       </div>
- 
     </q-card>
   </div>
 </template>
@@ -245,7 +244,7 @@ import { impresionLAB021, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
-import backgroundImage from "@/assets/image/tablasedacion.png";
+import backgroundImage from "@/assets/image/tabla_sedacion.png";
 import { foco_ } from "@/setup";
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
@@ -333,7 +332,7 @@ const reg_acomp = ref(regAcomp());
 
 const reg_lab021 = reactive({
   revoca_procedi: "",
-  hora: dayjs().format("hh:mm A"),
+  hora: dayjs().format("hh:mm"),
 
   tipo_sedacion: "",
   via_aerea: "",
@@ -406,42 +405,10 @@ const form = ref({
   },
 });
 onMounted(() => {
-  for (let n = 0; n < 30; n++) {
-    list.value.push({
-      id: Math.round(Math.random() * 10000).toString(),
-      x: Math.random() * stageSize.width,
-      y: Math.random() * stageSize.height,
-      rotation: Math.random() * 180,
-      scale: Math.random(),
-    });
-  }
   datosInit();
   ajustarTamanoCanvas();
   getFirmaProf();
 });
-
-// logica de konvajs
-const stageSize = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-};
-
-const list = ref([]);
-const dragItemId = ref(null);
-
-const handleDragstart = (e) => {
-  // save drag element:
-  dragItemId.value = e.target.id();
-  // move current element to the top:
-  const item = list.value.find((i) => i.id === dragItemId.value);
-  const index = list.value.indexOf(item);
-  list.value.splice(index, 1);
-  list.value.push(item);
-};
-
-const handleDragend = () => {
-  dragItemId.value = null;
-};
 
 const datosInit = () => {
   if (getSesion.novedad == "1") {
@@ -514,7 +481,6 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   await save();
-  console.log("despues de llamar el save ahora en grabarFirmaConsen ", tabla_sedacion.value);
   try {
     await guardarEsquema$({
       base64: tabla_sedacion.value,
@@ -554,8 +520,6 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async (llave) => {
-  console.log("en imprimirConsen -> ", tabla_sedacion.value);
-
   try {
     const datos_lab21 = {
       autorizo: reg_lab021.opcion_lab021 == "AUTORIZAR" ? true : false,
@@ -650,7 +614,6 @@ const save = async () => {
         signatureImg.onload = () => {
           tempCtx.drawImage(signatureImg, 0, 0, imgWidth, imgHeight);
           tabla_sedacion.value = tempCanvas.toDataURL("image/png");
-          console.log("Imagen combinada generada con éxito", tabla_sedacion.value);
           resolve(tabla_sedacion.value);
         };
         signatureImg.onerror = (err) => {
@@ -659,7 +622,6 @@ const save = async () => {
         };
       } else {
         tabla_sedacion.value = tempCanvas.toDataURL("image/png");
-        console.log("Se guardó solo la imagen de fondo");
         resolve(tabla_sedacion.value);
       }
     };
@@ -767,7 +729,7 @@ p {
   height: 803px;
   min-width: 894px;
   min-height: 803px;
-  margin: 0 auto; /* Centrado horizontal */
+  margin: 0 auto;
 }
 
 .background-image,

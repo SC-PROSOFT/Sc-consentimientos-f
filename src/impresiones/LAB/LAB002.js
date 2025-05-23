@@ -86,6 +86,7 @@ export const impresionLAB002 = ({ datos }) => {
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
       marginTop: 10,
+      pageBreak: "before",
       table: {
         heights: ["auto", "auto", "auto", 80, "auto", "auto"],
         widths: [171, 172, 171],

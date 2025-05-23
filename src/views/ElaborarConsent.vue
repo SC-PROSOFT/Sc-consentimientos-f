@@ -139,12 +139,12 @@
         <Input_ class="col-xs-4" v-model="reg_acomp.do_apel" :field="form_acomp.do_apel" />
         <Input_ class="col-xs-4" v-model="reg_acomp.er_nom" :field="form_acomp.er_nom" />
         <Input_ class="col-xs-4" v-model="reg_acomp.do_nom" :field="form_acomp.do_nom" />
-        <Input_ class="col-xs-5" v-model="reg_acomp.email" :field="form_acomp.email" />
+        <!-- <Input_ class="col-xs-5" v-model="reg_acomp.email" :field="form_acomp.email" /> -->
         <Input_ class="col-xs-3" v-model="reg_acomp.telefono" :field="form_acomp.telefono" />
-        <Input_ class="col-xs-12" v-model="reg_acomp.direccion" :field="form_acomp.direccion" />
+        <!-- <Input_ class="col-xs-12" v-model="reg_acomp.direccion" :field="form_acomp.direccion" /> -->
       </div>
       <q-card-actions align="center" class="text-primary text-center">
-        <q-btn color="orange" label="Cambiar datos" class="botone q-mx-sm" icon-right="manage_accounts" @click="guardarCambiosDtosAcomp" />
+        <!-- <q-btn color="orange" label="Cambiar datos" class="botone q-mx-sm" icon-right="manage_accounts" @click="guardarCambiosDtosAcomp" /> -->
         <q-btn color="green" label="Continuar" class="botone q-mx-sm" icon-right="output" @click="continuar" />
       </q-card-actions>
     </q-card>
@@ -328,12 +328,12 @@ const columns_artic = [
   { name: "valor", label: "Valor", align: "left", field: "valor" },
 ];
 const columns_consen = [
-  {
-    name: "llave",
-    label: "Llave",
-    align: "left",
-    field: (row) => row.llave,
-  },
+  // {
+  //   name: "llave",
+  //   label: "Llave",
+  //   align: "left",
+  //   field: (row) => row.llave,
+  // },
   {
     name: "fecha",
     label: "Fecha",
@@ -354,7 +354,7 @@ const columns_consen = [
   },
   {
     name: "numero",
-    label: "Numero",
+    label: "Compro",
     align: "left",
     field: (row) => row.nro_fact,
   },

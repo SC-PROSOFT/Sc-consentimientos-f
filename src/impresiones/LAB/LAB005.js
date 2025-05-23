@@ -1,5 +1,4 @@
 import { datosFormatUTM } from "@/formatos/utils";
-import dayjs from "dayjs";
 
 export const impresionLAB005 = ({ datos }) => {
   var dd = {
@@ -86,6 +85,7 @@ export const impresionLAB005 = ({ datos }) => {
 
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
+      pageBreak: "before",
       marginTop: 10,
       table: {
         heights: ["auto", "auto", "auto", 80, "auto", "auto"],

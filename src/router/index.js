@@ -7,7 +7,10 @@ import { createRouteLab } from "./lab.route";
 const title = "Prosoft";
 
 function accesoMovil() {
-  return /Mobi|Android|iPad|iPhone/i.test(navigator.userAgent);
+  const ua = navigator.userAgent;
+  const isDevice = /Mobi|Android|iPhone|iPad|Tablet|PlayBook|Silk|Kindle|SM-T|Nexus 7|Nexus 10/i.test(ua);
+  const isSmallScreen = window.innerWidth <= 1024 && "ontouchstart" in window;
+  return isDevice || isSmallScreen;
 }
 const routes = [
   { path: "/:pathMatch(.*)*", redirect: `/` },

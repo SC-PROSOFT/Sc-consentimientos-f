@@ -140,11 +140,11 @@ import { impresionLAB008, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import dayjs from "dayjs";
-
+import { useRouter } from "vue-router";
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/containerFirma.vue"));
 const DatosFormat = defineAsyncComponent(() => import("@/components/global/DatosFormat.vue"));
 
-const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$, logOut$ } = useApiContabilidad();
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado, guardarArchivo$ } = useApiContabilidad();
 const { getPaci, getAcomp, getTestigo, getProf, getEmpresa, getSesion } = useModuleFormatos();
 const { CON851 } = useModuleCon851();
 const { CON851P } = useModuleCon851p();
@@ -154,7 +154,7 @@ const firma_recibida_test = ref("");
 const firma_recibida = ref("");
 const firma_prof = ref(null);
 const huella_paci = ref(null);
-
+const router = useRouter();
 const datos = {
   active_cups: true,
 };
@@ -224,7 +224,7 @@ const grabarFirmaConsen = async (llave) => {
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen(llave);
-      return logOut$();
+      return router.back();
     }
 
     return CON851P(
@@ -238,12 +238,12 @@ const grabarFirmaConsen = async (llave) => {
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
+        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       },
       async () => {
         const file = await imprimirConsen(llave);
         if (getPaci.email && !/.+@.+\..+/.test(getPaci.email.toLowerCase())) {
-          return CON851("?", "info", "El correo no es valido", logOut$);
+          return CON851("?", "info", "El correo no es valido", () => router.back());
         }
 
         const response = await enviarCorreo$({
@@ -252,14 +252,14 @@ const grabarFirmaConsen = async (llave) => {
           subject: getEncabezado.descrip,
           file,
         });
-        CON851("?", response.tipo, response.message, logOut$);
+        CON851("?", response.tipo, response.message, () => router.back());
 
         const response_guardar = await guardarArchivo$({
           nombre: `${getSesion.suc}${getSesion.nro_comp}-${getSesion.oper}${dayjs().format("YYYYMMDDHHmm")}.pdf`,
           ruta: "D:\\CONSENTIMIENTOS",
           file,
         });
-        CON851("?", response_guardar.tipo, response_guardar.message, logOut$);
+        CON851("?", response_guardar.tipo, response_guardar.message, () => router.back());
       }
     );
   } catch (error) {
@@ -297,6 +297,7 @@ const imprimirConsen = async (llave) => {
       },
       fecha: reg.value.fecha_act,
       llave: reg.value.llave_consen,
+      hora: dayjs().format("hh:mm"),
       ...reg.value,
     };
 

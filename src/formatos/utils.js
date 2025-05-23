@@ -319,7 +319,6 @@ export const datosFormatUTM = ({ datos }) => {
    POR LO TANTO SE CONDICIONA PARA NO AFECTAR LAS IMPRESIONES DE LOS DEMAS FORMATOS */
 
   const format_encab_ampl = ["LAB011", "LAB012", "LAB014"];
-  console.log(format_encab_ampl.includes(datos.cod_consen) ? "encab_ampl" : "encab_normal");
 
   const marcaCasilla = (condicion) => {
     return [
@@ -374,26 +373,22 @@ export const datosFormatUTM = ({ datos }) => {
       {
         noWrap: true,
         text: dayjs(datos.fecha).date(),
-        // text: `${dayjs().date()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         text: dayjs(datos.fecha).month() + 1,
-        // text: `${dayjs(datos.fecha).month() + 1}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         text: dayjs(datos.fecha).year(),
-        // text: `${dayjs().year()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         colSpan: 3,
         text: datos.hora,
-        // text: `${dayjs().format("hh:mm A")}`,
         style: "tableTitle",
       },
       {},
@@ -902,26 +897,22 @@ export const datosFormatUTM = ({ datos }) => {
       {
         noWrap: true,
         text: dayjs(datos.fecha).date(),
-        // text: `${dayjs().date()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         text: dayjs(datos.fecha).month() + 1,
-        // text: `${dayjs().month() + 1}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         text: dayjs(datos.fecha).year(),
-        // text: `${dayjs().year()}`,
         style: "tableTitle",
       },
       {
         noWrap: true,
         colSpan: 3,
         text: datos.hora,
-        // text: `${dayjs().format("hh:mm A")}`,
         style: "tableTitle",
       },
       {},

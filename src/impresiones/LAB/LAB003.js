@@ -1,5 +1,4 @@
 import { datosFormatUTM } from "@/formatos/utils";
-import dayjs from "dayjs";
 
 export const impresionLAB003 = ({ datos }) => {
   var dd = {
@@ -85,6 +84,7 @@ export const impresionLAB003 = ({ datos }) => {
 
   function textoAutoriza(autorizo) {
     const textoAutoriza = {
+      pageBreak: "before",
       marginTop: 10,
       table: {
         heights: ["auto", "auto", "auto", 80, "auto", "auto"],
@@ -396,7 +396,6 @@ export const impresionLAB003 = ({ datos }) => {
     if (disentimiento == "S") return textoDisentimiento;
     else return null;
   }
-
 
   return dd;
 };

@@ -683,6 +683,7 @@ const imprimirConsen = async (llave) => {
       P_8: datos_format.proce_cont.especifique_8,
       P_9: datos_format.proce_cont.especifique_9,
       P_10: datos_format.proce_cont.especifique_10,
+      hora: dayjs().format("hh:mm"),
       ...reg.value.reso_mag,
       ...reg.value,
     };

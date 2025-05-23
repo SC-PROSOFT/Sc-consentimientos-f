@@ -191,7 +191,6 @@ import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB012, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad, evaluarParentesco, evaluarDiscapacidad, evaluarClaseServ, evaluarTipoId } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
@@ -218,11 +217,9 @@ const datos = {
 const reg_paci = ref(regPaci());
 const reg_acomp = ref(regAcomp());
 
-const otroEvento = ref("");
 const reg_lab012 = reactive({
   revoca_procedi: "",
-  fecha: dayjs().format("DD-MM-YYYY"),
-  hora: dayjs().format("hh:mm A"),
+  hora: dayjs().format("hh:mm"),
 
   // ANTECEDENTES
   antec_patolog: "",
@@ -249,7 +246,6 @@ const reg_lab012 = reactive({
   // EXTRAS
   parentesco: "",
   opcion_lab012: "",
-  fecha_act: "",
   llave: "",
   servicio: "",
   ident_genero: "",
@@ -383,9 +379,6 @@ onMounted(() => {
 });
 
 const datosInit = () => {
-  console.log("evaluarClaseServ ---> ", evaluarClaseServ(getSesion.clase));
-
-  reg_lab012.fecha_act = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
   reg_lab012.edad = calcularEdad(getAcomp.nacim);
   Object.assign(reg_paci.value, getPaci);
   Object.assign(reg_acomp.value, getAcomp);
@@ -514,7 +507,7 @@ const imprimirConsen = async (llave) => {
         firma_test: firma_recibida_test.value ? true : false,
       },
       paren_acomp: getSesion.paren_acomp,
-      fecha: reg_lab012.fecha_act,
+      fecha: dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD"),
       llave: reg_lab012.llave,
       ...reg_lab012,
     };
@@ -550,10 +543,6 @@ const imprimirConsen = async (llave) => {
   } catch (error) {
     console.error("error -->", error);
   }
-};
-
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
 };
 
 const callBackFirma = (data_firma) => {
