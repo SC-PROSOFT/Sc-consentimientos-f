@@ -420,7 +420,7 @@ const validarDtosAcomp = () => {
     CON851("?", "info", "El parentesco es obligatorio", null);
     return false;
   }
-  if (reg_acomp.value.tipo_id_acomp == "") {
+  if (tipo_id_acomp.value.select == "") {
     CON851("?", "info", "El tipo id es obligatorio", null);
     return false;
   }

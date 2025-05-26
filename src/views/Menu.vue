@@ -27,7 +27,7 @@
           color="orange"
           icon="undo"
           label="Regresar y elegir otro paciente"
-          @click="router.back()"
+          @click="regresarElaborarConsent"
         />
       </div>
     </div>
@@ -111,6 +111,14 @@ const getLogo = async () => {
     console.error("getLogo", error);
     throw error;
   }
+};
+
+const regresarElaborarConsent = () => {
+  const removeSessionStorage = ["query", "reg_paci", "reg_testigo"];
+  removeSessionStorage.forEach((key) => {
+    sessionStorage.removeItem(key);
+  });
+  router.back();
 };
 
 const validIsConfig = () => {
