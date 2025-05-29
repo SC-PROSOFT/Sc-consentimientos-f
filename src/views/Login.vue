@@ -98,7 +98,7 @@ const form_login = ref({
     id: "ip",
     label: "IP Servidor",
     placeholder: "Ingresa IP",
-    maxlength: "15",
+    maxlength: "150",
     required: true,
     campo_abierto: true,
   },
@@ -114,7 +114,6 @@ const form_login = ref({
     id: "anio_contab",
     label: "Contabilidad",
     maxlength: "15",
-    required: true,
     disable: false,
     campo_abierto: true,
   },
@@ -140,6 +139,7 @@ const consultarContabilidad = async () => {
       contab_orden.forEach((item) => {
         lista_contab.value.push({ value: item.DIR, label: item.DIR });
       });
+      reg_login.value.anio_contab = contab_orden[0].DIR;
     })
 
     .catch((error) => {
@@ -181,20 +181,22 @@ const ingresar = async () => {
     });
 };
 const setContabServidor = () => {
+  console.log("anio_contab -> ", reg_login.value.anio_contab);
+
   if (!reg_login.value.ip) {
     return CON851("?", "info", "El campo IP Servidor es obligatorio", null);
   }
-  if (!reg_login.value.anio_contab && window.location.hostname != "localhost") {
-    return CON851("?", "info", "El campo año es obligatorio", null);
-  }
-
-  if (window.location.hostname == "localhost") {
-    consultarContabilidad();
-  }
+  // if (!reg_login.value.anio_contab && window.location.hostname != "localhost") {
+  //   return CON851("?", "info", "El campo año es obligatorio", null);
+  // }
+  // condicion para consultar contabilidades en desarrollo
+  // if (window.location.hostname == "localhost") {
+  // }
 
   localStorage.setItem("ip", reg_login.value.ip);
   show_conex_serv.value = false;
   CON851("?", "success", "La configuración se guardo correctamente");
+  consultarContabilidad();
 };
 const extraerNumero = (dato) => {
   const match = dato.match(/\d+/);

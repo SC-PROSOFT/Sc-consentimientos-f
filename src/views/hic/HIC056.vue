@@ -75,6 +75,8 @@
           :disable="!getAcomp.descrip ? true : false"
           quien_firma="FIRMA ACOMPAÑANTE"
           :registro_profe="getAcomp.cod"
+          :codigo_firma="getAcomp.cod"
+          :tipo_doc="getAcomp.tipo_id"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />

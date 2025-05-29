@@ -18,17 +18,7 @@
         <Input_ :inputStyle="{ width: '155px' }" v-model="getPaci.cod" :field="form_paci.codigo" />
         <Input_ :inputStyle="{ width: '360px' }" v-model="getPaci.descrip" :field="form_paci.descrip" />
         <Input_ :inputStyle="{ width: '155px' }" v-model="llave" :field="form_paci.folio" />
-      </div>
-      <div class="text-center q-ma-lg">
-        <q-btn
-          v-if="accesoMovil"
-          size="sm"
-          class="botone q-mt-lg"
-          color="orange"
-          icon="undo"
-          label="Regresar y elegir otro paciente"
-          @click="regresarElaborarConsent"
-        />
+        <Input_ :inputStyle="{ width: '155px' }" v-model="nro_comp" :field="form_paci.comprob" />
       </div>
     </div>
     <div class="q-ma-lg">
@@ -40,6 +30,17 @@
       v-if="datos_actualizacion.estado"
       @aceptar="actualizarVersion"
     />
+    <div class="text-center">
+      <q-btn
+        v-if="accesoMovil"
+        size="sm"
+        class="botone"
+        color="orange"
+        icon="undo"
+        label="Regresar y elegir otro paciente"
+        @click="regresarElaborarConsent"
+      />
+    </div>
   </div>
 </template>
 <script setup>
@@ -58,6 +59,7 @@ const form_paci = ref({
   descrip: { id: "descrip", label: "Descripción", disable: true },
   codigo: { id: "codigo", label: "Codigo", disable: true },
   folio: { id: "folio", label: "Folio", disable: true },
+  comprob: { id: "comprob", label: "Comprob", disable: true },
 });
 
 const { getPaci, setTestigo, setPaci, setEmpresa, setProf, setAcomp, setSession, accesoMovil } = useModuleFormatos();
@@ -72,6 +74,7 @@ const config_maestro = ref({ estado: false });
 const mode_dev = process.env.NODE_ENV == "development" ? true : false;
 const datos_session = {};
 const llave = ref(null);
+const nro_comp = ref(null);
 
 const datos_actualizacion = ref({ estado: false, mensaje: "" });
 
@@ -137,6 +140,8 @@ const validarUrl = async () => {
     Object.assign(datos_session, JSON.parse(sessionStorage.query));
   }
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
+  if (datos_session.nro_comp) nro_comp.value = datos_session.nro_comp;
+
   if ([900273700, 79635522].includes(Number(route.query.nit))) {
     await getTestigo();
     if (datos_session.id_acompa) {

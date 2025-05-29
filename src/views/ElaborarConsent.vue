@@ -1,15 +1,15 @@
 <template>
   <div class="row q-mt-lg my-card justify-center">
-    <Input_ class="q-mt-xs col-xs-2" v-model="reg_elab_cons.id_paciente" :field="form_elab_cons.id_paciente" />
-    <TextCard_ class="q-mt-xs col-xs-4" v-model="reg_paci.descrip" :field="form_elab_cons.nom_paci" />
+    <Input_ class="q-mt-xs" v-model="reg_elab_cons.id_paciente" :field="form_elab_cons.id_paciente" :inputStyle="{ width: '180px' }" />
+    <TextCard_ class="q-mt-xs col-xs-6" v-model="reg_paci.descrip" :field="form_elab_cons.nom_paci" />
     <div class="q-mt-lg">
       <q-btn id="boton2" color="green" label="Buscar" icon-right="search" @click="buscarPaciente" />
     </div>
   </div>
 
-  <div v-if="lista_consen.length" class="row q-mt-lg my-card justify-center">
+  <div v-if="lista_comprob.length" class="row q-mt-lg my-card justify-center">
     <div class="col-xs-11">
-      <q-table title="Comprobantes" :rows-per-page-options="[10]" :columns="columns_consen" :rows="lista_consen" row-key="llave" bordered dense flat>
+      <q-table title="Comprobantes" :rows-per-page-options="[10]" :columns="columns_consen" :rows="lista_comprob" row-key="llave" bordered dense flat>
         <template v-slot:header="props">
           <q-tr :props="props">
             <q-th auto-width class="bg-primary text-white"> Elegir </q-th>
@@ -154,7 +154,7 @@
 <script setup>
 import { useModuleCon851, useApiContabilidad, useModuleFormatos, useModuleCon851p } from "@/store";
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
-import { ref, onBeforeMount, defineAsyncComponent } from "vue";
+import { ref, onBeforeMount, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { validarCodPaci, replaceEsp, enterReplace } from "@/formatos/utils";
 import { regPaci, regAcomp } from "@/fuentes";
@@ -180,11 +180,16 @@ const comp_selec = ref("");
 const mensaje_1 = ref("¿Quién autoriza el consentimiento?");
 const llave_comp = ref("");
 
-const lista_consen = ref([]);
+const lista_comprob = ref([]);
 const lista_artic = ref([]);
-const tabla_articulos = ref(JSON.parse(JSON.stringify(Array(2).fill({ codigo: "", descripcion: "" }))));
-const tabla_diagnosticos = ref(JSON.parse(JSON.stringify(Array(2).fill({ codigo: "", descripcion: "" }))));
-
+const tabla_articulos = reactive([
+  { codigo: "", descripcion: "" },
+  { codigo: "", descripcion: "" },
+]);
+const tabla_diagnosticos = reactive([
+  { codigo: "", descripcion: "" },
+  { codigo: "", descripcion: "" },
+]);
 const tipo_id_acomp = ref({
   select: "",
   items: [
@@ -384,7 +389,7 @@ async function buscarPaciente() {
     })
     .catch((error) => {
       console.error(error);
-      CON851("?", "error", "Error consultando datos paciente");
+      CON851("?", "warning", "No existe paciente en el sistema");
     });
 }
 async function buscarComprobantes() {
@@ -394,7 +399,29 @@ async function buscarComprobantes() {
     data: { datosh: datosh, id_paci: cod_paci, clase_fact: 9 },
   })
     .then((data) => {
-      lista_consen.value = data.FACTURAS;
+      const list_filtrado = [];
+      const list_cups_discri = ["01", "99", "xm", "xx", "mx"];
+
+      for (let item of data.FACTURAS) {
+        const tabla_articulos_filtrada = item.tabla_articulos.filter((e) => !list_cups_discri.includes(e.codigo.trim().slice(0, 2).toLowerCase()));
+
+        if (tabla_articulos_filtrada.length > 0) {
+          list_filtrado.push({
+            ...item,
+            tabla_articulos: tabla_articulos_filtrada,
+          });
+        }
+      }
+      lista_comprob.value = list_filtrado;
+
+      // const list_filtrado = [];
+      // const list_cups_discri = ["01", "99", "xm", "xx", "mx"];
+
+      // for (let item of data.FACTURAS) {
+      //   let element = item.tabla_articulos.filter((e) => list_cups_discri.includes(e.codigo.slice(0, 2)));
+      //   if (element.length < 1) list_filtrado.push(item);
+      // }
+      // lista_comprob.value = list_filtrado;
     })
     .catch((error) => {
       console.error(error);
@@ -440,6 +467,7 @@ const validarDtosAcomp = () => {
 };
 
 const guardarPaci = async (reg_) => {
+  console.log("reg_ ->> ", reg_);
   let reg_paci_electron = {};
   // GET_PACI
   let cod_paci = validarCodPaci(reg_elab_cons.value.id_paciente);
@@ -517,6 +545,8 @@ const guardarCambiosDtosAcomp = async () => {
     null,
 
     async () => {
+      console.log("reg_acomp 1 ->> ", reg_acomp.value);
+
       await guardarPaci(reg_acomp.value);
     }
   );
@@ -534,6 +564,7 @@ const continuar = () => {
         continuarFormatConsen();
       },
       async () => {
+        console.log("reg_acomp 2 ->> ", reg_acomp.value);
         await guardarPaci(reg_acomp.value);
         continuarFormatConsen();
       }
@@ -560,18 +591,17 @@ const buscarFacturaDeComp = async () => {
     data: { datosh: datosh, suc: comp_selec.value.suc, cl: comp_selec.value.cl, nro: comp_selec.value.nro_fact },
   })
     .then((data) => {
-      if ("llave  " in data) {
-        tabla_articulos.value.forEach((e, i) => {
+      if ("llave" in data) {
+        let arti = data.tabla.slice(0, 2);
+        tabla_articulos.forEach((e, i) => {
           e.codigo = `${arti[i].grupo}${arti[i].cod_art}`;
           e.descripcion = arti[i].descrip;
         });
-        tabla_diagnosticos.value.forEach((e, i) => {
+        tabla_diagnosticos.forEach((e, i) => {
           e.codigo = data.tabla_diag_estad[i].cod;
           e.descripcion = data.tabla_diag_estad[i].descrip;
         });
       }
-      tabla_articulos.value = JSON.stringify(tabla_articulos.value);
-      tabla_diagnosticos.value = JSON.stringify(tabla_diagnosticos.value);
       show_autoriza_consen.value = true;
     })
     .catch((error) => {
@@ -601,8 +631,8 @@ const autorizaPaci = () => {
       cod_prof: reg_usunet.value.IDUSU,
       id_acompa: firma_acomp.value ? reg_elab_cons.value.id_acomp : "",
       paren_acomp: firma_acomp.value ? paren_acomp.value.select : "",
-      articulos: btoa(tabla_articulos.value),
-      diagnosticos: btoa(tabla_diagnosticos.value),
+      articulos: btoa(JSON.stringify(tabla_articulos)),
+      diagnosticos: btoa(JSON.stringify(tabla_diagnosticos)),
       tipo_testigo: "2",
       id_testigo: reg_usunet.value.IDUSU,
       nro_comp: comp_selec.value.nro_fact,

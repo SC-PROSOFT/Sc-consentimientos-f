@@ -56,9 +56,10 @@
         class="row justify-center"
         style="border: 1px solid #ccc; width: 40%; display: flex; justify-content: center; align-items: center; min-height: 35px"
       >
-        <div class="col-xs-12">
+        <span>{{ servicio.select }}</span>
+        <!-- <div class="col-xs-12">
           <Select_ v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
-        </div>
+        </div> -->
       </div>
       <div
         class="row justify-center"
