@@ -3,8 +3,13 @@
     <q-card class="my-card">
       <ToolBarTable_ titulo="Configuración de maestros" @cerrar="cerrarConfiguracion" />
       <div class="q-pa-md">
+        <q-input v-model="buscar" placeholder="Buscar por código o nombre" outlined dense class="q-mb-md">
+          <template v-slot:append>
+            <q-btn dense flat round icon="cancel" @click="limpiarBusqueda" aria-label="Borrar búsqueda" />
+          </template>
+        </q-input>
         <q-table
-          :rows="maestro_consentimientos"
+          :rows="filtraMaestros"
           :rows-per-page-options="[10]"
           @row-dblclick="selectConsen"
           :columns="columns"
@@ -15,8 +20,8 @@
         >
           <template v-slot:header="props">
             <q-tr :props="props">
-              <q-th auto-width> Modificar </q-th>
-              <q-th v-for="col in props.cols" :key="col.name" :props="props">
+              <q-th class="bg-primary text-white" auto-width> Modificar </q-th>
+              <q-th v-for="col in props.cols" :key="col.name" :props="props" class="bg-primary text-white">
                 {{ col.label }}
               </q-th>
             </q-tr>
@@ -25,7 +30,7 @@
           <template v-slot:body="props">
             <q-tr :props="props" @dblclick="selectConsen(props)" class="cursor">
               <q-td auto-width>
-                <q-btn @click="selectConsen(props)" icon="edit_note" class="botone" color="primary" size="sm"> </q-btn>
+                <q-btn @click="selectConsen(props)" icon="edit_note" class="q-ma-xs botone" color="primary" size="sm"> </q-btn>
               </q-td>
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 {{ col.value }}
@@ -154,7 +159,7 @@
 <script setup>
 import ToolBarTable_ from "@/components/global/ToolBarTable.vue";
 import { useModuleCon851, useApiContabilidad, useModuleFormatos } from "@/store";
-import { ref, onMounted, watch, watchEffect } from "vue";
+import { ref, onMounted, watch, watchEffect, computed } from "vue";
 import { foco_ } from "@/setup";
 import days from "dayjs";
 import { validarCodPaci } from "@/formatos/utils";
@@ -167,6 +172,7 @@ const props = defineProps({ configuracion: Object });
 const emit = defineEmits(["cerrar", "guardar"]);
 
 const maestro_consentimientos = ref([]);
+const buscar = ref("");
 const columns = [
   { name: "cod_mae", label: "Código", align: "left", field: "cod_mae" },
   { name: "name", label: "Nombre", align: "left", field: "descrip" },
@@ -442,7 +448,13 @@ const getMaestros = async () => {
     CON851("?", "info", error);
   }
 };
-
+const filtraMaestros = computed(() => {
+  const term = buscar.value.toLowerCase();
+  return maestro_consentimientos.value.filter((item) => item.cod_mae.toLowerCase().includes(term) || item.descrip.toLowerCase().includes(term));
+});
+const limpiarBusqueda = () => {
+  buscar.value = "";
+};
 const cerrarConfiguracion = () => emit("cerrar");
 </script>
 <style lang="sass" scoped>
