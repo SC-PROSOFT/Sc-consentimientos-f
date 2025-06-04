@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic077"
+            v-model="opcion_odo013"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,75 +13,58 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic077 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic077 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic077">
-              {{ opcion_hic077 }}
+          <p :class="opcion_odo013 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_odo013 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_odo013">
+              {{ opcion_odo013 }}
             </q-chip>
           </p>
         </div>
-        <div class="row">
-          <p class="q-mt-xs" style="font-weight: bold">Servicio:&nbsp;</p>
-          <div class="col-xs-5">
-            <Select_ v-model="servicio.select" :field="servicio.serv_form" :items="servicio.items" />
-          </div>
-          <p class="q-mt-xs" style="font-weight: bold">Lugar:&nbsp;</p>
-          <p class="q-mt-xs">{{ getEmpresa.nomusu }}</p>
-        </div>
-        <div class="row q-mt-md">
-          <p style="font-weight: bold">Nombre paciente:&nbsp;</p>
-          <p>{{ getPaci.descrip }}</p>
-        </div>
-        <div class="row">
-          <p style="font-weight: bold">Identificación:&nbsp;</p>
-          <p>&nbsp;{{ getPaci.tipo_id }}</p>
-          <p>&nbsp;{{ getPaci.cod }}</p>
-        </div>
+        <p class="text-center" style="font-weight: bold">FORMULARIO DE CONSENTIMIENTO INFORMADO PARA LA APLICACIÓN DE ANESTESIA LOCAL</p>
         <div class="row">
           <p style="font-weight: bold">Fecha:&nbsp;</p>
-          <p>&nbsp;{{ HIC077.fecha }}</p>
+          <p>&nbsp;{{ ODO013.fecha }}</p>
         </div>
         <div>
           <p style="text-align: justify">
-            Señor(a) usuario (a): Se le va a realizar una exploración imagenológica que utilizara radiación ionizante, en forma de rayos X, por lo
-            anterior es necesario que usted informe si tiene sospechas de estado de embarazo para que el profesional tome consideraciones especiales
-            en su caso y medidas protectoras para minimizar el riesgo de irradiación.
+            Yo. <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }}</span> identificado con
+            <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.tipo_id : getPaci.tipo_id }}</span> N°.
+            <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.cod : getPaci.cod }}</span> como paciente (padre/madre, tutor/tutora o
+            representante legal) de <span class="text-bold">{{ reg_acudiente.cod ? getPaci.descrip : "N/A" }}</span> identificado con
+            <span class="text-bold">{{ reg_acudiente.cod ? getPaci.tipo_id : "N/A" }}</span> N°.
+            <span class="text-bold">{{ reg_acudiente.cod ? getPaci.cod : "N/A." }}</span> y en pleno uso de mis facultades, libre y voluntariamente
+            DECLARO que: se me ha explicado que el procedimiento para la aplicación de la anestesia local consiste en administrar, por medio de una
+            inyección, sustancias que provocan el bloqueo reversible de la sensación dolorosa, para efectuar el tratamiento sin dolor.
           </p>
           <p style="text-align: justify">
-            Para proporcionar una información que nos ayuda a identificar y tratar mejor su enfermedad el tecnólogo en imágenes diagnosticas lo
-            ubicara en el Equipo de Radiología Convencional, en el cual usted adoptara algunas posiciones sugeridas por el profesional tomándose una
-            serie de protecciones que permitirán llevar a cabo el procedimiento solicitado.
+            La administración de anestesia local puede provocar entre otras, ulceración en la mucosa en la zona de inyección, dolor, limitación del
+            movimiento de apertura bucal, parestesia prolongada, descenso de la tensión arterial, sincope, urticaria, asma, edema angioneurotico,
+            crisis hipertensiva, hipoxia, taquicardia, arritmia cardiaca, hiperglicemia y en casos menos frecuentes fibrilación ventricular o incluso
+            la muerte, que pueden requerir tratamiento urgente.
           </p>
           <p style="text-align: justify">
-            Beneficios del procedimiento: El estudio es necesario para su diagnostico y decide realizarse el RX propuesto debe saber que se efectúa
-            con equipos calibrados y utilizados por personal calificado que minimizan la exposición a las radiaciones ionizantes protegiendo su cuerpo
-            en la medida de lo posible. SOLO se le realizaran las radiografías indispensables.
-          </p>
-          <p style="font-weight: bold">RIESGO:</p>
-          <p style="text-align: justify">
-            La realización de los estudios radiológicos se justifica bajo análisis de la relación riesgo beneficio realizado tanto por el medico
-            tratante como por el medico radiólogo con el fin de tomar decisiones acertadas para el diagnostico y tratamiento y seguimiento de la
-            patología en estudio.
+            Declaro que se me ha explicado en un vocabulario que me es comprensible, la magnitud, alcance y posibles consecuencias, secuelas o
+            molestias derivadas del tratamiento antes indicado, que en caso de que se presenten las anteriores complicaciones, acepto las molestias y
+            riesgos mencionados y los que se señalen como derivados del tratamiento realizado.
           </p>
           <p style="text-align: justify">
-            El Riesgo Potencial a la exposición de la radiación es bajo comparado con los beneficios obtenidos del estudio de la imagen médica.
+            Por ello manifiesto que estoy satisfecho con la información recibida y que comprendo el alcance y los riesgos del tratamiento y consiento
+            que me realicen los siguientes tratamientos odontológicos:
           </p>
+        </div>
+        <TextArea_ v-model="ODO013.tratam_odontolog" :field="form.tratam_odontolog" />
+        <p style="text-align: justify">y me responsabilizo de cualquier tipo de consecuencia por no seguir los cuidados que se indican.</p>
+
+        <div v-if="opcion_odo013 == 'REVOCAR'">
+          <p class="text-center" style="font-weight: bold">ANEXO CONSENTIMIENTO INFORMADO REVOCACIÓN DEL CONSENTIMIENTO</p>
+
           <p style="text-align: justify">
-            Una ligera elevación del riesgo de padecer alguna neoplasia en el futuro. Este riesgo en menor al 0.5%, por lo que se puede considerar muy
-            bajo en comparación con la incidencia normal de las neoplasias en la población, que es del 33% para las mujeres y 50% para los hombres de
-            acuerdo con la Sociedad Americana de Oncología.
+            Yo. <span class="text-bold">{{ getPaci.descrip }}</span> identificado con <span class="text-bold">{{ getPaci.tipo_id }}</span> N°.
+            <span class="text-bold">{{ getPaci.cod }}</span> como paciente (padre/madre, tutor/tutora o representante legal) en uso de mis facultades,
+            libre y voluntariamente REVOCO el consentimiento prestado con fecha <span class="text-bold">{{ ODO013.fecha }}</span> ante el Higienista
+            Dental y/o Dra. Informante:
           </p>
-          <p style="text-align: justify">
-            <span class="text-bold">HE COMPRENDIDO CON CLARIDAD TODO LO ESCRITO ANTERIORMENTE </span> Yo he tenido la oportunidad de preguntar y
-            resolver todas mis dudas. <q-radio color="primary" disabled v-model="autoriza" val="S" left-label label="ACEPTO SI" />
-            <q-radio color="primary" disabled v-model="autoriza" val="N" left-label label="NO" />
-            <span class="text-bold">LA REALIZACION DEL EXAMEN – DECLARO QUE LA DECISION QUE TOMO ES LIBRE Y VOLUNTARIA </span>
-            <q-radio color="primary" disabled v-model="autoriza" val="S" left-label label="SI" />
-            <q-radio color="primary" disabled v-model="autoriza" val="N" left-label label="NO" />
-            <span class="text-bold">DOY MI CONSENTIMIENTO </span>para que el profesional Tecnólogo en imágenes Diagnosticas me realice el
-            procedimiento diagnostico solicitado por el médico tratante <span class="text-bold">SI </span> he aceptado la toma del estudio, la entidad
-            en mención y el tecnólogo en imágenes, quedan autorizados para llevar a cabo las conductas o procedimientos Imagenológicos necesarios
-            tendientes a resolver las complicaciones imprevistas del procedimiento que mediante este documento autorizo.
-          </p>
+          <Input_ v-model="ODO013.profes_infor_revoc" :field="form.profes_infor_revoc" />
+          <p style="text-align: justify">no deseando proseguir en el tratamiento propuesto.</p>
         </div>
       </q-card-section>
     </div>
@@ -119,7 +102,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic077 ? false : true"
+        :disable="opcion_odo013 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -133,7 +116,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC077, impresion, generarArchivo } from "@/impresiones";
+import { impresionODO013, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive, computed } from "vue";
 import { utilsFormat, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -148,27 +131,33 @@ const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } =
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
-const firma_recibida_test = ref("");
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
+const firma_recibida_test = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
-
-const HIC077 = reactive({
+const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
+const ODO013 = reactive({
   fecha: "",
-  servicio: "",
+  tratam_odontolog: "",
+  profes_infor_revoc: "",
 });
-const array_servic = ref([
-  { COD: "0", DESCRIP: "DROGUERIA" },
-  { COD: "1", DESCRIP: "CIRUGIAS" },
-  { COD: "2", DESCRIP: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
-  { COD: "3", DESCRIP: "RX - IMAGENOLOGIA" },
-  { COD: "4", DESCRIP: "OTROS SERVICIOS" },
-  { COD: "5", DESCRIP: "CONSULTAS Y TERAPIAS" },
-  { COD: "6", DESCRIP: "PATOLOGIA" },
-  { COD: "7", DESCRIP: "PROMOCION Y PREVENCION" },
-]);
+const form = ref({
+  tratam_odontolog: {
+    id: "tratam_odontolog",
+    maxlength: "500",
+    label: "",
+    rows: 4,
+    campo_abierto: true,
+  },
+  profes_infor_revoc: {
+    id: "profes_infor_revoc",
+    maxlength: "100",
+    label: "",
+    campo_abierto: true,
+  },
+});
 const servicio = ref({
   select: evaluarClaseServ("3"),
   items: [
@@ -177,7 +166,7 @@ const servicio = ref({
     { value: "LABORATORIOS Y OTROS DIAGNOSTICOS", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
     { value: "RX - IMAGENOLOGIA", label: "RX - IMAGENOLOGIA" },
     { value: "OTROS SERVICIOS", label: "OTROS SERVICIOS" },
-    { value: "CONSULTAS Y TERAPIAS", label: "CONSULTAS Y TERAPIAS" },
+    { value: "CONSULTA Y TERAPIAS", label: "CONSULTA Y TERAPIAS" },
     { value: "PATOLOGIA", label: "PATOLOGIA" },
     { value: "PROMOCION Y PREVENCION", label: "PROMOCION Y PREVENCION" },
   ],
@@ -185,13 +174,12 @@ const servicio = ref({
     label: "",
     required: true,
     id: "serv_form",
-    disable: getSesion.novedad === "4",
     campo_abierto: true,
   },
 });
-const opcion_hic077 = ref(null);
+const opcion_odo013 = ref(null);
 const autoriza = computed(() => {
-  switch (opcion_hic077.value) {
+  switch (opcion_odo013.value) {
     case "AUTORIZAR":
       return "S";
     case "REVOCAR":
@@ -201,7 +189,7 @@ const autoriza = computed(() => {
   }
 });
 onMounted(() => {
-  HIC077.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  ODO013.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -216,36 +204,22 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
-  HIC077.servicio = array_servic.value.find((item) => item.DESCRIP == servicio.value.select).COD;
   grabarConsentimiento();
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC077));
-  let llave_paci;
-  if (/[A-Za-z]/.test(getPaci.cod)) {
-    llave_paci = getPaci.cod.padStart(15, " ");
-  } else {
-    llave_paci = getPaci.cod + "00000000";
-  }
+  const datos_format = JSON.parse(JSON.stringify(ODO013));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic077.value == "AUTORIZAR" ? "1" : "2",
-    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
+    estado: opcion_odo013.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
-    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
+    llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: getSesion.modulo == "HIC" ? "HIC077" : "LAB023",
+    cod_consen: "ODO013",
     disentimiento: "N",
     ...datos_format,
   };
@@ -304,8 +278,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic077 = {
-      autorizo: opcion_hic077.value == "AUTORIZAR" ? true : false,
+    const datos_odo013 = {
+      autorizo: opcion_odo013.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -319,7 +293,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC077,
+      ...ODO013,
     };
 
     const firmas = {
@@ -332,20 +306,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC077" },
-      content: impresionHIC077({
-        datos: datos_hic077,
+      datos: { ...firmas, cod_consen: "ODO013" },
+      content: impresionODO013({
+        datos: datos_odo013,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC077" },
-      content: impresionHIC077({
-        datos: datos_hic077,
+      datos: { ...firmas, cod_consen: "ODO013" },
+      content: impresionODO013({
+        datos: datos_odo013,
       }),
     });
-    let nomb_consen = getSesion.modulo == "HIC" ? "HIC-077" : "LAB-023";
+
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-ODO-013` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

@@ -80,4 +80,52 @@ export const createRouteOdo = (title) => [
       title: `${title} - FORMATO ODO011`,
     },
   },
+  {
+    path: "/ODO012",
+    name: "ODO012",
+    component: () => import("@/views/odo/ODO012.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO ODO012`,
+    },
+  },
+  {
+    path: "/ODO013",
+    name: "ODO013",
+    component: () => import("@/views/odo/ODO013.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO ODO013`,
+    },
+  },
+  {
+    path: "/ODO014",
+    name: "ODO014",
+    component: () => import("@/views/hic/HIC056.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO ODO014`,
+    },
+  },
 ];
+
+// {
+//   path: "/LAB023",
+//   name: "LAB023",
+//   component: () => import("@/views/hic/HIC079.vue"),
+//   meta: {
+//     require_auth: true,
+//     title: `${title} - FORMATO LAB023`,
+//     descrip: "Consentimiento informado de cirugia oral",
+//   },
+// },
+// {
+//   path: "/LAB024",
+//   name: "LAB024",
+//   component: () => import("@/views/hic/HIC080.vue"),
+//   meta: {
+//     require_auth: true,
+//     title: `${title} - FORMATO LAB024`,
+//     descrip: "Consentimiento informado aplicacion de anestesia local",
+//   },
+// },

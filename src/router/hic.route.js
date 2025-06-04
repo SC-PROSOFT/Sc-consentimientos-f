@@ -608,26 +608,26 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado para rx convencional a paciente embarazada",
     },
   },
-  {
-    path: "/HIC079",
-    name: "HIC079",
-    component: () => import("@/views/hic/HIC079.vue"),
-    meta: {
-      require_auth: true,
-      title: `${title} - FORMATO HIC079`,
-      descrip: "Consentimiento informado de cirugia oral",
-    },
-  },
-  {
-    path: "/HIC080",
-    name: "HIC080",
-    component: () => import("@/views/hic/HIC080.vue"),
-    meta: {
-      require_auth: true,
-      title: `${title} - FORMATO HIC080`,
-      descrip: "Consentimiento informado aplicacion de anestesia local",
-    },
-  },
+  // {
+  //   path: "/HIC079",
+  //   name: "HIC079",
+  //   component: () => import("@/views/hic/HIC079.vue"),
+  //   meta: {
+  //     require_auth: true,
+  //     title: `${title} - FORMATO HIC079`,
+  //     descrip: "Consentimiento informado de cirugia oral",
+  //   },
+  // },
+  // {
+  //   path: "/HIC080",
+  //   name: "HIC080",
+  //   component: () => import("@/views/hic/HIC080.vue"),
+  //   meta: {
+  //     require_auth: true,
+  //     title: `${title} - FORMATO HIC080`,
+  //     descrip: "Consentimiento informado aplicacion de anestesia local",
+  //   },
+  // },
   {
     path: "/HIC081",
     name: "HIC081",

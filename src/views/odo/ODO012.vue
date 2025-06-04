@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic083"
+            v-model="opcion_odo012"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,9 +13,9 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic083 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic083 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic083">
-              {{ opcion_hic083 }}
+          <p :class="opcion_odo012 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_odo012 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_odo012">
+              {{ opcion_odo012 }}
             </q-chip>
           </p>
         </div>
@@ -49,65 +49,58 @@
             <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha</p>
           </div>
           <div style="border: 1px solid #ccc; width: 70%">
-            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ HIC083.fecha }}</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Edad inicio relaciones sexuales</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <Input_ class="q-mt-lg q-mb-xs" v-model="HIC083.edad_ini_relac_sex" :field="form.edad_ini_relac_sex" />
-          </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">¿Primera vez que se realiza citología?</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <div class="q-mt-md">
-              <q-radio color="primary" v-model="HIC083.primera_citolog" val="S" label="SI" />
-              <q-radio color="primary" v-model="HIC083.primera_citolog" val="N" label="NO" />
-            </div>
-          </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">No. de citología</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <Input_ class="q-mt-lg q-mb-xs" v-model="HIC083.nro_citolog" :field="form.nro_citolog" />
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ ODO012.fecha }}</p>
           </div>
         </div>
         <p style="text-align: justify">
-          El cáncer cervico-uterino es una enfermedad neoplásica, maligna que se origina en el cérvix o cuello uterino. La citología es un examen en
-          el que se detectan cambios en las células cervicales, consiste en la recolección de una muestra de células del cérvix, que se extienden
-          sobre una lámina y se analizan en el laboratorio. Durante el examen se puede sentir un poco de molestia, similar a los cólicos menstruales y
-          puede haber sangrado leve después del examen, pero es normal teniendo en cuenta que es un procedimiento invasivo que puede lesionar
-          levemente el cuello del útero, pero es poco frecuente que esto suceda.
+          Yo <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }} </span> identificado con
+          <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.tipo_id : getPaci.tipo_id }}</span> No.
+          <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.cod : getPaci.cod }}</span> (Como paciente o acudiente de)
+          <span class="text-bold">{{ reg_acudiente.cod ? getPaci.descrip : "N/A" }} </span> identificado con
+          <span class="text-bold">{{ reg_acudiente.cod ? getPaci.tipo_id : "N/A" }}</span> No.
+          <span class="text-bold">{{ reg_acudiente.cod ? getPaci.cod : "N/A." }}</span>
         </p>
         <p style="text-align: justify">
-          Este documento es la manifestación voluntaria, libre y racional realizada por el paciente, de aceptación a la toma de citología cervico
-          uterina, luego de haber sido informada de la misma manera clara y amplia con el fin de despejar todas sus dudas. Aquí se ratifica su
-          aceptación y autorización para realizar el procedimiento en forma libre, voluntaria y consciente, después de que le fue informado y
-          explicado, por parte del profesional de la salud, las indicaciones, contraindicaciones y posibles eventos adversos que puede ocasionar la
-          toma de la citología.
+          DECLARO que la Odontóloga me ha explicado que el propósito de la intervención de cirugía oral menor es para resolver alguno de los
+          siguientes problemas de la cavidad oral: extracción de piezas dentarias o restos apicales incluidos, fenestración o tracción de dientes
+          retenido.
         </p>
-        <p style="text-align: justify; font-weight: bold">DECLARACIÓN DEL PACIENTE</p>
         <p style="text-align: justify">
-          Me han explicado y he comprendido satisfactoriamente la naturaleza y propósito de la toma de la citología cervico uterina, comprendo
-          perfectamente, que es un examen para detectar patologías malignas, y pre malignas del cuello uterino y que a pesar de la adecuada toma y
-          preparación del personal se pueden llegar a presentar efectos indeseables temporales como sangrado vaginal y dolor que están directamente
-          relacionados con las condiciones clínico patológicas del paciente.
+          Para llevar a cabo el procedimiento se aplicará anestesia, de cuyos posibles riesgos también he sido informado/a, es posible que los
+          fármacos utilizados puedan producir determinadas alteraciones del nivel de conciencia por lo que se me ha informado que no podré realizar
+          determinadas actividades inmediatamente.
         </p>
+        <p style="text-align: justify">
+          Igualmente, se me ha informado de que existen ciertos riesgos potenciales y complicaciones, algunas de ellas inevitables, concretamente:
+        </p>
+        <ol>
+          <li>Alergia al anestésico u otro medicamento utilizado, antes o después de la cirugía.</li>
+          <li>Hematoma y edema de la región.</li>
+          <li>Hemorragia postoperatoria.</li>
+          <li>Dehiscencia de la sutura.</li>
+          <li>Daño de dientes adyacentes.</li>
+          <li>Hipoestesia o anestesia del nervio dentario inferior, temporal o definitivo.</li>
+          <li>Hipoestesia o anestesia del nervio lingual, temporal o definitivo.</li>
+          <li>Hipoestesia o anestesia del nervio infraorbitario, temporal o definitivo.</li>
+          <li>Infección postoperatoria.</li>
+          <li>Osteítis.</li>
+          <li>Sinusitis.</li>
+          <li>Comunicación buconasal y/o bucosinual.</li>
+          <li>Fracturas óseas.</li>
+          <li>Rotura de instrumentos.</li>
+        </ol>
+        <p style="text-align: justify">
+          Tras la información recibida, he comprendido la naturaleza y propósitos del tratamiento de cirugía que se me va a practicar. He comprendido
+          lo que se me ha explicado de forma clara, con un lenguaje sencillo, habiendo resuelto todas las dudas que se me han planteado, y la
+          información complementaria que le he solicitado. Me queda claro que en cualquier momento y sin necesidad de dar ninguna explicación, puedo
+          revocar este consentimiento. Estoy satisfecho con la información recibida y comprendido el alcance y riesgos de este tratamiento, y en por
+          ello, DOY MI CONSENTIMIENDO, para que se me practique el tratamiento de cirugía. En el Hospital Local de Guamal.
+        </p>
+        <p style="text-align: justify; font-weight: bold">DECLARACIÓN</p>
+        <p style="text-align: justify">He informado al paciente del propósito y naturaleza del procedimiento descrito arriba.</p>
 
-        <p style="text-align: justify">
-          Doy mi consentimiento para que se me realice la toma de
-          <span class="text-bold">CITOLOGIA CERVICO UTERINA. </span>
-        </p>
-        <p style="text-align: justify; font-weight: bold">DECLARACIONES</p>
-        <p style="text-align: justify">
-          Funcionario responsable
-
-          <span class="text-bold">{{ getProf.descrip }}</span
-          >, He informado al paciente del propósito y naturaleza del procedimiento descrito arriba.
-        </p>
         <div v-if="getAcomp.cod.trim() != ''">
-          <p style="text-align: justify; font-weight: bold">ESPACIO PARA PACIENTES CON DISCAPACIDAD</p>
+          <p style="text-align: center; font-weight: bold">ESPACIO PARA PACIENTES CON DISCAPACIDAD</p>
           <p style="text-align: justify">
             Sé que el paciente <span class="text-bold">{{ getPaci.descrip }},</span> ha sido considerado por ahora incapaz de tomar por sí mismo la
             decisión de aceptar o rechazar el procedimiento descrito arriba. La funcionaria me ha explicado los riesgos y complicaciones. He
@@ -116,6 +109,7 @@
             >, doy mi consentimiento para que la profesional, <span class="text-bold">{{ getProf.descrip }}</span> realice este procedimiento. Puedo
             revocar este consentimiento cuando en bien del paciente se presuma oportuno.
           </p>
+          <p style="text-align: justify"><span class="text-bold">NOTA:</span> En caso de ser menor de 18 años, deben firmar ambos padres.</p>
         </div>
       </q-card-section>
     </div>
@@ -153,7 +147,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic083 ? false : true"
+        :disable="opcion_odo012 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -167,7 +161,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC083, impresion, generarArchivo } from "@/impresiones";
+import { impresionODO012, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -177,7 +171,7 @@ const ContainerFirma = defineAsyncComponent(() => import("@/components/global/co
 const router = useRouter();
 
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
-const { getPaci, getAcomp, getHc, getProf, getEmpresa, getTestigo, getSesion } = useModuleFormatos();
+const { getPaci, getAcomp, getHc, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 
@@ -188,32 +182,16 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC083 = reactive({
+const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
+
+const ODO012 = reactive({
   fecha: "",
-  edad_ini_relac_sex: "",
-  primera_citolog: "",
-  nro_citolog: "",
 });
 
-const form = ref({
-  edad_ini_relac_sex: {
-    id: "edad_ini_relac_sex",
-    maxlength: "2",
-    label: "",
-    tipo: "number",
-    campo_abierto: true,
-  },
-  nro_citolog: {
-    id: "nro_citolog",
-    maxlength: "50",
-    label: "",
-    campo_abierto: true,
-  },
-});
-const opcion_hic083 = ref(null);
+const opcion_odo012 = ref(null);
 
 onMounted(() => {
-  HIC083.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  ODO012.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -228,29 +206,29 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
+  if (!firma_recibida.value && !getAcomp.cod) {
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
+
   grabarConsentimiento();
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC083));
-  let llave_paci;
-  if (/[A-Za-z]/.test(getPaci.cod)) {
-    llave_paci = getPaci.cod.padStart(15, " ");
-  } else {
-    llave_paci = getPaci.cod + "00000000";
-  }
+  const datos_format = JSON.parse(JSON.stringify(ODO012));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic083.value == "AUTORIZAR" ? "1" : "2",
-    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
+    estado: opcion_odo012.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
-    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
+    llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: getSesion.modulo == "HIC" ? "HIC083" : "LAB029",
+    cod_consen: "ODO012",
     disentimiento: "N",
     ...datos_format,
   };
@@ -309,8 +287,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic083 = {
-      autorizo: opcion_hic083.value == "AUTORIZAR" ? true : false,
+    const datos_odo012 = {
+      autorizo: opcion_odo012.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -324,7 +302,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC083,
+      ...ODO012,
     };
 
     const firmas = {
@@ -337,20 +315,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC083" },
-      content: impresionHIC083({
-        datos: datos_hic083,
+      datos: { ...firmas, cod_consen: "ODO012" },
+      content: impresionODO012({
+        datos: datos_odo012,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC083" },
-      content: impresionHIC083({
-        datos: datos_hic083,
+      datos: { ...firmas, cod_consen: "ODO012" },
+      content: impresionODO012({
+        datos: datos_odo012,
       }),
     });
-    let nomb_consen = getSesion.modulo == "HIC" ? "HIC-083" : "LAB-029";
+
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-ODO-012` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

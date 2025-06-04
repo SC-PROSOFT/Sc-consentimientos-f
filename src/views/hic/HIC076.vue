@@ -151,7 +151,7 @@
             </p>
           </div>
         </div>
-        <div class="row q-mt-md q-mb-md" style="width: 100%">
+        <div v-if="getAcomp.cod" class="row q-mt-md q-mb-md" style="width: 100%">
           <div class="text-center" style="border: 1px solid #ccc; width: 100%">
             <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">Declaración Tutor Legal o Familiar</p>
           </div>
@@ -348,17 +348,24 @@ const validarDatos = () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC076));
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hic076.value == "AUTORIZAR" ? "1" : "2",
+    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
-    llave_consen: getHc.llave,
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     cod_med: getProf.cod,
-    cod_consen: "HIC076",
+    cod_consen: getSesion.modulo == "HIC" ? "HIC076" : "LAB022",
     disentimiento: "N",
     ...datos_format,
   };
@@ -456,9 +463,9 @@ const imprimirConsen = async (llave) => {
         datos: datos_hic076,
       }),
     });
-
+    let nomb_consen = getSesion.modulo == "HIC" ? "HIC-076" : "LAB-022";
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-076` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

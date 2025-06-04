@@ -211,4 +211,104 @@ export const createRouteLab = (title) => [
       descrip: "Formato historia clinica registro de sedacion",
     },
   },
+  {
+    path: "/LAB022",
+    name: "LAB022",
+    component: () => import("@/views/hic/HIC076.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB022`,
+      descrip: "Consentimiento informado autorizacion voluntaria para la atencion en salud",
+    },
+  },
+  {
+    path: "/LAB023",
+    name: "LAB023",
+    component: () => import("@/views/hic/HIC077.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB023`,
+      descrip: "Consentimiento informado para la toma de rx convencional",
+    },
+  },
+  {
+    path: "/LAB024",
+    name: "LAB024",
+    component: () => import("@/views/hic/HIC078.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB024`,
+      descrip: "Consentimiento informado para rx convencional a paciente embarazada",
+    },
+  },
+  {
+    path: "/LAB025",
+    name: "LAB025",
+    component: () => import("@/views/hic/HIC056.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB025`,
+      descrip: "Comprobante de prestación de servicios",
+    },
+  },
+  {
+    path: "/LAB027",
+    name: "LAB027",
+    component: () => import("@/views/hic/HIC081.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB027`,
+      descrip: "Formato consentimiento informado para insercion o retiro de implante subdermico",
+    },
+  },
+  {
+    path: "/LAB028",
+    name: "LAB028",
+    component: () => import("@/views/hic/HIC082.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB028`,
+      descrip: "Formato consentimiento informado para insercion o retiro de diu",
+    },
+  },
+  {
+    path: "/LAB029",
+    name: "LAB029",
+    component: () => import("@/views/hic/HIC083.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB029`,
+      descrip: "Formato consentimiento informado para toma de citologia cervico uterina",
+    },
+  },
+  {
+    path: "/LAB030",
+    name: "LAB030",
+    component: () => import("@/views/hic/HIC084.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB030`,
+      descrip: "Anexo consentimiento informado para prueba vih a las gestantes",
+    },
+  },
+  {
+    path: "/LAB031",
+    name: "LAB031",
+    component: () => import("@/views/hic/HIC085.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB031`,
+      descrip: "Formato consentimiento informado para realizar la prueba diagnostica presuntiva o prueba diagnostica suplementaria de vih",
+    },
+  },
+  {
+    path: "/LAB032",
+    name: "LAB032",
+    component: () => import("@/views/hic/HIC086.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB032`,
+      descrip: "Formato consentimiento custodia historia clinica",
+    },
+  },
 ];

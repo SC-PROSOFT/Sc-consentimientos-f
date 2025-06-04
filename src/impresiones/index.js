@@ -81,6 +81,8 @@ export * from "./ODO/ODO008";
 export * from "./ODO/ODO009";
 export * from "./ODO/ODO010";
 export * from "./ODO/ODO011";
+export * from "./ODO/ODO012";
+export * from "./ODO/ODO013";
 
 // LABORATORIO
 export * from "./LAB/LAB002";

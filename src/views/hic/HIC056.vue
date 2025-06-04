@@ -38,7 +38,14 @@
         <div class="row">
           <div class="row">
             <p class="text-left text-bold">Servicio:</p>
-            <Input_ v-model="HIC056.servicio" :field="form.servicio" :inputStyle="{ width: '460px' }" />
+            <Input_ v-if="nit_usu != 800037202" v-model="HIC056.servicio" :field="form.servicio" :inputStyle="{ width: '460px' }" />
+            <Select_
+              v-if="nit_usu == 800037202"
+              class="col-10 q-mt-xs"
+              v-model="servicio.select"
+              :field="servicio.serv_form"
+              :items="servicio.items"
+            />
           </div>
 
           <div class="row">
@@ -101,7 +108,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC056, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, evaluarClaseServ } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -123,6 +130,36 @@ const HIC056 = reactive({
   fecha_ini: "",
   fecha_fin: "",
   servicio: "",
+});
+const array_servic = ref([
+  { COD: "0", DESCRIP: "DROGUERIA" },
+  { COD: "1", DESCRIP: "CIRUGIAS" },
+  { COD: "2", DESCRIP: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+  { COD: "3", DESCRIP: "RX - IMAGENOLOGIA" },
+  { COD: "4", DESCRIP: "OTROS SERVICIOS" },
+  { COD: "5", DESCRIP: "CONSULTAS Y TERAPIAS" },
+  { COD: "6", DESCRIP: "PATOLOGIA" },
+  { COD: "7", DESCRIP: "PROMOCION Y PREVENCION" },
+]);
+const servicio = ref({
+  select: evaluarClaseServ("3"),
+  items: [
+    { value: "DROGUERIA", label: "DROGUERIA" },
+    { value: "CIRUGIAS", label: "CIRUGIAS" },
+    { value: "LABORATORIOS Y OTROS DIAGNOSTICOS", label: "LABORATORIOS Y OTROS DIAGNOSTICOS" },
+    { value: "RX - IMAGENOLOGIA", label: "RX - IMAGENOLOGIA" },
+    { value: "OTROS SERVICIOS", label: "OTROS SERVICIOS" },
+    { value: "CONSULTAS Y TERAPIAS", label: "CONSULTAS Y TERAPIAS" },
+    { value: "PATOLOGIA", label: "PATOLOGIA" },
+    { value: "PROMOCION Y PREVENCION", label: "PROMOCION Y PREVENCION" },
+  ],
+  serv_form: {
+    label: "",
+    required: true,
+    id: "serv_form",
+    disable: getSesion.novedad === "4",
+    campo_abierto: true,
+  },
 });
 const form = ref({
   servicio: {
@@ -169,20 +206,50 @@ const validarDatos = () => {
   if (getAcomp.cod && !firma_recibida_acomp.value) {
     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   }
+  if (nit_usu.value == 800037202) {
+    HIC056.servicio = array_servic.value.find((item) => item.DESCRIP == servicio.value.select).COD;
+  }
   grabarConsentimiento();
 };
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC056));
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
+  let cod_consen;
+  let llave_consen;
+  let llave_fact;
+  switch (getSesion.modulo) {
+    case "HIC":
+      llave_consen = getHc.llave;
+      cod_consen = "HIC056";
+      llave_fact = "";
+      break;
+    case "ODO":
+      llave_consen = getHc.llave;
+      cod_consen = "ODO014";
+      llave_fact = "";
+      break;
+    case "LAB":
+      llave_consen = llave_paci;
+      cod_consen = "LAB025";
+      llave_fact = `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`;
+      break;
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hc056.value == "AUTORIZAR" ? "1" : "2",
+    llave_fact: llave_fact,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     oper_consen: getSesion.oper,
-    llave_consen: getHc.llave,
+    llave_consen: llave_consen,
     cod_med: getProf.cod,
-    cod_consen: "HIC056",
+    cod_consen: cod_consen,
     disentimiento: "N",
     ...datos_format,
   };
@@ -278,9 +345,20 @@ const imprimirConsen = async (llave) => {
         datos: datos_hic056,
       }),
     });
-
+    let nomb_consen;
+    switch (getSesion.modulo) {
+      case "HIC":
+        nomb_consen = "HIC-056";
+        break;
+      case "ODO":
+        nomb_consen = "ODO-014";
+        break;
+      case "LAB":
+        nomb_consen = "LAB-025";
+        break;
+    }
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-056` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

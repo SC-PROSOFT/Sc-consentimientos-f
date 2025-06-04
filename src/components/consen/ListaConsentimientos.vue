@@ -494,29 +494,29 @@ const reimprimirConsentimiento = async (row) => {
   let cod_consenti;
   // validacion para cambiar el codigo del formato hic046 a lab015 y hic047 a lab016,
   // esto es porque se usan los mismos formatos en los dos modulos (salud, historia clinica)
-  switch (row.reg_coninf?.cod) {
-    case "HIC046":
-      cod_consenti = "LAB015";
-      break;
-    case "HIC047":
-      cod_consenti = "LAB016";
-      break;
-    case "LAB017":
-      cod_consenti = "HIC048";
-      break;
-    case "LAB018":
-      cod_consenti = "HIC049";
-      break;
-    case "LAB019":
-      cod_consenti = "HIC050";
-      break;
-    case "LAB020":
-      cod_consenti = "HIC051";
-      break;
-    default:
-      cod_consenti = row.reg_coninf?.cod;
-      break;
-  }
+  // switch (row.reg_coninf?.cod) {
+  //   case "HIC046":
+  //     cod_consenti = "LAB015";
+  //     break;
+  //   case "HIC047":
+  //     cod_consenti = "LAB016";
+  //     break;
+  //   case "LAB017":
+  //     cod_consenti = "HIC048";
+  //     break;
+  //   case "LAB018":
+  //     cod_consenti = "HIC049";
+  //     break;
+  //   case "LAB019":
+  //     cod_consenti = "HIC050";
+  //     break;
+  //   case "LAB020":
+  //     cod_consenti = "HIC051";
+  //     break;
+  //   default:
+  //     cod_consenti = row.reg_coninf?.cod;
+  //     break;
+  // }
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
