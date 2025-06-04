@@ -153,7 +153,7 @@ const validarUrl = async () => {
   await getPaciente();
 
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
-    if (datos_session?.id_acompa?.trim() != "") {
+    if (datos_session?.id_acompa?.trim() != "" && ![900772776].includes(Number(route.query.nit))) {
       await getAcomp();
     }
   }
@@ -175,6 +175,12 @@ async function getPaciente() {
       if (datos_session.id_acompa && datos_session.modulo != "HIC") {
         data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
         if (![900273700, 79635522].includes(Number(route.query.nit))) {
+          setAcomp({ ...data.reg_acomp });
+        }
+      }
+      if (datos_session.id_acompa && datos_session.modulo == "HIC") {
+        data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
+        if ([900772776].includes(Number(route.query.nit))) {
           setAcomp({ ...data.reg_acomp });
         }
       }

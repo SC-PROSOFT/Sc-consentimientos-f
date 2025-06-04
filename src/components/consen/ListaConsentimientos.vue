@@ -446,8 +446,6 @@ const disentirConsentimiento = async (row) => {
   reg_consentimiento.value.estado = true;
 };
 const reimprimirConsentimiento = async (row) => {
-  console.log("reimprimirConsentimiento --> ", row);
-
   let reg_acomp = {};
 
   // consultar testigo. El testigo se debe consultar respecto al formato elegido puesto que el testigo puede variar
@@ -477,7 +475,6 @@ const reimprimirConsentimiento = async (row) => {
   if (params_querys.value.modulo == "LAB") {
     if ([900273700, 79635522].includes(Number(route.query.nit))) {
       if (Number(row.reg_coninf.id_acomp) != 0) {
-        console.log("pare A ", row.reg_coninf.id_acomp);
         const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
         reg_acomp = { ...response.reg_paci };
         setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
@@ -602,8 +599,6 @@ const getHuella = async (cod) => {
   }
 };
 const consultarFirmaConsen = async (row) => {
-  console.log("row --->> ", row);
-
   try {
     if (params_querys.value.modulo == "HIC" && Number(row.datos.reg_coninf2.id_testigo) != 0) {
       // consultar testigo

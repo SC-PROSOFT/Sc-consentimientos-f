@@ -70,8 +70,6 @@ const modulo = ref("CONSENTIMIENTOS");
 const operador = ref(null);
 
 onMounted(() => {
-  console.log("ToolBar");
-
   operador.value = route.query.oper;
   const opciones = { HIC: "HISTORIA CLINICA", ODO: "ODONTOLOGIA", LAB: "LABORATORIO" };
   if (route.query.modulo == "LAB") {
