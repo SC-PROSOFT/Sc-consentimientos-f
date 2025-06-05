@@ -98,9 +98,9 @@ router.beforeEach((to, from, next) => {
   if (from.name === "elaborarconsent" && to.name === "login") {
     return next({ name: "elaborarconsent" });
   }
-  // if (to.name === "menu" && !to.query.llave_hc) {
-  //   return next({ name: "login" });
-  // }
+  if (to.name === "menu" && !to.query.modulo) {
+    return next({ name: "login" });
+  }
   if (to.name === "elaborarconsent" && !sessionStorage.getItem("usunet")) {
     return next({ name: "login" });
   }
