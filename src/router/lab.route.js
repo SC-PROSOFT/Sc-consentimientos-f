@@ -252,6 +252,16 @@ export const createRouteLab = (title) => [
     },
   },
   {
+    path: "/LAB026",
+    name: "LAB026",
+    component: () => import("@/views/hic/HIC079.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB026`,
+      descrip: "Formato de retiro voluntario",
+    },
+  },
+  {
     path: "/LAB027",
     name: "LAB027",
     component: () => import("@/views/hic/HIC081.vue"),

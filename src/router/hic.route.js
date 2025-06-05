@@ -608,16 +608,16 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado para rx convencional a paciente embarazada",
     },
   },
-  // {
-  //   path: "/HIC079",
-  //   name: "HIC079",
-  //   component: () => import("@/views/hic/HIC079.vue"),
-  //   meta: {
-  //     require_auth: true,
-  //     title: `${title} - FORMATO HIC079`,
-  //     descrip: "Consentimiento informado de cirugia oral",
-  //   },
-  // },
+  {
+    path: "/HIC079",
+    name: "HIC079",
+    component: () => import("@/views/hic/HIC079.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC079`,
+      descrip: "Formato de retiro voluntario",
+    },
+  },
   // {
   //   path: "/HIC080",
   //   name: "HIC080",

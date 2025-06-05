@@ -11,30 +11,63 @@ export const impresionHIC079 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
+          marginTop: 8,
+          alignment: "center",
+          style: "bodyNoBold9",
+          text: "DATOS GENERALES",
+        },
+        {
           marginTop: 10,
           style: "bodyNoBold9",
           table: {
             headerRows: 1,
-            widths: ["30%", "70%"],
+            widths: ["50%", "50%"],
             body: [
               [
                 {
-                  bold: true,
-                  text: "Nombre del paciente",
-                },
-                {
-                  text: datos.paciente.descrip,
-                },
-              ],
-              [
-                {
-                  bold: true,
-                  text: "Tipo y número de documento",
+                  text: [
+                    {
+                      bold: true,
+                      text: "UNIDAD FUNCIONAL: ",
+                    },
+                    {
+                      text: datos.unidad_funcional,
+                    },
+                  ],
                 },
                 {
                   text: [
                     {
-                      text: datos.paciente.tipo_id,
+                      bold: true,
+                      text: "FECHA: ",
+                    },
+                    {
+                      text: datos.fecha,
+                    },
+                  ],
+                },
+              ],
+              [
+                {
+                  text: [
+                    {
+                      bold: true,
+                      text: "NOMBRE DEL USUARIO: ",
+                    },
+                    {
+                      text: datos.paciente.descrip,
+                    },
+                  ],
+                },
+                {
+                  text: [
+                    {
+                      bold: true,
+                      text: "DOCUMENTO DE IDENTIDAD: ",
+                    },
+                    {
+                      text: datos.paciente.tipo_id + " ",
                     },
                     {
                       text: datos.paciente.cod,
@@ -44,33 +77,37 @@ export const impresionHIC079 = ({ datos }) => {
               ],
               [
                 {
-                  bold: true,
-                  text: "Dirección",
+                  text: [
+                    {
+                      bold: true,
+                      text: "TELEFONO: ",
+                    },
+                    {
+                      text: datos.paciente.telefono,
+                    },
+                  ],
                 },
                 {
-                  text: datos.paciente.direccion,
-                },
-              ],
-              [
-                {
-                  bold: true,
-                  text: "Teléfono",
-                },
-                {
-                  text: datos.paciente.telefono,
-                },
-              ],
-              [
-                {
-                  bold: true,
-                  text: "Fecha",
-                },
-                {
-                  text: datos.fecha,
+                  text: [
+                    {
+                      bold: true,
+                      text: "DIRECCIÓN: ",
+                    },
+                    {
+                      text: datos.paciente.direccion,
+                    },
+                  ],
                 },
               ],
             ],
           },
+        },
+        {
+          bold: true,
+          marginTop: 8,
+          alignment: "center",
+          style: "bodyNoBold9",
+          text: "DECLARACION DEL PACIENTE",
         },
         {
           marginTop: 8,
@@ -79,184 +116,19 @@ export const impresionHIC079 = ({ datos }) => {
           text: [
             { text: "Yo, " },
             { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip },
-            { text: " identificado con " },
+            { text: " identificado con cedula de ciudadanía " },
             { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.tipo_id : datos.paciente.tipo_id },
             { text: " No." },
             { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.cod : datos.paciente.cod },
-            { text: " (Como paciente o acudiente de) " },
-            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.paciente.descrip : "N/A\n" },
-            { text: " identificado con " },
-            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.paciente.tipo_id : "N/A" },
-            { text: " No. " },
-            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.paciente.cod : "N/A." },
-          ],
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "DECLARO que la Odontóloga me ha explicado que el propósito de la intervención de cirugía oral menor es para resolver alguno de los siguientes problemas de la cavidad oral: extracción de piezas dentarias o restos apicales incluidos, fenestración o tracción de dientes retenido.",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Para llevar a cabo el procedimiento se aplicará anestesia, de cuyos posibles riesgos también he sido informado/a, es posible que los fármacos utilizados puedan producir determinadas alteraciones del nivel de conciencia por lo que se me ha informado que no podré realizar determinadas actividades inmediatamente.",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Igualmente, se me ha informado de que existen ciertos riesgos potenciales y complicaciones, algunas de ellas inevitables, concretamente:",
-        },
-        {
-          marginTop: 8,
-          style: "bodyNoBold9",
-          ol: [
+            { text: " de " },
+            { bold: true, text: datos.acomp.cod.trim() != "" ? datos.acomp.descrip_ciudad : datos.paciente.descrip_ciudad },
             {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Alergia al anestésico u otro medicamento utilizado, antes o después de la cirugía.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Hematoma y edema de la región.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Hemorragia postoperatoria.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Dehiscencia de la sutura.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Daño de dientes adyacentes.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Hipoestesia o anestesia del nervio dentario inferior, temporal o definitivo.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Hipoestesia o anestesia del nervio lingual, temporal o definitivo.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Hipoestesia o anestesia del nervio infraorbitario, temporal o definitivo.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Infección postoperatoria.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Osteítis.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Sinusitis.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Comunicación buconasal y/o bucosinual.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Fracturas óseas.",
-            },
-            {
-              marginTop: 5,
-              alignment: "justify",
-              text: "Rotura de instrumentos.",
+              text: ", como persona responsable declaro que conozco y me ha sido explicado todo lo relacionado con mi enfermedad y asumo toda responsabilidad de lo que me pueda suceder al realizar mi egreso en forma voluntaria de la institución, EXONERO AL HOSPITAL LOCAL DE GUAMAL PRIMER NIVEL DE ATENCIÓN E.S.E. , de toda responsabilidad por la decisión tomada, por lo que renuncio a cualquier reclamación judicial y extrajudicial en contra de dicho hospital, derivada del restiro a que se refiere el presente documento.",
             },
           ],
         },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Tras la información recibida, he comprendido la naturaleza y propósitos del tratamiento de cirugía que se me va a practicar. He comprendido lo que se me ha explicado de forma clara, con un lenguaje sencillo, habiendo resuelto todas las dudas que se me han planteado, y la información complementaria que le he solicitado. Me queda claro que en cualquier momento y sin necesidad de dar ninguna explicación, puedo revocar este consentimiento. Estoy satisfecho con la información recibida y comprendido el alcance y riesgos de este tratamiento, y en por ello, DOY MI CONSENTIMIENDO, para que se me practique el tratamiento de cirugía. En el Hospital Local de Guamal.",
-        },
-        {
-          pageBreak: "before",
-          marginTop: 8,
-          bold: true,
-          alignment: "center",
-          text: "DECLARACIONES",
-          style: "bodyNoBold9",
-        },
-        {
-          marginTop: 8,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "He  informado al paciente del propósito y naturaleza del procedimiento descrito arriba.",
-        },
-        paciDiscapac(),
       ],
     };
-  }
-  function paciDiscapac() {
-    if (datos.acomp.cod.trim() == "") {
-      return {
-        stack: [
-          {
-            text: "",
-          },
-        ],
-      };
-    } else {
-      return {
-        stack: [
-          {
-            marginTop: 10,
-            bold: true,
-            alignment: "center",
-            text: "ESPACIO PARA PACIENTES CON DISCAPACIDAD",
-            style: "bodyNoBold9",
-          },
-          {
-            alignment: "justify",
-            marginTop: 8,
-            style: "bodyNoBold9",
-            text: [
-              { text: "Sé que el paciente " },
-              { bold: true, text: datos.paciente.descrip.trim() },
-              {
-                text: ", ha sido considerado por ahora incapaz de tomar por sí mismo la decisión de aceptar o rechazar el procedimiento descrito arriba. La funcionaria me ha explicado los riesgos y complicaciones. He comprendido todo lo anterior perfectamente y por ello: YO, ",
-              },
-              { bold: true, text: datos.acomp.descrip.trim() },
-              { text: ", con documento de identidad " },
-              { bold: true, text: datos.acomp.tipo_id },
-              { text: ", No. " },
-              { bold: true, text: datos.acomp.cod },
-              { text: ", doy mi consentimiento para que la profesional, " },
-              { bold: true, text: datos.prof.descrip.trim() },
-              { text: ", realice este procedimiento. Puedo revocar este consentimiento cuando en bien del paciente se presuma oportuno." },
-            ],
-          },
-          {
-            alignment: "justify",
-            marginTop: 8,
-            style: "bodyNoBold9",
-            text: [{ text: "NOTA: " }, { text: "En caso de ser menor de 18 años, deben firmar ambos padres." }],
-          },
-        ],
-      };
-    }
   }
 
   function firmaHuellaPaci(huella_paci, cant_firmas) {

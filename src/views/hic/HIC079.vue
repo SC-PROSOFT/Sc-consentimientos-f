@@ -20,97 +20,42 @@
           </p>
         </div>
         <div class="row q-mt-md q-mb-md">
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Nombre del paciente</p>
+          <div class="row" style="border: 1px solid #ccc; width: 50%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">UNIDAD FUNCIONAL:</p>
+            <Input_ class="q-ma-xs" v-model="HIC079.unidad_funcional" :field="form.unidad_funcional" :inputStyle="{ width: '385px' }" />
           </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <p class="text-left" style="margin-top: 10px; margin-left: 10px">{{ getPaci.descrip }}</p>
+          <div style="border: 1px solid #ccc; width: 50%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">FECHA: &nbsp;{{ HIC079.fecha }}</p>
           </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Tipo y número de documento</p>
+          <div style="border: 1px solid #ccc; width: 50%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">NOMBRE DEL USUARIO: &nbsp;{{ getPaci.descrip }}</p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 70%">
+          <div class="row" style="border: 1px solid #ccc; width: 50%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">DOCUMENTO DE IDENTIDAD:</p>
             <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.tipo_id }}</p>
             <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.cod }}</p>
           </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Dirección</p>
+          <div style="border: 1px solid #ccc; width: 50%">
+            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">TELEFONO:&nbsp;{{ getPaci.telefono }}</p>
           </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.direccion }}</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Teléfono</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ getPaci.telefono }}</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 30%">
-            <p class="text-left" style="font-weight: bold; margin-top: 10px; margin-left: 10px">Fecha</p>
-          </div>
-          <div style="border: 1px solid #ccc; width: 70%">
-            <p class="text-left" style="margin-top: 10px; margin-left: 10px">&nbsp;{{ HIC079.fecha }}</p>
+          <div style="border: 1px solid #ccc; width: 50%">
+            <p class="text-left" style="margin-top: 10px; margin-left: 10px">DIRECCIÓN: &nbsp;{{ getPaci.direccion }}</p>
           </div>
         </div>
-        <p style="text-align: justify">
-          Yo <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }} </span> identificado con
-          <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.tipo_id : getPaci.tipo_id }}</span> No.
-          <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.cod : getPaci.cod }}</span> (Como paciente o acudiente de)
-          <span class="text-bold">{{ reg_acudiente.cod ? getPaci.descrip : "N/A" }} </span> identificado con
-          <span class="text-bold">{{ reg_acudiente.cod ? getPaci.tipo_id : "N/A" }}</span> No.
-          <span class="text-bold">{{ reg_acudiente.cod ? getPaci.cod : "N/A." }}</span>
-        </p>
-        <p style="text-align: justify">
-          DECLARO que la Odontóloga me ha explicado que el propósito de la intervención de cirugía oral menor es para resolver alguno de los
-          siguientes problemas de la cavidad oral: extracción de piezas dentarias o restos apicales incluidos, fenestración o tracción de dientes
-          retenido.
-        </p>
-        <p style="text-align: justify">
-          Para llevar a cabo el procedimiento se aplicará anestesia, de cuyos posibles riesgos también he sido informado/a, es posible que los
-          fármacos utilizados puedan producir determinadas alteraciones del nivel de conciencia por lo que se me ha informado que no podré realizar
-          determinadas actividades inmediatamente.
-        </p>
-        <p style="text-align: justify">
-          Igualmente, se me ha informado de que existen ciertos riesgos potenciales y complicaciones, algunas de ellas inevitables, concretamente:
-        </p>
-        <ol>
-          <li>Alergia al anestésico u otro medicamento utilizado, antes o después de la cirugía.</li>
-          <li>Hematoma y edema de la región.</li>
-          <li>Hemorragia postoperatoria.</li>
-          <li>Dehiscencia de la sutura.</li>
-          <li>Daño de dientes adyacentes.</li>
-          <li>Hipoestesia o anestesia del nervio dentario inferior, temporal o definitivo.</li>
-          <li>Hipoestesia o anestesia del nervio lingual, temporal o definitivo.</li>
-          <li>Hipoestesia o anestesia del nervio infraorbitario, temporal o definitivo.</li>
-          <li>Infección postoperatoria.</li>
-          <li>Osteítis.</li>
-          <li>Sinusitis.</li>
-          <li>Comunicación buconasal y/o bucosinual.</li>
-          <li>Fracturas óseas.</li>
-          <li>Rotura de instrumentos.</li>
-        </ol>
-        <p style="text-align: justify">
-          Tras la información recibida, he comprendido la naturaleza y propósitos del tratamiento de cirugía que se me va a practicar. He comprendido
-          lo que se me ha explicado de forma clara, con un lenguaje sencillo, habiendo resuelto todas las dudas que se me han planteado, y la
-          información complementaria que le he solicitado. Me queda claro que en cualquier momento y sin necesidad de dar ninguna explicación, puedo
-          revocar este consentimiento. Estoy satisfecho con la información recibida y comprendido el alcance y riesgos de este tratamiento, y en por
-          ello, DOY MI CONSENTIMIENDO, para que se me practique el tratamiento de cirugía. En el Hospital Local de Guamal.
-        </p>
-        <p style="text-align: justify; font-weight: bold">DECLARACIÓN</p>
-        <p style="text-align: justify">He informado al paciente del propósito y naturaleza del procedimiento descrito arriba.</p>
+        <div class="q-ma-lg text-center">
+          <span class="text-bold">DECLARACION DEL PACIENTE </span>
+        </div>
 
-        <div v-if="getAcomp.cod.trim() != ''">
-          <p style="text-align: center; font-weight: bold">ESPACIO PARA PACIENTES CON DISCAPACIDAD</p>
-          <p style="text-align: justify">
-            Sé que el paciente <span class="text-bold">{{ getPaci.descrip }},</span> ha sido considerado por ahora incapaz de tomar por sí mismo la
-            decisión de aceptar o rechazar el procedimiento descrito arriba. La funcionaria me ha explicado los riesgos y complicaciones. He
-            comprendido todo lo anterior perfectamente y por ello: YO, <span class="text-bold">{{ getAcomp.descrip }}</span
-            >, con documento de identidad <span class="text-bold">{{ getAcomp.tipo_id }}</span> No. <span class="text-bold">{{ getAcomp.cod }}</span
-            >, doy mi consentimiento para que la profesional, <span class="text-bold">{{ getProf.descrip }}</span> realice este procedimiento. Puedo
-            revocar este consentimiento cuando en bien del paciente se presuma oportuno.
-          </p>
-          <p style="text-align: justify"><span class="text-bold">NOTA:</span> En caso de ser menor de 18 años, deben firmar ambos padres.</p>
-        </div>
+        <p style="text-align: justify">
+          Yo <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.descrip : getPaci.descrip }} </span> identificado con cedula de ciudadanía
+          <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.tipo_id : getPaci.tipo_id }}</span> No.
+          <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.cod : getPaci.cod }}</span>
+          de <span class="text-bold">{{ reg_acudiente.cod ? reg_acudiente.descrip_ciudad : getPaci.descrip_ciudad }}</span
+          >, como persona responsable declaro que conozco y me ha sido explicado todo lo relacionado con mi enfermedad y asumo toda responsabilidad de
+          lo que me pueda suceder al realizar mi egreso en forma voluntaria de la institución, EXONERO AL HOSPITAL LOCAL DE GUAMAL PRIMER NIVEL DE
+          ATENCIÓN E.S.E. , de toda responsabilidad por la decisión tomada, por lo que renuncio a cualquier reclamación judicial y extrajudicial en
+          contra de dicho hospital, derivada del restiro a que se refiere el presente documento.
+        </p>
       </q-card-section>
     </div>
     <q-separator />
@@ -186,8 +131,16 @@ const reg_acudiente = ref(getAcomp.cod ? getAcomp : {});
 
 const HIC079 = reactive({
   fecha: "",
+  unidad_funcional: "",
 });
-
+const form = ref({
+  unidad_funcional: {
+    id: "unidad_funcional",
+    maxlength: "250",
+    label: "",
+    campo_abierto: true,
+  },
+});
 const opcion_hic079 = ref(null);
 
 onMounted(() => {
@@ -218,17 +171,24 @@ const validarDatos = () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC079));
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hic079.value == "AUTORIZAR" ? "1" : "2",
+    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     tipo_testigo: getSesion.tipo_testigo,
     oper_consen: getSesion.oper,
-    llave_consen: getHc.llave,
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     cod_med: getProf.cod,
-    cod_consen: "HIC079",
+    cod_consen: getSesion.modulo == "HIC" ? "HIC079" : "LAB027",
     disentimiento: "N",
     ...datos_format,
   };
@@ -326,9 +286,9 @@ const imprimirConsen = async (llave) => {
         datos: datos_hic079,
       }),
     });
-
+    let nomb_consen = getSesion.modulo == "HIC" ? "HIC-079" : "LAB-026";
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-079` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

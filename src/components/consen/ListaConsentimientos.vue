@@ -488,7 +488,7 @@ const reimprimirConsentimiento = async (row) => {
     setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
     reg_acomp = { ...row.reg_acomp };
   }
-  let cod_consenti;
+  let cod_consenti = row.reg_coninf?.cod;
   // validacion para cambiar el codigo del formato hic046 a lab015 y hic047 a lab016,
   // esto es porque se usan los mismos formatos en los dos modulos (salud, historia clinica)
   // switch (row.reg_coninf?.cod) {
