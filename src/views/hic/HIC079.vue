@@ -188,7 +188,7 @@ const grabarConsentimiento = async () => {
     oper_consen: getSesion.oper,
     llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     cod_med: getProf.cod,
-    cod_consen: getSesion.modulo == "HIC" ? "HIC079" : "LAB027",
+    cod_consen: getSesion.modulo == "HIC" ? "HIC079" : "LAB026",
     disentimiento: "N",
     ...datos_format,
   };
