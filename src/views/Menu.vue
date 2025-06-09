@@ -142,7 +142,7 @@ const validarUrl = async () => {
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
   if (datos_session.nro_comp) nro_comp.value = datos_session.nro_comp;
 
-  if ([900273700, 79635522].includes(Number(route.query.nit))) {
+  if ([900273700, 79635522, 800037202].includes(Number(route.query.nit))) {
     await getTestigo();
     if (datos_session.id_acompa) {
       await getAcomp();

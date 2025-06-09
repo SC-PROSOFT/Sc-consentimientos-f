@@ -808,4 +808,14 @@ export const createRouteHic = (title) => [
       descrip: "Formato salida voluntaria",
     },
   },
+  {
+    path: "/HIC099",
+    name: "HIC099",
+    component: () => import("@/views/hic/HIC099.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC099`,
+      descrip: "Patient Health Questionnaire-4 (PHQ-4)",
+    },
+  },
 ];
