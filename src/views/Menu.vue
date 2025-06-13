@@ -153,7 +153,7 @@ const validarUrl = async () => {
   await getPaciente();
 
   if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
-    if (datos_session?.id_acompa?.trim() != "" && ![900772776].includes(Number(route.query.nit))) {
+    if (datos_session?.id_acompa?.trim() != "" && ![900772776, 900161116].includes(Number(route.query.nit))) {
       await getAcomp();
     }
   }
@@ -166,21 +166,21 @@ async function getPaciente() {
   await getDll$({ modulo: `get_paci.dll`, data: { cod_paci } })
     .then((data) => {
       /* Se hizo de esta manera por problemas con el back, quitaba espacios entre nombres */
-      data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci.do_nom.trim()}`;
+      data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci?.do_nom?.trim()}`;
       setPaci(data.reg_paci);
 
       if (datos_session.novedad == "1") {
         getMedico();
       }
       if (datos_session.id_acompa && datos_session.modulo != "HIC") {
-        data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
+        data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
         if (![900273700, 79635522].includes(Number(route.query.nit))) {
           setAcomp({ ...data.reg_acomp });
         }
       }
       if (datos_session.id_acompa && datos_session.modulo == "HIC") {
-        data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp.do_nom.trim()}`;
-        if ([900772776].includes(Number(route.query.nit))) {
+        data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
+        if ([900772776, 900161116].includes(Number(route.query.nit))) {
           setAcomp({ ...data.reg_acomp });
         }
       }
@@ -198,7 +198,7 @@ async function getAcomp() {
       modulo: `get_paci.dll`,
       data: { cod_paci: datos_session.id_acompa },
     });
-    response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci.do_nom.trim()}`;
+    response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci?.do_nom?.trim()}`;
     setAcomp({ ...response.reg_paci });
   } catch (error) {
     console.error(error);
@@ -228,7 +228,7 @@ async function getTestigo() {
     let datos;
     if (tipo_testigo == "1" || tipo_testigo == "3") {
       datos = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: cod_test.padStart(15, "0") } });
-      datos.reg_paci.descrip = `${datos.reg_paci?.er_apel?.trim()} ${datos.reg_paci?.do_apel?.trim()} ${datos.reg_paci?.er_nom?.trim()} ${datos.reg_paci.do_nom.trim()}`;
+      datos.reg_paci.descrip = `${datos.reg_paci?.er_apel?.trim()} ${datos.reg_paci?.do_apel?.trim()} ${datos.reg_paci?.er_nom?.trim()} ${datos.reg_paci?.do_nom?.trim()}`;
     } else if (tipo_testigo == "2") {
       datos = await getDll$({
         modulo: `get_prof.dll`,
