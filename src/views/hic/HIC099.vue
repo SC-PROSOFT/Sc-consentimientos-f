@@ -231,8 +231,6 @@ const validarDatos = () => {
   //   if (getAcomp.cod && !firma_recibida_acomp.value) {
   //     return CON851("?", "info", "No se ha realizado la firma del acompañante");
   //   }
-  console.log("respuestas.value[1] ", respuestas.value[1]);
-  console.log("respuestas -> ", respuestas.value);
   grabarConsentimiento();
 };
 
@@ -352,7 +350,7 @@ const imprimirConsen = async (llave) => {
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-096` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-099` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

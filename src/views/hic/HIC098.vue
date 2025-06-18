@@ -323,7 +323,7 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic048 = {
+    const datos_hic098 = {
       autorizo: opcion_hc098.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
@@ -353,18 +353,18 @@ const imprimirConsen = async (llave) => {
     const docDefinitionPrint = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC098" },
       content: impresionHIC098({
-        datos: datos_hic048,
+        datos: datos_hic098,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: { ...firmas, cod_consen: "HIC098" },
       content: impresionHIC098({
-        datos: datos_hic048,
+        datos: datos_hic098,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-048` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-098` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

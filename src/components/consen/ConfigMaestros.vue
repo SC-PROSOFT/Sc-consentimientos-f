@@ -24,6 +24,7 @@
               <q-th v-for="col in props.cols" :key="col.name" :props="props" class="bg-primary text-white">
                 {{ col.label }}
               </q-th>
+              <q-th class="bg-primary text-white text-left"> Estado </q-th>
             </q-tr>
           </template>
 
@@ -34,6 +35,11 @@
               </q-td>
               <q-td v-for="col in props.cols" :key="col.name" :props="props">
                 {{ col.value }}
+              </q-td>
+              <q-td>
+                <q-badge :color="props.row.habilitar == 'S' ? 'green' : 'orange'">
+                  {{ props.row.habilitar == "S" ? "Activo" : "Inactivo" }}
+                </q-badge>
               </q-td>
             </q-tr>
           </template>

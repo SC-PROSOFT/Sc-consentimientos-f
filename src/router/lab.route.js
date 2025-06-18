@@ -321,4 +321,14 @@ export const createRouteLab = (title) => [
       descrip: "Formato consentimiento custodia historia clinica",
     },
   },
+  {
+    path: "/LAB033",
+    name: "LAB033",
+    component: () => import("@/views/lab/LAB033.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB033`,
+      descrip: "Consentimiento informado para parto vaginal",
+    },
+  },
 ];

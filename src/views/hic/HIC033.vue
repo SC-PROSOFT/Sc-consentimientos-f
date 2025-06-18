@@ -440,12 +440,7 @@ const grabarConsentimiento = async () => {
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
-  if (!firma_recibida.value) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
+
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {

@@ -218,13 +218,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  if (!firma_recibida.value && !getAcomp.cod) {
-    return CON851("?", "info", "No se ha realizado la firma del paciente");
-  }
-  if (getAcomp.cod && !firma_recibida_acomp.value) {
-    return CON851("?", "info", "No se ha realizado la firma del acompañante");
-  }
-
   if (opcion_hc045.value == "AUTORIZAR") {
     if (!HIC045.procedimiento) return CON851("?", "info", "Complete el campo Procedimiento", () => foco_(form, "procedimiento"));
   }
