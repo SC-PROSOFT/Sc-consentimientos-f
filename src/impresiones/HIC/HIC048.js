@@ -52,7 +52,7 @@ export const impresionHIC048 = ({ datos }) => {
           { bold: true, style: "tableTitle", text: datos.acomp.descrip },
           {
             style: "bodyNoBold9",
-            text: " responsable del menor ",
+            text: " responsable del paciente ",
           },
           { bold: true, style: "tableTitle", text: datos.paciente.descrip },
           {

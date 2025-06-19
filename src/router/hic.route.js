@@ -828,4 +828,14 @@ export const createRouteHic = (title) => [
       descrip: "PHQ-9 - Cuestionario de depresion del paciente",
     },
   },
+  {
+    path: "/HIC101",
+    name: "HIC101",
+    component: () => import("@/views/hic/HIC101.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC101`,
+      descrip: "Formato TEST AUDIT",
+    },
+  },
 ];

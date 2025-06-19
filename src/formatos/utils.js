@@ -24,6 +24,10 @@ export const utilsFormat = async ({ datos, content }) => {
       firma_paci: datos.img_firma_paci || getImgBs64,
       esquema_mamografia: datos.img_esquema_mamografia || getImgBs64,
       tabla_sedacion: datos.img_tabla_sedacion || getImgBs64,
+      circulo_relleno:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABLklEQVR4nO3Wuy4FURQG4G84EoJoUOmIhE68A4V4AY1CpRKPIfEEIlEo9WoarYTQEKJXHJeKYik4ibiMffaMnOasZFV7Zv1fsy9FROhk9XQ0vQvoArqALgCNnJ+KopjCLIbxgIuIuM0SRERSox+buEL80JdYR1/qzIhIA2ASp78Ef+0TTNQGwByaieGtvsd0ZQBGcN1meKvPMFAVsJMZ3uqtbADG8FIR8ITBMkDZObCMvpL1lBrCQtkHZYD5iuFJc8oAYzUBxnMBrzUBXnIBeUfr97rJBRzVBDguXS3Zhr24U20bnlc9iFYqApbquAt2M8O367qM+nHQZvgeGrUAPkE28PxHcBNrqTMjQvExPKmKohjFKhYx4/1F9IgLHGI/IprJA2kP8B/V8UdpxwFvBvzXIxz02/MAAAAASUVORK5CYII=",
+      circulo_vacio:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABs0lEQVR4nO3Wu49NURTH8c++Mx7DCBNkImQ603hEg4TpaWhFoZFoRJBMIlp/BAWhRNRCJAq6W41GVIJ4VWY8Mh4xYinOLhTuvefuQ67iruQUJ2fttb57nbV/a6eIMEhrDTT7EGAIMAT4HwBG+12QUmphN3ZhLd5jDnNRomoRUevBGM7hNQLf8Q5L+f0FTmN53ZgRUQ8Ae/EU33ARezCavy3DflzJUI+x468B4CC+4hGme/huxxN8wkxjAGzFIu5iRc1qrcJDzGNzU4A7eIaJvv4rk3iD68UAmM7NdaKf5L+tn8UPTJYCnMEXjBcCrM8Ax7r5dROibXgeEYs9z/IfLCLm8TY3ZkfrBjChOvNN7FWOUwSwhPGGAGtU2lAE8BJTDQGmVFUoAmhjS0ppZ0nmlNKMala0uzp26eIxldZfLjwFN1RVHGkiRLP4iUN9Jj+q0pDjxUKUA43gHj7icM3kR/AZt2r51wi4Grfzji5hYwe/TbiW/W6qOTtSXtyroVo4hQtYqRpObSxgA/bhgGoKno+Iqz2D9mrCDrtch7N4gA+5PxZwHycVyHatCvxLG/ildAjwCypQvivOz37jAAAAAElFTkSuQmCC",
     },
     info: {
       title: `CONSEN - ${getPaci.cod}${getSesion.oper}${dayjs().format("HHmm")}`, //Aca se añade el titulo del archivo

@@ -142,21 +142,27 @@ const validarUrl = async () => {
   if (datos_session.llave_hc) llave.value = datos_session.llave_hc.slice(15);
   if (datos_session.nro_comp) nro_comp.value = datos_session.nro_comp;
 
-  if ([900273700, 79635522, 800037202].includes(Number(route.query.nit))) {
+  if (datos_session.id_testigo) {
     await getTestigo();
-    if (datos_session.id_acompa) {
-      await getAcomp();
-    }
-  } else {
-    datos_session.modulo == "LAB" && getTestigo();
+  }
+  // if ([900273700, 79635522, 800037202].includes(Number(route.query.nit))) {
+  //   await getTestigo();
+  //   // if (datos_session.id_acompa) {
+  //   //   await getAcomp();
+  //   // }
+  // } else {
+  //   datos_session.modulo == "LAB" && getTestigo();
+  // }
+  if (datos_session.novedad == "1") {
+    await getMedico();
   }
   await getPaciente();
 
-  if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
-    if (datos_session?.id_acompa?.trim() != "" && ![900772776, 900161116].includes(Number(route.query.nit))) {
-      await getAcomp();
-    }
-  }
+  // if (["HIC", "ODO"].includes(datos_session.modulo) && datos_session.id_acompa) {
+  //   if (datos_session?.id_acompa?.trim() != "" && ![900772776, 900161116].includes(Number(route.query.nit))) {
+  //     await getAcomp();
+  //   }
+  // }
   if (!mode_dev) getVersionBuild();
 };
 
@@ -169,21 +175,25 @@ async function getPaciente() {
       data.reg_paci.descrip = `${data.reg_paci?.er_apel?.trim()} ${data.reg_paci?.do_apel?.trim()} ${data.reg_paci?.er_nom?.trim()} ${data.reg_paci?.do_nom?.trim()}`;
       setPaci(data.reg_paci);
 
-      if (datos_session.novedad == "1") {
-        getMedico();
-      }
-      if (datos_session.id_acompa && datos_session.modulo != "HIC") {
+      // if (datos_session.novedad == "1") {
+      //   getMedico();
+      // }
+      if (datos_session.id_acompa && datos_session.paci_firma == "N") {
         data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
-        if (![900273700, 79635522].includes(Number(route.query.nit))) {
-          setAcomp({ ...data.reg_acomp });
-        }
+        setAcomp({ ...data.reg_acomp });
       }
-      if (datos_session.id_acompa && datos_session.modulo == "HIC") {
-        data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
-        if ([900772776, 900161116].includes(Number(route.query.nit))) {
-          setAcomp({ ...data.reg_acomp });
-        }
-      }
+      // if (datos_session.id_acompa && datos_session.modulo != "HIC") {
+      //   data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
+      //   if (![900273700, 79635522].includes(Number(route.query.nit))) {
+      //     setAcomp({ ...data.reg_acomp });
+      //   }
+      // }
+      // if (datos_session.id_acompa && datos_session.modulo == "HIC") {
+      //   data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
+      //   if ([900772776, 900161116].includes(Number(route.query.nit))) {
+      //     setAcomp({ ...data.reg_acomp });
+      //   }
+      // }
     })
     .catch((error) => {
       console.error(error);

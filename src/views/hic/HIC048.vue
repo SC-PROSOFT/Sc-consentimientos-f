@@ -31,7 +31,7 @@
             contenido, incluyendo las limitaciones, beneficios y riesgos de la prueba.
           </p>
           <p v-if="getAcomp.cod" style="text-align: justify">
-            Yo <span class="text-bold"> {{ reg_acudiente.descrip }},</span> responsable del menor
+            Yo <span class="text-bold"> {{ reg_acudiente.descrip }},</span> responsable del paciente
             <span class="text-bold"> {{ getPaci.descrip }},</span> con <span class="text-bold"> {{ getPaci.tipo_id }}</span> -
             <span class="text-bold"> {{ getPaci.cod }},</span>
             certifico que he leído (o que se me ha leído) el documento sobre Consentimiento informado que contiene información sobre el propósito y
