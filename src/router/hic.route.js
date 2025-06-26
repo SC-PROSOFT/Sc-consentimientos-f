@@ -838,4 +838,14 @@ export const createRouteHic = (title) => [
       descrip: "Formato TEST AUDIT",
     },
   },
+  {
+    path: "/HIC102",
+    name: "HIC102",
+    component: () => import("@/views/hic/HIC102.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC102`,
+      descrip: "Cuestionario de Síntomas SRQ y CIE para ansiedad",
+    },
+  },
 ];

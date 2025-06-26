@@ -43,7 +43,7 @@
           <template v-slot:header="props">
             <q-tr :props="props">
               <q-th v-for="col in props.cols" :key="col.name" class="bg-primary text-white">
-                {{ col.label }}
+                <span style="font-size: 14px">{{ col.label }}</span>
               </q-th>
             </q-tr>
           </template>
@@ -55,7 +55,7 @@
               style="max-width: 300px; white-space: normal; text-align: justify"
             >
               <template v-if="props.col.field === 'question'">
-                {{ props.row.question }}
+                <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
                 <q-radio v-model="respuestas[props.row.id]" :val="props.col.value" color="primary" size="sm" />
