@@ -848,4 +848,14 @@ export const createRouteHic = (title) => [
       descrip: "Cuestionario de Síntomas SRQ y CIE para ansiedad",
     },
   },
+  {
+    path: "/HIC103",
+    name: "HIC103",
+    component: () => import("@/views/hic/HIC103.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC103`,
+      descrip: "Escala de zarit",
+    },
+  },
 ];
