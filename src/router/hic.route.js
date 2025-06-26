@@ -858,4 +858,14 @@ export const createRouteHic = (title) => [
       descrip: "Escala de zarit",
     },
   },
+  {
+    path: "/HIC104",
+    name: "HIC104",
+    component: () => import("@/views/hic/HIC104.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC104`,
+      descrip: "GAD 2 (escala para desorden de ansiedad generalizada)",
+    },
+  },
 ];
