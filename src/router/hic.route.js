@@ -888,4 +888,14 @@ export const createRouteHic = (title) => [
       descrip: "Transtorno de ansiedad generalizada de 7 items (GAD-7)",
     },
   },
+  {
+    path: "/HIC107",
+    name: "HIC107",
+    component: () => import("@/views/hic/HIC107.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC107`,
+      descrip: "Self report questionnaire (SRQ)",
+    },
+  },
 ];
