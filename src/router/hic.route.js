@@ -878,4 +878,14 @@ export const createRouteHic = (title) => [
       descrip: "Test de whooley para tamizacion de depresion",
     },
   },
+  {
+    path: "/HIC106",
+    name: "HIC106",
+    component: () => import("@/views/hic/HIC106.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC106`,
+      descrip: "Transtorno de ansiedad generalizada de 7 items (GAD-7)",
+    },
+  },
 ];

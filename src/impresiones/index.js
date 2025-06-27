@@ -77,6 +77,7 @@ export * from "./HIC/HIC102";
 export * from "./HIC/HIC103";
 export * from "./HIC/HIC104";
 export * from "./HIC/HIC105";
+export * from "./HIC/HIC106";
 
 // ODONTOLOGIA
 export * from "./ODO/ODO003";
