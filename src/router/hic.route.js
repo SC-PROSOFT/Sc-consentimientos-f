@@ -868,4 +868,14 @@ export const createRouteHic = (title) => [
       descrip: "GAD 2 (escala para desorden de ansiedad generalizada)",
     },
   },
+  {
+    path: "/HIC105",
+    name: "HIC105",
+    component: () => import("@/views/hic/HIC105.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC105`,
+      descrip: "Test de whooley para tamizacion de depresion",
+    },
+  },
 ];
