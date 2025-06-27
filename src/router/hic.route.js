@@ -898,4 +898,14 @@ export const createRouteHic = (title) => [
       descrip: "Self report questionnaire (SRQ)",
     },
   },
+  {
+    path: "/HIC108",
+    name: "HIC108",
+    component: () => import("@/views/hic/HIC108.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC108`,
+      descrip: "Self report questionnaire (SRQ)",
+    },
+  },
 ];
