@@ -908,4 +908,14 @@ export const createRouteHic = (title) => [
       descrip: "Self report questionnaire (SRQ)",
     },
   },
+  {
+    path: "/HIC109",
+    name: "HIC109",
+    component: () => import("@/views/hic/HIC109.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC109`,
+      descrip: "Escala SAD persons para evaluacion del riesgo suicida",
+    },
+  },
 ];
