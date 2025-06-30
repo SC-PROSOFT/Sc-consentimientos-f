@@ -19,144 +19,102 @@
             </q-chip>
           </p>
         </div>
+      </q-card-section>
 
-        <div class="row justify-between items-center">
-          <p><span class="text-bold">Nombre del paciente:</span> {{ getPaci.descrip }}&nbsp;</p>
-          <p><span class="text-bold">Tipo y número de documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
-          <p>
-            <span class="text-bold">Fecha:</span>
-            {{ dayjs(getEmpresa.fecha).format("YYYY-MM-DD") }}
-          </p>
+      <q-card-section>
+        <span class="text-bold">TEST AUDIT (ALCOHOL USE DISORDERS IDENTIFICATION TEST)</span>
+        <p class="text-justify">
+          Prueba de Identificación de Trastornos Relacionados con el Consumo de Alcohol, una prueba simple de diez preguntas desarrollada por la
+          Organización Mundial de la Salud, que sirve para determinar si el consumo de alcohol de una persona puede considerarse peligroso.
+        </p>
+
+        <span class="text-bold">APLICACIÓN DEL INSTRUMENTO</span>
+
+        <ul>
+          <li>Las preguntas 1 a 3 están relacionadas con el consumo de alcohol.</li>
+          <li>Las preguntas 4 a 6 están relacionadas con la dependencia del alcohol.</li>
+          <li>Las preguntas 7 a 10 consideran problemas relacionados con el consumo de alcohol.</li>
+        </ul>
+
+        <p class="text-justify">
+          El profesional de salud que realice la prueba debe informarle a la persona: Debido a que el uso del alcohol puede afectar su salud e
+          interferir con ciertos medicamentos y tratamientos, es importante que le hagamos algunas preguntas sobre su uso del alcohol. Sus respuestas
+          serán confidenciales, así que le agradecemos su honestidad. Para cada pregunta en la tabla siguiente, marque una X en el cuadro que mejor
+          describa su respuesta.
+        </p>
+      </q-card-section>
+
+      <q-card-section>
+        <q-table flat :rows="questions" :columns="columns" row-key="id" hide-bottom bordered denseflat :pagination="{ rowsPerPage: 0 }">
+          <template v-slot:header="props">
+            <q-tr :props="props">
+              <q-th v-for="col in props.cols" :key="col.name" class="bg-primary text-white">
+                <span style="font-size: 14px">{{ col.label }}</span>
+              </q-th>
+            </q-tr>
+          </template>
+
+          <template v-slot:body-cell="props">
+            <q-td :props="props" style="max-width: 300px; white-space: normal; text-align: justify">
+              <template v-if="props.col.field === 'question'">
+                <span style="font-size: 14px">{{ props.row.question }}</span>
+              </template>
+              <template v-else>
+                <q-radio
+                  v-if="labels_column[props.col.name][props.row.id] != ''"
+                  v-model="respuestas[props.row.id]"
+                  :label="labels_column[props.col.name][props.row.id]"
+                  :val="props.col.value"
+                  color="primary"
+                  size="sm"
+                />
+              </template>
+            </q-td>
+          </template>
+        </q-table>
+        <div class="row" style="width: 100%">
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 23%">
+            <p style="font-weight: bold; margin-top: 10px">Total</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 11%">
+            <p style="font-weight: bold; margin-top: 10px">{{ calcularSumaColumna(0) }}</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 14%">
+            <p style="font-weight: bold; margin-top: 10px">{{ calcularSumaColumna(1) }}</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 17%">
+            <p style="font-weight: bold; margin-top: 10px">{{ calcularSumaColumna(2) }}</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 19%">
+            <p style="font-weight: bold; margin-top: 10px">{{ calcularSumaColumna(3) }}</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 16%">
+            <p style="font-weight: bold; margin-top: 10px">{{ calcularSumaColumna(4) }}</p>
+          </div>
         </div>
+      </q-card-section>
 
-        <div>
-          <p style="text-align: justify">
-            <span class="text-bold">Conteste a las siguientes cuestiones, haciendo referencia al último año.</span>
-          </p>
+      <q-card-section>
+        <span class="text-bold">INTERPRETACIÓN DE LOS RESULTADOS</span>
 
-          <div class="row q-mb-md" style="width: 100%">
-            <div class="text-center" style="border: 1px solid #ccc; width: 100%">
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"> 1. ¿Con que frecuencia toma alguna “bebida” que contenga alcohol?</span>
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_1" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_1" val="b" left-label label="una o menos veces al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_1" val="c" left-label label="2 - 4 veces al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_1" val="d" left-label label="2 - 3 veces por semana" />
-                <q-radio color="primary" v-model="HIC101.preg_1" val="e" left-label label="4 ó más veces por semana" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold">2. ¿Cuántas “bebidas alcohólicas” toma durante un día típico en el que ha bebido?</span>
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_2" val="a" left-label label="1 ó 2" />
-                <q-radio color="primary" v-model="HIC101.preg_2" val="b" left-label label="3 ó 4" />
-                <q-radio color="primary" v-model="HIC101.preg_2" val="c" left-label label="5 ó 6" />
-                <q-radio color="primary" v-model="HIC101.preg_2" val="d" left-label label="7 a 9" />
-                <q-radio color="primary" v-model="HIC101.preg_2" val="e" left-label label="10 ó más" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold">3. ¿Con que frecuencia toma seis “bebidas” o más en un sola ocasión?</span>
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_3" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_3" val="b" left-label label="Menos de una vez al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_3" val="c" left-label label="Mensualmente" />
-                <q-radio color="primary" v-model="HIC101.preg_3" val="d" left-label label="Semanalmente" />
-                <q-radio color="primary" v-model="HIC101.preg_3" val="e" left-label label="A diario o casi a diario" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"
-                  >4. ¿Con que frecuencia en el último año ha sentido incapacidad de parar de beber una vez que había comenzado?</span
-                >
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_4" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_4" val="b" left-label label="Menos de una vez al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_4" val="c" left-label label="Mensualmente" />
-                <q-radio color="primary" v-model="HIC101.preg_4" val="d" left-label label="Semanalmente" />
-                <q-radio color="primary" v-model="HIC101.preg_4" val="e" left-label label="A diario o casi a diario" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"
-                  >5. ¿Con que frecuencia durante el último año no pudo hacer lo que normalmente se esperaba de usted debido a la bebida?</span
-                >
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_5" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_5" val="b" left-label label="Menos de una vez al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_5" val="c" left-label label="Mensualmente" />
-                <q-radio color="primary" v-model="HIC101.preg_5" val="d" left-label label="Semanalmente" />
-                <q-radio color="primary" v-model="HIC101.preg_5" val="e" left-label label="A diario o casi a diario" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"
-                  >6. Durante el último año, ¿con que frecuencia necesitó tomar alguna “bebida alcohólica” por la mañana para poder ponerse en
-                  funcionamiento después de una noche de haber bebido mucho?</span
-                >
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_6" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_6" val="b" left-label label="Menos de una vez al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_6" val="c" left-label label="Mensualmente" />
-                <q-radio color="primary" v-model="HIC101.preg_6" val="d" left-label label="Semanalmente" />
-                <q-radio color="primary" v-model="HIC101.preg_6" val="e" left-label label="A diario o casi a diario" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"
-                  >7. Durante el último año ¿con que frecuencia se sintió culpable o con remordimientos después de haber bebido?</span
-                >
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_7" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_7" val="b" left-label label="Menos de una vez al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_7" val="c" left-label label="Mensualmente" />
-                <q-radio color="primary" v-model="HIC101.preg_7" val="d" left-label label="Semanalmente" />
-                <q-radio color="primary" v-model="HIC101.preg_7" val="e" left-label label="A diario o casi a diario" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"
-                  >8. Durante el último año, ¿en cuántas ocasiones no fue capaz de recordar lo que le había pasado la noche anterior por haber estado
-                  bebiendo?</span
-                >
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_8" val="a" left-label label="Nunca" />
-                <q-radio color="primary" v-model="HIC101.preg_8" val="b" left-label label="Menos de una vez al mes" />
-                <q-radio color="primary" v-model="HIC101.preg_8" val="c" left-label label="Mensualmente" />
-                <q-radio color="primary" v-model="HIC101.preg_8" val="d" left-label label="Semanalmente" />
-                <q-radio color="primary" v-model="HIC101.preg_8" val="e" left-label label="A diario o casi a diario" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold"> 9. ¿Usted u otra persona ha sufrido algún daño como consecuencia de que usted hubiera bebido? </span>
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_9" val="a" left-label label="No" />
-                <q-radio color="primary" v-model="HIC101.preg_9" val="b" left-label label="Sí, pero no en el último año" />
-                <q-radio color="primary" v-model="HIC101.preg_9" val="c" left-label label="Sí, el último año" />
-              </div>
-
-              <div class="text-left q-pa-xs">
-                <span class="text-bold">
-                  10. ¿Algún pariente, amigo, médico o profesional sanitario le ha expresado su preocupación por su bebida o le ha sugerido dejar de
-                  beber?</span
-                >
-              </div>
-              <div class="row justify-between items-center q-pa-md">
-                <q-radio color="primary" v-model="HIC101.preg_10" val="a" left-label label="No" />
-                <q-radio color="primary" v-model="HIC101.preg_10" val="b" left-label label="Sí, pero no en el último año" />
-                <q-radio color="primary" v-model="HIC101.preg_10" val="c" left-label label="Sí, el último año" />
-              </div>
-            </div>
+        <div class="row" style="width: 100%">
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
+            <p style="font-weight: bold; margin-top: 10px">HOMBRES</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
+            <p style="font-weight: bold; margin-top: 10px">MUJERES</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 50%">
+            <p style="font-weight: bold; margin-top: 10px">INDICACIÓN</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
+            <p style="margin-top: 10px">8 o más puntos</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
+            <p style="margin-top: 10px">7 o más puntos</p>
+          </div>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 50%">
+            <p style="margin-top: 10px">Fuerte probabilidad de daños debido al consumo de alcohol</p>
           </div>
         </div>
       </q-card-section>
@@ -168,7 +126,6 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
-          :tipo_doc="getPaci.tipo_id"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
@@ -176,10 +133,8 @@
         <ContainerFirma
           :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
           :disable="!getAcomp.descrip ? true : false"
-          quien_firma="FIRMA ACOMPAÑANTE"
+          quien_firma="FIRMA TUTOR O FAMILIAR"
           :registro_profe="getAcomp.cod"
-          :codigo_firma="getAcomp.cod"
-          :tipo_doc="getAcomp.tipo_id"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
@@ -231,29 +186,119 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
-
 const HIC101 = reactive({
   fecha: "",
-  preg_1: "",
-  preg_2: "",
-  preg_3: "",
-  preg_4: "",
-  preg_5: "",
-  preg_6: "",
-  preg_7: "",
-  preg_8: "",
-  preg_9: "",
-  preg_10: "",
 });
+
+const questions = [
+  { id: 1, question: "1. ¿Con qué frecuencia consume alguna bebida alcohólica?" },
+  { id: 2, question: "2. ¿Cuántas bebidas alcohólicas suele realizar en un día de consumo normal?" },
+  { id: 3, question: "3. ¿Con qué frecuencia toma 5 o más bebidas alcohólicas en un solo día?" },
+  { id: 4, question: "4. ¿En el último año, con qué frecuencia ha sido incapaz de parar de beber, una vez haya iniciado?" },
+  { id: 5, question: "5. ¿En el último año, con qué frecuencia no pudo atender sus obligaciones porque había bebido?" },
+  {
+    id: 6,
+    question:
+      "6. ¿En el último año, con qué frecuencia ha necesitado beber en ayunas para recuperarse después de haber bebido mucho el día anterior?",
+  },
+  { id: 7, question: "7. ¿En el último año, con qué frecuencia ha tenido remordimientos o sentimientos de culpa después de haber bebido?" },
+  {
+    id: 8,
+    question: "8. ¿En el último año, con qué frecuencia no ha podido recordar lo que sucedió la noche anterior porque había estado bebiendo?",
+  },
+  { id: 9, question: "9. ¿Usted o alguna otra persona ha resultado herido porque usted había bebido?" },
+  {
+    id: 10,
+    question:
+      "10. ¿Algún familiar, amigo, médico o profesional de la salud ha mostrado preocupación por un consumo de bebidas alcohólicas o le ha sugerido que deje de beber?",
+  },
+];
+
+const columns = [
+  { name: "question", label: "Pregunta", align: "left", field: "question" },
+  { name: "0", label: "0", align: "center", field: "0", value: 0 },
+  { name: "1", label: "1", align: "center", field: "1", value: 1 },
+  { name: "2", label: "2", align: "center", field: "2", value: 2 },
+  { name: "3", label: "3", align: "center", field: "3", value: 3 },
+  { name: "4", label: "4", align: "center", field: "4", value: 4 },
+];
+
+const respuestas = ref({
+  1: "",
+  2: "",
+  3: "",
+  4: "",
+  5: "",
+  6: "",
+  7: "",
+  8: "",
+  9: "",
+  10: "",
+});
+
+const labels_column = {
+  0: { 1: "Nunca", 2: "1 o 2", 3: "Nunca", 4: "Nunca", 5: "Nunca", 6: "Nunca", 7: "Nunca", 8: "Nunca", 9: "No", 10: "No" },
+  1: {
+    1: "Una o menos veces al mes",
+    2: "3 o 4",
+    3: "Menos de una vez al mes",
+    4: "Menos de una vez al mes",
+    5: "Menos de una vez al mes",
+    6: "Menos de una vez al mes",
+    7: "Menos de una vez al mes",
+    8: "Menos de una vez al mes",
+    9: "",
+    10: "",
+  },
+  2: {
+    1: "De 2 a 4 veces al mes",
+    2: "5 o 6",
+    3: "Mensualmente",
+    4: "Mensualmente",
+    5: "Mensualmente",
+    6: "Mensualmente",
+    7: "Mensualmente",
+    8: "Mensualmente",
+    9: "Sí, pero no en el último año",
+    10: "Sí, pero no en el último año",
+  },
+  3: {
+    1: "De 2 a 3 más veces a la semana",
+    2: "De 7 a 9",
+    3: "Semanalmente",
+    4: "Semanalmente",
+    5: "Semanalmente",
+    6: "Semanalmente",
+    7: "Semanalmente",
+    8: "Semanalmente",
+    9: "",
+    10: "",
+  },
+  4: {
+    1: "4 o más veces a la semana",
+    2: "10 o más",
+    3: "A diario o casi a diario",
+    4: "A diario o casi a diario",
+    5: "A diario o casi a diario",
+    6: "A diario o casi a diario",
+    7: "A diario o casi a diario",
+    8: "A diario o casi a diario",
+    9: "Sí, el último año",
+    10: "Sí, el último año",
+  },
+};
 
 const opcion_hc101 = ref(null);
 
 onMounted(() => {
-  console.log("getSesion >>> ", getSesion);
-
+  HIC101.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
-
+const calcularSumaColumna = (columna) => {
+  return Object.values(respuestas.value).reduce((suma, respuesta) => {
+    return respuesta === columna ? suma + 1 : suma;
+  }, 0);
+};
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
@@ -269,7 +314,6 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC101));
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hc101.value == "AUTORIZAR" ? "1" : "2",
@@ -280,14 +324,28 @@ const grabarConsentimiento = async () => {
     cod_med: getProf.cod,
     cod_consen: "HIC101",
     disentimiento: "N",
-    ...datos_format,
+    preg_1: respuestas.value[1],
+    preg_2: respuestas.value[2],
+    preg_3: respuestas.value[3],
+    preg_4: respuestas.value[4],
+    preg_5: respuestas.value[5],
+    preg_6: respuestas.value[6],
+    preg_7: respuestas.value[7],
+    preg_8: respuestas.value[8],
+    preg_9: respuestas.value[9],
+    preg_10: respuestas.value[10],
+    total_0: calcularSumaColumna(0),
+    total_1: calcularSumaColumna(1),
+    total_2: calcularSumaColumna(2),
+    total_3: calcularSumaColumna(3),
+    total_4: calcularSumaColumna(4),
   };
 
   getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 31);
-        HIC101.fecha = dayjs(fecha).format("YYYY-MM-DD");
+        HIC101.fecha_act = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       }
       CON851("?", "error", "Error al guardar el consentimiento");
@@ -345,13 +403,28 @@ const imprimirConsen = async (llave) => {
       prof: getProf,
       acomp: getAcomp,
       paren_acomp: getSesion.paren_acomp,
+      llave: getHc.llave.slice(15),
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
-      ...HIC101,
+      preg_1: respuestas.value[1],
+      preg_2: respuestas.value[2],
+      preg_3: respuestas.value[3],
+      preg_4: respuestas.value[4],
+      preg_5: respuestas.value[5],
+      preg_6: respuestas.value[6],
+      preg_7: respuestas.value[7],
+      preg_8: respuestas.value[8],
+      preg_9: respuestas.value[9],
+      preg_10: respuestas.value[10],
+      total_0: calcularSumaColumna(0),
+      total_1: calcularSumaColumna(1),
+      total_2: calcularSumaColumna(2),
+      total_3: calcularSumaColumna(3),
+      total_4: calcularSumaColumna(4),
     };
 
     const firmas = {
@@ -390,7 +463,12 @@ const callBackFirma = (data_firma) => {
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };
-const callBackFirmaProf = (data_firma) => {
-  data_firma && (firma_prof.value = data_firma);
-};
 </script>
+
+<style scoped>
+.q-radio {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+</style>

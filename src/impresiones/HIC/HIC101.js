@@ -1,767 +1,243 @@
-import { evaluarParentesco } from "@/formatos/utils";
-
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
+import { useModuleFormatos } from "@/store";
+const { getEmpresa } = useModuleFormatos();
 export const impresionHIC101 = ({ datos }) => {
-  console.log("impresionHIC101 ", datos);
+  console.log("impresionHIC101 -> ", datos);
 
   var dd = {
-    stack: [contenidoHIC101(), firmas()],
+    stack: [contenidoHIC103(), firmas()],
   };
 
-  function contenidoHIC101() {
+  function contenidoHIC103() {
     return {
       stack: [
         {
-          marginTop: 8,
+          marginTop: 1,
+          bold: true,
+          style: "bodyNoBold9",
+          text: "DEFINICIÓN",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Prueba de Identificación de Trastornos Relacionados con el Consumo de Alcohol, una prueba simple de diez preguntas desarrollada por la Organización Mundial de la Salud, que sirve para determinar si el consumo de alcohol de una persona puede considerarse peligroso.",
+        },
+        {
+          marginTop: 10,
+          bold: true,
+          style: "bodyNoBold9",
+          text: "APLICACIÓN DEL INSTRUMENTO",
+        },
+        {
+          ul: [
+            {
+              marginTop: 2,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Las preguntas 1 a 3 están relacionadas con el consumo de alcohol.",
+            },
+            {
+              marginTop: 2,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Las preguntas 4 a 6 están relacionadas con la dependencia del alcohol.",
+            },
+            {
+              marginTop: 2,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Las preguntas 7 a 10 consideran problemas relacionados con el consumo de alcohol.",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El profesional de salud que realice la prueba debe informarle a la persona: Debido a que el uso del alcohol puede afectar su salud e interferir con ciertos medicamentos y tratamientos, es importante que le hagamos algunas preguntas sobre su uso del alcohol. Sus respuestas serán confidenciales, así que le agradecemos su honestidad. Para cada pregunta en la tabla siguiente, marque una X en el cuadro que mejor describa su respuesta.",
+        },
+        {
+          marginTop: 10,
           table: {
-            widths: ["50%", "50%"],
+            widths: ["85%", "3%", "3%", "3%", "3%", "3%"],
             body: [
+              [
+                {
+                  bold: true,
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "Pregunta",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "0" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "1" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "2" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "3" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "4" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "1. ¿Con qué frecuencia consume alguna bebida alcohólica?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_1 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_1 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_1 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_1 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_1 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "2. ¿Cuántas bebidas alcohólicas suele realizar en un día de consumo normal?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_2 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_2 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_2 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_2 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_2 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "3. ¿Con qué frecuencia toma 5 o más bebidas alcohólicas en un solo día?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_3 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_3 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_3 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_3 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_3 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "4. ¿En el último año, con qué frecuencia ha sido incapaz de parar de beber, una vez haya iniciado?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_4 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_4 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_4 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_4 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_4 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "5. ¿En el último año, con qué frecuencia no pudo atender sus obligaciones porque había bebido?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_5 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_5 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_5 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_5 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_5 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "6. ¿En el último año, con qué frecuencia ha necesitado beber en ayunas para recuperarse después de haber bebido mucho el día anterior?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_6 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_6 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_6 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_6 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_6 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "7. ¿En el último año, con qué frecuencia ha tenido remordimientos o sentimientos de culpa después de haber bebido?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_7 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_7 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_7 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_7 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_7 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "8. ¿En el último año, con qué frecuencia no ha podido recordar lo que sucedió la noche anterior porque había estado bebiendo?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_8 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_8 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_8 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_8 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_8 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "9. ¿Usted o alguna otra persona ha resultado herido porque usted había bebido?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_9 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_9 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_9 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_9 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_9 == "4" ? "X" : "" },
+              ],
+              [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "10. ¿Algún familiar, amigo, médico o profesional de la salud ha mostrado preocupación por un consumo de bebidas alcohólicas o le ha sugerido que deje de beber?",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_10 == "0" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_10 == "1" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_10 == "2" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_10 == "3" ? "X" : "" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.preg_10 == "4" ? "X" : "" },
+              ],
+              [
+                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "Total" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.total_0 },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.total_1 },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.total_2 },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.total_3 },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.total_4 },
+              ],
+            ],
+          },
+        },
+        {
+          marginTop: 10,
+          bold: true,
+          style: "bodyNoBold9",
+          text: "INTERPRETACIÓN DE LOS RESULTADOS",
+        },
+        {
+          marginTop: 5,
+          table: {
+            widths: ["25%", "25%", "50%"],
+            body: [
+              [
+                {
+                  bold: true,
+                  alignment: "center",
+                  style: "bodyNoBold9",
+                  text: "HOMBRES",
+                },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "MUJERES" },
+                { bold: true, alignment: "center", style: "bodyNoBold9", text: "INDICACIÓN" },
+              ],
               [
                 {
                   alignment: "left",
-                  text: [
-                    { bold: true, style: "tableTitle", text: "Nombre del paciente: " },
-                    { style: "bodyNoBold9", text: datos.paciente.descrip },
-                  ],
+                  style: "bodyNoBold9",
+                  text: "8 o más puntos",
                 },
-                {
-                  alignment: "left",
-                  text: [
-                    { bold: true, style: "tableTitle", text: "Tipo y número de documento de identificación: " },
-                    { style: "bodyNoBold9", text: datos.paciente.tipo_id + " " + datos.paciente.cod },
-                  ],
-                },
+                { alignment: "left", style: "bodyNoBold9", text: "7 o más puntos" },
+                { alignment: "left", style: "bodyNoBold9", text: "Fuerte probabilidad de daños debido al consumo de alcohol" },
               ],
             ],
           },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 8,
-          table: {
-            widths: ["100%"],
-            body: [
-              [
-                {
-                  alignment: "left",
-                  text: [
-                    { bold: true, style: "tableTitle", text: "Fecha: " },
-                    { style: "bodyNoBold9", text: datos.fecha },
-                  ],
-                },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 8,
-          bold: true,
-          style: "bodyNoBold9",
-          alignment: "center",
-          italics: true,
-          text: "Conteste a las siguientes cuestiones, haciendo referencia al último año.",
-        },
-        { marginTop: 13, style: "bodyNoBold9", text: "1. ¿Con que frecuencia toma alguna “bebida” que contenga alcohol?", bold: true, italics: true },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_1 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Una o menos veces al mes ..." },
-                    {
-                      image: datos.preg_1 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "2 - 4 veces al mes ......." },
-                    {
-                      image: datos.preg_1 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "2 – 3 veces por semana ..." },
-                    {
-                      image: datos.preg_1 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "4 ó más veces por semana ..." },
-                    {
-                      image: datos.preg_1 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "2. ¿Cuántas “bebidas alcohólicas” toma durante un día típico en el que ha bebido?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["9%", "9%", "9%", "9%", "12%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "1 ó 2 .... " },
-                    {
-                      image: datos.preg_2 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "3 ó 4 .... " },
-                    {
-                      image: datos.preg_2 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "5 ó 6 .... " },
-                    {
-                      image: datos.preg_2 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "7 a 9 .... " },
-                    {
-                      image: datos.preg_2 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "10 ó más .... " },
-                    {
-                      image: datos.preg_2 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "3.¿Con que frecuencia toma seis “bebidas” o más en un sola ocasión?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_3 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Menos de una vez al mes ......" },
-                    {
-                      image: datos.preg_3 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Mensualmente ............." },
-                    {
-                      image: datos.preg_3 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Semanalmente ..................." },
-                    {
-                      image: datos.preg_3 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "A diario o casi a diario ............" },
-                    {
-                      image: datos.preg_3 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "4. ¿Con que frecuencia en el último año ha sentido incapacidad de parar de beber una vez que había comenzado?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_4 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Menos de una vez al mes ......" },
-                    {
-                      image: datos.preg_4 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Mensualmente ............." },
-                    {
-                      image: datos.preg_4 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Semanalmente ..................." },
-                    {
-                      image: datos.preg_4 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "A diario o casi a diario ............" },
-                    {
-                      image: datos.preg_4 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "5. ¿Con que frecuencia durante el último año no pudo hacer lo que normalmente se esperaba de usted debido a la bebida?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_5 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Menos de una vez al mes ......" },
-                    {
-                      image: datos.preg_5 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Mensualmente ............." },
-                    {
-                      image: datos.preg_5 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Semanalmente ..................." },
-                    {
-                      image: datos.preg_5 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "A diario o casi a diario ............" },
-                    {
-                      image: datos.preg_5 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "6. Durante el último año, ¿con que frecuencia necesitó tomar alguna “bebida alcohólica” por la mañana para poder ponerse en funcionamiento después de una noche de haber bebido mucho?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_6 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Menos de una vez al mes ......" },
-                    {
-                      image: datos.preg_6 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Mensualmente ............." },
-                    {
-                      image: datos.preg_6 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Semanalmente ..................." },
-                    {
-                      image: datos.preg_6 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "A diario o casi a diario ............" },
-                    {
-                      image: datos.preg_6 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "7. Durante el último año ¿con que frecuencia se sintió culpable o con remordimientos después de haber bebido?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_7 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Menos de una vez al mes ......" },
-                    {
-                      image: datos.preg_7 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Mensualmente ............." },
-                    {
-                      image: datos.preg_7 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Semanalmente ..................." },
-                    {
-                      image: datos.preg_7 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "A diario o casi a diario ............" },
-                    {
-                      image: datos.preg_7 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "8. Durante el último año, ¿en cuántas ocasiones no fue capaz de recordar lo que le había pasado la noche anterior por haber estado bebiendo?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Nunca ................................." },
-                    {
-                      image: datos.preg_8 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Menos de una vez al mes ......" },
-                    {
-                      image: datos.preg_8 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Mensualmente ............." },
-                    {
-                      image: datos.preg_8 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Semanalmente ..................." },
-                    {
-                      image: datos.preg_8 == "d" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "A diario o casi a diario ............" },
-                    {
-                      image: datos.preg_8 == "e" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                { text: "", border: [false, false, false, false] },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          pageBreak: "before",
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "9. ¿Usted u otra persona ha sufrido algún daño como consecuencia de que usted hubiera bebido?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "No ......................................." },
-                    {
-                      image: datos.preg_9 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Sí, pero no en el último año ..." },
-                    {
-                      image: datos.preg_9 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Sí, el último año ..........." },
-                    {
-                      image: datos.preg_9 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-          layout: "noBorders",
-        },
-        {
-          marginTop: 13,
-          style: "bodyNoBold9",
-          text: "10. ¿Algún pariente, amigo, médico o profesional sanitario le ha expresado su preocupación por su bebida o le ha sugerido dejar de beber?",
-          bold: true,
-          italics: true,
-        },
-        {
-          marginTop: 3,
-          table: {
-            widths: ["23%", "25%", "20%"],
-            body: [
-              [
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "No ......................................." },
-                    {
-                      image: datos.preg_10 == "a" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Sí, pero no en el último año ..." },
-                    {
-                      image: datos.preg_10 == "b" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-                {
-                  columns: [
-                    { style: "bodyNoBold9", text: "Sí, el último año ..........." },
-                    {
-                      image: datos.preg_10 == "c" ? "circulo_relleno" : "circulo_vacio",
-                      width: 12,
-                      height: 12,
-                      margin: [0, 0, 0, 2],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-          layout: "noBorders",
         },
       ],
     };
@@ -1022,103 +498,6 @@ export const impresionHIC101 = ({ datos }) => {
       },
     };
   }
-  function textoDisentimiento(disentimiento, acompa_disenti) {
-    const textAcompa = `Yo ${datos.acomp.descrip}, identificado(a) con el documento de identidad número ${datos.acomp.cod}, en calidad de acudiente de ${datos.paciente.descrip} , identificada (o) con el documento de identidad número ${datos.paciente.cod}, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
-    const textPacient = `Yo ${datos.paciente.descrip}, identificado(a) con el documento de identidad número ${datos.paciente.cod}, en calidad de paciente, disiento este consentimiento que he prestado sobre la realización de ${datos.nombre_consenti}`;
 
-    const textoDisentimiento = {
-      marginTop: 5,
-      table: {
-        widths: ["auto", 170],
-        body: [
-          [
-            {
-              colSpan: 2,
-              text: "DISENTIMIENTO",
-              bold: true,
-              style: "tableTitle",
-              alignment: "center",
-            },
-            {},
-          ],
-          [
-            {
-              marginLeft: 3,
-              marginTop: 5,
-              marginRight: 3,
-              stack: [
-                {
-                  text: acompa_disenti == "S" ? textAcompa : textPacient,
-                  style: "tableTitle",
-                  alignment: "justify",
-                },
-                {
-                  marginTop: 5,
-                  text: [
-                    {
-                      text: "Observaciones:",
-                      bold: true,
-                    },
-                    {
-                      text: `${datos.obser_disenti}`,
-                    },
-                  ],
-                  style: "tableTitle",
-                  alignment: "justify",
-                },
-              ],
-            },
-            {
-              stack: [
-                {
-                  text: "RESPONSABLE DISENTIMIENTO",
-                  bold: true,
-                  style: "tableTitle",
-                  alignment: "center",
-                },
-                {
-                  marginTop: 5,
-                  alignment: "center",
-                  image: "firma_disentimiento",
-                  width: 140,
-                  height: 70,
-                },
-                {
-                  marginTop: 5,
-                  columns: [
-                    {
-                      width: 48,
-                      text: "NOMBRE:",
-                      bold: true,
-                    },
-                    {
-                      width: "*",
-                      text: `${acompa_disenti == "S" ? datos.acomp.descrip : datos.paciente.descrip}`,
-                    },
-                  ],
-                  style: "tableTitle",
-                },
-                {
-                  text: [
-                    {
-                      text: "DOC. IDENT: ",
-                      bold: true,
-                    },
-                    {
-                      text: `${acompa_disenti == "S" ? datos.acomp.cod : datos.paciente.cod}`,
-                    },
-                  ],
-                  style: "tableTitle",
-                },
-              ],
-            },
-          ],
-        ],
-      },
-    };
-
-    if (disentimiento == "S") return textoDisentimiento;
-    else return null;
-  }
   return dd;
 };
