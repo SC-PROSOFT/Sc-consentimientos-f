@@ -918,4 +918,14 @@ export const createRouteHic = (title) => [
       descrip: "Escala SAD persons para evaluacion del riesgo suicida",
     },
   },
+  {
+    path: "/HIC110",
+    name: "HIC110",
+    component: () => import("@/views/hic/HIC110.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC110`,
+      descrip: "Instrumento minimental",
+    },
+  },
 ];
