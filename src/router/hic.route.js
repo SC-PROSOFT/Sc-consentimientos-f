@@ -938,4 +938,14 @@ export const createRouteHic = (title) => [
       descrip: "Assist (deteccion consumo alcohol, tabaco y sustancias)",
     },
   },
+  {
+    path: "/HIC112",
+    name: "HIC112",
+    component: () => import("@/views/hic/HIC112.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC112`,
+      descrip: "Consentimiento informado para servicio de hospitalizacion en salud mental y/o consumo de sustancias psicoactivas",
+    },
+  },
 ];

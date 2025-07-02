@@ -1063,8 +1063,6 @@ const respuestas_5 = reactive([]);
 const respuestas_6 = reactive([]);
 const respuestas_7 = reactive([]);
 
-const opcion_hc111 = ref(null);
-
 const totalTabaco = computed(() => {
   return (
     (Number(respuestas_2[1]) || 0) +
@@ -1174,7 +1172,12 @@ const totalOtrasDrogas = computed(() => {
     (Number(respuestas_7[10]) || 0)
   );
 });
+const opcion_hc111 = ref(null);
 
+onMounted(() => {
+  HIC111.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  getFirmaProf();
+});
 const getFirmaProf = async () => {
   try {
     firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
