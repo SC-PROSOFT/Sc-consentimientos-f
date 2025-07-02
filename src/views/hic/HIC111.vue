@@ -757,7 +757,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
 import { impresionHIC111, impresion, generarArchivo } from "@/impresiones";
-import { ref, defineAsyncComponent, reactive, computed } from "vue";
+import { ref, defineAsyncComponent, reactive, computed, onMounted } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";

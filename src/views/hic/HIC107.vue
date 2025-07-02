@@ -293,11 +293,11 @@ const grabarConsentimiento = async () => {
     preg_23: respuestas.value[23],
     preg_24: respuestas.value[24],
     preg_25: respuestas.value[25],
-    preg_26: respuestas.value[25],
-    preg_27: respuestas.value[25],
-    preg_28: respuestas.value[25],
-    preg_29: respuestas.value[25],
-    preg_30: respuestas.value[25],
+    preg_26: respuestas.value[26],
+    preg_27: respuestas.value[27],
+    preg_28: respuestas.value[28],
+    preg_29: respuestas.value[29],
+    preg_30: respuestas.value[30],
   };
   console.log("datos -> ", datos);
 
@@ -395,11 +395,11 @@ const imprimirConsen = async (llave) => {
       preg_23: respuestas.value[23],
       preg_24: respuestas.value[24],
       preg_25: respuestas.value[25],
-      preg_26: respuestas.value[25],
-      preg_27: respuestas.value[25],
-      preg_28: respuestas.value[25],
-      preg_29: respuestas.value[25],
-      preg_30: respuestas.value[25],
+      preg_26: respuestas.value[26],
+      preg_27: respuestas.value[27],
+      preg_28: respuestas.value[28],
+      preg_29: respuestas.value[29],
+      preg_30: respuestas.value[30],
       ...HIC107,
     };
 

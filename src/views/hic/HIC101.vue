@@ -98,14 +98,14 @@
         <span class="text-bold">INTERPRETACIÓN DE LOS RESULTADOS</span>
 
         <div class="row" style="width: 100%">
-          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
-            <p style="font-weight: bold; margin-top: 10px">HOMBRES</p>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; background-color: #123d7d; width: 25%">
+            <p style="font-weight: bold; margin-top: 10px; color: white">HOMBRES</p>
           </div>
-          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
-            <p style="font-weight: bold; margin-top: 10px">MUJERES</p>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; background-color: #123d7d; width: 25%">
+            <p style="font-weight: bold; margin-top: 10px; color: white">MUJERES</p>
           </div>
-          <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">INDICACIÓN</p>
+          <div class="text-center q-pr-md" style="border: 1px solid #ccc; background-color: #123d7d; width: 50%">
+            <p style="font-weight: bold; margin-top: 10px; color: white">INDICACIÓN</p>
           </div>
           <div class="text-center q-pr-md" style="border: 1px solid #ccc; width: 25%">
             <p style="margin-top: 10px">8 o más puntos</p>

@@ -63,17 +63,12 @@ export const impresionHIC101 = ({ datos }) => {
             widths: ["85%", "3%", "3%", "3%", "3%", "3%"],
             body: [
               [
-                {
-                  bold: true,
-                  alignment: "justify",
-                  style: "bodyNoBold9",
-                  text: "Pregunta",
-                },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "0" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "1" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "2" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "3" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "4" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "justify", style: "bodyNoBold9", text: "Pregunta" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "0" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "1" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "2" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "3" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "4" },
               ],
               [
                 {
@@ -218,14 +213,9 @@ export const impresionHIC101 = ({ datos }) => {
             widths: ["25%", "25%", "50%"],
             body: [
               [
-                {
-                  bold: true,
-                  alignment: "center",
-                  style: "bodyNoBold9",
-                  text: "HOMBRES",
-                },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "MUJERES" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "INDICACIÓN" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "HOMBRES" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "MUJERES" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "INDICACIÓN" },
               ],
               [
                 {

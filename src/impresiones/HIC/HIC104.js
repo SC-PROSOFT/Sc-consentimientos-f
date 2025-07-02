@@ -34,15 +34,24 @@ export const impresionHIC104 = ({ datos }) => {
             body: [
               [
                 {
+                  fillColor: "#6ca4c4",
+                  color: "white",
                   bold: true,
                   alignment: "justify",
                   style: "bodyNoBold9",
                   text: "Durante las últimas 2 semanas, ¿qué tan seguido se ha molestado por los siguientes problemas?",
                 },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "(0) Para nada" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "(1) Algunos días" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "(2) Más de la mitad de los días" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "(3) Casi todos los días" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "(0) Para nada" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "(1) Algunos días" },
+                {
+                  fillColor: "#6ca4c4",
+                  color: "white",
+                  bold: true,
+                  alignment: "center",
+                  style: "bodyNoBold9",
+                  text: "(2) Más de la mitad de los días",
+                },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "(3) Casi todos los días" },
               ],
               [
                 {

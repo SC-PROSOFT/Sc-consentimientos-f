@@ -18,14 +18,9 @@ export const impresionHIC102 = ({ datos }) => {
             widths: ["94%", "3%", "3%"],
             body: [
               [
-                {
-                  bold: true,
-                  alignment: "center",
-                  style: "bodyNoBold9",
-                  text: "Pregunta",
-                },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "SI" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: "NO" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "Pregunta" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "SI" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "center", style: "bodyNoBold9", text: "NO" },
               ],
               [
                 {

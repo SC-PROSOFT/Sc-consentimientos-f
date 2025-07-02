@@ -192,11 +192,11 @@
         <span class="text-bold">Interpretación del Puntaje Total</span>
         <div class="row">
           <div class="row q-pa-md" style="width: 100%">
-            <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-              <p class="text-bold" style="margin-top: 10px">Rango</p>
+            <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+              <p class="text-bold" style="margin-top: 10px; color: white">Rango</p>
             </div>
-            <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 85%">
-              <p class="text-bold" style="margin-top: 10px">Gravedad de la Depresión</p>
+            <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 85%">
+              <p class="text-bold" style="margin-top: 10px; color: white">Gravedad de la Depresión</p>
             </div>
             <div class="text-left q-pa-xs" style="border: 1px solid #ccc; width: 15%">
               <p style="margin-top: 10px">1 - 4</p>
@@ -487,7 +487,8 @@ const imprimirConsen = async (llave) => {
       pregunta_5: respuestas.value[5],
       pregunta_6: respuestas.value[6],
       pregunta_7: respuestas.value[7],
-      pregunta_9: respuestas.value[8],
+      pregunta_8: respuestas.value[8],
+      pregunta_9: respuestas.value[9],
       pregunta_10: HIC100.pregunta_10,
       total_0: calcularSumaColumna(0),
       total_1: calcularSumaColumna(1),

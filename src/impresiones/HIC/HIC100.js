@@ -17,15 +17,24 @@ export const impresionHIC100 = ({ datos }) => {
             body: [
               [
                 {
+                  fillColor: "#6ca4c4",
+                  color: "white",
                   bold: true,
                   alignment: "justify",
                   style: "bodyNoBold9",
                   text: "Durante  las ultimas 2 semanas ¿con que frecuencia ha presentado alguno de los siguientes problemas?",
                 },
-                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "(0) En lo absoluto" },
-                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "(1) Varios días" },
-                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "(2) Más de la mitad de los días" },
-                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "(3) Casi todos los días" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "justify", style: "bodyNoBold9", text: "(0) En lo absoluto" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "justify", style: "bodyNoBold9", text: "(1) Varios días" },
+                {
+                  fillColor: "#6ca4c4",
+                  color: "white",
+                  bold: true,
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "(2) Más de la mitad de los días",
+                },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "justify", style: "bodyNoBold9", text: "(3) Casi todos los días" },
               ],
               [
                 {
@@ -35,8 +44,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_1 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_1 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_1 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_1 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_1 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_1 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -46,8 +55,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_2 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_2 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_2 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_2 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_2 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_2 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -57,8 +66,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_3 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_3 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_3 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_3 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_3 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_3 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -68,8 +77,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_4 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_4 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_4 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_4 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_4 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_4 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -79,8 +88,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_5 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_5 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_5 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_5 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_5 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_5 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -90,8 +99,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_6 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_6 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_6 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_6 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_6 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_6 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -101,8 +110,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_7 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_7 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_7 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_7 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_7 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_7 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -112,8 +121,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_8 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_8 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_8 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_8 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_8 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_8 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -123,8 +132,8 @@ export const impresionHIC100 = ({ datos }) => {
                 },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_9 == "0" ? "X" : "" },
                 { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_9 == "1" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_9 == "2" ? "X" : "" },
-                { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_9 == "3" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_9 == "2" ? "X" : "" },
+                { fillColor: "#9e9e9e", bold: true, alignment: "center", style: "bodyNoBold9", text: datos.pregunta_9 == "3" ? "X" : "" },
               ],
               [
                 {
@@ -196,7 +205,7 @@ export const impresionHIC100 = ({ datos }) => {
             { style: "bodyNoBold9", text: "El paciente completa el PHQ-9, Evaluación Rápida de Depresión. " },
             {
               style: "bodyNoBold9",
-              text: "Si hay al menos 4 ✓ en la sección sombreada (incluyendo las Preguntas #1 y #2), considerar un trastorno depresivo. Sume los puntajes para determinar la gravedad.",
+              text: "Si hay al menos 4 X en la sección sombreada (incluyendo las Preguntas #1 y #2), considerar un trastorno depresivo. Sume los puntajes para determinar la gravedad.",
             },
           ],
         },
@@ -207,7 +216,7 @@ export const impresionHIC100 = ({ datos }) => {
         {
           marginTop: 3,
           style: "bodyNoBold9",
-          ul: [{ style: "bodyNoBold9", text: "Si hay al menos 5 ✓ en la sección sombreada (una de las cuales corresponde a la Pregunta #1 o #2)." }],
+          ul: [{ style: "bodyNoBold9", text: "Si hay al menos 5 X en la sección sombreada (una de las cuales corresponde a la Pregunta #1 o #2)." }],
         },
         {
           marginTop: 8,
@@ -216,7 +225,7 @@ export const impresionHIC100 = ({ datos }) => {
         {
           marginTop: 3,
           style: "bodyNoBold9",
-          ul: [{ style: "bodyNoBold9", text: "Si hay 2-4 ✓ en la sección sombreada (una de las cuales corresponde a la Pregunta #1 o #2)." }],
+          ul: [{ style: "bodyNoBold9", text: "Si hay 2-4 X en la sección sombreada (una de las cuales corresponde a la Pregunta #1 o #2)." }],
         },
         {
           marginTop: 5,
@@ -252,7 +261,7 @@ export const impresionHIC100 = ({ datos }) => {
             },
             {
               style: "bodyNoBold9",
-              text: "Sume las ✓ por columna.    Por cada ✓: Varios días = 1; Más de la mitad de los días = 2; Casi todos los días = 3.",
+              text: "Sume las X por columna.    Por cada X: Varios días = 1; Más de la mitad de los días = 2; Casi todos los días = 3.",
             },
             {
               style: "bodyNoBold9",
@@ -277,7 +286,7 @@ export const impresionHIC100 = ({ datos }) => {
         {
           marginTop: 5,
           style: "bodyNoBold9",
-          text: "Por cada ✓ Nada = 0; Varios días = 1;",
+          text: "Por cada X Nada = 0; Varios días = 1;",
         },
         {
           marginTop: 5,
@@ -296,8 +305,8 @@ export const impresionHIC100 = ({ datos }) => {
             widths: ["10%", "90%"],
             body: [
               [
-                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "Rangos" },
-                { bold: true, alignment: "justify", style: "bodyNoBold9", text: "Gravedad de la Depresión" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "justify", style: "bodyNoBold9", text: "Rangos" },
+                { fillColor: "#6ca4c4", color: "white", bold: true, alignment: "justify", style: "bodyNoBold9", text: "Gravedad de la Depresión" },
               ],
               [
                 { alignment: "justify", style: "bodyNoBold9", text: "1-4" },

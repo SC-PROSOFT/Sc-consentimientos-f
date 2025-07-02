@@ -23,17 +23,17 @@
 
       <q-card-section>
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Orientación en el tiempo</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Orientación en el tiempo</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -84,17 +84,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Orientación en el espacio</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Orientación en el espacio</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -145,17 +145,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Memoria</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Memoria</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -206,17 +206,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Atención y cálculo</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Atención y cálculo</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -268,17 +268,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Evocación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Evocación</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -317,17 +317,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Lenguaje</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Lenguaje</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -356,17 +356,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Lenguaje</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Lenguaje</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -393,17 +393,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">Comprensión obedecer una orden en tres etapas</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Comprensión obedecer una orden en tres etapas</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -443,19 +443,19 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
-            <p class="text-bold" style="margin-top: 10px">
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
+            <p class="text-bold" style="margin-top: 10px; color: white">
               Para las siguiente dos ordenes utilice una tarjeta u hoja de papel que contenga la frase "cierre los ojos". Pídale a la que:
             </p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -478,17 +478,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
             <p class="text-bold" style="margin-top: 10px"></p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -514,17 +514,17 @@
         </div>
         <!--  -->
         <div class="row" style="width: 100%">
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 5%">
-            <p class="text-bold" style="margin-top: 10px">No.</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 5%">
+            <p class="text-bold" style="margin-top: 10px; color: white">No.</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntaje acumulado</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntaje acumulado</p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 65%">
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 65%">
             <p class="text-bold" style="margin-top: 10px"></p>
           </div>
-          <div class="text-center q-pa-xs bg-grey-5" style="border: 1px solid #ccc; width: 15%">
-            <p class="text-bold" style="margin-top: 10px">Puntuación</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 15%">
+            <p class="text-bold" style="margin-top: 10px; color: white">Puntuación</p>
           </div>
           <!--  -->
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 5%">
@@ -566,8 +566,8 @@
         </div>
         <!--  -->
         <div class="row q-mt-lg" style="width: 100%">
-          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 100%">
-            <p class="text-bold" style="margin-top: 10px">PUNTUACIONES DE REFERENCIA:</p>
+          <div class="text-center q-pa-xs" style="border: 1px solid #ccc; background-color: #123d7d; width: 100%">
+            <p class="text-bold" style="margin-top: 10px; color: white">PUNTUACIONES DE REFERENCIA:</p>
           </div>
           <div class="text-center q-pa-xs" style="border: 1px solid #ccc; width: 50%">
             <p style="margin-top: 10px">27- 30</p>
