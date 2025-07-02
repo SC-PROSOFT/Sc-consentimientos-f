@@ -928,4 +928,14 @@ export const createRouteHic = (title) => [
       descrip: "Instrumento minimental",
     },
   },
+  {
+    path: "/HIC111",
+    name: "HIC111",
+    component: () => import("@/views/hic/HIC111.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC111`,
+      descrip: "Assist (deteccion consumo alcohol, tabaco y sustancias)",
+    },
+  },
 ];
