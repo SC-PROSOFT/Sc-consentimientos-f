@@ -20,6 +20,7 @@ export const impresionLAB016 = ({ datos }) => {
           : datos.paciente.descrip_ciudad,
       descrip: () => (datos.acomp.descrip.trim() != "" ? datos.acomp.descrip : datos.paciente.descrip),
       cod: () => (datos.acomp.cod.trim() != "" ? datos.acomp.cod : datos.paciente.cod),
+      tipo_id: () => (datos.acomp.cod.trim() != "" ? datos.acomp.tipo_id : datos.paciente.tipo_id),
       acudiente: () => (datos.paciente.descrip.trim() != "" ? datos.paciente.descrip : ""),
     };
   }
@@ -29,7 +30,7 @@ export const impresionLAB016 = ({ datos }) => {
       stack: [
         {
           marginTop: 5,
-          text: `Yo, ${llenarFirmador().descrip()}, Mayor de edad identificado con C.C. ${llenarFirmador().cod()} actuando en nombre propio o como representante legal de ${
+          text: `Yo, ${llenarFirmador().descrip()}, Mayor de edad identificado con ${llenarFirmador().tipo_id()} No. ${llenarFirmador().cod()} actuando en nombre propio o como representante legal de ${
             datos.acomp.cod.trim() == "" ? "" : datos.paciente.descrip
           }.`,
           alignment: "justify",

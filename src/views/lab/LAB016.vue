@@ -22,8 +22,8 @@
 
         <div class="row justify-start">
           <p align="justify">
-            Yo, {{ reg_firmador.descrip.trim() }}, mayor de edad identificado(a) con C.C. {{ reg_firmador.cod }} actuando en nombre propio o como
-            representante legal de {{ acudiente.descrip }} identificado con el numero de documento {{ acudiente.cod }}.
+            Yo, {{ reg_firmador.descrip.trim() }}, mayor de edad identificado(a) con {{ reg_firmador.tipo_id }} No. {{ reg_firmador.cod }} actuando en
+            nombre propio o como representante legal de {{ acudiente.descrip }} identificado con el numero de documento {{ acudiente.cod }}.
           </p>
           <p align="justify">Manifiesto que he acudido a una valoración preanestésico en la fecha</p>
           <Input_ v-model="LAB016.fecha_vlrac_preanes" :field="form.fecha_vlrac_preanes" style="margin-top: 3px" />
