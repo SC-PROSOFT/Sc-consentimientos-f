@@ -71,7 +71,8 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="respuestas_1[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="respuestas_1[props.row.id - 1].respuesta" :val="props.col.value" color="primary" size="sm" />
+                <!-- <q-radio v-model="respuestas_1[props.row.id]" :val="props.col.value" color="primary" size="sm" /> -->
               </template>
             </q-td>
           </template>
@@ -124,7 +125,7 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="respuestas_2[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="respuestas_2[props.row.id - 1].respuesta" :val="props.col.value" color="primary" size="sm" />
               </template>
             </q-td>
           </template>
@@ -166,7 +167,7 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="respuestas_3[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="respuestas_3[props.row.id - 1].respuesta" :val="props.col.value" color="primary" size="sm" />
               </template>
             </q-td>
           </template>
@@ -200,7 +201,7 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="respuestas_4[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="respuestas_4[props.row.id - 1].respuesta" :val="props.col.value" color="primary" size="sm" />
               </template>
             </q-td>
           </template>
@@ -234,7 +235,13 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-if="props.rowIndex !== 0" v-model="respuestas_5[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio
+                  v-if="props.rowIndex !== 0"
+                  v-model="respuestas_5[props.row.id - 1].respuesta"
+                  :val="props.col.value"
+                  color="primary"
+                  size="sm"
+                />
               </template>
             </q-td>
           </template>
@@ -272,7 +279,7 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="respuestas_6[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="respuestas_6[props.row.id - 1].respuesta" :val="props.col.value" color="primary" size="sm" />
               </template>
             </q-td>
           </template>
@@ -305,7 +312,7 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="respuestas_7[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="respuestas_7[props.row.id - 1].respuesta" :val="props.col.value" color="primary" size="sm" />
               </template>
             </q-td>
           </template>
@@ -338,7 +345,7 @@
                 <span style="font-size: 14px">{{ props.row.question }}</span>
               </template>
               <template v-else>
-                <q-radio v-model="HIC111.preg_8[props.row.id]" :val="props.col.value" color="primary" size="sm" />
+                <q-radio v-model="preg_8[props.row.id]" :val="props.col.value" color="primary" size="sm" />
               </template>
             </q-td>
           </template>
@@ -784,9 +791,9 @@ const HIC111 = reactive({
   otros_5: "",
   otros_6: "",
   otros_7: "",
-  preg_8: {
-    1: "",
-  },
+});
+const preg_8 = reactive({
+  1: "",
 });
 const form = ref({
   otros_1: {
@@ -1051,125 +1058,187 @@ const columns_8 = [
     field: "question",
   },
   { name: "0", label: "(0) No, nunca", align: "center", field: "0", value: 0 },
-  { name: "6", label: "(6) Si, en los últimos 3 meses", align: "center", field: "6", value: 6 },
-  { name: "3", label: "(3) Sí, pero no en los últimos 3 meses", align: "center", field: "3", value: 3 },
+  { name: "2", label: "(2) Si, en los últimos 3 meses", align: "center", field: "2", value: 2 },
+  { name: "1", label: "(1) Sí, pero no en los últimos 3 meses", align: "center", field: "1", value: 1 },
 ];
-
-const respuestas_1 = reactive([]);
-const respuestas_2 = reactive([]);
-const respuestas_3 = reactive([]);
-const respuestas_4 = reactive([]);
-const respuestas_5 = reactive([]);
-const respuestas_6 = reactive([]);
-const respuestas_7 = reactive([]);
+const respuestas_1 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+const respuestas_2 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+const respuestas_3 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+const respuestas_4 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+const respuestas_5 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+const respuestas_6 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+const respuestas_7 = reactive(
+  JSON.parse(
+    JSON.stringify(
+      Array(10).fill({
+        respuesta: "",
+      })
+    )
+  )
+);
+// const respuestas_1 = reactive([]);
+// const respuestas_2 = reactive([]);
+// const respuestas_3 = reactive([]);
+// const respuestas_4 = reactive([]);
+// const respuestas_5 = reactive([]);
+// const respuestas_6 = reactive([]);
+// const respuestas_7 = reactive([]);
 
 const totalTabaco = computed(() => {
   return (
-    (Number(respuestas_2[1]) || 0) +
-    (Number(respuestas_3[1]) || 0) +
-    (Number(respuestas_4[1]) || 0) +
-    (Number(respuestas_5[1]) || 0) +
-    (Number(respuestas_6[1]) || 0) +
-    (Number(respuestas_7[1]) || 0)
+    (Number(respuestas_2[0].respuesta) || 0) +
+    (Number(respuestas_3[0].respuesta) || 0) +
+    (Number(respuestas_4[0].respuesta) || 0) +
+    (Number(respuestas_5[0].respuesta) || 0) +
+    (Number(respuestas_6[0].respuesta) || 0) +
+    (Number(respuestas_7[0].respuesta) || 0)
   );
 });
 
 const totalAlcohol = computed(() => {
   return (
-    (Number(respuestas_2[2]) || 0) +
-    (Number(respuestas_3[2]) || 0) +
-    (Number(respuestas_4[2]) || 0) +
-    (Number(respuestas_5[2]) || 0) +
-    (Number(respuestas_6[2]) || 0) +
-    (Number(respuestas_7[2]) || 0)
+    (Number(respuestas_2[1].respuesta) || 0) +
+    (Number(respuestas_3[1].respuesta) || 0) +
+    (Number(respuestas_4[1].respuesta) || 0) +
+    (Number(respuestas_5[1].respuesta) || 0) +
+    (Number(respuestas_6[1].respuesta) || 0) +
+    (Number(respuestas_7[1].respuesta) || 0)
   );
 });
 
 const totalCannabis = computed(() => {
   return (
-    (Number(respuestas_2[3]) || 0) +
-    (Number(respuestas_3[3]) || 0) +
-    (Number(respuestas_4[3]) || 0) +
-    (Number(respuestas_5[3]) || 0) +
-    (Number(respuestas_6[3]) || 0) +
-    (Number(respuestas_7[3]) || 0)
+    (Number(respuestas_2[2].respuesta) || 0) +
+    (Number(respuestas_3[2].respuesta) || 0) +
+    (Number(respuestas_4[2].respuesta) || 0) +
+    (Number(respuestas_5[2].respuesta) || 0) +
+    (Number(respuestas_6[2].respuesta) || 0) +
+    (Number(respuestas_7[2].respuesta) || 0)
   );
 });
 
 const totalCocaina = computed(() => {
   return (
-    (Number(respuestas_2[4]) || 0) +
-    (Number(respuestas_3[4]) || 0) +
-    (Number(respuestas_4[4]) || 0) +
-    (Number(respuestas_5[4]) || 0) +
-    (Number(respuestas_6[4]) || 0) +
-    (Number(respuestas_7[4]) || 0)
+    (Number(respuestas_2[3].respuesta) || 0) +
+    (Number(respuestas_3[3].respuesta) || 0) +
+    (Number(respuestas_4[3].respuesta) || 0) +
+    (Number(respuestas_5[3].respuesta) || 0) +
+    (Number(respuestas_6[3].respuesta) || 0) +
+    (Number(respuestas_7[3].respuesta) || 0)
   );
 });
 
 const totalAnfetaminas = computed(() => {
   return (
-    (Number(respuestas_2[5]) || 0) +
-    (Number(respuestas_3[5]) || 0) +
-    (Number(respuestas_4[5]) || 0) +
-    (Number(respuestas_5[5]) || 0) +
-    (Number(respuestas_6[5]) || 0) +
-    (Number(respuestas_7[5]) || 0)
+    (Number(respuestas_2[4].respuesta) || 0) +
+    (Number(respuestas_3[4].respuesta) || 0) +
+    (Number(respuestas_4[4].respuesta) || 0) +
+    (Number(respuestas_5[4].respuesta) || 0) +
+    (Number(respuestas_6[4].respuesta) || 0) +
+    (Number(respuestas_7[4].respuesta) || 0)
   );
 });
 
 const totalInhalantes = computed(() => {
   return (
-    (Number(respuestas_2[6]) || 0) +
-    (Number(respuestas_3[6]) || 0) +
-    (Number(respuestas_4[6]) || 0) +
-    (Number(respuestas_5[6]) || 0) +
-    (Number(respuestas_6[6]) || 0) +
-    (Number(respuestas_7[6]) || 0)
+    (Number(respuestas_2[5].respuesta) || 0) +
+    (Number(respuestas_3[5].respuesta) || 0) +
+    (Number(respuestas_4[5].respuesta) || 0) +
+    (Number(respuestas_5[5].respuesta) || 0) +
+    (Number(respuestas_6[5].respuesta) || 0) +
+    (Number(respuestas_7[5].respuesta) || 0)
   );
 });
 
 const totalSedantes = computed(() => {
   return (
-    (Number(respuestas_2[7]) || 0) +
-    (Number(respuestas_3[7]) || 0) +
-    (Number(respuestas_4[7]) || 0) +
-    (Number(respuestas_5[7]) || 0) +
-    (Number(respuestas_6[7]) || 0) +
-    (Number(respuestas_7[7]) || 0)
+    (Number(respuestas_2[6].respuesta) || 0) +
+    (Number(respuestas_3[6].respuesta) || 0) +
+    (Number(respuestas_4[6].respuesta) || 0) +
+    (Number(respuestas_5[6].respuesta) || 0) +
+    (Number(respuestas_6[6].respuesta) || 0) +
+    (Number(respuestas_7[6].respuesta) || 0)
   );
 });
 
 const totalAlucinogenos = computed(() => {
   return (
-    (Number(respuestas_2[8]) || 0) +
-    (Number(respuestas_3[8]) || 0) +
-    (Number(respuestas_4[8]) || 0) +
-    (Number(respuestas_5[8]) || 0) +
-    (Number(respuestas_6[8]) || 0) +
-    (Number(respuestas_7[8]) || 0)
+    (Number(respuestas_2[7].respuesta) || 0) +
+    (Number(respuestas_3[7].respuesta) || 0) +
+    (Number(respuestas_4[7].respuesta) || 0) +
+    (Number(respuestas_5[7].respuesta) || 0) +
+    (Number(respuestas_6[7].respuesta) || 0) +
+    (Number(respuestas_7[7].respuesta) || 0)
   );
 });
 
 const totalOpiaceos = computed(() => {
   return (
-    (Number(respuestas_2[9]) || 0) +
-    (Number(respuestas_3[9]) || 0) +
-    (Number(respuestas_4[9]) || 0) +
-    (Number(respuestas_5[9]) || 0) +
-    (Number(respuestas_6[9]) || 0) +
-    (Number(respuestas_7[9]) || 0)
+    (Number(respuestas_2[8].respuesta) || 0) +
+    (Number(respuestas_3[8].respuesta) || 0) +
+    (Number(respuestas_4[8].respuesta) || 0) +
+    (Number(respuestas_5[8].respuesta) || 0) +
+    (Number(respuestas_6[8].respuesta) || 0) +
+    (Number(respuestas_7[8].respuesta) || 0)
   );
 });
 
 const totalOtrasDrogas = computed(() => {
   return (
-    (Number(respuestas_2[10]) || 0) +
-    (Number(respuestas_3[10]) || 0) +
-    (Number(respuestas_4[10]) || 0) +
-    (Number(respuestas_5[10]) || 0) +
-    (Number(respuestas_6[10]) || 0) +
-    (Number(respuestas_7[10]) || 0)
+    (Number(respuestas_2[9].respuesta) || 0) +
+    (Number(respuestas_3[9].respuesta) || 0) +
+    (Number(respuestas_4[9].respuesta) || 0) +
+    (Number(respuestas_5[9].respuesta) || 0) +
+    (Number(respuestas_6[9].respuesta) || 0) +
+    (Number(respuestas_7[9].respuesta) || 0)
   );
 });
 const opcion_hc111 = ref(null);
@@ -1189,8 +1258,6 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = () => {
-  console.log("respuestas_1 -> ", respuestas_1);
-
   grabarConsentimiento();
 };
 
@@ -1214,6 +1281,7 @@ const grabarConsentimiento = async () => {
     cod_consen: "HIC111",
     disentimiento: "N",
     ...datos_format,
+    preg_8: preg_8[1],
     tabla_respuesta1: respues_1,
     tabla_respuesta2: respues_2,
     tabla_respuesta3: respues_3,
@@ -1223,51 +1291,51 @@ const grabarConsentimiento = async () => {
     tabla_respuesta7: respues_7,
   };
 
-  datos.tabla_respuesta1.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta1.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta1${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
 
-  datos.tabla_respuesta2.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta2.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta2${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
 
-  datos.tabla_respuesta3.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta3.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta3${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
 
-  datos.tabla_respuesta4.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta4.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta4${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
 
-  datos.tabla_respuesta5.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta5.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta5${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
 
-  datos.tabla_respuesta6.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta6.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta6${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
 
-  datos.tabla_respuesta7.slice(1).forEach((item, index) => {
+  datos.tabla_respuesta7.forEach((item, index) => {
     const new_obj = {
-      respuesta: item,
+      ...item,
     };
     datos[`tabla_respuesta7${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
@@ -1339,6 +1407,7 @@ const imprimirConsen = async (llave) => {
   const respues_5 = JSON.parse(JSON.stringify(respuestas_5));
   const respues_6 = JSON.parse(JSON.stringify(respuestas_6));
   const respues_7 = JSON.parse(JSON.stringify(respuestas_7));
+
   try {
     const datos_hic111 = {
       autorizo: opcion_hc111.value == "AUTORIZAR" ? true : false,
@@ -1354,6 +1423,7 @@ const imprimirConsen = async (llave) => {
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
       },
+      preg_8: preg_8[1],
       ...datos_format,
       tabla_respuesta1: respues_1,
       tabla_respuesta2: respues_2,

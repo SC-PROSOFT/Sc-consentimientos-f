@@ -1880,102 +1880,102 @@ export const impresionHIC111 = ({ datos }) => {
   }
   function totalTabaco() {
     return (
-      Number(datos.tabla_respuesta2[0].respuesta) +
-      Number(datos.tabla_respuesta3[0].respuesta) +
-      Number(datos.tabla_respuesta4[0].respuesta) +
-      Number(datos.tabla_respuesta5[0].respuesta) +
-      Number(datos.tabla_respuesta6[0].respuesta) +
-      Number(datos.tabla_respuesta7[0].respuesta)
+      (Number(datos.tabla_respuesta2[0].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[0].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[0].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[0].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[0].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[0].respuesta) || 0)
     );
   }
   function totalAlcohol() {
     return (
-      Number(datos.tabla_respuesta2[1].respuesta) +
-      Number(datos.tabla_respuesta3[1].respuesta) +
-      Number(datos.tabla_respuesta4[1].respuesta) +
-      Number(datos.tabla_respuesta5[1].respuesta) +
-      Number(datos.tabla_respuesta6[1].respuesta) +
-      Number(datos.tabla_respuesta7[1].respuesta)
+      (Number(datos.tabla_respuesta2[1].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[1].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[1].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[1].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[1].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[1].respuesta) || 0)
     );
   }
   function totalCannabis() {
     return (
-      Number(datos.tabla_respuesta2[2].respuesta) +
-      Number(datos.tabla_respuesta3[2].respuesta) +
-      Number(datos.tabla_respuesta4[2].respuesta) +
-      Number(datos.tabla_respuesta5[2].respuesta) +
-      Number(datos.tabla_respuesta6[2].respuesta) +
-      Number(datos.tabla_respuesta7[2].respuesta)
+      (Number(datos.tabla_respuesta2[2].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[2].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[2].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[2].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[2].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[2].respuesta) || 0)
     );
   }
   function totalCocaina() {
     return (
-      Number(datos.tabla_respuesta2[3].respuesta) +
-      Number(datos.tabla_respuesta3[3].respuesta) +
-      Number(datos.tabla_respuesta4[3].respuesta) +
-      Number(datos.tabla_respuesta5[3].respuesta) +
-      Number(datos.tabla_respuesta6[3].respuesta) +
-      Number(datos.tabla_respuesta7[3].respuesta)
+      (Number(datos.tabla_respuesta2[3].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[3].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[3].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[3].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[3].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[3].respuesta) || 0)
     );
   }
   function totalAnfetaminas() {
     return (
-      Number(datos.tabla_respuesta2[4].respuesta) +
-      Number(datos.tabla_respuesta3[4].respuesta) +
-      Number(datos.tabla_respuesta4[4].respuesta) +
-      Number(datos.tabla_respuesta5[4].respuesta) +
-      Number(datos.tabla_respuesta6[4].respuesta) +
-      Number(datos.tabla_respuesta7[4].respuesta)
+      (Number(datos.tabla_respuesta2[4].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[4].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[4].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[4].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[4].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[4].respuesta) || 0)
     );
   }
   function totalInhalantes() {
     return (
-      Number(datos.tabla_respuesta2[5].respuesta) +
-      Number(datos.tabla_respuesta3[5].respuesta) +
-      Number(datos.tabla_respuesta4[5].respuesta) +
-      Number(datos.tabla_respuesta5[5].respuesta) +
-      Number(datos.tabla_respuesta6[5].respuesta) +
-      Number(datos.tabla_respuesta7[5].respuesta)
+      (Number(datos.tabla_respuesta2[5].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[5].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[5].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[5].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[5].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[5].respuesta) || 0)
     );
   }
   function totalSedantes() {
     return (
-      Number(datos.tabla_respuesta2[6].respuesta) +
-      Number(datos.tabla_respuesta3[6].respuesta) +
-      Number(datos.tabla_respuesta4[6].respuesta) +
-      Number(datos.tabla_respuesta5[6].respuesta) +
-      Number(datos.tabla_respuesta6[6].respuesta) +
-      Number(datos.tabla_respuesta7[6].respuesta)
+      (Number(datos.tabla_respuesta2[6].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[6].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[6].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[6].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[6].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[6].respuesta) || 0)
     );
   }
   function totalAlucinogenos() {
     return (
-      Number(datos.tabla_respuesta2[7].respuesta) +
-      Number(datos.tabla_respuesta3[7].respuesta) +
-      Number(datos.tabla_respuesta4[7].respuesta) +
-      Number(datos.tabla_respuesta5[7].respuesta) +
-      Number(datos.tabla_respuesta6[7].respuesta) +
-      Number(datos.tabla_respuesta7[7].respuesta)
+      (Number(datos.tabla_respuesta2[7].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[7].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[7].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[7].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[7].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[7].respuesta) || 0)
     );
   }
   function totalOpiaceos() {
     return (
-      Number(datos.tabla_respuesta2[8].respuesta) +
-      Number(datos.tabla_respuesta3[8].respuesta) +
-      Number(datos.tabla_respuesta4[8].respuesta) +
-      Number(datos.tabla_respuesta5[8].respuesta) +
-      Number(datos.tabla_respuesta6[8].respuesta) +
-      Number(datos.tabla_respuesta7[8].respuesta)
+      (Number(datos.tabla_respuesta2[8].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[8].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[8].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[8].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[8].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[8].respuesta) || 0)
     );
   }
   function totalOtrasDrogas() {
     return (
-      Number(datos.tabla_respuesta2[9].respuesta) +
-      Number(datos.tabla_respuesta3[9].respuesta) +
-      Number(datos.tabla_respuesta4[9].respuesta) +
-      Number(datos.tabla_respuesta5[9].respuesta) +
-      Number(datos.tabla_respuesta6[9].respuesta) +
-      Number(datos.tabla_respuesta7[9].respuesta)
+      (Number(datos.tabla_respuesta2[9].respuesta) || 0) +
+      (Number(datos.tabla_respuesta3[9].respuesta) || 0) +
+      (Number(datos.tabla_respuesta4[9].respuesta) || 0) +
+      (Number(datos.tabla_respuesta5[9].respuesta) || 0) +
+      (Number(datos.tabla_respuesta6[9].respuesta) || 0) +
+      (Number(datos.tabla_respuesta7[9].respuesta) || 0)
     );
   }
   function firmas() {
