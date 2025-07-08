@@ -331,4 +331,14 @@ export const createRouteLab = (title) => [
       descrip: "Consentimiento informado para parto vaginal",
     },
   },
+  {
+    path: "/LAB034",
+    name: "LAB034",
+    component: () => import("@/views/lab/LAB034.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB034`,
+      descrip: "Formato de copagos",
+    },
+  },
 ];

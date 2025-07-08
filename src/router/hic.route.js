@@ -948,4 +948,14 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado para servicio de hospitalizacion en salud mental y/o consumo de sustancias psicoactivas",
     },
   },
+  {
+    path: "/HIC113",
+    name: "HIC113",
+    component: () => import("@/views/lab/LAB034.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC113`,
+      descrip: "Formato de copagos",
+    },
+  },
 ];
