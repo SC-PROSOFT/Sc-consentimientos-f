@@ -179,6 +179,17 @@ const tabla_sedacion = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(0);
 
+const SANAR = ref(false);
+const BERNAL = ref(false);
+const SOCIEDAD_CARDIOLOG = ref(false);
+const ESE_YOPAL = ref(false);
+const SAN_MARTIN = ref(false);
+const IUTM = ref(false);
+const FUENTEDEORO = ref(false);
+const MONTE_SINAI = ref(false);
+const GUAMAL = ref(false);
+const ESE_GRANADA = ref(false);
+
 const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
 
@@ -288,6 +299,38 @@ const valueEstado = (estado) => {
 };
 
 const validacionesNitHc = async () => {
+  switch (nit_usu.value) {
+    case 900273700:
+      SANAR.value = true;
+      break;
+    case 79635522:
+      BERNAL.value = true;
+      break;
+    case 900161116:
+      SOCIEDAD_CARDIOLOG.value = true;
+      break;
+    case 844003225:
+      ESE_YOPAL.value = true;
+      break;
+    case 892000458:
+      SAN_MARTIN.value = true;
+      break;
+    case 900193162:
+      IUTM.value = true;
+      break;
+    case 822001570:
+      FUENTEDEORO.value = true;
+      break;
+    case 900772776:
+      MONTE_SINAI.value = true;
+      break;
+    case 800037202:
+      GUAMAL.value = true;
+      break;
+    case 900005594:
+      ESE_GRANADA.value = true;
+      break;
+  }
   // pruebasCupsNit();
   try {
     if (Object.keys(route.query).length) {
@@ -309,7 +352,7 @@ const validacionesNitHc = async () => {
   } catch (error) {
     console.error(error);
 
-    if ([900161116, 900273700, 79635522, 822001570].includes(parseInt(route.query.nit))) {
+    if (ESE_YOPAL.value || SOCIEDAD_CARDIOLOG.value || SANAR.value || BERNAL.value || FUENTEDEORO.value || SAN_MARTIN.value || MONTE_SINAI.value) {
       formatosStore.setHc({
         llave: route.query.llave_hc,
         descrip: "",
@@ -365,9 +408,9 @@ const getHistoriaClinica = async () => {
     setHc(response.reg_hc);
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(route.query.nit)) {
-      //(Yopal) (SOCIEDAD CARDIOLOGICA COLOMBIA) (SANAR) (DOCTOR BERNAL) (FUENTE DE ORO) asi la HC este cerrada deja seguir
-
-      if ([844003225, 900161116, 900273700, 79635522, 822001570].includes(parseInt(route.query.nit))) return;
+      //asi la HC este cerrada deja seguir
+      if (ESE_YOPAL.value || SOCIEDAD_CARDIOLOG.value || SANAR.value || BERNAL.value || FUENTEDEORO.value || SAN_MARTIN.value || MONTE_SINAI.value)
+        return;
       return CON851("9Y", "info", "", logOut$);
     }
   } catch (error) {
@@ -397,7 +440,8 @@ const getConsentimientosRealizados = async () => {
     if (params_querys.value.modulo == "LAB") {
       const query = sessionStorage.query && JSON.parse(sessionStorage.query);
       const llave_fact = `${query.suc}${query.clase}${query.nro_comp}` || "0";
-      if ([900273700, 79635522].includes(!parseInt(route.query.nit))) {
+      // if ([ 5464558, 1121252].includes(!parseInt(route.query.nit))) {
+      if (!SANAR.value || !BERNAL.value) {
         consen_filter = CONSENTIMIENTOS?.filter(({ reg_coninf }) => reg_coninf.llave_fact === llave_fact.slice(0, 9));
       }
     }
@@ -473,7 +517,7 @@ const reimprimirConsentimiento = async (row) => {
     }
   }
   if (params_querys.value.modulo == "LAB") {
-    if ([900273700, 79635522].includes(Number(route.query.nit))) {
+    if (SANAR.value || BERNAL.value) {
       if (Number(row.reg_coninf.id_acomp) != 0) {
         const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
         reg_acomp = { ...response.reg_paci };
@@ -621,26 +665,26 @@ const consultarFirmaConsen = async (row) => {
 
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
 
-    if ([900273700, 79635522, 900772776, 822001570, 800037202].includes(Number(parseInt(route.query.nit)))) {
-      //Testigo SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO, HOSPITAL LOCAL GUAMAL I NIVEL
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value) {
+      //Testigo
       firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo || "1" });
     } else {
       //Testigo UTM
       params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
     }
-    if ([900273700, 79635522, 900772776, 822001570, 800037202].includes(Number(parseInt(route.query.nit)))) {
-      //Paciente SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO, HOSPITAL LOCAL GUAMAL I NIVEL
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value) {
+      //Paciente
       firma_consen.value = await _getImagen$({ codigo: `${row.llave.id}`, tipo_test: "1" });
     } else {
-      //Paciente
+      //Paciente UTM
       firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     }
 
-    if ([900273700, 79635522, 900772776, 822001570, 800037202].includes(Number(parseInt(route.query.nit)))) {
-      //Acompañante SANAR, BERNAL, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO, HOSPITAL LOCAL GUAMAL I NIVEL
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value) {
+      //Acompañante
       firma_acomp.value = await _getImagen$({ codigo: `${row.id_acomp}`, tipo_test: "1" });
     } else {
-      //Acompañante
+      //Acompañante UTM
       firma_acomp.value = await _getImagen$({
         codigo: `A${codigo}`,
       });
@@ -662,7 +706,7 @@ const consultarFirmaConsen = async (row) => {
     //Disetio acomp. o Disentio paci.
     const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP";
     // sanar, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
-    if ([900273700, 79635522, 900772776, 822001570].includes(Number(parseInt(route.query.nit)))) {
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value) {
       firma_disentimiento.value = await _getImagen$({ codigo: row.llave.id, tipo_test: "1" });
     } else {
       firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
