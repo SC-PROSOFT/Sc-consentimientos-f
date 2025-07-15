@@ -452,15 +452,20 @@ const getConsentimientosRealizados = async () => {
     });
 
     // solo se va a permitir editar los siguientes consentimientos:
-    let consen_editar = ["LAB011"];
+    let consen_editar = ["LAB011", "LAB035", "LAB036"];
 
-    lista_consen_elab.value = lista_consen.value.filter(
-      (item) =>
-        consen_editar.includes(item.reg_coninf.cod) &&
-        item.reg_coninf.estado == "AUTORIZADO" &&
-        item.reg_coninf.llave.fecha == days().format("YYYYMMDD")
-    );
-
+    if (consen_editar.includes("LAB035") || consen_editar.includes("LAB036")) {
+      lista_consen_elab.value = lista_consen.value.filter(
+        (item) => consen_editar.includes(item.reg_coninf.cod) && item.reg_coninf.estado == "AUTORIZADO"
+      );
+    } else {
+      lista_consen_elab.value = lista_consen.value.filter(
+        (item) =>
+          consen_editar.includes(item.reg_coninf.cod) &&
+          item.reg_coninf.estado == "AUTORIZADO" &&
+          item.reg_coninf.llave.fecha == days().format("YYYYMMDD")
+      );
+    }
     if (!mode_dev && window.location.hostname != "34.234.185.158") validarConsen();
   } catch (error) {
     throw error;
@@ -517,17 +522,18 @@ const reimprimirConsentimiento = async (row) => {
     }
   }
   if (params_querys.value.modulo == "LAB") {
-    if (SANAR.value || BERNAL.value) {
-      if (Number(row.reg_coninf.id_acomp) != 0) {
-        const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
-        reg_acomp = { ...response.reg_paci };
-        setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
-      }
-    } else {
-      const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
-      reg_acomp = { ...response.reg_acomp };
-      setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
-    }
+    // if (SANAR.value || BERNAL.value) {
+    // if (Number(row.reg_coninf.id_acomp) != 0) {
+
+    //   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
+    //   reg_acomp = { ...response.reg_paci };
+    //   setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
+    // }
+    // } else {
+    const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
+    reg_acomp = { ...response.reg_acomp };
+    setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+    // }
   } else {
     setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
     reg_acomp = { ...row.reg_acomp };

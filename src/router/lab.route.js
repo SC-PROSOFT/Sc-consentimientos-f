@@ -341,4 +341,24 @@ export const createRouteLab = (title) => [
       descrip: "Formato de copagos",
     },
   },
+  {
+    path: "/LAB035",
+    name: "LAB035",
+    component: () => import("@/views/lab/LAB035.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB035`,
+      descrip: "Comprobante de servicios pos",
+    },
+  },
+  {
+    path: "/LAB036",
+    name: "LAB036",
+    component: () => import("@/views/lab/LAB036.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB036`,
+      descrip: "Comprobante de servicios no pos",
+    },
+  },
 ];
