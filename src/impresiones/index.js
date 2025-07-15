@@ -84,6 +84,8 @@ export * from "./HIC/HIC109";
 export * from "./HIC/HIC110";
 export * from "./HIC/HIC111";
 export * from "./HIC/HIC112";
+export * from "./HIC/HIC114";
+export * from "./HIC/HIC115";
 
 // ODONTOLOGIA
 export * from "./ODO/ODO003";
@@ -118,4 +120,4 @@ export * from "./LAB/LAB021";
 export * from "./LAB/LAB033";
 export * from "./LAB/LAB034";
 export * from "./LAB/LAB035";
-// export * from "./LAB/LAB036";
+export * from "./LAB/LAB036";

@@ -958,4 +958,24 @@ export const createRouteHic = (title) => [
       descrip: "Formato de copagos",
     },
   },
+  {
+    path: "/HIC114",
+    name: "HIC114",
+    component: () => import("@/views/hic/HIC114.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC114`,
+      descrip: "Comprobante de servicios pos",
+    },
+  },
+  {
+    path: "/HIC115",
+    name: "HIC115",
+    component: () => import("@/views/hic/HIC115.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC115`,
+      descrip: "Comprobante de servicios no pos",
+    },
+  },
 ];
