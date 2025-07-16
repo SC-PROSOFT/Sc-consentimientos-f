@@ -66,7 +66,7 @@
                 style="min-width: 100px; display: inline-block"
                 @validate="datoCodigoEnfermedad"
                 v-model="HIC115.cod_diagn"
-                :field="form.codigo"
+                :field="form.cod_diagn"
               />
               <q-input dense disable type="text" maxlength="4" v-model="descrip_diagn" style="min-width: 300px; display: inline-block" />
             </p>
@@ -101,7 +101,20 @@
                   <Select_ v-model="reg_tabla_servicio.tipo_serv" :field="form_tabla_servicio.tipo_serv" :items="tipos_servicio" />
                 </td>
                 <td>
-                  <Input_ v-model="reg_tabla_servicio.nomb_acomp" :field="form_tabla_servicio.nomb_acomp" />
+                  <Input_
+                    style="min-width: 100px; display: inline-block"
+                    @validate="datoCodigoProf"
+                    v-model="reg_tabla_servicio.cod_prof"
+                    :field="form_tabla_servicio.cod_prof"
+                  />
+                  <q-input
+                    dense
+                    disable
+                    type="text"
+                    maxlength="10"
+                    v-model="reg_tabla_servicio.nomb_prof"
+                    style="min-width: 220px; display: inline-block"
+                  />
                 </td>
                 <td>
                   <q-btn @click="agregarServicio" push color="primary" label="Añadir"></q-btn>
@@ -170,6 +183,7 @@
         />
       </div>
       <CONSEN800 v-if="show_consen800" @esc="callbackCONSEN800" @enter="callbackCONSEN800" />
+      <SER819 v-if="show_ser819" @esc="callbackSER819" @enter="callbackSER819" />
     </q-card>
   </div>
 </template>
@@ -183,22 +197,25 @@ import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
 const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
+const SER819 = defineAsyncComponent(() => import("@/components/salud/SER819.vue"));
 const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
 const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado, _getImagen$ } = useApiContabilidad();
-const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo, getHc } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
+const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
-const firma_recibida_test = ref("");
+// const firma_recibida_test = ref("");
 const firma_prof = ref(null);
 const firma_paci = ref(null);
 const huella_paci = ref(null);
 const res_consen = ref(null);
 const descrip_diagn = ref("");
 const show_consen800 = ref(false);
+const show_ser819 = ref(false);
 const form_tabla_servicio = ref({
   indice_i: {
     id: "indice_i",
@@ -221,19 +238,22 @@ const form_tabla_servicio = ref({
     required: true,
     campo_abierto: true,
   },
-  nomb_acomp: {
-    id: "nomb_acomp",
-    disable: true,
-    maxlength: "100",
+  cod_prof: {
+    id: "cod_prof",
+    label: "",
+    maxlength: "10",
+    f0: ["f8"],
+    standout: "N",
+    outlined: "N",
     required: true,
     campo_abierto: true,
   },
 });
 const headers = [
-  { name: "indice_i", label: "Item", align: "left", field: "indice_i", headerStyle: "width: 8%" },
+  { name: "indice_i", label: "Item", align: "left", field: "indice_i", headerStyle: "width: 6%" },
   { name: "fecha", label: "Fecha", align: "left", field: "fecha", headerStyle: "width: 15%" },
-  { name: "descrip_tipo_serv", label: "Tipo de servicio", align: "left", field: "descrip_tipo_serv", headerStyle: "width: 27%" },
-  { name: "nomb_acomp", label: "Nombre acompañante", align: "left", field: "nomb_acomp", headerStyle: "width: 40%" },
+  { name: "descrip_tipo_serv", label: "Tipo de servicio", align: "left", field: "descrip_tipo_serv", headerStyle: "width: 30%" },
+  { name: "nomb_prof", label: "Nombre profesional", align: "left", field: "nomb_prof", headerStyle: "width: 49%" },
   { name: "btn", label: "", align: "left", field: "btn", headerStyle: "width: 0%" },
 ];
 const reg_tabla_servicio = ref({
@@ -251,12 +271,14 @@ const tipos_servicio = ref([
 const tabla_servicio = reactive(
   JSON.parse(
     JSON.stringify(
-      Array(25).fill({
+      Array(60).fill({
         indice_i: null,
         fecha: "",
         tipo_serv: "",
         cod_acomp: "",
         nomb_acomp: "",
+        cod_prof: "",
+        nomb_prof: "",
       })
     )
   )
@@ -268,8 +290,8 @@ const HIC115 = reactive({
   llave: "",
 });
 const form = ref({
-  codigo: {
-    id: "codigo",
+  cod_diagn: {
+    id: "cod_diagn",
     label: "",
     maxlength: "4",
     f0: ["f8"],
@@ -310,7 +332,9 @@ const datosInit = async () => {
     reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
 
     HIC115.opcion_hic115 = "AUTORIZAR";
-    foco_(form_tabla_servicio, "tipo_serv");
+    setTimeout(() => {
+      foco_(form_tabla_servicio, "tipo_serv");
+    }, 900);
   }
 
   if (getSesion.novedad == "1") {
@@ -341,19 +365,17 @@ const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC115));
 
   let datos = {
+    nit_entid: nit_usu.value,
     estado: HIC115.opcion_hic115 == "AUTORIZAR" ? "1" : "2",
-    llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
-    disentimiento: "N",
-    llave_consen: getSesion.novedad == "4" ? Object.values(res_consen.value.reg_coninf.llave).join("") : `${getPaci.cod}00000000`,
-    oper_consen: getSesion.oper,
-    cod_consen: "HIC115",
-    cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
-    id_testigo: getTestigo.cod.padStart(15, "0"),
-    tipo_testigo: getSesion.tipo_testigo,
-    paren_acomp: getSesion.paren_acomp,
-    ...datos_format,
+    paren_acomp: getPaci.paren_acomp,
+    oper_consen: getSesion.oper,
+    llave_consen: getSesion.novedad == "4" ? Object.values(res_consen.value.reg_coninf.llave).join("") : getHc.llave,
+    cod_med: getProf.cod,
+    cod_consen: "HIC115",
+    disentimiento: "N",
     tabla_servicio: tabla_servicio,
+    ...datos_format,
   };
   if (getSesion.novedad == "4") {
     datos.novedad_consen = getSesion.novedad;
@@ -365,6 +387,7 @@ const grabarConsentimiento = async () => {
       tipo_serv: item.tipo_serv,
       cod_acomp: item.cod_acomp,
       nomb_acomp: item.nomb_acomp,
+      cod_prof: item.cod_prof,
     };
     datos[`tabla_servicio${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
   });
@@ -390,7 +413,7 @@ const grabarFirmaConsen = async (llave) => {
   try {
     if (getSesion.novedad != "4") {
       await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
-      await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
+      //   await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
       await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
     }
 
@@ -434,16 +457,16 @@ const imprimirConsen = async (llave) => {
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
-      testigo: getTestigo,
+      //   testigo: getTestigo,
       cod_consen: "HIC115",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
         firma_acomp: firma_recibida_acomp.value ? true : false,
         firma_prof: firma_prof.value ? true : false,
-        firma_test: firma_recibida_test.value ? true : false,
+        // firma_test: firma_recibida_test.value ? true : false,
       },
-      paren_acomp: getSesion.paren_acomp,
+      paren_acomp: getPaci.paren_acomp,
       fecha: HIC115.fecha,
       descrip_diagn: descrip_diagn.value,
       tabla_servicio: tabla_servicio,
@@ -456,7 +479,7 @@ const imprimirConsen = async (llave) => {
       img_firma_acomp: firma_recibida_acomp.value,
       img_huella_paci: huella_paci.value,
       firma_prof: firma_prof.value,
-      img_firma_testigo: firma_recibida_test.value,
+      //   img_firma_testigo: firma_recibida_test.value,
     };
 
     const docDefinitionPrint = await utilsFormat({
@@ -491,11 +514,14 @@ const callBackFirmaAcomp = (data_firma) => {
 };
 
 const agregarServicio = () => {
-  if (!reg_tabla_servicio.value.tipo_serv) {
-    return CON851("?", "info", "El campo esta vacio", () => foco_(form_tabla_servicio, "tipo_serv"));
+  if (reg_tabla_servicio.value.indice_i > 60) {
+    return CON851("?", "info", "Alcanzo el limite de items (60) en la tabla ");
   }
-  if (reg_tabla_servicio.value.indice_i > 25) {
-    return CON851("?", "info", "Alcanzo el limite de items (25) en la tabla ");
+  if (!reg_tabla_servicio.value.tipo_serv) {
+    return CON851("?", "info", "El campo tipo de servicio esta vacio", () => foco_(form_tabla_servicio, "tipo_serv"));
+  }
+  if (!reg_tabla_servicio.value.cod_prof) {
+    return CON851("?", "info", "El campo profesional esta vacio", () => foco_(form_tabla_servicio, "cod_prof"));
   }
   tabla_servicio[reg_tabla_servicio.value.indice_i - 1].indice_i = reg_tabla_servicio.value.indice_i;
   tabla_servicio[reg_tabla_servicio.value.indice_i - 1].fecha = reg_tabla_servicio.value.fecha;
@@ -505,6 +531,8 @@ const agregarServicio = () => {
   ).label;
   tabla_servicio[reg_tabla_servicio.value.indice_i - 1].nomb_acomp = getAcomp.descrip;
   tabla_servicio[reg_tabla_servicio.value.indice_i - 1].cod_acomp = getAcomp.cod;
+  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].cod_prof = reg_tabla_servicio.value.cod_prof;
+  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].nomb_prof = reg_tabla_servicio.value.nomb_prof;
   reg_tabla_servicio.value.indice_i++;
   foco_(form_tabla_servicio, "tipo_serv");
 };
@@ -533,6 +561,38 @@ const consultarEnfermedad = async () => {
   } catch (error) {
     CON851("?", "info", error);
   }
+};
+const datoCodigoProf = async (event) => {
+  switch (event) {
+    case "f8":
+      show_ser819.value = true;
+      break;
+    case "enter":
+      consultarProfesional();
+      break;
+  }
+};
+const consultarProfesional = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_prof.dll`,
+      data: { cod_prof: reg_tabla_servicio.value.cod_prof },
+    });
+    if (response.reg_prof.cod) {
+      reg_tabla_servicio.value.nomb_prof = response.reg_prof.descrip;
+      return;
+    }
+    return CON851("?", "info", "No existe profesional");
+  } catch (error) {
+    CON851("?", "info", error);
+  }
+};
+const callbackSER819 = (data) => {
+  if (data) {
+    reg_tabla_servicio.value.cod_prof = data.identificacion;
+    reg_tabla_servicio.value.nomb_prof = data.nombre;
+  }
+  show_ser819.value = false;
 };
 const callbackCONSEN800 = (data) => {
   if (data) {

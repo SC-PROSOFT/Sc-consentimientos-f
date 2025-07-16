@@ -66,7 +66,7 @@
                 style="min-width: 100px; display: inline-block"
                 @validate="datoCodigoEnfermedad"
                 v-model="HIC114.cod_diagn"
-                :field="form.codigo"
+                :field="form.cod_diagn"
               />
               <q-input dense disable type="text" maxlength="4" v-model="descrip_diagn" style="min-width: 300px; display: inline-block" />
             </p>
@@ -311,8 +311,8 @@ const HIC114 = reactive({
   llave: "",
 });
 const form = ref({
-  codigo: {
-    id: "codigo",
+  cod_diagn: {
+    id: "cod_diagn",
     label: "",
     maxlength: "4",
     f0: ["f8"],
@@ -545,14 +545,14 @@ const callBackFirmaAcomp = (data_firma) => {
 };
 
 const agregarServicio = () => {
+  if (reg_tabla_servicio.value.indice_i > 60) {
+    return CON851("?", "info", "Alcanzo el limite de items (60) en la tabla ");
+  }
   if (!reg_tabla_servicio.value.tipo_serv) {
     return CON851("?", "info", "El campo tipo de servicio esta vacio", () => foco_(form_tabla_servicio, "tipo_serv"));
   }
   if (!reg_tabla_servicio.value.cod_prof) {
     return CON851("?", "info", "El campo profesional esta vacio", () => foco_(form_tabla_servicio, "cod_prof"));
-  }
-  if (reg_tabla_servicio.value.indice_i > 60) {
-    return CON851("?", "info", "Alcanzo el limite de items (60) en la tabla ");
   }
   tabla_servicio[reg_tabla_servicio.value.indice_i - 1].indice_i = reg_tabla_servicio.value.indice_i;
   tabla_servicio[reg_tabla_servicio.value.indice_i - 1].fecha = reg_tabla_servicio.value.fecha;

@@ -189,6 +189,7 @@ const FUENTEDEORO = ref(false);
 const MONTE_SINAI = ref(false);
 const GUAMAL = ref(false);
 const ESE_GRANADA = ref(false);
+const EBENEZER = ref(false);
 
 const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
@@ -329,6 +330,9 @@ const validacionesNitHc = async () => {
       break;
     case 900005594:
       ESE_GRANADA.value = true;
+      break;
+    case 900305723:
+      EBENEZER.value = true;
       break;
   }
   // pruebasCupsNit();
@@ -682,7 +686,7 @@ const consultarFirmaConsen = async (row) => {
       //Testigo UTM
       params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
     }
-    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value) {
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value || EBENEZER.value) {
       //Paciente
       firma_consen.value = await _getImagen$({ codigo: `${row.llave.id}`, tipo_test: "1" });
     } else {
@@ -690,7 +694,7 @@ const consultarFirmaConsen = async (row) => {
       firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     }
 
-    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value) {
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value || EBENEZER.value) {
       //Acompañante
       firma_acomp.value = await _getImagen$({ codigo: `${row.id_acomp}`, tipo_test: "1" });
     } else {

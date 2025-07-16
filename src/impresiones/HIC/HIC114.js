@@ -197,7 +197,7 @@ export const impresionHIC114 = ({ datos }) => {
               marginTop: 5,
               table: {
                 marginRigth: 1,
-                widths: ["4%", "9%", "10%", "7%", "13%", "17%", "9%", "11%", "20%"], ///4
+                widths: ["4%", "9%", "10%", "7%", "13%", "17%", "9%", "11%", "20%"],
                 body: [
                   [
                     { fillColor: "#6ca4c4", color: "white", text: "Item", bold: true, alignment: "justify" },

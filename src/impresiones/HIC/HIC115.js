@@ -29,7 +29,7 @@ export const impresionHIC115 = ({ datos }) => {
           text: item.tipo_serv == "3" ? "X" : " ",
         },
         {
-          text: item.nomb_acomp,
+          text: item.nomb_prof,
         },
       ]);
     tabla_filtra.push([
@@ -53,7 +53,6 @@ export const impresionHIC115 = ({ datos }) => {
         alignment: "center",
         text: datos.tabla_servicio.filter((item) => item.tipo_serv == "3").length || "",
       },
-
       {},
     ]);
     return tabla_filtra;
@@ -158,7 +157,7 @@ export const impresionHIC115 = ({ datos }) => {
           },
           width: "100%",
         },
-        { marginTop: 10, alignment: "center", style: "tableTitle", bold: true, text: "SERVICIOS POS" },
+        { marginTop: 10, alignment: "center", style: "tableTitle", bold: true, text: "SERVICIOS NO POS" },
         {
           columns: [
             {
@@ -166,15 +165,15 @@ export const impresionHIC115 = ({ datos }) => {
               marginTop: 5,
               table: {
                 marginRigth: 1,
-                widths: ["6%", "16%", "16%", "16%", "16%", "30%"],
+                widths: ["4%", "9%", "16%", "17%", "16%", "38%"],
                 body: [
                   [
-                    { fillColor: "#6ca4c4", color: "white", text: "Indice ", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Fecha ", bold: true, alignment: "justify" },
+                    { fillColor: "#6ca4c4", color: "white", text: "Item", bold: true, alignment: "justify" },
+                    { fillColor: "#6ca4c4", color: "white", text: "Fecha", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Equinoterapia", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Musicoterapia", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Caninoterapia", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Nombre Acudiente", bold: true, alignment: "justify" },
+                    { fillColor: "#6ca4c4", color: "white", text: "Nombre Profesional", bold: true, alignment: "justify" },
                   ],
                   ...tablaServicio(),
                 ],
@@ -184,17 +183,17 @@ export const impresionHIC115 = ({ datos }) => {
             },
           ],
         },
-        {
-          marginTop: 10,
-          alignment: "justify",
-          text: [
-            { style: "tableTitle", text: "Yo  " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.descrip },
-            { style: "tableTitle", text: " con número de identificación " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.cod },
-            { style: "tableTitle", text: " Doy a conocer que el usuario mencionado, recibio los servicios satisfactoriamente. " },
-          ],
-        },
+        // {
+        //   marginTop: 10,
+        //   alignment: "justify",
+        //   text: [
+        //     { style: "tableTitle", text: "Yo  " },
+        //     { style: "bodyNoBold", bold: true, text: datos.prof.descrip },
+        //     { style: "tableTitle", text: " con número de identificación " },
+        //     { style: "bodyNoBold", bold: true, text: datos.prof.cod },
+        //     { style: "tableTitle", text: " Doy a conocer que el usuario mencionado, recibio los servicios satisfactoriamente. " },
+        //   ],
+        // },
       ],
     };
   }
@@ -357,70 +356,70 @@ export const impresionHIC115 = ({ datos }) => {
     };
   }
 
-  function firmaProfesional() {
-    return {
-      stack: [
-        {
-          text: "FIRMA PROFESIONAL",
+  //   function firmaProfesional() {
+  //     return {
+  //       stack: [
+  //         {
+  //           text: "FIRMA PROFESIONAL",
 
-          alignment: "center",
-          style: "tableNoBold",
-          bold: true,
-        },
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_profesional",
-          width: 130,
-          height: 70,
-        },
-        {
-          marginTop: 8,
-          text: [
-            {
-              text: "NOMBRE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: `${datos.prof.descrip}`,
-              style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          columns: [
-            {
-              width: "auto",
-              style: "tableNoBold",
-              text: "PROFESIONAL AREA DE:",
-              bold: true,
-            },
-            {
-              marginLeft: 5,
-              style: "tableNoBold",
-              text: `${datos.prof.descrip_atiende}`,
-            },
-          ],
-        },
-        {
-          columns: [
-            {
-              width: "auto",
-              style: "tableNoBold",
-              text: "DOCUMENTO: ",
-              bold: true,
-            },
-            {
-              marginLeft: 5,
-              style: "tableNoBold",
-              text: `${datos.prof.cod}`,
-            },
-          ],
-        },
-      ],
-    };
-  }
+  //           alignment: "center",
+  //           style: "tableNoBold",
+  //           bold: true,
+  //         },
+  //         {
+  //           marginTop: 8,
+  //           alignment: "center",
+  //           image: "firma_profesional",
+  //           width: 130,
+  //           height: 70,
+  //         },
+  //         {
+  //           marginTop: 8,
+  //           text: [
+  //             {
+  //               text: "NOMBRE: ",
+  //               style: "tableNoBold",
+  //               bold: true,
+  //             },
+  //             {
+  //               text: `${datos.prof.descrip}`,
+  //               style: "tableNoBold",
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           columns: [
+  //             {
+  //               width: "auto",
+  //               style: "tableNoBold",
+  //               text: "PROFESIONAL AREA DE:",
+  //               bold: true,
+  //             },
+  //             {
+  //               marginLeft: 5,
+  //               style: "tableNoBold",
+  //               text: `${datos.prof.descrip_atiende}`,
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           columns: [
+  //             {
+  //               width: "auto",
+  //               style: "tableNoBold",
+  //               text: "DOCUMENTO: ",
+  //               bold: true,
+  //             },
+  //             {
+  //               marginLeft: 5,
+  //               style: "tableNoBold",
+  //               text: `${datos.prof.cod}`,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     };
+  //   }
 
   function firmas() {
     let firmasArray = [];
@@ -431,9 +430,9 @@ export const impresionHIC115 = ({ datos }) => {
       firmasArray.push(firmaAcompanante());
     }
 
-    if (datos.firmas.firma_prof) {
-      firmasArray.push(firmaProfesional());
-    }
+    // if (datos.firmas.firma_prof) {
+    //   firmasArray.push(firmaProfesional());
+    // }
 
     tamanoFirmasArray = firmasArray.length;
 
