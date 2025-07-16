@@ -5,7 +5,7 @@
         <div class="text-center">
           <q-toggle
             :disable="getSesion.novedad === '4'"
-            v-model="LAB036.opcion_lab036"
+            v-model="HIC115.opcion_hic115"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -14,9 +14,9 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="LAB036.opcion_lab036 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="LAB036.opcion_lab036 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="LAB036.opcion_lab036">
-              {{ LAB036.opcion_lab036 }}
+          <p :class="HIC115.opcion_hic115 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="HIC115.opcion_hic115 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="HIC115.opcion_hic115">
+              {{ HIC115.opcion_hic115 }}
             </q-chip>
           </p>
         </div>
@@ -65,7 +65,7 @@
               <Input_
                 style="min-width: 100px; display: inline-block"
                 @validate="datoCodigoEnfermedad"
-                v-model="LAB036.cod_diagn"
+                v-model="HIC115.cod_diagn"
                 :field="form.codigo"
               />
               <q-input dense disable type="text" maxlength="4" v-model="descrip_diagn" style="min-width: 300px; display: inline-block" />
@@ -155,23 +155,12 @@
             class="col-4"
             :disable="getSesion.novedad == '4'"
           />
-          <ContainerFirma
-            disable
-            quien_firma="FIRMA PROFESIONAL"
-            :firma_="firma_prof"
-            :firmador="getProf.descrip"
-            :descrip_prof="getProf.descrip_atiende"
-            :registro_profe="getProf.cod"
-            :codigo_firma="getProf.cod"
-            class="col-4"
-            :disable="getSesion.novedad == '4'"
-          />
         </div>
       </q-card-section>
 
       <div class="row justify-center q-my-lg">
         <q-btn
-          :disable="LAB036.opcion_lab036 ? false : true"
+          :disable="HIC115.opcion_hic115 ? false : true"
           @click="validarDatos"
           icon-right="check_circle"
           class="q-mb-md"
@@ -187,7 +176,7 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted, computed } from "vue";
-import { impresionLAB036, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC115, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import { foco_ } from "@/setup";
@@ -272,8 +261,8 @@ const tabla_servicio = reactive(
     )
   )
 );
-const LAB036 = reactive({
-  opcion_lab036: "",
+const HIC115 = reactive({
+  opcion_hic115: "",
   fecha: "",
   cod_diagn: "",
   llave: "",
@@ -311,7 +300,7 @@ onMounted(() => {
 const datosInit = async () => {
   if (getSesion.novedad == "4") {
     res_consen.value = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
-    Object.assign(LAB036, res_consen.value.reg_coninf.datos);
+    Object.assign(HIC115, res_consen.value.reg_coninf.datos);
     Object.assign(tabla_servicio, res_consen.value.reg_coninf.datos.tabla_servicio);
 
     consultarEnfermedad();
@@ -320,7 +309,7 @@ const datosInit = async () => {
     reg_tabla_servicio.value.indice_i = maxIndice + 1;
     reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
 
-    LAB036.opcion_lab036 = "AUTORIZAR";
+    HIC115.opcion_hic115 = "AUTORIZAR";
     foco_(form_tabla_servicio, "tipo_serv");
   }
 
@@ -330,8 +319,8 @@ const datosInit = async () => {
   reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
   reg_tabla_servicio.value.nomb_acomp = getAcomp.descrip;
   reg_tabla_servicio.value.cod_acomp = getAcomp.cod;
-  LAB036.fecha = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
-  LAB036.edad = calcularEdad(getAcomp.nacim);
+  HIC115.fecha = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
+  HIC115.edad = calcularEdad(getAcomp.nacim);
 };
 
 const getFirmaProf = async () => {
@@ -349,15 +338,15 @@ const validarDatos = async () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(LAB036));
+  const datos_format = JSON.parse(JSON.stringify(HIC115));
 
   let datos = {
-    estado: LAB036.opcion_lab036 == "AUTORIZAR" ? "1" : "2",
+    estado: HIC115.opcion_hic115 == "AUTORIZAR" ? "1" : "2",
     llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
     llave_consen: getSesion.novedad == "4" ? Object.values(res_consen.value.reg_coninf.llave).join("") : `${getPaci.cod}00000000`,
     oper_consen: getSesion.oper,
-    cod_consen: "LAB036",
+    cod_consen: "HIC115",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     id_testigo: getTestigo.cod.padStart(15, "0"),
@@ -439,14 +428,14 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_lab036 = {
-      autorizo: LAB036.opcion_lab036 == "AUTORIZAR" ? true : false,
+    const datos_hic115 = {
+      autorizo: HIC115.opcion_hic115 == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       paciente: getPaci,
       prof: getProf,
       acomp: getAcomp,
       testigo: getTestigo,
-      cod_consen: "LAB036",
+      cod_consen: "HIC115",
       firmas: {
         firma_paci: firma_recibida.value ? true : false,
         huella_paci: huella_paci.value ? true : false,
@@ -455,10 +444,10 @@ const imprimirConsen = async (llave) => {
         firma_test: firma_recibida_test.value ? true : false,
       },
       paren_acomp: getSesion.paren_acomp,
-      fecha: LAB036.fecha,
+      fecha: HIC115.fecha,
       descrip_diagn: descrip_diagn.value,
       tabla_servicio: tabla_servicio,
-      ...LAB036,
+      ...HIC115,
     };
 
     const firmas = {
@@ -472,21 +461,21 @@ const imprimirConsen = async (llave) => {
 
     const docDefinitionPrint = await utilsFormat({
       datos: firmas,
-      content: impresionLAB036({
-        datos: datos_lab036,
+      content: impresionHIC115({
+        datos: datos_hic115,
       }),
     });
     const docDefinitionFile = await utilsFormat({
       datos: firmas,
-      content: impresionLAB036({
-        datos: datos_lab036,
+      content: impresionHIC115({
+        datos: datos_hic115,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
     const response_impresion = await generarArchivo({
       docDefinition: docDefinitionFile,
-      nomb_archivo: `${llave}-LAB-036`,
+      nomb_archivo: `${llave}-LAB-115`,
     });
     return response_impresion;
   } catch (error) {
@@ -534,7 +523,7 @@ const consultarEnfermedad = async () => {
   try {
     const response = await getDll$({
       modulo: `get_enf.dll`,
-      data: { llave: "2" + LAB036.cod_diagn },
+      data: { llave: "2" + HIC115.cod_diagn },
     });
     if (response.llave) {
       descrip_diagn.value = response.nombre;
@@ -547,7 +536,7 @@ const consultarEnfermedad = async () => {
 };
 const callbackCONSEN800 = (data) => {
   if (data) {
-    LAB036.cod_diagn = data.cod;
+    HIC115.cod_diagn = data.cod;
     descrip_diagn.value = data.descrip;
   }
   show_consen800.value = false;

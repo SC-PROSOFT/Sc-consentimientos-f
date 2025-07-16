@@ -534,6 +534,7 @@ const reimprimirConsentimiento = async (row) => {
   // }
   // } else {
   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
+  response.reg_acomp.descrip = `${response.reg_acomp?.er_apel?.trim()} ${response.reg_acomp?.do_apel?.trim()} ${response.reg_acomp?.er_nom?.trim()} ${response.reg_acomp?.do_nom?.trim()}`;
   reg_acomp = { ...response.reg_acomp };
   setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
   // }
@@ -769,6 +770,9 @@ const agregarInfConse = async (data) => {
     huella_acomp.value = await getHuella(data.row.reg_acomp.cod);
     await getHuella(data.row.reg_paci.cod);
     await consultarFirmaConsen(data.row.reg_coninf);
+
+    const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: data.row.reg_paci.cod.padStart(15, "0") } });
+    setAcomp({ ...response.reg_acomp, paren_acomp: data.row.reg_coninf.paren_acomp });
 
     if (params_querys.value.modulo != "LAB") {
       return router.push({ name: data.row.reg_coninf?.cod });

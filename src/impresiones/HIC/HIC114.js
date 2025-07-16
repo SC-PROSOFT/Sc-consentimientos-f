@@ -38,8 +38,11 @@ export const impresionHIC114 = ({ datos }) => {
         { bold: true, alignment: "center", text: item.tipo_serv == "5" ? "X" : " " },
         // Rehabilitacion cognitivo
         { bold: true, alignment: "center", text: item.tipo_serv == "6" ? "X" : " " },
+        // {
+        //   text: item.nomb_acomp,
+        // },
         {
-          text: item.nomb_acomp,
+          text: item.nomb_prof,
         },
       ]);
     tabla_filtra.push([
@@ -194,18 +197,19 @@ export const impresionHIC114 = ({ datos }) => {
               marginTop: 5,
               table: {
                 marginRigth: 1,
-                widths: ["5%", "9%", "10%", "7%", "13%", "17%", "9%", "14%", "16%"],
+                widths: ["4%", "9%", "10%", "7%", "13%", "17%", "9%", "11%", "20%"], ///4
                 body: [
                   [
-                    { fillColor: "#6ca4c4", color: "white", text: "Indice ", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Fecha ", bold: true, alignment: "justify" },
+                    { fillColor: "#6ca4c4", color: "white", text: "Item", bold: true, alignment: "justify" },
+                    { fillColor: "#6ca4c4", color: "white", text: "Fecha", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Terapia ocupacional", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Terapia fisica", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Terapia fonoaudiologia", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Terapia modalidades hidricas", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Psicologia", bold: true, alignment: "justify" },
                     { fillColor: "#6ca4c4", color: "white", text: "Rehabilitacion cognitivo", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Nombre Acudiente", bold: true, alignment: "justify" },
+                    // { fillColor: "#6ca4c4", color: "white", text: "Nombre Acudiente", bold: true, alignment: "justify" },
+                    { fillColor: "#6ca4c4", color: "white", text: "Nombre Profesional", bold: true, alignment: "justify" },
                   ],
                   ...tablaServicio(),
                 ],
@@ -215,17 +219,17 @@ export const impresionHIC114 = ({ datos }) => {
             },
           ],
         },
-        {
-          marginTop: 10,
-          alignment: "justify",
-          text: [
-            { style: "tableTitle", text: "Yo  " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.descrip },
-            { style: "tableTitle", text: " con número de identificación " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.cod },
-            { style: "tableTitle", text: " Doy a conocer que el usuario mencionado, recibio los servicios satisfactoriamente. " },
-          ],
-        },
+        // {
+        //   marginTop: 10,
+        //   alignment: "justify",
+        //   text: [
+        //     { style: "tableTitle", text: "Yo  " },
+        //     { style: "bodyNoBold", bold: true, text: datos.prof.descrip },
+        //     { style: "tableTitle", text: " con número de identificación " },
+        //     { style: "bodyNoBold", bold: true, text: datos.prof.cod },
+        //     { style: "tableTitle", text: " Doy a conocer que el usuario mencionado, recibio los servicios satisfactoriamente. " },
+        //   ],
+        // },
       ],
     };
   }
@@ -388,70 +392,70 @@ export const impresionHIC114 = ({ datos }) => {
     };
   }
 
-  function firmaProfesional() {
-    return {
-      stack: [
-        {
-          text: "FIRMA PROFESIONAL",
+  //   function firmaProfesional() {
+  //     return {
+  //       stack: [
+  //         {
+  //           text: "FIRMA PROFESIONAL",
 
-          alignment: "center",
-          style: "tableNoBold",
-          bold: true,
-        },
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_profesional",
-          width: 130,
-          height: 70,
-        },
-        {
-          marginTop: 8,
-          text: [
-            {
-              text: "NOMBRE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: `${datos.prof.descrip}`,
-              style: "tableNoBold",
-            },
-          ],
-        },
-        {
-          columns: [
-            {
-              width: "auto",
-              style: "tableNoBold",
-              text: "PROFESIONAL AREA DE:",
-              bold: true,
-            },
-            {
-              marginLeft: 5,
-              style: "tableNoBold",
-              text: `${datos.prof.descrip_atiende}`,
-            },
-          ],
-        },
-        {
-          columns: [
-            {
-              width: "auto",
-              style: "tableNoBold",
-              text: "DOCUMENTO: ",
-              bold: true,
-            },
-            {
-              marginLeft: 5,
-              style: "tableNoBold",
-              text: `${datos.prof.cod}`,
-            },
-          ],
-        },
-      ],
-    };
-  }
+  //           alignment: "center",
+  //           style: "tableNoBold",
+  //           bold: true,
+  //         },
+  //         {
+  //           marginTop: 8,
+  //           alignment: "center",
+  //           image: "firma_profesional",
+  //           width: 130,
+  //           height: 70,
+  //         },
+  //         {
+  //           marginTop: 8,
+  //           text: [
+  //             {
+  //               text: "NOMBRE: ",
+  //               style: "tableNoBold",
+  //               bold: true,
+  //             },
+  //             {
+  //               text: `${datos.prof.descrip}`,
+  //               style: "tableNoBold",
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           columns: [
+  //             {
+  //               width: "auto",
+  //               style: "tableNoBold",
+  //               text: "PROFESIONAL AREA DE:",
+  //               bold: true,
+  //             },
+  //             {
+  //               marginLeft: 5,
+  //               style: "tableNoBold",
+  //               text: `${datos.prof.descrip_atiende}`,
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           columns: [
+  //             {
+  //               width: "auto",
+  //               style: "tableNoBold",
+  //               text: "DOCUMENTO: ",
+  //               bold: true,
+  //             },
+  //             {
+  //               marginLeft: 5,
+  //               style: "tableNoBold",
+  //               text: `${datos.prof.cod}`,
+  //             },
+  //           ],
+  //         },
+  //       ],
+  //     };
+  //   }
 
   function firmas() {
     let firmasArray = [];
@@ -462,9 +466,9 @@ export const impresionHIC114 = ({ datos }) => {
       firmasArray.push(firmaAcompanante());
     }
 
-    if (datos.firmas.firma_prof) {
-      firmasArray.push(firmaProfesional());
-    }
+    // if (datos.firmas.firma_prof) {
+    //   firmasArray.push(firmaProfesional());
+    // }
 
     tamanoFirmasArray = firmasArray.length;
 

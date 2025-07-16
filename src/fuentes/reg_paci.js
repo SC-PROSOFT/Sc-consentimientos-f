@@ -28,17 +28,6 @@ export const regPaci = () => {
     descrip_ocup: "",
     email: "",
     discap: "",
-    // acompañante
-    // tipo_id_acomp: "",
-    // id_acomp: "",
-    // er_apel_acomp: "",
-    // do_apel_acomp: "",
-    // er_nom_acomp: "",
-    // do_nom_acomp: "",
-    // telef_acomp: "",
-    // email_acomp: "",
-    // ciudad_acomp: "",
-    // nom_ciu_acomp: "",
-    // direcc_acomp: "",
+    paren_acomp: "",
   };
 };
