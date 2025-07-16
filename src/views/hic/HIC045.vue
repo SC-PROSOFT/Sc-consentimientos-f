@@ -194,6 +194,9 @@ const parentesco = {
   10: "PADRASTRO",
   11: "AMIGO(A)",
   12: "ABUELO(A)",
+  13: "NIETO(A)",
+  14: "TRABAJADOR SOCIAL",
+  15: "OTRO",
 };
 const HIC045 = reactive({
   procedimiento: "",

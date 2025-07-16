@@ -452,11 +452,14 @@ const getConsentimientosRealizados = async () => {
     });
 
     // solo se va a permitir editar los siguientes consentimientos:
-    let consen_editar = ["LAB011", "LAB035", "LAB036"];
+    let consen_editar = ["LAB011", "HIC114", "HIC115"];
 
-    if (consen_editar.includes("LAB035") || consen_editar.includes("LAB036")) {
+    if (consen_editar.includes("HIC114") || consen_editar.includes("HIC115")) {
       lista_consen_elab.value = lista_consen.value.filter(
-        (item) => consen_editar.includes(item.reg_coninf.cod) && item.reg_coninf.estado == "AUTORIZADO"
+        (item) =>
+          consen_editar.includes(item.reg_coninf.cod) &&
+          item.reg_coninf.estado == "AUTORIZADO" &&
+          item.reg_coninf.llave.folio == params_querys.value.llave_hc.slice(15)
       );
     } else {
       lista_consen_elab.value = lista_consen.value.filter(
@@ -521,23 +524,23 @@ const reimprimirConsentimiento = async (row) => {
       );
     }
   }
-  if (params_querys.value.modulo == "LAB") {
-    // if (SANAR.value || BERNAL.value) {
-    // if (Number(row.reg_coninf.id_acomp) != 0) {
+  // if (params_querys.value.modulo == "LAB") {
+  // if (SANAR.value || BERNAL.value) {
+  // if (Number(row.reg_coninf.id_acomp) != 0) {
 
-    //   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
-    //   reg_acomp = { ...response.reg_paci };
-    //   setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
-    // }
-    // } else {
-    const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
-    reg_acomp = { ...response.reg_acomp };
-    setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
-    // }
-  } else {
-    setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
-    reg_acomp = { ...row.reg_acomp };
-  }
+  //   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.id_acomp.padStart(15, "0") } });
+  //   reg_acomp = { ...response.reg_paci };
+  //   setAcomp({ ...response.reg_paci, paren_acomp: row.reg_coninf.paren_acomp });
+  // }
+  // } else {
+  const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
+  reg_acomp = { ...response.reg_acomp };
+  setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+  // }
+  // } else {
+  //   setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+  //   reg_acomp = { ...row.reg_acomp };
+  // }
   let cod_consenti = row.reg_coninf?.cod;
   // validacion para cambiar el codigo del formato hic046 a lab015 y hic047 a lab016,
   // esto es porque se usan los mismos formatos en los dos modulos (salud, historia clinica)

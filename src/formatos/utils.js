@@ -105,19 +105,21 @@ export const calcularEdad = (fecha_naci) => {
 
 export const evaluarParentesco = (value) => {
   const parentesco = [
-    { COD: "1", DESCRIP: "MADRE" },
-    { COD: "2", DESCRIP: "PADRE" },
-    { COD: "3", DESCRIP: "HIJO(A)" },
-    { COD: "4", DESCRIP: "ESPOSO(A)" },
-    { COD: "5", DESCRIP: "HERMANO(A)" },
-    { COD: "6", DESCRIP: "TIO(A)" },
-    { COD: "7", DESCRIP: "SOBRINO(A)" },
-    { COD: "8", DESCRIP: "PRIMO(A)" },
-    { COD: "9", DESCRIP: "MADRASTRA" },
-    { COD: "A", DESCRIP: "PADRASTRO" },
-    { COD: "B", DESCRIP: "AMIGO(A)" },
-    { COD: "C", DESCRIP: "ABUELO(A)" },
-    { COD: "D", DESCRIP: "TRABAJADOR SOCIAL" },
+    { COD: "01", DESCRIP: "MADRE" },
+    { COD: "02", DESCRIP: "PADRE" },
+    { COD: "03", DESCRIP: "HIJO(A)" },
+    { COD: "04", DESCRIP: "ESPOSO(A)" },
+    { COD: "05", DESCRIP: "HERMANO(A)" },
+    { COD: "06", DESCRIP: "TIO(A)" },
+    { COD: "07", DESCRIP: "SOBRINO(A)" },
+    { COD: "08", DESCRIP: "PRIMO(A)" },
+    { COD: "09", DESCRIP: "MADRASTRA" },
+    { COD: "10", DESCRIP: "PADRASTRO" },
+    { COD: "11", DESCRIP: "AMIGO(A)" },
+    { COD: "12", DESCRIP: "ABUELO(A)" },
+    { COD: "13", DESCRIP: "NIETO(A)" },
+    { COD: "14", DESCRIP: "TRABAJADOR SOCIAL" },
+    { COD: "15", DESCRIP: "OTRO" },
   ];
   return parentesco.find((e) => e.COD == value)?.DESCRIP || "";
 };
