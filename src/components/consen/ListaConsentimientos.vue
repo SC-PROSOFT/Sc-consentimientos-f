@@ -623,7 +623,6 @@ const reimprimirConsentimiento = async (row) => {
           paren_acomp: row.reg_coninf.paren_acomp.trim() || "",
           paciente: row.reg_paci,
           acomp: getAcomp,
-          // acomp: row.reg_acomp,
           empresa: getEmpresa,
           testigo: getTestigo,
           prof: row.reg_prof,

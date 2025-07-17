@@ -79,7 +79,6 @@ const nro_comp = ref(null);
 const datos_actualizacion = ref({ estado: false, mensaje: "" });
 
 onBeforeMount(() => validIsConfig());
-// onMounted(() => validIsConfig());
 
 const verificarSesion = async () => {
   try {
@@ -201,20 +200,20 @@ async function getPaciente() {
     });
 }
 
-async function getAcomp() {
-  try {
-    datos_session.id_acompa = validarCodPaci(datos_session.id_acompa);
-    const response = await getDll$({
-      modulo: `get_paci.dll`,
-      data: { cod_paci: datos_session.id_acompa },
-    });
-    response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci?.do_nom?.trim()}`;
-    setAcomp({ ...response.reg_paci });
-  } catch (error) {
-    console.error(error);
-    CON851("?", "error", "No existe acompañante en el archivo de pacientes");
-  }
-}
+// async function getAcomp() {
+//   try {
+//     datos_session.id_acompa = validarCodPaci(datos_session.id_acompa);
+//     const response = await getDll$({
+//       modulo: `get_paci.dll`,
+//       data: { cod_paci: datos_session.id_acompa },
+//     });
+//     response.reg_paci.descrip = `${response.reg_paci?.er_apel?.trim()} ${response.reg_paci?.do_apel?.trim()} ${response.reg_paci?.er_nom?.trim()} ${response.reg_paci?.do_nom?.trim()}`;
+//     setAcomp({ ...response.reg_paci });
+//   } catch (error) {
+//     console.error(error);
+//     CON851("?", "error", "No existe acompañante en el archivo de pacientes");
+//   }
+// }
 
 async function getMedico() {
   try {
