@@ -978,4 +978,14 @@ export const createRouteHic = (title) => [
       descrip: "Comprobante de servicios no pos",
     },
   },
+  {
+    path: "/HIC116",
+    name: "HIC116",
+    component: () => import("@/views/hic/HIC116.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC116`,
+      descrip: "Formato consentimiento informado para legrado obstetrico",
+    },
+  },
 ];
