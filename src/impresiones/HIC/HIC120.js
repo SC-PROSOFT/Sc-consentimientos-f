@@ -2,114 +2,59 @@ import { useModuleFormatos, useApiContabilidad } from "@/store";
 import { evaluarParentesco } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
-export const impresionHIC119 = ({ datos }) => {
-  console.log("impresionHIC119 -> ", datos);
+export const impresionHIC120 = ({ datos }) => {
+  console.log("impresionHIC120 -> ", datos);
 
   var dd = {
-    stack: [contenidoHIC119(), firmas()],
+    stack: [contenidoHIC120(), firmas()],
   };
-  function contenidoHIC119() {
+  function contenidoHIC120() {
     return {
       stack: [
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "La anestesia es el procedimiento médico que permite realizar uno operación quirúrgica sin dolor. La anestesia puede realizarse durmiendo al paciente (anestesia general) o haciendo insensible la parte del cuerpo en la que se va a realizar la operación (anestesio local o regional). En algunas ocasiones después de practicar una anestesia local o regional se tiene que pasar a la anestesia general por resultar la primera insuficiente.",
+          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
         },
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El médico anestesiólogo es el encargado de indicar el tipo de anestesio adecuada para cada caso dependiendo de la operación que se va a realizar y del estado del paciente. Además, cuida del estado general del paciente durante la operación y trata las complicaciones que pudieran surgir.",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Todo acto anestésico conlleva siempre un riesgo menor asumido que justifica su uso generalizado pero también es evidente que es un procedimiento capaz de originar lesiones agudas, secuelas crónicas, complicaciones anestésicas graves e incluso lo muerte; toda ellas en relación con el estado de salud previo; edad; tipo, complejidad y duración de lo intervención quirúrgica, así como consecuencia de reacciones alérgicos u otros posibles factores imprevisibles. Cada tipo de anestesia tiene sus propios riesgos. Los riesgos no pueden suprimirse por completo.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "También es necesario que advierta de posibles alergias medicamentosas, alteración es de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
-        },
-        {
-          marginTop: 15,
-          bold: true,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "EN QUE CONSISTE LA ANESTESIA REGIONAL",
-        },
-        {
-          ul: [
+          text: [
             {
+              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "En este tipo de anestesio Ud. permanecerá despierto o ligeramente sedado.",
+              text: "La Cardioversión  ",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Es necesario también canalizar una vena antes de proceder con el bloqueo.",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "El anestesiólogo le administrará el anestésico mediante inyección, con la finalidad de anestesiar una determinada zona del cuerpo. Recuerde que en ocasiones, la anestesia regional no consigue un nivel de bloqueo suficiente y es necesario recurrir a una anestesia general.",
+              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
             },
           ],
         },
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "De igual forma se colocara unos electrodos adhesivos colocados en el pecho permitirán el control de su latido cardíaco. También se le colocará un aparato que medirá su tensión arterial y un dispositivo en el dedo (pulso-oxímetro) para conocer la cantidad de oxígeno en su sangre.",
-        },
-        {
-          marginTop: 15,
-          bold: true,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "RIESGOS DE LA ANESTESIA REGIONAL",
+          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
         },
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "En ocasiones excepcionales, como consecuencia de la dificultad que planteo el acceso a un punto anestésico concreto, la anestesia administrada pasa rápidamente a la sangre o a las estructuras nerviosas, produciendo los efectos de una anestesia general que se puede acompañar de complicaciones graves, como bajada de la tensión, convulsiones, etc. Generalmente estas complicaciones se solucionan pero requieren llevar a cabo la intervención prevista con anestesia general. Tras lo administración de la anestesia regional pueden surgir molestias, toles como dolor de cabeza o de espalda, que desaparecen en los días posteriores. Es posible que, después de este tipo de anestesia, queden molestias en la zona con sensación de acorchamiento u hormigueo, generalmente pasajeros.",
+          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
         },
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "La administración de los sueros y los medicamentos, que son imprescindibles durante la anestesia, pueden producir, excepcionalmente, reacciones alérgicas. Estas reacciones pueden llegar a ser graves pero tienen carácter extraordinario. Los expertos desaconsejan la práctica sistemática de pruebas de alergia a los medicamentos anestésicos por considerar que no es adecuado hacerlo en pacientes sin historia previa de reacciones adversas o los mismos. Además, estas pruebas no están libres de riesgo y, aún siendo su resultado negativo, los anestésicos probados pueden producir reacciones adversas durante el acto anestésico.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Como consecuencia de su estado clínico puede ser necesario transfundirle sangre.",
+          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
-        },
-        {
-          marginTop: 15,
-          bold: true,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "RECOMENDACIONES ANTES DE LA ANESTESIA REGIONAL",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Debe guardar un ayuno absoluto desde ocho horas antes de la cirugía. EL incumplimiento de esta norma supone lo suspensión de la cirugía.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Debe mantener cualquier medicación que esté tomando de manera habitual (por ejemplo, sus pastillas para la hipertensión) salvo orden expresa de que haga otra cosa. El día de la cirugía puede tomarlas con un sorbo de agua sin romper la norma anterior. Solamente debe usted interrumpir bajo prescripción médica, uno semana antes de la operación, los medicamentos que afectan a la coagulación de la sangre (por ejemplo Aspirina, Adiro, Asosantín, Tromalyt, Tikiid, Persantín, Disgren, etc.).",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Si es usted fumador debe intentar interrumpir su hábito cuanto más tiempo mejor, previo a la cirugía.",
         },
         {
           marginTop: 15,
@@ -134,7 +79,6 @@ export const impresionHIC119 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
-            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -148,7 +92,7 @@ export const impresionHIC119 = ({ datos }) => {
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "ANESTESIA REGIONAL " },
+              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -167,7 +111,6 @@ export const impresionHIC119 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
-            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
