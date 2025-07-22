@@ -1008,4 +1008,14 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento anestesia local",
     },
   },
+  {
+    path: "/HIC119",
+    name: "HIC119",
+    component: () => import("@/views/hic/HIC119.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC119`,
+      descrip: "Consentimiento anestesia regional",
+    },
+  },
 ];
