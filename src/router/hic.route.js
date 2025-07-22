@@ -988,4 +988,14 @@ export const createRouteHic = (title) => [
       descrip: "Formato consentimiento informado para legrado obstetrico",
     },
   },
+  {
+    path: "/HIC117",
+    name: "HIC117",
+    component: () => import("@/views/hic/HIC117.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC117`,
+      descrip: "Consentimiento anestesia general",
+    },
+  },
 ];
