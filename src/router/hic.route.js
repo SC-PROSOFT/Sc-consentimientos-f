@@ -1028,4 +1028,524 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento cardioversion",
     },
   },
+  {
+    path: "/HIC121",
+    name: "HIC121",
+    component: () => import("@/views/hic/HIC121.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC121`,
+      descrip: "Consentimiento anestesia epidural",
+    },
+  },
+  {
+    path: "/HIC122",
+    name: "HIC122",
+    component: () => import("@/views/hic/HIC122.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC122`,
+      descrip: "Formato de consentimiento informado de cirugia endoscopica nasosinusal para el tratamiento de la epistaxis",
+    },
+  },
+  {
+    path: "/HIC123",
+    name: "HIC123",
+    component: () => import("@/views/hic/HIC123.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC123`,
+      descrip: "Formato de consentimiento informado de esofagoscopia mediante esofagoscopio rigido",
+    },
+  },
+  {
+    path: "/HIC124",
+    name: "HIC124",
+    component: () => import("@/views/hic/HIC124.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC124`,
+      descrip: "Formato de consentimiento informado de adenoidectomia",
+    },
+  },
+  {
+    path: "/HIC125",
+    name: "HIC125",
+    component: () => import("@/views/hic/HIC125.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC125`,
+      descrip: "Formato de consentimiento informado de rinoplastia",
+    },
+  },
+  {
+    path: "/HIC126",
+    name: "HIC126",
+    component: () => import("@/views/hic/HIC126.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC126`,
+      descrip: "Formato de consentimiento informado de adenectomia cervical",
+    },
+  },
+  {
+    path: "/HIC127",
+    name: "HIC127",
+    component: () => import("@/views/hic/HIC127.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC127`,
+      descrip: "Formato de consentimiento informado de amigdalectomia",
+    },
+  },
+  {
+    path: "/HIC128",
+    name: "HIC128",
+    component: () => import("@/views/hic/HIC128.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC128`,
+      descrip: "Formato de consentimiento informado de timpanoplastia",
+    },
+  },
+  {
+    path: "/HIC129",
+    name: "HIC129",
+    component: () => import("@/views/hic/HIC129.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC129`,
+      descrip: "Formato de consentimiento informado de reduccion de fractura de huesos propios de la nariz",
+    },
+  },
+  {
+    path: "/HIC130",
+    name: "HIC130",
+    component: () => import("@/views/hic/HIC130.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC130`,
+      descrip: "Formato de consentimiento informado de septoplastia",
+    },
+  },
+  {
+    path: "/HIC131",
+    name: "HIC131",
+    component: () => import("@/views/hic/HIC131.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC131`,
+      descrip: "Formato de consentimiento informado de adenoamigdalectomia",
+    },
+  },
+  {
+    path: "/HIC132",
+    name: "HIC132",
+    component: () => import("@/views/hic/HIC132.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC132`,
+      descrip: "Formato de consentimiento informado de turbinoplastia",
+    },
+  },
+  {
+    path: "/HIC133",
+    name: "HIC133",
+    component: () => import("@/views/hic/HIC133.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC133`,
+      descrip: "Formato de consentimiento informado de septorrinoplastia + turbinoplastia",
+    },
+  },
+  {
+    path: "/HIC134",
+    name: "HIC134",
+    component: () => import("@/views/hic/HIC134.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC134`,
+      descrip: "Formato de consentimiento informado de septoplastia + turbinoplastia",
+    },
+  },
+  {
+    path: "/HIC135",
+    name: "HIC135",
+    component: () => import("@/views/hic/HIC135.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC135`,
+      descrip: "Formato de consentimiento informado de cirugia endoscopica de senos paranasales",
+    },
+  },
+  {
+    path: "/HIC136",
+    name: "HIC136",
+    component: () => import("@/views/hic/HIC136.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC136`,
+      descrip: "Formato de consentimiento informado de colocacion de tubos de ventilacion + adenoidectomia",
+    },
+  },
+  {
+    path: "/HIC137",
+    name: "HIC137",
+    component: () => import("@/views/hic/HIC137.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC137`,
+      descrip: "Formato de consentimiento informado de laringoscopia directa microcirugia laringea",
+    },
+  },
+  {
+    path: "/HIC138",
+    name: "HIC138",
+    component: () => import("@/views/hic/HIC138.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC138`,
+      descrip: "Formato de consentimiento informado de traquetomia",
+    },
+  },
+  {
+    path: "/HIC139",
+    name: "HIC139",
+    component: () => import("@/views/hic/HIC139.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC139`,
+      descrip: "Formato de consentimiento informado de tiroidectomia",
+    },
+  },
+  {
+    path: "/HIC140",
+    name: "HIC140",
+    component: () => import("@/views/hic/HIC140.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC140`,
+      descrip: "Formato de consentimiento informado de miringoplastia",
+    },
+  },
+  {
+    path: "/HIC141",
+    name: "HIC141",
+    component: () => import("@/views/hic/HIC141.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC141`,
+      descrip: "Formato de consentimiento informado de laringoscopia directa e inyeccion intracordal",
+    },
+  },
+  {
+    path: "/HIC142",
+    name: "HIC142",
+    component: () => import("@/views/hic/HIC142.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC142`,
+      descrip: "Formato de consentimiento informado de inyeccion intralaringea de toxina botulinica",
+    },
+  },
+  {
+    path: "/HIC143",
+    name: "HIC143",
+    component: () => import("@/views/hic/HIC143.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC143`,
+      descrip: "Formato de consentimiento informado de extirpacion de lesion bajo anestesia local",
+    },
+  },
+  {
+    path: "/HIC144",
+    name: "HIC144",
+    component: () => import("@/views/hic/HIC144.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC144`,
+      descrip: "Formato de consentimiento informado de estapedectomia",
+    },
+  },
+  {
+    path: "/HIC145",
+    name: "HIC145",
+    component: () => import("@/views/hic/HIC145.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC145`,
+      descrip: "Formato de consentimiento informado de septorrinoplastia",
+    },
+  },
+  {
+    path: "/HIC146",
+    name: "HIC146",
+    component: () => import("@/views/hic/HIC146.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC146`,
+      descrip: "Formato de consentimiento informado de otoplastia",
+    },
+  },
+  {
+    path: "/HIC147",
+    name: "HIC147",
+    component: () => import("@/views/hic/HIC147.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC147`,
+      descrip: "Formato de consentimiento informado de mastoidectomia + timpanoplastia",
+    },
+  },
+  {
+    path: "/HIC148",
+    name: "HIC148",
+    component: () => import("@/views/hic/HIC148.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC148`,
+      descrip: "Formato de consentimiento informado de extripacion de angiofibroma de rinofaringe",
+    },
+  },
+  {
+    path: "/HIC149",
+    name: "HIC149",
+    component: () => import("@/views/hic/HIC149.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC149`,
+      descrip: "Formato de consentimiento informado de uvulopalatofaringoplastia",
+    },
+  },
+  {
+    path: "/HIC150",
+    name: "HIC150",
+    component: () => import("@/views/hic/HIC150.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC150`,
+      descrip: "Formato de consentimiento informado de parotidectomia",
+    },
+  },
+  {
+    path: "/HIC151",
+    name: "HIC151",
+    component: () => import("@/views/hic/HIC151.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC151`,
+      descrip: "Formato de consentimiento informado de cirugia endolaringea por suspension",
+    },
+  },
+  {
+    path: "/HIC152",
+    name: "HIC152",
+    component: () => import("@/views/hic/HIC152.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC152`,
+      descrip: "Formato de consentimiento informado de extirpacion de lesion cutanea de la cara o cuello",
+    },
+  },
+  {
+    path: "/HIC153",
+    name: "HIC153",
+    component: () => import("@/views/hic/HIC153.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC153`,
+      descrip: "Formato de consentimiento informado de cirugia del quiste tirogloso",
+    },
+  },
+  {
+    path: "/HIC154",
+    name: "HIC154",
+    component: () => import("@/views/hic/HIC154.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC154`,
+      descrip: "Formato de consentimiento informado de submaxilectomia",
+    },
+  },
+  {
+    path: "/HIC155",
+    name: "HIC155",
+    component: () => import("@/views/hic/HIC155.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC155`,
+      descrip: "Formato de consentimiento informado de colocacion de tubos de ventilacion",
+    },
+  },
+  {
+    path: "/HIC156",
+    name: "HIC156",
+    component: () => import("@/views/hic/HIC156.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC156`,
+      descrip: "Formato de consentimiento informado de cirugia del colesteatoma",
+    },
+  },
+  {
+    path: "/HIC157",
+    name: "HIC157",
+    component: () => import("@/views/hic/HIC157.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC157`,
+      descrip: "Formato de consentimiento informado de antrostomia maxilar o caldwell-luc",
+    },
+  },
+  {
+    path: "/HIC158",
+    name: "HIC158",
+    component: () => import("@/views/hic/HIC158.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC158`,
+      descrip: "Formato de consentimiento informado de cervicotomia exploratoria",
+    },
+  },
+  {
+    path: "/HIC159",
+    name: "HIC159",
+    component: () => import("@/views/hic/HIC159.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC159`,
+      descrip: "Formato de consentimiento informado de cirugia de la hipofisis por via transesfenoidal",
+    },
+  },
+  {
+    path: "/HIC160",
+    name: "HIC160",
+    component: () => import("@/views/hic/HIC160.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC160`,
+      descrip: "Formato de consentimiento informado de dacriocistorrinostomia endonasal",
+    },
+  },
+  {
+    path: "/HIC161",
+    name: "HIC161",
+    component: () => import("@/views/hic/HIC161.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC161`,
+      descrip: "Formato de consentimiento frenillectomia lingual",
+    },
+  },
+  {
+    path: "/HIC162",
+    name: "HIC162",
+    component: () => import("@/views/hic/HIC162.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC162`,
+      descrip: "Formato de consentimiento vaciamiento cervical",
+    },
+  },
+  {
+    path: "/HIC163",
+    name: "HIC163",
+    component: () => import("@/views/hic/HIC163.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC163`,
+      descrip: "Formato de consentimiento timpanomastoidectomia",
+    },
+  },
+  {
+    path: "/HIC164",
+    name: "HIC164",
+    component: () => import("@/views/hic/HIC164.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC164`,
+      descrip: "Formato de consentimiento extirpacion de fistula y/o quistes preauriculares",
+    },
+  },
+  {
+    path: "/HIC165",
+    name: "HIC165",
+    component: () => import("@/views/hic/HIC165.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC165`,
+      descrip: "Formato de consentimiento informado de biopsia de glandula salivar menor anestesia local",
+    },
+  },
+  {
+    path: "/HIC166",
+    name: "HIC166",
+    component: () => import("@/views/hic/HIC166.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC166`,
+      descrip: "Formato de consentimiento informado somnoscopia (dise)",
+    },
+  },
+  {
+    path: "/HIC167",
+    name: "HIC167",
+    component: () => import("@/views/hic/HIC167.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC167`,
+      descrip: "Formato de consentimiento informado de infiltracion intratimpanica",
+    },
+  },
+  {
+    path: "/HIC168",
+    name: "HIC168",
+    component: () => import("@/views/hic/HIC168.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC168`,
+      descrip: "Formato de consentimiento informado de reseccion de ranula",
+    },
+  },
+  {
+    path: "/HIC169",
+    name: "HIC169",
+    component: () => import("@/views/hic/HIC169.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC169`,
+      descrip: "Formato de consentimiento informado para extraccion de cuerpo extraño",
+    },
+  },
+  {
+    path: "/HIC170",
+    name: "HIC170",
+    component: () => import("@/views/hic/HIC170.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC170`,
+      descrip: "Formato de consentimiento informado reseccion de sinequia nasal",
+    },
+  },
+  {
+    path: "/HIC171",
+    name: "HIC171",
+    component: () => import("@/views/hic/HIC171.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC171`,
+      descrip: "Consentimiento informado transfusion sanguinea",
+    },
+  },
+  {
+    path: "/HIC172",
+    name: "HIC172",
+    component: () => import("@/views/hic/HIC172.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC172`,
+      descrip: "Consentimiento puncion lumbar",
+    },
+  },
 ];
