@@ -12,46 +12,99 @@ export const impresionHIC123 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "La esofagoscopia es uno técnica de exploración del esófago, es decir, del tubo de la deglución, con fines o de diagnóstico o, generalmente, de tratamiento, ya que se emplea para extraer cuerpos extraños alojados en la mencionado estructura.",
         },
         {
-          text: [
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que. durante o después del procedimiento, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA ESOFAGOSCOPIA MEDIANTE ESOFAGOSCOPIO RÍGIDO",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Consiste en la introducción, por la boca, de un tubo rígido que dispone de un sistema de iluminación que nos permitirá explorar el trayecto esofágico y realizar diferentes tratamientos, tales como la extracción de cuerpos extraños.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Esta exploración se realiza con el paciente ingresado y habiendo transcurrido varias horas tras la última ingesta de alimentos. Con ello se pretende evitar un posible vómito que pueda ocasionar el paso de los alimentos ingeridos previamente, a los pulmones.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Tras efectuar la esofagoscopia puede ser necesaria una hospitalización de varios días, en dependencia de las lesiones observadas, manteniendo el tratamiento oportuno y los controles radiológicos necesarios. También cabe la posibilidad de que durante el procedimiento haya que realizar modificaciones de la técnica por los hallazgos observados para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA ESOFAGOSCOPIA MEDIANTE ESOFAGOSCOPIO RÍGIDO",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de lo adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y los específicos del procedimiento:",
+        },
+        {
+          ul: [
             {
-              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              text: "En los casos de extracción de cuerpos extraños cortantes o punzantes, la complicación más importante es la perforación esofágica. A este respecto hay que considerar que el esófago puede estar perforado por el propio cuerpo extraño enclavado.",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "En las proximidades del esófago se encuentra un espacio, denominado mediastino, que aloja órganos vitales, tales como el corazón, los grandes vasos arteriales y venosos, etc. La perforación esofágica puede conllevar la entrada al mediastino de saliva, aire o sangre, y su posterior infección, dando lugar a una mediastinitis. Esta afección es sumamente grave y puede, incluso, suponer el riesgo de fallecimiento del paciente.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Heridas a nivel de la boca o la garganta, lesiones a nivel dentario o mandibular y los derivados de la hiperextensión cervical, que es la postura en la que se coloca al paciente para la intervención.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Disfagia molestias al tragar que suelen ser pasajeras, la disfonía ronquera, que también suele ser pasajera, hemoptisis o hematemesis es decir, la aparición de sangre procedente del aparato digestivo o respiratorio, la fístula traqueoesofágica es decir, una comunicación entre el conducto de tragar y el de respirar, que tiene un pronóstico grave, y la estenosis esofágica el estrechamiento del conducto del aparato digestivo.",
             },
           ],
         },
         {
+          marginTop: 15,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una intervención, en algunos casos de urgencia.",
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +114,29 @@ export const impresionHIC123 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La esofagoscopia flexible es muy eficaz en la exploración del esófago, si bien se encuentra limitada en la extracción de cuerpos extraños.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +152,7 @@ export const impresionHIC123 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -92,7 +166,7 @@ export const impresionHIC123 = ({ datos }) => {
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { bold: true, style: "bodyNoBold9", text: "ESOFAGOSCOPIA MEDIANTE ESOFAGOSCOPIO RÍGIDO " },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -111,6 +185,7 @@ export const impresionHIC123 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
