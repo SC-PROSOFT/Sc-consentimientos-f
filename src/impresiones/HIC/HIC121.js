@@ -14,47 +14,79 @@ export const impresionHIC121 = ({ datos }) => {
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "La analgesia (ausencia de dolor) epidural es un procedimiento para el cual es preciso colocar un catéter en el espacio epidural de la columna vertebral, a través del cual se administran fármacos, analgésicos y/o anestésicos locales. La analgesia epidural anula o hace muy soportable el dolor .La analgesia conseguida con esta técnica es segura.",
         },
         {
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
         },
         {
-          text: [
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La técnica es prácticamente indolora. La zona de la espalda utilizada para colocar el sistema de infusión de fármacos se duerme con anestesia local. A través de este sistema (catéter epidural) se suministran continuamente los anestésicos locales necesarios para anular o aliviar de forma importante el dolor. Este suele calmar a los 15 ó 20 minutos después de haber colocado el sistema y se prolongará más o menos 1 hora después del parto.",
+        },
+        {
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El médico anestesiólogo valorará la indicación de la técnica en colaboración con el especialista y si está indicado la realizará, controlará sus efectos y tratará las complicaciones que pudiesen surgir.",
+        },
+        {
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La colaboración con el anestesiólogo es importante, ya que es un procedimiento delicado. Una vez colocada en la posición que le indiquen deberá intentar no hacer movimientos bruscos.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA ANALGESIA EPIDURAL",
+        },
+        {
+          marginTop: 5,
+          ul: [
             {
-              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              text: "Dolores de cabeza Es la complicación más frecuente y puede tratarse de manera adecuada.",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "Hipotensión.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Fallas de la técnica (bloqueos incompletos, ausencia del bloqueo).",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Convulsiones: 1/9.000 procedimientos.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Raquianeslesia total de lo columna vertebral: su frecuencia es de 1/8.000 procedimientos.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Lumbalgia en la zona de punción: 1/8.000 procedimientos.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Complicaciones a nivel del sistema nervioso central: hematoma epidural o subdural, meningitis, etc. Son muy raras: 1 /50.000-60.000 procedimientos.",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
             },
           ],
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
         },
         {
           marginTop: 15,
@@ -64,6 +96,7 @@ export const impresionHIC121 = ({ datos }) => {
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -92,7 +125,7 @@ export const impresionHIC121 = ({ datos }) => {
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { bold: true, style: "bodyNoBold9", text: "ANALGESIA EPIDURAL " },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",

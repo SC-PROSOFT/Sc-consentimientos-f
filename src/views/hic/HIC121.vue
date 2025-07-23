@@ -48,7 +48,8 @@
           <div>
             <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS DE LA ANALGESIA EPIDURAL</p>
             <ul>
-              <li>Dolores de cabeza Es la complicación más frecuente y puede tratarse de manera adecuada. Hipotensión</li>
+              <li>Dolores de cabeza Es la complicación más frecuente y puede tratarse de manera adecuada.</li>
+              <li>Hipotensión</li>
               <li>Fallas de la técnica (bloqueos incompletos, ausencia del bloqueo).</li>
               <li>Convulsiones: 1/9.000 procedimientos.</li>
               <li>Raquianeslesia total de lo columna vertebral: su frecuencia es de 1/8.000 procedimientos.</li>
