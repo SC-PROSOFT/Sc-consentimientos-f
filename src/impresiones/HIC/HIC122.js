@@ -12,61 +12,116 @@ export const impresionHIC122 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACION GENERAL",
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Este documento informativo pretende explicar, de forma sencilla, la intervención quirúrgica denominada ",
+            },
+            {
+              bold: true,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "CIRUGÍA ENDOSCÓPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "(hemorragia nasal), así como los aspectos más importantes del período postoperatorio y las complicaciones más frecuentes que, como consecuencia de esta intervención, puedan aparecer. ",
+            },
+          ],
         },
         {
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Llamamos ",
+            },
+            {
+              bold: true,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "CIRUGÍA ENDOSCÓPICA NASOSINUSAL ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "a la técnica quirúrgica que tiene como finalidad el tratamiento de diferentes procesos a nivel naso-sinusal, mediante su abordaje con ayuda de endoscopios, favoreciendo así una mejor iluminación de las cavidades, su mejor control visual y el mejor tratamiento de las lesiones nasales. En el caso concreto de la epistaxis o hemorragia nasal, la intervención se puede realizar bajo anestesia general, en casos muy seleccionados con hemorragias poco cuantiosas, se puede emplear la anestesia local o sedación y analgesia del paciente. La técnica quirúrgica se realiza a través de los orificios de las fosas nasales, por lo que no suele quedar ninguna cicatriz externa. En el acto quirúrgico se pretende localizar el punto de origen de la hemorragia y, si es necesario, la extirpación de las lesiones causantes de la misma, respetando al máximo la mucosa que tapiza las fosas nasales e intentando conservar al máximo su funcionalidad. Una vez localizado el punto sangrante, el cirujano intentará su hemostasia (detención de la hemorragia) utilizando diferentes técnicas, tales como la coagulación, la compresión, la colocación de material coagulante reabsorbible o la ligadura del vaso responsable. Tras la intervención, se coloca un taponamiento nasal durante un tiempo variable, que por lo general oscila entre 24 horas y 4 días de duración. Incluso con el taponamiento, el paciente puede presentar una pequeña hemorragia, ya sea a través de las fosas nasales o de la faringe, que suele ceder en unas horas, si el paciente no tiene trastornos de la coagulación. ",
+            },
+          ],
+        },
+        {
+          marginTop: 10,
           text: [
             {
               bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              text: "BENEFICIO: ",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "La detención de la hemorragia.",
             },
           ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          marginTop: 10,
+          text: [
+            {
+              bold: true,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "OTRAS ALTERNATIVAS: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "El tratamiento de la hemorragia es complejo y puede requerir maniobras muy diversas que pueden ser efectivas, tales como el taponamiento nasal anterior, el taponamiento nasal posterior, la cauterización química, la embolización arterial, la ligadura arterial y otros muchos.",
+            },
+          ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          marginTop: 10,
+          text: [
+            {
+              bold: true,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "CONSECUENCIAS PREVISIBLES DE SU REALIZACIÓN: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "1. Después de la intervención puede aparecer dolor en la fosa nasal, en la región facial o en la región craneal, que se tratará con analgésicos. 2. Vómitos sanguinolentos con coágulos que, durante las primeras horas, se consideran normales. Estos coágulos son la manifestación de la sangre deglutida y no precisan tratamiento. 3. Durante los primeros días un hematoma en la cara y en el entorno del ojo. La epistaxis independientemente del tratamiento realizado, podría repetirse un tiempo después, toda vez que no es lo habitual, en ausencia de enfermedades hematológicas o de la mucosa nasal. En caso de presentarse una nueva hemorragia por la nariz o por la boca, el paciente deberá acudir al médico para una nueva valoración y tratamiento.",
+            },
+          ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
-        },
-        {
-          marginTop: 15,
-          bold: true,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
+          marginTop: 10,
+          text: [
+            {
+              bold: true,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "RIESGOS FRECUENTES: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "puede persistir la hemorragia, Infección de la cavidad operatoria o de las cavidades sinusales debido a las alteraciones del drenaje y de la ventilación de los senos paranasales, que se tratará con antibióticos.  En raras ocasiones: complicaciones oculares. Perforaciones del tabique nasal, sinequias o cicatrices anómalas entre las paredes de la fosa nasal, trastornos de la olfacción, sensación de sequedad y formación de costras de moco, que precisan lavados nasales y curas tópicas, Complicaciones propias de toda intervención quirúrgica.",
+            },
+          ],
         },
         autorizaRevoca(),
       ],
@@ -92,7 +147,7 @@ export const impresionHIC122 = ({ datos }) => {
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { bold: true, style: "bodyNoBold9", text: "CIRUGIA ENDOSCOPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS " },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",

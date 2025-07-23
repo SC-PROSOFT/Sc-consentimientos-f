@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic122"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,72 +13,78 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic122 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic122 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic122">
+              {{ opcion_hic122 }}
             </q-chip>
           </p>
         </div>
 
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
           <div>
-            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">INFORMACION GENERAL</p>
             <p class="text-justify q-pa-xs">
-              Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
-              le atenderá con mucho gusto.
+              Este documento informativo pretende explicar, de forma sencilla, la intervención quirúrgica denominada
+              <span class="text-bold"> CIRUGÍA ENDOSCÓPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS </span> (hemorragia nasal), así como los
+              aspectos más importantes del período postoperatorio y las complicaciones más frecuentes que, como consecuencia de esta intervención,
+              puedan aparecer.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Llamamos <span class="text-bold"> CIRUGÍA ENDOSCÓPICA NASOSINUSAL </span> a la técnica quirúrgica que tiene como finalidad el
+              tratamiento de diferentes procesos a nivel naso-sinusal, mediante su abordaje con ayuda de endoscopios, favoreciendo así una mejor
+              iluminación de las cavidades, su mejor control visual y el mejor tratamiento de las lesiones nasales. En el caso concreto de la
+              epistaxis o hemorragia nasal, la intervención se puede realizar bajo anestesia general, en casos muy seleccionados con hemorragias poco
+              cuantiosas, se puede emplear la anestesia local o sedación y analgesia del paciente. La técnica quirúrgica se realiza a través de los
+              orificios de las fosas nasales, por lo que no suele quedar ninguna cicatriz externa. En el acto quirúrgico se pretende localizar el
+              punto de origen de la hemorragia y, si es necesario, la extirpación de las lesiones causantes de la misma, respetando al máximo la
+              mucosa que tapiza las fosas nasales e intentando conservar al máximo su funcionalidad. Una vez localizado el punto sangrante, el
+              cirujano intentará su hemostasia (detención de la hemorragia) utilizando diferentes técnicas, tales como la coagulación, la compresión,
+              la colocación de material coagulante reabsorbible o la ligadura del vaso responsable. Tras la intervención, se coloca un taponamiento
+              nasal durante un tiempo variable, que por lo general oscila entre 24 horas y 4 días de duración. Incluso con el taponamiento, el
+              paciente puede presentar una pequeña hemorragia, ya sea a través de las fosas nasales o de la faringe, que suele ceder en unas horas, si
+              el paciente no tiene trastornos de la coagulación.
+            </p>
+            <p class="text-justify q-pa-xs"><span class="text-bold"> BENEFICIO: </span> La detención de la hemorragia.</p>
+            <p class="text-justify q-pa-xs">
+              <span class="text-bold"> OTRAS ALTERNATIVAS: </span>El tratamiento de la hemorragia es complejo y puede requerir maniobras muy diversas
+              que pueden ser efectivas, tales como el taponamiento nasal anterior, el taponamiento nasal posterior, la cauterización química, la
+              embolización arterial, la ligadura arterial y otros muchos.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span class="text-bold"> CONSECUENCIAS PREVISIBLES DE SU REALIZACIÓN: </span>1. Después de la intervención puede aparecer dolor en la
+              fosa nasal, en la región facial o en la región craneal, que se tratará con analgésicos. 2. Vómitos sanguinolentos con coágulos que,
+              durante las primeras horas, se consideran normales. Estos coágulos son la manifestación de la sangre deglutida y no precisan
+              tratamiento. 3. Durante los primeros días un hematoma en la cara y en el entorno del ojo. La epistaxis independientemente del
+              tratamiento realizado, podría repetirse un tiempo después, toda vez que no es lo habitual, en ausencia de enfermedades hematológicas o
+              de la mucosa nasal. En caso de presentarse una nueva hemorragia por la nariz o por la boca, el paciente deberá acudir al médico para una
+              nueva valoración y tratamiento.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span class="text-bold">RIESGOS FRECUENTES: </span>puede persistir la hemorragia, Infección de la cavidad operatoria o de las cavidades
+              sinusales debido a las alteraciones del drenaje y de la ventilación de los senos paranasales, que se tratará con antibióticos. En raras
+              ocasiones: complicaciones oculares. Perforaciones del tabique nasal, sinequias o cicatrices anómalas entre las paredes de la fosa nasal,
+              trastornos de la olfacción, sensación de sequedad y formación de costras de moco, que precisan lavados nasales y curas tópicas,
+              Complicaciones propias de toda intervención quirúrgica.
             </p>
           </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic122 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
               Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              <span class="text-bold">CIRUGIA ENDOSCOPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS </span> Se me ha facilitado esto hoja
+              informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente
+              informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.:
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <Input_ v-model="HIC122.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
               Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
 
-        <div v-if="opcion_hic120 == 'REVOCAR'">
+        <div v-if="opcion_hic122 == 'REVOCAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
@@ -125,7 +131,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic122 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,7 +145,7 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC122, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
 import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
@@ -160,12 +166,12 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC122 = reactive({
   fecha: "",
   med_explica: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic122 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -177,7 +183,7 @@ const form = ref({
   },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC122.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +202,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC122));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic122.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC122",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +272,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic122 = {
+      autorizo: opcion_hic122.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +287,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC122,
     };
 
     const firmas = {
@@ -294,20 +300,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC122" },
+      content: impresionHIC122({
+        datos: datos_hic122,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC122" },
+      content: impresionHIC122({
+        datos: datos_hic122,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-122` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
