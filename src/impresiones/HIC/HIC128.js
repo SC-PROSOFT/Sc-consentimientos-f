@@ -163,13 +163,7 @@ export const impresionHIC128 = ({ datos }) => {
           style: "bodyNoBold9",
           text: datos.riesgo_personaliz,
         },
-        {
-          marginTop: 15,
-          bold: true,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
-        },
+        { pageBreak: "before", marginTop: 15, bold: true, alignment: "justify", style: "bodyNoBold9", text: "QUE OTRAS ALTERNATIVAS HAY" },
         {
           marginTop: 5,
           alignment: "justify",
@@ -193,7 +187,7 @@ export const impresionHIC128 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
-            pageBreak: "before",
+
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -226,7 +220,6 @@ export const impresionHIC128 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
-            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
