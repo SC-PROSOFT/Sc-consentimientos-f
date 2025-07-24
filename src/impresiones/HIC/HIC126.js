@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC126 = ({ datos }) => {
@@ -12,46 +12,127 @@ export const impresionHIC126 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "La extirpación de un ganglio, adenectomía, se realiza para determinar la naturaleza de una adenopatía de origen cervical. La aparición de dicha adenopatía puede ser de origen infeccioso, puede ser debido a una infección o de origen tumoral, benigno o maligno. En función de la localización de la adenopatía, la anestesia requerida para realizar la intervención puede ser local o general.",
         },
         {
-          text: [
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. & posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA ADENECTOMÍA CERVICAL",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La intervención se efectúa a través de una pequeña incisión alrededor del ganglio. B ganglio puede extirparse completamente o realizarse una biopsia en cuña para llevar a cabo diferentes análisis (bacteriológico, anotomopatologico...) Puede ser requerido en algunas ocasiones un examen histológico peroperatorio para precisar la naturaleza de la lesión y determinar el acto quirúrgico posterior.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA ADENECTOMÍA CERVICAL",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
+          ul: [
             {
-              bold: true,
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              marginTop: 5,
+              text: [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  decoration: "underline",
+                  text: "Riesgos inmediatos: ",
+                },
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "Hematoma local, Supuración local que puede conllevar una alteración en la cicatrización.",
+                },
+              ],
             },
             {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              marginTop: 5,
+              text: [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  decoration: "underline",
+                  text: "Riesgos secundarios: ",
+                },
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "Hipertrofia de la cicatriz con dolor local y pequeña zona de anestesia a nivel de la misma. Dolores cervicales o de espalda pasajeros.",
+                },
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "Dependiendo de los resultados histológicos definitivos es posible la reintervención para ampliar cirugía local.",
+                },
+              ],
+            },
+            {
+              marginTop: 5,
+              text: [
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  decoration: "underline",
+                  text: "Complicaciones graves: ",
+                },
+                {
+                  alignment: "justify",
+                  style: "bodyNoBold9",
+                  text: "En algunas ocasiones es preciso la extirpación de un nervio laríngeo que puede producir problemas en la voz o dificultades en la alimentación.",
+                },
+              ],
             },
           ],
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +142,29 @@ export const impresionHIC126 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La única alternativa es la abstención terapéutica.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +180,7 @@ export const impresionHIC126 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,8 +193,8 @@ export const impresionHIC126 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "ADENECTOMIA CERVICAL. \n\n" },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -111,6 +213,7 @@ export const impresionHIC126 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
