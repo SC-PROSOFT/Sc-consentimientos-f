@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic124"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,78 +13,139 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic124 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic124 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic124">
+              {{ opcion_hic124 }}
             </q-chip>
           </p>
         </div>
 
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">INFORMACIÓN GENERAL</p>
+            <p class="text-justify q-pa-xs">
+              Las adenoides - cuyo término coloquial es vegetaciones - están constituidas por un tejido linfoide normal, similar al de las amígdalas,
+              que está situado en la parte posterior de la nariz. El aumento del tamaño de los vegetaciones (hipertrofia de adenoides) o su infección
+              crónica es frecuente en la edad infantil. La extirpación de las adenoides (adenoidectomía) está justificada en caso de obstrucción nasal
+              persistente y en caso de infecciones recidivantes del tejido adenoideo que provoca otitis de repetición o moco persistente en uno o
+              ambos oídos.
+            </p>
+            <p class="text-justify q-pa-xs">
+              El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea
+              necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas,
+              alteraciones de la coagulación, enfermedades cardiopulmonares, medicaciones actuales o cualquier otra circunstancia.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">EN QUE CONSISTE IA ADENOIDECTOMIA</p>
+            <p class="text-justify q-pa-xs">
+              La intervención sobre las adenoides se efectúa con la ayuda de un instrumento resector que se introduce por la boca y permite la
+              extirpación de la mayor parte del tejido adenoideo.
+            </p>
+            <p class="text-justify q-pa-xs">
+              También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos
+              intraoperatorios para proporcionar un tratamiento más adecuado.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS DE LA ADENOIDECTOMIA</p>
+            <p class="text-justify q-pa-xs">
+              A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes
+              derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente
+              (peso, edad, diabetes, cardiopatía...) y los específicos del procedimiento:
+            </p>
+            <ul class="text-justify">
+              <li>
+                <p class="text-justify q-pa-xs">
+                  <span style="text-decoration: underline">Riesgos inmediatos:</span>
+                  En ocasiones, se produce un sangrado persistente que requiere la revisión quirúrgico para controlarlo. Puede producirse un episodio
+                  infeccioso rinofaringeo o una otitis por infección del tejido operado. Debido a la utilización de los instrumentos a través de la
+                  boca, pueden producirse pequeñas heridas en labios o lengua e incluso la movilización de un diente.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  <span style="text-decoration: underline">Riesgos secundarios:</span>
+                  Después de la cicatrización de la herida en la parte posterior de la nariz puede observarse una modificación de la voz debido al
+                  escape del aire a nivel del velo del paladar. Excepcionalmente, es necesario una reeducación del lenguaje (logopedia).
+                </p>
+                <p class="text-justify q-pa-xs">
+                  No se puede descartar la posibilidad de presentar infecciones y otitis después de la intervención, aunque habitualmente la
+                  incidencia de infecciones se reduce ostensiblemente.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  <span style="text-decoration: underline">Complicaciones graves excepcionales</span>
+                  Una aspiración de sangre durante la intervención puede ser responsable de una infección pulmonar. La infección de los tejidos
+                  cervicales a través del tejido operado (flemón cervical) es rara.
+                </p>
+                <p class="text-justify q-pa-xs">
+                  Los síntomas más frecuentes asociados a la infección cervical son: fiebre alta, dolor de cuello y alteraciones en su movilización.
+                  En este caso, acuda al Área de Urgencias para valoración.
+                </p>
+              </li>
+            </ul>
+            <p class="text-justify q-pa-xs">
+              Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una
+              reintervención, en algunos casos de urgencia.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
+              bastante infrecuente.
+            </p>
+            <p class="text-justify q-pa-xs">
+              De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para
+              intentar solucionarla.
+            </p>
+          </div>
+
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS PERSONALIZADOS</p>
+            <TextArea_ v-model="HIC124.riesgo_personaliz" :field="form.riesgo_personaliz" class="col-12" />
+          </div>
           <div>
             <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
             <p class="text-justify q-pa-xs">
-              Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
+              A pesar de las posibles complicaciones que puedan surgir, consideramos que el mejor tratamiento, en su caso, es la cirugía y que no
+              existe una alternativa mejor.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Si después de leer detenidamente este documento, desea más información, por favor, no dude en preguntar al especialista responsable, que
               le atenderá con mucho gusto.
             </p>
           </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic124 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              Yo, <span class="text-bold">{{ getAcomp.descrip }}</span
+              >, parentesco <span class="text-bold">{{ evaluarParentesco(getPaci.paren_acomp) }}</span> identificad@ con
+              <span class="text-bold">{{ getAcomp.tipo_id }}</span> <span class="text-bold">{{ getAcomp.cod }}</span
+              >, doy mi consentimiento para que a mi hijo/a <span class="text-bold">{{ getPaci.descrip }} </span>, con Historia Clínica No.
+              <span class="text-bold">{{ getHc.llave }} </span>, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span> le sea
+              realizada una <span class="text-bold">ADENOIDECTOMIA. </span>
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <p class="text-justify q-pa-xs">
+              Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
+              declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.:
+            </p>
+            <Input_ v-model="HIC124.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
               Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
 
-        <div v-if="opcion_hic120 == 'REVOCAR'">
+        <div v-if="opcion_hic124 == 'REVOCAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> después de ser informado/a de la naturaleza y riesgos del procedimiento
+              Yo, <span class="text-bold">{{ getAcomp.descrip }}</span> después de ser informado/a de la naturaleza y riesgos del procedimiento
               propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome
               responsable de las consecuencias que puedan derivarse de esta decisión.
             </p>
@@ -125,7 +186,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic124 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,9 +200,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC124, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad, evaluarParentesco } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -160,12 +221,13 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC124 = reactive({
   fecha: "",
   med_explica: "",
+  riesgo_personaliz: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic124 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -175,9 +237,16 @@ const form = ref({
     placeholder: "Nombre del profesional",
     campo_abierto: true,
   },
+  riesgo_personaliz: {
+    id: "riesgo_personaliz",
+    maxlength: "500",
+    label: "",
+    rows: 3,
+    campo_abierto: true,
+  },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC124.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +265,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC124));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic124.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC124",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +335,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic124 = {
+      autorizo: opcion_hic124.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +350,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC124,
     };
 
     const firmas = {
@@ -294,20 +363,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC124" },
+      content: impresionHIC124({
+        datos: datos_hic124,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC124" },
+      content: impresionHIC124({
+        datos: datos_hic124,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-124` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
