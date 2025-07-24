@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC131 = ({ datos }) => {
@@ -12,46 +12,136 @@ export const impresionHIC131 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Las adenoides - cuyo término coloquial es vegetaciones - están constituidas por un tejido linfoide normal, similar al de las amígdalas, que está situado en la parte posterior de la nariz. El aumento del tamaño de los vegetaciones (hipertrofia de adenoides) o su infección crónica es frecuente en la edad infantil. La extirpación de las adenoides (adenoidectomía) está justificada en caso de obstrucción nasal persistente y en caso de infecciones recidivantes del tejido adenoideo que provoca otitis de repetición o moco persistente en uno o ambos oídos.",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Las amígdalas - cuyo término coloquial es glándulas - están constituidas por un tejido linfoide normal, situado en la parte posterior de la faringe. El aumento del tamaño de las amígalas (hipertrofia amígdala) o su infección crónica es frecuente en la edad infantil. La extirpación de las amígdalas está justificada en caso de obstrucción de la respiración o de la deglución y en caso de infecciones recidivantes del tejido amigdalar o complicaciones cervicales (flemón periamigdalino, flemón faríngeo...) Cuando se presenta conjuntamente las situaciones anteriormente descritas está indica la extirpación simultanea de las adenoides y las amígdalas, este procedimiento se conoce como adenoamidalectomia.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA ADENOAMIGDALECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La intervención se efectúa con lo ayuda de un instrumento resector para las adenoides y con otros instrumentos para la extirpación de las amígdalas, que se introducen por la boca y permiten la extirpación de la mayor parte del tejido adenoideo y del tejido amigdalar.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA ADENOAMIGDALECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (peso, edad, diabetes, cardiopatía…) y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
           text: [
             {
-              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              decoration: "underline",
+              text: "Riesgos inmediatos: ",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "En ocasiones se produce un sangrado persistente que requiere la revisión quirúrgica para controlarlo. Puede producirse un episodio infeccioso rinofaríngeo o una otitis por infección del tejido operado. Debido a la utilización de los instrumentos necesarios para realizar la intervención a través de la boca pueden producirse pequeñas heridas en labios o lengua e incluso la movilización de un diente.",
             },
           ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Riesgos secundarios: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: " Después de la cicatrización de las heridas puede observarse una modificación de la voz debido al escape del aire a nivel del velo del paladar. Excepcionalmente, es necesaria una reeducación del lenguaje (logopedia). No se puede descartar la posibilidad de presentar infecciones y otitis después de la intervención, aunque habitualmente la incidencia de infecciones se reduce ostensiblemente.",
+            },
+          ],
         },
         {
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones graves excepcionales: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: " A pesar de realizar la intervención en condiciones de competencia y seguridad máximas, existe un riesgo de complicación inherente a la misma actuación quirúrgica. Una aspiración de sangre durante la intervención puede ser responsable de una infección pulmonar.",
+            },
+          ],
+        },
+
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "La infección de los tejidos cervicales a través del tejido operado (flemón cervical) es raro. Los síntomas más frecuentes asociados a la infección cervical son: fiebre alta, dolor de cuello y alteraciones en su movilización.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
+          text: "En este caso, acuda al Área de Urgencias para valoración.",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esto posibilidad es bastante infrecuente.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +151,29 @@ export const impresionHIC131 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de las posibles complicaciones que puedan surgir, consideramos que el mejor tratamiento, en su caso, es la cirugía y que no existe una alternativa mejor para usted.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +189,7 @@ export const impresionHIC131 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,8 +202,8 @@ export const impresionHIC131 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "ADENOAMIGDALECTOMIA. \n\n" },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -100,7 +211,7 @@ export const impresionHIC131 = ({ datos }) => {
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: "a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -111,6 +222,7 @@ export const impresionHIC131 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +450,7 @@ export const impresionHIC131 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
