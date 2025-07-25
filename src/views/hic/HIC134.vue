@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic134"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,72 +13,169 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic134 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic134 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic134">
+              {{ opcion_hic134 }}
             </q-chip>
           </p>
         </div>
-
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">INFORMACIÓN GENERAL</p>
+            <p class="text-justify q-pa-xs">
+              La septoplastia es la cirugía correctora de las desviaciones del tabique nasal, que pretende mejorar la respiración y la ventilación
+              nasal. El resultado obtenido estará en función de la importancia de la deformación constatada. El tipo de anestesia requerida será la
+              indicada por el anestesiólogo. Es posible que durante o después de la intervención, sea necesaria la utilización de sangre y/o
+              hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades
+              cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
+            </p>
+            <p class="text-justify q-pa-xs">
+              La turbinoplastia es la cirugía correctora del crecimiento patológico de los cornetes nasales, que pretende mejorar la respiración y la
+              ventilación nasal. El resultado obtenido estará en función de la importancia del crecimiento (hipertrofia) constada. El tipo de
+              anestesia requerida será la indicada por el anestesiólogo. Es posible que durante o después de la intervención, sea necesaria la
+              utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
+              coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">EN QUE CONSISTE LA SEPTOPLASTIA</p>
+            <p class="text-justify q-pa-xs">
+              La intervención se efectúa con la ayuda de instrumentos que se introducen por la nariz, sin cicatrices cutáneas. Durante el
+              procedimiento se despega la mucosa de la nariz para exponer el tabique cartilaginoso y óseo y se extirpa parte del cartílago y/o el
+              hueso del tabique nasal desviado. Puede ser necesario suturar la mucosa con puntos y contenerla con un taponamiento nasal. A veces, es
+              necesaria la colocación de un dispositivo plástico para reforzar esta contención. También cabe la posibilidad de que durante la cirugía
+              haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS DE LA SEPTOPLASTIA</p>
+            <p class="text-justify q-pa-xs">
+              A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes
+              derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente
+              (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento:
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Riesgos inmediatos:</span>
+              Es habitual la inflamación nasal durante el postoperatorio inmediato y la salida de un líquido "como agua de lavar carne" del exudado
+              del taponamiento. También puede presentar irritación de los puntos lacrimales e incluso la salida de este líquido o de sangre por e!
+              punto lacrimal del ojo.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Puede producirse una pequeña erosión de los orificios nasales que se resolverá espontáneamente y/o una alteración transitoria de la
+              sensibilidad de los dientes superiores. Una vez retirado el taponamiento nasal, si persiste la obstrucción puede ser debido a la
+              formación de un hematoma local que debe ser valorado por su médico sin demora.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Riesgos secundarios:</span>
+              Perforación del tabique nasal por necrosis de los tejidos operados. Si se presenta, producirá alteración de la respiración con formación
+              de costras y hemorragias locales. La persistencia de obstrucción nasal después de la intervención puede ser debida a adherencias, bridas
+              cicatriciales o a la deformación del tabique operado por la cicatrización posterior. Puede presentarse una modificación de la punta
+              nasal tras la intervención. Es infrecuente la persistencia de la alteración de lo sensibilidad de los dientes superiores.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones graves excepcionales:</span>
+              A pesar de realizar la intervención es condiciones de competencia y seguridad máximas, existe un riesgo de complicación inherente a la
+              misma actuación quirúrgica. Es infrecuente la aparición de una complicación infecciosa grave tipo meningitis , shock tóxico
+              estafilocóccico complicación extremadamente rara pero grave o salida de líquido cefalorraquídeo o de pérdida de olfato. Excepcionalmente
+              se produce una pérdida de tejidos internos (necrosis, absceso, fístula buconasal) con alteraciones en la mucosa (perforación) o de la
+              forma de la nariz.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una
+              reintervención, en algunos casos de urgencia.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">EN QUE CONSISTE LA TURBINOPLASTIA</p>
+            <p class="text-justify q-pa-xs">
+              La intervención se efectúa con la ayuda de instrumentos que se introducen por la nariz, sin cicatrices cutáneas. Durante el
+              procedimiento se despega la mucosa de los cornetes para exponer la porción ósea y se extirpa parte del hueso del cornete hipertrofiado,
+              así como la cauterización con electricidad y/o radiofrecuencia. Puede ser necesario en caso de ocurrir sangrado contenerlo con un
+              taponamiento nasal. También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los
+              hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.
+            </p>
+          </div>
+
+          <!--  -->
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS DE LA TURBINOPLASTIA</p>
+            <p class="text-justify q-pa-xs">
+              A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes
+              derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente
+              (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento:
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Riesgos inmediatos:</span>
+              Es habitual la inflamación y formación de costras nasales durante el postoperatorio inmediato produciéndose congestión nasal de grado
+              variable en los primeros días del pos operatorio. También puede presentar sangrado nasal que en ocasiones requiera la colocación o
+              reacomodación de un taponamiento.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Puede producirse una pequeña erosión de los orificios nasales que se resolverá espontáneamente y/o una alteración transitoria de la
+              sensibilidad de los dientes superiores. Una vez retirado el taponamiento nasal, si persiste la obstrucción puede ser debido a la
+              formación de un hematoma local que debe ser valorado por su médico sin demora.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Riesgos secundarios:</span>
+              La persistencia de obstrucción nasal después de la intervención puede ser debida a adherencias, bridas cicatriciales o a la formación de
+              nueva hipertrofia de los cornetes cuando no se consigue un buen control de la enfermedad alérgica coexistente.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones graves excepcionales:</span>
+              A pesar de realizar la intervención es condiciones de competencia y seguridad máximas, existe un riesgo de complicación inherente a la
+              misma actuación quirúrgica. Es infrecuente la aparición de una complicación infecciosa grave tipo meningitis o salida de líquido
+              cefalorraquídeo o de pérdida de olfato.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una
+              reintervención, en algunos casos de urgencia.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
+              bastante infrecuente.
+            </p>
+            <p class="text-justify q-pa-xs">De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este.</p>
+            <!--  -->
+          </div>
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS PERSONALIZADOS</p>
+            <TextArea_ v-model="HIC134.riesgo_personaliz" :field="form.riesgo_personaliz" class="col-12" />
+          </div>
           <div>
             <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
+            <p class="text-justify q-pa-xs">
+              A pesar de las posibles complicaciones que puedan surgir, consideramos que el mejor tratamiento, en su caso, es lo cirugía y que no
+              existe una alternativa mejor.
+            </p>
             <p class="text-justify q-pa-xs">
               Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
               le atenderá con mucho gusto.
             </p>
           </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic134 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span
+              >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }}</span
+              >, identificad@ con No. de Historia Clínica <span class="text-bold">{{ getHc.llave }}</span>
+              doy mi consentimiento para que me sea realizada una
+              <span class="text-bold">SEPTOPLASTIA +TURBINOPLASTIA BILATERAL. </span>
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
-              Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+              Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
+              declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr:
+            </p>
+            <Input_ v-model="HIC134.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <p class="text-justify q-pa-xs">
+              a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
 
-        <div v-if="opcion_hic120 == 'REVOCAR'">
+        <div v-if="opcion_hic134 == 'REVOCAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
@@ -125,7 +222,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic134 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,9 +236,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC134, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -160,12 +257,13 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC134 = reactive({
   fecha: "",
   med_explica: "",
+  riesgo_personaliz: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic134 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -175,9 +273,16 @@ const form = ref({
     placeholder: "Nombre del profesional",
     campo_abierto: true,
   },
+  riesgo_personaliz: {
+    id: "riesgo_personaliz",
+    maxlength: "500",
+    label: "",
+    rows: 3,
+    campo_abierto: true,
+  },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC134.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +301,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC134));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic134.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC134",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +371,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic134 = {
+      autorizo: opcion_hic134.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +386,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC134,
     };
 
     const firmas = {
@@ -294,20 +399,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC134" },
+      content: impresionHIC134({
+        datos: datos_hic134,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC134" },
+      content: impresionHIC134({
+        datos: datos_hic134,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-134` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
