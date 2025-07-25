@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic135"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,72 +13,119 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic135 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic135 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic135">
+              {{ opcion_hic135 }}
             </q-chip>
           </p>
         </div>
-
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">INFORMACIÓN GENERAL</p>
+            <p class="text-justify q-pa-xs">
+              La sinusitis crónica es la inflamación de la mucosa de los senos paranasales provocando falta de ventilación de los mismos, bloqueo de
+              sus orificios de drenaje lo que conlleva a acumulación de secreciones infectadas en estas cavidades, esto produce dolor ( sensación de
+              peso) , congestión nasal y salida de secreción por la nariz y por la parte posterior de la boca generalmente fétida, la enfermedad puede
+              acompañarse de la presencia de masas benignas (pólipos) las cuales son formaciones benignas que se desarrollan desde la mucosa de los
+              senos y/o cometes y que crecen ocupando las fosas nasales. La cirugía endoscópica transnasal de senos paranasales consiste en la
+              extirpación de dichos pólipos que obstruyen las fosas nasales y el drenaje de los senos paranasales que producen pérdida de olfato y
+              sinusitis de repetición. La cirugía está indicada cuando los tratamientos médicos (corticoides nasales, antibioticoterapia etc) no
+              controlan los síntomas para permitir un adecuado drenaje y aireación de los senos. El tipo de anestesia requerida será la indicada por
+              el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados.
+              También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares,
+              existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">
+              EN QUE CONSISTE LA CIRUGÍA ENDOSCÓPICA DE SENOS PARANASALES
+            </p>
+            <p class="text-justify q-pa-xs">
+              La cirugía se realiza vía endonasal sin cicatrices exteriores, utilizando endoscopios rígidos o microscopio, para facilitar la
+              visualización de las estructuras interiores de las fosas nasales y extirpar los pólipos y las partes óseas que dificultan el drenaje de
+              los senos paranasales.
+            </p>
+            <p class="text-justify q-pa-xs">
+              También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos
+              intraoperatorios para proporcionar un tratamiento más adecuado.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">
+              RIESGOS DE LA CIRUGÍA ENDOSCÓPICA DE SENOS PARANASALES
+            </p>
+            <p class="text-justify q-pa-xs">
+              A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes
+              derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente
+              (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad, y los específicos del procedimiento:
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Riesgos inmediatos:</span>
+              La hemorragia es habitual en este tipo de intervención y se controla postoperatoriamente mediante taponamiento nasal.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Riesgos secundarios:</span>
+              La cirugía endoscópica de senos paranasales es una intervención que extirpa los pólipos o masas intranasales formados , asi como mejora
+              la comunicación de los senos paranasales con la cavidad nasal, y no asegura la curación de la enfermedad, por lo que las
+              reintervenciones son posibles cuando la poliposis nasal o la sinusitis recidiva.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones graves excepcionales:</span>
+              Durante la cirugía, puede lesionarse la pared ósea orbitaria y acceder al contenido de la misma, lo que conllevaría la formación de un
+              hematoma local con/sin afectación de las estructuras orbitarias (musculatura orbitaria, nervio óptico). También puede producirse una
+              salida de líquido cefalorraquídeo a través de la lámina cribosa (fístula LCR), que es una laminilla ósea a través de la cual salen los
+              filetes nerviosos del nervio olfatorio y que comunica las fosas nasales con la fosa craneal anterior. De igual manera por la vecindad
+              con estructuras vasculares y cerebrales vecinas podría lesionarse estas estructuras produciéndose daño en el tejido cerebral o en
+              arterias vitales como la carótida interna.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una
+              reintervención, en algunos casos de urgencia.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
+              bastante infrecuente.
+            </p>
+            <p class="text-justify q-pa-xs">
+              De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para
+              intentar solucionada.
+            </p>
+          </div>
+
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS PERSONALIZADOS</p>
+            <TextArea_ v-model="HIC135.riesgo_personaliz" :field="form.riesgo_personaliz" class="col-12" />
+          </div>
           <div>
             <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
+            <p class="text-justify q-pa-xs">La única alternativa es la abstención terapéutica y continuar el tratamiento médico.</p>
             <p class="text-justify q-pa-xs">
               Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
               le atenderá con mucho gusto.
             </p>
           </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic135 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+              doy mi consentimiento para que me sea realizada una
+              <span class="text-bold">ENDOSCOPICA DE SENOS PARANASALES BILATERAL.</span>
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
-              Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+              Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
+              declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr:
+            </p>
+            <Input_ v-model="HIC135.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <p class="text-justify q-pa-xs">
+              a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
 
-        <div v-if="opcion_hic120 == 'REVOCAR'">
+        <div v-if="opcion_hic135 == 'REVOCAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
@@ -125,7 +172,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic135 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,9 +186,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC135, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -160,12 +207,13 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC135 = reactive({
   fecha: "",
   med_explica: "",
+  riesgo_personaliz: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic135 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -175,9 +223,16 @@ const form = ref({
     placeholder: "Nombre del profesional",
     campo_abierto: true,
   },
+  riesgo_personaliz: {
+    id: "riesgo_personaliz",
+    maxlength: "500",
+    label: "",
+    rows: 3,
+    campo_abierto: true,
+  },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC135.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +251,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC135));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic135.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC135",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +321,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic135 = {
+      autorizo: opcion_hic135.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +336,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC135,
     };
 
     const firmas = {
@@ -294,20 +349,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC135" },
+      content: impresionHIC135({
+        datos: datos_hic135,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC135" },
+      content: impresionHIC135({
+        datos: datos_hic135,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-135` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
