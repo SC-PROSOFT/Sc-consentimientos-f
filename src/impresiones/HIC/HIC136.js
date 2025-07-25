@@ -1,57 +1,225 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC136 = ({ datos }) => {
   console.log("impresionHIC136 -> ", datos);
 
   var dd = {
-    stack: [contenidoHIC136(), firmas()],
+    stack: [contenidoHIC134(), firmas()],
   };
-  function contenidoHIC136() {
+  function contenidoHIC134() {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "La colocación de tubos de ventilación a través del tímpano se realiza para favorecer la aireación del oído medio y está indicada en caso de otitis medias agudas de repetición, otitis seromucosas con pérdida auditiva y en casos de retracción del tímpano. Está intervención se lleva a cabo una vez comprobado que no se produce una reabsorción espontánea del moco del oído y que no responde a tratamientos habituales (medicación, inhaladores...). El tubo de ventilación se expulsa espontáneamente entre 3 meses y 1 año después de su inserción y, habitualmente, el tímpano se cierra completamente.",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Las adenoides - cuyo término coloquial es vegetaciones - están constituidas por un tejido linfoide normal, similar al de las amígdalas, que está situado en la parte posterior de la nariz. El aumento del tamaño de los vegetaciones (hipertrofia de adenoides) o su infección crónica es frecuente en la edad infantil. La extirpación del adenoides (adenoidectomía) está justificada en caso de obstrucción nasal persistente y en caso de infecciones recidivantes del tejido adenoideo que provoca otitis de repetición o moco persistente en uno o ambos oídos.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA COLOCACIÓN DE TUBOS DE VENTILACIÓN",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Para colocar los tubos de ventilación, primero se observa el tímpano y se realiza una apertura en el mismo, por la que habitualmente sale abundante moco, y que permite la colocación del dispositivo de ventilación.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe lo posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperartorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA COLOCACIÓN DE TUBOS DE VENTILACIÓN",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (peso, edad, diabetes, cardiopatía,...), y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
           text: [
             {
-              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              decoration: "underline",
+              text: "Riesgos inmediatos: ",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "Es habitual el sangrado del oído tras la colocación del tubo, con salida de material purulento o líquido que manche la almohada. La salida de este contenido del oído medio puede llevar consigo la expulsión espontánea del tubo de ventilación.",
             },
           ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Riesgos secundarios: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: " La aireación del oído medio puede comprometerse por obstrucción del tubo, por moco seco o cera, con lo que pueden volver a presentarse otitis. A veces, el tubo puede migrar hacia dentro del oído medio. En ocasiones y una vez fuera el tubo de ventilación (extrusión) se puede observar una perforación timpánica que no se cierre espontáneamente y que requiera una intervención quirúrgica y/o una modificación cicatricial del tímpano (atrofia, placa de esclerosis, granuloma).",
+            },
+          ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones graves excepcionales: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Es excepcional la pérdida definitiva de audición, que puede ir acompañada de vértigo y la inclusión de tejido epidérmico por detrás de la membrana timpánica.",
+            },
+          ],
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE IA ADENOIDECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La intervención sobre las adenoides se efectúa con la ayuda de un instrumento resector que se introduce por la boca y permite la extirpación de la mayor parte del tejido adenoideo. También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA ADENOIDECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (peso, edad, diabetes, cardiopatía...) y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Riesgos inmediatos: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "En ocasiones, se produce un sangrado persistente que requiere la revisión quirúrgico para controlarlo. Puede producirse un episodio infeccioso rinofaringeo o una otitis por infección del tejido operado. Debido a la utilización de los instrumentos a través de la boca, pueden producirse pequeñas heridas en labios o lengua e incluso la movilización de un diente.",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Riesgos secundarios: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Después de la cicatrización de la herida en la parte posterior de la nariz puede observarse una modificación de la voz debido al escape del aire a nivel del velo del paladar. Excepcionalmente, es necesaria una reeducación del lenguaje (logopedia).",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "No se puede descartar la posibilidad de presentar infecciones y otitis después de la intervención, aunque habitualmente la incidencia de infecciones se reduce ostensiblemente.",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones graves excepcionales: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Una aspiración de sangre durante la intervención puede ser responsable de una infección pulmonar. La infección de los tejidos cervicales a través del tejido operado (flemón cervical) es rara.",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Los síntomas más frecuentes asociados a la infección cervical son: fiebre alta, dolor de cuello y alteraciones en su movilización. En este caso, acuda al Área de Urgencias para valoración.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +229,29 @@ export const impresionHIC136 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de las posibles complicaciones que puedan surgir, consideramos que el mejor tratqmiento, en su caso, es la cirugía y que no existe una alternativa mejor para usted.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -91,16 +279,16 @@ export const impresionHIC136 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "COLOCACIÓN DE TUBOS DE VENTILACIÓN BILATERAL + ADENOIDECTOMIA. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -338,7 +526,7 @@ export const impresionHIC136 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
