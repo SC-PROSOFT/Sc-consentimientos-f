@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC139 = ({ datos }) => {
@@ -12,46 +12,95 @@ export const impresionHIC139 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Mediante este procedimiento se pretende extirpar y analizar nódulos sospechosos de malignidad, evitar el crecimiento excesivo de la glándula, afectación de los órganos vecinos y a distancia y/o controlar los niveles hormonales. El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. Para la realización de ésta técnica puede ser necesaria una preparación previa, aunque puede ser posible su realización sin una preparación completa. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
         },
         {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA TIROIDECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Este tipo de cirugía consiste en la extirpación total o parcial de la glándula tiroides, según el tipo de afectación. En la mayoría de los casos, la extirpación produce una disminución de las hormonas necesitando tratamiento sustitutivo indefinido. A veces, el resultado definitivo de la biopsia recomienda una reintervención para extirpar el resto de la glándula.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA TIROIDECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía. hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
           text: [
             {
-              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              decoration: "underline",
+              text: "poco graves y frecuentes: ",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "infección, sangrado o alteraciones en la cicatrización de la herida quirúrgica, calambres y hormigueos transitorios en las manos que ceden con tratamiento, alteraciones transitorias de la deglución, alteraciones transitorias de la voz, dolor prolongado en la zona de la operación.",
             },
           ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "poco frecuentes y graves: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "hematomas importantes del cuello, alteraciones permanentes de la voz, alteraciones permanentes de las paratiroides, recidiva de la enfermedad.",
+            },
+          ],
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "Estas complicaciones, habitualmente, se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +110,29 @@ export const impresionHIC139 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "En caso de alteración hormonal, la alternativa podría ser el tratamiento médico indefinido con Yodo) . En el resto de los casos no existe alternativa terapéutica eficaz, siendo la mejor opción la cirugía.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +148,7 @@ export const impresionHIC139 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,16 +161,16 @@ export const impresionHIC139 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "TRAQUEOTOMIA. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -111,6 +181,7 @@ export const impresionHIC139 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +409,7 @@ export const impresionHIC139 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
