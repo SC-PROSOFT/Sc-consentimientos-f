@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC145 = ({ datos }) => {
@@ -12,46 +12,170 @@ export const impresionHIC145 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "La septorrinoplastia es una técnica quirúrgica que tiene como finalidad la corrección de la forma externa de la nariz y del septum nasal que ocaciona alteración funcional.",
         },
         {
-          text: [
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA SEPTORRINOPLASTIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La intervención se realiza a través de unas incisiones que se hacen en el interior de las ventanas de la nariz.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Después, los tejidos blandos se separan cuidadosamente de los cartílagos y huesos adyacentes y se corrigen las estructuras no deseadas. Posteriormente, los huesos y los cartílagos se sitúan de tal manera que tomen la forma adecuada para la nariz. Ocasionalmente puede ser necesario el uso de injertos de hueso o de cartílago. En el mismo acto quirúrgico se realiza la reconstrucción del tabique nasal, si está desviado, para aliviar la dificultad respiratoria que dicha desviación pueda producir.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "En la intervención se deja una pequeña férula de yeso u otros materiales sobre el dorso de la nariz y se coloca un taponamiento nasal o cánulas de silicona durante unas 72 horas. Por otra parte, como quiera que la valoración del resultado de la intervención, por parte del paciente, es subjetiva, cabe la posibilidad de no resultar satisfactoria. Todas estas circunstancias podrían justificar un segundo tiempo operatorio unos meses después.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA SEPTORRINOPLASTIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Pequeña hemorragia, tanto por las fosas nasales como por la faringe, que suele ceder en unas horas o persistir requiriendo un nuevo taponamiento. Si el taponamiento es con gasa, ésta puede deslizarse por la parte posterior de la fosa nasal provocando una sensación de cuerpo extraño y náuseas, que se soluciona retirando el taponamiento y colocando otro si es preciso.",
+        },
+        {
+          marginTop: 5,
+          ul: [
             {
-              bold: true,
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              text: "Hematoma en la cara y los ojos en los primeros días.",
             },
             {
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "Dolor en las fosas nasales, sobre todo si se ha tenido que actuar sobre el hueso, así como sensación de sequedad en garganta por respirar continuamente por la boca.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Vómitos sanguinolentos durante las primeras horas por la sangre deglutida.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Pequeña hemorragia nasal o bucal que rara vez requiere lo colocación de un taponamiento nasal.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Infección local con la aparición de síntomas inflamatorios, shock tóxico estafilocóccico complicación extremadamente rara pero grave.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Dolor o adormecimiento en la mejilla e incluso la falta de sensibilidad en los dientes superiores por lesión accidental del nervio infraorbitario.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Perforación del tabique nasal.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Persistencia del defecto previo a pesar de la adecuada corrección quirúrgica.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Sinarquías -bridas entre ambas paredes de las fosas nasales-.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Atrofia de la fosa nasal con la aparición de costras nasales y alteraciones del olfato.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Visión doble o inflamación de los párpados o del resto de la cara.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Movilización accidental de la pirámide nasal a lo largo del periodo de cicatrización, lo que produciría defectos estéticos en el periodo postoperatorio.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Palpación de pequeñas excrecencias por implantación de fragmentos de hueso extirpado bajo la piel.",
             },
           ],
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo e! de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +185,23 @@ export const impresionHIC145 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
+          text: "RIESGOS PERSONALIZADOS",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        { marginTop: 15, bold: true, alignment: "justify", style: "bodyNoBold9", text: "QUE OTRAS ALTERNATIVAS HAY" },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La única alternativa es la abstención terapéutico.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -91,8 +229,8 @@ export const impresionHIC145 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "SEPTORRINOPLASTIA FUNCIONAL. \n\n" },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -338,7 +476,7 @@ export const impresionHIC145 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
