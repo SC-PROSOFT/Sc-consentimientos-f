@@ -51,8 +51,8 @@
             </p>
             <p class="text-justify q-pa-xs">
               <span style="text-decoration: underline">poco graves y frecuentes:</span>
-              : infección o hematoma de la herida quirúrgica, lesiones cutáneas por reacción alérgica a la medicación utilizada, cicatrices
-              retráctiles o antiestéticas, molestias locales, dolor prolongado en la zona de la operación.
+              infección o hematoma de la herida quirúrgica, lesiones cutáneas por reacción alérgica a la medicación utilizada, cicatrices retráctiles
+              o antiestéticas, molestias locales, dolor prolongado en la zona de la operación.
             </p>
             <p class="text-justify q-pa-xs">
               <span style="text-decoration: underline">poco frecuentes y graves:</span>
