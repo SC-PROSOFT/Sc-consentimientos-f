@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC141 = ({ datos }) => {
@@ -12,46 +12,110 @@ export const impresionHIC141 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "La laringoscopia directa es una forma de abordaje de la laringe en la que ésta se visualiza de una manera directa mediante la introducción, a través de la boca, de un tubo metálico que se dirige hacia la propia laringe, bajo control microscópico.",
         },
         {
-          text: [
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA LARINGOSCOPIA DIRECTA E INYECCIÓN INTRACORDAL",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Se trata de un procedimiento terapéutico de la parálisis de una cuerda vocal en el que se pueden inyectar diferentes sustancias que desplacen la cuerda vocal hasta la línea media, en aquellos casos en los que la cuerda vocal se encuentra paralizada en una posición tal que dificulta el normal funcionamiento de la laringe, y no ha podido ser tratada mediante uno adecuado reeducación de dicho órgano.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la técnica haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA LARINGOSCOPIA DIRECTA E INYECCIÓN INTRACORDAL",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 5,
+          ul: [
             {
-              bold: true,
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              text: "Persistencia o agravamiento de la disfonía, es decir, alteraciones de la voz que incluso se pueden producir un tiempo después por el crecimiento, en la cuerda vocal tratada, de lo que se conoce como un granuloma (pequeña formación de naturaleza inflamatoria), lo que requeriría una intervención posterior.",
             },
             {
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "Disfagia y odinofagia (dificultades y dolor al tragar).",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Estenosis laríngeas o sinequias (bridas que puedan aparecer entre las dos cuerdas vocales).",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Fracturas y/o movilización anormal o incluso fractura, pérdida o movilización de piezas dentarias, heridas en labios y boca, dolor cervical, trismos (dificultad para abrir la boca) y lesión mandibular o de la articulación de la mandíbula.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Hemoptisis o hematemesis (emisión de sangre por la boca procedente del aparato respiratorio o digestivo).",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Disnea (sensación de falta de aire).",
             },
           ],
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar o requerir una intervención, en algunos casos de urgencia.",
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +125,23 @@ export const impresionHIC141 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
+          text: "RIESGOS PERSONALIZADOS",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        { marginTop: 15, bold: true, alignment: "justify", style: "bodyNoBold9", text: "QUE OTRAS ALTERNATIVAS HAY" },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La aducción aritenoidea, técnica quirúrgica en la que el aritenoides (cartílago en el que se encuentra insertada la cuerda vocal) es desplazado hacia la línea media; la tiroplastia de medicalización, técnica quirúrgico que tiene como finalidad la medicalización (el desplazamiento hasta la línea media) de la cuerda vocal, mediante la introducción de un implante a través de una vía de abordaje externa; y la anastomosis, conjunto de técnicas quirúrgicos en los que se sutura el nervio paralizado a otro que esté activo.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +157,7 @@ export const impresionHIC141 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,8 +170,8 @@ export const impresionHIC141 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "LARINGOSCPIA DIRECTA INYECCIÓN INTRACORDAL. \n\n" },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -111,6 +190,7 @@ export const impresionHIC141 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +418,7 @@ export const impresionHIC141 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
