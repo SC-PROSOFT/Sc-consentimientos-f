@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC150 = ({ datos }) => {
@@ -12,46 +12,172 @@ export const impresionHIC150 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Esta intervención permite la extirpación de la glándula parótida, indicada en situaciones de inflamación crónica o tumores benignos o malignos. El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos. medicaciones actuales o cualquier otra circunstancia.",
         },
         {
-          text: [
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA PAROTIDECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Se lleva a cabo a través de una incisión facial que se disimula justo delante de la oreja, siguiendo por debajo del lóbulo y que se prolongo algunos centímetros por el cuello. El nervio facial que transcurre en la proximidad será respetado y diseccionado para efectuar una extirpación de la tumoración y del tejido glandular que lo rodea. Dependiendo de los hallazgos anatomopatológicos, la parotidectomía puede ser:",
+        },
+        {
+          marginTop: 5,
+          ul: [
             {
-              bold: true,
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              text: "Parcial, en coso de que el tumor sea benigno y sin riesgo de recidiva.",
             },
             {
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "Casi total, en el caso de tumor mixto, que es el tipo de tumor benigno más frecuente de la glándula parótida, para evitar el riesgo de recidiva.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Total, asociado a vaciamiento ganglionar cervical, en caso de tumor maligno. El tratamiento de las cadenas ganglionares cervicales precisa una prolongación de la incisión a nivel cervical.",
+            },
+          ],
+        },
+
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA PAROTIDECTOMIA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y los específicos del procedimiento:",
+        },
+        {
+          alignment: "justify",
+          style: "bodyNoBold9",
+          decoration: "underline",
+          text: "Riesgos inmediatos: ",
+        },
+        {
+          marginTop: 5,
+          ul: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "La hemorragia en el postoperatorio inmediato, que obliga a una reintervención, es excepcional.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "El hematoma postoperatorio es posible, aunque raras veces de entidad relevante.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Dolor local y alteraciones transitorias de la masticación, debido a la proximidad de la articulación temporomandibular con la zona operada.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Dolores cervicales en relación con la postura del cuello durante la intervención.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "La extirpación de la glándula da lugar a una depresión cutánea local.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "La pérdida de sensibilidad alrededor de la zona anterior de la oreja por donde pasa la incisión cutánea es habitual y disminuye con el tiempo.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Parálisis de la cara, de intensidad variable y transitoria, en función de las dificultades quirúrgicas y de la disposición anatómica del nervio facial.",
             },
           ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Riesgos secundarios: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Durante el año siguiente a la intervención puede presentar una transpiración de la zona operada en el momento de la alimentación (Síndrome de Frey). La cicatriz puede quedar sensible o dolorosa por la inflamación local que puede persistir en meses.",
+            },
+          ],
         },
         {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          marginTop: 5,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones graves y/o excepcionales: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "La parálisis facial definitiva es excepcional. Es debida a una intervención particularmente difícil (tumor sobreinfectado o en caso de reintervención) o debido al sacrificio intencionado del nervio facial en caso de que el tumor invada el nervio y sea imprescindible su extirpación con el tumor para una resección completa del mismo.",
+            },
+          ],
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +187,29 @@ export const impresionHIC150 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La única alternativa es la abstención terapéutica.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -91,16 +237,16 @@ export const impresionHIC150 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "PAROTIDECTOMIA. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -338,7 +484,7 @@ export const impresionHIC150 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
