@@ -12,46 +12,135 @@ export const impresionHIC156 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "El colesteatoma es una forma de infección crónica del oído medio que se caracteriza por la aparición de un pseudotumor -un falso tumor- que es, en realidad, un tejido epitelial invasivo: una formación 'parecida a la piel' que crece invadiendo las cavidades del oído extendiéndose por dentro de él y produciendo una destrucción lenta de los huesos con riesgo de lesión del nervio facial, de las meninges o de producción de abscesos cervicales. En el caso del colesteatoma, incluso cuando la técnica quirúrgica haya sido irreprochable, éste tiende a reproducirse en un 30% de los casos, lo que obliga a revisiones repetidas del oído tratado. El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
         },
         {
-          text: [
-            {
-              bold: true,
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "La Cardioversión  ",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
-            },
-          ],
-        },
-        {
+          marginTop: 15,
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "EN QUE CONSISTE LA CIRUGÍA DEL COLESTEATOMA",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "El abordaje es mediante una incisión por detrás de la oreja o en el pabellón auricular, ampliando la incisión del conducto. Para extirpar un colesteatoma es necesario ampliar la cavidad del oído media hacia la mastoides y permitir así la limpieza postoperatoria. Para cerrar el tímpano se utiliza la aponeurosis del músculo temporal situado encima del pabellón. También se puede utilizar un injerto venoso o de cartílago auricular.",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Para reemplazar los huesecillos se utilizan prótesis compatibles con el organismo o bien tejidos del propio paciente (prótesis de teflón o fragmentos de cartílago del pabellón).",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe lo posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento mas adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA CIRUGÍA DEL COLESTEATOMA",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y los específicos del procedimiento: ",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Molestias en el oído, mareo, sensación de adormecimiento en la cara por la anestesia, o una pequeña hemorragia que manche el taponamiento del conducto auditivo o el vendaje, de sangre.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Es posible que las estructuras del oído no hayan podido ser reconstruidos en su totalidad, por lo que, en ese caso, no podría penetrar agua en el interior del oído.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Posibilidad de que persista la perforación, que podría incluso aumentar de tamaño.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Posibilidad de que se agrave la pérdida de la audición y, excepcionalmente, de que se pierda completa e irreversiblemente.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Aparición de acúfenos -ruidos en el oído- que pueden quedar como secuela definitiva.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Vértigos de duración variable.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Disgeusia -alteraciones en la sensación gustativa-.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Parálisis facial -parálisis del nervio de los músculos de la cara-.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Infecciones tanto a nivel del oído como a nivel cerebral, tales como meningitis o abscesos cerebrales.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Alteraciones estéticas o dolorosas a nivel del pabellón auricular.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Reaparición del colesteatoma.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,9 +150,29 @@ export const impresionHIC156 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La única alternativa es la abstención terapéutica.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +188,7 @@ export const impresionHIC156 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,16 +201,16 @@ export const impresionHIC156 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "CIRUGÍA DEL COLESTEATOMA. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -111,6 +221,7 @@ export const impresionHIC156 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +449,7 @@ export const impresionHIC156 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
