@@ -12,49 +12,139 @@ export const impresionHIC157 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Los senos maxilares son unas cavidades que se encuentran a ambos lados de la nariz, excavadas en el interior del hueso maxilar. La antrostomía maxilar sirve para diagnosticar y/o tratar una enfermedad localizada en el seno maxilar y, eventualmente, en otros senos.",
         },
         {
-          text: [
-            {
-              bold: true,
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "La Cardioversión  ",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
-            },
-          ],
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otro circunstancia.",
         },
         {
+          marginTop: 15,
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "EN QUE CONSISTE LA ANTROSTOMIA MAXILAR O CALDWELL-LUC",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Consiste en la apertura de uno o ambos senos maxilares a través de una incisión bajo el labio superior, en la encía, llegando al seno a través de una pequeña ventana abierta en el propio hueso. Puede permanecer durante 48 horas con uno o ambos orificios de la nariz taponados e incluso un tubo de drenaje que comunique el seno maxilar intervenido con la fosa nasal correspondiente.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA ANTROSTOMIA MAXILAR O CALDWELL-LUC",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesor de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables, tanto los comunes derivados de toda intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad...), y tos específicos del procedimiento: ",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Pesadez, dolor de cabeza y/o una pequeña hemorragia que, rara vez, es de cierta intensidad y requiere un nuevo taponamiento nasal.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Es infrecuente la infección local con aparición de síntomas inflamatorios.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Molestias en la mejilla, sabor a sangre, mal aliento y sequedqd de boca.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Dolor o adormecimiento en la mejilla e incluso falta de sensibilidad en los dientes superiores por lesión accidental del nervio infraorbitario.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Retraso en la cicatrización de la herida en la encía superior o incluso fístula oro-antral (comunicación de la boca con el seno maxilar.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Perforación del tabique nasal.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Sinequias -bridas entre las paredes de las fosas nasales-.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Atrofia de la fosa nasal con la aparición de costras nasales y alteraciones del olfato.",
+        },
+        {
+          marginTop: 3,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Es infrecuente la aparición de visión doble, inflamación o aparición de pequeñas burbujas de aire - enfisema- en párpados o resto de la cara, la protrusión del globo ocular e incluso, con carácter excepcional, la ceguera. Fístula de líquido cefalorraquídeo -pequeña fuga del líquido de la cavidad craneal-, neumoencéfalo o paso de aire al cerebro y/o meningitis inflamación de las meninges o envolturas cerebrales-.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
+          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionaría.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
         },
         {
           marginTop: 15,
@@ -64,6 +154,13 @@ export const impresionHIC157 = ({ datos }) => {
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La indicación quirúrgica suele establecerse ante el fracaso de los tratamientos médicos, la cronificación del proceso o la aparición de complicaciones. La punción del seno maxilar, con fin diagnóstico puede ser un procedimiento alternativo.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
@@ -79,6 +176,7 @@ export const impresionHIC157 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,16 +189,16 @@ export const impresionHIC157 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "ANTROSTOMIA MAXILAR O CALDWELL-LUC. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -111,6 +209,7 @@ export const impresionHIC157 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +437,7 @@ export const impresionHIC157 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
