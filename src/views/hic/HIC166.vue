@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic166"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,81 +13,101 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic166 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic166 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic166">
+              {{ opcion_hic166 }}
             </q-chip>
           </p>
         </div>
 
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
           <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">INFORMACIÓN GENERAL</p>
+            <p class="text-justify q-pa-xs">
+              La somnoscopia o DISE (siglas en inglés drug induced sleep endoscopy) es una evaluación muy útil para el estudio dinámico de la vía
+              aérea de los pacientes diagnosticados de SAHOS (síndrome de apnea obstructiva del sueño).
+            </p>
+            <p class="text-justify q-pa-xs">
+              Con los hallazgos observados durante la somnoscopia, el otorrino podrá adaptar el tratamiento quirúrgico más adecuado para cada
+              paciente. Debido a lo difícil que puede ser establecer cuál es la zona anatómica de colapso en el paciente despierto que padece de
+              SAHOS, el diagnóstico y el tratamiento termina siendo complejo. En pro de mejorar en este aspecto, la fibroendoscopia con el paciente
+              dormido, logra reproducir el ronquido en el 95% de los casos. Posteriormente se han ido diseñando una serie de clasificaciones que nos
+              permiten a los otorrinos evaluar el grado de colapso en los diferentes sitios anatómicos como puede ser el paladar blando, la base de la
+              lengua o en múltiples niveles.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">EN QUE CONSISTE</p>
+            <p class="text-justify q-pa-xs">
+              La somnoscopia es un procedimiento realizado en sala de cirugía con asistencia de anestesiología, el cual induce con medicamentos el
+              sueño profundo con el objetivo de reproducir el ronquido y la apnea en las diferentes posiciones del dormir con el propósito de
+              establecer la zona anatomía del colapso de la vía área, permitiendo de manera más precisa determinar en tipo de tratamiento a seguir.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS</p>
+            <p class="text-justify q-pa-xs">
+              <span class="text-bold">Los relacionados con el proceso de la sedación serán discutidos en la consulta pre anestésica.</span>
+              Además de las enfermedades generales (diabetes, hipertensión , arritmias cardiacas, neurosis y otros en cuyo caso deberá el paciente
+              informar a su médico previo al procedimiento), existen riesgos por lo común de poca frecuencia tales con alergias a algunos de los
+              componentes de los medicamentos usados para la preparación , que pueden ser reacciones leves, moderadas o llegar a la anafilaxia
+              poniendo en riesgo la vida del paciente, aunque este último es de extrema rareza, y cuyo manejo requiere de maniobras de salvación de
+              urgencia, pudiendo resultar en el fallecimiento del paciente. En algún caso muy particular, pueden desencadenarse trastornos
+              neurogénicos tipo síncope vagal por la manipulación de la mucosa nasal, faríngea o laríngea que usualmente requiere atención médica,
+              rara vez pone en riesgo la vida del paciente, su presentación se minimiza con el bloqueo sensorial anestésico adecuado.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Existen otros riesgos menores como sangrado local generalmente leve o en excepcionales casos de mayor cuantía que requieren manejo
+              médico de urgencia, dolor posprocedimiento leve, congestión nasal reactiva, alteraciones del ritmo cardiaco o arritmias leves.
+            </p>
+          </div>
+
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS PERSONALIZADOS</p>
+            <TextArea_ v-model="HIC166.riesgo_personaliz" :field="form.riesgo_personaliz" class="col-12" />
+          </div>
+          <div class="col-12">
             <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
+            <p class="text-justify q-pa-xs">
+              Existen otras alternativas de diagnóstico como la fibronasolaringoscopia sin sedación e indirectos como rayos x, ecografías, tomografía
+              computarizadas o imágenes de resonancia magnética cuya indicación deberá ser dada por su médico tratante.
+            </p>
             <p class="text-justify q-pa-xs">
               Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
               le atenderá con mucho gusto.
             </p>
           </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic166 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span
+              >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span>, identificad@ con Historia Clinica No.
+              <span class="text-bold">{{ getHc.llave }} </span> doy mi consentimiento para que me sea realizada una
+              <span class="text-bold">SOMNOSCOPIA. </span>
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <p class="text-justify q-pa-xs">
+              Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
+              declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.:
+            </p>
+            <Input_ v-model="HIC166.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
               Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
+            <p class="text-justify q-pa-xs">La única alternativa es la abstención terapéutica.</p>
           </div>
-        </div>
-
-        <div v-if="opcion_hic120 == 'REVOCAR'">
-          <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
-            Denegación o Revocación
+          <p class="text-justify q-pa-xs">
+            Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le
+            atenderá con mucho gusto.
           </p>
-          <div>
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> después de ser informado/a de la naturaleza y riesgos del procedimiento
-              propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome
-              responsable de las consecuencias que puedan derivarse de esta decisión.
-            </p>
+          <div class="row q-mt-md q-mb-md" style="width: 100%">
+            <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+              <p style="font-weight: bold; margin-top: 10px">
+                NOTA IMPORTANTE ¡SI NO PRESENTA ESTE FORMATO DEBIDAMENTE DILIGENCIADO EN EL MOMENTO DE SU CITA PARA EL EXAMEN INDICADO SU CITA SERA
+                CANCELADA
+              </p>
+            </div>
           </div>
         </div>
       </q-card-section>
@@ -125,7 +145,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic166 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,9 +159,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC166, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad, evaluarParentesco } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -160,12 +180,13 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC166 = reactive({
   fecha: "",
   med_explica: "",
+  riesgo_personaliz: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic166 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -175,9 +196,16 @@ const form = ref({
     placeholder: "Nombre del profesional",
     campo_abierto: true,
   },
+  riesgo_personaliz: {
+    id: "riesgo_personaliz",
+    maxlength: "500",
+    label: "",
+    rows: 3,
+    campo_abierto: true,
+  },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC166.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +224,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC166));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic166.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC166",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +294,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic166 = {
+      autorizo: opcion_hic166.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +309,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC166,
     };
 
     const firmas = {
@@ -294,20 +322,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC166" },
+      content: impresionHIC166({
+        datos: datos_hic166,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC166" },
+      content: impresionHIC166({
+        datos: datos_hic166,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-166` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

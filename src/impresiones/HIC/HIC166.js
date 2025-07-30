@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC166 = ({ datos }) => {
@@ -12,49 +12,73 @@ export const impresionHIC166 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "La somnoscopia o DISE (siglas en inglés drug induced sleep endoscopy) es una evaluación muy útil para el estudio dinámico de la vía aérea de los pacientes diagnosticados de SAHOS (síndrome de apnea obstructiva del sueño).",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Con los hallazgos observados durante la somnoscopia, el otorrino podrá adaptar el tratamiento quirúrgico más adecuado para cada paciente. Debido a lo difícil que puede ser establecer cuál es la zona anatómica de colapso en el paciente despierto que padece de SAHOS, el diagnóstico y el tratamiento termina siendo complejo. En pro de mejorar en este aspecto, la fibroendoscopia con el paciente dormido, logra reproducir el ronquido en el 95% de los casos. Posteriormente se han ido diseñando una serie de clasificaciones que nos permiten a los otorrinos evaluar el grado de colapso en los diferentes sitios anatómicos como puede ser el paladar blando, la base de la lengua o en múltiples niveles.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La somnoscopia es un procedimiento realizado en sala de cirugía con asistencia de anestesiología, el cual induce con medicamentos el sueño profundo con el objetivo de reproducir el ronquido y la apnea en las diferentes posiciones del dormir con el propósito de establecer la zona anatomía del colapso de la vía área, permitiendo de manera más precisa determinar en tipo de tratamiento a seguir.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
           text: [
             {
-              bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "Los relacionados con el proceso de la sedación serán discutidos en la consulta pre anestésica. ",
+              text: "Además de las enfermedades generales (diabetes, hipertensión , arritmias cardiacas, neurosis y otros en cuyo caso deberá el paciente informar a su médico previo al procedimiento), existen riesgos por lo común de poca frecuencia tales con alergias a algunos de los componentes de los medicamentos usados para la preparación , que pueden ser reacciones leves, moderadas o llegar a la anafilaxia poniendo en riesgo la vida del paciente, aunque este último es de extrema rareza, y cuyo manejo requiere de maniobras de salvación de urgencia, pudiendo resultar en el fallecimiento del paciente. En algún caso muy particular, pueden desencadenarse trastornos neurogénicos tipo síncope vagal por la manipulación de la mucosa nasal, faríngea o laríngea que usualmente requiere atención médica, rara vez pone en riesgo la vida del paciente, su presentación se minimiza con el bloqueo sensorial anestésico adecuado.",
             },
           ],
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "Existen otros riesgos menores como sangrado local generalmente leve o en excepcionales casos de mayor cuantía que requieren manejo médico de urgencia, dolor posprocedimiento leve, congestión nasal reactiva, alteraciones del ritmo cardiaco o arritmias leves.",
         },
         {
+          marginTop: 15,
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "RIESGOS PERSONALIZADOS",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
+          text: datos.riesgo_personaliz,
         },
         {
           marginTop: 15,
@@ -64,11 +88,36 @@ export const impresionHIC166 = ({ datos }) => {
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Existen otras alternativas de diagnóstico como la fibronasolaringoscopia sin sedación e indirectos como rayos x, ecografías, tomografía computarizadas o imágenes de resonancia magnética cuya indicación deberá ser dada por su médico tratante.",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
         },
         autorizaRevoca(),
+        {
+          marginTop: 5,
+          alignment: "center",
+          table: {
+            widths: ["100%"],
+            body: [
+              [
+                {
+                  style: "tableTitle",
+                  text: {
+                    bold: true,
+                    text: "NOTA IMPORTANTE ¡SI NO PRESENTA ESTE FORMATO DEBIDAMENTE DILIGENCIADO EN EL MOMENTO DE  SU CITA PARA EL EXAMEN INDICADO SU CITA SERA CANCELADA",
+                  },
+                },
+              ],
+            ],
+          },
+        },
       ],
     };
   }
@@ -79,6 +128,7 @@ export const impresionHIC166 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -91,11 +141,15 @@ export const impresionHIC166 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", edad " },
+              { bold: true, style: "bodyNoBold9", text: calcularEdad(datos.paciente.nacim) },
+              { style: "bodyNoBold9", text: ", identificad@ con Historia Clinica No. " },
+              { bold: true, style: "bodyNoBold9", text: datos.llave },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "SOMNOSCOPIA. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
@@ -111,6 +165,7 @@ export const impresionHIC166 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +393,7 @@ export const impresionHIC166 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
