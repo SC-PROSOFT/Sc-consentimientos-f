@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC170 = ({ datos }) => {
@@ -12,61 +12,109 @@ export const impresionHIC170 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "IDENTIFICACIÓN Y DESCRIPCIÓN DEL PROCEDIMIENTO",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Llamamos sinequias nasales a las adherencias entre ambas paredes de la fosa nasal, la llamada pared lateral y la llamada medial o septal. Su origen puede ser muy diverso: infecciones sufridas con anterioridad, intervenciones quirúrgicas, taponamientos nasales, colocaciones de sondas de alimentación o aspiración, cauterizaciones nasales, etc., entre las más habituales. En muchos casos pasan desapercibidas pero, en otras ocasiones, pueden producir síntomas, como obstrucción nasal o la formación de costras.",
         },
         {
-          text: [
-            {
-              bold: true,
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "La Cardioversión  ",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
-            },
-          ],
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: "La intervención se puede realizar bajo anestesia local o bajo anestesia general, en función de la magnitud y localización de la lesión. En ocasiones, a criterio del cirujano, puede resultar necesaria la colocación de una o varias láminas de material sintético abrazando el tabique nasal, sujetas mediante una sutura, durante un tiempo variable.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: "Al finalizar la intervención, según el criterio del cirujano, la extensión y la zona específica tratada, se puede colocar un taponamiento nasal, que se mantendrá durante un tiempo variable. Este taponamiento ocasionará molestias, como dolor o pesadez de cabeza, sensación de taponamiento de oídos, molestias al masticar y sequedad de garganta, que se atenúan con tratamiento sintomático. Los taponamientos nasales se asocian con antibioticoterapia oral para evitar infecciones de la propia nariz o de los senos.",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
+          text: "Durante las primeras horas tras la intervención, incluso a través del taponamiento, suele drenar a través de la nariz un líquido sanguinolento, que se considera normal. Incluso a través del propio taponamiento, puede aparecer una hemorragia nasal. Ello obliga a revisar ese taponamiento previamente colocado. A veces requiere sustituirlo por otro que garantice algo más de presión. Excepcionalmente, puede requerir la revisión de la zona quirúrgica bajo anestesia general. En raras ocasiones, el taponamiento se puede desplazar por la parte posterior de la fosa nasal, hacia la garganta, provocando una sensación de molestias y náuseas, que se solucionan retirándolo y colocando otro, si es preciso. El mencionado taponamiento justifica que respire a través de la boca, por lo que pueden aparecer diversas molestias en la garganta.",
         },
         {
           marginTop: 15,
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
+          text: "OBJETIVOS DEL PROCEDIMIENTO Y BENEFICIOS",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
+          text: "Mejoría en la permeabilidad nasal y desaparición de los síntomas producidos por la dificultad respiratoria nasal.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "OTRAS ALTERNATIVAS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "No se conocen otros métodos de eficacia contrastada para el tratamiento de la sinequia de las fosas nasales.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "CONSECUENCIAS O POSIBLES RIESGOS",
+        },
+        {
+          marginTop: 5,
+          style: "bodyNoBold9",
+          ol: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Después de la intervención, suele existir dolor en la fosa nasal, pudiendo irradiarse a la cara y a la cabeza.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Vómitos sanguinolentos con coágulos que, durante las primeras horas, se consideran normales. Estos coágulos son la manifestación de la sangre deglutida y no precisan tratamiento. Deben desaparecer tras las primeras 24 horas de postoperatorio.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Retirado el taponamiento nasal, en el período postoperatorio es recomendable la realización de lavados de la fosa nasal mediante suero fisiológico o soluciones similares, para favorecer la eliminación de costras que pueden dificultar la respiración nasal.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Posibilidad de que persistan o se reproduzcan las sinequias: las sinequias que afectan el techo nasal o el suelo de la fosa nasal en su porción más anterior, obtienen siempre peor resultado quirúrgico y recidivan más frecuentemente.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Con frecuencia, durante el acto quirúrgico, el cirujano utiliza el llamado bisturí eléctrico. Con él realiza incisiones o cauteriza pequeños vasos que están sangrando. Si bien se tiene un esmerado cuidado con este tipo de instrumental, cabe la posibilidad de que se produzcan quemaduras, generalmente leves, en las proximidades de la zona a intervenir.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Es posible que, aun solucionada la sinequia, persista la insuficiencia respiratoria nasal o que pueda aparecer cierta sequedad nasal o sufrir la formación de costras, durante un periodo de tiempo relativamente largo e, incluso, con carácter permanente.",
+            },
+          ],
         },
         autorizaRevoca(),
       ],
@@ -79,6 +127,7 @@ export const impresionHIC170 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -90,9 +139,15 @@ export const impresionHIC170 = ({ datos }) => {
             alignment: "justify",
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() },
+              { style: "bodyNoBold9", text: ", con " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id },
+              { style: "bodyNoBold9", text: " - " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.cod },
+              { style: "bodyNoBold9", text: ", edad " },
+              { bold: true, style: "bodyNoBold9", text: calcularEdad(datos.paciente.nacim) },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "RESECCION DE SINEQUIA NASAL. \n\n" },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -111,6 +166,7 @@ export const impresionHIC170 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+            pageBreak: "before",
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +394,7 @@ export const impresionHIC170 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",

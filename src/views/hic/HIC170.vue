@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic170"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,72 +13,119 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic170 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic170 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic170">
+              {{ opcion_hic170 }}
             </q-chip>
           </p>
         </div>
 
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
           <div>
-            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">IDENTIFICACIÓN Y DESCRIPCIÓN DEL PROCEDIMIENTO</p>
             <p class="text-justify q-pa-xs">
-              Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
-              le atenderá con mucho gusto.
+              Llamamos sinequias nasales a las adherencias entre ambas paredes de la fosa nasal, la llamada pared lateral y la llamada medial o
+              septal. Su origen puede ser muy diverso: infecciones sufridas con anterioridad, intervenciones quirúrgicas, taponamientos nasales,
+              colocaciones de sondas de alimentación o aspiración, cauterizaciones nasales, etc., entre las más habituales. En muchos casos pasan
+              desapercibidas pero, en otras ocasiones, pueden producir síntomas, como obstrucción nasal o la formación de costras.
+            </p>
+            <p class="text-justify q-pa-xs">
+              La intervención se puede realizar bajo anestesia local o bajo anestesia general, en función de la magnitud y localización de la lesión.
+              En ocasiones, a criterio del cirujano, puede resultar necesaria la colocación de una o varias láminas de material sintético abrazando el
+              tabique nasal, sujetas mediante una sutura, durante un tiempo variable.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Al finalizar la intervención, según el criterio del cirujano, la extensión y la zona específica tratada, se puede colocar un
+              taponamiento nasal, que se mantendrá durante un tiempo variable. Este taponamiento ocasionará molestias, como dolor o pesadez de cabeza,
+              sensación de taponamiento de oídos, molestias al masticar y sequedad de garganta, que se atenúan con tratamiento sintomático. Los
+              taponamientos nasales se asocian con antibioticoterapia oral para evitar infecciones de la propia nariz o de los senos.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Durante las primeras horas tras la intervención, incluso a través del taponamiento, suele drenar a través de la nariz un líquido
+              sanguinolento, que se considera normal. Incluso a través del propio taponamiento, puede aparecer una hemorragia nasal. Ello obliga a
+              revisar ese taponamiento previamente colocado. A veces requiere sustituirlo por otro que garantice algo más de presión.
+              Excepcionalmente, puede requerir la revisión de la zona quirúrgica bajo anestesia general. En raras ocasiones, el taponamiento se puede
+              desplazar por la parte posterior de la fosa nasal, hacia la garganta, provocando una sensación de molestias y náuseas, que se solucionan
+              retirándolo y colocando otro, si es preciso. El mencionado taponamiento justifica que respire a través de la boca, por lo que pueden
+              aparecer diversas molestias en la garganta.
             </p>
           </div>
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">OBJETIVOS DEL PROCEDIMIENTO Y BENEFICIOS</p>
+            <p class="text-justify q-pa-xs">
+              Mejoría en la permeabilidad nasal y desaparición de los síntomas producidos por la dificultad respiratoria nasal.
+            </p>
+          </div>
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">OTRAS ALTERNATIVAS</p>
+            <p class="text-justify q-pa-xs">
+              No se conocen otros métodos de eficacia contrastada para el tratamiento de la sinequia de las fosas nasales.
+            </p>
+          </div>
+
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">CONSECUENCIAS O POSIBLES RIESGOS</p>
+            <ol class="text-justify">
+              <li>
+                <p class="text-justify q-pa-xs">
+                  Después de la intervención, suele existir dolor en la fosa nasal, pudiendo irradiarse a la cara y a la cabeza.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  Vómitos sanguinolentos con coágulos que, durante las primeras horas, se consideran normales. Estos coágulos son la manifestación de
+                  la sangre deglutida y no precisan tratamiento. Deben desaparecer tras las primeras 24 horas de postoperatorio.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  Retirado el taponamiento nasal, en el período postoperatorio es recomendable la realización de lavados de la fosa nasal mediante
+                  suero fisiológico o soluciones similares, para favorecer la eliminación de costras que pueden dificultar la respiración nasal.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  Posibilidad de que persistan o se reproduzcan las sinequias: las sinequias que afectan el techo nasal o el suelo de la fosa nasal en
+                  su porción más anterior, obtienen siempre peor resultado quirúrgico y recidivan más frecuentemente.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  Con frecuencia, durante el acto quirúrgico, el cirujano utiliza el llamado bisturí eléctrico. Con él realiza incisiones o cauteriza
+                  pequeños vasos que están sangrando. Si bien se tiene un esmerado cuidado con este tipo de instrumental, cabe la posibilidad de que
+                  se produzcan quemaduras, generalmente leves, en las proximidades de la zona a intervenir.
+                </p>
+              </li>
+              <li>
+                <p class="text-justify q-pa-xs">
+                  Es posible que, aun solucionada la sinequia, persista la insuficiencia respiratoria nasal o que pueda aparecer cierta sequedad nasal
+                  o sufrir la formación de costras, durante un periodo de tiempo relativamente largo e, incluso, con carácter permanente.
+                </p>
+              </li>
+            </ol>
+          </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic170 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span
+              >, <span class="text-bold">{{ getPaci.tipo_id }}</span> - <span class="text-bold">{{ getPaci.cod }}</span
+              >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span>, doy mi consentimiento para que me sea realizada una
+              <span class="text-bold">RESECCION DE SINEQUIA NASAL. </span>
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <p class="text-justify q-pa-xs">
+              Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
+              declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.:
+            </p>
+            <Input_ v-model="HIC170.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
               Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
 
-        <div v-if="opcion_hic120 == 'REVOCAR'">
+        <div v-if="opcion_hic170 == 'REVOCAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
@@ -125,7 +172,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic170 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,9 +186,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC170, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -160,12 +207,12 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC170 = reactive({
   fecha: "",
   med_explica: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic170 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -177,7 +224,7 @@ const form = ref({
   },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC170.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +243,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC170));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic170.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC170",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +313,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic170 = {
+      autorizo: opcion_hic170.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +328,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC170,
     };
 
     const firmas = {
@@ -294,20 +341,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC170" },
+      content: impresionHIC170({
+        datos: datos_hic170,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC170" },
+      content: impresionHIC170({
+        datos: datos_hic170,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-170` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
