@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC159 = ({ datos }) => {
@@ -12,46 +12,177 @@ export const impresionHIC159 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Se realiza en caso de lesión intracraneal (quiste o tumor) en lo región de la silla turca (hipófisis). También puede afectar a nervios importantes de alrededor, como el quiasma óptico y perder visión o afectar los nervios que mueven los ojos o llevan la sensibilidad de la cara. A veces, puede sangrar el tumor, y otras, puede crecer tanto que comprimo zonas como el hipotálamo que regula la orina, iones, temperatura, el nivel de conciencia, etc. o producir hidrocefalia. Suelen ser lesiones benignas (de lento crecimiento y curables mediante cirugía cuando se consigue quitarlas completamente, aunque a veces no se pueden resecar en su totalidad por el tamaño o invasión de estructuras que no se deben lesionar), pero no puede saberse con certeza su naturaleza hasta que no sean analizadas por el patólogo.",
         },
         {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria lo utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "EN QUE CONSISTE LA CIRUGÍA DE LA HIPÓFISIS POR VÍA TRANSESFENOIDAL",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Consiste en la apertura de la silla turca, situada en el centro de la base del cráneo, a lo que se llega a través de las fosas nasales, incidiendo en la mucoso debajo del labio superior. Con microscopio e instrumentos muy delicados se reseca el tumor y se envía una muestra para estudio. La dificultad y riesgos de la intervención dependen del tipo, tamaño y grado de infiltración de las estructuras vecinas. Al finalizar la intervención se colocan unos tapones nasales que se retirarán posteriormente. También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento más adecuado.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "El beneficio, en algunos casos, es la curación, poniendo fin al tratamiento. En otros, el objetivo es llegar al diagnóstico del tipo de tumor, reducir su tamaño para aliviar los síntomas de compresión de los nervios adyacentes como el quiasma óptico y nervios del seno cavernoso, o detener su empeoramiento y preparar el área para otros tratamientos posteriores haciéndolos más efectivos.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un tratamiento mas adecuado.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "RIESGOS DE LA CIRUGÍA DE LA HIPÓFISIS POR VÍA TRANSESFENOIDAL",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables. tanto los comunes derivados de todo intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía. hipertensión, edad avanzada, anemia, obesidad...., y los específicos del procedimiento:",
+        },
+        {
+          marginTop: 10,
+          alignment: "justify",
           text: [
             {
-              bold: true,
+              marginTop: 5,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "La Cardioversión  ",
+              decoration: "underline",
+              text: "Complicaciones nasofaciales y seno esfenoidal ",
             },
             {
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
+              text: "(0,8-40%); sinusitis, perforación septal, deformación nasal, epistaxis(hemorragia nasal) y/o otras complicaciones excepcionales: diástasis o fractura del paladar duro, fractura de la lámina cribosa.",
             },
           ],
         },
         {
+          marginTop: 10,
           alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
+          text: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones intracraneales: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Lesión hipotalámica (fiebre, coma); Hemorragia intracraneal; Meningitis (0,5-1,75%).",
+            },
+          ],
         },
         {
+          marginTop: 10,
           alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
+          text: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Fístula de liquido cefalorraquídeo, ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "con posible infección (meningitis) (3.4%).",
+            },
+          ],
         },
         {
+          marginTop: 10,
           alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
+          text: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones visuales: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Lesión nervio óptico; Lesión quiasma óptico.",
+            },
+          ],
         },
         {
+          marginTop: 10,
+          alignment: "justify",
+          text: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              style: "bodyNoBold9",
+              decoration: "underline",
+              text: "Complicaciones endocrinológicas: ",
+            },
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Hipopituitarismo: Diabetes insípida (poliuria, polidipsia).",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Complicaciones por lesión del seno cavernoso (0.6-1%); Afectación de nervios motores oculares (estrabismo, visión doble): Afectación trigeminal (dolor facial, pérdida sensibilidad facial, anestesia corneal).",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Complicaciones por lesión de la arteria carótida (grave) (0,3-1%).",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una reintervención, en algunos casos de urgencia.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente (0.1-1.5%).",
+        },
+        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
@@ -61,12 +192,33 @@ export const impresionHIC159 = ({ datos }) => {
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
+          text: "RIESGOS PERSONALIZADOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: datos.riesgo_personaliz,
+        },
+        {
+          marginTop: 10,
+          pageBreak: "before",
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
           text: "QUE OTRAS ALTERNATIVAS HAY",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
+          text: "Otras técnicas son la radiocirugía, pero necesitan que la lesión sea diagnosticada, ya que los medios diagnósticos de imagen no determinan el diagnóstico etiológico, además su efecto es más lento en el tiempo. Otra alternativa es el tratamiento hormonal dirigido a la secreción de la hormona en exceso, pero en casos de lesiones grandes no alivia los síntomas derivados de la compresión de estructuras vecinas.",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Cuando la lesión tiene un gran crecimiento a veces es necesario trotarla por vía superior realizando una craneotomía. Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
         },
         autorizaRevoca(),
       ],
@@ -91,16 +243,16 @@ export const impresionHIC159 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "CIRUGÍA DE LA HIPÓFISIS POR VÍA TRANSESFENOIDAL. \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -111,6 +263,7 @@ export const impresionHIC159 = ({ datos }) => {
         stack: [
           {
             marginTop: 10,
+
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -338,7 +491,7 @@ export const impresionHIC159 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",

@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="opcion_hic120"
+            v-model="opcion_hic159"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,72 +13,138 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="opcion_hic120 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="opcion_hic120 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic120">
-              {{ opcion_hic120 }}
+          <p :class="opcion_hic159 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="opcion_hic159 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="opcion_hic159">
+              {{ opcion_hic159 }}
             </q-chip>
           </p>
         </div>
-
         <div class="row q-mt-md q-mb-md">
-          <p class="text-justify q-pa-xs">
-            Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular
-            normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.
-          </p>
-          <p class="text-justify q-pa-xs">
-            El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria
-            la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la
-            coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            <span class="text-bold"> La Cardioversión </span> Se realiza habitualmente en ayunas y bajo los efectos de la anestesia general o mediante
-            sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican
-            éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ("choques"), breves pero de
-            cierta potencia, para intentar lograr la desaparición de la arritmia.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los
-            órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia,
-            obesidad,..., y los específicos del procedimiento:
-          </p>
-          <p class="text-justify q-pa-xs">
-            Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse
-            otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un
-            marcapasos.
-          </p>
-          <p class="text-justify q-pa-xs">
-            Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
-            bastante infrecuente.
-          </p>
-          <p class="text-justify q-pa-xs">
-            De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar
-            solucionarla.
-          </p>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">INFORMACIÓN GENERAL</p>
+            <p class="text-justify q-pa-xs">
+              Se realiza en caso de lesión intracraneal (quiste o tumor) en lo región de la silla turca (hipófisis). También puede afectar a nervios
+              importantes de alrededor, como el quiasma óptico y perder visión o afectar los nervios que mueven los ojos o llevan la sensibilidad de
+              la cara. A veces, puede sangrar el tumor, y otras, puede crecer tanto que comprimo zonas como el hipotálamo que regula la orina, iones,
+              temperatura, el nivel de conciencia, etc. o producir hidrocefalia. Suelen ser lesiones benignas (de lento crecimiento y curables
+              mediante cirugía cuando se consigue quitarlas completamente, aunque a veces no se pueden resecar en su totalidad por el tamaño o
+              invasión de estructuras que no se deben lesionar), pero no puede saberse con certeza su naturaleza hasta que no sean analizadas por el
+              patólogo.
+            </p>
+            <p class="text-justify q-pa-xs">
+              El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea
+              necesaria lo utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas,
+              alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier
+              otra circunstancia.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">
+              EN QUE CONSISTE LA CIRUGÍA DE LA HIPÓFISIS POR VÍA TRANSESFENOIDAL
+            </p>
+            <p class="text-justify q-pa-xs">
+              Consiste en la apertura de la silla turca, situada en el centro de la base del cráneo, a lo que se llega a través de las fosas nasales,
+              incidiendo en la mucoso debajo del labio superior. Con microscopio e instrumentos muy delicados se reseca el tumor y se envía una
+              muestra para estudio. La dificultad y riesgos de la intervención dependen del tipo, tamaño y grado de infiltración de las estructuras
+              vecinas. Al finalizar la intervención se colocan unos tapones nasales que se retirarán posteriormente. También cabe la posibilidad de
+              que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos intraoperatorios para proporcionar un
+              tratamiento más adecuado.
+            </p>
+            <p class="text-justify q-pa-xs">
+              El beneficio, en algunos casos, es la curación, poniendo fin al tratamiento. En otros, el objetivo es llegar al diagnóstico del tipo de
+              tumor, reducir su tamaño para aliviar los síntomas de compresión de los nervios adyacentes como el quiasma óptico y nervios del seno
+              cavernoso, o detener su empeoramiento y preparar el área para otros tratamientos posteriores haciéndolos más efectivos.
+            </p>
+            <p class="text-justify q-pa-xs">
+              También cabe la posibilidad de que durante la cirugía haya que realizar modificaciones del procedimiento por los hallazgos
+              intraoperatorios para proporcionar un tratamiento mas adecuado.
+            </p>
+          </div>
+          <div>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">
+              RIESGOS DE LA CIRUGÍA DE LA HIPÓFISIS POR VÍA TRANSESFENOIDAL
+            </p>
+            <p class="text-justify q-pa-xs">
+              A pesar de la adecuada elección de la técnica y de su correcta realización, pueden presentarse efectos indeseables. tanto los comunes
+              derivados de todo intervención y que pueden afectar a todos los órganos y sistemas, como los debidos a la situación vital del paciente
+              (diabetes, cardiopatía. hipertensión, edad avanzada, anemia, obesidad...., y los específicos del procedimiento:
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones nasofaciales y seno esfenoidal </span> (0,8-40%); sinusitis, perforación septal,
+              deformación nasal, epistaxis(hemorragia nasal) y/o otras complicaciones excepcionales: diástasis o fractura del paladar duro, fractura
+              de la lámina cribosa.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones intracraneales: </span>Lesión hipotalámica (fiebre, coma); Hemorragia
+              intracraneal; Meningitis (0,5-1,75%).
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Fístula de liquido cefalorraquídeo, </span> con posible infección (meningitis) (3.4%).
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones visuales: </span> Lesión nervio óptico; Lesión quiasma óptico.
+            </p>
+            <p class="text-justify q-pa-xs">
+              <span style="text-decoration: underline">Complicaciones endocrinológicas: </span> Hipopituitarismo: Diabetes insípida (poliuria,
+              polidipsia).
+            </p>
+            <p class="text-justify q-pa-xs">
+              Complicaciones por lesión del seno cavernoso (0.6-1%); Afectación de nervios motores oculares (estrabismo, visión doble): Afectación
+              trigeminal (dolor facial, pérdida sensibilidad facial, anestesia corneal).
+            </p>
+            <p class="text-justify q-pa-xs">Complicaciones por lesión de la arteria carótida (grave) (0,3-1%).</p>
+            <p class="text-justify q-pa-xs">
+              Estas complicaciones habitualmente se resuelven con tratamiento médico (medicamentos, sueros, etc.) pero pueden llegar a requerir una
+              reintervención, en algunos casos de urgencia.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es
+              bastante infrecuente (0.1-1.5%).
+            </p>
+            <p class="text-justify q-pa-xs">
+              De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para
+              intentar solucionarla.
+            </p>
+          </div>
+          <div class="col-12">
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">RIESGOS PERSONALIZADOS</p>
+            <TextArea_ v-model="HIC159.riesgo_personaliz" :field="form.riesgo_personaliz" class="col-12" />
+          </div>
           <div>
             <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">QUE OTRAS ALTERNATIVAS HAY</p>
             <p class="text-justify q-pa-xs">
-              Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que
-              le atenderá con mucho gusto.
+              Otras técnicas son la radiocirugía, pero necesitan que la lesión sea diagnosticada, ya que los medios diagnósticos de imagen no
+              determinan el diagnóstico etiológico, además su efecto es más lento en el tiempo. Otra alternativa es el tratamiento hormonal dirigido a
+              la secreción de la hormona en exceso, pero en casos de lesiones grandes no alivia los síntomas derivados de la compresión de estructuras
+              vecinas.
+            </p>
+            <p class="text-justify q-pa-xs">
+              Cuando la lesión tiene un gran crecimiento a veces es necesario trotarla por vía superior realizando una craneotomía. Si después de leer
+              detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con
+              mucho gusto.
             </p>
           </div>
         </div>
-        <div v-if="opcion_hic120 == 'AUTORIZAR'">
+        <div v-if="opcion_hic159 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <div>
             <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">CARDIOVERSIÓN ELÉCTRICA </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
-              del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-              dudas en entrevista personal con el Dr.:
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+              doy mi consentimiento para que me sea realizada una
+              <span class="text-bold">CIRUGÍA DE LA HIPÓFISIS POR VÍA TRANSESFENOIDAL.</span>
             </p>
-            <Input_ v-model="HIC120.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
-              Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+              Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
+              declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr:
+            </p>
+            <Input_ v-model="HIC159.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
+            <p class="text-justify q-pa-xs">
+              a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
 
-        <div v-if="opcion_hic120 == 'REVOCAR'">
+        <div v-if="opcion_hic159 == 'REVOCAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
@@ -125,7 +191,7 @@
 
     <div class="col-12 row justify-center q-my-md">
       <q-btn
-        :disable="opcion_hic120 ? false : true"
+        :disable="opcion_hic159 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -139,9 +205,9 @@
 
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851, useModuleCon851p } from "@/store";
-import { impresionHIC120, impresion, generarArchivo } from "@/impresiones";
+import { impresionHIC159, impresion, generarArchivo } from "@/impresiones";
 import { ref, defineAsyncComponent, onMounted, reactive } from "vue";
-import { utilsFormat } from "@/formatos/utils";
+import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -160,12 +226,13 @@ const huella_paci = ref(null);
 const firma_prof = ref(null);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 
-const HIC120 = reactive({
+const HIC159 = reactive({
   fecha: "",
   med_explica: "",
+  riesgo_personaliz: "",
 });
 
-const opcion_hic120 = ref(null);
+const opcion_hic159 = ref(null);
 
 const form = ref({
   med_explica: {
@@ -175,9 +242,16 @@ const form = ref({
     placeholder: "Nombre del profesional",
     campo_abierto: true,
   },
+  riesgo_personaliz: {
+    id: "riesgo_personaliz",
+    maxlength: "500",
+    label: "",
+    rows: 3,
+    campo_abierto: true,
+  },
 });
 onMounted(() => {
-  HIC120.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC159.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
   getFirmaProf();
 });
 
@@ -196,17 +270,17 @@ const validarDatos = () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC120));
+  const datos_format = JSON.parse(JSON.stringify(HIC159));
   let datos = {
     nit_entid: nit_usu.value,
-    estado: opcion_hic120.value == "AUTORIZAR" ? "1" : "2",
+    estado: opcion_hic159.value == "AUTORIZAR" ? "1" : "2",
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
     llave_consen: getHc.llave,
     cod_med: getProf.cod,
-    cod_consen: "HIC120",
+    cod_consen: "HIC159",
     disentimiento: "N",
     ...datos_format,
   };
@@ -266,8 +340,8 @@ const grabarFirmaConsen = async (llave) => {
 
 const imprimirConsen = async (llave) => {
   try {
-    const datos_hic120 = {
-      autorizo: opcion_hic120.value == "AUTORIZAR" ? true : false,
+    const datos_hic159 = {
+      autorizo: opcion_hic159.value == "AUTORIZAR" ? true : false,
       empresa: getEmpresa,
       testigo: getTestigo,
       paciente: getPaci,
@@ -281,7 +355,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC120,
+      ...HIC159,
     };
 
     const firmas = {
@@ -294,20 +368,20 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC159" },
+      content: impresionHIC159({
+        datos: datos_hic159,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "HIC120" },
-      content: impresionHIC120({
-        datos: datos_hic120,
+      datos: { ...firmas, cod_consen: "HIC159" },
+      content: impresionHIC159({
+        datos: datos_hic159,
       }),
     });
 
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-120` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-159` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
