@@ -1,5 +1,5 @@
 import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 const { getAcomp } = useModuleFormatos();
 const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC169 = ({ datos }) => {
@@ -12,61 +12,48 @@ export const impresionHIC169 = ({ datos }) => {
     return {
       stack: [
         {
+          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          text: "INFORMACIÓN GENERAL",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "El tipo de anestesia requerida será la indicada por el anestesiólogo. Es posible que, durante o después de la intervención, sea necesaria la utilización de sangre y/o hemoderivados. También es necesario que advierta de posibles alergias medicamentosas, alteraciones de la coagulación, enfermedades cardiopulmonares, existencia de prótesis, marcapasos, medicaciones actuales o cualquier otra circunstancia. ",
+          text: "Se denomina cuerpo extraño a todo elemento ajeno al organismo que penetra en este a través de cualquier vía, permaneciendo en el mismo y produciendo, por lo general, consecuencias desfavorables para el cuerpo humano. Las fosas nasales y los odios por su localización, por su disposición y por su sensibilidad periorificial son con frecuencia objeto de la presencia de cuerpos extraños. Ello puede producir síntomas diversos que exigirían su extracción.",
         },
         {
-          text: [
-            {
-              bold: true,
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "La Cardioversión  ",
-            },
-            {
-              alignment: "justify",
-              style: "bodyNoBold9",
-              text: "Se realiza habitualmente en ayunas y  bajo los efectos de la anestesia general o mediante sedación profunda, para que el procedimiento no sea doloroso. Se extiende un gel sobre las paletas del aparato desfribilador y se aplican éstas en la pared anterior del tórax más próxima al corazón. Se suministran una o varias descargas eléctricas ('choques'), breves pero de cierta potencia, para intentar lograr la desaparición de la arritmia. ",
-            },
-          ],
-        },
-        {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables, tanto los comunes derivados de todo procedimiento invasivo y que pueden afectar o todos los órganos y sistemas, como los debidos a la situación vital del paciente (diabetes, cardiopatía, hipertensión, edad avanzada, anemia, obesidad,..., y los específicos del procedimiento: ",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Puede existir irritación e incluso leve quemadura de la zona de la piel donde se aplicó la descarga. Ocasionalmente, pudieran presentarse otros trastornos del ritmo graves y súbitos que requieren choque eléctrico inmediato, siendo excepcional la implantacjón urgente de un marcapasos.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "De cualquier forma, si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
+          text: "Las técnicas de extracción son variables y dependen de la naturaleza del cuerpo extraño, del tamaño del mismo, del lugar concreto de su ubicación y del tiempo de permanencia. La intervención se suele realizar bajo anestesia local pudiendo asociarse, en este último caso, a sedación y analgesia del paciente, según criterios que debe valorar el cirujano. En dependencia de las características del caso, podría ser necesaria la anestesia general. En el acto quirúrgico se pretende la extracción del cuerpo extraño respetando al máximo la mucosa que tapiza las cavidades ya mencionadas, e intentando conservar la mayor funcionalidad.",
         },
         {
           marginTop: 15,
           bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
+          text: "OTRAS ALTERNATIVAS",
         },
         {
+          marginTop: 5,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
+          text: "No se conocen otros métodos de eficacia demostrada.",
+        },
+        {
+          marginTop: 15,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "POSIBLES RIESGOS",
+        },
+        {
+          marginTop: 5,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Hemorragias, posibilidad de cicatrización que produjera una disminución del calibre del orificio, infección de la cavidad quirúrgica, perdida auditiva, sinequias, cefalea.",
         },
         autorizaRevoca(),
       ],
@@ -74,6 +61,13 @@ export const impresionHIC169 = ({ datos }) => {
   }
 
   function autorizaRevoca() {
+    if (datos.acomp.cod) {
+      return autorizaRevocaAcomp();
+    } else {
+      return autorizaRevocaPaci();
+    }
+  }
+  function autorizaRevocaPaci() {
     if (datos.autorizo) {
       return {
         stack: [
@@ -91,11 +85,19 @@ export const impresionHIC169 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CARDIOVERSIÓN ELÉCTRICA " },
+              { style: "bodyNoBold9", text: ", con " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id },
+              { style: "bodyNoBold9", text: " - " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.cod },
+              { style: "bodyNoBold9", text: ", identificado con historia clínica " },
+              { bold: true, style: "bodyNoBold9", text: datos.llave },
+              { style: "bodyNoBold9", text: ", edad " },
+              { bold: true, style: "bodyNoBold9", text: calcularEdad(datos.paciente.nacim) },
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "EXTRACCION DE CUERPO EXTRAÑO EN " + datos.cuerpo_extrano + ". \n\n" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
               },
               { bold: true, style: "bodyNoBold9", text: datos.med_explica },
               {
@@ -123,6 +125,79 @@ export const impresionHIC169 = ({ datos }) => {
             text: [
               { style: "bodyNoBold9", text: "Yo, " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              {
+                style: "bodyNoBold9",
+                text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
+              },
+            ],
+          },
+        ],
+      };
+    }
+  }
+  function autorizaRevocaAcomp() {
+    if (datos.autorizo) {
+      return {
+        stack: [
+          {
+            marginTop: 10,
+            bold: true,
+            decoration: "underline",
+            alignment: "center",
+            style: "bodyNoBold9",
+            text: "Consentimiento",
+          },
+          {
+            marginTop: 10,
+            alignment: "justify",
+            text: [
+              { style: "bodyNoBold9", text: "Yo, " },
+              { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip },
+              { style: "bodyNoBold9", text: ", con " },
+              { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id },
+              { style: "bodyNoBold9", text: " - " },
+              { bold: true, style: "bodyNoBold9", text: datos.acomp.cod },
+              { style: "bodyNoBold9", text: ", parentesco " },
+              { bold: true, style: "bodyNoBold9", text: evaluarParentesco(datos.paren_acomp) },
+              { style: "bodyNoBold9", text: "; del paciente " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              { style: "bodyNoBold9", text: ", identificado con historia clínica " },
+              { bold: true, style: "bodyNoBold9", text: datos.llave },
+              { style: "bodyNoBold9", text: ", edad " },
+              { bold: true, style: "bodyNoBold9", text: calcularEdad(datos.paciente.nacim) },
+
+              { style: "bodyNoBold9", text: ", doy mi consentimiento para que me sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "EXTRACCION DE CUERPO EXTRAÑO EN " + datos.cuerpo_extrano + ". \n\n" },
+              {
+                style: "bodyNoBold9",
+                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr: ",
+              },
+              { bold: true, style: "bodyNoBold9", text: datos.med_explica },
+              {
+                style: "bodyNoBold9",
+                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+              },
+            ],
+          },
+        ],
+      };
+    } else {
+      return {
+        stack: [
+          {
+            marginTop: 10,
+            bold: true,
+            decoration: "underline",
+            alignment: "center",
+            style: "bodyNoBold9",
+            text: "Denegación o Revocación",
+          },
+          {
+            marginTop: 10,
+            alignment: "justify",
+            text: [
+              { style: "bodyNoBold9", text: "Yo, " },
+              { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip },
               {
                 style: "bodyNoBold9",
                 text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
@@ -338,7 +413,7 @@ export const impresionHIC169 = ({ datos }) => {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
