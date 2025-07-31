@@ -215,19 +215,19 @@
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around">
         <ContainerFirma
-          :quien_firma="getAcomp.cod ? 'FIRMA ACOMPAÑANTE' : 'FIRMA PACIENTE'"
-          :firmador="getAcomp.cod ? getAcomp.descrip : getPaci.descrip"
-          :registro_profe="getAcomp.cod ? getAcomp.cod : getPaci.cod"
-          :tipo_doc="getAcomp.cod ? getAcomp.tipo_id : getPaci.tipo_id"
+          quien_firma="FIRMA PACIENTE"
+          :firmador="getPaci.descrip"
+          :registro_profe="getPaci.cod"
           @reciFirma="callBackFirma"
+          :huella_="huella_paci"
           class="col-4"
         />
         <ContainerFirma
-          quien_firma="FIRMA TESTIGO"
-          :firmador="getTestigo.descrip"
-          :registro_profe="getTestigo.cod"
-          @reciFirma="callBackFirmaTest"
-          :codigo_firma="getTestigo.cod"
+          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
+          :disable="!getAcomp.descrip ? true : false"
+          quien_firma="FIRMA TUTOR O FAMILIAR"
+          :registro_profe="getAcomp.cod"
+          @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />
         <ContainerFirma
@@ -480,14 +480,10 @@ const imprimirConsen = async (llave) => {
 };
 
 const callBackFirma = (data_firma) => {
-  if (getAcomp.cod) {
-    data_firma && (firma_recibida_acomp.value = data_firma);
-  } else {
-    data_firma && (firma_recibida.value = data_firma);
-  }
+  data_firma && (firma_recibida.value = data_firma);
 };
 
-const callBackFirmaTest = (data_firma) => {
-  data_firma && (firma_recibida_test.value = data_firma);
+const callBackFirmaAcomp = (data_firma) => {
+  data_firma && (firma_recibida_acomp.value = data_firma);
 };
 </script>

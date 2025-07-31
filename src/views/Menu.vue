@@ -152,7 +152,7 @@ const validarUrl = async () => {
   // } else {
   //   datos_session.modulo == "LAB" && getTestigo();
   // }
-  if (datos_session.novedad == "1" && datos_session.cod_prof && datos_session.cod_prof != "0017329215") {
+  if (datos_session.novedad == "1" && datos_session.cod_prof) {
     await getMedico();
   }
   await getPaciente();

@@ -190,6 +190,7 @@ const MONTE_SINAI = ref(false);
 const GUAMAL = ref(false);
 const ESE_GRANADA = ref(false);
 const EBENEZER = ref(false);
+const EMPERATRIZ = ref(false);
 
 const reg_consentimiento = ref({ estado: false });
 const lista_consen = ref([]);
@@ -333,6 +334,9 @@ const validacionesNitHc = async () => {
       break;
     case 900305723:
       EBENEZER.value = true;
+      break;
+    case 800175901:
+      EMPERATRIZ.value = true;
       break;
   }
   // pruebasCupsNit();
@@ -677,14 +681,23 @@ const consultarFirmaConsen = async (row) => {
 
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
 
-    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value) {
+    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value || ESE_GRANADA.value) {
       //Testigo
       firma_testigo.value = await _getImagen$({ codigo: `${row.datos.reg_coninf2.id_testigo}`, tipo_test: route.query.tipo_testigo || "1" });
     } else {
       //Testigo UTM
       params_querys.value.modulo == "LAB" && (firma_testigo.value = await _getImagen$({ codigo: `T${codigo}` }));
     }
-    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value || EBENEZER.value) {
+    if (
+      SANAR.value ||
+      BERNAL.value ||
+      MONTE_SINAI.value ||
+      FUENTEDEORO.value ||
+      GUAMAL.value ||
+      EBENEZER.value ||
+      EMPERATRIZ.value ||
+      ESE_GRANADA.value
+    ) {
       //Paciente
       firma_consen.value = await _getImagen$({ codigo: `${row.llave.id}`, tipo_test: "1" });
     } else {
@@ -692,7 +705,16 @@ const consultarFirmaConsen = async (row) => {
       firma_consen.value = await _getImagen$({ codigo: `P${codigo}` });
     }
 
-    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value || GUAMAL.value || EBENEZER.value) {
+    if (
+      SANAR.value ||
+      BERNAL.value ||
+      MONTE_SINAI.value ||
+      FUENTEDEORO.value ||
+      GUAMAL.value ||
+      EBENEZER.value ||
+      EMPERATRIZ.value ||
+      ESE_GRANADA.value
+    ) {
       //Acompañante
       firma_acomp.value = await _getImagen$({ codigo: `${row.id_acomp}`, tipo_test: "1" });
     } else {
