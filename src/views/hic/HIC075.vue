@@ -29,18 +29,18 @@
             <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">{{ HIC075.fecha }}</p>
           </div>
           <div class="text-left row" style="width: 50%">
-            <p style="margin-top: 1px; margin-left: 1px">La señora (Nombre y apellidos):</p>
+            <p style="margin-top: 1px; margin-left: 1px">La señora (Nombre y apellidos):&nbsp;</p>
             <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">{{ getPaci.descrip }}</p>
           </div>
           <div class="text-left row" style="width: 30%">
-            <p style="margin-top: 1px; margin-left: 1px">Tipo documento de identidad:</p>
+            <p style="margin-top: 1px; margin-left: 1px">Tipo documento de identidad:&nbsp;</p>
             <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">{{ getPaci.tipo_id }}</p>
           </div>
           <div class="text-left" style="width: 20%">
             <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">N°: {{ getPaci.cod }}</p>
           </div>
           <div class="text-left row" style="width: 30%">
-            <p style="margin-top: 1px; margin-left: 1px">Con domicilio en:</p>
+            <p style="margin-top: 1px; margin-left: 1px">Con domicilio en:&nbsp;</p>
             <p style="font-weight: bold; margin-top: 1px; margin-left: 1px">{{ getPaci.direccion }}</p>
           </div>
         </div>
