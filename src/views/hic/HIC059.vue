@@ -119,6 +119,7 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
@@ -128,6 +129,7 @@
           :disable="!getAcomp.descrip ? true : false"
           quien_firma="FIRMA TUTOR O FAMILIAR"
           :registro_profe="getAcomp.cod"
+          :tipo_doc="getAcomp.tipo_id"
           @reciFirma="callBackFirmaAcomp"
           class="col-4"
         />

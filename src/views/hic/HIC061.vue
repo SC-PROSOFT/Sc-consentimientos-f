@@ -103,6 +103,7 @@
           quien_firma="FIRMA PACIENTE"
           :firmador="getPaci.descrip"
           :registro_profe="getPaci.cod"
+          :tipo_doc="getPaci.tipo_id"
           @reciFirma="callBackFirma"
           :huella_="huella_paci"
           class="col-4"
@@ -122,6 +123,7 @@
           :firmador="getProf.descrip"
           :descrip_prof="getProf.descrip_atiende"
           :registro_profe="getProf.cod"
+          :tipo_doc="getAcomp.tipo_id"
           :codigo_firma="getProf.cod"
           class="col-4"
         />

@@ -360,7 +360,16 @@ const validacionesNitHc = async () => {
   } catch (error) {
     console.error(error);
 
-    if (ESE_YOPAL.value || SOCIEDAD_CARDIOLOG.value || SANAR.value || BERNAL.value || FUENTEDEORO.value || SAN_MARTIN.value || MONTE_SINAI.value) {
+    if (
+      ESE_YOPAL.value ||
+      SOCIEDAD_CARDIOLOG.value ||
+      SANAR.value ||
+      BERNAL.value ||
+      FUENTEDEORO.value ||
+      SAN_MARTIN.value ||
+      MONTE_SINAI.value ||
+      ESE_GRANADA.value
+    ) {
       formatosStore.setHc({
         llave: route.query.llave_hc,
         descrip: "",
@@ -417,7 +426,16 @@ const getHistoriaClinica = async () => {
 
     if (response.reg_hc.cierre.estado == 2 && !["0000000001"].includes(route.query.nit)) {
       //asi la HC este cerrada deja seguir
-      if (ESE_YOPAL.value || SOCIEDAD_CARDIOLOG.value || SANAR.value || BERNAL.value || FUENTEDEORO.value || SAN_MARTIN.value || MONTE_SINAI.value)
+      if (
+        ESE_YOPAL.value ||
+        SOCIEDAD_CARDIOLOG.value ||
+        SANAR.value ||
+        BERNAL.value ||
+        FUENTEDEORO.value ||
+        SAN_MARTIN.value ||
+        MONTE_SINAI.value ||
+        ESE_GRANADA.value
+      )
         return;
       return CON851("9Y", "info", "", logOut$);
     }
@@ -740,7 +758,16 @@ const consultarFirmaConsen = async (row) => {
     //Disetio acomp. o Disentio paci.
     const firmador = row.datos.reg_coninf2.acompa_disenti == "S" ? "DA" : "DP";
     // sanar, monte sinai, HOSPITAL LOCAL ESE FUENTEDEORO
-    if (SANAR.value || BERNAL.value || MONTE_SINAI.value || FUENTEDEORO.value) {
+    if (
+      SANAR.value ||
+      BERNAL.value ||
+      MONTE_SINAI.value ||
+      FUENTEDEORO.value ||
+      GUAMAL.value ||
+      EBENEZER.value ||
+      EMPERATRIZ.value ||
+      ESE_GRANADA.value
+    ) {
       firma_disentimiento.value = await _getImagen$({ codigo: row.llave.id, tipo_test: "1" });
     } else {
       firma_disentimiento.value = await _getImagen$({ codigo: `${firmador}${codigo}` });
