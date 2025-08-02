@@ -1,12 +1,19 @@
 <template>
   <div class="my-card">
+    <q-card class="my-card" v-if="['2', '3'].includes(novedad)">
+      <q-input v-model="buscar" placeholder="Buscar formato por código o nombre" outlined dense class="q-mb-md">
+        <template v-slot:append>
+          <q-btn dense flat round icon="cancel" @click="limpiarBusqueda" aria-label="Borrar búsqueda" />
+        </template>
+      </q-input>
+    </q-card>
     <!-- tabla para reimprimir los consentimientos -->
     <q-table
       :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
       v-if="['2', '3'].includes(novedad)"
       :rows-per-page-options="[10]"
       :columns="columns_consen"
-      :rows="lista_consen"
+      :rows="filtraFormatosReimp"
       row-key="COD_MAE"
       bordered
       dense
@@ -49,11 +56,19 @@
         </div>
       </template>
     </q-table>
+
+    <q-card class="my-card" v-if="novedad == 1">
+      <q-input v-model="buscar" placeholder="Buscar formato por código o nombre" outlined dense class="q-mb-md">
+        <template v-slot:append>
+          <q-btn dense flat round icon="cancel" @click="limpiarBusqueda" aria-label="Borrar búsqueda" />
+        </template>
+      </q-input>
+    </q-card>
     <!-- tabla para elaborar los consentimientos -->
     <q-table
       title="Generar consentimiento"
       :rows-per-page-options="[10]"
-      :rows="lista_maestros"
+      :rows="filtraFormatosElab"
       v-if="novedad == 1"
       :columns="columns"
       row-key="cod_mae"
@@ -89,6 +104,13 @@
         </div>
       </template>
     </q-table>
+    <q-card class="my-card" v-if="novedad == 4">
+      <q-input v-model="buscar" placeholder="Buscar formato por código o nombre" outlined dense class="q-mb-md">
+        <template v-slot:append>
+          <q-btn dense flat round icon="cancel" @click="limpiarBusqueda" aria-label="Borrar búsqueda" />
+        </template>
+      </q-input>
+    </q-card>
     <!-- añadir informacion a consentimientos realizados -->
     <q-card class="my-card q-mt-md">
       <q-table
@@ -164,6 +186,7 @@ const { getEmpresa, getTestigo, setHc, setSession, setProf, setTestigo, setAcomp
 const params_querys = ref(null);
 const novedad = ref(null);
 
+const buscar = ref("");
 const mode_dev = process.env.NODE_ENV == "development" ? true : false;
 const firma_disentimiento = ref(null);
 const llave_odo_act = ref(null);
@@ -835,6 +858,49 @@ const agregarInfConse = async (data) => {
     CON851("?", "info", "El consentimiento no esta disponible");
   }
 };
+
+// const filtraFormatosElab = computed(() => {
+//   const term = buscar.value.toLowerCase();
+//   return lista_maestros.value.filter((item) => item.cod_mae.toLowerCase().includes(term) || item.descrip.toLowerCase().includes(term));
+// });
+const limpiarBusqueda = () => {
+  buscar.value = "";
+};
+
+const filtraFormatosElab = computed(() => {
+  const term = limpiarTexto(buscar.value);
+  if (!term) return lista_maestros.value;
+
+  const keywords = term.split(" ");
+
+  return lista_maestros.value.filter((item) => {
+    const cod = limpiarTexto(item.cod_mae);
+    const desc = limpiarTexto(item.descrip);
+    const fullText = `${cod} ${desc}`;
+    return keywords.every((word) => fullText.includes(word));
+  });
+});
+const filtraFormatosReimp = computed(() => {
+  const term = limpiarTexto(buscar.value);
+  if (!term) return lista_consen.value;
+
+  const keywords = term.split(" ");
+
+  return lista_consen.value.filter((item) => {
+    const cod = limpiarTexto(item.cod_mae);
+    const desc = limpiarTexto(item.descrip);
+    const fullText = `${cod} ${desc}`;
+    return keywords.every((word) => fullText.includes(word));
+  });
+});
+const limpiarTexto = (text) =>
+  text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 
 const cerrarDisen = () => location.reload();
 </script>
