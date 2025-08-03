@@ -7,14 +7,18 @@
         </template>
       </q-input>
     </q-card>
+
     <!-- tabla para reimprimir los consentimientos -->
+    <!-- row-key="COD_MAE" -->
     <q-table
       :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
       v-if="['2', '3'].includes(novedad)"
-      :rows-per-page-options="[10]"
       :columns="columns_consen"
-      :rows="filtraFormatosReimp"
-      row-key="COD_MAE"
+      :rows="filtrafiltFormaReimp"
+      row-key="cod_mae"
+      hide-pagination
+      :rows-per-page-options="[10]"
+      :pagination="pagination"
       bordered
       dense
       flat
@@ -56,7 +60,16 @@
         </div>
       </template>
     </q-table>
-
+    <q-pagination
+      v-if="['2', '3'].includes(novedad) && filtrafiltFormaReimp.length > 0"
+      v-model="pagination.page"
+      :max="Math.ceil(filtrafiltFormaReimp.length / pagination.rowsPerPage)"
+      max-pages="7"
+      direction-links
+      boundary-links
+      color="primary"
+      class="q-my-md row justify-center"
+    />
     <q-card class="my-card" v-if="novedad == 1">
       <q-input v-model="buscar" placeholder="Buscar formato por código o nombre" outlined dense class="q-mb-md">
         <template v-slot:append>
@@ -67,11 +80,13 @@
     <!-- tabla para elaborar los consentimientos -->
     <q-table
       title="Generar consentimiento"
-      :rows-per-page-options="[10]"
-      :rows="filtraFormatosElab"
       v-if="novedad == 1"
       :columns="columns"
+      :rows="filtFormatElabPag"
       row-key="cod_mae"
+      hide-pagination
+      :rows-per-page-options="[10]"
+      :pagination="pagination"
       bordered
       dense
       flat
@@ -104,6 +119,18 @@
         </div>
       </template>
     </q-table>
+
+    <q-pagination
+      v-if="novedad == 1 && filtFormatElab.length > 0"
+      v-model="pagination.page"
+      :max="Math.ceil(filtFormatElab.length / pagination.rowsPerPage)"
+      max-pages="7"
+      direction-links
+      boundary-links
+      color="primary"
+      class="q-my-md row justify-center"
+    />
+    <!--  -->
     <q-card class="my-card" v-if="novedad == 4">
       <q-input v-model="buscar" placeholder="Buscar formato por código o nombre" outlined dense class="q-mb-md">
         <template v-slot:append>
@@ -153,6 +180,16 @@
           </div>
         </template>
       </q-table>
+      <q-pagination
+        v-if="novedad == 4 && filtFormatElab.length > 0"
+        v-model="pagination.page"
+        :max="Math.ceil(filtFormatElab.length / pagination.rowsPerPage)"
+        max-pages="7"
+        direction-links
+        boundary-links
+        color="primary"
+        class="q-my-md row justify-center"
+      />
     </q-card>
     <DisentirConsen_
       :consen="reg_consentimiento"
@@ -859,15 +896,11 @@ const agregarInfConse = async (data) => {
   }
 };
 
-// const filtraFormatosElab = computed(() => {
-//   const term = buscar.value.toLowerCase();
-//   return lista_maestros.value.filter((item) => item.cod_mae.toLowerCase().includes(term) || item.descrip.toLowerCase().includes(term));
-// });
 const limpiarBusqueda = () => {
   buscar.value = "";
 };
 
-const filtraFormatosElab = computed(() => {
+const filtFormatElab = computed(() => {
   const term = limpiarTexto(buscar.value);
   if (!term) return lista_maestros.value;
 
@@ -876,23 +909,26 @@ const filtraFormatosElab = computed(() => {
   return lista_maestros.value.filter((item) => {
     const cod = limpiarTexto(item.cod_mae);
     const desc = limpiarTexto(item.descrip);
-    const fullText = `${cod} ${desc}`;
-    return keywords.every((word) => fullText.includes(word));
+    const texto_completo = `${cod} ${desc}`;
+    return keywords.every((word) => texto_completo.includes(word));
   });
 });
-const filtraFormatosReimp = computed(() => {
+const filtFormaReimp = computed(() => {
+  console.log("buscar 1 --> ", buscar.value);
+
   const term = limpiarTexto(buscar.value);
   if (!term) return lista_consen.value;
 
   const keywords = term.split(" ");
 
   return lista_consen.value.filter((item) => {
-    const cod = limpiarTexto(item.cod_mae);
-    const desc = limpiarTexto(item.descrip);
-    const fullText = `${cod} ${desc}`;
-    return keywords.every((word) => fullText.includes(word));
+    const cod = limpiarTexto(item.reg_coninf.cod);
+    const desc = limpiarTexto(item.reg_coninf.datos_encab.descrip);
+    const texto_completo = `${cod} ${desc}`;
+    return keywords.every((word) => texto_completo.includes(word));
   });
 });
+
 const limpiarTexto = (text) =>
   text
     .toLowerCase()
@@ -901,6 +937,23 @@ const limpiarTexto = (text) =>
     .replace(/[^a-z0-9\s]/g, "")
     .replace(/\s+/g, " ")
     .trim();
+
+const pagination = ref({
+  page: 1,
+  rowsPerPage: 9,
+});
+
+const filtFormatElabPag = computed(() => {
+  const start = (pagination.value.page - 1) * pagination.value.rowsPerPage;
+  const end = start + pagination.value.rowsPerPage;
+  return filtFormatElab.value.slice(start, end);
+});
+
+const filtrafiltFormaReimp = computed(() => {
+  const start = (pagination.value.page - 1) * pagination.value.rowsPerPage;
+  const end = start + pagination.value.rowsPerPage;
+  return filtFormaReimp.value.slice(start, end);
+});
 
 const cerrarDisen = () => location.reload();
 </script>
