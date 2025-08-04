@@ -38,12 +38,25 @@
             profesional de la salud al tercer o cuarto día posterior a la consulta de inserción. Algunas de las reacciones adversas se pueden
             presentar en alrededor del 10% de las usuarias.
           </p>
-          <p>
-            Yo &nbsp;<span class="text-bold">{{ getPaci.descrip }}</span> identificada con <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;
-            <span class="text-bold">{{ getPaci.cod }}</span
-            >, expedida en <span class="text-bold">{{ getPaci.descrip_ciudad }},</span>
-          </p>
-          <p>declaro que he sido suficientemente informada en términos claros y comprensibles por:</p>
+          <div v-if="getAcomp.cod">
+            <p>
+              Yo &nbsp;<span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+              >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+              >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip }},</span>&nbsp;
+              identificada con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getPaci.cod }}</span>
+              declaro que he sido suficientemente informada en términos claros y comprensibles por:
+            </p>
+          </div>
+
+          <div v-if="!getAcomp.cod" class="row">
+            <p>
+              Yo &nbsp;<span class="text-bold">{{ getPaci.descrip }}</span> identificada con
+              <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp; <span class="text-bold">{{ getPaci.cod }}</span
+              >, expedida en <span class="text-bold">{{ getPaci.descrip_ciudad }},</span> declaro que he sido suficientemente informada en términos
+              claros y comprensibles por:
+            </p>
+          </div>
+
           <Input_ v-model="HIC058.prof_informa" :field="form.prof_informa" :inputStyle="{ width: '400px' }" />
           <p>identificado(a) con C.C No.:</p>
           <Input_ v-model="HIC058.cod_prof_informa" :field="form.cod_prof_informa" :inputStyle="{ width: '150px' }" />
@@ -85,24 +98,27 @@
             hormonas sexuales, hemorragia vaginal sin diagnosticar; para lo cual existe registro en la historia clínica.
           </p>
         </div>
-        <div>
+        <div v-if="opcion_hic058 == 'AUTORIZAR'">
+          <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
           <p style="font-weight: bold; margin-top: 10px">
             CERTIFICO QUE HE LEIDO Y COMPRENDIDO PERFECTAMENTE LO ANTERIOR Y QUE TODOS LOS ESPACIOS EN BLANCO HAN SIDO COMPLETADOS ENTES DE MI FIRMA Y
             QUE ME ENCUENTRO EN LIBERTAD DE EXPRESAR MI VOLUNTAD Y POR LO TANTO AUTORIZO ME SEA REALIZADO EL PRECEDIMIENTO.
           </p>
         </div>
-        <!-- <div class="row">
-          <p>Fecha:&nbsp;</p>
-          <p>{{ HIC058.fecha_act }}</p>
+        <div v-if="opcion_hic058 == 'REVOCAR'">
+          <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
+            Denegación o Revocación
+          </p>
+          <div>
+            <p class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> después de ser informado/a de la naturaleza y riesgos del procedimiento
+              propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome
+              responsable de las consecuencias que puedan derivarse de esta decisión.
+            </p>
+            <p class="text-left" style="margin-top: 10px; font-weight: bold; margin-left: 10px">Observación revoca</p>
+            <TextArea_ v-model="HIC058.observ_revoca" :field="form.observ_revoca" class="col-12" />
+          </div>
         </div>
-        <div class="row">
-          <p>Nombre del paciente:&nbsp;</p>
-          <p>{{ getPaci.descrip }}</p>
-        </div>
-        <div class="row">
-          <p>Tipo de identificación:&nbsp;</p>
-          <p>{{ getPaci.tipo_id }}</p>
-        </div> -->
       </q-card-section>
     </div>
     <q-separator />
@@ -181,6 +197,7 @@ const HIC058 = reactive({
   fecha: "",
   prof_informa: "",
   cod_prof_informa: "",
+  observ_revoca: "",
 });
 
 const form = ref({
@@ -195,6 +212,13 @@ const form = ref({
     maxlength: "15",
     label: "",
     tipo: "number",
+    campo_abierto: true,
+  },
+  observ_revoca: {
+    id: "observ_revoca",
+    maxlength: "500",
+    label: "",
+    rows: 3,
     campo_abierto: true,
   },
 });
@@ -289,6 +313,7 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async (llave) => {
+  const datos_format = JSON.parse(JSON.stringify(HIC058));
   try {
     const datos_hic058 = {
       autorizo: opcion_hic058.value == "AUTORIZAR" ? true : false,
@@ -305,7 +330,7 @@ const imprimirConsen = async (llave) => {
         firma_prof: firma_prof.value ? true : false,
         firma_test: firma_recibida_test.value ? true : false,
       },
-      ...HIC058,
+      ...datos_format,
     };
     const firmas = {
       img_firma_testigo: firma_recibida_test.value,

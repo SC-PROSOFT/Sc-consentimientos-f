@@ -37,25 +37,16 @@ export const impresionHIC058 = ({ datos }) => {
           text: "El procedimiento consiste en: Previo asepsia con un antiséptico adecuado, se inserta debajo de la piel, dos barras que contienen hormona anticonceptiva (levonorgestrel X 75 mg) a través de una pequeña inserción no mayor a dos milímetros (no requiere sutura); realizada en una zona de la piel sana de la cara interna del brazo izquierdo o derecho según sea la mujer diestra o zurda, en donde ha sido aplicada anestésico local previamente. Una vez insertadas las barras se procede a colocar un vendaje, el cual debe ser removido solo por un profesional de la salud al tercer o cuarto día posterior a la consulta de inserción. Algunas de las reacciones adversas se pueden presentar en alrededor del 10% de las usuarias.",
           style: "bodyNoBold9",
         },
+        responsableAcompPaci(),
         {
-          marginTop: 8,
           alignment: "justify",
           text: [
-            { text: "Yo " },
-            { text: datos.paciente.descrip },
-            { text: " identificada " },
-            { text: datos.tipo_id },
-            { text: "  " },
-            { text: datos.paciente.cod },
-            { text: " , expedida en " },
-            { text: datos.paciente.descrip_ciudad },
-            { text: " , declaro que he sido suficientemente informada en términos claros y comprensibles por " },
-            { text: datos.prof_informa },
-            { text: " , identificado(a) con C.C No. " },
-            { text: datos.cod_prof_informa },
-            { text: " , acerca del procedimiento inserción de implante subdérmico hormonal." },
+            { style: "bodyNoBold9", text: "Declaro que he sido suficientemente informada en términos claros y comprensibles por " },
+            { style: "bodyNoBold9", bold: true, text: datos.prof_informa.trim() },
+            { style: "bodyNoBold9", text: ", identificado(a) con C.C No. " },
+            { style: "bodyNoBold9", bold: true, text: datos.cod_prof_informa },
+            { style: "bodyNoBold9", text: " , acerca del procedimiento inserción de implante subdérmico hormonal." },
           ],
-          style: "bodyNoBold9",
         },
         {
           alignment: "center",
@@ -104,13 +95,7 @@ export const impresionHIC058 = ({ datos }) => {
           text: "7- Se me explico que las contraindicaciones son: enfermedad trombo embolica venosa activa, presencia o antecedentes de enfermedad hepática severa, presencia o antecedentes de tumores hepáticos malignos o benignos, sospecha o certeza de neoplasias malignas dependientes de hormonas sexuales, hemorragia vaginal sin diagnosticar; para lo cual existe registro en la historia clínica.",
           style: "bodyNoBold9",
         },
-        {
-          bold: true,
-          marginTop: 8,
-          alignment: "justify",
-          text: "CERTIFICO QUE HE LEIDO Y COMPRENDIDO PERFECTAMENTE LO ANTERIOR Y QUE TODOS LOS ESPACIOS EN BLANCO HAN SIDO COMPLETADOS ENTES DE MI FIRMA Y QUE ME ENCUENTRO EN LIBERTAD DE EXPRESAR MI VOLUNTAD Y POR LO TANTO AUTORIZO ME SEA REALIZADO EL PRECEDIMIENTO.",
-          style: "bodyNoBold9",
-        },
+        autorizaRevoca(),
       ],
       styles: {
         bodyContent: {
@@ -120,7 +105,111 @@ export const impresionHIC058 = ({ datos }) => {
       },
     };
   }
-
+  function autorizaRevoca() {
+    if (datos.autorizo) {
+      return {
+        stack: [
+          {
+            marginTop: 10,
+            pageBreak: "before",
+            bold: true,
+            decoration: "underline",
+            alignment: "center",
+            style: "bodyNoBold9",
+            text: "Consentimiento",
+          },
+          {
+            bold: true,
+            marginTop: 8,
+            alignment: "justify",
+            text: "CERTIFICO QUE HE LEIDO Y COMPRENDIDO PERFECTAMENTE LO ANTERIOR Y QUE TODOS LOS ESPACIOS EN BLANCO HAN SIDO COMPLETADOS ENTES DE MI FIRMA Y QUE ME ENCUENTRO EN LIBERTAD DE EXPRESAR MI VOLUNTAD Y POR LO TANTO AUTORIZO ME SEA REALIZADO EL PRECEDIMIENTO.",
+            style: "bodyNoBold9",
+          },
+        ],
+      };
+    } else {
+      return {
+        stack: [
+          {
+            marginTop: 10,
+            pageBreak: "before",
+            bold: true,
+            decoration: "underline",
+            alignment: "center",
+            style: "bodyNoBold9",
+            text: "Denegación o Revocación",
+          },
+          {
+            marginTop: 10,
+            alignment: "justify",
+            text: [
+              { style: "bodyNoBold9", text: "Yo, " },
+              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              {
+                style: "bodyNoBold9",
+                text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión. \n\n",
+              },
+              {
+                // marginTop: 5,
+                bold: true,
+                style: "bodyNoBold9",
+                text: "Observación revoca: \n\n",
+              },
+              { bold: true, style: "bodyNoBold9", text: datos.observ_revoca },
+            ],
+          },
+        ],
+      };
+    }
+  }
+  function responsableAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        stack: [
+          {
+            marginTop: 8,
+            alignment: "justify",
+            text: [
+              { text: "Yo " },
+              { bold: true, text: datos.paciente.descrip },
+              { text: " identificada " },
+              { bold: true, text: datos.tipo_id },
+              { text: "  " },
+              { bold: true, text: datos.paciente.cod },
+              { text: " , expedida en " },
+              { bold: true, text: datos.paciente.descrip_ciudad },
+            ],
+            style: "bodyNoBold9",
+          },
+        ],
+      };
+    } else {
+      return {
+        stack: [
+          {
+            marginTop: 8,
+            alignment: "justify",
+            text: [
+              { text: "Yo " },
+              { bold: true, text: datos.acomp.descrip.trim() },
+              { text: ", identifcado(a) con " },
+              { bold: true, text: datos.acomp.tipo_id },
+              { text: "  " },
+              { bold: true, text: datos.acomp.cod.trim() },
+              { text: ", en calidad de familiar y/o acompañante responsable del paciente " },
+              { bold: true, text: datos.paciente.descrip.trim() },
+              { text: ", identificada con " },
+              { bold: true, text: datos.paciente.tipo_id },
+              { text: "  " },
+              { bold: true, text: datos.paciente.cod },
+              // { text: " declaro que he sido suficientemente informada en términos claros y comprensibles por:" },
+            ],
+            style: "bodyNoBold9",
+          },
+        ],
+      };
+    }
+  }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
 
