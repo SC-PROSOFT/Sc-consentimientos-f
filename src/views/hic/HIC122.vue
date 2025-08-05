@@ -96,6 +96,7 @@
             </p>
           </div>
         </div>
+        <span class="text-bold">Villavicencio, {{ HIC122.fecha }}. </span>
       </q-card-section>
     </div>
     <q-separator />

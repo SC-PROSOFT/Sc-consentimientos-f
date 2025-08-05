@@ -221,6 +221,13 @@ export const impresionHIC159 = ({ datos }) => {
           text: "Cuando la lesión tiene un gran crecimiento a veces es necesario trotarla por vía superior realizando una craneotomía. Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
         },
         autorizaRevoca(),
+        {
+          marginTop: 5,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Villavicencio, " + datos.fecha + ".",
+        },
       ],
     };
   }

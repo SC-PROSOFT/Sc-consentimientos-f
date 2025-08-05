@@ -159,6 +159,13 @@ export const impresionHIC168 = ({ datos }) => {
           text: "La única alternativa es la abstención terapéutica. Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
         },
         autorizaRevoca(),
+        {
+          marginTop: 5,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Villavicencio, " + datos.fecha + ".",
+        },
       ],
     };
   }

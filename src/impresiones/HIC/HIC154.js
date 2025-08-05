@@ -166,6 +166,13 @@ export const impresionHIC154 = ({ datos }) => {
           text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
         },
         autorizaRevoca(),
+        {
+          marginTop: 5,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Villavicencio, " + datos.fecha + ".",
+        },
       ],
     };
   }

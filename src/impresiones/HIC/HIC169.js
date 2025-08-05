@@ -56,6 +56,13 @@ export const impresionHIC169 = ({ datos }) => {
           text: "Hemorragias, posibilidad de cicatrización que produjera una disminución del calibre del orificio, infección de la cavidad quirúrgica, perdida auditiva, sinequias, cefalea.",
         },
         autorizaRevoca(),
+        {
+          marginTop: 5,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Villavicencio, " + datos.fecha + ".",
+        },
       ],
     };
   }

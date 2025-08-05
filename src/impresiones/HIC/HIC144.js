@@ -166,6 +166,13 @@ export const impresionHIC144 = ({ datos }) => {
           text: "La única alternativa a la intervención quirúrgica es la colocación de una prótesis auditiva. Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
         },
         autorizaRevoca(),
+        {
+          marginTop: 5,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Villavicencio, " + datos.fecha + ".",
+        },
       ],
     };
   }

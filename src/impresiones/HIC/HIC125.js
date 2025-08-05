@@ -167,6 +167,13 @@ export const impresionHIC125 = ({ datos }) => {
         },
         autorizaRevoca(),
         {
+          marginTop: 5,
+          bold: true,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Villavicencio, " + datos.fecha + ".",
+        },
+        {
           marginTop: 15,
           alignment: "justify",
           style: "bodyNoBold9",
