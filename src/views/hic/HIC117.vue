@@ -104,32 +104,28 @@
 
         <div v-if="opcion_hic117 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
-          <div>
-            <div v-if="!getAcomp.cod">
-              <p class="text-justify q-pa-xs">
-                Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-                <span class="text-bold">ANESTESIA GENERAL </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del
-                procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-                dudas en entrevista personal con el Dr.:
-              </p>
-            </div>
+          <div class="row">
+            <p class="text-justify">
+              <!-- Autoriza paciente -->
+              <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+              </span>
 
-            <div v-if="getAcomp.cod">
-              <p class="text-justify q-pa-xs">
-                Yo <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+              <!-- Autoriza acompañante -->
+              <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
                 >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
                 >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
                 >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
                   getPaci.cod
                 }}</span>
-
-                doy mi consentimiento para que sea realizada una
-                <span class="text-bold">ANESTESIA GENERAL </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del
-                procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
-                dudas en entrevista personal con el Dr.:
-              </p>
-            </div>
-
+              </span>
+              <!-- Texto autoriza -->
+              doy mi consentimiento para que sea realizada una
+              <span class="text-bold">ANESTESIA GENERAL </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del
+              procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
+              dudas en entrevista personal con el Dr.:
+            </p>
             <Input_ v-model="HIC117.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
               Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
@@ -142,27 +138,30 @@
             Denegación o Revocación
           </p>
 
-          <div v-if="!getAcomp.cod">
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> después de ser informado/a de la naturaleza y riesgos del procedimiento
-              propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome
-              responsable de las consecuencias que puedan derivarse de esta decisión.
-            </p>
-          </div>
+          <p class="text-justify">
+            <!-- Revoca paciente -->
+            <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
 
-          <div v-if="getAcomp.cod">
-            <p class="text-justify q-pa-xs">
+              después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación
+              / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
+              decisión.
+            </span>
+
+            <!-- Revoca acompañante -->
+            <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
               Yo <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
               >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
               >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
               >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
                 getPaci.cod
               }}</span>
-              después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación
-              / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
-              decisión.
-            </p>
-          </div>
+            </span>
+
+            después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación /
+            revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
+            decisión.
+          </p>
         </div>
       </q-card-section>
     </div>
