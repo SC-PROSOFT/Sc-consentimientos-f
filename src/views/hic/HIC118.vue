@@ -41,10 +41,26 @@
 
         <div v-if="opcion_hic118 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
-          <div>
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> doy mi consentimiento para que me sea realizada una
-              <span class="text-bold">ANESTESIA LOCO-REGIONAL </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
+
+          <div class="row">
+            <p class="text-justify">
+              <!-- Autoriza paciente -->
+              <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+              </span>
+
+              <!-- Autoriza acompañante -->
+              <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+                >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+                >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
+                  getPaci.cod
+                }}</span>
+              </span>
+              <!-- Texto autoriza -->
+              doy mi consentimiento para que me sea realizada una
+              <span class="text-bold">ANESTESIA LOCO-REGIONAL. </span> Se me ha facilitado esto hoja informativa, habiendo comprendido el significado
               del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis
               dudas en entrevista personal con el Dr.:
             </p>
@@ -59,15 +75,29 @@
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
-          <div>
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span
-              >después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación
-              / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
-              decisión.
-            </p>
-          </div>
+          <p class="text-justify">
+            <!-- Revoca paciente -->
+            <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+            </span>
+
+            <!-- Revoca acompañante -->
+            <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+              Yo <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+              >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+              >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+              >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
+                getPaci.cod
+              }}</span>
+            </span>
+
+            <!-- Texto revoca -->
+            después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación /
+            revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
+            decisión.
+          </p>
         </div>
+        <span class="text-bold">Villavicencio, {{ HIC118.fecha }}. </span>
       </q-card-section>
     </div>
     <q-separator />

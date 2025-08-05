@@ -159,6 +159,7 @@
             decisión.
           </p>
         </div>
+        <span class="text-bold">Villavicencio, {{ HIC117.fecha }}. </span>
       </q-card-section>
     </div>
     <q-separator />
