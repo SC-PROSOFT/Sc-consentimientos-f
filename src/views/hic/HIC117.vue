@@ -137,15 +137,10 @@
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
             Denegación o Revocación
           </p>
-
           <p class="text-justify">
             <!-- Revoca paciente -->
             <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
               Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
-
-              después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación
-              / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
-              decisión.
             </span>
 
             <!-- Revoca acompañante -->
@@ -158,6 +153,7 @@
               }}</span>
             </span>
 
+            <!-- Texto revoca -->
             después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación /
             revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
             decisión.

@@ -395,7 +395,7 @@ export const impresionHIC165 = ({ datos }) => {
       marginLeft: 3,
       marginTop: 9,
       alignment: "center",
-      image: "firma_paci",
+      image: "firma_acomp",
       width: tamano_firma,
       height: 70,
     };

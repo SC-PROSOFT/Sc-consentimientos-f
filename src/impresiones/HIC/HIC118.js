@@ -93,6 +93,37 @@ export const impresionHIC118 = ({ datos }) => {
       };
     }
   }
+  function autorizaAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+        ],
+      };
+    } else {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() },
+          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() },
+          { style: "bodyNoBold9", text: ", en calidad de familiar y/o acompañante responsable del paciente " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
+        ],
+      };
+    }
+  }
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
 
@@ -285,7 +316,7 @@ export const impresionHIC118 = ({ datos }) => {
       marginLeft: 3,
       marginTop: 9,
       alignment: "center",
-      image: "firma_paci",
+      image: "firma_acomp",
       width: tamano_firma,
       height: 70,
     };
