@@ -914,8 +914,6 @@ const filtFormatElab = computed(() => {
   });
 });
 const filtFormaReimp = computed(() => {
-  console.log("buscar 1 --> ", buscar.value);
-
   const term = limpiarTexto(buscar.value);
   if (!term) return lista_consen.value;
 

@@ -12,6 +12,7 @@ export const impresionHIC117 = ({ datos }) => {
     return {
       stack: [
         {
+          marginTop: 15,
           alignment: "justify",
           style: "bodyNoBold9",
           text: "La anestesia es el procedimiento médico que permite realizar uno operación quirúrgica sin dolor. La anestesia puede realizarse durmiendo al paciente (anestesia general) o haciendo insensible la parte del cuerpo en la que se va a realizar la operación (anestesio local o regional). En algunas ocasiones después de practicar una anestesia local o regional se tiene que pasar a la anestesia general por resultar la primera insuficiente.",
@@ -142,17 +143,45 @@ export const impresionHIC117 = ({ datos }) => {
             style: "bodyNoBold9",
             text: "Denegación o Revocación",
           },
+          revocaAcompPaci(),
+        ],
+      };
+    }
+  }
+  function revocaAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod ? datos.acomp.descrip : datos.paciente.descrip },
           {
-            marginTop: 10,
-            alignment: "justify",
-            text: [
-              { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.acomp.cod ? datos.acomp.descrip : datos.paciente.descrip },
-              {
-                style: "bodyNoBold9",
-                text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
-              },
-            ],
+            style: "bodyNoBold9",
+            text: " después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
+          },
+        ],
+      };
+    } else {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() },
+          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() },
+          { style: "bodyNoBold9", text: ", en calidad de familiar y/o acompañante responsable del paciente" },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() },
+          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() },
+          {
+            style: "bodyNoBold9",
+            text: " después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
           },
         ],
       };
