@@ -190,15 +190,14 @@ export const impresionHIC117 = ({ datos }) => {
           { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
           { style: "bodyNoBold9", text: " " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() },
-          { style: "bodyNoBold9", text: ", en calidad de familiar y/o acompañante responsable del paciente " },
+          { style: "bodyNoBold9", text: ", en calidad de familiar y/o acompañante responsable del paciente" },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() },
-          { style: "bodyNoBold9", text: ", identifcado(a) con" },
+          { style: "bodyNoBold9", text: ", identifcado(a) con " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
           { style: "bodyNoBold9", text: " " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() },
-
-          { style: "bodyNoBold9", text: "doy mi consentimiento para que sea realizada una " },
-          { bold: true, style: "bodyNoBold9", text: "ANESTESIA GENERAL " },
+          { style: "bodyNoBold9", text: ", doy mi consentimiento para que sea realizada una " },
+          { bold: true, style: "bodyNoBold9", text: "ANESTESIA GENERAL. " },
           {
             style: "bodyNoBold9",
             text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el  Dr. ",
@@ -404,7 +403,7 @@ export const impresionHIC117 = ({ datos }) => {
       marginLeft: 3,
       marginTop: 9,
       alignment: "center",
-      image: "firma_paci",
+      image: "firma_acomp",
       width: tamano_firma,
       height: 70,
     };
@@ -533,6 +532,8 @@ export const impresionHIC117 = ({ datos }) => {
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {
+      console.log("pare A");
+
       firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
     }
 
