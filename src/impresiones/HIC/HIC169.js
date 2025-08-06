@@ -166,7 +166,7 @@ export const impresionHIC169 = ({ datos }) => {
               { bold: true, style: "bodyNoBold9", text: datos.acomp.cod },
               { style: "bodyNoBold9", text: ", parentesco " },
               { bold: true, style: "bodyNoBold9", text: evaluarParentesco(datos.paren_acomp) },
-              { style: "bodyNoBold9", text: "; del paciente " },
+              { style: "bodyNoBold9", text: "; en calidad de familiar y/o acompañante responsable del paciente " },
               { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               { style: "bodyNoBold9", text: ", identificado con historia clínica " },
               { bold: true, style: "bodyNoBold9", text: datos.llave },

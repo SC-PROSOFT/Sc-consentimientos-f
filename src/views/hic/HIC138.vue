@@ -92,13 +92,26 @@
         </div>
         <div v-if="opcion_hic138 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
-          <div>
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
-              doy mi consentimiento para que me sea realizada una
+          <div class="row">
+            <p class="text-justify">
+              <!-- Autoriza paciente -->
+              <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+              </span>
+
+              <!-- Autoriza acompañante -->
+              <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+                >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+                >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold"
+                  >{{ getPaci.cod.trim() }},</span
+                >
+              </span>
+
+              <!-- Texto autoriza -->
+              doy mi consentimiento para que sea realizada una
               <span class="text-bold">TRAQUEOTOMIA.</span>
-            </p>
-            <p class="text-justify q-pa-xs">
               Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
               declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr:
             </p>

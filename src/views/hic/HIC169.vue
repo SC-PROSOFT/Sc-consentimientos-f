@@ -55,7 +55,7 @@
               Yo, <span class="text-bold">{{ getAcomp.descrip }}</span> con <span class="text-bold">{{ getAcomp.tipo_id }}</span> -
               <span class="text-bold">{{ getAcomp.cod }}</span
               >, parentesco <span class="text-bold">{{ evaluarParentesco(getPaci.paren_acomp) }}</span
-              >; del paciente <span class="text-bold">{{ getPaci.descrip }}</span> identificado con historia clínica
+              >;  en calidad de familiar y/o acompañante responsable del paciente <span class="text-bold">{{ getPaci.descrip }}</span> identificado con historia clínica
               <span class="text-bold">{{ getHc.llave }}</span
               >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span>, doy mi consentimiento para que sea realizada una
               <span class="text-bold">EXTRACCION DE CUERPO EXTRAÑO EN </span>

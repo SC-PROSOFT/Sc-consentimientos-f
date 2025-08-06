@@ -76,21 +76,35 @@
         </div>
         <div v-if="opcion_hic166 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
-          <div>
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span
-              >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span>, identificad@ con Historia Clinica No.
-              <span class="text-bold">{{ getHc.llave }} </span> doy mi consentimiento para que me sea realizada una
+          <div class="row">
+            <p class="text-justify">
+              <!-- Autoriza paciente -->
+              <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getPaci.descrip }}</span
+                >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span>, identificad@ con Historia Clinica No.
+                <span class="text-bold">{{ getHc.llave }} </span>
+              </span>
+
+              <!-- Autoriza acompañante -->
+              <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+                >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+                >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold"
+                  >{{ getPaci.cod.trim() }},</span
+                >
+              </span>
+
+              <!-- Texto autoriza -->
+              doy mi consentimiento para que me sea realizada una
               <span class="text-bold">SOMNOSCOPIA. </span>
-            </p>
-            <p class="text-justify q-pa-xs">
               Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
               declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.:
             </p>
             <Input_ v-model="HIC166.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
           </div>
           <p class="text-justify q-pa-xs">
-            Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+            Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
           </p>
         </div>
         <div v-if="opcion_hic166 == 'REVOCAR'">

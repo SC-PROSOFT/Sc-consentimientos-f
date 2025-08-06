@@ -119,12 +119,27 @@
         </div>
         <div v-if="opcion_hic167 == 'AUTORIZAR'">
           <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">Consentimiento</p>
-          <div>
-            <p class="text-justify q-pa-xs">
-              Yo, <span class="text-bold">{{ getPaci.descrip }}</span
-              >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }}</span> , <span class="text-bold">{{ getPaci.tipo_id }}</span> -
-              <span class="text-bold">{{ getPaci.cod }}</span
-              >, doy mi consentimiento para que me sea realizada una
+          <div class="row">
+            <p class="text-justify">
+              <!-- Autoriza paciente -->
+              <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getPaci.descrip.trim() }},</span> edad
+                <span class="text-bold">{{ calcularEdad(getPaci.nacim) }}, </span> <span class="text-bold">{{ getPaci.tipo_id }}</span> -
+                <span class="text-bold">{{ getPaci.cod }}</span>
+              </span>
+
+              <!-- Autoriza acompañante -->
+              <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+                Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+                >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+                >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold"
+                  >{{ getPaci.cod.trim() }},</span
+                >
+              </span>
+
+              <!-- Texto autoriza -->
+              doy mi consentimiento para que me sea realizada una
               <span class="text-bold">INFILTRACION INTRATIMPANICA</span>
             </p>
             <Input_ v-model="HIC167.timpano" :field="form.timpano" :inputStyle="{ width: '450px' }" />
@@ -135,7 +150,7 @@
             </p>
             <Input_ v-model="HIC167.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
-              a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+              Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>
