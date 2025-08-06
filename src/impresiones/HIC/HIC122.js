@@ -29,7 +29,7 @@ export const impresionHIC122 = ({ datos }) => {
               bold: true,
               alignment: "justify",
               style: "bodyNoBold9",
-              text: "CIRUGÍA ENDOSCÓPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS ",
+              text: "CIRUGÍA ENDOSCÓPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS. ",
             },
             {
               alignment: "justify",
@@ -151,15 +151,14 @@ export const impresionHIC122 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              autorizaAcompPaci(),
               { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
               { bold: true, style: "bodyNoBold9", text: "CIRUGIA ENDOSCOPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS " },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
               },
-              { bold: true, style: "bodyNoBold9", text: datos.med_explica },
+              { bold: true, style: "bodyNoBold9", text: datos.med_explica.trim() + "." },
               {
                 style: "bodyNoBold9",
                 text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
@@ -183,14 +182,75 @@ export const impresionHIC122 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              revocaAcompPaci(),
               {
                 style: "bodyNoBold9",
                 text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
               },
             ],
           },
+        ],
+      };
+    }
+  }
+  function revocaAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+        ],
+      };
+    } else {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
+          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente" },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
+        ],
+      };
+    }
+  }
+  function autorizaAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+        ],
+      };
+    } else {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() },
+          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
+          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
         ],
       };
     }
