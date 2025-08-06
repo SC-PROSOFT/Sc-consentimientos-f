@@ -189,7 +189,7 @@ export const impresionHIC117 = ({ datos }) => {
         alignment: "justify",
         text: [
           { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod ? datos.acomp.descrip.trim() : datos.paciente.descrip.trim() + "," },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
         ],
       };
     } else {

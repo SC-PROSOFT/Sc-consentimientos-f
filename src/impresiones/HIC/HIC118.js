@@ -56,10 +56,8 @@ export const impresionHIC118 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              // { style: "bodyNoBold9", text: "Yo, " },
-              // { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               autorizaAcompPaci(),
-              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que sea realizada una " },
               { bold: true, style: "bodyNoBold9", text: "ANESTESIA LOCO-REGIONAL. " },
               {
                 style: "bodyNoBold9",
@@ -89,8 +87,6 @@ export const impresionHIC118 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              // { style: "bodyNoBold9", text: "Yo, " },
-              // { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
               revocaAcompPaci(),
               {
                 style: "bodyNoBold9",

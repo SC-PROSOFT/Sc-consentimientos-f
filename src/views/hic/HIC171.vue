@@ -129,7 +129,7 @@
                 resultados que se esperan.
               </p>
             </div>
-            <div class="row">
+            <div class="row" v-if="getAcomp.cod">
               <p class="text-bold text-justify q-pa-xs">B. TUTOR LEGAL O FAMILIAR.</p>
               <p class="text-justify q-pa-xs">
                 Sé que el paciente
@@ -262,7 +262,6 @@ const form = ref({
     id: "med_explica",
     maxlength: "150",
     label: "",
-    placeholder: "Nombre del profesional",
     campo_abierto: true,
   },
   med_orden: {

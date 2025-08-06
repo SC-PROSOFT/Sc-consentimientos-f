@@ -152,8 +152,9 @@ export const impresionHIC119 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              // { style: "bodyNoBold9", text: "Yo, " },
+              // { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              autorizaAcompPaci(),
               { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
               { bold: true, style: "bodyNoBold9", text: "ANESTESIA REGIONAL " },
               {
@@ -185,11 +186,10 @@ export const impresionHIC119 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              revocaAcompPaci(),
               {
                 style: "bodyNoBold9",
-                text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
+                text: " después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
               },
             ],
           },
@@ -197,6 +197,69 @@ export const impresionHIC119 = ({ datos }) => {
       };
     }
   }
+  function revocaAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+        ],
+      };
+    } else {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
+          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente" },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
+        ],
+      };
+    }
+  }
+  function autorizaAcompPaci() {
+    if (!datos.acomp.cod) {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+        ],
+      };
+    } else {
+      return {
+        marginTop: 10,
+        alignment: "justify",
+        text: [
+          { style: "bodyNoBold9", text: "Yo, " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() },
+          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() },
+          { style: "bodyNoBold9", text: ", en calidad de familiar y/o acompañante responsable del paciente" },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
+          { style: "bodyNoBold9", text: " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
+        ],
+      };
+    }
+  }
+
   function firmaHuellaPaci(huella_paci, cant_firmas) {
     let tamano_firma = 0;
 
