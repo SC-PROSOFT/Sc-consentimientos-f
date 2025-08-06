@@ -14,10 +14,9 @@
       :title="novedad == '2' ? 'Reimprimir consentimiento' : 'Disentir consentimiento'"
       v-if="['2', '3'].includes(novedad)"
       :columns="columns_consen"
-      :rows="filtrafiltFormaReimp"
+      :rows="filtFormatReimp"
       row-key="cod_mae"
       hide-pagination
-      :rows-per-page-options="[10]"
       :pagination="pagination"
       bordered
       dense
@@ -61,9 +60,9 @@
       </template>
     </q-table>
     <q-pagination
-      v-if="['2', '3'].includes(novedad) && filtrafiltFormaReimp.length > 0"
+      v-if="['2', '3'].includes(novedad) && filtFormaReimp.length > 0"
       v-model="pagination.page"
-      :max="Math.ceil(filtrafiltFormaReimp.length / pagination.rowsPerPage)"
+      :max="Math.ceil(filtFormaReimp.length / pagination.rowsPerPage)"
       max-pages="7"
       direction-links
       boundary-links
@@ -85,7 +84,6 @@
       :rows="filtFormatElabPag"
       row-key="cod_mae"
       hide-pagination
-      :rows-per-page-options="[10]"
       :pagination="pagination"
       bordered
       dense
@@ -143,7 +141,6 @@
       <q-table
         title="Añadir información al consentimiento"
         v-if="novedad == 4"
-        :rows-per-page-options="[10]"
         :columns="columns_consen"
         :rows="lista_consen_elab"
         row-key="COD_MAE"
@@ -947,7 +944,7 @@ const filtFormatElabPag = computed(() => {
   return filtFormatElab.value.slice(start, end);
 });
 
-const filtrafiltFormaReimp = computed(() => {
+const filtFormatReimp = computed(() => {
   const start = (pagination.value.page - 1) * pagination.value.rowsPerPage;
   const end = start + pagination.value.rowsPerPage;
   return filtFormaReimp.value.slice(start, end);
