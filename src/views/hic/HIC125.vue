@@ -150,22 +150,48 @@
             <p class="text-justify q-pa-xs">
               Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
-            <p class="text-justify q-pa-xs">La única alternativa es la abstención terapéutica.</p>
-          </div>
-          <p class="text-justify q-pa-xs">
-            Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le
-            atenderá con mucho gusto.
-          </p>
-          <div class="row q-mt-md q-mb-md" style="width: 100%">
-            <div class="text-center" style="border: 1px solid #ccc; width: 100%">
-              <p style="font-weight: bold; margin-top: 10px">
-                NOTA IMPORTANTE ¡SI NO PRESENTA ESTE FORMATO DEBIDAMENTE DILIGENCIADO EN EL MOMENTO DE SU CITA PARA EL EXAMEN INDICADO SU CITA SERA
-                CANCELADA
-              </p>
-            </div>
           </div>
         </div>
+        <div v-if="opcion_hic125 == 'REVOCAR'">
+          <p class="text-center" style="margin-top: 10px; font-weight: bold; margin-left: 10px; text-decoration: underline">
+            Denegación o Revocación
+          </p>
+          <p class="text-justify">
+            <!-- Revoca paciente -->
+            <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span>
+            </span>
+
+            <!-- Revoca acompañante -->
+            <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+              Yo <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+              >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+              >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+              >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
+                getPaci.cod
+              }}</span>
+            </span>
+
+            <!-- Texto revoca -->
+            después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación /
+            revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta
+            decisión.
+          </p>
+        </div>
         <span class="text-bold">Villavicencio, {{ HIC125.fecha }}. </span>
+        <p class="text-justify q-pa-xs">La única alternativa es la abstención terapéutica.</p>
+        <p class="text-justify q-pa-xs">
+          Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le
+          atenderá con mucho gusto.
+        </p>
+        <div class="row q-mt-md q-mb-md" style="width: 100%">
+          <div class="text-center" style="border: 1px solid #ccc; width: 100%">
+            <p style="font-weight: bold; margin-top: 10px">
+              NOTA IMPORTANTE ¡SI NO PRESENTA ESTE FORMATO DEBIDAMENTE DILIGENCIADO EN EL MOMENTO DE SU CITA PARA EL EXAMEN INDICADO SU CITA SERA
+              CANCELADA
+            </p>
+          </div>
+        </div>
       </q-card-section>
     </div>
     <q-separator />
