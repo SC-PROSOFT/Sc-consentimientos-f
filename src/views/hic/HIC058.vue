@@ -362,8 +362,6 @@ const imprimirConsen = async (llave) => {
 };
 
 const callBackFirma = (data_firma) => {
-  console.log("data_firma -->", data_firma);
-
   data_firma && (firma_recibida.value = data_firma);
 };
 
