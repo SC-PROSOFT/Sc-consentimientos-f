@@ -181,7 +181,7 @@ export const impresionHIC132 = ({ datos }) => {
               { bold: true, style: "bodyNoBold9", text: datos.med_explica.trim() + "." },
               {
                 style: "bodyNoBold9",
-                text: "Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },

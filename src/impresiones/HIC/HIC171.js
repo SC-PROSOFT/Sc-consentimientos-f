@@ -234,7 +234,7 @@ export const impresionHIC171 = ({ datos }) => {
             alignment: "justify",
             text: [
               { bold: true, style: "bodyNoBold9", text: "A. NOMBRE MEDICO(S) RESPONSABLE(S) " },
-              { bold: true, style: "bodyNoBold9", text: datos.med_explica },
+              { bold: true, style: "bodyNoBold9", text: datos.med_explica.trim() + "." },
               {
                 style: "bodyNoBold9",
                 text: " He informado al paciente del propósito y naturaleza del procedimiento descrito arriba, de sus alternativas, posibles riesgos y de los resultados que se esperan. ",
@@ -285,8 +285,7 @@ export const impresionHIC171 = ({ datos }) => {
             marginTop: 10,
             alignment: "justify",
             text: [
-              { style: "bodyNoBold9", text: "Yo, " },
-              { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip },
+              revocaAcompPaci(),
               {
                 style: "bodyNoBold9",
                 text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
