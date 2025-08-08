@@ -172,7 +172,7 @@ export const impresionHIC132 = ({ datos }) => {
             alignment: "justify",
             text: [
               autorizaAcompPaci(),
-              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
+              { style: "bodyNoBold9", text: " doy mi consentimiento para que sea realizada una " },
               { bold: true, style: "bodyNoBold9", text: "TURBINOPLASTIA BILATERAL. \n\n" },
               {
                 style: "bodyNoBold9",

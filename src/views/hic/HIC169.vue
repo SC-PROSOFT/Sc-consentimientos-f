@@ -55,8 +55,8 @@
               Yo, <span class="text-bold">{{ getAcomp.descrip }}</span> con <span class="text-bold">{{ getAcomp.tipo_id }}</span> -
               <span class="text-bold">{{ getAcomp.cod }}</span
               >, parentesco <span class="text-bold">{{ evaluarParentesco(getPaci.paren_acomp) }}</span
-              >;  en calidad de familiar y/o acompañante responsable del paciente <span class="text-bold">{{ getPaci.descrip }}</span> identificado con historia clínica
-              <span class="text-bold">{{ getHc.llave }}</span
+              >; en calidad de familiar y/o acompañante responsable del paciente <span class="text-bold">{{ getPaci.descrip }}</span> identificado con
+              historia clínica <span class="text-bold">{{ getHc.llave }}</span
               >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }} </span>, doy mi consentimiento para que sea realizada una
               <span class="text-bold">EXTRACCION DE CUERPO EXTRAÑO EN </span>
             </p>
@@ -67,7 +67,7 @@
             </p>
             <Input_ v-model="HIC169.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
-              Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+              Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
             <p class="text-justify q-pa-xs">La única alternativa es la abstención terapéutica.</p>
           </div>

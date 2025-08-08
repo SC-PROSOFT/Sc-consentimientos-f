@@ -117,7 +117,7 @@
             </p>
             <Input_ v-model="HIC138.med_explica" :field="form.med_explica" :inputStyle="{ width: '700px' }" />
             <p class="text-justify q-pa-xs">
-              a si mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
+              Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.
             </p>
           </div>
         </div>

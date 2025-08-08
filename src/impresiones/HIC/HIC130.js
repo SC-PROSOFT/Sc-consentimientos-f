@@ -184,7 +184,7 @@ export const impresionHIC130 = ({ datos }) => {
             text: [
               autorizaAcompPaci(),
 
-              { style: "bodyNoBold9", text: " doy mi Consentimiento para que me sea realizada una " },
+              { style: "bodyNoBold9", text: " doy mi Consentimiento para que sea realizada una " },
               { bold: true, style: "bodyNoBold9", text: "SEPTOPLASTIA. \n\n" },
               {
                 style: "bodyNoBold9",
