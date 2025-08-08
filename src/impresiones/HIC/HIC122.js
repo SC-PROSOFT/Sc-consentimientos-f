@@ -60,7 +60,7 @@ export const impresionHIC122 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 10,
+          marginTop: 5,
           text: [
             {
               bold: true,
@@ -76,7 +76,7 @@ export const impresionHIC122 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 10,
+          marginTop: 5,
           text: [
             {
               bold: true,
@@ -92,7 +92,7 @@ export const impresionHIC122 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 10,
+          marginTop: 5,
           text: [
             {
               bold: true,
@@ -108,7 +108,7 @@ export const impresionHIC122 = ({ datos }) => {
           ],
         },
         {
-          marginTop: 10,
+          marginTop: 5,
           text: [
             {
               bold: true,
@@ -140,7 +140,7 @@ export const impresionHIC122 = ({ datos }) => {
       return {
         stack: [
           {
-            marginTop: 10,
+            marginTop: 5,
             bold: true,
             decoration: "underline",
             alignment: "center",
@@ -152,8 +152,8 @@ export const impresionHIC122 = ({ datos }) => {
             alignment: "justify",
             text: [
               autorizaAcompPaci(),
-              { style: "bodyNoBold9", text: "doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: "CIRUGIA ENDOSCOPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS " },
+              { style: "bodyNoBold9", text: "doy mi consentimiento para que sea realizada una " },
+              { bold: true, style: "bodyNoBold9", text: "CIRUGIA ENDOSCOPICA NASOSINUSAL PARA EL TRATAMIENTO DE LA EPISTAXIS. " },
               {
                 style: "bodyNoBold9",
                 text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
@@ -161,7 +161,7 @@ export const impresionHIC122 = ({ datos }) => {
               { bold: true, style: "bodyNoBold9", text: datos.med_explica.trim() + "." },
               {
                 style: "bodyNoBold9",
-                text: " Asimismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
               },
             ],
           },
@@ -240,8 +240,8 @@ export const impresionHIC122 = ({ datos }) => {
         alignment: "justify",
         text: [
           { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() },
-          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
           { style: "bodyNoBold9", text: " " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },

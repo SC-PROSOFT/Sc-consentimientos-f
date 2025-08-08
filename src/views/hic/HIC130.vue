@@ -121,9 +121,9 @@
                 Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
                 >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
                 >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
-                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
-                  getPaci.cod
-                }}</span>
+                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold"
+                  >{{ getPaci.cod.trim() }},</span
+                >
               </span>
 
               doy mi Consentimiento para que sea realizada una <span class="text-bold">SEPTOPLASTIA. </span>

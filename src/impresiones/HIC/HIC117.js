@@ -229,8 +229,8 @@ export const impresionHIC117 = ({ datos }) => {
         alignment: "justify",
         text: [
           { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() },
-          { style: "bodyNoBold9", text: ", identifcado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: " identifcado(a) con " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
           { style: "bodyNoBold9", text: " " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },

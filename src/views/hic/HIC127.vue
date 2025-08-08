@@ -121,14 +121,17 @@
               <!-- Autoriza acompañante -->
               <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
                 Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
-                >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
-                >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
-                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
-                  getPaci.cod
+                >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{
+                  getAcomp.cod.trim()
                 }}</span>
+                en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
+                >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold"
+                  >{{ getPaci.cod.trim() }},</span
+                >
               </span>
+
               <!-- Texto autoriza -->
-              , doy mi consentimiento para que me sea realizada una
+              doy mi consentimiento para que me sea realizada una
               <span class="text-bold">AMIGDALECTOMIA. </span>
 
               Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y
@@ -154,11 +157,11 @@
             <!-- Revoca acompañante -->
             <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
               Yo <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
-              >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
-              >, en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span
-              >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{
-                getPaci.cod
-              }}</span>
+              >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold"
+                >{{ getAcomp.cod.trim() }},</span
+              >
+              en calidad de familiar y/o acompañante responsable del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span>&nbsp;
+              identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getPaci.cod }}</span>
             </span>
 
             <!-- Texto revoca -->
