@@ -577,21 +577,5 @@ export const impresionLAB035 = ({ datos }) => {
       },
     };
   }
-  function cuadro_canvas_x(condicion) {
-    return [
-      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
-      {
-        canvas: condicion
-          ? [
-              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
-              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
-            ]
-          : [],
-      },
-    ];
-  }
-  function cuadro_canvas() {
-    return [{ canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] }];
-  }
   return dd;
 };

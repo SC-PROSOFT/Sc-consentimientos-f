@@ -1,10 +1,9 @@
 <template>
-  <div>
-    <q-card class="q-mx-auto format q-mb-lg" style="overflow: auto">
+  <q-card class="q-mx-auto format">
+    <q-form @submit="validarDatos">
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            :disable="getSesion.novedad === '4'"
             v-model="LAB036.opcion_lab036"
             color="primary"
             keep-color
@@ -20,324 +19,237 @@
             </q-chip>
           </p>
         </div>
+        <p>
+          <span class="text-bold">Fecha:&nbsp;</span>
+          <span>{{ LAB036.fecha }}</span>
+        </p>
 
-        <div class="row q-mt-md q-mb-md" style="width: 100%">
-          <div class="text-center" style="border: 1px solid #ccc; background-color: #123d7d; width: 100%">
-            <p style="font-weight: bold; margin-top: 10px; color: white">Datos de indentificación del paciente</p>
+        <ol>
+          <li>Identifique el tipo de muestra que se le va a tomar al paciente.</li>
+          <li>Lea al paciente o familiar el procedimiento y los riesgos.</li>
+          <li>Registre al paciente en el formato de socialización y entendimiento de consentimiento para la toma de muestras de laboratorio.</li>
+          <li>Asegúrese que el paciente o familiar firme el formato de socialización.</li>
+        </ol>
+
+        <div class="row q-mt-lg q-mb-md">
+          <div class="text-center" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">PROCEDIMIENTO</p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Nombre del Paciente:</p>
-            <p style="margin-top: 10px">{{ getPaci.descrip }}</p>
+          <div class="text-center" style="border: 1px solid #ccc; width: 65%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">RIESGO</p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Fecha de Nac.:</p>
-            <p style="margin-top: 10px">
-              {{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }}
+          <div class="text-justify" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">TOMA DE MUESTRAS DE SANGRE</p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 65%">
+            <p style="margin-top: 10px; margin-left: 10px">En la extracción de sangre puede presentarse:</p>
+            <ul>
+              <li>Sensación de dolor moderado.</li>
+              <li>Sensación pulsátil.</li>
+              <li>Se pueden formar hematomas.</li>
+              <li>Leve inflamación y/o sangrado temporal.</li>
+            </ul>
+            <p style="margin-top: 10px; margin-left: 10px">
+              A causa de la ansiedad puede sentir malestar o sensación de náuseas y mareo. INFORME DE INMEDIATO A QUIEN LE ESTÁ TOMANDO LA MUESTRA
             </p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Documento:</p>
-            <p style="margin-top: 10px">{{ getPaci.cod }}</p>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">TOMA DE MUESTRAS DE PIEL O MUCOSAS.</p>
+            <span>KOH, Gram, Leishmania</span>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Edad:</p>
-            <p style="margin-top: 10px">{{ calcularEdad(getPaci.nacim) }}</p>
-          </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Direccion:</p>
-            <p style="margin-top: 10px">{{ getPaci.direccion }}</p>
-          </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Sexo:</p>
-            <p style="margin-top: 10px">{{ getPaci.sexo }}</p>
-          </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">EPS:</p>
-            <p style="margin-top: 10px">{{ getPaci.descrip_eps }}</p>
-          </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Ciudad:</p>
-            <p style="margin-top: 10px">{{ getPaci.descrip_ciudad }}</p>
-          </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Diagnostico:</p>
-            <p>
-              <Input_
-                style="min-width: 100px; display: inline-block"
-                @validate="datoCodigoEnfermedad"
-                v-model="LAB036.cod_diagn"
-                :field="form.codigo"
-              />
-              <q-input dense disable type="text" maxlength="4" v-model="descrip_diagn" style="min-width: 300px; display: inline-block" />
+          <div class="text-justify" style="border: 1px solid #ccc; width: 65%">
+            <p style="margin-top: 10px; margin-left: 10px">
+              Al realizar toma de la muestra o raspado de piel se puede presentar dolor y sangrado temporal.
             </p>
           </div>
-          <div class="row" style="border: 1px solid #ccc; width: 50%">
-            <p style="font-weight: bold; margin-top: 10px">Telefono:</p>
-            <p style="margin-top: 10px">{{ getPaci.telefono }}</p>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">TOMA DE MUESTRAS EN GENITALES O REGION PERIANAL.</p>
+            <ul>
+              <li>Frotis de Flujo vaginal.</li>
+              <li>Examen de secreción uretral.</li>
+              <li>Hisopado de tamizaje para control pre-natal.</li>
+              <li>Frotis rectal.</li>
+            </ul>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 65%">
+            <p style="margin-top: 10px; margin-left: 10px">
+              Puede presentarse una ligera molestia y ligero sangrado durante la toma de la muestra de flujo vaginal o de secreción uretral si hay
+              lesiones.
+            </p>
+            <p style="margin-top: 10px; margin-left: 10px">
+              En caso de piel intacta y sin lesiones, no hay riesgos al realizar la toma de las muestras.
+            </p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">SUMINISTRO DE CARGA DE GLUCOSA.</p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 65%">
+            <p style="margin-top: 10px; margin-left: 10px">
+              La ingestión de la carga de glucosa puede provocar: Náuseas, mareos, malestar general, vómito.
+            </p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">SOLICITUD DE DATOS CLINICOS.</p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 65%">
+            <p style="margin-top: 10px; margin-left: 10px">
+              El paciente podrá o no, informar sobre su estado de salud, las enfermedades preexistentes, o el motivo por el cual le ordenaron los
+              exámenes.
+            </p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 35%">
+            <p style="font-weight: bold; margin-top: 10px; margin-left: 10px">
+              SOLICITUD DE CORREO ELECTRONICO O UN MEDIO DE COMUNICACIÓN PARA ENVIARLE LOS RESULTADOS.
+            </p>
+          </div>
+          <div class="text-justify" style="border: 1px solid #ccc; width: 65%">
+            <p style="margin-top: 10px; margin-left: 10px">
+              El paciente podrá o no, informar su correo electrónico, o permitirá otro medio de comunicación para entregarle los resultados de
+              laboratorio.
+            </p>
           </div>
         </div>
 
-        <div class="border-format q-my-sm">
-          <div class="text-center text-subtitle1 text-bold q-py-xs q-mb-md">Servicio pos</div>
-          <q-card class="full-width q-mx-none">
-            <div class="row q-pa-sm q-col">
-              <StaticDataTable_
-                :text_info="['[F3] Para grabar datos', '[F5] Salir sin grabar', '[F6] Borrar item']"
-                class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
-                :item_index="reg_tabla_servicio.indice_i"
-                value_button="indice_i"
-                :data="tabla_servicio"
-                min_height="240px"
-                :headers="headers"
-                show_label_inputs
-              >
-                <td>
-                  <Input_ v-model="reg_tabla_servicio.indice_i" :field="form_tabla_servicio.indice_i" />
-                </td>
-                <td>
-                  <Input_ v-model="reg_tabla_servicio.fecha" :field="form_tabla_servicio.fecha" />
-                </td>
-                <td>
-                  <Select_ v-model="reg_tabla_servicio.tipo_serv" :field="form_tabla_servicio.tipo_serv" :items="tipos_servicio" />
-                </td>
-                <td>
-                  <Input_ v-model="reg_tabla_servicio.nomb_acomp" :field="form_tabla_servicio.nomb_acomp" />
-                </td>
-                <td>
-                  <q-btn @click="agregarServicio" push color="primary" label="Añadir"></q-btn>
-                </td>
-              </StaticDataTable_>
-            </div>
-          </q-card>
-          <div class="row q-mt-md q-mb-md" style="width: 100%">
-            <div class="text-center" style="border: 1px solid #ccc; background-color: #123d7d; width: 100%">
-              <p style="font-weight: bold; margin-top: 10px; color: white">Total servicios</p>
-            </div>
-            <div class="text-center" style="border: 1px solid #ccc; width: 32%">
-              <p style="font-weight: bold; margin-top: 10px">Equinoterapia</p>
-            </div>
-            <div class="text-center" style="border: 1px solid #ccc; width: 33%">
-              <p style="font-weight: bold; margin-top: 10px">Musicoterapia</p>
-            </div>
-            <div class="text-center" style="border: 1px solid #ccc; width: 35%">
-              <p style="font-weight: bold; margin-top: 10px">Caninoterapia</p>
-            </div>
-
-            <div class="text-center" style="border: 1px solid #ccc; width: 32%">
-              <p style="font-weight: bold; margin-top: 10px">{{ totalEquinoTerap }}</p>
-            </div>
-            <div class="text-center" style="border: 1px solid #ccc; width: 33%">
-              <p style="font-weight: bold; margin-top: 10px">{{ totalMusicoTerap }}</p>
-            </div>
-            <div class="text-center" style="border: 1px solid #ccc; width: 35%">
-              <p style="font-weight: bold; margin-top: 10px">{{ totalCaninoTerap }}</p>
-            </div>
-          </div>
+        <div>
+          <p class="text-bold" style="text-align: center; text-decoration: underline">
+            DECLARO que entiendo la importancia de la toma de muestras y que me han informado los riesgos
+          </p>
+          <p class="text-bold" style="text-align: center; text-decoration: underline">
+            DOY MI CONSENTIMIENTO Para la toma de la muestra y para la realización de las pruebas de laboratorio
+          </p>
         </div>
-
-        <div class="col-12 row justify-around q-mt-lg">
-          <ContainerFirma
-            quien_firma="FIRMA PACIENTE"
-            :firmador="getPaci.descrip"
-            :tipo_doc="getPaci.tipo_id"
-            :registro_profe="getPaci.cod"
-            @reciFirma="callBackFirma"
-            :huella_="huella_paci"
-            class="col-4"
-            :disable="getSesion.novedad == '4'"
-          />
-          <ContainerFirma
-            :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
-            :tipo_doc="getAcomp.tipo_id"
-            quien_firma="FIRMA TUTOR O FAMILIAR"
-            :registro_profe="getAcomp.cod"
-            @reciFirma="callBackFirmaAcomp"
-            class="col-4"
-            :disable="getSesion.novedad == '4'"
-          />
-          <ContainerFirma
-            disable
-            quien_firma="FIRMA PROFESIONAL"
-            :firma_="firma_prof"
-            :firmador="getProf.descrip"
-            :descrip_prof="getProf.descrip_atiende"
-            :registro_profe="getProf.cod"
-            :codigo_firma="getProf.cod"
-            class="col-4"
-            :disable="getSesion.novedad == '4'"
-          />
+        <div class="row justify-between items-center">
+          <p style="margin-top: 10px; margin-left: 10px">
+            Correo: <span class="text-bold"> {{ getPaci.email }}</span>
+          </p>
+          <p style="margin-top: 10px; margin-left: 10px">
+            Nombre paciente: <span class="text-bold"> {{ getPaci.descrip }}</span>
+          </p>
+          <p>
+            Tipo y numero documento de identificación: <span class="text-bold">{{ getPaci.tipo_id + " " + getPaci.cod }} </span>
+          </p>
+          <p style="margin-top: 10px; margin-left: 10px">
+            Telefono: <span class="text-bold"> {{ getPaci.telefono }}</span>
+          </p>
         </div>
+        <!--  -->
       </q-card-section>
-
-      <div class="row justify-center q-my-lg">
-        <q-btn
-          :disable="LAB036.opcion_lab036 ? false : true"
-          @click="validarDatos"
-          icon-right="check_circle"
-          class="q-mb-md"
-          color="green"
-          label="GRABAR"
-          type="submit"
+    </q-form>
+    <q-separator />
+    <q-card-actions align="around" class="row">
+      <div class="col-12 row justify-around q-mt-lg">
+        <ContainerFirma
+          quien_firma="FIRMA PACIENTE"
+          :firmador="getPaci.descrip"
+          :registro_profe="getPaci.cod"
+          @reciFirma="callBackFirma"
+          :huella_="huella_paci"
+          class="col-4"
+        />
+        <ContainerFirma
+          :firmador="getAcomp.descrip || 'NO HAY ACOMPAÑANTE'"
+          :disable="!getAcomp.descrip ? true : false"
+          quien_firma="FIRMA TUTOR O FAMILIAR"
+          :registro_profe="getAcomp.cod"
+          @reciFirma="callBackFirmaAcomp"
+          class="col-4"
+        />
+        <ContainerFirma
+          disable
+          quien_firma="FIRMA PROFESIONAL"
+          :firma_="firma_prof"
+          :firmador="getProf.descrip"
+          :descrip_prof="getProf.descrip_atiende"
+          :registro_profe="getProf.cod"
+          :codigo_firma="getProf.cod"
+          class="col-4"
         />
       </div>
-      <CONSEN800 v-if="show_consen800" @esc="callbackCONSEN800" @enter="callbackCONSEN800" />
-    </q-card>
-  </div>
+    </q-card-actions>
+    <div class="row justify-center q-my-lg">
+      <q-btn
+        :disable="LAB036.opcion_lab036 ? false : true"
+        @click="validarDatos"
+        icon-right="check_circle"
+        class="q-mr-lg"
+        color="green"
+        label="GRABAR"
+        type="submit"
+      />
+    </div>
+  </q-card>
 </template>
+
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
-import { ref, reactive, defineAsyncComponent, onMounted, computed } from "vue";
+import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionLAB036, impresion, generarArchivo } from "@/impresiones";
 import { utilsFormat, calcularEdad } from "@/formatos/utils";
 import { useRouter } from "vue-router";
-import { foco_ } from "@/setup";
 import dayjs from "dayjs";
 
-const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
-const ContainerFirma = defineAsyncComponent(() => import("../../components/global/ContainerFirma.vue"));
-const { getDll$, _getFirma$, guardarFile$, _getHuella$, enviarCorreo$, getEncabezado, _getImagen$ } = useApiContabilidad();
-const { getPaci, getAcomp, getProf, getEmpresa, getSesion, getTestigo } = useModuleFormatos();
+const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
+
+const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
+const { getPaci, getAcomp, getProf, getEmpresa, getHc, getSesion, getTestigo } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
 
+const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const firma_recibida_acomp = ref("");
-const firma_recibida = ref("");
 const firma_recibida_test = ref("");
-const firma_prof = ref(null);
-const firma_paci = ref(null);
+const firma_recibida = ref("");
 const huella_paci = ref(null);
-const res_consen = ref(null);
-const descrip_diagn = ref("");
-const show_consen800 = ref(false);
-const form_tabla_servicio = ref({
-  indice_i: {
-    id: "indice_i",
-    mask: "##",
-    maxlength: "2",
-    disable: true,
-    required: true,
-  },
-  fecha: {
-    id: "fecha",
-    disable: true,
-    maxlength: "10",
-    required: true,
-    campo_abierto: true,
-  },
-
-  tipo_serv: {
-    id: "tipo_serv",
-    maxlength: "1",
-    required: true,
-    campo_abierto: true,
-  },
-  nomb_acomp: {
-    id: "nomb_acomp",
-    disable: true,
-    maxlength: "100",
-    required: true,
-    campo_abierto: true,
-  },
-});
-const headers = [
-  { name: "indice_i", label: "Item", align: "left", field: "indice_i", headerStyle: "width: 8%" },
-  { name: "fecha", label: "Fecha", align: "left", field: "fecha", headerStyle: "width: 15%" },
-  { name: "descrip_tipo_serv", label: "Tipo de servicio", align: "left", field: "descrip_tipo_serv", headerStyle: "width: 27%" },
-  { name: "nomb_acomp", label: "Nombre acompañante", align: "left", field: "nomb_acomp", headerStyle: "width: 40%" },
-  { name: "btn", label: "", align: "left", field: "btn", headerStyle: "width: 0%" },
-];
-const reg_tabla_servicio = ref({
-  indice_i: null,
-  fecha: "",
-  tipo_serv: "",
-  cod_acomp: "",
-  nomb_acomp: "",
-});
-const tipos_servicio = ref([
-  { value: 1, label: "Equinoterapia" },
-  { value: 2, label: "Musicoterapia" },
-  { value: 3, label: "Caninoterapia" },
-]);
-const tabla_servicio = reactive(
-  JSON.parse(
-    JSON.stringify(
-      Array(25).fill({
-        indice_i: null,
-        fecha: "",
-        tipo_serv: "",
-        cod_acomp: "",
-        nomb_acomp: "",
-      })
-    )
-  )
-);
+const huella_testigo = ref(null);
+const huella_acomp = ref(null);
+const firma_prof = ref(null);
 const LAB036 = reactive({
   opcion_lab036: "",
+  remitente: "",
+  telefono: getPaci.telefono || "",
+  email: getPaci.email || "",
+  result_prb: "",
+  otr_result: "",
+  motivo_prb: "",
   fecha: "",
-  cod_diagn: "",
-  llave: "",
 });
 const form = ref({
-  codigo: {
-    id: "codigo",
+  email: {
+    id: "email",
+    maxlength: "250",
     label: "",
-    maxlength: "4",
-    f0: ["f8"],
-    standout: "N",
-    outlined: "N",
-    required: true,
-    disable: getSesion.novedad === "4",
+    campo_abierto: true,
+  },
+  telefono: {
+    id: "telefono",
+    maxlength: "10",
+    label: "",
+    tipo: "number",
+    campo_abierto: true,
+  },
+  remitente: {
+    id: "remitente",
+    maxlength: "250",
+    label: "",
     campo_abierto: true,
   },
 });
-
-const totalEquinoTerap = computed(() => {
-  return tabla_servicio.filter((item) => item.tipo_serv == 1).length;
-});
-const totalMusicoTerap = computed(() => {
-  return tabla_servicio.filter((item) => item.tipo_serv == 2).length;
-});
-const totalCaninoTerap = computed(() => {
-  return tabla_servicio.filter((item) => item.tipo_serv == 3).length;
-});
 onMounted(() => {
-  setTimeout(() => {
-    datosInit();
-    getFirmaProf();
-  }, 900);
+  datosInit();
+  getFirmaProf();
 });
 
-const datosInit = async () => {
-  if (getSesion.novedad == "4") {
-    res_consen.value = JSON.parse(sessionStorage.getItem("reg_conse_edit"));
-    Object.assign(LAB036, res_consen.value.reg_coninf.datos);
-    Object.assign(tabla_servicio, res_consen.value.reg_coninf.datos.tabla_servicio);
-
-    consultarEnfermedad();
-
-    const maxIndice = Math.max(...tabla_servicio.map((item) => Number(item.indice_i) || 0));
-    reg_tabla_servicio.value.indice_i = maxIndice + 1;
-    reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
-
-    LAB036.opcion_lab036 = "AUTORIZAR";
-    foco_(form_tabla_servicio, "tipo_serv");
-  }
-
-  if (getSesion.novedad == "1") {
-    reg_tabla_servicio.value.indice_i = 1;
-  }
-  reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
-  reg_tabla_servicio.value.nomb_acomp = getAcomp.descrip;
-  reg_tabla_servicio.value.cod_acomp = getAcomp.cod;
-  LAB036.fecha = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");
-  LAB036.edad = calcularEdad(getAcomp.nacim);
+const datosInit = () => {
+  LAB036.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
 };
 
 const getFirmaProf = async () => {
   try {
-    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) || 0 });
     huella_paci.value = await _getHuella$({ codigo: getPaci.cod });
+    huella_testigo.value = await _getHuella$({ codigo: getTestigo.cod });
+    huella_acomp.value = await _getHuella$({ codigo: getAcomp.cod });
+    firma_prof.value = await _getFirma$({ codigo: Number(getProf.cod) });
   } catch (error) {
     console.error(error);
     CON851("?", "info", error);
@@ -350,46 +262,34 @@ const validarDatos = async () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(LAB036));
-
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
+    nit_entid: nit_usu.value,
     estado: LAB036.opcion_lab036 == "AUTORIZAR" ? "1" : "2",
     llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     disentimiento: "N",
-    llave_consen: getSesion.novedad == "4" ? Object.values(res_consen.value.reg_coninf.llave).join("") : `${getPaci.cod}00000000`,
+    llave_consen: `${llave_paci}`,
     oper_consen: getSesion.oper,
     cod_consen: "LAB036",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     id_testigo: getTestigo.cod.padStart(15, "0"),
-    tipo_testigo: getSesion.tipo_testigo,
     paren_acomp: getSesion.paren_acomp,
     ...datos_format,
-    tabla_servicio: tabla_servicio,
   };
-  if (getSesion.novedad == "4") {
-    datos.novedad_consen = getSesion.novedad;
-  }
-  datos.tabla_servicio.forEach((item, index) => {
-    const new_obj = {
-      indice_i: item.indice_i,
-      fecha: item.fecha,
-      tipo_serv: item.tipo_serv,
-      cod_acomp: item.cod_acomp,
-      nomb_acomp: item.nomb_acomp,
-    };
-    datos[`tabla_servicio${(index + 1).toString().padStart(3, "0")}`] = Object.values(new_obj).join("|") + "|";
-  });
-  for (let i in datos) {
-    if (typeof datos[i] == "object") delete datos[i];
-  }
-
-  console.log("datos a grabar --> ", datos);
 
   await getDll$({ modulo: `save_consen.dll`, data: { ...datos } })
     .then((data) => {
       if (data?.llave_consen) {
+        const fecha = data?.llave_consen.slice(23, 32);
+        LAB036.fecha = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
-      } else return CON851("?", "error", "Error al guardar el consentimiento");
+      } else CON851("?", "error", "Error al guardar el consentimiento");
     })
     .catch((error) => {
       console.error(error);
@@ -399,11 +299,9 @@ const grabarConsentimiento = async () => {
 
 const grabarFirmaConsen = async (llave) => {
   try {
-    if (getSesion.novedad != "4") {
-      await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
-      await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
-      await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
-    }
+    await guardarFile$({ base64: firma_recibida_acomp.value, codigo: `A${llave}` });
+    await guardarFile$({ base64: firma_recibida_test.value, codigo: `T${llave}` });
+    await guardarFile$({ base64: firma_recibida.value, codigo: `P${llave}` });
 
     if (getEmpresa.envio_email == "N") {
       await imprimirConsen(llave);
@@ -438,132 +336,68 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async (llave) => {
-  try {
-    const datos_lab036 = {
-      autorizo: LAB036.opcion_lab036 == "AUTORIZAR" ? true : false,
-      empresa: getEmpresa,
-      paciente: getPaci,
-      prof: getProf,
-      acomp: getAcomp,
-      testigo: getTestigo,
-      cod_consen: "LAB036",
-      firmas: {
-        firma_paci: firma_recibida.value ? true : false,
-        huella_paci: huella_paci.value ? true : false,
-        firma_acomp: firma_recibida_acomp.value ? true : false,
-        firma_prof: firma_prof.value ? true : false,
-        firma_test: firma_recibida_test.value ? true : false,
-      },
-      paren_acomp: getSesion.paren_acomp,
-      fecha: LAB036.fecha,
-      descrip_diagn: descrip_diagn.value,
-      tabla_servicio: tabla_servicio,
-      ...LAB036,
-    };
+  const datos_lab036 = {
+    autorizo: LAB036.opcion_lab036 == "AUTORIZAR" ? true : false,
+    empresa: getEmpresa,
+    testigo: getTestigo,
+    paciente: getPaci,
+    prof: getProf,
+    acomp: getAcomp,
+    firmas: {
+      firma_paci: firma_recibida.value ? true : false,
+      huella_paci: huella_paci.value ? true : false,
+      huella_testigo: huella_testigo.value ? true : false,
+      firma_acomp: firma_recibida_acomp.value ? true : false,
+      firma_prof: firma_prof.value ? true : false,
+      firma_test: firma_recibida_test.value ? true : false,
+    },
+    paren_acomp: getSesion.paren_acomp,
+    ...LAB036,
+  };
 
-    const firmas = {
-      img_firma_consen: firma_recibida.value,
-      img_firma_paci: firma_recibida.value,
-      img_firma_acomp: firma_recibida_acomp.value,
-      img_huella_paci: huella_paci.value,
-      firma_prof: firma_prof.value,
-      img_firma_testigo: firma_recibida_test.value,
-    };
+  const firmas = {
+    img_firma_testigo: firma_recibida_test.value,
+    img_firma_acomp: firma_recibida_acomp.value,
+    img_firma_consen: firma_recibida.value,
+    img_firma_paci: firma_recibida.value,
+    img_huella_paci: huella_paci.value,
+    firma_prof: firma_prof.value,
+    img_huella_acomp: huella_acomp.value,
+    img_huella_testigo: huella_testigo.value,
+  };
 
-    const docDefinitionPrint = await utilsFormat({
-      datos: firmas,
-      content: impresionLAB036({
-        datos: datos_lab036,
-      }),
-    });
-    const docDefinitionFile = await utilsFormat({
-      datos: firmas,
-      content: impresionLAB036({
-        datos: datos_lab036,
-      }),
-    });
+  const docDefinitionPrint = await utilsFormat({
+    datos: firmas,
+    content: impresionLAB036({
+      datos: datos_lab036,
+    }),
+  });
 
-    await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({
-      docDefinition: docDefinitionFile,
-      nomb_archivo: `${llave}-LAB-036`,
-    });
-    return response_impresion;
-  } catch (error) {
-    console.error("error -->", error);
-  }
+  const docDefinitionFile = await utilsFormat({
+    datos: firmas,
+    content: impresionLAB036({
+      datos: datos_lab036,
+    }),
+  });
+
+  await impresion({ docDefinition: docDefinitionPrint });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-LAB-036` });
+  return response_impresion;
 };
 
 const callBackFirma = (data_firma) => {
   data_firma && (firma_recibida.value = data_firma);
 };
+
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
 };
-
-const agregarServicio = () => {
-  if (!reg_tabla_servicio.value.tipo_serv) {
-    return CON851("?", "info", "El campo esta vacio", () => foco_(form_tabla_servicio, "tipo_serv"));
-  }
-  if (reg_tabla_servicio.value.indice_i > 25) {
-    return CON851("?", "info", "Alcanzo el limite de items (25) en la tabla ");
-  }
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].indice_i = reg_tabla_servicio.value.indice_i;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].fecha = reg_tabla_servicio.value.fecha;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].tipo_serv = reg_tabla_servicio.value.tipo_serv.toString();
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].descrip_tipo_serv = tipos_servicio.value.find(
-    (el) => el.value == reg_tabla_servicio.value.tipo_serv
-  ).label;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].nomb_acomp = getAcomp.descrip;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].cod_acomp = getAcomp.cod;
-  reg_tabla_servicio.value.indice_i++;
-  foco_(form_tabla_servicio, "tipo_serv");
-};
-
-const datoCodigoEnfermedad = async (event) => {
-  switch (event) {
-    case "f8":
-      show_consen800.value = true;
-      break;
-    case "enter":
-      consultarEnfermedad();
-      break;
-  }
-};
-const consultarEnfermedad = async () => {
-  try {
-    const response = await getDll$({
-      modulo: `get_enf.dll`,
-      data: { llave: "2" + LAB036.cod_diagn },
-    });
-    if (response.llave) {
-      descrip_diagn.value = response.nombre;
-      return;
-    }
-    return CON851("?", "info", "No existe diagnostico");
-  } catch (error) {
-    CON851("?", "info", error);
-  }
-};
-const callbackCONSEN800 = (data) => {
-  if (data) {
-    LAB036.cod_diagn = data.cod;
-    descrip_diagn.value = data.descrip;
-  }
-  show_consen800.value = false;
-};
 </script>
-<style scoped>
+
+<style>
 p {
   margin-top: 10px;
-  margin-left: 3px;
-  margin-right: 3px;
-}
-.custom-q-list .q-item {
-  margin: 0;
-}
-.custom-header {
-  background-color: var(--q-primary);
-  color: white;
+  margin-left: 5px;
+  margin-right: 8px;
 }
 </style>

@@ -1,198 +1,191 @@
-import { calcularEdad, evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
-
 export const impresionLAB036 = ({ datos }) => {
-  console.log(" impresionLAB036 ", datos);
-
-  const tablaServicio = () => {
-    let tabla_filtra = datos.tabla_servicio
-      .filter((item) => item.indice_i != " " && item.indice_i != null && item.indice_i != "")
-      .map((item) => [
-        {
-          text: item.indice_i,
-        },
-        {
-          text: item.fecha,
-        },
-        // Equinoterapia
-        { bold: true, alignment: "center", text: item.tipo_serv == "1" ? "X" : " " },
-        // Musicoterapia
-        {
-          bold: true,
-          alignment: "center",
-          text: item.tipo_serv == "2" ? "X" : " ",
-        },
-        // Caninoterapia
-        {
-          bold: true,
-          alignment: "center",
-          text: item.tipo_serv == "3" ? "X" : " ",
-        },
-        {
-          text: item.nomb_acomp,
-        },
-      ]);
-    tabla_filtra.push([
-      { bold: true, text: "Total Servicios:", colSpan: 2 },
-      {},
-      // Equinoterapia
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "1").length || "",
-      },
-      // Musicoterapia
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "2").length || "",
-      },
-      // Caninoterapia
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "3").length || "",
-      },
-
-      {},
-    ]);
-    return tabla_filtra;
-  };
+  console.log("impresionLAB036 -> ", datos);
 
   var dd = {
-    stack: [contenidoSedacion(), firmas()],
+    stack: [contenidoLAB036(), firmas()],
   };
 
-  function contenidoSedacion() {
+  function contenidoLAB036() {
     return {
       stack: [
         {
-          marginTop: 5,
-          table: {
-            marginRigth: 1,
-            widths: ["50%", "50%"],
-            body: [
-              [
-                {
-                  fillColor: "#6ca4c4",
-                  color: "white",
-                  style: "tableTitle",
-                  text: "Datos de identificación del paciente",
-                  bold: true,
-                  alignment: "center",
-                  colSpan: 2,
-                },
-                {},
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Nombre del Paciente: " },
-                    { style: "bodyNoBold", text: datos.paciente.descrip },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Fecha de Nac.: " },
-                    { style: "bodyNoBold", text: datos.paciente.nacim },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Documento: " },
-                    { style: "bodyNoBold", text: datos.paciente.tipo_id + " " + datos.paciente.cod },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Edad: " },
-                    { style: "bodyNoBold", text: calcularEdad(datos.paciente.nacim) },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Direccion: " },
-                    { style: "bodyNoBold", text: datos.paciente.direccion },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Sexo: " },
-                    { style: "bodyNoBold", text: datos.paciente.sexo },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "EPS: " },
-                    { style: "bodyNoBold", text: datos.paciente.descrip_eps },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Ciudad: " },
-                    { style: "bodyNoBold", text: datos.paciente.descrip_ciudad },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Diagnostico: " },
-                    { style: "bodyNoBold", text: datos.cod_diagn + " " + datos.descrip_diagn },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Telefono: " },
-                    { style: "bodyNoBold", text: datos.paciente.telefono },
-                  ],
-                },
-              ],
-            ],
-          },
-          width: "100%",
-        },
-        { marginTop: 10, alignment: "center", style: "tableTitle", bold: true, text: "SERVICIOS POS" },
-        {
-          columns: [
+          marginTop: 1,
+          text: [
             {
-              fontSize: 8,
-              marginTop: 5,
-              table: {
-                marginRigth: 1,
-                widths: ["6%", "16%", "16%", "16%", "16%", "30%"],
-                body: [
-                  [
-                    { fillColor: "#6ca4c4", color: "white", text: "Indice ", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Fecha ", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Equinoterapia", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Musicoterapia", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Caninoterapia", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Nombre Acudiente", bold: true, alignment: "justify" },
-                  ],
-                  ...tablaServicio(),
-                ],
-              },
-
-              width: "100%",
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Fecha: ",
             },
+            { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.fecha },
           ],
         },
         {
           marginTop: 10,
-          alignment: "justify",
-          text: [
-            { style: "tableTitle", text: "Yo  " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.descrip },
-            { style: "tableTitle", text: " con número de identificación " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.cod },
-            { style: "tableTitle", text: " Doy a conocer que el usuario mencionado, recibio los servicios satisfactoriamente. " },
+          style: "bodyNoBold9",
+          ol: [
+            "Identifique el tipo de muestra que se le va a tomar al paciente.",
+            "Lea al paciente o familiar el procedimiento y los riesgos.",
+            "Registre al paciente en el formato de socialización y entendimiento de consentimiento para la toma de muestras de laboratorio.",
+            "Asegúrese que el paciente o familiar firme el formato de socialización.",
+          ],
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          table: {
+            headerRows: 1,
+            widths: ["35%", "65%"],
+            body: [
+              [
+                { bold: true, alignment: "center", text: "PROCEDIMIENTO" },
+                { bold: true, alignment: "center", text: "RIESGO" },
+              ],
+              [
+                { bold: true, alignment: "center", text: "TOMA DE MUESTRAS DE SANGRE" },
+                {
+                  stack: [
+                    {
+                      style: "bodyNoBold9",
+                      text: "En la extracción de sangre puede presentarse: ",
+                    },
+                    {
+                      marginTop: 3,
+                      ul: [
+                        "Sensación de dolor moderado.",
+                        "Sensación pulsátil.",
+                        "Se pueden formar hematomas.",
+                        "Leve inflamación y/o sangrado temporal.",
+                      ],
+                    },
+                    {
+                      marginTop: 10,
+                      alignment: "justify",
+                      style: "bodyNoBold9",
+                      text: "A causa de la ansiedad puede sentir malestar o sensación de náuseas y mareo. INFORME DE INMEDIATO A QUIEN LE ESTÁ TOMANDO LA MUESTRA.",
+                    },
+                  ],
+                },
+              ],
+              [
+                {
+                  marginTop: 5,
+                  text: [
+                    { bold: true, alignment: "justify", text: "TOMA DE MUESTRAS DE PIEL O MUCOSAS " },
+                    { alignment: "justify", text: "KOH, Gram,  Leishmania" },
+                  ],
+                },
+                { alignment: "justify", text: "Al realizar toma de la muestra o raspado de piel se puede presentar dolor y sangrado temporal." },
+              ],
+              [
+                {
+                  stack: [
+                    {
+                      bold: true,
+                      style: "bodyNoBold9",
+                      text: "TOMA DE MUESTRAS EN GENITALES O REGION PERIANAL",
+                    },
+                    {
+                      marginTop: 3,
+                      ul: [
+                        "Frotis de Flujo vaginal.",
+                        "Examen de secreción uretral.",
+                        "Hisopado de tamizaje para control pre-natal.",
+                        "Frotis rectal.",
+                      ],
+                    },
+                  ],
+                },
+                {
+                  stack: [
+                    {
+                      alignment: "justify",
+                      style: "bodyNoBold9",
+                      text: "Puede presentarse una ligera molestia y ligero sangrado durante la toma de la muestra de flujo vaginal o de secreción uretral si hay lesiones.",
+                    },
+                    {
+                      alignment: "justify",
+                      marginTop: 5,
+                      style: "bodyNoBold9",
+                      text: "En caso de piel intacta y sin lesiones, no hay riesgos al realizar la toma de las muestras.",
+                    },
+                  ],
+                },
+              ],
+              [
+                {
+                  marginTop: 5,
+                  bold: true,
+                  alignment: "justify",
+                  text: "SUMINISTRO DE CARGA DE GLUCOSA",
+                },
+                { alignment: "justify", text: "La ingestión de la carga de glucosa puede provocar: Náuseas, mareos, malestar general, vómito." },
+              ],
+              [
+                {
+                  marginTop: 5,
+                  bold: true,
+                  alignment: "justify",
+                  text: "SOLICITUD DE DATOS CLINICOS",
+                },
+                {
+                  alignment: "justify",
+                  text: "El paciente podrá o no, informar sobre su estado de salud, las enfermedades preexistentes, o el motivo por el cual le ordenaron los exámenes.",
+                },
+              ],
+              [
+                {
+                  marginTop: 5,
+                  bold: true,
+                  alignment: "justify",
+                  text: "SOLICITUD DE CORREO ELECTRONICO O UN MEDIO DE COMUNICACIÓN PARA ENVIARLE LOS RESULTADOS",
+                },
+                {
+                  alignment: "justify",
+                  text: "El paciente podrá o no, informar su correo electrónico, o permitirá otro medio de comunicación para entregarle los resultados de laboratorio.",
+                },
+              ],
+            ],
+          },
+        },
+        {
+          marginTop: 10,
+          bold: true,
+          style: "bodyNoBold9",
+          decoration: "underline",
+          alignment: "center",
+          text: "DECLARO que entiendo la importancia de la toma de muestras y que me han informado los riesgos",
+        },
+        {
+          marginTop: 10,
+          bold: true,
+          style: "bodyNoBold9",
+          decoration: "underline",
+          alignment: "center",
+          text: "DOY MI CONSENTIMIENTO Para la toma de la muestra y para la realización de las pruebas de laboratorio",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Correo: " }, { text: datos.paciente.email }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Nombre del paciente: " }, { text: datos.paciente.descrip }] },
+          ],
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          columns: [
+            {
+              width: "70%",
+              alignment: "left",
+              text: [
+                { bold: true, text: "Tipo y numero documento de identificación: " },
+                { text: datos.paciente.tipo_id + " - " + datos.paciente.cod },
+              ],
+            },
+            { width: "30%", alignment: "right", text: [{ bold: true, text: "Telefono: " }, { text: datos.paciente.telefono }] },
           ],
         },
       ],
@@ -225,7 +218,6 @@ export const impresionLAB036 = ({ datos }) => {
         },
       ],
     };
-
     const sinHuella = {
       marginLeft: 3,
       marginTop: 9,
@@ -238,7 +230,6 @@ export const impresionLAB036 = ({ datos }) => {
     if (huella_paci) return conHuella;
     else return sinHuella;
   }
-
   function firmaPaciente(huella_paci, cant_firmas) {
     return {
       stack: [
@@ -283,7 +274,6 @@ export const impresionLAB036 = ({ datos }) => {
       ],
     };
   }
-
   function firmaAcompanante() {
     return {
       stack: [
@@ -356,7 +346,6 @@ export const impresionLAB036 = ({ datos }) => {
       ],
     };
   }
-
   function firmaProfesional() {
     return {
       stack: [
@@ -421,7 +410,6 @@ export const impresionLAB036 = ({ datos }) => {
       ],
     };
   }
-
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
