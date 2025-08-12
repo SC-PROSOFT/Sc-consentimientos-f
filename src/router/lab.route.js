@@ -348,7 +348,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB035`,
-      descrip: "Comprobante de servicios pos",
+      descrip: "Formato consentimiento para toma de muestra de elisa-vih-sida",
     },
   },
   {
@@ -358,7 +358,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB036`,
-      descrip: "Comprobante de servicios no pos",
+      descrip: "Formato consentimiento informado para toma de muestras a pacientes",
     },
   },
 ];

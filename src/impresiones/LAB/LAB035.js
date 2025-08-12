@@ -1,230 +1,328 @@
-import { calcularEdad, evaluarParentesco } from "@/formatos/utils";
+import { evaluarParentesco, calcularEdad } from "@/formatos/utils";
 import dayjs from "dayjs";
-
 export const impresionLAB035 = ({ datos }) => {
-  console.log(" impresionLAB035 ", datos);
-
-  const tablaServicio = () => {
-    let tabla_filtra = datos.tabla_servicio
-      .filter((item) => item.indice_i != " " && item.indice_i != null && item.indice_i != "")
-      .map((item) => [
-        {
-          text: item.indice_i,
-        },
-        {
-          text: item.fecha,
-        },
-        // Terapia ocupacional
-        { bold: true, alignment: "center", text: item.tipo_serv == "1" ? "X" : " " },
-        // Terapia fisica
-        {
-          bold: true,
-          alignment: "center",
-          text: item.tipo_serv == "2" ? "X" : " ",
-        },
-        // Terapia fonoaudiologia
-        {
-          bold: true,
-          alignment: "center",
-          text: item.tipo_serv == "3" ? "X" : " ",
-        },
-        // Terapia modalidades hidricas
-        {
-          bold: true,
-          alignment: "center",
-          text: item.tipo_serv == "4" ? "X" : " ",
-        },
-        // Psicologia
-        { bold: true, alignment: "center", text: item.tipo_serv == "5" ? "X" : " " },
-        // Rehabilitacion cognitivo
-        { bold: true, alignment: "center", text: item.tipo_serv == "6" ? "X" : " " },
-        {
-          text: item.nomb_acomp,
-        },
-      ]);
-    tabla_filtra.push([
-      { bold: true, text: "Total Servicios:", colSpan: 2 },
-      {},
-      // Terapia ocupacional
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "1").length || "",
-      },
-      // Terapia fisica
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "2").length || "",
-      },
-      // Terapia fonoaudiologia
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "3").length || "",
-      },
-      // Terapia modalidades hidricas
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "4").length || "",
-      },
-      // Psicologia
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "5").length || "",
-      },
-      // Rehabilitacion cognitivo
-      {
-        bold: true,
-        alignment: "center",
-        text: datos.tabla_servicio.filter((item) => item.tipo_serv == "6").length || "",
-      },
-
-      {},
-    ]);
-    return tabla_filtra;
-  };
+  console.log("impresionLAB035 -> ", datos);
 
   var dd = {
-    stack: [contenidoSedacion(), firmas()],
+    stack: [contenidoLAB035(), firmas()],
   };
 
-  function contenidoSedacion() {
+  function contenidoLAB035() {
     return {
       stack: [
         {
-          marginTop: 5,
-          table: {
-            marginRigth: 1,
-            widths: ["50%", "50%"],
-            body: [
-              [
-                {
-                  fillColor: "#6ca4c4",
-                  color: "white",
-                  style: "tableTitle",
-                  text: "Datos de identificación del paciente",
-                  bold: true,
-                  alignment: "center",
-                  colSpan: 2,
-                },
-                {},
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Nombre del Paciente: " },
-                    { style: "bodyNoBold", text: datos.paciente.descrip },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Fecha de Nac.: " },
-                    { style: "bodyNoBold", text: datos.paciente.nacim },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Documento: " },
-                    { style: "bodyNoBold", text: datos.paciente.tipo_id + " " + datos.paciente.cod },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Edad: " },
-                    { style: "bodyNoBold", text: calcularEdad(datos.paciente.nacim) },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Direccion: " },
-                    { style: "bodyNoBold", text: datos.paciente.direccion },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Sexo: " },
-                    { style: "bodyNoBold", text: datos.paciente.sexo },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "EPS: " },
-                    { style: "bodyNoBold", text: datos.paciente.descrip_eps },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Ciudad: " },
-                    { style: "bodyNoBold", text: datos.paciente.descrip_ciudad },
-                  ],
-                },
-              ],
-              [
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Diagnostico: " },
-                    { style: "bodyNoBold", text: datos.cod_diagn + " " + datos.descrip_diagn },
-                  ],
-                },
-                {
-                  text: [
-                    { style: "tableTitle", bold: true, text: "Telefono: " },
-                    { style: "bodyNoBold", text: datos.paciente.telefono },
-                  ],
-                },
-              ],
-            ],
-          },
-          width: "100%",
+          marginTop: 1,
+          text: [
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: "Fecha: ",
+            },
+            { bold: true, alignment: "center", style: "bodyNoBold9", text: datos.fecha },
+          ],
         },
-        { marginTop: 10, alignment: "center", style: "tableTitle", bold: true, text: "SERVICIOS POS" },
         {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Remitente: " }, { text: datos.remitente }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Nombre del paciente: " }, { text: datos.paciente.descrip }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            { width: "30%", alignment: "left", text: [{ bold: true, text: "Tipo de documento de identidad: " }, { text: datos.paciente.tipo_id }] },
+            { width: "45%", alignment: "center", text: [{ bold: true, text: "Número de documento de identidad: " }, { text: datos.paciente.cod }] },
+            { width: "15%", alignment: "center", text: [{ bold: true, text: "Edad: " }, { text: calcularEdad(datos.paciente.nacim) }] },
+            { width: "10%", alignment: "right", text: [{ bold: true, text: "Sexo: " }, { text: datos.paciente.sexo }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
           columns: [
             {
-              fontSize: 8,
-              marginTop: 5,
-              table: {
-                marginRigth: 1,
-                widths: ["5%", "9%", "10%", "7%", "13%", "17%", "9%", "14%", "16%"],
-                body: [
-                  [
-                    { fillColor: "#6ca4c4", color: "white", text: "Indice ", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Fecha ", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Terapia ocupacional", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Terapia fisica", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Terapia fonoaudiologia", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Terapia modalidades hidricas", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Psicologia", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Rehabilitacion cognitivo", bold: true, alignment: "justify" },
-                    { fillColor: "#6ca4c4", color: "white", text: "Nombre Acudiente", bold: true, alignment: "justify" },
-                  ],
-                  ...tablaServicio(),
-                ],
-              },
-
-              width: "100%",
+              width: "30%",
+              alignment: "left",
+              text: [{ bold: true, text: "Fecha de nacimiento: " }, { text: dayjs(datos.paciente.nacim).format("YYYY-MM-DD") }],
+            },
+            { width: "70%", alignment: "right", text: [{ bold: true, text: "Dirección residencial: " }, { text: datos.paciente.direccion }] },
+          ],
+        },
+        {
+          marginTop: 8,
+          style: "bodyNoBold9",
+          columns: [
+            {
+              width: "50%",
+              alignment: "left",
+              text: [{ bold: true, text: "Ocupación: " }, { text: datos.paciente.descrip_ocup }],
+            },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Regimen contributivo: " }, { text: datos.paciente.descrip_tipo_afil }] },
+          ],
+        },
+        {
+          marginTop: 10,
+          bold: true,
+          style: "bodyNoBold9",
+          text: "Resultado de la prueba:",
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "a. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.result_prb == "A" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " ABS",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "b. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.result_prb == "B" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " PC",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "c. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.result_prb == "C" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Otro",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              style: "bodyNoBold9",
+              text: "Cual: ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: datos.result_prb == "C" ? datos.otr_result : "",
             },
           ],
         },
         {
           marginTop: 10,
-          alignment: "justify",
+          bold: true,
+          style: "bodyNoBold9",
+          text: "Motivo de prueba:",
+        },
+        {
+          marginTop: 5,
           text: [
-            { style: "tableTitle", text: "Yo  " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.descrip },
-            { style: "tableTitle", text: " con número de identificación " },
-            { style: "bodyNoBold", bold: true, text: datos.prof.cod },
-            { style: "tableTitle", text: " Doy a conocer que el usuario mencionado, recibio los servicios satisfactoriamente. " },
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "a. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "A" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Conducta sexual de riesgo",
+            },
           ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "b. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "B" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " DX perinatal",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "c. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "C" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Sospecha clinica",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "d. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "D" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Contacto VIH",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "e. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "E" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Transfusiones antes de 1993",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "f. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "F" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Uso de agujas",
+            },
+          ],
+        },
+        {
+          marginTop: 5,
+          text: [
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: "g. ",
+            },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.motivo_prb == "G" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " Tiempo de gestación",
+            },
+          ],
+        },
+        {
+          marginTop: 10,
+          bold: true,
+          style: "bodyNoBold9",
+          decoration: "underline",
+          alignment: "center",
+          text: "CONSENTIMIENTO INFORMADO",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
+          text: "Certifico que me han dado la información sobre:",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          ol: [
+            "Propósito y beneficio de la prueba.",
+            "Interpretación de la prueba.",
+            "Limitaciones de la prueba.",
+            "Posibles resultados de la prueba.",
+          ],
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
+          text: "que entiendo su contenido y que he discutido con la persona que me brindo la asesoría el procedimiento mediante el cual recibiré mis resultados y que estoy de acuerdo con el.",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          alignment: "justify",
+          text: "entiendo que la toma de la muestra es voluntaria y que puedo retirar mi consentimiento en cualquier momento antes de que sea tomado el examen.",
         },
       ],
     };
@@ -256,7 +354,6 @@ export const impresionLAB035 = ({ datos }) => {
         },
       ],
     };
-
     const sinHuella = {
       marginLeft: 3,
       marginTop: 9,
@@ -269,7 +366,6 @@ export const impresionLAB035 = ({ datos }) => {
     if (huella_paci) return conHuella;
     else return sinHuella;
   }
-
   function firmaPaciente(huella_paci, cant_firmas) {
     return {
       stack: [
@@ -314,7 +410,6 @@ export const impresionLAB035 = ({ datos }) => {
       ],
     };
   }
-
   function firmaAcompanante() {
     return {
       stack: [
@@ -387,7 +482,6 @@ export const impresionLAB035 = ({ datos }) => {
       ],
     };
   }
-
   function firmaProfesional() {
     return {
       stack: [
@@ -452,7 +546,6 @@ export const impresionLAB035 = ({ datos }) => {
       ],
     };
   }
-
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
@@ -483,6 +576,22 @@ export const impresionLAB035 = ({ datos }) => {
         body: [[...firmasArray]],
       },
     };
+  }
+  function cuadro_canvas_x(condicion) {
+    return [
+      { canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] },
+      {
+        canvas: condicion
+          ? [
+              { type: "line", x1: 0, x2: 12, y1: -11, y2: 0 },
+              { type: "line", x1: 12, x2: 0, y1: -11, y2: 0 },
+            ]
+          : [],
+      },
+    ];
+  }
+  function cuadro_canvas() {
+    return [{ canvas: [{ type: "rect", x: 0, y: 0, h: 11, w: 12 }] }];
   }
   return dd;
 };
