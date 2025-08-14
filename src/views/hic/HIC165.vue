@@ -90,7 +90,7 @@
               <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
                 Yo, <span class="text-bold">{{ getPaci.descrip }}</span
                 >, edad <span class="text-bold">{{ calcularEdad(getPaci.nacim) }}</span>
-                identificad@ con historia clínica No
+                identificado(a) con historia clínica No
                 <span class="text-bold">{{ getHc.llave }}</span>
               </span>
 

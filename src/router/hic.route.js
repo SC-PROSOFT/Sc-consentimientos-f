@@ -1548,4 +1548,134 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento puncion lumbar",
     },
   },
+  {
+    path: "/HIC173",
+    name: "HIC173",
+    component: () => import("@/views/hic/HIC173.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC173`,
+      descrip: "Consentimiento informado RLCPD certificacion, caracterizacion y localizacion de  personas con discapacidad",
+    },
+  },
+  {
+    path: "/HIC174",
+    name: "HIC174",
+    component: () => import("@/views/hic/HIC174.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC174`,
+      descrip: "Consentimiento informado procedimientos medicos",
+    },
+  },
+  {
+    path: "/HIC175",
+    name: "HIC175",
+    component: () => import("@/views/hic/HIC175.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC175`,
+      descrip: "Consentimiento informado atencion del parto",
+    },
+  },
+  {
+    path: "/HIC176",
+    name: "HIC176",
+    component: () => import("@/views/hic/HIC176.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC176`,
+      descrip: "Consentimiento informado de salida voluntaria",
+    },
+  },
+  {
+    path: "/HIC177",
+    name: "HIC177",
+    component: () => import("@/views/hic/HIC177.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC177`,
+      descrip: "Consentimiento informado para realizacion de onicectomia",
+    },
+  },
+  {
+    path: "/HIC178",
+    name: "HIC178",
+    component: () => import("@/views/hic/HIC178.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC178`,
+      descrip: "Consentimiento informado toma de muestras de sangre",
+    },
+  },
+  {
+    path: "/HIC179",
+    name: "HIC179",
+    component: () => import("@/views/hic/HIC179.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC179`,
+      descrip: "Consentimiento informado prueba de tolerancia oral a la glucosa, curva de glucosa y glicemia pre - post carga",
+    },
+  },
+  {
+    path: "/HIC180",
+    name: "HIC180",
+    component: () => import("@/views/hic/HIC180.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC180`,
+      descrip: "Consentimiento informado toma de muestra flujo vaginal en menores de edad",
+    },
+  },
+  {
+    path: "/HIC181",
+    name: "HIC181",
+    component: () => import("@/views/hic/HIC181.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC181`,
+      descrip: "Consentimiento informado toma de muestra frotis uretral en menor de edad",
+    },
+  },
+  {
+    path: "/HIC182",
+    name: "HIC182",
+    component: () => import("@/views/hic/HIC182.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC182`,
+      descrip: "Consentimiento informado toma y procesamiento de muestras para covid - 19",
+    },
+  },
+  {
+    path: "/HIC183",
+    name: "HIC183",
+    component: () => import("@/views/hic/HIC183.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC183`,
+      descrip: "Consentimiento informado toma de muestras frotis de flujo vaginal y cultivo recto - vaginal",
+    },
+  },
+  {
+    path: "/HIC184",
+    name: "HIC184",
+    component: () => import("@/views/hic/HIC184.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC184`,
+      descrip: "Consentimiento informado toma de muestra de orina con sonda vesical",
+    },
+  },
+  {
+    path: "/HIC185",
+    name: "HIC185",
+    component: () => import("@/views/hic/HIC185.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC185`,
+      descrip: "Consentimiento informado toma de muestra de orina con sonda vesical",
+    },
+  },
 ];
