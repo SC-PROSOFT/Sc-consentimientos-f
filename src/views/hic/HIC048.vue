@@ -265,8 +265,9 @@ const imprimirConsen = async (llave) => {
       }),
     });
 
+    let nomb_consen = getSesion.modulo == "HIC" ? "HIC-048" : "LAB-017";
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-048` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

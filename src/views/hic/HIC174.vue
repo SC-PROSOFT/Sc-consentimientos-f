@@ -19,98 +19,86 @@
             </q-chip>
           </p>
         </div>
-        <p>
-          <span class="text-bold">Fecha:&nbsp;</span>
-          <span>{{ HIC174.fecha }}</span>
-        </p>
         <div class="row justify-between items-center">
-          <div class="row">
-            <p class="text-bold">Remitente:</p>
-            <Input_ class="q-ma-xs" v-model="HIC174.remitente" :field="form.remitente" :inputStyle="{ width: '385px' }" />
-          </div>
-          <p><span class="text-bold">Nombre del paciente:</span> {{ getPaci.descrip }}&nbsp;</p>
-          <p><span class="text-bold">Tipo y numero documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
-          <p><span class="text-bold">Edad:</span> {{ calcularEdad(getPaci.nacim) }} &nbsp;</p>
-          <p><span class="text-bold">Sexo:</span> {{ getPaci.sexo }} &nbsp;</p>
-          <p><span class="text-bold">Fecha de nacimiento:</span> {{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }} &nbsp;</p>
-          <p><span class="text-bold">Dirección residencial:</span> {{ getPaci.direccion }} &nbsp;</p>
-          <p><span class="text-bold">Ocupación:</span> {{ getPaci.descrip_ocup }} &nbsp;</p>
-          <p><span class="text-bold">Regimen contributivo:</span> {{ getPaci.descrip_tipo_afil }} &nbsp;</p>
-        </div>
-
-        <div class="q-mt-lg">
-          <div class="col-12">
-            <p class="text-bold">Resultado de la prueba:</p>
-          </div>
-          <ol type="a">
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="ABS" v-model="HIC174.result_prb" val="A" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="PC" v-model="HIC174.result_prb" val="B" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Otro" v-model="HIC174.result_prb" val="C" />
-            </li>
-          </ol>
-          <div v-if="HIC174.result_prb == 'C'" class="row">
-            <p>Cual:</p>
-            <Input_ class="q-ma-xs" v-model="HIC174.otr_result" :field="form.otr_result" :inputStyle="{ width: '385px' }" />
-          </div>
-        </div>
-        <div class="q-mt-lg">
-          <div class="col-12">
-            <p class="text-bold">Motivo de prueba:</p>
-          </div>
-          <ol type="a">
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Conducta sexual de riesgo" v-model="HIC174.motivo_prb" val="A" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="DX perinatal" v-model="HIC174.motivo_prb" val="B" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Sospecha clinica" v-model="HIC174.motivo_prb" val="C" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Contacto VIH" v-model="HIC174.motivo_prb" val="D" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Transfusiones antes de 1993" v-model="HIC174.motivo_prb" val="E" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Uso de agujas" v-model="HIC174.motivo_prb" val="F" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Tiempo de gestación" v-model="HIC174.motivo_prb" val="G" />
-            </li>
-          </ol>
-        </div>
-        <div>
-          <p class="text-bold" style="text-align: center; text-decoration: underline">CONSENTIMIENTO INFORMADO</p>
-        </div>
-        <div class="row justify-start">
-          <p align="justify">Certifico que me han dado la información sobre:</p>
-        </div>
-        <ol>
-          <li>Propósito y beneficio de la prueba</li>
-          <li>Interpretación de la prueba</li>
-          <li>Limitaciones de la prueba</li>
-          <li>Posibles resultados de la prueba</li>
-        </ol>
-        <div class="row justify-start">
-          <p align="justify">
-            que entiendo su contenido y que he discutido con la persona que me brindo la asesoría el procedimiento mediante el cual recibiré mis
-            resultados y que estoy de acuerdo con el.
+          <p>
+            <span class="text-bold">Tauramena, fecha:&nbsp;</span>
+            <span>{{ HIC174.fecha }}</span>
           </p>
-          <p align="justify">
-            entiendo que la toma de la muestra es voluntaria y que puedo retirar mi consentimiento en cualquier momento antes de que sea tomado el
-            examen.
+          <p>
+            <span class="text-bold">Hora:&nbsp;</span>
+            <span>{{ HIC174.hora }}</span>
+          </p>
+        </div>
+        <div class="row">
+          <p class="text-justify">
+            <!-- Autoriza paciente -->
+            <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> identificado(a) con
+              <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getPaci.cod.trim() }}</span> expedido
+              en&nbsp;<span class="text-bold">{{ getPaci.descrip_ciudad.trim() }},</span> domiciliado en
+              <span class="text-bold">{{ getPaci.descrip_ciudad.trim() }}.</span>
+            </span>
+
+            <!-- Autoriza acompañante -->
+            <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+              >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+              >, expedida en <span class="text-bold">{{ getAcomp.descrip_ciudad.trim() }},</span> en calidad de familiar y/o acompañante responsable
+              del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span>&nbsp; identifcado(a) con&nbsp;<span class="text-bold"
+                >{{ getPaci.tipo_id }} </span
+              >&nbsp;<span class="text-bold">{{ getPaci.cod.trim() }}.</span>
+            </span>
+          </p>
+
+          <span class="text-bold">Autorizo la realización del procedimiento:</span>
+          <div class="col-xs-12">
+            <TextArea_ v-model="HIC174.procedimiento" :field="form.procedimiento" />
+          </div>
+
+          <div class="col-xs-12">
+            <span class="text-bold">DECLARO:</span>
+          </div>
+          <div class="row">
+            <div class="row">
+              <p>Que el profesional de la salud:</p>
+              <Input_ class="q-ma-xs" v-model="HIC174.nomb_prof" :field="form.nomb_prof" :inputStyle="{ width: '385px' }" />
+            </div>
+            <div class="row">
+              <p>con documento N°:</p>
+              <Input_ class="q-ma-xs" v-model="HIC174.nro_id_prof" :field="form.nro_id_prof" :inputStyle="{ width: '285px' }" />
+            </div>
+            <div class="row">
+              <p>me explico en que consiste el procedimiento de:</p>
+              <Input_ class="q-ma-xs" v-model="HIC174.procedimiento2" :field="form.procedimiento2" :inputStyle="{ width: '718px' }" />
+            </div>
+            <p>
+              que se me va a realizar, como me voy a beneficiar con la realización del mismo, los riesgos de hacerme y de no hacerme el procedimiento,
+              además de las posibles complicaciones:
+            </p>
+            <Input_ class="col-xs-12" v-model="HIC174.complicaciones" :field="form.complicaciones" />
+            <p>Inherentes al procedimiento.</p>
+          </div>
+
+          <p class="text-justify">
+            <span class="text-bold">Posibles complicaciones según algunos procedimientos:</span>
+            En entubación orotraqueal (fallas en la entubación, neumotórax). Suturas (cicatrices, procesos infecciosos en el sitio, no cierre de la
+            herida, sangrado, hematoma). En procedimientos menores o pequeñas cirugías (se puede presentar sangrado, infecciones, hematomas, cicatriz,
+            complicaciones o eventos adversos ocasionados por anestésicos locales). Con el suministro de sueros antiofídicos y tetánicos puede
+            ocasionar alergias. Además que existen otros riesgos y molestias del tratamiento muy poco frecuentes, pero que pueden ser graves e incluso
+            fatales.
+          </p>
+          <p class="text-justify">
+            En consecuencia, el equipo médico de la E.S.E hospital Loca de Tauramena, queda expresamente autorizado a desplegar las conductas
+            requeridas en caso de presentarse una situación imprevista, que todos los espacios en blanco han sido completados antes de mi firma, con
+            las respectiva explicación de riesgos y beneficios.
+          </p>
+          <p class="text-justify">
+            También me han informado de mi derecho a rechazar el tratamiento o revocar este consentimiento. Autorizo la presencia de estudiantes de
+            medicina o áreas de la salud y especialistas en formación.
           </p>
         </div>
       </q-card-section>
     </q-form>
-    <q-separator />
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around q-mt-lg">
         <ContainerFirma
@@ -159,7 +147,7 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionHIC174, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, calcularEdad } from "@/formatos/utils";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -178,22 +166,43 @@ const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
 const HIC174 = reactive({
-  opcion_hic174: "",
-  remitente: "",
-  result_prb: "",
-  otr_result: "",
-  motivo_prb: "",
   fecha: "",
+  opcion_hic174: "",
+  procedimiento: "",
+  procedimiento2: "",
+  complicaciones: "",
+  nomb_prof: "",
+  nro_id_prof: "",
 });
 const form = ref({
-  remitente: {
-    id: "remitente",
+  complicaciones: {
+    id: "complicaciones",
     maxlength: "250",
     label: "",
     campo_abierto: true,
   },
-  otr_result: {
-    id: "otr_result",
+  nro_id_prof: {
+    id: "nro_id_prof",
+    maxlength: "10",
+    label: "",
+    tipo: "number",
+    campo_abierto: true,
+  },
+  nomb_prof: {
+    id: "nomb_prof",
+    maxlength: "100",
+    label: "",
+    campo_abierto: true,
+  },
+  procedimiento: {
+    id: "procedimiento",
+    maxlength: "500",
+    label: "",
+    rows: 3,
+    campo_abierto: true,
+  },
+  procedimiento2: {
+    id: "procedimiento2",
     maxlength: "250",
     label: "",
     campo_abierto: true,
@@ -206,6 +215,7 @@ onMounted(() => {
 
 const datosInit = () => {
   HIC174.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC174.hora = dayjs().format("hh:mm");
 };
 
 const getFirmaProf = async () => {

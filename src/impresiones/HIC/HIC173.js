@@ -1,7 +1,4 @@
-import { useModuleFormatos, useApiContabilidad } from "@/store";
 import { evaluarParentesco } from "@/formatos/utils";
-const { getAcomp } = useModuleFormatos();
-const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC173 = ({ datos }) => {
   console.log("impresionHIC173 -> ", datos);
 
@@ -124,10 +121,11 @@ export const impresionHIC173 = ({ datos }) => {
       return {
         stack: [
           {
+            pageBreak: "before",
             marginTop: 5,
             alignment: "justify",
             text: [
-              { pageBreak: "before", marginTop: 5, bold: true, decoration: "underline", alignment: "center", style: "bodyNoBold9", text: "AUTORIZO" },
+              { marginTop: 5, bold: true, decoration: "underline", alignment: "center", style: "bodyNoBold9", text: "AUTORIZO" },
               {
                 style: "bodyNoBold9",
                 text: " al equipo interdisciplinario de la IPS ESE HOSPITAL LOCAL DE TAURAMENA, para realizar la valoración para la certificación y el procedimiento que requiere la caracterización y localización de la persona con discapacidad.",

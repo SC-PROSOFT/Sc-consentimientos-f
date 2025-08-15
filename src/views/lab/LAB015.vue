@@ -327,14 +327,12 @@ const imprimirConsen = async (llave) => {
     }),
   });
 
+  let nomb_consen = getSesion.modulo == "HIC" ? "HIC-046" : "LAB-015";
   await impresion({ docDefinition: docDefinitionPrint });
-  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-LAB-015` });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
   return response_impresion;
 };
 
-const callBackFirmaAcomp = (data_firma) => {
-  data_firma && (firma_recibida_acomp.value = data_firma);
-};
 const callBackFirmaTest = (data_firma) => {
   data_firma && (firma_recibida_test.value = data_firma);
 };
