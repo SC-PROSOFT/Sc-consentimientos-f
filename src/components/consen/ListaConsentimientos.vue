@@ -582,6 +582,7 @@ const disentirConsentimiento = async (row) => {
 };
 const reimprimirConsentimiento = async (row) => {
   let reg_acomp = {};
+  console.log("row consent ", row);
 
   // consultar testigo. El testigo se debe consultar respecto al formato elegido puesto que el testigo puede variar
   if (params_querys.value.modulo == "LAB") {
@@ -619,7 +620,10 @@ const reimprimirConsentimiento = async (row) => {
   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
   response.reg_acomp.descrip = `${response.reg_acomp?.er_apel?.trim()} ${response.reg_acomp?.do_apel?.trim()} ${response.reg_acomp?.er_nom?.trim()} ${response.reg_acomp?.do_nom?.trim()}`;
   reg_acomp = { ...response.reg_acomp };
-  setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+  let cod_acomp = parseInt(reg_acomp.cod);
+  if (cod_acomp != 0) {
+    setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
+  }
   // }
   // } else {
   //   setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
@@ -645,6 +649,48 @@ const reimprimirConsentimiento = async (row) => {
       break;
     case "LAB020":
       cod_consenti = "HIC051";
+      break;
+    case "LAB022":
+      cod_consenti = "HIC076";
+      break;
+    case "LAB023":
+      cod_consenti = "HIC077";
+      break;
+    case "LAB024":
+      cod_consenti = "HIC078";
+      break;
+    case "LAB024":
+      cod_consenti = "HIC078";
+      break;
+    case "LAB025":
+      cod_consenti = "HIC056";
+      break;
+    case "LAB026":
+      cod_consenti = "HIC079";
+      break;
+    case "LAB027":
+      cod_consenti = "HIC081";
+      break;
+    case "LAB028":
+      cod_consenti = "HIC082";
+      break;
+    case "LAB029":
+      cod_consenti = "HIC083";
+      break;
+    case "LAB030":
+      cod_consenti = "HIC084";
+      break;
+    case "LAB031":
+      cod_consenti = "HIC085";
+      break;
+    case "LAB032":
+      cod_consenti = "HIC086";
+      break;
+    case "LAB032":
+      cod_consenti = "HIC086";
+      break;
+    case "LAB037":
+      cod_consenti = "HIC117";
       break;
     default:
       cod_consenti = row.reg_coninf?.cod;

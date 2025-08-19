@@ -226,8 +226,8 @@ const form_tabla_servicio = ref({
   },
   fecha: {
     id: "fecha",
-    disable: true,
     maxlength: "10",
+    tipo: "date",
     required: true,
     campo_abierto: true,
   },
@@ -329,7 +329,7 @@ const datosInit = async () => {
 
     const maxIndice = Math.max(...tabla_servicio.map((item) => Number(item.indice_i) || 0));
     reg_tabla_servicio.value.indice_i = maxIndice + 1;
-    reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
+    // reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
 
     HIC115.opcion_hic115 = "AUTORIZAR";
     setTimeout(() => {
@@ -340,7 +340,7 @@ const datosInit = async () => {
   if (getSesion.novedad == "1") {
     reg_tabla_servicio.value.indice_i = 1;
   }
-  reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
+  // reg_tabla_servicio.value.fecha = dayjs().format("DD-MM-YYYY");
   reg_tabla_servicio.value.nomb_acomp = getAcomp.descrip;
   reg_tabla_servicio.value.cod_acomp = getAcomp.cod;
   HIC115.fecha = dayjs(getEmpresa.FECHA_ACT).format("YYYY-MM-DD");

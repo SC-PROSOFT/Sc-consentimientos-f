@@ -177,7 +177,8 @@ async function getPaciente() {
       // if (datos_session.novedad == "1") {
       //   getMedico();
       // }
-      if (datos_session.id_acompa && datos_session.paci_firma == "N") {
+      let cod_acomp = parseInt(datos_session.id_acompa);
+      if (cod_acomp != 0 && datos_session.paci_firma == "N") {
         data.reg_acomp.descrip = `${data.reg_acomp?.er_apel?.trim()} ${data.reg_acomp?.do_apel?.trim()} ${data.reg_acomp?.er_nom?.trim()} ${data.reg_acomp?.do_nom?.trim()}`;
         setAcomp({ ...data.reg_acomp });
       }
