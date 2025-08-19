@@ -400,8 +400,13 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = async () => {
-  console.log("reg_lab012.value --->> ", reg_lab012);
   const requiere = "Complete el siguiente campo";
+  if (!firma_recibida.value && !getAcomp.cod) {
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañante");
+  }
 
   if (reg_lab012.opcion_lab012 == "AUTORIZAR") {
     // if (!reg_lab012.peso_kg) return CON851("?", "info", `${requiere},  Peso (Kg)`, () => foco_(form, "peso_kg"));

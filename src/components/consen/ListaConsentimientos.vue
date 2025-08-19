@@ -589,7 +589,7 @@ const reimprimirConsentimiento = async (row) => {
     let testigo;
     if (row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3") {
       testigo = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.datos.reg_coninf2.id_testigo.padStart(15, "0") } });
-    } else if (row.reg_coninf.datos.reg_coninf2.tipo_testigo == 2) {
+    } else {
       testigo = await getDll$({
         modulo: `get_prof.dll`,
         data: {
@@ -619,9 +619,9 @@ const reimprimirConsentimiento = async (row) => {
   // } else {
   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
   response.reg_acomp.descrip = `${response.reg_acomp?.er_apel?.trim()} ${response.reg_acomp?.do_apel?.trim()} ${response.reg_acomp?.er_nom?.trim()} ${response.reg_acomp?.do_nom?.trim()}`;
-  reg_acomp = { ...response.reg_acomp };
-  let cod_acomp = parseInt(reg_acomp.cod);
+  let cod_acomp = parseInt(response.reg_acomp.cod);
   if (cod_acomp != 0) {
+    reg_acomp = { ...response.reg_acomp };
     setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
   }
   // }

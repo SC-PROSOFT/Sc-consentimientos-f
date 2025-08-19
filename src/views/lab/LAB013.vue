@@ -356,14 +356,14 @@ const getFirmaProf = async () => {
 };
 
 const validarDatos = async () => {
-  // const requiere = "Complete el siguiente campo";
+  const requiere = "Complete el siguiente campo";
 
-  //   if (!firma_recibida.value) {
-  //     return CON851("?", "info", "No se ha realizado la firma del paciente");
-  //   }
-  //   if (getAcomp.cod && !firma_recibida_acomp.value) {
-  //     return CON851("?", "info", "No se ha realizado la firma del acompañate");
-  //   }
+  if (!firma_recibida.value) {
+    return CON851("?", "info", "No se ha realizado la firma del paciente");
+  }
+  if (getAcomp.cod && !firma_recibida_acomp.value) {
+    return CON851("?", "info", "No se ha realizado la firma del acompañate");
+  }
   if (reg_lab013.opcion_lab013 == "AUTORIZAR") {
     // if (!reg_lab013.peso_kg) return CON851("?", "info", `${requiere},  Peso (Kg)`, () => foco_(form, "peso_kg"));
     // if (!reg_lab013.talla_cm) return CON851("?", "info", `${requiere},  Talla (Cm)`, () => foco_(form, "talla_cm"));
