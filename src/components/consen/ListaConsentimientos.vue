@@ -629,73 +629,8 @@ const reimprimirConsentimiento = async (row) => {
   //   setAcomp({ ...row.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
   //   reg_acomp = { ...row.reg_acomp };
   // }
-  let cod_consenti = row.reg_coninf?.cod;
   // esto es porque se usan los mismos formatos en los dos modulos (salud, historia clinica)
-  switch (row.reg_coninf?.cod) {
-    case "HIC046":
-      cod_consenti = "LAB015";
-      break;
-    case "HIC047":
-      cod_consenti = "LAB016";
-      break;
-    case "LAB017":
-      cod_consenti = "HIC048";
-      break;
-    case "LAB018":
-      cod_consenti = "HIC049";
-      break;
-    case "LAB019":
-      cod_consenti = "HIC050";
-      break;
-    case "LAB020":
-      cod_consenti = "HIC051";
-      break;
-    case "LAB022":
-      cod_consenti = "HIC076";
-      break;
-    case "LAB023":
-      cod_consenti = "HIC077";
-      break;
-    case "LAB024":
-      cod_consenti = "HIC078";
-      break;
-    case "LAB024":
-      cod_consenti = "HIC078";
-      break;
-    case "LAB025":
-      cod_consenti = "HIC056";
-      break;
-    case "LAB026":
-      cod_consenti = "HIC079";
-      break;
-    case "LAB027":
-      cod_consenti = "HIC081";
-      break;
-    case "LAB028":
-      cod_consenti = "HIC082";
-      break;
-    case "LAB029":
-      cod_consenti = "HIC083";
-      break;
-    case "LAB030":
-      cod_consenti = "HIC084";
-      break;
-    case "LAB031":
-      cod_consenti = "HIC085";
-      break;
-    case "LAB032":
-      cod_consenti = "HIC086";
-      break;
-    case "LAB032":
-      cod_consenti = "HIC086";
-      break;
-    case "LAB037":
-      cod_consenti = "HIC117";
-      break;
-    default:
-      cod_consenti = row.reg_coninf?.cod;
-      break;
-  }
+  let cod_consenti = codigosFormatos(row.reg_coninf?.cod);
 
   await setHeader$({ encabezado: row.reg_coninf.datos_encab });
   await getFirmaProf(row.reg_prof.cod);
@@ -997,6 +932,85 @@ const filtFormatReimp = computed(() => {
 });
 
 const cerrarDisen = () => location.reload();
+
+const codigosFormatos = (codigo) => {
+  const mapa = {
+    HIC046: "LAB015",
+    HIC047: "LAB016",
+    LAB017: "HIC048",
+    LAB018: "HIC049",
+    LAB019: "HIC050",
+    LAB020: "HIC051",
+    LAB022: "HIC076",
+    LAB023: "HIC077",
+    LAB024: "HIC078",
+    LAB025: "HIC056",
+    LAB026: "HIC079",
+    LAB027: "HIC081",
+    LAB028: "HIC082",
+    LAB029: "HIC083",
+    LAB030: "HIC084",
+    LAB031: "HIC085",
+    LAB032: "HIC086",
+    LAB037: "HIC117",
+    LAB038: "HIC118",
+    LAB039: "HIC119",
+    LAB040: "HIC120",
+    LAB041: "HIC121",
+    LAB042: "HIC122",
+    LAB043: "HIC123",
+    LAB044: "HIC124",
+    LAB045: "HIC125",
+    LAB046: "HIC126",
+    LAB047: "HIC127",
+    LAB048: "HIC128",
+    LAB049: "HIC129",
+    LAB050: "HIC130",
+    LAB051: "HIC131",
+    LAB052: "HIC132",
+    LAB053: "HIC133",
+    LAB054: "HIC134",
+    LAB055: "HIC135",
+    LAB056: "HIC136",
+    LAB057: "HIC137",
+    LAB058: "HIC138",
+    LAB059: "HIC139",
+    LAB060: "HIC140",
+    LAB061: "HIC141",
+    LAB062: "HIC142",
+    LAB063: "HIC143",
+    LAB064: "HIC144",
+    LAB065: "HIC145",
+    LAB066: "HIC146",
+    LAB067: "HIC147",
+    LAB068: "HIC148",
+    LAB069: "HIC149",
+    LAB070: "HIC150",
+    LAB071: "HIC151",
+    LAB072: "HIC152",
+    LAB073: "HIC153",
+    LAB074: "HIC154",
+    LAB075: "HIC155",
+    LAB076: "HIC156",
+    LAB077: "HIC157",
+    LAB078: "HIC158",
+    LAB079: "HIC159",
+    LAB080: "HIC160",
+    LAB081: "HIC161",
+    LAB082: "HIC162",
+    LAB083: "HIC163",
+    LAB084: "HIC164",
+    LAB085: "HIC165",
+    LAB086: "HIC166",
+    LAB087: "HIC167",
+    LAB088: "HIC168",
+    LAB089: "HIC169",
+    LAB090: "HIC170",
+    LAB091: "HIC171",
+    LAB092: "HIC172",
+  };
+  return mapa[codigo] || codigo;
+};
 </script>
 <style lang="sass" scoped>
 .my-card

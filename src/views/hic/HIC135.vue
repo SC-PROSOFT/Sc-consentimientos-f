@@ -281,16 +281,25 @@ const validarDatos = () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(HIC135));
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
+  const cod_hic = "HIC135";
+  const cod_lab = "LAB055";
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_hic135.value == "AUTORIZAR" ? "1" : "2",
+    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     oper_consen: getSesion.oper,
-    llave_consen: getHc.llave,
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
     cod_med: getProf.cod,
-    cod_consen: "HIC135",
+    cod_consen: getSesion.modulo == "HIC" ? cod_hic : cod_lab,
     disentimiento: "N",
     ...datos_format,
   };
@@ -390,8 +399,9 @@ const imprimirConsen = async (llave) => {
       }),
     });
 
-    await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-135` });
+  let nomb_consen = getSesion.modulo == "HIC" ? "HIC-135" : "LAB-055";
+  await impresion({ docDefinition: docDefinitionPrint });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}${nomb_consen}` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);
