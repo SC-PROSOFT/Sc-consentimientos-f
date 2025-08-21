@@ -585,29 +585,30 @@ const reimprimirConsentimiento = async (row) => {
   console.log("row consent ", row);
 
   // consultar testigo. El testigo se debe consultar respecto al formato elegido puesto que el testigo puede variar
-  if (params_querys.value.modulo == "LAB") {
-    let testigo;
-    if (row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3") {
-      testigo = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.datos.reg_coninf2.id_testigo.padStart(15, "0") } });
-    } else {
-      testigo = await getDll$({
-        modulo: `get_prof.dll`,
-        data: {
-          cod_prof: Number(row.reg_coninf.datos.reg_coninf2.id_testigo) || 0,
-          carpta: "CONTROL",
-          directorio: route.query.contab,
-          nit: route.query.nit,
-        },
-      });
-    }
-    if (testigo) {
-      setTestigo(
-        row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3"
-          ? testigo.reg_paci
-          : testigo?.reg_prof
-      );
-    }
+  // if (params_querys.value.modulo == "LAB") {
+  let testigo;
+  if (row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3") {
+    testigo = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_coninf.datos.reg_coninf2.id_testigo.padStart(15, "0") } });
+    testigo.reg_paci.descrip = `${testigo.reg_paci.er_apel?.trim()} ${testigo.reg_paci.do_apel?.trim()} ${testigo.reg_paci.er_nom?.trim()} ${testigo.reg_paci.do_nom?.trim()}`;
+  } else {
+    testigo = await getDll$({
+      modulo: `get_prof.dll`,
+      data: {
+        cod_prof: Number(row.reg_coninf.datos.reg_coninf2.id_testigo) || 0,
+        carpta: "CONTROL",
+        directorio: route.query.contab,
+        nit: route.query.nit,
+      },
+    });
   }
+  if (testigo) {
+    setTestigo(
+      row.reg_coninf.datos.reg_coninf2.tipo_testigo == "1" || row.reg_coninf.datos.reg_coninf2.tipo_testigo == "3"
+        ? testigo.reg_paci
+        : testigo?.reg_prof
+    );
+  }
+  // }
   // if (params_querys.value.modulo == "LAB") {
   // if (SANAR.value || BERNAL.value) {
   // if (Number(row.reg_coninf.id_acomp) != 0) {
@@ -620,7 +621,7 @@ const reimprimirConsentimiento = async (row) => {
   const response = await getDll$({ modulo: `get_paci.dll`, data: { cod_paci: row.reg_paci.cod.padStart(15, "0") } });
   response.reg_acomp.descrip = `${response.reg_acomp?.er_apel?.trim()} ${response.reg_acomp?.do_apel?.trim()} ${response.reg_acomp?.er_nom?.trim()} ${response.reg_acomp?.do_nom?.trim()}`;
   let cod_acomp = parseInt(response.reg_acomp.cod);
-  if (cod_acomp != 0) {
+  if (cod_acomp != 0 && Number(row.reg_coninf.id_acomp) != 0) {
     reg_acomp = { ...response.reg_acomp };
     setAcomp({ ...response.reg_acomp, paren_acomp: row.reg_coninf.paren_acomp });
   }
@@ -715,25 +716,27 @@ const getHuella = async (cod) => {
   }
 };
 const consultarFirmaConsen = async (row) => {
+  console.log("consultarFirmaConsen -> ", row);
+
   try {
-    if (params_querys.value.modulo == "HIC" && Number(row.datos.reg_coninf2.id_testigo) != 0) {
-      // consultar testigo
-      if (route.query.tipo_testigo == "1" || route.query.tipo_testigo == "3") {
-        const response = await getDll$({
-          modulo: `get_paci.dll`,
-          data: { cod_paci: row.datos.reg_coninf2.id_testigo.trim() },
-        });
-        setTestigo(response.reg_paci);
-      } else {
-        const response = await getDll$({
-          modulo: `get_prof.dll`,
-          data: { cod_prof: Number(row.datos.reg_coninf2.id_testigo) || 0, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
-        });
-        if (response?.reg_prof) {
-          setTestigo(response.reg_prof);
-        }
-      }
-    }
+    // if (params_querys.value.modulo == "HIC" && Number(row.datos.reg_coninf2.id_testigo) != 0) {
+    //   // consultar testigo
+    //   if (route.query.tipo_testigo == "1" || route.query.tipo_testigo == "3") {
+    //     const response = await getDll$({
+    //       modulo: `get_paci.dll`,
+    //       data: { cod_paci: row.datos.reg_coninf2.id_testigo.trim() },
+    //     });
+    //     setTestigo(response.reg_paci);
+    //   } else {
+    //     const response = await getDll$({
+    //       modulo: `get_prof.dll`,
+    //       data: { cod_prof: Number(row.datos.reg_coninf2.id_testigo) || 0, carpta: "CONTROL", directorio: route.query.contab, nit: route.query.nit },
+    //     });
+    //     if (response?.reg_prof) {
+    //       setTestigo(response.reg_prof);
+    //     }
+    //   }
+    // }
 
     const codigo = `${row.llave.id}${row.llave.folio}${row.llave.fecha}${row.llave.hora}${row.llave.oper_elab}`;
 

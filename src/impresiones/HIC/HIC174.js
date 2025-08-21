@@ -1,7 +1,4 @@
-import { useModuleFormatos, useApiContabilidad } from "@/store";
 import { evaluarParentesco } from "@/formatos/utils";
-const { getAcomp } = useModuleFormatos();
-const { getImgBs64 } = useApiContabilidad();
 export const impresionHIC174 = ({ datos }) => {
   console.log("impresionHIC174 -> ", datos);
 
@@ -13,54 +10,108 @@ export const impresionHIC174 = ({ datos }) => {
       stack: [
         {
           marginTop: 15,
-          alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Tauramena, fecha: " }, { text: datos.fecha }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Hora: " }, { text: datos.hora }] },
+          ],
         },
         {
-          marginTop: 5,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "El paciente tiene que acostarse en posición fetal, con las piernas flexionadas e intentado tocarlas con la cabeza. La punción se hace a nivel de la columna lumbar, entre dos vértebras, tras desinfectar la zona y siempre en condiciones estériles, extrayéndose una muestra de LCR para ser analizado.",
-        },
-        {
-          marginTop: 5,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables específicos del procedimiento: dolor de cabeza Se debe a la disminución de presión secundaria a la extracción de líquido. Las maniobras habituales para disminuirlo son reposo en cama e ingesta abundante de líquidos durante las horas siguientes a la punción. Durante la técnica puede notar una sensación de descarga eléctrica hacia la pierna, que traduce el contacto con una raíz nerviosa, muy próxima al líquido que queremos obtener. Otras complicaciones poco frecuentes son hematomas locales en el sitio de la punción.",
-        },
-        {
-          marginTop: 5,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
-        },
-        {
-          marginTop: 5,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "De cualquier forma si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
+          marginTop: 25,
+          text: [
+            acompPaci(),
+            {
+              alignment: "justify",
+              style: "bodyNoBold9",
+              text: " por medio de la presente y en pleno y normal uso de mis facultades físicas y mentales, otorgo de forma libre y autónoma mi consentimiento al Equipo Interdisciplinario, quienes obran como evaluadores para que se lleve a cabo el procedimiento de certificación y registro de caracterización de personas con discapacidad, del mismo modo se me ha informado que este equipo cuenta con personal idóneo, competente y capacitado para realizar la valoración clínica multidisciplinario simultánea, fundamentado en la clasificación internacional del funcionamiento de la discapacidad y de la salud (CIF), que permite establecer la existencia de discapacidad a partir de la identificación de las deficiencias en funciones y estructuras corporales incluyendo las psicológicas, las limitaciones en la actividad y las restricciones en la participación que presenta una persona. Doy constancia de que se me ha explicado en lenguaje sencillo y claro, teniendo en cuenta los ajustes razonables para llevar a cabo el consentimiento informado (barreras comunicacionales, actitudinales o físicas), entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios, se me ha permitido hacer todas las preguntas necesarias y han sido resueltas satisfactoriamente.",
+            },
+          ],
         },
         {
           marginTop: 15,
-          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
+          text: "Me han explicado la naturaleza y el propósito de esta certificación, donde la información que de este se derive y sus resultados se registraran en el “Registro de Localización y caracterización de personas con Discapacidad” y que será utilizada para apoyar la formulación, implementación y seguimiento de políticas públicas, planes, programas, y proyectos, orientados a la garantía de los derechos de las personas con discapacidad, como medio de verificación de la existencia de discapacidad o priorización para programas sociales y para el re direccionamiento a la oferta programática institucional.",
         },
         {
+          marginTop: 15,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
+          text: "Me han explicado que de no estar de acuerdo con el resultado del procedimiento obtenido de la certificación de discapacidad, se podrá solicitar una segunda opinión por una (1) única vez en cualquier tiempo, solicitando a la secretaria de salud municipal para que genere la orden para realizar el nuevo procedimiento de certificación de discapacidad con un equipo interdisciplinario diferente y la IPS asignara la cita.",
+        },
+        {
+          marginTop: 15,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Me han explicado que la actualización del certificado según el artículo 12 de la resolución 1239 del 21 de julio de 2022 se podrá realizar cuando: ",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          ul: [
+            { marginTop: 5, text: "Cuando el menor de edad cumpla seis (6) años." },
+            { marginTop: 10, text: "Cuando el menor de edad cumpla dieciocho (18) años." },
+            {
+              marginTop: 10,
+              text: "Cuando el criterio médico tratante se modifiquen las deficiencias corporales, limitaciones en las actividades o restricciones en la participación, por efecto de la evolución positiva o negativa de la condición de salud.",
+            },
+          ],
+        },
+        {
+          marginTop: 15,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Se me ha explicado que la ruta mediante la cual se puede acceder al certificado de discapacidad es ingresando al Sistema integrado de información de la protección social SISPRO.",
+        },
+        {
+          marginTop: 15,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "Me han explicado también que, de negarme a realizarme la valoración y el procedimiento de certificación, estoy asumiendo la responsabilidad por sus consecuencias como de no hacer parte de la localización y caracterización de las personas con discapacidad sin contar con los beneficios que de ello se deriven, con lo que exonero de ellas al equipo interdisciplinario y a la institución (IPS), sin embargo, ello no significa que pierda mis derechos para una atención posterior. Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:",
         },
         autorizaRevoca(),
         {
           marginTop: 5,
-          bold: true,
           alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Villavicencio, " + datos.fecha + ".",
+          text: [
+            {
+              style: "bodyNoBold9",
+              text: " Este consentimiento informado es asistido",
+            },
+            { bold: true, style: "bodyNoBold9", text: " SI: " },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.conse_asist == "S" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " donde se utilizaron acciones como: ",
+            },
+            {
+              bold: true,
+              style: "bodyNoBold9",
+              text: datos.acciones,
+            },
+            {
+              style: "bodyNoBold9",
+              text: " con el fin de proteger la expresión de la voluntad de la persona con discapacidad. Este consentimiento informado",
+            },
+            { bold: true, style: "bodyNoBold9", text: " NO: " },
+            {
+              bold: true,
+              decoration: "underline",
+              style: "bodyNoBold9",
+              text: datos.conse_asist == "N" ? " X " : "     ",
+            },
+            {
+              style: "bodyNoBold9",
+              text: " es asistido.",
+            },
+          ],
         },
+        { marginTop: 5, bold: true, style: "bodyNoBold9", text: "RECIBI CERTIFICADO DE DISCAPACIDAD EN FISICO A CONFORMIDAD." },
       ],
     };
   }
@@ -70,28 +121,14 @@ export const impresionHIC174 = ({ datos }) => {
       return {
         stack: [
           {
-            marginTop: 10,
-            bold: true,
-            decoration: "underline",
-            alignment: "center",
-            style: "bodyNoBold9",
-            text: "Consentimiento",
-          },
-          {
-            marginTop: 10,
+            pageBreak: "before",
+            marginTop: 5,
             alignment: "justify",
             text: [
-              autorizaAcompPaci(),
-              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: " PUNCIÓN LUMBAR." },
+              { marginTop: 5, bold: true, decoration: "underline", alignment: "center", style: "bodyNoBold9", text: "AUTORIZO" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
-              },
-              { bold: true, style: "bodyNoBold9", text: datos.med_explica.trim() + "." },
-              {
-                style: "bodyNoBold9",
-                text: " Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " al equipo interdisciplinario de la IPS ESE HOSPITAL LOCAL DE TAURAMENA, para realizar la valoración para la certificación y el procedimiento que requiere la caracterización y localización de la persona con discapacidad.",
               },
             ],
           },
@@ -101,29 +138,35 @@ export const impresionHIC174 = ({ datos }) => {
       return {
         stack: [
           {
-            marginTop: 10,
-            bold: true,
-            decoration: "underline",
-            alignment: "center",
-            style: "bodyNoBold9",
-            text: "Denegación o Revocación",
-          },
-          {
-            marginTop: 10,
+            pageBreak: "before",
+            marginTop: 5,
             alignment: "justify",
             text: [
-              revocaAcompPaci(),
               {
                 style: "bodyNoBold9",
-                text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
+                text: "Expreso mi voluntad de ",
+              },
+              {
+                marginTop: 5,
+                bold: true,
+                decoration: "underline",
+                alignment: "center",
+                style: "bodyNoBold9",
+                text: "REVOCAR",
+              },
+              {
+                style: "bodyNoBold9",
+                text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme a la valoración para la certificación, localización y caracterización de personas con discapacidad por los siguientes motivos:",
               },
             ],
           },
+          { marginTop: 5, alignment: "justify", style: "bodyNoBold9", bold: true, text: datos.motivo_revoca },
         ],
       };
     }
   }
-  function revocaAcompPaci() {
+
+  function acompPaci() {
     if (!datos.acomp.cod) {
       return {
         marginTop: 10,
@@ -131,6 +174,12 @@ export const impresionHIC174 = ({ datos }) => {
         text: [
           { style: "bodyNoBold9", text: "Yo, " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: "identificado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() + " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() },
+          { style: "bodyNoBold9", text: " expedida en " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip_ciudad.trim() },
+          { style: "bodyNoBold9", text: " actuando en nombre propio, " },
         ],
       };
     } else {
@@ -144,38 +193,9 @@ export const impresionHIC174 = ({ datos }) => {
           { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
           { style: "bodyNoBold9", text: " " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
-          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente" },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
-          { style: "bodyNoBold9", text: " identifcado(a) con " },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
-          { style: "bodyNoBold9", text: " " },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
-        ],
-      };
-    }
-  }
-  function autorizaAcompPaci() {
-    if (!datos.acomp.cod) {
-      return {
-        marginTop: 10,
-        alignment: "justify",
-        text: [
-          { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
-        ],
-      };
-    } else {
-      return {
-        marginTop: 10,
-        alignment: "justify",
-        text: [
-          { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() + "," },
-          { style: "bodyNoBold9", text: " identifcado(a) con " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
-          { style: "bodyNoBold9", text: " " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
-          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente " },
+          { style: "bodyNoBold9", text: " expedida en " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip_ciudad.trim() },
+          { style: "bodyNoBold9", text: " actuando como acudiente del paciente " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
           { style: "bodyNoBold9", text: " identifcado(a) con " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
@@ -206,13 +226,12 @@ export const impresionHIC174 = ({ datos }) => {
         {
           marginTop: 9,
           marginLeft: 5,
-          image: getAcomp.cod ? getImgBs64 : "huella_paci",
+          image: "huella_paci",
           width: 55,
           height: 70,
         },
       ],
     };
-
     const sinHuella = {
       marginLeft: 3,
       marginTop: 9,
@@ -225,7 +244,6 @@ export const impresionHIC174 = ({ datos }) => {
     if (huella_paci) return conHuella;
     else return sinHuella;
   }
-
   function firmaPaciente(huella_paci, cant_firmas) {
     return {
       stack: [
@@ -270,8 +288,7 @@ export const impresionHIC174 = ({ datos }) => {
       ],
     };
   }
-
-  function firmaAcompanante(firma_acomp, cant_firmas) {
+  function firmaAcompanante() {
     return {
       stack: [
         {
@@ -287,14 +304,13 @@ export const impresionHIC174 = ({ datos }) => {
           style: "tableNoBold",
           fontSize: 6,
         },
-        firmaHuellaAcomp(firma_acomp, cant_firmas),
-        // {
-        //   marginTop: 8,
-        //   alignment: "center",
-        //   image: "firma_acomp",
-        //   width: 125,
-        //   height: 70,
-        // },
+        {
+          marginTop: 2,
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
+        },
         {
           marginTop: 10,
           columns: [
@@ -344,53 +360,11 @@ export const impresionHIC174 = ({ datos }) => {
       ],
     };
   }
-
-  function firmaHuellaAcomp(huella_acomp, cant_firmas) {
-    let tamano_firma = 0;
-
-    if (cant_firmas == 2) {
-      tamano_firma = 100;
-    } else {
-      tamano_firma = 125;
-    }
-    const conHuella = {
-      marginLeft: 3,
-      columns: [
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_acomp",
-          width: tamano_firma,
-          height: 60,
-        },
-        // {
-        //   marginTop: 9,
-        //   marginLeft: 2,
-        //   image: "huella_acomp",
-        //   width: 50,
-        //   height: 65,
-        // },
-      ],
-    };
-
-    const sinHuella = {
-      marginLeft: 3,
-      marginTop: 9,
-      alignment: "center",
-      image: "firma_acomp",
-      width: tamano_firma,
-      height: 70,
-    };
-
-    if (huella_acomp) return conHuella;
-    else return sinHuella;
-  }
-
   function firmaProfesional() {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
@@ -450,66 +424,14 @@ export const impresionHIC174 = ({ datos }) => {
       ],
     };
   }
-  function firmaTestigo() {
-    return {
-      stack: [
-        {
-          text: "TESTIGO",
-
-          alignment: "center",
-          style: "tableNoBold",
-          bold: true,
-        },
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_testigo",
-          width: 130,
-          height: 70,
-        },
-        {
-          marginTop: 8,
-          text: [
-            {
-              text: "NOMBRE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: `${datos.testigo.descrip}`,
-              style: "tableNoBold",
-            },
-          ],
-        },
-
-        {
-          columns: [
-            {
-              width: "auto",
-              style: "tableNoBold",
-              text: "DOCUMENTO: ",
-              bold: true,
-            },
-            {
-              marginLeft: 5,
-              style: "tableNoBold",
-              text: `${datos.testigo.cod}`,
-            },
-          ],
-        },
-      ],
-    };
-  }
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {
-      firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
+      firmasArray.push(firmaAcompanante());
     }
-
-    firmasArray.push(firmaTestigo());
 
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
@@ -517,7 +439,7 @@ export const impresionHIC174 = ({ datos }) => {
 
     tamanoFirmasArray = firmasArray.length;
 
-    if (!datos.firmas.firma_acomp) {
+    if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
     }
 

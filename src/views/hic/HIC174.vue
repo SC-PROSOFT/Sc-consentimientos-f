@@ -34,69 +34,99 @@
             <!-- Autoriza paciente -->
             <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
               Yo, <span class="text-bold">{{ getPaci.descrip }}</span> identificado(a) con
-              <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getPaci.cod.trim() }}</span> expedido
-              en&nbsp;<span class="text-bold">{{ getPaci.descrip_ciudad.trim() }},</span> domiciliado en
-              <span class="text-bold">{{ getPaci.descrip_ciudad.trim() }}.</span>
+              <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getPaci.cod.trim() }}</span> expedida
+              en&nbsp;<span class="text-bold">{{ getPaci.descrip_ciudad.trim() }}</span> actuando en nombre propio,
             </span>
 
             <!-- Autoriza acompañante -->
             <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
               Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
               >, identifcado(a) con <span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
-              >, expedida en <span class="text-bold">{{ getAcomp.descrip_ciudad.trim() }},</span> en calidad de familiar y/o acompañante responsable
-              del paciente&nbsp;<span class="text-bold">{{ getPaci.descrip.trim() }},</span>&nbsp; identifcado(a) con&nbsp;<span class="text-bold"
-                >{{ getPaci.tipo_id }} </span
-              >&nbsp;<span class="text-bold">{{ getPaci.cod.trim() }}.</span>
+              >, expedida en <span class="text-bold">{{ getAcomp.descrip_ciudad }}</span> actuando como acudiente del paciente&nbsp;<span
+                class="text-bold"
+                >{{ getPaci.descrip.trim() }},</span
+              >&nbsp; identifcado(a) con&nbsp;<span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold"
+                >{{ getPaci.cod.trim() }},</span
+              >
             </span>
-          </p>
 
-          <span class="text-bold">Autorizo la realización del procedimiento:</span>
-          <div class="col-xs-12">
-            <TextArea_ v-model="HIC174.procedimiento" :field="form.procedimiento" />
-          </div>
-
-          <div class="col-xs-12">
-            <span class="text-bold">DECLARO:</span>
-          </div>
-          <div class="row">
-            <div class="row">
-              <p>Que el profesional de la salud:</p>
-              <Input_ class="q-ma-xs" v-model="HIC174.nomb_prof" :field="form.nomb_prof" :inputStyle="{ width: '385px' }" />
-            </div>
-            <div class="row">
-              <p>con documento N°:</p>
-              <Input_ class="q-ma-xs" v-model="HIC174.nro_id_prof" :field="form.nro_id_prof" :inputStyle="{ width: '285px' }" />
-            </div>
-            <div class="row">
-              <p>me explico en que consiste el procedimiento de:</p>
-              <Input_ class="q-ma-xs" v-model="HIC174.procedimiento2" :field="form.procedimiento2" :inputStyle="{ width: '718px' }" />
-            </div>
-            <p>
-              que se me va a realizar, como me voy a beneficiar con la realización del mismo, los riesgos de hacerme y de no hacerme el procedimiento,
-              además de las posibles complicaciones:
-            </p>
-            <Input_ class="col-xs-12" v-model="HIC174.complicaciones" :field="form.complicaciones" />
-            <p>Inherentes al procedimiento.</p>
-          </div>
-
-          <p class="text-justify">
-            <span class="text-bold">Posibles complicaciones según algunos procedimientos:</span>
-            En entubación orotraqueal (fallas en la entubación, neumotórax). Suturas (cicatrices, procesos infecciosos en el sitio, no cierre de la
-            herida, sangrado, hematoma). En procedimientos menores o pequeñas cirugías (se puede presentar sangrado, infecciones, hematomas, cicatriz,
-            complicaciones o eventos adversos ocasionados por anestésicos locales). Con el suministro de sueros antiofídicos y tetánicos puede
-            ocasionar alergias. Además que existen otros riesgos y molestias del tratamiento muy poco frecuentes, pero que pueden ser graves e incluso
-            fatales.
+            <!-- Texto autoriza -->
+            por medio de la presente y en pleno y normal uso de mis facultades físicas y mentales, otorgo de forma libre y autónoma mi consentimiento
+            al Equipo Interdisciplinario, quienes obran como evaluadores para que se lleve a cabo el procedimiento de certificación y registro de
+            caracterización de personas con discapacidad, del mismo modo se me ha informado que este equipo cuenta con personal idóneo, competente y
+            capacitado para realizar la valoración clínica multidisciplinario simultánea, fundamentado en la clasificación internacional del
+            funcionamiento de la discapacidad y de la salud (CIF), que permite establecer la existencia de discapacidad a partir de la identificación
+            de las deficiencias en funciones y estructuras corporales incluyendo las psicológicas, las limitaciones en la actividad y las
+            restricciones en la participación que presenta una persona. Doy constancia de que se me ha explicado en lenguaje sencillo y claro,
+            teniendo en cuenta los ajustes razonables para llevar a cabo el consentimiento informado (barreras comunicacionales, actitudinales o
+            físicas), entendible para mí, los aspectos relacionados con mi condición actual, los riesgos y beneficios, se me ha permitido hacer todas
+            las preguntas necesarias y han sido resueltas satisfactoriamente.
           </p>
           <p class="text-justify">
-            En consecuencia, el equipo médico de la E.S.E hospital Loca de Tauramena, queda expresamente autorizado a desplegar las conductas
-            requeridas en caso de presentarse una situación imprevista, que todos los espacios en blanco han sido completados antes de mi firma, con
-            las respectiva explicación de riesgos y beneficios.
+            Me han explicado la naturaleza y el propósito de esta certificación, donde la información que de este se derive y sus resultados se
+            registraran en el “Registro de Localización y caracterización de personas con Discapacidad” y que será utilizada para apoyar la
+            formulación, implementación y seguimiento de políticas públicas, planes, programas, y proyectos, orientados a la garantía de los derechos
+            de las personas con discapacidad, como medio de verificación de la existencia de discapacidad o priorización para programas sociales y
+            para el re direccionamiento a la oferta programática institucional.
           </p>
           <p class="text-justify">
-            También me han informado de mi derecho a rechazar el tratamiento o revocar este consentimiento. Autorizo la presencia de estudiantes de
-            medicina o áreas de la salud y especialistas en formación.
+            Me han explicado que de no estar de acuerdo con el resultado del procedimiento obtenido de la certificación de discapacidad, se podrá
+            solicitar una segunda opinión por una (1) única vez en cualquier tiempo, solicitando a la secretaria de salud municipal para que genere la
+            orden para realizar el nuevo procedimiento de certificación de discapacidad con un equipo interdisciplinario diferente y la IPS asignara
+            la cita.
+          </p>
+          <p class="text-justify">
+            Me han explicado que la actualización del certificado según el artículo 12 de la resolución 1239 del 21 de julio de 2022 se podrá realizar
+            cuando:
           </p>
         </div>
+        <ul>
+          <li>Cuando el menor de edad cumpla seis (6) años.</li>
+          <li>Cuando el menor de edad cumpla dieciocho (18) años.</li>
+          <li>
+            Cuando el criterio médico tratante se modifiquen las deficiencias corporales, limitaciones en las actividades o restricciones en la
+            participación, por efecto de la evolución positiva o negativa de la condición de salud.
+          </li>
+        </ul>
+        <p class="text-justify">
+          Se me ha explicado que la ruta mediante la cual se puede acceder al certificado de discapacidad es ingresando al Sistema integrado de
+          información de la protección social SISPRO.
+        </p>
+        <p class="text-justify">
+          Me han explicado también que, de negarme a realizarme la valoración y el procedimiento de certificación, estoy asumiendo la responsabilidad
+          por sus consecuencias como de no hacer parte de la localización y caracterización de las personas con discapacidad sin contar con los
+          beneficios que de ello se deriven, con lo que exonero de ellas al equipo interdisciplinario y a la institución (IPS), sin embargo, ello no
+          significa que pierda mis derechos para una atención posterior. Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de
+          coacción, persuasión, ni manipulación:
+        </p>
+
+        <div v-if="HIC174.opcion_hic174 == 'AUTORIZAR'" class="row">
+          <p class="text-justify">
+            <span class="text-bold" style="text-decoration: underline">AUTORIZO</span> al equipo interdisciplinario de la IPS ESE HOSPITAL LOCAL DE
+            TAURAMENA, para realizar la valoración para la certificación y el procedimiento que requiere la caracterización y localización de la
+            persona con discapacidad.
+          </p>
+        </div>
+        <div v-if="HIC174.opcion_hic174 == 'REVOCAR'">
+          <p class="text-justify">
+            Expreso mi voluntad de <span class="text-bold" style="text-decoration: underline">REVOCAR</span> el consentimiento presentado y declaro
+            por tanto que, tras la información recibida, no consiento someterme a la valoración para la certificación, localización y caracterización
+            de personas con discapacidad por los siguientes motivos:
+          </p>
+          <TextArea_ v-model="HIC174.motivo_revoca" :field="form.motivo_revoca" />
+        </div>
+        <div class="row">
+          <p class="text-justify">
+            Este consentimiento informado es asistido <q-radio color="primary" left-label v-model="HIC174.conse_asist" val="S" label="SI" />donde se
+            utilizaron acciones como:
+          </p>
+          <Input_ class="col-xs-12" v-model="HIC174.acciones" :field="form.acciones" />
+          <p class="text-justify">
+            con el fin de proteger la expresión de la voluntad de la persona con discapacidad. Este consentimiento informado
+            <q-radio color="primary" left-label v-model="HIC174.conse_asist" val="N" label="NO" />es asistido.
+          </p>
+        </div>
+        <p><span class="text-bold">RECIBI CERTIFICADO DE DISCAPACIDAD EN FISICO A CONFORMIDAD.</span></p>
       </q-card-section>
     </q-form>
     <q-card-actions align="around" class="row">
@@ -166,45 +196,24 @@ const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
 const HIC174 = reactive({
-  fecha: "",
   opcion_hic174: "",
-  procedimiento: "",
-  procedimiento2: "",
-  complicaciones: "",
-  nomb_prof: "",
-  nro_id_prof: "",
+  motivo_revoca: "",
+  conse_asist: "",
+  acciones: "",
+  fecha: "",
 });
 const form = ref({
-  complicaciones: {
-    id: "complicaciones",
+  acciones: {
+    id: "acciones",
     maxlength: "250",
     label: "",
     campo_abierto: true,
   },
-  nro_id_prof: {
-    id: "nro_id_prof",
-    maxlength: "10",
-    label: "",
-    tipo: "number",
-    campo_abierto: true,
-  },
-  nomb_prof: {
-    id: "nomb_prof",
-    maxlength: "100",
-    label: "",
-    campo_abierto: true,
-  },
-  procedimiento: {
-    id: "procedimiento",
+  motivo_revoca: {
+    id: "motivo_revoca",
     maxlength: "500",
     label: "",
-    rows: 3,
-    campo_abierto: true,
-  },
-  procedimiento2: {
-    id: "procedimiento2",
-    maxlength: "250",
-    label: "",
+    rows: 5,
     campo_abierto: true,
   },
 });
