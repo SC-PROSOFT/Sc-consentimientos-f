@@ -90,6 +90,11 @@
                 min_height="240px"
                 :headers="headers"
                 show_label_inputs
+                :call_delete="true"
+                :call_edit="true"
+                @deleteRow="eliminarServicio"
+                @editRow="editarServicio"
+                :highlight_class="editingIndice ? 'bg-yellow-3' : 'bg-grey-4 text-primary'"
               >
                 <td>
                   <Input_ v-model="reg_tabla_servicio.indice_i" :field="form_tabla_servicio.indice_i" />
@@ -117,7 +122,20 @@
                   />
                 </td>
                 <td>
-                  <q-btn @click="agregarServicio" push color="primary" label="Añadir"></q-btn>
+                  <div class="row items-center no-wrap">
+                    <q-input
+                      dense
+                      type="number"
+                      v-model.number="cantidad_items"
+                      :disable="getSesion.novedad === '4'"
+                      style="width:70px; margin-right:6px"
+                      label="Cant."
+                      :min="1"
+                      :max="60"
+                      @blur="() => validarCantidad()"
+                    />
+                    <q-btn @click="agregarServicio" push color="primary" :label="editingIndice ? 'Actualizar' : 'Añadir'" />
+                  </div>
                 </td>
               </StaticDataTable_>
             </div>
@@ -262,7 +280,13 @@ const reg_tabla_servicio = ref({
   tipo_serv: "",
   cod_acomp: "",
   nomb_acomp: "",
+  cod_prof: "",
+  nomb_prof: "",
 });
+// cantidad de items a agregar de una sola vez (por defecto 1)
+const cantidad_items = ref(1);
+// índice en edición (null si se está agregando)
+const editingIndice = ref(null);
 const tipos_servicio = ref([
   { value: 1, label: "Equinoterapia" },
   { value: 2, label: "Musicoterapia" },
@@ -523,18 +547,119 @@ const agregarServicio = () => {
   if (!reg_tabla_servicio.value.cod_prof) {
     return CON851("?", "info", "El campo profesional esta vacio", () => foco_(form_tabla_servicio, "cod_prof"));
   }
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].indice_i = reg_tabla_servicio.value.indice_i;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].fecha = reg_tabla_servicio.value.fecha;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].tipo_serv = reg_tabla_servicio.value.tipo_serv.toString();
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].descrip_tipo_serv = tipos_servicio.value.find(
-    (el) => el.value == reg_tabla_servicio.value.tipo_serv
-  ).label;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].nomb_acomp = getAcomp.descrip;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].cod_acomp = getAcomp.cod;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].cod_prof = reg_tabla_servicio.value.cod_prof;
-  tabla_servicio[reg_tabla_servicio.value.indice_i - 1].nomb_prof = reg_tabla_servicio.value.nomb_prof;
-  reg_tabla_servicio.value.indice_i++;
+  if (!reg_tabla_servicio.value.fecha) {
+    return CON851("?", "info", "El campo fecha esta vacio", () => foco_(form_tabla_servicio, "fecha"));
+  }
+
+  // Modo edición
+  if (editingIndice.value) {
+    const idx = editingIndice.value - 1;
+    if (idx >= 0 && idx < 60) {
+      tabla_servicio[idx].indice_i = editingIndice.value;
+      tabla_servicio[idx].fecha = reg_tabla_servicio.value.fecha;
+      tabla_servicio[idx].tipo_serv = reg_tabla_servicio.value.tipo_serv.toString();
+      tabla_servicio[idx].descrip_tipo_serv = tipos_servicio.value.find(
+        (el) => el.value == reg_tabla_servicio.value.tipo_serv
+      ).label;
+      tabla_servicio[idx].nomb_acomp = getAcomp.descrip;
+      tabla_servicio[idx].cod_acomp = getAcomp.cod;
+      tabla_servicio[idx].cod_prof = reg_tabla_servicio.value.cod_prof;
+      tabla_servicio[idx].nomb_prof = reg_tabla_servicio.value.nomb_prof;
+    }
+    editingIndice.value = null;
+    cantidad_items.value = 1;
+    const maxIndice = Math.max(...tabla_servicio.map((it) => Number(it.indice_i) || 0));
+    reg_tabla_servicio.value.indice_i = maxIndice >= 60 ? 60 : maxIndice + 1;
+    reg_tabla_servicio.value.tipo_serv = "";
+    reg_tabla_servicio.value.cod_prof = "";
+    reg_tabla_servicio.value.nomb_prof = "";
+    foco_(form_tabla_servicio, "tipo_serv");
+    return;
+  }
+
+  let cant = parseInt(cantidad_items.value) || 1;
+  if (cant < 1) cant = 1;
+
+  const restantes = 60 - (reg_tabla_servicio.value.indice_i - 1);
+  if (cant > restantes) {
+    CON851("?", "info", `Solo quedan ${restantes} items disponibles, se agregan esos`);
+    cant = restantes;
+  }
+
+  for (let i = 0; i < cant; i++) {
+    if (reg_tabla_servicio.value.indice_i > 60) break;
+    const idx = reg_tabla_servicio.value.indice_i - 1;
+    tabla_servicio[idx].indice_i = reg_tabla_servicio.value.indice_i;
+    tabla_servicio[idx].fecha = reg_tabla_servicio.value.fecha;
+    tabla_servicio[idx].tipo_serv = reg_tabla_servicio.value.tipo_serv.toString();
+    tabla_servicio[idx].descrip_tipo_serv = tipos_servicio.value.find(
+      (el) => el.value == reg_tabla_servicio.value.tipo_serv
+    ).label;
+    tabla_servicio[idx].nomb_acomp = getAcomp.descrip;
+    tabla_servicio[idx].cod_acomp = getAcomp.cod;
+    tabla_servicio[idx].cod_prof = reg_tabla_servicio.value.cod_prof;
+    tabla_servicio[idx].nomb_prof = reg_tabla_servicio.value.nomb_prof;
+    reg_tabla_servicio.value.indice_i++;
+  }
+  cantidad_items.value = 1;
   foco_(form_tabla_servicio, "tipo_serv");
+};
+
+const validarCantidad = () => {
+  if (!cantidad_items.value || cantidad_items.value < 1) cantidad_items.value = 1;
+  if (cantidad_items.value > 60) cantidad_items.value = 60;
+};
+
+const editarServicio = (row) => {
+  if (!row?.indice_i) return;
+  const descrip = row.descrip_tipo_serv || (tipos_servicio.value.find((t) => t.value == row.tipo_serv)?.label || "");
+  CON851P(
+    "?",
+    "info",
+    `¿Seguro que desea editar el item ${row.indice_i} (${descrip})?`,
+    () => {},
+    () => {
+      editingIndice.value = row.indice_i;
+      reg_tabla_servicio.value.indice_i = row.indice_i;
+      reg_tabla_servicio.value.fecha = row.fecha;
+      reg_tabla_servicio.value.tipo_serv = row.tipo_serv ? parseInt(row.tipo_serv) : "";
+      reg_tabla_servicio.value.cod_prof = row.cod_prof;
+      reg_tabla_servicio.value.nomb_prof = row.nomb_prof;
+      cantidad_items.value = 1;
+      foco_(form_tabla_servicio, "tipo_serv");
+    }
+  );
+};
+
+const eliminarServicio = (row) => {
+  if (!row?.indice_i) return;
+  const descrip = row.descrip_tipo_serv || (tipos_servicio.value.find((t) => t.value == row.tipo_serv)?.label || "");
+  CON851P(
+    "?",
+    "error",
+    `¿Seguro que desea eliminar el item ${row.indice_i} (${descrip})?`,
+    () => {},
+    () => {
+      const idx = row.indice_i - 1;
+      if (idx >= 0 && idx < 60) {
+        tabla_servicio[idx] = {
+          indice_i: null,
+          fecha: "",
+          tipo_serv: "",
+          cod_acomp: "",
+          nomb_acomp: "",
+          cod_prof: "",
+          nomb_prof: "",
+        };
+      }
+      if (editingIndice.value === row.indice_i) {
+        editingIndice.value = null;
+      }
+      const maxIndice = Math.max(...tabla_servicio.map((it) => Number(it.indice_i) || 0));
+      reg_tabla_servicio.value.indice_i = maxIndice ? Math.min(maxIndice + 1, 60) : 1;
+      foco_(form_tabla_servicio, "tipo_serv");
+    }
+  );
 };
 
 const datoCodigoEnfermedad = async (event) => {

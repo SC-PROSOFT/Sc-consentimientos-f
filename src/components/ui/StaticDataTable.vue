@@ -46,7 +46,7 @@
       </template>
       <template v-slot:body="props">
         <q-tr
-          :class="props.pageIndex == item_index - 1 && 'bg-grey-4 text-primary'"
+          :class="[props.pageIndex == item_index - 1 && highlight_class]"
           @dblclick="validarAccion(props.row)"
           :props="props"
           class="cursor"
@@ -135,6 +135,10 @@ const props = defineProps({
   headers: Array,
   title: String,
   data: Array,
+  highlight_class: {
+    type: String,
+    default: 'bg-grey-4 text-primary'
+  }
 });
 const pagina = ref(null);
 const emit = defineEmits(["deleteRow", "editRow", "estadoRow", "selectRow"]);
