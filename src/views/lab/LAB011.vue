@@ -885,7 +885,7 @@ const getFirmaProf = async () => {
 const validarDatos = async () => {
   const requiere = "Complete el siguiente campo";
 
-  if (!firma_recibida.value) {
+  if (!getAcomp.cod && !firma_recibida.value) {
     return CON851("?", "info", "No se ha realizado la firma del paciente");
   }
   if (getAcomp.cod && !firma_recibida_acomp.value) {
