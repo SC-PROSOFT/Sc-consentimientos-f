@@ -1678,4 +1678,54 @@ export const createRouteHic = (title) => [
       descrip: "Consentimiento informado toma de muestra de orina con sonda vesical",
     },
   },
+  {
+    path: "/HIC186",
+    name: "HIC186",
+    component: () => import("@/views/hic/HIC186.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC186`,
+      descrip: "Formato relacion de consentimientos informados",
+    },
+  },
+  {
+    path: "/HIC187",
+    name: "HIC187",
+    component: () => import("@/views/hic/HIC187.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC187`,
+      descrip: "Consentimiento informado para cirugia",
+    },
+  },
+  {
+    path: "/HIC188",
+    name: "HIC188",
+    component: () => import("@/views/hic/HIC188.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC188`,
+      descrip: "Lista de chequeo previo ingreso a cirugia",
+    },
+  },
+  {
+    path: "/HIC189",
+    name: "HIC189",
+    component: () => import("@/views/hic/HIC189.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC189`,
+      descrip: "Visto bueno para egreso del paciente",
+    },
+  },
+  {
+    path: "/HIC190",
+    name: "HIC190",
+    component: () => import("@/views/lab/LAB033.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO HIC190`,
+      descrip: "Consentimiento informado para parto vaginal",
+    },
+  },
 ];

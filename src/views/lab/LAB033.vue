@@ -421,19 +421,25 @@ const validarDatos = () => {
 
 const grabarConsentimiento = async () => {
   const datos_format = JSON.parse(JSON.stringify(LAB033));
+  let llave_paci;
+  if (/[A-Za-z]/.test(getPaci.cod)) {
+    llave_paci = getPaci.cod.padStart(15, " ");
+  } else {
+    llave_paci = getPaci.cod + "00000000";
+  }
   let datos = {
     nit_entid: nit_usu.value,
     estado: opcion_lab033.value == "AUTORIZAR" ? "1" : "2",
-    llave_fact: `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
+    llave_fact: getSesion.modulo == "HIC" ? "" : `${getSesion.suc}${getSesion.clase}${getSesion.nro_comp}`,
+    disentimiento: "N",
+    llave_consen: getSesion.modulo == "HIC" ? getHc.llave : `${llave_paci}`,
+    oper_consen: getSesion.oper,
+    cod_consen: getSesion.modulo == "HIC" ? "HIC190" : "LAB033",
+    cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
-    paren_acomp: getSesion.paren_acomp,
     id_testigo: getTestigo.cod.padStart(15, "0"),
     tipo_testigo: getSesion.tipo_testigo,
-    oper_consen: getSesion.oper,
-    llave_consen: `${getPaci.cod}00000000`,
-    cod_med: getProf.cod,
-    cod_consen: "LAB033",
-    disentimiento: "N",
+    paren_acomp: getSesion.paren_acomp,
     ...datos_format,
   };
 
@@ -520,20 +526,21 @@ const imprimirConsen = async (llave) => {
     };
 
     const docDefinitionPrint = await utilsFormat({
-      datos: { ...firmas, cod_consen: "LAB033" },
+      datos: { ...firmas },
       content: impresionLAB033({
         datos: datos_lab033,
       }),
     });
     const docDefinitionFile = await utilsFormat({
-      datos: { ...firmas, cod_consen: "LAB033" },
+      datos: { ...firmas },
       content: impresionLAB033({
         datos: datos_lab033,
       }),
     });
 
+    let nomb_consen = getSesion.modulo == "HIC" ? "HIC-190" : "LAB-033";
     await impresion({ docDefinition: docDefinitionPrint });
-    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-LAB-033` });
+    const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-${nomb_consen}` });
     return response_impresion;
   } catch (error) {
     console.error("error -->", error);

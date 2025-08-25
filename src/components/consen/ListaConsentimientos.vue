@@ -937,9 +937,12 @@ const filtFormatReimp = computed(() => {
 const cerrarDisen = () => location.reload();
 
 const codigosFormatos = (codigo) => {
+  console.log("codigo ", codigo);
+
   const mapa = {
     HIC046: "LAB015",
     HIC047: "LAB016",
+    HIC190: "LAB033",
     LAB017: "HIC048",
     LAB018: "HIC049",
     LAB019: "HIC050",

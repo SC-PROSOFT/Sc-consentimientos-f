@@ -418,7 +418,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB042`,
-  descrip: "Formato de consentimiento informado de cirugia endoscopica nasosinusal para el tratamiento de la epistaxis",
+      descrip: "Formato de consentimiento informado de cirugia endoscopica nasosinusal para el tratamiento de la epistaxis",
     },
   },
   {
@@ -428,7 +428,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB043`,
-  descrip: "Formato de consentimiento informado de esofagoscopia mediante esofagoscopio rigido",
+      descrip: "Formato de consentimiento informado de esofagoscopia mediante esofagoscopio rigido",
     },
   },
   {
@@ -438,7 +438,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB044`,
-  descrip: "Formato de consentimiento informado de adenoidectomia",
+      descrip: "Formato de consentimiento informado de adenoidectomia",
     },
   },
   {
@@ -448,7 +448,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB045`,
-  descrip: "Formato de consentimiento informado de rinoplastia",
+      descrip: "Formato de consentimiento informado de rinoplastia",
     },
   },
   {
@@ -458,7 +458,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB046`,
-  descrip: "Formato de consentimiento informado de adenectomia cervical",
+      descrip: "Formato de consentimiento informado de adenectomia cervical",
     },
   },
   {
@@ -468,7 +468,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB047`,
-  descrip: "Formato de consentimiento informado de amigdalectomia",
+      descrip: "Formato de consentimiento informado de amigdalectomia",
     },
   },
   {
@@ -478,7 +478,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB048`,
-  descrip: "Formato de consentimiento informado de timpanoplastia",
+      descrip: "Formato de consentimiento informado de timpanoplastia",
     },
   },
   {
@@ -488,7 +488,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB049`,
-  descrip: "Formato de consentimiento informado de reduccion de fractura de huesos propios de la nariz",
+      descrip: "Formato de consentimiento informado de reduccion de fractura de huesos propios de la nariz",
     },
   },
   {
@@ -498,7 +498,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB050`,
-  descrip: "Formato de consentimiento informado de septoplastia",
+      descrip: "Formato de consentimiento informado de septoplastia",
     },
   },
   {
@@ -508,7 +508,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB051`,
-  descrip: "Formato de consentimiento informado de adenoamigdalectomia",
+      descrip: "Formato de consentimiento informado de adenoamigdalectomia",
     },
   },
   {
@@ -518,7 +518,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB052`,
-  descrip: "Formato de consentimiento informado de turbinoplastia",
+      descrip: "Formato de consentimiento informado de turbinoplastia",
     },
   },
   {
@@ -528,7 +528,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB053`,
-  descrip: "Formato de consentimiento informado de septorrinoplastia + turbinoplastia",
+      descrip: "Formato de consentimiento informado de septorrinoplastia + turbinoplastia",
     },
   },
   {
@@ -538,7 +538,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB054`,
-  descrip: "Formato de consentimiento informado de septoplastia + turbinoplastia",
+      descrip: "Formato de consentimiento informado de septoplastia + turbinoplastia",
     },
   },
   {
@@ -548,7 +548,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB055`,
-  descrip: "Formato de consentimiento informado de cirugia endoscopica de senos paranasales",
+      descrip: "Formato de consentimiento informado de cirugia endoscopica de senos paranasales",
     },
   },
   {
@@ -558,7 +558,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB056`,
-  descrip: "Formato de consentimiento informado de colocacion de tubos de ventilacion + adenoidectomia",
+      descrip: "Formato de consentimiento informado de colocacion de tubos de ventilacion + adenoidectomia",
     },
   },
   {
@@ -568,7 +568,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB057`,
-  descrip: "Formato de consentimiento informado de laringoscopia directa microcirugia laringea",
+      descrip: "Formato de consentimiento informado de laringoscopia directa microcirugia laringea",
     },
   },
   {
@@ -578,7 +578,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB058`,
-  descrip: "Formato de consentimiento informado de traquetomia",
+      descrip: "Formato de consentimiento informado de traquetomia",
     },
   },
   {
@@ -588,7 +588,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB059`,
-  descrip: "Formato de consentimiento informado de tiroidectomia",
+      descrip: "Formato de consentimiento informado de tiroidectomia",
     },
   },
   {
@@ -598,7 +598,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB060`,
-  descrip: "Formato de consentimiento informado de miringoplastia",
+      descrip: "Formato de consentimiento informado de miringoplastia",
     },
   },
   {
@@ -608,7 +608,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB061`,
-  descrip: "Formato de consentimiento informado de laringoscopia directa e inyeccion intracordal",
+      descrip: "Formato de consentimiento informado de laringoscopia directa e inyeccion intracordal",
     },
   },
   {
@@ -618,7 +618,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB062`,
-  descrip: "Formato de consentimiento informado de inyeccion intralaringea de toxina botulinica",
+      descrip: "Formato de consentimiento informado de inyeccion intralaringea de toxina botulinica",
     },
   },
   {
@@ -628,7 +628,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB063`,
-  descrip: "Formato de consentimiento informado de extirpacion de lesion bajo anestesia local",
+      descrip: "Formato de consentimiento informado de extirpacion de lesion bajo anestesia local",
     },
   },
   {
@@ -638,7 +638,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB064`,
-  descrip: "Formato de consentimiento informado de estapedectomia",
+      descrip: "Formato de consentimiento informado de estapedectomia",
     },
   },
   {
@@ -648,7 +648,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB065`,
-  descrip: "Formato de consentimiento informado de septorrinoplastia",
+      descrip: "Formato de consentimiento informado de septorrinoplastia",
     },
   },
   {
@@ -658,7 +658,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB066`,
-  descrip: "Formato de consentimiento informado de otoplastia",
+      descrip: "Formato de consentimiento informado de otoplastia",
     },
   },
   {
@@ -668,7 +668,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB067`,
-  descrip: "Formato de consentimiento informado de mastoidectomia + timpanoplastia",
+      descrip: "Formato de consentimiento informado de mastoidectomia + timpanoplastia",
     },
   },
   {
@@ -678,7 +678,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB068`,
-  descrip: "Formato de consentimiento informado de extripacion de angiofibroma de rinofaringe",
+      descrip: "Formato de consentimiento informado de extripacion de angiofibroma de rinofaringe",
     },
   },
   {
@@ -688,7 +688,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB069`,
-  descrip: "Formato de consentimiento informado de uvulopalatofaringoplastia",
+      descrip: "Formato de consentimiento informado de uvulopalatofaringoplastia",
     },
   },
   {
@@ -698,7 +698,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB070`,
-  descrip: "Formato de consentimiento informado de parotidectomia",
+      descrip: "Formato de consentimiento informado de parotidectomia",
     },
   },
   {
@@ -708,7 +708,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB071`,
-  descrip: "Formato de consentimiento informado de cirugia endolaringea por suspension",
+      descrip: "Formato de consentimiento informado de cirugia endolaringea por suspension",
     },
   },
   {
@@ -718,7 +718,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB072`,
-  descrip: "Formato de consentimiento informado de extirpacion de lesion cutanea de la cara o cuello",
+      descrip: "Formato de consentimiento informado de extirpacion de lesion cutanea de la cara o cuello",
     },
   },
   {
@@ -728,7 +728,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB073`,
-  descrip: "Formato de consentimiento informado de cirugia del quiste tirogloso",
+      descrip: "Formato de consentimiento informado de cirugia del quiste tirogloso",
     },
   },
   {
@@ -738,7 +738,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB074`,
-  descrip: "Formato de consentimiento informado de submaxilectomia",
+      descrip: "Formato de consentimiento informado de submaxilectomia",
     },
   },
   {
@@ -748,7 +748,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB075`,
-  descrip: "Formato de consentimiento informado de colocacion de tubos de ventilacion",
+      descrip: "Formato de consentimiento informado de colocacion de tubos de ventilacion",
     },
   },
   {
@@ -758,7 +758,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB076`,
-  descrip: "Formato de consentimiento informado de cirugia del colesteatoma",
+      descrip: "Formato de consentimiento informado de cirugia del colesteatoma",
     },
   },
   {
@@ -768,7 +768,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB077`,
-  descrip: "Formato de consentimiento informado de antrostomia maxilar o caldwell-luc",
+      descrip: "Formato de consentimiento informado de antrostomia maxilar o caldwell-luc",
     },
   },
   {
@@ -778,7 +778,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB078`,
-  descrip: "Formato de consentimiento informado de cervicotomia exploratoria",
+      descrip: "Formato de consentimiento informado de cervicotomia exploratoria",
     },
   },
   {
@@ -788,7 +788,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB079`,
-  descrip: "Formato de consentimiento informado de cirugia de la hipofisis por via transesfenoidal",
+      descrip: "Formato de consentimiento informado de cirugia de la hipofisis por via transesfenoidal",
     },
   },
   {
@@ -798,7 +798,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB080`,
-  descrip: "Formato de consentimiento informado de dacriocistorrinostomia endonasal",
+      descrip: "Formato de consentimiento informado de dacriocistorrinostomia endonasal",
     },
   },
   {
@@ -808,7 +808,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB081`,
-  descrip: "Formato de consentimiento frenillectomia lingual",
+      descrip: "Formato de consentimiento frenillectomia lingual",
     },
   },
   {
@@ -818,7 +818,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB082`,
-  descrip: "Formato de consentimiento vaciamiento cervical",
+      descrip: "Formato de consentimiento vaciamiento cervical",
     },
   },
   {
@@ -828,7 +828,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB083`,
-  descrip: "Formato de consentimiento timpanomastoidectomia",
+      descrip: "Formato de consentimiento timpanomastoidectomia",
     },
   },
   {
@@ -838,7 +838,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB084`,
-  descrip: "Formato de consentimiento extirpacion de fistula y/o quistes preauriculares",
+      descrip: "Formato de consentimiento extirpacion de fistula y/o quistes preauriculares",
     },
   },
   {
@@ -848,7 +848,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB085`,
-  descrip: "Formato de consentimiento informado de biopsia de glandula salivar menor anestesia local",
+      descrip: "Formato de consentimiento informado de biopsia de glandula salivar menor anestesia local",
     },
   },
   {
@@ -858,7 +858,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB086`,
-  descrip: "Formato de consentimiento informado somnoscopia (dise)",
+      descrip: "Formato de consentimiento informado somnoscopia (dise)",
     },
   },
   {
@@ -868,7 +868,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB087`,
-  descrip: "Formato de consentimiento informado de infiltracion intratimpanica",
+      descrip: "Formato de consentimiento informado de infiltracion intratimpanica",
     },
   },
   {
@@ -878,7 +878,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB088`,
-  descrip: "Formato de consentimiento informado de reseccion de ranula",
+      descrip: "Formato de consentimiento informado de reseccion de ranula",
     },
   },
   {
@@ -888,7 +888,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB089`,
-  descrip: "Formato de consentimiento informado para extraccion de cuerpo extraño",
+      descrip: "Formato de consentimiento informado para extraccion de cuerpo extraño",
     },
   },
   {
@@ -898,7 +898,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB090`,
-  descrip: "Formato de consentimiento informado reseccion de sinequia nasal",
+      descrip: "Formato de consentimiento informado reseccion de sinequia nasal",
     },
   },
   {
@@ -908,7 +908,7 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB091`,
-  descrip: "Consentimiento informado transfusion sanguinea",
+      descrip: "Consentimiento informado transfusion sanguinea",
     },
   },
   {
@@ -918,7 +918,17 @@ export const createRouteLab = (title) => [
     meta: {
       require_auth: true,
       title: `${title} - FORMATO LAB092`,
-  descrip: "Consentimiento puncion lumbar",
+      descrip: "Consentimiento puncion lumbar",
+    },
+  },
+  {
+    path: "/LAB093",
+    name: "LAB093",
+    component: () => import("@/views/hic/HIC187.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO LAB093`,
+      descrip: "Consentimiento informado para cirugia",
     },
   },
 ];
