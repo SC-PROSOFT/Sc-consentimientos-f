@@ -19,98 +19,125 @@
             </q-chip>
           </p>
         </div>
-        <p>
-          <span class="text-bold">Fecha:&nbsp;</span>
-          <span>{{ HIC175.fecha }}</span>
-        </p>
         <div class="row justify-between items-center">
-          <div class="row">
-            <p class="text-bold">Remitente:</p>
-            <Input_ class="q-ma-xs" v-model="HIC175.remitente" :field="form.remitente" :inputStyle="{ width: '385px' }" />
-          </div>
-          <p><span class="text-bold">Nombre del paciente:</span> {{ getPaci.descrip }}&nbsp;</p>
-          <p><span class="text-bold">Tipo y numero documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
-          <p><span class="text-bold">Edad:</span> {{ calcularEdad(getPaci.nacim) }} &nbsp;</p>
-          <p><span class="text-bold">Sexo:</span> {{ getPaci.sexo }} &nbsp;</p>
-          <p><span class="text-bold">Fecha de nacimiento:</span> {{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }} &nbsp;</p>
-          <p><span class="text-bold">Dirección residencial:</span> {{ getPaci.direccion }} &nbsp;</p>
-          <p><span class="text-bold">Ocupación:</span> {{ getPaci.descrip_ocup }} &nbsp;</p>
-          <p><span class="text-bold">Regimen contributivo:</span> {{ getPaci.descrip_tipo_afil }} &nbsp;</p>
+          <p>
+            <span class="text-bold">Tauramena, fecha:&nbsp;</span>
+            <span>{{ HIC175.fecha }}</span>
+          </p>
+          <p>
+            <span class="text-bold">Hora:&nbsp;</span>
+            <span>{{ HIC175.hora }}</span>
+          </p>
+          <p>
+            <span class="text-bold">Nombre del paciente:&nbsp;</span>
+            <span>{{ getPaci.descrip }}</span>
+          </p>
+        </div>
+        <div class="row justify-between items-center">
+          <p>
+            <span class="text-bold">Nombre del paciente:&nbsp;</span>
+            <span>{{ getPaci.descrip }}</span>
+          </p>
+          <p>
+            <span class="text-bold">Edad:&nbsp;</span>
+            <span>{{ calcularEdad(getPaci.nacim) }}</span>
+          </p>
+        </div>
+        <div class="row justify-between items-center">
+          <p>
+            <span class="text-bold">Identificada con:&nbsp;</span>
+            <span>{{ getPaci.tipo_id }}&nbsp;</span>
+            <span class="text-bold">Numero:&nbsp;</span>
+            <span>{{ getPaci.cod }}</span>
+          </p>
+          <p>
+            <span class="text-bold">Telefono:&nbsp;</span>
+            <span>{{ getPaci.telefono }}</span>
+          </p>
+        </div>
+        <div class="row">
+          <span class="text-bold"> diagnostico: </span>
+          <Input_
+            style="min-width: 100px; display: inline-block"
+            @validate="datoCodigoEnfermedad"
+            v-model="HIC175.diagnostico"
+            :field="form.codigo"
+          />
+          <q-input dense disable type="text" maxlength="4" v-model="descrip_diagnostico" style="min-width: 300px; display: inline-block" />
         </div>
 
-        <div class="q-mt-lg">
-          <div class="col-12">
-            <p class="text-bold">Resultado de la prueba:</p>
-          </div>
-          <ol type="a">
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="ABS" v-model="HIC175.result_prb" val="A" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="PC" v-model="HIC175.result_prb" val="B" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Otro" v-model="HIC175.result_prb" val="C" />
-            </li>
-          </ol>
-          <div v-if="HIC175.result_prb == 'C'" class="row">
-            <p>Cual:</p>
-            <Input_ class="q-ma-xs" v-model="HIC175.otr_result" :field="form.otr_result" :inputStyle="{ width: '385px' }" />
-          </div>
-        </div>
-        <div class="q-mt-lg">
-          <div class="col-12">
-            <p class="text-bold">Motivo de prueba:</p>
-          </div>
-          <ol type="a">
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Conducta sexual de riesgo" v-model="HIC175.motivo_prb" val="A" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="DX perinatal" v-model="HIC175.motivo_prb" val="B" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Sospecha clinica" v-model="HIC175.motivo_prb" val="C" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Contacto VIH" v-model="HIC175.motivo_prb" val="D" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Transfusiones antes de 1993" v-model="HIC175.motivo_prb" val="E" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Uso de agujas" v-model="HIC175.motivo_prb" val="F" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Tiempo de gestación" v-model="HIC175.motivo_prb" val="G" />
-            </li>
-          </ol>
-        </div>
-        <div>
-          <p class="text-bold" style="text-align: center; text-decoration: underline">CONSENTIMIENTO INFORMADO</p>
-        </div>
-        <div class="row justify-start">
-          <p align="justify">Certifico que me han dado la información sobre:</p>
-        </div>
-        <ol>
-          <li>Propósito y beneficio de la prueba</li>
-          <li>Interpretación de la prueba</li>
-          <li>Limitaciones de la prueba</li>
-          <li>Posibles resultados de la prueba</li>
-        </ol>
-        <div class="row justify-start">
-          <p align="justify">
-            que entiendo su contenido y que he discutido con la persona que me brindo la asesoría el procedimiento mediante el cual recibiré mis
-            resultados y que estoy de acuerdo con el.
-          </p>
-          <p align="justify">
-            entiendo que la toma de la muestra es voluntaria y que puedo retirar mi consentimiento en cualquier momento antes de que sea tomado el
-            examen.
-          </p>
-        </div>
+        <ul class="q-mt-lg">
+          <li>
+            <p class="text-justify">
+              Por medio de la presente constancia, en pleno uso de mis facultades mentales, otorgo en forma libre mi consentimiento a la E.S.E
+              HOSPITAL LOCAL DE TAURAMENA a que por medio de médico en ejercicio de su profesión, así como por los demás profesionales de la salud que
+              se requieran y con el concurso del personal auxiliar de servicios asistenciales lo mismo que del personal en formación, se sirva
+              realizarme el procedentico, denominado:
+            </p>
+          </li>
+        </ul>
+
+        <p class="text-justify text-bold">ATENCION HOSPITALARIA DEL TRABAJO DE PARTO Y POST PARTO.</p>
+        <p class="text-justify text-bold">Durante la atención puede ser necesario:</p>
+
+        <p class="text-justify">La aplicación de Oxitocina (Pitocín) para la inducción y el manejo activo del trabajo de parto.</p>
+        <p class="text-justify">
+          La aplicación de Analgesia Epidural para disminuir el dolor ocasionado por las contracciones uterinas La realización de Amniotomía (ruptura
+          artificial de las membranas ovulares) como parte del manejo activo del trabajo de parto.
+        </p>
+        <p class="text-justify">La atención del parto por vía vaginal como primera opción.</p>
+        <p class="text-justify">La atención del parto con instrumentos como Fórceps, cuando esté completamente justificada su aplicación.</p>
+        <p class="text-justify">
+          La aplicación de cualquier medicamento o la realización de los procedimientos que se requieran para tener el resultado deseado.
+        </p>
+
+        <ul class="q-mt-lg">
+          <li>
+            <p class="text-justify">
+              La E.S.E HOSPITAL LOCAL DE TAURAMENA CASANARE queda autorizada para llevar a cabo igualmente la práctica de conductas o procedimientos
+              médicos adicionales a los ya autorizados, si en el curso de la intervención quirúrgica o del procedimiento llegare a presentarse una
+              imprevista que, a juicio del médico tratante, los haga aconsejables.
+            </p>
+          </li>
+          <li>
+            <p class="row text-justify">
+              El consentimiento y autorización que anteceden, han sido otorgados previa evaluación que de mi estado de salud ha hecho, a nombre de la
+              E.S.E HOSPITAL LOCAL DE TAURAMENA CASANARE, el doctor:
+              <Input_ v-model="HIC175.nomb_medico" :field="form.nomb_medico" :inputStyle="{ width: '700px' }" />
+              con el objeto de identificar mis condiciones clínico – patológicas previa advertencia que, dicho médico me ha hecho ser conocedora, con
+              respecto a los riesgos previstos y consecuentes, en los términos en los cuales lo ha consignado en la historia clínica.
+            </p>
+          </li>
+          <li>
+            <p class="text-justify">
+              Declaro que he sido advertida por la E.S.E HOSPITAL LOCAL DE TAURAMENA CASANARE, en sentido de que la práctica de la atención que
+              requiero compromete una ACTIVIDAD MÉDICA DE MEDIOS, PERO NO DE RESULTADOS.
+            </p>
+          </li>
+          <li>
+            <p class="text-justify">
+              Autorizo expresamente a las personas del equipo de salud hospitalario que tendrán a su cargo mi tratamiento para que me realicen
+              terapias y procedimientos ordenados por mi médico tratante.
+            </p>
+          </li>
+          <li>
+            <p class="text-justify">
+              He sido informada en forma clara acerca de la naturaleza y propósito del tratamiento y de las sustancias y medicamentos involucrados,
+              beneficios, complicaciones, efectos secundarios, riesgos o consecuencias que pueden ocurrir por la instauración de dichos tratamientos.
+            </p>
+          </li>
+          <li>
+            <p class="text-justify">
+              He comprendido el riesgo inherente a los tratamientos y procedimientos practicados por el personal de enfermería bajo las órdenes de mi
+              médico tratante.
+            </p>
+          </li>
+          <li>
+            <p class="text-justify">Certifico que el presente documento lo he leído y atendido íntegramente.</p>
+          </li>
+        </ul>
       </q-card-section>
     </q-form>
-    <q-separator />
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around q-mt-lg">
         <ContainerFirma
@@ -152,6 +179,7 @@
         type="submit"
       />
     </div>
+    <CONSEN800 v-if="show_consen800" @esc="callbackCONSEN800" @enter="callbackCONSEN800" />
   </q-card>
 </template>
 
@@ -159,42 +187,45 @@
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
 import { impresionHIC175, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, calcularEdad } from "@/formatos/utils";
+import { calcularEdad, utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 const ContainerFirma = defineAsyncComponent(() => import("@/components/global/ContainerFirma.vue"));
-
+const CONSEN800 = defineAsyncComponent(() => import("@/components/consen/CONSEN800.vue"));
 const { getDll$, _getFirma$, _getHuella$, guardarFile$, enviarCorreo$, getEncabezado } = useApiContabilidad();
 const { getPaci, getAcomp, getProf, getEmpresa, getHc, getSesion } = useModuleFormatos();
 const { CON851P } = useModuleCon851p();
 const { CON851 } = useModuleCon851();
 const router = useRouter();
-
+const show_consen800 = ref(false);
 const nit_usu = ref(parseInt(getEmpresa.nitusu) || 0);
 const firma_recibida_acomp = ref("");
 const firma_recibida = ref("");
 const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
+const descrip_diagnostico = ref("");
 const HIC175 = reactive({
   opcion_hic175: "",
-  remitente: "",
-  result_prb: "",
-  otr_result: "",
-  motivo_prb: "",
+  diagnostico: "",
+  nomb_medico: "",
   fecha: "",
 });
 const form = ref({
-  remitente: {
-    id: "remitente",
-    maxlength: "250",
+  codigo: {
+    id: "codigo",
     label: "",
+    maxlength: "4",
+    f0: ["f8"],
+    standout: "N",
+    outlined: "N",
+    required: true,
     campo_abierto: true,
   },
-  otr_result: {
-    id: "otr_result",
-    maxlength: "250",
+  nomb_medico: {
+    id: "nomb_medico",
+    maxlength: "150",
     label: "",
     campo_abierto: true,
   },
@@ -206,6 +237,7 @@ onMounted(() => {
 
 const datosInit = () => {
   HIC175.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC175.hora = dayjs().format("hh:mm");
 };
 
 const getFirmaProf = async () => {
@@ -304,6 +336,7 @@ const imprimirConsen = async (llave) => {
       firma_prof: firma_prof.value ? true : false,
     },
     paren_acomp: getSesion.paren_acomp,
+    descrip_enfer: descrip_diagnostico.value,
     ...HIC175,
   };
 
@@ -341,6 +374,39 @@ const callBackFirma = (data_firma) => {
 
 const callBackFirmaAcomp = (data_firma) => {
   data_firma && (firma_recibida_acomp.value = data_firma);
+};
+const datoCodigoEnfermedad = async (event) => {
+  switch (event) {
+    case "f8":
+      show_consen800.value = true;
+      break;
+    case "enter":
+      consultarEnfermedad();
+      break;
+  }
+};
+
+const consultarEnfermedad = async () => {
+  try {
+    const response = await getDll$({
+      modulo: `get_enf.dll`,
+      data: { llave: "2" + HIC175.diagnostico },
+    });
+    if (response.llave) {
+      descrip_diagnostico.value = response.nombre;
+      return;
+    }
+    return CON851("?", "info", "No existe diagnostico");
+  } catch (error) {
+    CON851("?", "info", error);
+  }
+};
+const callbackCONSEN800 = (data) => {
+  if (data) {
+    HIC175.diagnostico = data.cod;
+    descrip_diagnostico.value = data.descrip;
+  }
+  show_consen800.value = false;
 };
 </script>
 

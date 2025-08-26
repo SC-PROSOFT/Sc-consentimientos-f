@@ -1,7 +1,4 @@
-import { useModuleFormatos, useApiContabilidad } from "@/store";
-import { evaluarParentesco } from "@/formatos/utils";
-const { getAcomp } = useModuleFormatos();
-const { getImgBs64 } = useApiContabilidad();
+import { calcularEdad, evaluarParentesco } from "@/formatos/utils";
 export const impresionHIC175 = ({ datos }) => {
   console.log("impresionHIC175 -> ", datos);
 
@@ -13,53 +10,157 @@ export const impresionHIC175 = ({ datos }) => {
       stack: [
         {
           marginTop: 15,
-          alignment: "justify",
           style: "bodyNoBold9",
-          text: "Es una forma tratamiento para determinadas alteraciones del ritmo cardíaco (arritmias). Permite devolver al corazón su ritmo regular normal, suprimiendo la arritmia que tenia y sus consecuencias perjudiciales. Generalmente se efectúa con carácter electivo.",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Tauramena, fecha: " }, { text: datos.fecha }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Hora: " }, { text: datos.hora }] },
+          ],
         },
         {
-          marginTop: 5,
-          alignment: "justify",
+          marginTop: 2,
           style: "bodyNoBold9",
-          text: "El paciente tiene que acostarse en posición fetal, con las piernas flexionadas e intentado tocarlas con la cabeza. La punción se hace a nivel de la columna lumbar, entre dos vértebras, tras desinfectar la zona y siempre en condiciones estériles, extrayéndose una muestra de LCR para ser analizado.",
+          columns: [
+            { width: "50%", alignment: "left", text: [{ bold: true, text: "Nombre de la paciente: " }, { text: datos.paciente.descrip }] },
+            { width: "50%", alignment: "right", text: [{ bold: true, text: "Edad: " }, { text: calcularEdad(datos.paciente.nacim) }] },
+          ],
         },
         {
-          marginTop: 5,
-          alignment: "justify",
+          marginTop: 2,
           style: "bodyNoBold9",
-          text: "Pueden presentarse efectos indeseables específicos del procedimiento: dolor de cabeza Se debe a la disminución de presión secundaria a la extracción de líquido. Las maniobras habituales para disminuirlo son reposo en cama e ingesta abundante de líquidos durante las horas siguientes a la punción. Durante la técnica puede notar una sensación de descarga eléctrica hacia la pierna, que traduce el contacto con una raíz nerviosa, muy próxima al líquido que queremos obtener. Otras complicaciones poco frecuentes son hematomas locales en el sitio de la punción.",
+          columns: [
+            {
+              width: "60%",
+              alignment: "left",
+              text: [
+                { bold: true, text: "Indentificada con: " },
+                { text: datos.paciente.tipo_id },
+                { bold: true, text: " Numero: " },
+                { text: datos.paciente.cod },
+              ],
+            },
+            { width: "40%", alignment: "right", text: [{ bold: true, text: "Telefono: " }, { text: datos.paciente.telefono }] },
+          ],
         },
         {
-          marginTop: 5,
-          alignment: "justify",
+          marginTop: 2,
           style: "bodyNoBold9",
-          text: "Ningún procedimiento invasivo está absolutamente exento de riesgos importantes, incluyendo el de mortalidad, si bien esta posibilidad es bastante infrecuente.",
+          columns: [
+            {
+              width: "100%",
+              alignment: "left",
+              text: [{ bold: true, text: "Diagnostico: " }, { text: datos.diagnostico + "  " + datos.descrip_enfer }],
+            },
+          ],
         },
         {
-          marginTop: 5,
-          alignment: "justify",
+          marginTop: 10,
           style: "bodyNoBold9",
-          text: "De cualquier forma si ocurriera una complicación, debe saber que todos los medios técnicos de este Centro están disponibles para intentar solucionarla.",
+          ul: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Por medio de la presente constancia, en pleno uso de mis facultades mentales, otorgo en forma libre mi consentimiento a la E.S.E HOSPITAL LOCAL DE TAURAMENA a que por medio de médico en ejercicio de su profesión, así como por los demás profesionales de la salud que se requieran y con el concurso del personal auxiliar de servicios asistenciales lo mismo que del personal en formación, se sirva realizarme el procedentico, denominado: ",
+            },
+          ],
         },
         {
           marginTop: 15,
+          alignment: "justify",
+          style: "bodyNoBold9",
           bold: true,
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "QUE OTRAS ALTERNATIVAS HAY",
+          text: "ATENCION HOSPITALARIA DEL TRABAJO DE PARTO Y POST PARTO.",
         },
-        {
-          alignment: "justify",
-          style: "bodyNoBold9",
-          text: "Si después de leer detenidamente este documento desea más información, por favor, no dude en preguntar al especialista responsable, que le atenderá con mucho gusto.",
-        },
-        autorizaRevoca(),
         {
           marginTop: 5,
-          bold: true,
           alignment: "justify",
           style: "bodyNoBold9",
-          text: "Villavicencio, " + datos.fecha + ".",
+          bold: true,
+          text: "Durante la atención puede ser necesario:",
+        },
+        {
+          marginTop: 10,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La aplicación de Oxitocina (Pitocín) para la inducción y el manejo activo del trabajo de parto.",
+        },
+        {
+          marginTop: 1,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La aplicación de Analgesia Epidural para disminuir el dolor ocasionado por las contracciones uterinas.",
+        },
+        {
+          marginTop: 1,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La realización de Amniotomía (ruptura artificial de las membranas ovulares) como parte del manejo activo del trabajo de parto.",
+        },
+        {
+          marginTop: 1,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La atención del parto por vía vaginal como primera opción.",
+        },
+        {
+          marginTop: 1,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La atención del parto con instrumentos como Fórceps, cuando esté completamente justificada su aplicación.",
+        },
+        {
+          marginTop: 1,
+          alignment: "justify",
+          style: "bodyNoBold9",
+          text: "La aplicación de cualquier medicamento o la realización de los procedimientos que se requieran para tener el resultado deseado.",
+        },
+        {
+          marginTop: 10,
+          style: "bodyNoBold9",
+          ul: [
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "La E.S.E HOSPITAL LOCAL DE TAURAMENA CASANARE queda autorizada para llevar a cabo igualmente la práctica de conductas o procedimientos médicos adicionales a los ya autorizados, si en el curso de la intervención quirúrgica o del procedimiento llegare a presentarse una imprevista que, a juicio del médico tratante, los haga aconsejables.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: [
+                {
+                  text: "El consentimiento y autorización que anteceden, han sido otorgados previa evaluación que de mi estado de salud ha hecho, a nombre de la E.S.E HOSPITAL LOCAL DE TAURAMENA CASANARE, el doctor: ",
+                },
+                { bold: true, text: datos.nomb_medico },
+                {
+                  text: "con el objeto de identificar mis condiciones clínico - patológicas previa advertencia que, dicho médico me ha hecho ser conocedora, con respecto a los riesgos previstos y consecuentes, en los términos en los cuales lo ha consignado en la historia clínica.",
+                },
+              ],
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Declaro que he sido advertida por la E.S.E HOSPITAL LOCAL DE TAURAMENA CASANARE, en sentido de que la práctica de la atención que requiero compromete una ACTIVIDAD MÉDICA DE MEDIOS, PERO NO DE RESULTADOS. ",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Autorizo expresamente a las personas del equipo de salud hospitalario que tendrán a su cargo mi tratamiento para que me realicen terapias y procedimientos ordenados por mi médico tratante.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "He sido informada en forma clara acerca de la naturaleza y propósito del tratamiento y de las sustancias y medicamentos involucrados, beneficios, complicaciones, efectos secundarios, riesgos o consecuencias que pueden ocurrir por la instauración de dichos tratamientos.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "He comprendido el riesgo inherente a los tratamientos y procedimientos practicados por el personal de enfermería bajo las órdenes de mi médico tratante.",
+            },
+            {
+              marginTop: 5,
+              alignment: "justify",
+              text: "Certifico que el presente documento lo he leído y atendido íntegramente.",
+            },
+          ],
         },
       ],
     };
@@ -70,28 +171,14 @@ export const impresionHIC175 = ({ datos }) => {
       return {
         stack: [
           {
-            marginTop: 10,
-            bold: true,
-            decoration: "underline",
-            alignment: "center",
-            style: "bodyNoBold9",
-            text: "Consentimiento",
-          },
-          {
-            marginTop: 10,
+            pageBreak: "before",
+            marginTop: 5,
             alignment: "justify",
             text: [
-              autorizaAcompPaci(),
-              { style: "bodyNoBold9", text: " doy mi consentimiento para que me sea realizada una " },
-              { bold: true, style: "bodyNoBold9", text: " PUNCIÓN LUMBAR." },
+              { marginTop: 5, bold: true, decoration: "underline", alignment: "center", style: "bodyNoBold9", text: "AUTORIZO" },
               {
                 style: "bodyNoBold9",
-                text: "Se me ha facilitado esto hoja informativa, habiendo comprendido el significado del procedimiento y los riesgos inherentes al mismo, y declaro estar debidamente informado/a, habiendo tenido oportunidad de aclarar mis dudas en entrevista personal con el Dr.: ",
-              },
-              { bold: true, style: "bodyNoBold9", text: datos.med_explica.trim() + "." },
-              {
-                style: "bodyNoBold9",
-                text: " Asi mismo, he recibido respuesta o todas mis preguntas, habiendo tomado la decisión de manera libre y voluntaria.",
+                text: " al equipo interdisciplinario de la IPS ESE HOSPITAL LOCAL DE TAURAMENA, para realizar la valoración para la certificación y el procedimiento que requiere la caracterización y localización de la persona con discapacidad.",
               },
             ],
           },
@@ -101,29 +188,35 @@ export const impresionHIC175 = ({ datos }) => {
       return {
         stack: [
           {
-            marginTop: 10,
-            bold: true,
-            decoration: "underline",
-            alignment: "center",
-            style: "bodyNoBold9",
-            text: "Denegación o Revocación",
-          },
-          {
-            marginTop: 10,
+            pageBreak: "before",
+            marginTop: 5,
             alignment: "justify",
             text: [
-              revocaAcompPaci(),
               {
                 style: "bodyNoBold9",
-                text: "después de ser informado/a de la naturaleza y riesgos del procedimiento propuesto, manifiesto de forma libre y consciente mi denegación / revocación (táchese lo que no proceda) para su realización, haciéndome responsable de las consecuencias que puedan derivarse de esta decisión.",
+                text: "Expreso mi voluntad de ",
+              },
+              {
+                marginTop: 5,
+                bold: true,
+                decoration: "underline",
+                alignment: "center",
+                style: "bodyNoBold9",
+                text: "REVOCAR",
+              },
+              {
+                style: "bodyNoBold9",
+                text: " el consentimiento presentado y declaro por tanto que, tras la información recibida, no consiento someterme a la valoración para la certificación, localización y caracterización de personas con discapacidad por los siguientes motivos:",
               },
             ],
           },
+          { marginTop: 5, alignment: "justify", style: "bodyNoBold9", bold: true, text: datos.motivo_revoca },
         ],
       };
     }
   }
-  function revocaAcompPaci() {
+
+  function acompPaci() {
     if (!datos.acomp.cod) {
       return {
         marginTop: 10,
@@ -131,6 +224,12 @@ export const impresionHIC175 = ({ datos }) => {
         text: [
           { style: "bodyNoBold9", text: "Yo, " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
+          { style: "bodyNoBold9", text: "identificado(a) con " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() + " " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() },
+          { style: "bodyNoBold9", text: " expedida en " },
+          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip_ciudad.trim() },
+          { style: "bodyNoBold9", text: " actuando en nombre propio, " },
         ],
       };
     } else {
@@ -144,38 +243,9 @@ export const impresionHIC175 = ({ datos }) => {
           { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
           { style: "bodyNoBold9", text: " " },
           { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
-          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente" },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
-          { style: "bodyNoBold9", text: " identifcado(a) con " },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
-          { style: "bodyNoBold9", text: " " },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.cod.trim() + "," },
-        ],
-      };
-    }
-  }
-  function autorizaAcompPaci() {
-    if (!datos.acomp.cod) {
-      return {
-        marginTop: 10,
-        alignment: "justify",
-        text: [
-          { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
-        ],
-      };
-    } else {
-      return {
-        marginTop: 10,
-        alignment: "justify",
-        text: [
-          { style: "bodyNoBold9", text: "Yo, " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip.trim() + "," },
-          { style: "bodyNoBold9", text: " identifcado(a) con " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.tipo_id.trim() },
-          { style: "bodyNoBold9", text: " " },
-          { bold: true, style: "bodyNoBold9", text: datos.acomp.cod.trim() + "," },
-          { style: "bodyNoBold9", text: " en calidad de familiar y/o acompañante responsable del paciente " },
+          { style: "bodyNoBold9", text: " expedida en " },
+          { bold: true, style: "bodyNoBold9", text: datos.acomp.descrip_ciudad.trim() },
+          { style: "bodyNoBold9", text: " actuando como acudiente del paciente " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.descrip.trim() + "," },
           { style: "bodyNoBold9", text: " identifcado(a) con " },
           { bold: true, style: "bodyNoBold9", text: datos.paciente.tipo_id.trim() },
@@ -206,13 +276,12 @@ export const impresionHIC175 = ({ datos }) => {
         {
           marginTop: 9,
           marginLeft: 5,
-          image: getAcomp.cod ? getImgBs64 : "huella_paci",
+          image: "huella_paci",
           width: 55,
           height: 70,
         },
       ],
     };
-
     const sinHuella = {
       marginLeft: 3,
       marginTop: 9,
@@ -225,7 +294,6 @@ export const impresionHIC175 = ({ datos }) => {
     if (huella_paci) return conHuella;
     else return sinHuella;
   }
-
   function firmaPaciente(huella_paci, cant_firmas) {
     return {
       stack: [
@@ -270,8 +338,7 @@ export const impresionHIC175 = ({ datos }) => {
       ],
     };
   }
-
-  function firmaAcompanante(firma_acomp, cant_firmas) {
+  function firmaAcompanante() {
     return {
       stack: [
         {
@@ -287,14 +354,13 @@ export const impresionHIC175 = ({ datos }) => {
           style: "tableNoBold",
           fontSize: 6,
         },
-        firmaHuellaAcomp(firma_acomp, cant_firmas),
-        // {
-        //   marginTop: 8,
-        //   alignment: "center",
-        //   image: "firma_acomp",
-        //   width: 125,
-        //   height: 70,
-        // },
+        {
+          marginTop: 2,
+          alignment: "center",
+          image: "firma_acomp",
+          width: 130,
+          height: 70,
+        },
         {
           marginTop: 10,
           columns: [
@@ -344,53 +410,11 @@ export const impresionHIC175 = ({ datos }) => {
       ],
     };
   }
-
-  function firmaHuellaAcomp(huella_acomp, cant_firmas) {
-    let tamano_firma = 0;
-
-    if (cant_firmas == 2) {
-      tamano_firma = 100;
-    } else {
-      tamano_firma = 125;
-    }
-    const conHuella = {
-      marginLeft: 3,
-      columns: [
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_acomp",
-          width: tamano_firma,
-          height: 60,
-        },
-        // {
-        //   marginTop: 9,
-        //   marginLeft: 2,
-        //   image: "huella_acomp",
-        //   width: 50,
-        //   height: 65,
-        // },
-      ],
-    };
-
-    const sinHuella = {
-      marginLeft: 3,
-      marginTop: 9,
-      alignment: "center",
-      image: "firma_acomp",
-      width: tamano_firma,
-      height: 70,
-    };
-
-    if (huella_acomp) return conHuella;
-    else return sinHuella;
-  }
-
   function firmaProfesional() {
     return {
       stack: [
         {
-          text: "QUIEN BRINDA LA INFORMACIÓN",
+          text: "FIRMA PROFESIONAL",
 
           alignment: "center",
           style: "tableNoBold",
@@ -450,66 +474,14 @@ export const impresionHIC175 = ({ datos }) => {
       ],
     };
   }
-  function firmaTestigo() {
-    return {
-      stack: [
-        {
-          text: "TESTIGO",
-
-          alignment: "center",
-          style: "tableNoBold",
-          bold: true,
-        },
-        {
-          marginTop: 8,
-          alignment: "center",
-          image: "firma_testigo",
-          width: 130,
-          height: 70,
-        },
-        {
-          marginTop: 8,
-          text: [
-            {
-              text: "NOMBRE: ",
-              style: "tableNoBold",
-              bold: true,
-            },
-            {
-              text: `${datos.testigo.descrip}`,
-              style: "tableNoBold",
-            },
-          ],
-        },
-
-        {
-          columns: [
-            {
-              width: "auto",
-              style: "tableNoBold",
-              text: "DOCUMENTO: ",
-              bold: true,
-            },
-            {
-              marginLeft: 5,
-              style: "tableNoBold",
-              text: `${datos.testigo.cod}`,
-            },
-          ],
-        },
-      ],
-    };
-  }
   function firmas() {
     let firmasArray = [];
     let anchos = ["40%"];
     let tamanoFirmasArray = 0;
 
     if (datos.firmas.firma_acomp) {
-      firmasArray.push(firmaAcompanante(datos.firmas.huella_acomp, tamanoFirmasArray));
+      firmasArray.push(firmaAcompanante());
     }
-
-    firmasArray.push(firmaTestigo());
 
     if (datos.firmas.firma_prof) {
       firmasArray.push(firmaProfesional());
@@ -517,7 +489,7 @@ export const impresionHIC175 = ({ datos }) => {
 
     tamanoFirmasArray = firmasArray.length;
 
-    if (!datos.firmas.firma_acomp) {
+    if (datos.firmas.firma_paci) {
       firmasArray.unshift(firmaPaciente(datos.firmas.huella_paci, tamanoFirmasArray));
     }
 
