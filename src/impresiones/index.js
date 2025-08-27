@@ -171,6 +171,7 @@ export * from "./ODO/ODO010";
 export * from "./ODO/ODO011";
 export * from "./ODO/ODO012";
 export * from "./ODO/ODO013";
+export * from "./ODO/ODO015";
 
 // LABORATORIO
 export * from "./LAB/LAB002";

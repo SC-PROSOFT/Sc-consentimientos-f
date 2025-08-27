@@ -107,4 +107,13 @@ export const createRouteOdo = (title) => [
       title: `${title} - FORMATO ODO014`,
     },
   },
+  {
+    path: "/ODO015",
+    name: "ODO015",
+    component: () => import("@/views/odo/ODO015.vue"),
+    meta: {
+      require_auth: true,
+      title: `${title} - FORMATO ODO015`,
+    },
+  },
 ];
