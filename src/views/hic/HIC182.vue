@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-center">
           <q-toggle
-            v-model="HIC173.opcion_hic173"
+            v-model="HIC182.opcion_hic182"
             color="primary"
             keep-color
             false-value="REVOCAR"
@@ -13,104 +13,96 @@
             checked-icon="check_circle"
             label="¿Autorizar o revocar este consentimiento?"
           />
-          <p :class="HIC173.opcion_hic173 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
-            <q-chip :color="HIC173.opcion_hic173 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="HIC173.opcion_hic173">
-              {{ HIC173.opcion_hic173 }}
+          <p :class="HIC182.opcion_hic182 == 'AUTORIZAR' ? 'text-green' : 'text-red'">
+            <q-chip :color="HIC182.opcion_hic182 == 'AUTORIZAR' ? 'green' : 'red'" class="text-white" v-if="HIC182.opcion_hic182">
+              {{ HIC182.opcion_hic182 }}
             </q-chip>
           </p>
         </div>
-        <p>
-          <span class="text-bold">Fecha:&nbsp;</span>
-          <span>{{ HIC173.fecha }}</span>
-        </p>
         <div class="row justify-between items-center">
+          <p>
+            <span class="text-bold">Fecha:&nbsp;</span>
+            <span>{{ HIC182.fecha }}</span>
+          </p>
+          <p>
+            <span class="text-bold">Hora:&nbsp;</span>
+            <span>{{ HIC182.hora }}</span>
+          </p>
+        </div>
+        <div class="row">
+          <p class="text-justify">
+            <!-- Autoriza paciente -->
+            <span v-if="!getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getPaci.descrip }}</span> con identificación&nbsp;
+              <span class="text-bold">{{ getPaci.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getPaci.cod.trim() }}</span> de&nbsp;<span
+                class="text-bold"
+                >{{ getPaci.descrip_ciudad.trim() }},
+              </span>
+            </span>
+
+            <!-- Autoriza acompañante -->
+            <span v-if="getAcomp.cod" class="text-justify q-pa-xs">
+              Yo, <span class="text-bold">{{ getAcomp.descrip.trim() }}</span
+              >, con identificación&nbsp;<span class="text-bold">{{ getAcomp.tipo_id }} </span>&nbsp;<span class="text-bold">{{ getAcomp.cod }}</span
+              >, de <span class="text-bold">{{ getAcomp.descrip_ciudad.trim() }},</span>
+            </span>
+            <!--  -->
+            actuando en calidad abajo indicada, por medio del presente documento manifiesto:
+          </p>
+          <p class="text-justify">
+            Que de manera detallada el profesional de la salud me ha explicado con lenguaje sencillo, claro, completo y suficiente sobre la naturaleza
+            de la enfermedad, acerca del significado de caso sospechoso o confirmado del coronavirus COVID-19 en cuanto a su presentación clínica,
+            modo de contagio, medidas para contenerla, posibilidad de sufrir la enfermedad, complicaciones o muerte y se me ha suministrado
+            información completa sobre el procedimiento que se va a realizar para la toma de muestra, el riesgo y el beneficio de la prueba.
+          </p>
+          <p class="text-justify">
+            Entiendo que para el diagnóstico de Covid - 19 se realizan pruebas moleculares como RT - PCR y Pruebas de detección de Antígeno que es una
+            prueba diagnóstica alternativa para la infección por SARS-CoV-2.
+          </p>
+          <p class="text-justify">
+            He podido hacer las preguntas relacionadas con dicha enfermedad y me han respondido en forma satisfactoria. Certifico que este
+            consentimiento me ha sido explicado en su totalidad, que lo he leído o me lo han leído y que entiendo perfectamente su contenido.
+          </p>
+          <p class="text-justify">
+            Tras haberse cumplido lo anterior, atendiendo el estricto cumplimiento de las normas de la entidad, doy mi consentimiento para realizar la
+            toma de muestra.
+          </p>
+        </div>
+        <p><span class="text-bold">CALIDAD EN LA QUE SE OTORGA ESTE CONSENTIMIENTO:</span></p>
+        <div class="col">
           <div class="row">
-            <p class="text-bold">Remitente:</p>
-            <Input_ class="q-ma-xs" v-model="HIC173.remitente" :field="form.remitente" :inputStyle="{ width: '385px' }" />
+            <q-radio color="primary" v-model="HIC182.calidad_consent" val="A" label="Prueba RT-PCR de SARS CoV-2 de hisopado nasofaríngeo." />
           </div>
-          <p><span class="text-bold">Nombre del paciente:</span> {{ getPaci.descrip }}&nbsp;</p>
-          <p><span class="text-bold">Tipo y numero documento de identificación:</span> {{ getPaci.tipo_id + " " + getPaci.cod }} &nbsp;</p>
-          <p><span class="text-bold">Edad:</span> {{ calcularEdad(getPaci.nacim) }} &nbsp;</p>
-          <p><span class="text-bold">Sexo:</span> {{ getPaci.sexo }} &nbsp;</p>
-          <p><span class="text-bold">Fecha de nacimiento:</span> {{ dayjs(getPaci.nacim).format("YYYY-MM-DD") }} &nbsp;</p>
-          <p><span class="text-bold">Dirección residencial:</span> {{ getPaci.direccion }} &nbsp;</p>
-          <p><span class="text-bold">Ocupación:</span> {{ getPaci.descrip_ocup }} &nbsp;</p>
-          <p><span class="text-bold">Regimen contributivo:</span> {{ getPaci.descrip_tipo_afil }} &nbsp;</p>
+          <div class="row">
+            <q-radio color="primary" v-model="HIC182.calidad_consent" val="B" label="Prueba Rápida para detección de Antígenos de SARS-CoV-2." />
+          </div>
         </div>
 
-        <div class="q-mt-lg">
-          <div class="col-12">
-            <p class="text-bold">Resultado de la prueba:</p>
+        <div class="col q-mt-lg">
+          <div class="row">
+            <q-radio color="primary" v-model="HIC182.otorga_consent" val="PAC" left-label label="Como paciente:" disable />
           </div>
-          <ol type="a">
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="ABS" v-model="HIC173.result_prb" val="A" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="PC" v-model="HIC173.result_prb" val="B" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Otro" v-model="HIC173.result_prb" val="C" />
-            </li>
-          </ol>
-          <div v-if="HIC173.result_prb == 'C'" class="row">
-            <p>Cual:</p>
-            <Input_ class="q-ma-xs" v-model="HIC173.otr_result" :field="form.otr_result" :inputStyle="{ width: '385px' }" />
+          <div class="row">
+            <q-radio
+              color="primary"
+              v-model="HIC182.otorga_consent"
+              val="RESP"
+              left-label
+              label="Como responsable del paciente (representante legal, familiar o responsable):"
+              disable
+            />
           </div>
-        </div>
-        <div class="q-mt-lg">
-          <div class="col-12">
-            <p class="text-bold">Motivo de prueba:</p>
-          </div>
-          <ol type="a">
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Conducta sexual de riesgo" v-model="HIC173.motivo_prb" val="A" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="DX perinatal" v-model="HIC173.motivo_prb" val="B" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Sospecha clinica" v-model="HIC173.motivo_prb" val="C" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Contacto VIH" v-model="HIC173.motivo_prb" val="D" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Transfusiones antes de 1993" v-model="HIC173.motivo_prb" val="E" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Uso de agujas" v-model="HIC173.motivo_prb" val="F" />
-            </li>
-            <li>
-              <q-radio class="q-ml-xs" color="primary" keep-color label="Tiempo de gestación" v-model="HIC173.motivo_prb" val="G" />
-            </li>
-          </ol>
-        </div>
-        <div>
-          <p class="text-bold" style="text-align: center; text-decoration: underline">CONSENTIMIENTO INFORMADO</p>
-        </div>
-        <div class="row justify-start">
-          <p align="justify">Certifico que me han dado la información sobre:</p>
-        </div>
-        <ol>
-          <li>Propósito y beneficio de la prueba</li>
-          <li>Interpretación de la prueba</li>
-          <li>Limitaciones de la prueba</li>
-          <li>Posibles resultados de la prueba</li>
-        </ol>
-        <div class="row justify-start">
-          <p align="justify">
-            que entiendo su contenido y que he discutido con la persona que me brindo la asesoría el procedimiento mediante el cual recibiré mis
-            resultados y que estoy de acuerdo con el.
+          <p>
+            Nombre responsable del paciente:
+            <span class="text-bold">{{ getAcomp.descrip }} </span>
           </p>
-          <p align="justify">
-            entiendo que la toma de la muestra es voluntaria y que puedo retirar mi consentimiento en cualquier momento antes de que sea tomado el
-            examen.
+          <p>
+            Nº de Documento:
+            <span class="text-bold">{{ getAcomp.tipo_id }} &nbsp; {{ getAcomp.cod }} </span>
           </p>
         </div>
       </q-card-section>
     </q-form>
-    <q-separator />
     <q-card-actions align="around" class="row">
       <div class="col-12 row justify-around q-mt-lg">
         <ContainerFirma
@@ -143,7 +135,7 @@
     </q-card-actions>
     <div class="row justify-center q-my-lg">
       <q-btn
-        :disable="HIC173.opcion_hic173 ? false : true"
+        :disable="HIC182.opcion_hic182 ? false : true"
         @click="validarDatos"
         icon-right="check_circle"
         class="q-mr-lg"
@@ -158,8 +150,8 @@
 <script setup>
 import { useModuleFormatos, useApiContabilidad, useModuleCon851p, useModuleCon851 } from "@/store";
 import { ref, reactive, defineAsyncComponent, onMounted } from "vue";
-import { impresionHIC173, impresion, generarArchivo } from "@/impresiones";
-import { utilsFormat, calcularEdad } from "@/formatos/utils";
+import { impresionHIC182, impresion, generarArchivo } from "@/impresiones";
+import { utilsFormat } from "@/formatos/utils";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
@@ -177,35 +169,22 @@ const firma_recibida = ref("");
 const huella_paci = ref(null);
 const huella_acomp = ref(null);
 const firma_prof = ref(null);
-const HIC173 = reactive({
-  opcion_hic173: "",
-  remitente: "",
-  result_prb: "",
-  otr_result: "",
-  motivo_prb: "",
+const HIC182 = reactive({
+  opcion_hic182: "",
+  calidad_consent: "",
+  otorga_consent: "",
   fecha: "",
 });
-const form = ref({
-  remitente: {
-    id: "remitente",
-    maxlength: "250",
-    label: "",
-    campo_abierto: true,
-  },
-  otr_result: {
-    id: "otr_result",
-    maxlength: "250",
-    label: "",
-    campo_abierto: true,
-  },
-});
+
 onMounted(() => {
   datosInit();
   getFirmaProf();
 });
 
 const datosInit = () => {
-  HIC173.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC182.fecha = dayjs(getEmpresa.fecha_act).format("YYYY-MM-DD");
+  HIC182.hora = dayjs().format("hh:mm");
+  HIC182.otorga_consent = getAcomp.cod ? "RESP" : "PAC";
 };
 
 const getFirmaProf = async () => {
@@ -224,15 +203,15 @@ const validarDatos = async () => {
 };
 
 const grabarConsentimiento = async () => {
-  const datos_format = JSON.parse(JSON.stringify(HIC173));
+  const datos_format = JSON.parse(JSON.stringify(HIC182));
 
   let datos = {
     nit_entid: nit_usu.value,
-    estado: HIC173.opcion_hic173 == "AUTORIZAR" ? "1" : "2",
+    estado: HIC182.opcion_hic182 == "AUTORIZAR" ? "1" : "2",
     disentimiento: "N",
     llave_consen: getHc.llave,
     oper_consen: getSesion.oper,
-    cod_consen: "HIC173",
+    cod_consen: "HIC182",
     cod_med: getProf.cod,
     id_acomp: getAcomp.cod.padStart(15, "0"),
     paren_acomp: getSesion.paren_acomp,
@@ -243,7 +222,7 @@ const grabarConsentimiento = async () => {
     .then((data) => {
       if (data?.llave_consen) {
         const fecha = data?.llave_consen.slice(23, 32);
-        HIC173.fecha = dayjs(fecha).format("YYYY-MM-DD");
+        HIC182.fecha = dayjs(fecha).format("YYYY-MM-DD");
         return grabarFirmaConsen(data?.llave_consen);
       } else CON851("?", "error", "Error al guardar el consentimiento");
     })
@@ -291,8 +270,8 @@ const grabarFirmaConsen = async (llave) => {
 };
 
 const imprimirConsen = async (llave) => {
-  const datos_hic173 = {
-    autorizo: HIC173.opcion_hic173 == "AUTORIZAR" ? true : false,
+  const datos_hic182 = {
+    autorizo: HIC182.opcion_hic182 == "AUTORIZAR" ? true : false,
     empresa: getEmpresa,
     paciente: getPaci,
     prof: getProf,
@@ -304,7 +283,7 @@ const imprimirConsen = async (llave) => {
       firma_prof: firma_prof.value ? true : false,
     },
     paren_acomp: getSesion.paren_acomp,
-    ...HIC173,
+    ...HIC182,
   };
 
   const firmas = {
@@ -318,20 +297,20 @@ const imprimirConsen = async (llave) => {
 
   const docDefinitionPrint = await utilsFormat({
     datos: firmas,
-    content: impresionHIC173({
-      datos: datos_hic173,
+    content: impresionHIC182({
+      datos: datos_hic182,
     }),
   });
 
   const docDefinitionFile = await utilsFormat({
     datos: firmas,
-    content: impresionHIC173({
-      datos: datos_hic173,
+    content: impresionHIC182({
+      datos: datos_hic182,
     }),
   });
 
   await impresion({ docDefinition: docDefinitionPrint });
-  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-173` });
+  const response_impresion = await generarArchivo({ docDefinition: docDefinitionFile, nomb_archivo: `${llave}-HIC-182` });
   return response_impresion;
 };
 
