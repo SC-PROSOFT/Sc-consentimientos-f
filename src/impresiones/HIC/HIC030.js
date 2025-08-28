@@ -45,12 +45,27 @@ export const impresionHIC030 = ({ datos }) => {
           style: "bodyNoBold",
         },
         {
-          marginLeft: 20,
-          marginTop: 5,
-          marginBottom: 10,
-          ul: ["SANGRADO.", "DOLOR.", "PELLIZCOS.", `${datos.complicaciones}`],
+          marginTop: 8,
+          text:
+            "Sangrado, dolor, pellizcos, espasmos por posición ginecológica, muestra no apta para lectura, perdida de resultado " +
+            datos.complicaciones.trim() +
+            ".",
+          alignment: "justify",
           style: "bodyNoBold",
         },
+        // {
+        //   marginTop: 8,
+        //   text: datos.complicaciones.trim() + ".",
+        //   alignment: "justify",
+        //   style: "bodyNoBold",
+        // },
+        // {
+        //   marginLeft: 20,
+        //   marginTop: 5,
+        //   marginBottom: 10,
+        //   ul: ["SANGRADO.", "DOLOR.", "PELLIZCOS.", `${datos.complicaciones}`],
+        //   style: "bodyNoBold",
+        // },
         {
           marginTop: 10,
           text: "Me han explicado también que de negarme a realizarme los exámenes diagnósticos, procedimientos y/o tratamientos ordenados, estoy asumiendo la responsabilidad por sus consecuencias, con lo que exonero de ellas el quipo asistencial tratante y la institución, sin embargo ello no significa que pierda mis derechos para una atención posterior.",
@@ -146,7 +161,7 @@ export const impresionHIC030 = ({ datos }) => {
                   marginBottom: 10,
                   marginTop: -2,
                   colSpan: 2,
-                  text: `TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico: ${datos.diagnostico}`,
+                  text: `TOMA DE CITOLOGIA CERVICOVAGINAL, el cual es un examen para detectar cambios en las células cervicales, con el fin de saber si existen alteraciones cancerosas y precancerosas. En las pacientes ya tratadas en quienes no existe cuello uterino la muestra es vaginal para detectar recaidas,la toma consiste en introducir un especulo que facilita la vista del cuello del útero, y con un cito cepillo se toma la muestra del orifico interno (endocérvix)y con una espátula muestra de (exocérvix) del cuello posteriormente las muestras de células son extendidas en una lámina para luego ser analizadas en el laboratorio. Cuyo objetivo es: DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico: ${datos.diagnostico}`,
                   alignment: "justify",
                   style: "bodyNoBold",
                 },

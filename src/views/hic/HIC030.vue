@@ -43,11 +43,14 @@
             otro procedimiento; acepto que las ciencias de la salud no son una ciencia exacta, que se garantizan resultados en la atención, y que,
             aunque son procedimientos seguros pueden presentarse complicaciones como:
           </p>
-          <ul>
+          <p class="text-justify">
+            Sangrado, dolor, pellizcos, espasmos por posición ginecológica, muestra no apta para lectura, perdida de resultado.
+          </p>
+          <!-- <ul>
             <li>SANGRADO</li>
             <li>COLOR</li>
             <li>PELLIZCOS</li>
-          </ul>
+          </ul> -->
           <q-input
             placeholder="Ingrese complicaciones"
             v-model="HIC030.complicaciones"
@@ -69,9 +72,13 @@
           </p>
           <p>Por lo tanto, en forma consciente y voluntaria, sin haber sido objeto de coacción, persuasión, ni manipulación:</p>
           <div class="row" v-show="opcion_hc030 == 'AUTORIZAR'">
-            <p>
+            <p class="text-justify">
               <ins class="text-bold">Autorizo</ins> al personal asistencial de la {{ getEmpresa.nomusu }}, para la realización de los procedimientos
-              de salud: TOMA DE CITOLOGIA CERVICOVAGINAL, cuyo objetivo es:
+              de salud: TOMA DE CITOLOGIA CERVICOVAGINAL el cual es un examen para detectar cambios en las células cervicales, con el fin de saber si
+              existen alteraciones cancerosas y precancerosas. En las pacientes ya tratadas en quienes no existe cuello uterino la muestra es vaginal
+              para detectar recaidas,la toma consiste en introducir un especulo que facilita la vista del cuello del útero, y con un cito cepillo se
+              toma la muestra del orifico interno (endocérvix)y con una espátula muestra de (exocérvix) del cuello posteriormente las muestras de
+              células son extendidas en una lámina para luego ser analizadas en el laboratorio, cuyo objetivo es:
             </p>
             <p>DETECCION TEMPRANA DE CANCER DE CERVIX, ante el diagnostico</p>
             <Input_
